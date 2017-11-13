@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cglee079.ppaldak.mapper.UserMapper">
+	<insert id="insert">
+		INSERT INTO TB_PPALDAK_USERS (USER_ID, USER_PWD, USER_NM, USER_GENDER, USER_PH, USER_BIRTH)
+		VALUES (#{id}, #{pwd}, #{name}, #{gender}, #{birth}, #{ph})
+	</insert>
+	
+
+	<select id="get" resultType="com.cglee079.ppaldak.model.UserVo" parameterType="map">
+		SELECT	
+			USER_ID	as 	"id",
+			USER_PWD	as 	"pwd",
+			USER_NM	as	"name",
+			USER_GENDER	as	"gender",
+			USER_BIRTH	as	"birth",
+			USER_PH	as	"ph"
+		FROM	TB_PPALDAK_USERS
+		WHERE	USER_ID = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE TB_PPALDAK_USERS
+		SET	USER_PWD	= #{pwd},
+			USER_NM 	= #{name},
+			USER_GENDER	= #{gender},
+			USER_PH 	= #{ph},
+			USER_BIRTH 	= #{birth}
+		WHERE USER_ID = #{id}
+	</update>
+	
+</mapper>
