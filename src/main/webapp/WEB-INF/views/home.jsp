@@ -18,6 +18,8 @@ a, a:VISITED{
 
 .header{
 	position: fixed;
+	padding : 10px 0px;
+	background : #FFF;
 	top: 0px;
 	left: 0px;
 	width: 100%;
@@ -50,6 +52,13 @@ a, a:VISITED{
 	height: 300px;
 	margin: 1px;
 }
+
+@media (max-width: 800px){
+	.item{
+		flex : 1 100%;
+	}
+}
+
 
 .item-desc{
 	position: relative;
@@ -188,8 +197,8 @@ a, a:VISITED{
 }
 
 .icon img{
-	width : 40px;
-	height: 40px;
+	width : 30px;
+	height: 30px;
 	opacity: 0.5;
 }
 
@@ -310,6 +319,16 @@ $(document).ready(function(){
 			<div class="item"></div>
 			<div class="item"></div>
 			<div class="item"></div>
+			<div class="item"></div>
+			<div class="item"></div>
+			<div class="item"></div>
+			<div class="item"></div>
+			<div class="item"></div>
+			<div class="item"></div>
+			<div class="item"></div>
+			<div class="item"></div>
+			<div class="item"></div>
+			
 			
 			<script>
 			(function(){
