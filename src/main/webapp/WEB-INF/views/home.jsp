@@ -2,9 +2,10 @@
 <%@ page pageEncoding="UTF-8" %>
 <html>
 <head>
-	<title>Home</title>
+<title>Home</title>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/anime2.2.0.js"></script>
+
 
 <style>
 *{
