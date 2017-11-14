@@ -14,7 +14,6 @@
 
 .main{
 	width: 80%;
-	text-align: center;
 	margin: 0px auto;
 }
 
@@ -22,6 +21,7 @@
 	max-width: 700px;
 	margin : 0px auto;
 	margin-top: 200px; 
+	text-align: center;
 } 
 
 .main-items{
@@ -30,11 +30,44 @@
 	flex-flow: row wrap;
 } 
 
-.main-items .item{
-	flex : 1 45%;
+.item{
+	flex : 1 20%;
 	background: rgba(100, 100, 100, 0.1);
 	height: 300px;
 	margin: 1px;
+}
+
+.item-desc{
+	position: relative;
+	height: 100%;
+	width : 100%;
+	opacity: 0;
+}
+
+.item-desc.fade-in{
+	display : inherit;
+	animation: fadein 1s;
+}
+
+.item-desc.fade-out{
+	display : inherit;
+	animation: fadeout 0.5s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+.item-desc a{
+	position: absolute;
+	bottom: 0px;
+	padding : 20px;
 }
 
 .ml9 {
@@ -57,6 +90,7 @@
   display: inline-block;
   line-height: 1em;
 }
+
 </style>
 
 <script>
@@ -65,6 +99,7 @@
 <body>
 <div class="wrapper">
 	<div class="main">
+		<!-- 
 		<div class="main-introduce">
 			<h1 class="ml9">
 			  <span class="text-wrapper">
@@ -97,20 +132,60 @@
 			</script>
 			<a>
 				Hello! Thank you for visiting my photofolio site.<br>
-				My name is changoo.<br>
-				I specialized computer engineering in Hansung Univ.<br>
-				and interested in Android development.<br>
+				My name is changoo and specialized computer engineering in Hansung Univ.<br>
+				I'm interested in Android development.<br>
 			</a>
 		</div>
-		
+		 -->
 		<div class="main-items">
+			<div class="item">
+				<div class="item-desc">
+				<a>
+				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
+				</a>
+				</div>
+			</div>
+			<div class="item">
+				<div class="item-desc">
+				<a>
+				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
+				</a>
+				</div>
+			</div>
+			<div class="item">
+				<div class="item-desc">
+				<a>
+				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
+				</a>
+				</div>
+			</div>
+			<div class="item">
+				<div class="item-desc">
+				<a>
+				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
+				</a>
+				</div>
+			</div>
 			<div class="item"></div>
 			<div class="item"></div>
 			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
+			
+			<script>
+			(function(){
+				$(".item").bind("mouseover", function(){
+					var tg = $(this);
+					tg.find(".item-desc").addClass("fade-in");
+					tg.find(".item-desc").removeClass("fade-out");
+				});
+				
+				$(".item").bind("mouseout", function(){
+					var tg = $(this);
+					tg.find(".item-desc").removeClass("fade-in");
+					tg.find(".item-desc").addClass("fade-out");
+				});
+					
+			})();
+			</script>
 		</div>
 		
 	</div>
