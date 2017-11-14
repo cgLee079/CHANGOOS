@@ -12,6 +12,10 @@
 	padding	: 0px;
 }
 
+a, a:VISITED{
+	text-decoration: none;
+}
+
 .header{
 	position: fixed;
 	top: 0px;
@@ -20,8 +24,7 @@
 }
 
 .nav{
-	margin-left: 2%;
-	margin-top: 2%;
+	margin : 3%;
 }
 .main{
 	width: 80%;
@@ -103,22 +106,23 @@
 }
 
 /* Icon 3 */
-#nav-icon{
-  width: 30px;
-  height: 20px;
-  position: relative;
-  -webkit-transform: rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
-  transform: rotate(0deg);
-  -webkit-transition: .5s ease-in-out;
-  -moz-transition: .5s ease-in-out;
-  -o-transition: .5s ease-in-out;
-  transition: .5s ease-in-out;
-  cursor: pointer;
+.nav-icon{
+	float: left;
+	width: 30px;
+	height: 20px;
+	position: relative;
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+	-webkit-transition: .5s ease-in-out;
+	-moz-transition: .5s ease-in-out;
+	-o-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+	cursor: pointer;
 }
 
-#nav-icon span{
+.nav-icon span{
   display: block;
   position: absolute;
   height: 6px;
@@ -137,53 +141,74 @@
   transition: .25s ease-in-out;
 }
 
-#nav-icon span:nth-child(1) {
+.nav-icon span:nth-child(1) {
   top: 0px;
 }
 
-#nav-icon span:nth-child(2),#nav-icon span:nth-child(3) {
+.nav-icon span:nth-child(2),.nav-icon span:nth-child(3) {
   top: 10px;
 }
 
-#nav-icon span:nth-child(4) {
+.nav-icon span:nth-child(4) {
   top: 20px;
 }
 
-#nav-icon.open span:nth-child(1) {
+.nav-icon.open span:nth-child(1) {
   top: 10px;
   width: 0%;
   left: 50%;
 }
 
-#nav-icon.open span:nth-child(2) {
+.nav-icon.open span:nth-child(2) {
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
-#nav-icon.open span:nth-child(3) {
+.nav-icon.open span:nth-child(3) {
   -webkit-transform: rotate(-45deg);
   -moz-transform: rotate(-45deg);
   -o-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 
-#nav-icon.open span:nth-child(4) {
+.nav-icon.open span:nth-child(4) {
   top: 10px;
   width: 0%;
   left: 50%;
 }
 
+.sub-icons{
+	float : right;
+}
+
+.icon {
+	cursor: pointer;
+}
+
+.icon img{
+	width : 40px;
+	height: 40px;
+	opacity: 0.5;
+}
+
+.icon:HOVER img{
+	opacity: 1;
+}
+
+.git-icon{
+	margin-right: 10px;
+}
 </style>
 
 <script>
 $(document).ready(function(){
-	$('#nav-icon').click(function(){
+	$('.nav-icon').click(function(){
 		$(this).toggleClass('open');
 	});
 	
-	$('#nav-icon').hover(function(){
+	$('.nav-icon').hover(function(){
 		$(this).find('span').css("background","#000");
 	}, function(){
 		$(this).find('span').css("background","#DDD");
@@ -195,11 +220,24 @@ $(document).ready(function(){
 <div class="wrapper">
 	<div class="header">
 		<div class="nav">	
-			<div id="nav-icon">
+			<div class="nav-icon">
 			  <span></span>
 			  <span></span>
 			  <span></span>
 			  <span></span>
+			</div>
+			
+			<div class="sub-icons">
+				<span class="icon git-icon">
+					<a target="_blank" href="https://github.com/cgLee079">
+						<img src="${pageContext.request.contextPath}/resources/image/icon_github.png" />
+					</a>
+				</span>
+				<span class="icon insta-icon">
+					<a href="https://github.com/cgLee079">
+						<img src="${pageContext.request.contextPath}/resources/image/icon_insta.png" />
+					</a>
+				</span>
 			</div>
 		</div>
 	</div>
