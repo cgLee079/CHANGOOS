@@ -31,7 +31,6 @@ a, a:VISITED{
 
 .header{
 	position: fixed;
-	background : rgba(255, 255, 255, 0.9);
 	top: 0px;
 	left: 0px;
 	width: 100%;
@@ -52,7 +51,7 @@ a, a:VISITED{
 .main-introduce{
 	max-width: 700px;
 	margin : 0px auto;
-	margin-top: 200px; 
+	margin-top: 100px; 
 	text-align: center;
 } 
 
@@ -91,8 +90,8 @@ a, a:VISITED{
 
 /* Icon 3 */
 .nav-icon{
-	width: 30px;
-	height: 20px;
+	width: 20px;
+	height: 10px;
 	position: relative;
 	-webkit-transform: rotate(0deg);
 	-moz-transform: rotate(0deg);
@@ -108,7 +107,7 @@ a, a:VISITED{
 .nav-icon span{
   display: block;
   position: absolute;
-  height: 6px;
+  height: 3px;
   width: 100%;
   background: #999;
   border-radius: 9px;
@@ -129,11 +128,11 @@ a, a:VISITED{
 }
 
 .nav-icon span:nth-child(2),.nav-icon span:nth-child(3) {
-  top: 10px;
+  top: 6px;
 }
 
 .nav-icon span:nth-child(4) {
-  top: 20px;
+  top: 12px;
 }
 
 .nav-icon.open span:nth-child(1) {
@@ -170,8 +169,8 @@ a, a:VISITED{
 }
 
 .sub-menu img{
-	width : 40px;
-	height: 40px;
+	width : 25px;
+	height: 25px;
 	opacity: 0.5;
 }
 
@@ -198,6 +197,7 @@ a, a:VISITED{
 	margin-top: 200px;
 	display: flex;
 	flex-flow: row wrap;
+	align-items: flex-start;
 } 
 
 .item{
