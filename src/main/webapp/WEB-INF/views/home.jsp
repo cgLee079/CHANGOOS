@@ -406,7 +406,7 @@ $(document).ready(function(){
 			})();
 			</script>
 			<a>
-				Hello! Thank you for visiting my photofolio site.<br>
+				Hello! Thank you for visiting my portfolio site.<br>
 				My name is changoo and specialized computer engineering in Hansung Univ.<br>
 				I'm interested in Android development.<br>
 			</a>
@@ -488,12 +488,14 @@ $(document).ready(function(){
 			(function(){
 				$(".item").bind("mouseover", function(){
 					var tg = $(this);
+					tg.css("opacity","1");
 					tg.find(".item-desc").addClass("fade-in");
 					tg.find(".item-desc").removeClass("fade-out");
 				});
 				
 				$(".item").bind("mouseout", function(){
 					var tg = $(this);
+					tg.css("opacity","0.5");
 					tg.find(".item-desc").removeClass("fade-in");
 					tg.find(".item-desc").addClass("fade-out");
 				});
