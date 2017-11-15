@@ -3,10 +3,22 @@
 <html>
 <head>
 <title>Home</title>
+<link href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css" rel="stylesheet"></link>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/anime2.2.0.js"></script>
 
+<style>
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
 
+@keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+</style>
 <style>
 *{
 	margin	: 0px;
@@ -19,11 +31,14 @@ a, a:VISITED{
 
 .header{
 	position: fixed;
-	padding : 10px 0px;
+	padding-top 	: 10px;
+	padding-bottom 	: 20px;
 	background : #FFF;
 	top: 0px;
 	left: 0px;
 	width: 100%;
+	z-index: 10;
+	
 }
 
 .nav{
@@ -41,57 +56,19 @@ a, a:VISITED{
 	text-align: center;
 } 
 
-.main-items{
-	margin-top: 200px;
-	display: flex;
-	flex-flow: row wrap;
-} 
-
-.item{
-	flex : 1 20%;
-	background: rgba(100, 100, 100, 0.1);
+.me-icon{
+	width : 50%;
 	height: 300px;
-	margin: 1px;
+	margin: 20px auto;
+	
+	background-image	: url(resources/image/icon_me.png);
+	background-position	: center;
+    background-repeat	: no-repeat;
+    background-size		: contain;
+    
 }
 
-@media (max-width: 800px){
-	.item{
-		flex : 1 100%;
-	}
-}
-
-
-.item-desc{
-	position: relative;
-	height: 100%;
-	width : 100%;
-	opacity: 0;
-}
-
-.item-desc.fade-in{
-	display : inherit;
-	animation: fadein 1s;
-}
-
-.item-desc.fade-out{
-	display : inherit;
-	animation: fadeout 0.5s;
-}
-
-@keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-@keyframes fadeout {
-    from { opacity: 1; }
-    to   { opacity: 0; }
-}
-
-.item-desc a{
-	position: absolute;
-	bottom: 0px;
-	padding : 20px;
+.me-icon:HOVER{
 }
 
 .ml9 {
@@ -118,8 +95,8 @@ a, a:VISITED{
 /* Icon 3 */
 .nav-icon{
 	float: left;
-	width: 30px;
-	height: 20px;
+	width: 40px;
+	height: 30px;
 	position: relative;
 	-webkit-transform: rotate(0deg);
 	-moz-transform: rotate(0deg);
@@ -156,11 +133,11 @@ a, a:VISITED{
 }
 
 .nav-icon span:nth-child(2),.nav-icon span:nth-child(3) {
-  top: 10px;
+  top: 15px;
 }
 
 .nav-icon span:nth-child(4) {
-  top: 20px;
+  top: 30px;
 }
 
 .nav-icon.open span:nth-child(1) {
@@ -189,27 +166,141 @@ a, a:VISITED{
   left: 50%;
 }
 
-.sub-icons{
+.sub-menus{
 	float : right;
 }
 
-.icon {
+.sub-menu {
 	cursor: pointer;
 }
 
-.icon img{
-	width : 30px;
-	height: 30px;
+.sub-menu img{
+	width : 50px;
+	height: 50px;
 	opacity: 0.5;
 }
 
-.icon:HOVER img{
+.sub-menu:HOVER img{
 	opacity: 1;
+}
+
+.sub-menu-tooltip{
+	background: #000;
+	color : #EEE;
+	box-shadow: 0 0 0px black;
 }
 
 .git-icon{
 	margin-right: 10px;
 }
+
+
+.main-items{
+	margin-top: 200px;
+	display: flex;
+	flex-flow: row wrap;
+} 
+
+.item{
+	flex : 1 33%;
+	height : 300px;
+	margin : 1px;
+	position: relative;
+}
+
+.item-desc{
+	position: relative;
+	height: 100%;
+	width : 100%;
+	opacity: 0;
+}
+
+.item-desc.fade-in{
+	display : inherit;
+	animation: fadein 1s;
+}
+
+.item-desc.fade-out{
+	display : inherit;
+	animation: fadeout 0.5s;
+}
+
+.item-desc a{
+	position: absolute;
+	bottom: 0px;
+	padding : 20px;
+	background: rgba(0, 0, 0, 1);
+	color: #EEE;
+}
+
+.item-bg{
+    background-size: cover;
+	position: absolute;
+	top 	: 0px;
+	bottom 	: 0px;
+	left 	: 0px;
+	right 	: 0px;
+	opacity : 0.6;
+}
+
+.item1 .item-bg{
+	background-image: url(resources/image/bg_sample1.jpg);
+}
+
+.item2 .item-bg{
+	background-image: url(resources/image/bg_sample2.jpg);
+}
+
+.item3 .item-bg{
+	background-image: url(resources/image/bg_sample3.jpg);
+}
+
+.item4 .item-bg{
+	background-image: url(resources/image/bg_sample4.jpg);
+}
+
+.item5 .item-bg{
+	background-image: url(resources/image/bg_sample5.jpg);
+}
+
+.item6 .item-bg{
+	background-image: url(resources/image/bg_sample6.jpg);
+}
+
+
+@media (max-width: 1000px){
+	.item{
+		flex : 1 100%;
+	}
+	
+	.nav-icon{
+	width: 60px;
+	height: 50px;
+	}	
+	
+	.nav-icon span{
+	  height: 10px;
+	  width: 100%;
+	}
+	
+	.nav-icon span:nth-child(1) {
+	  top: 0px;
+	}
+	
+	.nav-icon span:nth-child(2),.nav-icon span:nth-child(3) {
+	  top: 20px;
+	}
+	
+	.nav-icon span:nth-child(4) {
+	  top: 40px;
+	}
+	
+	.sub-menu img{
+		width : 60px;
+		height: 60px;
+	}
+}
+
 </style>
 
 <script>
@@ -224,6 +315,7 @@ $(document).ready(function(){
 		$(this).find('span').css("background","#DDD");
 	});
 });
+
 </script>
 </head>
 <body>
@@ -236,26 +328,51 @@ $(document).ready(function(){
 			  <span></span>
 			  <span></span>
 			</div>
-			
-			<div class="sub-icons">
-				<span class="icon git-icon">
+		
+			<div class="sub-menus">
+				<span class="sub-menu git-icon">
 					<a target="_blank" href="https://github.com/cgLee079">
 						<img src="${pageContext.request.contextPath}/resources/image/icon_github.png" />
 					</a>
 				</span>
-				<span class="icon insta-icon">
+				<span class="sub-menu insta-icon">
 					<a href="https://github.com/cgLee079">
 						<img src="${pageContext.request.contextPath}/resources/image/icon_insta.png" />
 					</a>
 				</span>
 			</div>
+			<script>
+				(function(){
+					var subMenus = $(".sub-menu");
+					subMenus.each(function(){
+						var tg 		= $(this);
+						var title 	= tg.find("a").attr("href");
+						tg.attr("title", title);
+						tg.tooltip({
+							tooltipClass: "sub-menu-tooltip",
+				        	show	: "fadeIn",
+					        open	: function (event, ui) {
+					            ui.tooltip.hover(function(){
+					                $(this).fadeTo("slow", 0.5);
+					            });
+					        }
+						});
+					});
+				})();
+			
+			</script>
 		</div>
+		 
 	</div>
+		
 	<div class="main">
 		<div class="main-introduce">
+			<div class="me-icon">
+			</div>
+		
 			<h1 class="ml9">
 			  <span class="text-wrapper">
-			    <span class="letters">Changoo Lee</span>
+			    <span class="letters">Toyo dim</span>
 			  </span>
 			</h1>
 			<script>
@@ -288,35 +405,65 @@ $(document).ready(function(){
 				I'm interested in Android development.<br>
 			</a>
 		</div>
+		
 		<div class="main-items">
-			<div class="item">
+			<div class="item item1">
+				<div class="item-bg">
+				</div>
 				<div class="item-desc">
 				<a>
 				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
 				</a>
 				</div>
 			</div>
-			<div class="item">
+			<div class="item item2">
+				<div class="item-bg">
+				</div>
 				<div class="item-desc">
 				<a>
 				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
 				</a>
 				</div>
 			</div>
-			<div class="item">
+			<div class="item item3">
+				<div class="item-bg">
+				</div>
 				<div class="item-desc">
 				<a>
 				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
 				</a>
 				</div>
 			</div>
-			<div class="item">
+			<div class="item item4">
+				<div class="item-bg">
+				</div>
 				<div class="item-desc">
 				<a>
 				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
 				</a>
 				</div>
 			</div>
+			
+			<div class="item item5">
+				<div class="item-bg">
+				</div>
+				<div class="item-desc">
+				<a>
+				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
+				</a>
+				</div>
+			</div>
+			
+			<div class="item item6">
+				<div class="item-bg">
+				</div>
+				<div class="item-desc">
+				<a>
+				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
+				</a>
+				</div>
+			</div>
+			
 			<div class="item"></div>
 			<div class="item"></div>
 			<div class="item"></div>
