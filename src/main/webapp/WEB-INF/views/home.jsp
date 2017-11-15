@@ -68,9 +68,6 @@ a, a:VISITED{
     
 }
 
-.me-icon:HOVER{
-}
-
 .ml9 {
   position: relative;
   font-weight: 200;
@@ -94,8 +91,8 @@ a, a:VISITED{
 
 /* Icon 3 */
 .nav-icon{
-	width: 40px;
-	height: 30px;
+	width: 30px;
+	height: 20px;
 	position: relative;
 	-webkit-transform: rotate(0deg);
 	-moz-transform: rotate(0deg);
@@ -132,11 +129,11 @@ a, a:VISITED{
 }
 
 .nav-icon span:nth-child(2),.nav-icon span:nth-child(3) {
-  top: 15px;
+  top: 10px;
 }
 
 .nav-icon span:nth-child(4) {
-  top: 30px;
+  top: 22px;
 }
 
 .nav-icon.open span:nth-child(1) {
@@ -173,12 +170,12 @@ a, a:VISITED{
 }
 
 .sub-menu img{
-	width : 50px;
-	height: 50px;
+	width : 40px;
+	height: 40px;
 	opacity: 0.5;
 }
 
-.sub-menu:HOVER img{
+.sub-menu:hover img, .sub-menu.hover img{
 	opacity: 1;
 }
 
@@ -186,6 +183,11 @@ a, a:VISITED{
 	background: #000;
 	color : #EEE;
 	box-shadow: 0 0 0px black;
+}
+
+.sub-menu-tooltip.hover{
+	display: inherit;
+	animation : fadein 2s;
 }
 
 .sub-menu.git-icon{
@@ -269,12 +271,12 @@ a, a:VISITED{
 	}
 	
 	.nav-icon{
-	width: 60px;
-	height: 50px;
+		width: 30px;
+		height: 30px;
 	}	
 	
 	.nav-icon span{
-	  height: 10px;
+	  height: 6px;
 	  width: 100%;
 	}
 	
@@ -283,16 +285,16 @@ a, a:VISITED{
 	}
 	
 	.nav-icon span:nth-child(2),.nav-icon span:nth-child(3) {
-	  top: 20px;
+	  top: 10px;
 	}
 	
 	.nav-icon span:nth-child(4) {
-	  top: 40px;
+	  top: 20px;
 	}
 	
 	.sub-menu img{
-		width : 60px;
-		height: 60px;
+		width : 40px;
+		height: 40px;
 	}
 }
 
@@ -350,19 +352,28 @@ $(document).ready(function(){
 			<script>
 				(function(){
 					var subMenus = $(".sub-menu");
+					
+					subMenus.bind("touchstart touchend", function(){
+						$(this).toggleClass("hover");
+					});
+					
 					subMenus.each(function(){
 						var tg 		= $(this);
 						var title 	= tg.find("a").attr("href");
-						tg.attr("title", title);
-						tg.tooltip({
+						var option	= {
 							tooltipClass: "sub-menu-tooltip",
-				        	show	: "fadeIn",
-					        open	: function (event, ui) {
-					            ui.tooltip.hover(function(){
-					                $(this).fadeTo("slow", 0.5);
-					            });
-					        }
+					       	show	: "fadeIn",
+						};
+						tg.attr("title", title);
+						
+						tg.tooltip(option);
+						tg.bind("tocuchstart", function(){
+							$(this).tooltip(option);
+							$(this).tooltip("open");
 						});
+						tg.bind("touchend", function(){
+							$(this).tooltip("close");
+						})
 					});
 				})();
 			
@@ -406,9 +417,12 @@ $(document).ready(function(){
 			})();
 			</script>
 			<a>
-				Hello! Thank you for visiting my portfolio site.<br>
-				My name is changoo and specialized computer engineering in Hansung Univ.<br>
-				I'm interested in Android development.<br>
+				Hello! Thank you for visiting my portfolio site. <br>
+				I specialized computer engineering at Hansung University  <br>
+				and interested in Android App, Spring framework. <br>
+ 				<br>
+				below  <br>
+
 			</a>
 		</div>
 		
