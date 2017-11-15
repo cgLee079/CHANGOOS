@@ -35,7 +35,7 @@ public class HomeController {
 	@RequestMapping(value = "/")
 	public String home(Locale locale, Model model) {
 		List<Item> items = itemService.list();
-		System.out.println(items);
+		model.addAttribute("items", items);
 		return "home";
 	}
 
@@ -57,6 +57,8 @@ public class HomeController {
 			snapshtFile.transferTo(file);
 			
 			item.setSnapsht(request.getContextPath() + imgPath + filename);
+		} else{
+			item.setSnapsht(request.getContextPath() + imgPath + "default.jpg");
 		}
 		
 		itemService.insert(item);

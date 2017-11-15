@@ -22,6 +22,13 @@ public class Item {
 		this.hits = hits;
 	}
 
+	
+	@Override
+	public String toString() {
+		return "Item [seq=" + seq + ", name=" + name + ", desc=" + desc + ", content=" + content + ", snapsht="
+				+ snapsht + ", wrDate=" + wrDate + ", hits=" + hits + "]";
+	}
+
 	public int getSeq() {
 		return seq;
 	}

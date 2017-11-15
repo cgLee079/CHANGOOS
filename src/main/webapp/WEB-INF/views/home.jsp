@@ -205,6 +205,7 @@ a, a:VISITED{
 	height : 300px;
 	margin : 1px;
 	position: relative;
+	cursor: pointer;
 }
 
 .item-desc{
@@ -215,11 +216,13 @@ a, a:VISITED{
 }
 
 .item-desc.fade-in{
-	animation: fadein 1s;
+	animation: fadein 1s 1;
+	animation-fill-mode: forwards;
 }
 
 .item-desc.fade-out{
-	animation: fadeout 0.5s;
+	animation: fadeout 0.5s 1;
+	animation-fill-mode: forwards;
 }
 
 .item-desc a{
@@ -228,6 +231,7 @@ a, a:VISITED{
 	padding : 20px;
 	background: rgba(0, 0, 0, 1);
 	color: #EEE;
+	font-size: 10px;
 }
 
 .item-bg{
@@ -238,30 +242,6 @@ a, a:VISITED{
 	left 	: 0px;
 	right 	: 0px;
 	opacity : 0.6;
-}
-
-.item1 .item-bg{
-	background-image: url(resources/image/bg_sample1.jpg);
-}
-
-.item2 .item-bg{
-	background-image: url(resources/image/bg_sample2.jpg);
-}
-
-.item3 .item-bg{
-	background-image: url(resources/image/bg_sample3.jpg);
-}
-
-.item4 .item-bg{
-	background-image: url(resources/image/bg_sample4.jpg);
-}
-
-.item5 .item-bg{
-	background-image: url(resources/image/bg_sample5.jpg);
-}
-
-.item6 .item-bg{
-	background-image: url(resources/image/bg_sample6.jpg);
 }
 
 
@@ -304,6 +284,11 @@ a, a:VISITED{
 
 .display-none{
 	display: none;
+}
+
+.footer{
+	width : 100%;
+	height: 300px;
 }
 </style>
 
@@ -431,76 +416,18 @@ $(document).ready(function(){
 		</div>
 		
 		<div class="main-items">
-			<div class="item item1">
-				<div class="item-bg">
+			<c:forEach var="item" items="${items}">
+				<div class="item">
+					<div class="item-bg" style="background-image: url('${item.snapsht}')"></div>
+					<div class="item-desc">
+					
+					<a>
+						${item.name}</br>
+						${item.desc}
+					</a>
+					</div>
 				</div>
-				<div class="item-desc">
-				<a>
-				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
-				</a>
-				</div>
-			</div>
-			<div class="item item2">
-				<div class="item-bg">
-				</div>
-				<div class="item-desc">
-				<a>
-				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
-				</a>
-				</div>
-			</div>
-			<div class="item item3">
-				<div class="item-bg">
-				</div>
-				<div class="item-desc">
-				<a>
-				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
-				</a>
-				</div>
-			</div>
-			<div class="item item4">
-				<div class="item-bg">
-				</div>
-				<div class="item-desc">
-				<a>
-				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
-				</a>
-				</div>
-			</div>
-			
-			<div class="item item5">
-				<div class="item-bg">
-				</div>
-				<div class="item-desc">
-				<a>
-				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
-				</a>
-				</div>
-			</div>
-			
-			<div class="item item6">
-				<div class="item-bg">
-				</div>
-				<div class="item-desc">
-				<a>
-				is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e
-				</a>
-				</div>
-			</div>
-			
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			
+			</c:forEach>
 			
 			<script>
 			(function(){
@@ -520,6 +447,10 @@ $(document).ready(function(){
 			})();
 			</script>
 		</div>
+		
+	</div>
+	
+	<div class="footer">
 		
 	</div>
 </div>
