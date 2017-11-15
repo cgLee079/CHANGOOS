@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cglee079.portfolio.mapper.ItemMapper">
+	<select id="list" resultType="com.cglee079.portfolio.model.Item">
+		SELECT
+		ITM_SEQ as "seq",
+		ITM_NAME as "name",
+		ITM_DESC as "desc",
+		ITM_CONTENT as "content",
+		ITM_SNAPSHT as "snapsht",
+		ITM_WRDATE as "wrDate",
+		ITM_HITS as "hit"
+		FROM TB_PTFOLIO_ITEMS
+	</select>
+</mapper>

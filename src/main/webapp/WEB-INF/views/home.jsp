@@ -133,7 +133,7 @@ a, a:VISITED{
 }
 
 .nav-icon span:nth-child(4) {
-  top: 22px;
+  top: 20px;
 }
 
 .nav-icon.open span:nth-child(1) {
@@ -344,7 +344,7 @@ $(document).ready(function(){
 					</a>
 				</span>
 				<span class="sub-menu insta-icon">
-					<a href="https://github.com/cgLee079">
+					<a target="_blank" href="https://www.instagram.com/cglee079">
 						<img src="${pageContext.request.contextPath}/resources/image/icon_insta.png" />
 					</a>
 				</span>
@@ -353,8 +353,12 @@ $(document).ready(function(){
 				(function(){
 					var subMenus = $(".sub-menu");
 					
-					subMenus.bind("touchstart touchend", function(){
-						$(this).toggleClass("hover");
+					subMenus.bind("touchstart", function(){
+						$(this).addClass("hover");
+					});
+					
+					subMenus.bind("touchend", function(){
+						$(this).removeClass("hover");
 					});
 					
 					subMenus.each(function(){
@@ -513,7 +517,6 @@ $(document).ready(function(){
 					tg.find(".item-desc").removeClass("fade-in");
 					tg.find(".item-desc").addClass("fade-out");
 				});
-					
 			})();
 			</script>
 		</div>
