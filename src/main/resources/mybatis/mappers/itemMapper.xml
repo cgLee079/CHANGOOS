@@ -14,4 +14,9 @@
 		ITM_HITS as "hit"
 		FROM TB_PTFOLIO_ITEMS
 	</select>
+	
+	<insert id="insert">
+		INSERT TB_PTFOLIO_ITEMS (ITM_NAME, ITM_DESC, ITM_CONTENT, ITM_SNAPSHT, ITM_WRDATE, ITM_HITS)
+		VALUES (#{name}, #{desc}, #{content}, #{snapsht}, #{wrDate}, #{hits})
+	</insert>
 </mapper>

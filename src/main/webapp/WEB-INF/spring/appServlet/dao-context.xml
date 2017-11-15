@@ -41,7 +41,7 @@
 	
 	<!-- 
 	CREATE TABLE TB_PTFOLIO_ITEMS(
-	ITM_SEQ int,
+	ITM_SEQ int auto_increment,
 	ITM_NAME varchar(100),
 	ITM_DESC varchar(1000),
 	ITM_CONTENT varchar(5000),
@@ -49,6 +49,7 @@
 	ITM_WRDATE date,
 	ITM_HITS	int,
 	constraint pk_ptfolio_items primary key(ITM_SEQ)
+	)
 	)
 	 -->
 	

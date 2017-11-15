@@ -2,7 +2,5 @@
 <%@ page pageEncoding="UTF-8" %>
 
 <script type='text/javascript'>
-	console.log(${CKEditorFuncNum});
-	console.log(${file_path});
 	window.parent.CKEDITOR.tools.callFunction('${CKEditorFuncNum}', '${path}', '파일 전송 완료.');
 </script>

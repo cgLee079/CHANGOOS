@@ -18,4 +18,8 @@ public class ItemDao {
 	public List<Item> list(){
 		return sqlSession.selectList(namespace + ".list");
 	}
+
+	public boolean insert(Item item) {
+		return sqlSession.insert(namespace + ".insert", item) == 1;
+	}
 }

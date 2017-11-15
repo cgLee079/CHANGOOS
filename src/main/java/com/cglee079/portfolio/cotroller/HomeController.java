@@ -32,16 +32,35 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/")
 	public String home(Locale locale, Model model) {
 		List<Item> items = itemService.list();
 		System.out.println(items);
 		return "home";
 	}
 
-	@RequestMapping(value = "/item/upload", method = RequestMethod.GET)
-	public String itemUpload(Locale locale, Model model) {
+	@RequestMapping(value = "/item/upload")
+	public String itemUpload() {
 		return "itemUpload";
+	}
+	
+	@RequestMapping(value = "/item/upload.do", method = RequestMethod.POST)
+	public void itemUpload(HttpServletRequest request, Item item, MultipartFile snapshtFile) throws IllegalStateException, IOException {
+		HttpSession session = request.getSession();
+		String rootPath = session.getServletContext().getRealPath("");
+		String imgPath	= "/resources/image/snapshot/";
+		String filename	= "snapshot_" + item.getName() + "_";
+		
+		if(snapshtFile != null){
+			filename += snapshtFile.getOriginalFilename();
+			File file = new File(rootPath + imgPath + filename);
+			snapshtFile.transferTo(file);
+			
+			item.setSnapsht(request.getContextPath() + imgPath + filename);
+		}
+		
+		itemService.insert(item);
+		
 	}
 
 	@RequestMapping(value = "/item/imgUpload.do", method = RequestMethod.POST)
