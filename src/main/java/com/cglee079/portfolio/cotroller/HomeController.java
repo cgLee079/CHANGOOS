@@ -1,12 +1,15 @@
 package com.cglee079.portfolio.cotroller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cglee079.portfolio.model.FileBean;
 import com.cglee079.portfolio.model.Item;
 import com.cglee079.portfolio.service.ItemService;
 
@@ -43,10 +45,23 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/item/imgUpload.do", method = RequestMethod.POST)
-	public void itemImgUpload(HttpServletRequest requesst, 
-			@RequestParam("upload")MultipartFile file, String CKEditorFuncNum) {
-		System.out.println(CKEditorFuncNum);
-		System.out.println(file);
+	public String itemImgUpload(HttpServletRequest request, Model model,
+			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
+		HttpSession session = request.getSession();
+		String rootPath = session.getServletContext().getRealPath("");
+		String imgPath	= "/resources/image/contents/";
+		String filename	= "content_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_";
+		
+		if(multiFile != null){
+			filename += multiFile.getOriginalFilename();
+			File file = new File(rootPath + imgPath + filename);
+			multiFile.transferTo(file);
+		}
+		
+		model.addAttribute("path", request.getContextPath() + imgPath + filename);
+		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
+		
+		return "item.imgupload";
 	}
 
 }
