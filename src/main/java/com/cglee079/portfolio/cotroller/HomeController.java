@@ -1,4 +1,4 @@
-package com.cglee079.photofolio.cotroller;
+package com.cglee079.portfolio.cotroller;
 
 import java.text.DateFormat;
 import java.util.Date;

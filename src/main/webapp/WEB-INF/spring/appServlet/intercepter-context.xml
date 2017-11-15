@@ -13,7 +13,7 @@
 			<mvc:exclude-mapping path="/resources/**" /> <!--리소스 파일 제외 -->
 			<mvc:exclude-mapping path="/" />
 			<bean
-				class="com.cglee079.photofolio.interceptor.Interceptor">
+				class="com.cglee079.portfolio.interceptor.Interceptor">
 			</bean><!-- Interceptor 클래스 (Custom) -->
 		</mvc:interceptor>
 	</mvc:interceptors>

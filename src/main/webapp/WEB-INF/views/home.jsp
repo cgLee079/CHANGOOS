@@ -31,7 +31,7 @@ a, a:VISITED{
 
 .header{
 	position: fixed;
-	background : rgba(255, 255, 255, 0.8);
+	background : rgba(255, 255, 255, 0.9);
 	top: 0px;
 	left: 0px;
 	width: 100%;
@@ -39,19 +39,10 @@ a, a:VISITED{
 }
 
 .nav{
-	margin : 30px 2%;
+	margin : 20px 2% 10px 2%;
 	display: flex;
 	justify-content : space-between;
 }
-
-.head-title{
-	text-align: center;
-}
-
-.head-title a{
-	font-size: 40px;
-}
-
 
 .main{
 	width: 80%;
@@ -122,7 +113,7 @@ a, a:VISITED{
   position: absolute;
   height: 6px;
   width: 100%;
-  background: #DDD;
+  background: #999;
   border-radius: 9px;
   opacity: 1;
   left: 0;
@@ -197,10 +188,9 @@ a, a:VISITED{
 	box-shadow: 0 0 0px black;
 }
 
-.git-icon{
+.sub-menu.git-icon{
 	margin-right: 10px;
 }
-
 
 .main-items{
 	margin-top: 200px;
@@ -223,12 +213,10 @@ a, a:VISITED{
 }
 
 .item-desc.fade-in{
-	display : inherit;
 	animation: fadein 1s;
 }
 
 .item-desc.fade-out{
-	display : inherit;
 	animation: fadeout 0.5s;
 }
 
@@ -328,18 +316,9 @@ $(document).ready(function(){
 	$('.nav-icon').hover(function(){
 		$(this).find('span').css("background","#000");
 	}, function(){
-		$(this).find('span').css("background","#DDD");
+		$(this).find('span').css("background","#999");
 	});
 	
-	
-	$(window).scroll(function() {
-		if ($(window).scrollTop() > AT_UNSHOW_INTRO){
-			$(".head-title").removeClass("display-none");
-		}else{
-			$(".head-title").addClass("display-none");
-		}
-		
-	});
 });
 
 </script>
@@ -356,10 +335,6 @@ $(document).ready(function(){
 			  <span></span>
 			</div>
 			
-			<div class="head-title display-none">
-				<a>Toyo tim</a>
-			</div>
-		
 			<div class="sub-menus">
 				<span class="sub-menu git-icon">
 					<a target="_blank" href="https://github.com/cgLee079">
