@@ -31,19 +31,28 @@ a, a:VISITED{
 
 .header{
 	position: fixed;
-	padding-top 	: 10px;
-	padding-bottom 	: 20px;
-	background : #FFF;
+	background : rgba(255, 255, 255, 0.8);
 	top: 0px;
 	left: 0px;
 	width: 100%;
 	z-index: 10;
-	
 }
 
 .nav{
-	margin : 3%;
+	margin : 30px 2%;
+	display: flex;
+	justify-content : space-between;
 }
+
+.head-title{
+	text-align: center;
+}
+
+.head-title a{
+	font-size: 40px;
+}
+
+
 .main{
 	width: 80%;
 	margin: 0px auto;
@@ -94,7 +103,6 @@ a, a:VISITED{
 
 /* Icon 3 */
 .nav-icon{
-	float: left;
 	width: 40px;
 	height: 30px;
 	position: relative;
@@ -167,7 +175,6 @@ a, a:VISITED{
 }
 
 .sub-menus{
-	float : right;
 }
 
 .sub-menu {
@@ -301,9 +308,18 @@ a, a:VISITED{
 	}
 }
 
+.display-show{
+	display: inherit;
+}
+
+.display-none{
+	display: none;
+}
 </style>
 
 <script>
+const AT_UNSHOW_INTRO = 600; 
+
 $(document).ready(function(){
 	$('.nav-icon').click(function(){
 		$(this).toggleClass('open');
@@ -314,6 +330,16 @@ $(document).ready(function(){
 	}, function(){
 		$(this).find('span').css("background","#DDD");
 	});
+	
+	
+	$(window).scroll(function() {
+		if ($(window).scrollTop() > AT_UNSHOW_INTRO){
+			$(".head-title").removeClass("display-none");
+		}else{
+			$(".head-title").addClass("display-none");
+		}
+		
+	});
 });
 
 </script>
@@ -321,12 +347,17 @@ $(document).ready(function(){
 <body>
 <div class="wrapper">
 	<div class="header">
-		<div class="nav">	
+		<div class="nav">
+				
 			<div class="nav-icon">
 			  <span></span>
 			  <span></span>
 			  <span></span>
 			  <span></span>
+			</div>
+			
+			<div class="head-title display-none">
+				<a>Toyo tim</a>
 			</div>
 		
 			<div class="sub-menus">
