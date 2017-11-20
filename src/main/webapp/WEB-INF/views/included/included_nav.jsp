@@ -153,11 +153,22 @@
 	<script>
 	(function(){
 		$('.nav-icon').click(function(){
-			$(this).toggleClass('open');
+			$(this).toggleClass("open");
+			if($(this).hasClass("open")){
+				$(".wrap-my-info").removeClass("closed");
+				$(".main").addClass("display-none");
+			} else{
+				$(".wrap-my-info").addClass("closed");
+				$(".main").removeClass("display-none");
+			}
 		});
 		
 		$('.nav-icon').hover(function(){
-			$(this).find('span').css("background","#000");
+			if($(this).hasClass("open")){
+				$(this).find('span').css("background","#FFF");
+			} else{
+				$(this).find('span').css("background","#000");
+			}
 		}, function(){
 			$(this).find('span').css("background","#999");
 		});

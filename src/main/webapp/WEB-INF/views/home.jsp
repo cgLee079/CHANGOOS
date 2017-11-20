@@ -178,12 +178,25 @@ function scrollToItems(){
 			left : 0px;
 		}
 		
+		.slider {
+			overflow-y: hidden;
+			bottom : 0;
+		
+			transition-property: all;
+			transition-duration: 1s;
+			transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+		}
+		
+		.slider.closed {
+			bottom : 100%;
+		}
+
 		.bg-cover{
 			position : absolute;
 			width : 100%;
 			height: 100%;
 			z-index: 20;
-			background: rgba(0, 0, 0, 0.5);
+			background: rgba(0, 0, 0, 1);
 		}
 		
 		.bg-my-info{
@@ -210,8 +223,28 @@ function scrollToItems(){
 			color: #FFF;
 			left : 50%;
 		}
+		
+		.ml6 {
+		  position: relative;
+		  font-weight: 900;
+		  font-size: 3.3em;
+		}
+		
+		.ml6 .text-wrapper {
+		  position: relative;
+		  display: inline-block;
+		  padding-top: 0.2em;
+		  padding-right: 0.05em;
+		  padding-bottom: 0.1em;
+		  overflow: hidden;
+		}
+		
+		.ml6 .letter {
+		  display: inline-block;
+		  line-height: 1em;
+		}
 	</style>
-	<div class="wrap-my-info">
+	<div class="wrap-my-info slider closed">
 		<div class="bg-cover"></div>
 		<div class="bg-my-info">
 			<div class="bg bg-01"></div>
@@ -219,15 +252,40 @@ function scrollToItems(){
 			<div class="bg bg-03"></div>
 		</div>
 		<div class="my-info">
-			<br/>
-			2011.03	한성대 멀티미디어공학과 입학 <br/>
-			2016.07	넥스젠어쏘시에이트(주)입사 <br/>
-			2017.02	한성대 컴퓨터공학부 졸업  <br/>
+			<h1 class="ml6">
+				<span class="text-wrapper">
+			    <span class="letters">Who am I?</span>
+			  	</span>
+			</h1>
+			<script>
+				(function(){
+					$('.ml6 .letters').each(function(){
+					  $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
+					});
+
+					anime.timeline({loop: true})
+					  .add({
+					    targets: '.ml6 .letter',
+					    translateY: ["1.1em", 0],
+					    translateZ: 0,
+					    duration: 1000,
+					    delay: function(el, i) {
+					      return 50 * i;
+					    }
+					  }).add({
+					    targets: '.ml6',
+					    opacity: 0,
+					    duration: 1000,
+					    easing: "easeOutExpo",
+					    delay: 1000
+					  });
+				})();
+			</script>
 		</div>
 	</div>
 	<!--  -->
 	
-	<div class="main display-none">
+	<div class="main">
 		<div class="main-introduce">
 			<div class="me-icon">
 			</div>
