@@ -77,7 +77,7 @@
 			</div>
 
 			<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="5px">
-				<path class="path" fill="none" stroke="#999" d="M0 0 L1000 0" />
+				<path class="path" fill="none" stroke="#999" d="M0 0 L2000 0" />
 	   		</svg>
 
 			<div class="item-content">${item.content}</div>

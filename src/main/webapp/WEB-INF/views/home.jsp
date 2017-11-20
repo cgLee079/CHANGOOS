@@ -85,7 +85,6 @@
 .item{
 	flex : 1 33%;
 	height : 300px;
-	margin : 1px;
 	position: relative;
 	cursor: pointer;
 }
