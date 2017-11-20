@@ -26,6 +26,10 @@
 	margin: 0px auto;
 }
 
+.main{
+
+}
+
 .main-introduce{
 	max-width: 700px;
 	margin : 0px auto;
@@ -129,6 +133,14 @@
 
 
 @media (max-width: 1000px){
+	.main-introduce{
+		margin-top: 400px;
+	}
+	
+	.main-items-title{
+		margin-top: 500px;
+	}
+	
 	.item{
 		flex : 1 100%;
 	}
@@ -156,7 +168,9 @@ function itemView(seq){
 }
 
 function scrollToItems(){
-	$("html, body").animate({ scrollTop: "700px" });
+	var top = $(".main-items-title").offset().top;
+	console.log(top);
+	$("html, body").animate({ scrollTop: top });
 }
 
 </script>
