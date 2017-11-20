@@ -43,7 +43,14 @@ public class HomeController {
 	public String item(Model model) {
 		List<Item> items = itemService.list();
 		model.addAttribute("items", items);
-		return "item";
+		return "item_list";
+	}
+	
+	@RequestMapping(value = "/item/view")
+	public String itemView(Model model, int seq){
+		Item item = itemService.get(seq);
+		model.addAttribute("item", item);
+		return "item_view";
 	}
 	
 	@RequestMapping(value = "/item/delete")
@@ -54,14 +61,14 @@ public class HomeController {
 	
 	@RequestMapping(value = "/item/upload", params = "!seq")
 	public String itemUpload() {
-		return "itemUpload";
+		return "item_upload";
 	}
 	
 	@RequestMapping(value = "/item/upload", params = "seq")
 	public String itemModify(Model model, int seq) {
 		Item item = itemService.get(seq);
 		model.addAttribute("item", item);
-		return "itemUpload";
+		return "item_upload";
 	}
 	
 	@RequestMapping(value = "/item/upload.do", method = RequestMethod.POST, params = "!seq")
@@ -130,7 +137,7 @@ public class HomeController {
 		model.addAttribute("path", request.getContextPath() + imgPath + filename);
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
 		
-		return "item.imgupload";
+		return "item_imgupload";
 	}
 
 }

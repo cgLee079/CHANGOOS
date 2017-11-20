@@ -90,7 +90,7 @@
 				
 				<h5>snapshot</h5>
 				<input type="file" id="snapshtFile" name="snapshtFile"/>
-				
+
 				<hr>
 				<input type="submit" class="submit">
 				
