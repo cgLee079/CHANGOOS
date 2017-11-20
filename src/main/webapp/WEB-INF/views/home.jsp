@@ -21,15 +21,9 @@
 }
 </style>
 <style>
-.header{
-}
-
 .wrapper{
 	width: 80%;
 	margin: 0px auto;
-}
-
-.main{
 }
 
 .main-introduce{
@@ -73,12 +67,19 @@
 }
 
 
+.main-items-title {
+	margin-top: 200px;
+}
+
+.main-items-title h1{
+	font-size: 50px;
+}
 
 .main-items{
-	margin-top: 200px;
 	display: flex;
 	flex-flow: row wrap;
 	align-items: flex-start;
+	z-index: -10;
 }   
 
 .item{
@@ -156,6 +157,10 @@ function itemView(seq){
 	window.location.href = contextPath + "/item/view?seq=" + seq;		
 }
 
+function scrollToItems(){
+	scroll(0, 700);
+}
+
 </script>
 </head>
 <body>
@@ -200,16 +205,18 @@ function itemView(seq){
 				  });
 			})();
 			</script>
-			<a>
-				Hello! Thank you for visiting my portfolio site. <br>
-				I specialized computer engineering at Hansung University  <br>
-				and interested in Android App, Spring framework. <br>
- 				<br>
-				below  <br>
-
-			</a>
+			
+			Hello! Thank you for visiting my portfolio site. <br/>
+			I specialized Computer Engineering at Hansung University.<br/>
+			and interested in Android, Web development. <br/>
+			If you want to see my projects, show below.<br/>
+			<br/>
+			<a href="#items" onclick="scrollToItems()">going on</a>
 		</div>
 		
+		<div class="main-items-title">
+			<h1>Projects</h1>
+		</div>
 		<div class="main-items">
 			<c:forEach var="item" items="${items}">
 				<div onclick="itemView(${item.seq})" class="item">

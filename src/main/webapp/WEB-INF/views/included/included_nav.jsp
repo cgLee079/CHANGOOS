@@ -4,7 +4,6 @@
 	left: 2%;
 	right: 2%;
 	top : 20px;
-	bottom : 20px;
 	display: flex;
 	justify-content : space-between;
 }

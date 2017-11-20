@@ -32,7 +32,7 @@
 .item-hits{
 	position: absolute;
 	bottom: 0px;
-	right : 100px;
+	right : 120px;
 	color: #888;
 	font-size: 12px;
 }
