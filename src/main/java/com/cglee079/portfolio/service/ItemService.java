@@ -22,8 +22,20 @@ public class ItemService {
 	}
 
 	public boolean insert(Item item) {
+		if(item.getDirtURL() != null){
+			item.setDirt(true);
+		}
+		
 		item.setHits(0);
 		item.setWrDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		return itemDao.insert(item);
+	}
+
+	public boolean delete(int seq) {
+		return itemDao.delete(seq);
+	}
+	
+	public Item get(int seq){
+		return itemDao.get(seq);
 	}
 }

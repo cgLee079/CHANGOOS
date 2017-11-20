@@ -39,29 +39,44 @@ public class HomeController {
 		return "home";
 	}
 
+	@RequestMapping(value = "/item")
+	public String item(Model model) {
+		List<Item> items = itemService.list();
+		model.addAttribute("items", items);
+		return "item";
+	}
+	
+	@RequestMapping(value = "/item/delete")
+	public String itemDelete(int seq) {
+		boolean result = itemService.delete(seq);
+		return "redirect:" + "/item";
+	}
+	
 	@RequestMapping(value = "/item/upload")
 	public String itemUpload() {
 		return "itemUpload";
 	}
 	
 	@RequestMapping(value = "/item/upload.do", method = RequestMethod.POST)
-	public void itemUpload(HttpServletRequest request, Item item, MultipartFile snapshtFile) throws IllegalStateException, IOException {
+	public String itemUpload(HttpServletRequest request, Item item, MultipartFile snapshtFile) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
 		String imgPath	= "/resources/image/snapshot/";
 		String filename	= "snapshot_" + item.getName() + "_";
 		
-		if(snapshtFile != null){
+		if(snapshtFile.getSize() != 0){
 			filename += snapshtFile.getOriginalFilename();
 			File file = new File(rootPath + imgPath + filename);
 			snapshtFile.transferTo(file);
 			
-			item.setSnapsht(request.getContextPath() + imgPath + filename);
+			item.setSnapsht(imgPath + filename);
 		} else{
-			item.setSnapsht(request.getContextPath() + imgPath + "default.jpg");
+			item.setSnapsht(imgPath + "default.jpg");
 		}
 		
 		itemService.insert(item);
+		
+		return "redirect:" + "/item";
 		
 	}
 

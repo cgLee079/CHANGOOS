@@ -1,5 +1,6 @@
 package com.cglee079.portfolio.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -18,8 +19,16 @@ public class ItemDao {
 	public List<Item> list(){
 		return sqlSession.selectList(namespace + ".list");
 	}
-
+	
+	public Item get(int seq) {
+		return sqlSession.selectOne(namespace + ".get", seq);
+	}
+	
 	public boolean insert(Item item) {
 		return sqlSession.insert(namespace + ".insert", item) == 1;
+	}
+
+	public boolean delete(int seq) {
+		return sqlSession.delete(namespace + ".delete", seq) == 1;
 	}
 }

@@ -7,26 +7,25 @@ public class Item {
 	private String content;
 	private String snapsht;
 	private String wrDate;
+	private String dirtURL;
+	private boolean dirt; 
 	private int hits;
 
 	public Item() {
 	}
-
-	public Item(int seq, String name, String desc, String content, String snapsht, String wrDate, int hits) {
+	
+	public Item(int seq, String name, String desc, String content, String snapsht, String wrDate, String dirtURL,
+			boolean dirt, int hits) {
+		super();
 		this.seq = seq;
 		this.name = name;
 		this.desc = desc;
 		this.content = content;
 		this.snapsht = snapsht;
 		this.wrDate = wrDate;
+		this.dirtURL = dirtURL;
+		this.dirt = dirt;
 		this.hits = hits;
-	}
-
-	
-	@Override
-	public String toString() {
-		return "Item [seq=" + seq + ", name=" + name + ", desc=" + desc + ", content=" + content + ", snapsht="
-				+ snapsht + ", wrDate=" + wrDate + ", hits=" + hits + "]";
 	}
 
 	public int getSeq() {
@@ -77,6 +76,22 @@ public class Item {
 		this.wrDate = wrDate;
 	}
 
+	public String getDirtURL() {
+		return dirtURL;
+	}
+
+	public void setDirtURL(String dirtURL) {
+		this.dirtURL = dirtURL;
+	}
+
+	public boolean isDirt() {
+		return dirt;
+	}
+
+	public void setDirt(boolean dirt) {
+		this.dirt = dirt;
+	}
+
 	public int getHits() {
 		return hits;
 	}
@@ -85,4 +100,5 @@ public class Item {
 		this.hits = hits;
 	}
 
+	
 }

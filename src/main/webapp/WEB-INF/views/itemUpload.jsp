@@ -29,6 +29,10 @@
 	width: 100%;
 }
 
+.item-dirtURL{
+	width: 100%;
+}
+
 .submit{
 	width: 100%;
 }
@@ -47,6 +51,9 @@
 				
 				<h5>desc</h5>
 				<textarea name="desc" class="item-desc"></textarea>
+				
+				<h5>dirtURL</h5>
+				<input type="text" name="dirtURL" class="item-dirtURL"/>
 				
 				<h5>contents</h5>
 				<textarea name="content" id='ckeditor'></textarea>

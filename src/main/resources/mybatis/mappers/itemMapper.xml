@@ -11,12 +11,36 @@
 		ITM_CONTENT as "content",
 		ITM_SNAPSHT as "snapsht",
 		ITM_WRDATE as "wrDate",
+		ITM_DIRTURL as "dirtURL",
+		ITM_ISDIRT as "dirt",
 		ITM_HITS as "hit"
 		FROM TB_PTFOLIO_ITEMS
 	</select>
 	
+	<select id="get" resultType="com.cglee079.portfolio.model.Item" parameterType="Integer">
+		SELECT
+		ITM_SEQ as "seq",
+		ITM_NAME as "name",
+		ITM_DESC as "desc",
+		ITM_CONTENT as "content",
+		ITM_SNAPSHT as "snapsht",
+		ITM_WRDATE as "wrDate",
+		ITM_DIRTURL as "dirtURL",
+		ITM_ISDIRT as "dirt",
+		ITM_HITS as "hit"
+		FROM TB_PTFOLIO_ITEMS
+		WHERE ITM_SEQ = #{seq}
+	</select>
+	
+	<delete id="delete">
+		DELETE FROM TB_PTFOLIO_ITEMS
+		WHERE ITM_SEQ = #{seq}
+	</delete>
+	
 	<insert id="insert">
-		INSERT TB_PTFOLIO_ITEMS (ITM_NAME, ITM_DESC, ITM_CONTENT, ITM_SNAPSHT, ITM_WRDATE, ITM_HITS)
-		VALUES (#{name}, #{desc}, #{content}, #{snapsht}, #{wrDate}, #{hits})
+		INSERT TB_PTFOLIO_ITEMS (ITM_NAME, ITM_DESC, ITM_CONTENT, ITM_SNAPSHT, ITM_WRDATE, ITM_DIRTURL, ITM_ISDIRT, ITM_HITS)
+		VALUES (#{name}, #{desc}, #{content}, #{snapsht}, #{wrDate}, #{dirtURL}, #{dirt}, #{hits})
 	</insert>
+	
+	
 </mapper>
