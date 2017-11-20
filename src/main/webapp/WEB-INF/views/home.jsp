@@ -79,7 +79,6 @@
 	display: flex;
 	flex-flow: row wrap;
 	align-items: flex-start;
-	z-index: -10;
 }   
 
 .item{
@@ -163,14 +162,72 @@ function scrollToItems(){
 </script>
 </head>
 <body>
-<div class="wrapper">
-	<div class="header">
-	</div>
+
 	
+<div class="wrapper">
 	<c:import url="included/included_nav.jsp" charEncoding="UTF-8">
 	</c:import>
 
-	<div class="main">
+	<!--  -->
+	<style>
+		.wrap-my-info{
+			position: fixed;
+			top: 0px;
+			bottom: 0px;
+			right : 0px;
+			left : 0px;
+		}
+		
+		.bg-cover{
+			position : absolute;
+			width : 100%;
+			height: 100%;
+			z-index: 20;
+			background: rgba(0, 0, 0, 0.5);
+		}
+		
+		.bg-my-info{
+			display: flex;
+			flex-flow: column wrap;
+		}
+		
+		.bg{
+			flex : 1 33%;
+			z-index: 10;
+			background-position	: center;
+   	 		background-repeat	: no-repeat;
+   			background-size		: cover;
+		}
+		
+		.bg-01{background-image: url('${pageContext.request.contextPath}/resources/image/bg_sample1.jpg')}
+		.bg-02{background-image: url('${pageContext.request.contextPath}/resources/image/bg_sample2.jpg')}
+		.bg-03{background-image: url('${pageContext.request.contextPath}/resources/image/bg_sample3.jpg')}
+		
+		.my-info{
+			position : absolute;
+			top : 50%;
+			z-index : 30;
+			color: #FFF;
+			left : 50%;
+		}
+	</style>
+	<div class="wrap-my-info">
+		<div class="bg-cover"></div>
+		<div class="bg-my-info">
+			<div class="bg bg-01"></div>
+			<div class="bg bg-02"></div>
+			<div class="bg bg-03"></div>
+		</div>
+		<div class="my-info">
+			<br/>
+			2011.03	한성대 멀티미디어공학과 입학 <br/>
+			2016.07	넥스젠어쏘시에이트(주)입사 <br/>
+			2017.02	한성대 컴퓨터공학부 졸업  <br/>
+		</div>
+	</div>
+	<!--  -->
+	
+	<div class="main display-none">
 		<div class="main-introduce">
 			<div class="me-icon">
 			</div>
