@@ -156,7 +156,7 @@ function itemView(seq){
 }
 
 function scrollToItems(){
-	scroll(0, 700);
+	$("html, body").animate({ scrollTop: "700px" });
 }
 
 </script>
@@ -173,22 +173,21 @@ function scrollToItems(){
 		.wrap-my-info{
 			position: fixed;
 			top: 0px;
-			bottom: 0px;
 			right : 0px;
 			left : 0px;
 		}
 		
 		.slider {
 			overflow-y: hidden;
-			bottom : 0;
+			bottom : 0; /* approximate max height */
 		
 			transition-property: all;
-			transition-duration: 1s;
+			transition-duration: .5s;
 			transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 		}
 		
 		.slider.closed {
-			bottom : 100%;
+			bottom : 100%; 
 		}
 
 		.bg-cover{
