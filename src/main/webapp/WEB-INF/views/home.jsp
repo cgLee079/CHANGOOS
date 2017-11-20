@@ -198,7 +198,7 @@ a, a:VISITED{
 	display: flex;
 	flex-flow: row wrap;
 	align-items: flex-start;
-} 
+}   
 
 .item{
 	flex : 1 33%;
@@ -228,6 +228,9 @@ a, a:VISITED{
 .item-desc a{
 	position: absolute;
 	bottom: 0px;
+	left : 0px;
+	right : 0px;
+	word-break : break-all;
 	padding : 20px;
 	background: rgba(0, 0, 0, 1);
 	color: #EEE;
@@ -418,7 +421,7 @@ $(document).ready(function(){
 		<div class="main-items">
 			<c:forEach var="item" items="${items}">
 				<div class="item">
-					<div class="item-bg" style="background-image: url('${item.snapsht}')"></div>
+					<div class="item-bg" style="background-image: url('${pageContext.request.contextPath}${item.snapsht}')"></div>
 					<div class="item-desc">
 					
 					<a>

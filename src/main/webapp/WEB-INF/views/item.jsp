@@ -35,9 +35,10 @@
 	}
 	
 	.item-list tr td{
-		min-width : 100px;
+		min-width : 50px;
 		padding-left : 10px;
 		border : 1px solid #DDD;
+		word-break : break-all;
 	}
 </style>
 
