@@ -31,6 +31,16 @@ public class ItemService {
 		return itemDao.insert(item);
 	}
 
+	public boolean update(Item item) {
+		if(item.getDirtURL() != null){
+			item.setDirt(true);
+		}
+		item.setHits(0);
+		item.setWrDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		
+		return itemDao.update(item);
+	}
+	
 	public boolean delete(int seq) {
 		return itemDao.delete(seq);
 	}
@@ -38,4 +48,5 @@ public class ItemService {
 	public Item get(int seq){
 		return itemDao.get(seq);
 	}
+
 }

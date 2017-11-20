@@ -47,9 +47,11 @@
 	ITM_CONTENT varchar(5000),
 	ITM_SNAPSHT varchar(200),
 	ITM_WRDATE date,
+	ITM_ISDIRT boolean,
+	ITM_DIRTURL varchar(200),
 	ITM_HITS	int,
 	constraint pk_ptfolio_items primary key(ITM_SEQ)
-	)
+	
 	)
 	 -->
 	

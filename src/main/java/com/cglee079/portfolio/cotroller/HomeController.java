@@ -52,13 +52,20 @@ public class HomeController {
 		return "redirect:" + "/item";
 	}
 	
-	@RequestMapping(value = "/item/upload")
+	@RequestMapping(value = "/item/upload", params = "!seq")
 	public String itemUpload() {
 		return "itemUpload";
 	}
 	
-	@RequestMapping(value = "/item/upload.do", method = RequestMethod.POST)
-	public String itemUpload(HttpServletRequest request, Item item, MultipartFile snapshtFile) throws IllegalStateException, IOException {
+	@RequestMapping(value = "/item/upload", params = "seq")
+	public String itemModify(Model model, int seq) {
+		Item item = itemService.get(seq);
+		model.addAttribute("item", item);
+		return "itemUpload";
+	}
+	
+	@RequestMapping(value = "/item/upload.do", method = RequestMethod.POST, params = "!seq")
+	public String itemDoUpload(HttpServletRequest request, Item item, MultipartFile snapshtFile) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
 		String imgPath	= "/resources/image/snapshot/";
@@ -77,9 +84,35 @@ public class HomeController {
 		itemService.insert(item);
 		
 		return "redirect:" + "/item";
-		
 	}
-
+	
+	@RequestMapping(value = "/item/upload.do", method = RequestMethod.POST, params = "seq")
+	public String itemDoModify(HttpServletRequest request, Item item, MultipartFile snapshtFile) throws IllegalStateException, IOException{
+		System.out.println("itemDoModify");
+		
+		HttpSession session = request.getSession();
+		String rootPath = session.getServletContext().getRealPath("");
+		String imgPath	= "/resources/image/snapshot/";
+		String filename	= "snapshot_" + item.getName() + "_";
+		
+		if(snapshtFile.getSize() != 0){
+			File existFile = new File (rootPath + item.getSnapsht());
+			if(existFile.exists()){
+				existFile.delete();
+			}
+			
+			filename += snapshtFile.getOriginalFilename();
+			File file = new File(rootPath + imgPath + filename);
+			snapshtFile.transferTo(file);
+			
+			item.setSnapsht(imgPath + filename);
+		} 
+		
+		itemService.update(item);
+		
+		return "redirect:" + "/item";
+	}
+	
 	@RequestMapping(value = "/item/imgUpload.do", method = RequestMethod.POST)
 	public String itemImgUpload(HttpServletRequest request, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {

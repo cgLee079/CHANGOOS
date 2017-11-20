@@ -42,5 +42,19 @@
 		VALUES (#{name}, #{desc}, #{content}, #{snapsht}, #{wrDate}, #{dirtURL}, #{dirt}, #{hits})
 	</insert>
 	
+	<update id="update">
+		UPDATE TB_PTFOLIO_ITEMS
+		SET 
+		ITM_NAME = #{name},
+		ITM_DESC = #{desc},
+		ITM_CONTENT = #{content},
+		ITM_SNAPSHT = #{snapsht},
+		ITM_WRDATE = #{wrDate},
+		ITM_DIRTURL = #{dirtURL},
+		ITM_ISDIRT = #{dirt},
+		ITM_HITS = #{hits}
+		WHERE ITM_SEQ = ${seq}
+	</update>
+	
 	
 </mapper>

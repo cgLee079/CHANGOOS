@@ -31,4 +31,8 @@ public class ItemDao {
 	public boolean delete(int seq) {
 		return sqlSession.delete(namespace + ".delete", seq) == 1;
 	}
+
+	public boolean update(Item item) {
+		return sqlSession.update(namespace + ".update", item) == 1;
+	}
 }

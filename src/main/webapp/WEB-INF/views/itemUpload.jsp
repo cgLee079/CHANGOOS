@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
@@ -5,7 +6,6 @@
 <title>Insert title here</title>
 <script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
-
 <style>
 
 .header{
@@ -37,6 +37,20 @@
 	width: 100%;
 }
 </style>
+
+<c:if test="${!empty item}">
+	<script>
+		$(document).ready(function(){
+			$("#name").val("${item.name}");
+			$("#desc").val("${item.desc}");
+			$("#dirtURL").val("${item.dirtURL}");
+			$("#content").val("${item.content}");
+			$("<input>", { type : "hidden", name : "seq", value: "${item.seq}"}).appendTo($("#upload-form"));
+			$("<input>", { type : "hidden", name : "snapsht", value: "${item.snapsht}"}).appendTo($("#upload-form"));
+		});
+	</script>
+</c:if>
+
 </head>
 <body>
 	<div class="header">
@@ -47,18 +61,18 @@
 			<form id="upload-form" action="${pageContext.request.contextPath}/item/upload.do" 
 				method="post"  enctype="multipart/form-data">
 				<h5>name</h5>
-				<input type='text' name='name' class="item-name"/>
+				<input type='text' id="name" name='name' class="item-name"/>
 				
 				<h5>desc</h5>
-				<textarea name="desc" class="item-desc"></textarea>
+				<textarea id="desc" name="desc" class="item-desc"></textarea>
 				
 				<h5>dirtURL</h5>
-				<input type="text" name="dirtURL" class="item-dirtURL"/>
+				<input type="text" id="dirtURL" name="dirtURL" class="item-dirtURL"/>
 				
 				<h5>contents</h5>
-				<textarea name="content" id='ckeditor'></textarea>
+				<textarea name="content" id="content"></textarea>
 				<script>
-					var editor = CKEDITOR.replace('ckeditor', {
+					var editor = CKEDITOR.replace("content", {
 						filebrowserUploadUrl : '<%=request.getContextPath()%>' + "/item/imgUpload.do"
 					});
 
@@ -75,7 +89,7 @@
 				</script>
 				
 				<h5>snapshot</h5>
-				<input type="file" name="snapshtFile"/>
+				<input type="file" id="snapshtFile" name="snapshtFile"/>
 				
 				<hr>
 				<input type="submit" class="submit">

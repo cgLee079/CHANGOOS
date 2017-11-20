@@ -31,14 +31,14 @@
 	
 	.item-list tr:FIRST-CHILD{
 		background : #EEE;
-		text-align : center;
 	}
 	
 	.item-list tr td{
 		min-width : 50px;
-		padding-left : 10px;
+		padding : 2px;
 		border : 1px solid #DDD;
 		word-break : break-all;
+		text-align : center;
 	}
 </style>
 
@@ -46,6 +46,11 @@
 	function itemDelete(seq){
 		var contextPath = "${pageContext.request.contextPath}";
 		window.location.href = contextPath + "/item/delete?seq=" + seq;		
+	}
+	
+	function itemModify(seq){
+		var contextPath = "${pageContext.request.contextPath}";
+		window.location.href = contextPath + "/item/upload?seq=" + seq;		
 	}
 </script>
 </head>
@@ -72,6 +77,7 @@
 			<td> dirt </td>
 			<td> dirtURL </td>
 			<td> Hits </td>
+			<td> Modify</td>
 			<td> Delete</td>
 			</tr>
 				
@@ -85,6 +91,7 @@
 				<td> ${item.dirtURL} </td>
 				<td> ${item.dirt} </td>
 				<td> ${item.hits} </td>
+				<td> <a href="javascript:void(0)" onclick="itemModify('${item.seq}')">수정</a> </td>
 				<td> <a href="javascript:void(0)" onclick="itemDelete('${item.seq}')">삭제</a> </td>
 				</tr>
 			</c:forEach>
