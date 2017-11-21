@@ -114,6 +114,10 @@
 	margin-right: 10px;
 }
 
+.menu.myinfo-icon{
+	margin-right: 10px;
+}
+
 .wrap-myinfo {
 	background: rgba(255, 255, 255, 1);
 	overflow : hidden;
@@ -124,6 +128,8 @@
 	right : 0;
 	z-index: -1;
 }
+
+
 
 .slider {
 	overflow-y: hidden;
@@ -189,6 +195,7 @@
 	background : #000;
 }
 
+
 @media (max-width: 800px){
 	/*
 	.nav-icon{
@@ -243,7 +250,9 @@ function openMyInfo(){
 	
 	views.css({left : "-100%"});
 	views.eq(0).css({left : "0"});
-
+	btns.removeClass("on");
+	btns.eq(0).addClass("on");
+	
 	btns.on("click", function(){
 		var tg = $(this);
 		var index = tg.index();
@@ -276,7 +285,7 @@ function openMyInfo(){
 			}
 			
 			btns.eq(n).trigger("click");
-		}, 7000);
+		}, 3000);
 	}
 }
 
@@ -309,6 +318,14 @@ function closeMyInfo(){
 	</script>
 	 -->
 	<div class="main-menus">
+		<span class="menu git-icon"> 
+			<a href="${pageContext.request.contextPath}"> 
+				<img src="${pageContext.request.contextPath}/resources/image/icon_home.png" />
+			</a>
+		</span> 
+	</div>
+
+	<div class="sub-menus">
 		<span class="menu myinfo-icon">
 			<a> 
 				<img src="${pageContext.request.contextPath}/resources/image/icon_myinfo.png" />
@@ -329,9 +346,7 @@ function closeMyInfo(){
 				});
 			})();
 		</script>
-	</div>
-
-	<div class="sub-menus">
+		
 		<span class="menu git-icon"> 
 			<a target="_blank" href="https://github.com/cgLee079"> 
 				<img src="${pageContext.request.contextPath}/resources/image/icon_github.png" />
