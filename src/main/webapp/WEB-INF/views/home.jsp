@@ -46,7 +46,6 @@
 	background-position	: center;
     background-repeat	: no-repeat;
     background-size		: contain;
-    
 }
 
 .ml9 {
@@ -132,7 +131,7 @@
 }
 
 
-@media (max-width: 1000px){
+@media (max-width: 800px){
 	.main-introduce{
 		margin-top: 400px;
 	}
@@ -181,123 +180,10 @@ function scrollToItems(){
 <div class="wrapper">
 	<c:import url="included/included_nav.jsp" charEncoding="UTF-8">
 	</c:import>
-
-	<!--  -->
-	<style>
-		.wrap-my-info{
-			position: fixed;
-			top: 0px;
-			right : 0px;
-			left : 0px;
-		}
-		
-		.slider {
-			overflow-y: hidden;
-			bottom : 0; /* approximate max height */
-		
-			transition-property: all;
-			transition-duration: .5s;
-			transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-		}
-		
-		.slider.closed {
-			bottom : 100%; 
-		}
-
-		.bg-cover{
-			position : absolute;
-			width : 100%;
-			height: 100%;
-			z-index: 20;
-			background: rgba(0, 0, 0, 1);
-		}
-		
-		.bg-my-info{
-			display: flex;
-			flex-flow: column wrap;
-		}
-		
-		.bg{
-			flex : 1 33%;
-			z-index: 10;
-			background-position	: center;
-   	 		background-repeat	: no-repeat;
-   			background-size		: cover;
-		}
-		
-		.bg-01{background-image: url('${pageContext.request.contextPath}/resources/image/bg_sample1.jpg')}
-		.bg-02{background-image: url('${pageContext.request.contextPath}/resources/image/bg_sample2.jpg')}
-		.bg-03{background-image: url('${pageContext.request.contextPath}/resources/image/bg_sample3.jpg')}
-		
-		.my-info{
-			position : absolute;
-			top : 50%;
-			z-index : 30;
-			color: #FFF;
-			left : 50%;
-		}
-		
-		.ml6 {
-		  position: relative;
-		  font-weight: 900;
-		  font-size: 3.3em;
-		}
-		
-		.ml6 .text-wrapper {
-		  position: relative;
-		  display: inline-block;
-		  padding-top: 0.2em;
-		  padding-right: 0.05em;
-		  padding-bottom: 0.1em;
-		  overflow: hidden;
-		}
-		
-		.ml6 .letter {
-		  display: inline-block;
-		  line-height: 1em;
-		}
-	</style>
-	<div class="wrap-my-info slider closed">
-		<div class="bg-cover"></div>
-		<div class="bg-my-info">
-			<div class="bg bg-01"></div>
-			<div class="bg bg-02"></div>
-			<div class="bg bg-03"></div>
-		</div>
-		<div class="my-info">
-			<h1 class="ml6">
-				<span class="text-wrapper">
-			    <span class="letters">Who am I?</span>
-			  	</span>
-			</h1>
-			<script>
-				(function(){
-					$('.ml6 .letters').each(function(){
-					  $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-					});
-
-					anime.timeline({loop: true})
-					  .add({
-					    targets: '.ml6 .letter',
-					    translateY: ["1.1em", 0],
-					    translateZ: 0,
-					    duration: 1000,
-					    delay: function(el, i) {
-					      return 50 * i;
-					    }
-					  }).add({
-					    targets: '.ml6',
-					    opacity: 0,
-					    duration: 1000,
-					    easing: "easeOutExpo",
-					    delay: 1000
-					  });
-				})();
-			</script>
-		</div>
-	</div>
-	<!--  -->
 	
+	<c:import url="home_myinfo.jsp" charEncoding="UTF-8">
+	</c:import>
+
 	<div class="main">
 		<div class="main-introduce">
 			<div class="me-icon">

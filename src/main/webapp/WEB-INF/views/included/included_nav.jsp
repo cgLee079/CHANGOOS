@@ -155,20 +155,16 @@
 		$('.nav-icon').click(function(){
 			$(this).toggleClass("open");
 			if($(this).hasClass("open")){
-				$(".wrap-my-info").removeClass("closed");
+				$(".wrap-myinfo").removeClass("closed");
 				$(".main").addClass("display-none");
 			} else{
-				$(".wrap-my-info").addClass("closed");
+				$(".wrap-myinfo").addClass("closed");
 				$(".main").removeClass("display-none");
 			}
 		});
 		
 		$('.nav-icon').hover(function(){
-			if($(this).hasClass("open")){
-				$(this).find('span').css("background","#FFF");
-			} else{
-				$(this).find('span').css("background","#000");
-			}
+			$(this).find('span').css("background","#000");
 		}, function(){
 			$(this).find('span').css("background","#999");
 		});
