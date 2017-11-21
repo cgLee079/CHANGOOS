@@ -84,7 +84,6 @@
 }
 
 */
-
 .menu {
 	cursor: pointer;
 }
@@ -128,8 +127,6 @@
 	right : 0;
 	z-index: -1;
 }
-
-
 
 .slider {
 	overflow-y: hidden;

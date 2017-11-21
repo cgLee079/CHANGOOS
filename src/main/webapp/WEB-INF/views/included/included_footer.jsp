@@ -16,6 +16,9 @@
 	<path d="M0 15, L2000 15" fill="none" stroke="#555" />
  	</svg>
 
-	<div class="info-contact">cglee079@gmail.com // 010 - 2062 - 2979
+	<div class="info-contact">
+		<p># contact information #</p>
+		<p>Email : cglee079@gmail.com</p>
+		<p>Tel	 : 010 - 2062 - 2979</p>
 	</div>
 </div>
