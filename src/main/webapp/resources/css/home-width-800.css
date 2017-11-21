@@ -1,0 +1,14 @@
+@media (max-width: 800px){
+	.main-introduce{
+		margin-top: 400px;
+	}
+	
+	.main-items-title{
+		margin-top: 500px;
+	}
+	
+	.item{
+		flex : 1 100%;
+	}
+	
+}

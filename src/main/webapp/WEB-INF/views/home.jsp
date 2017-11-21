@@ -5,162 +5,15 @@
 <title>Home</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home-basic.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home-width-800.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/letter-motion.css" />
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/anime2.2.0.js"></script>
-
-<style>
-@keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-@keyframes fadeout {
-    from { opacity: 1; }
-    to   { opacity: 0; }
-}
-</style>
-<style>
-.wrapper{
-	width: 80%;
-	margin: 0px auto;
-}
-
-.main{
-
-}
-
-.main-introduce{
-	max-width: 700px;
-	margin : 0px auto;
-	margin-top: 100px; 
-	text-align: center;
-} 
-
-.me-icon{
-	width : 50%;
-	height: 300px;
-	margin: 20px auto;
-	
-	background-image	: url(resources/image/icon_me.png);
-	background-position	: center;
-    background-repeat	: no-repeat;
-    background-size		: contain;
-}
-
-.ml9 {
-  position: relative;
-  font-weight: 200;
-  font-size: 4em;
-}
-
-.ml9 .text-wrapper {
-  position: relative;
-  display: inline-block;
-  padding-top: 0.2em;
-  padding-right: 0.05em;
-  padding-bottom: 0.1em;
-  overflow: hidden;
-}
-
-.ml9 .letter {
-  transform-origin: 50% 100%;
-  display: inline-block;
-  line-height: 1em;
-}
-
-
-.main-items-title {
-	margin-top: 200px;
-}
-
-.main-items-title h1{
-	font-size: 50px;
-}
-
-.main-items{
-	display: flex;
-	flex-flow: row wrap;
-	align-items: flex-start;
-}   
-
-.item{
-	flex : 1 33%;
-	height : 300px;
-	position: relative;
-	cursor: pointer;
-}
-
-.item-desc{
-	position: relative;
-	height: 100%;
-	width : 100%;
-	opacity: 0;
-}
-
-.item-desc.fade-in{
-	animation: fadein 1s 1;
-	animation-fill-mode: forwards;
-}
-
-.item-desc.fade-out{
-	animation: fadeout 0.5s 1;
-	animation-fill-mode: forwards;
-}
-
-.item-desc a{
-	position: absolute;
-	bottom: 0px;
-	left : 0px;
-	right : 0px;
-	word-break : break-all;
-	padding : 20px;
-	background: rgba(0, 0, 0, 1);
-	color: #EEE;
-	font-size: 10px;
-}
-
-.item-bg{
-    background-size: cover;
-	position: absolute;
-	top 	: 0px;
-	bottom 	: 0px;
-	left 	: 0px;
-	right 	: 0px;
-	opacity : 0.6;
-}
-
-
-@media (max-width: 800px){
-	.main-introduce{
-		margin-top: 400px;
-	}
-	
-	.main-items-title{
-		margin-top: 500px;
-	}
-	
-	.item{
-		flex : 1 100%;
-	}
-}
-
-.display-show{
-	display: inherit;
-}
-
-.display-none{
-	display: none;
-}
-
-.footer{
-	width : 100%;
-	height: 300px;
-}
-</style>
+<script src="${pageContext.request.contextPath}/resources/js/letter-motion.js"></script>
 
 <script>
-
 function itemView(seq){
 	var contextPath = "${pageContext.request.contextPath}";
 	window.location.href = contextPath + "/item/view?seq=" + seq;		
@@ -175,18 +28,14 @@ function scrollToItems(){
 </script>
 </head>
 <body>
-
 	
 <div class="wrapper">
 	<c:import url="included/included_nav.jsp" charEncoding="UTF-8">
 	</c:import>
 	
-	<c:import url="home_myinfo.jsp" charEncoding="UTF-8">
-	</c:import>
-
 	<div class="main">
 		<div class="main-introduce">
-			<div class="me-icon">
+			<div class="me-icon" style="background-image : url(resources/image/icon_me.png);">
 			</div>
 		
 			<h1 class="ml9">
@@ -194,30 +43,6 @@ function scrollToItems(){
 			    <span class="letters">Toyo dim</span>
 			  </span>
 			</h1>
-			<script>
-			(function(){
-				$('.ml9 .letters').each(function(){
-					  $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-				});
-				
-				anime.timeline({loop: true})
-				  .add({
-				    targets: '.ml9 .letter',
-				    scale: [0, 1],
-				    duration: 1500,
-				    elasticity: 600,
-				    delay: function(el, i) {
-				      return 45 * (i+1)
-				    }
-				  }).add({
-				    targets: '.ml9',
-				    opacity: 0,
-				    duration: 1000,
-				    easing: "easeOutExpo",
-				    delay: 1000
-				  });
-			})();
-			</script>
 			
 			Hello! Thank you for visiting my portfolio site. <br/>
 			I specialized Computer Engineering at Hansung University.<br/>
@@ -270,3 +95,5 @@ function scrollToItems(){
 </div>
 </body>
 </html>
+
+

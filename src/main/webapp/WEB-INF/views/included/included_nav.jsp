@@ -1,6 +1,7 @@
 <style>
+
 .nav{
-	position: absolute;
+	position: fixed;
 	left: 2%;
 	right: 2%;
 	top : 20px;
@@ -9,7 +10,7 @@
 	justify-content : space-between;
 }
 
-/* Icon 3 */
+/*
 .nav-icon{
 	width: 20px;
 	height: 10px;
@@ -82,39 +83,114 @@
   left: 50%;
 }
 
-.sub-menus{
-}
+*/
 
-.sub-menu {
+.menu {
 	cursor: pointer;
 }
 
-.sub-menu img{
+.menu img{
 	width : 25px;
 	height: 25px;
 	opacity: 0.5;
 }
 
-.sub-menu:hover img, .sub-menu.hover img{
+.menu:hover img, .menu.hover img{
 	opacity: 1;
 }
 
-.sub-menu-tooltip{
+.menu-tooltip{
 	background: #000;
 	color : #EEE;
 	box-shadow: 0 0 0px black;
 }
 
-.sub-menu-tooltip.hover{
+.menu-tooltip.hover{
 	display: inherit;
 	animation : fadein 2s;
 }
 
-.sub-menu.git-icon{
+.menu.git-icon{
 	margin-right: 10px;
 }
 
-@media (max-width: 1000px){
+.wrap-myinfo {
+	background: rgba(255, 255, 255, 1);
+	overflow : hidden;
+	position : fixed;
+	top : 0;
+	left : 0;
+	bottom : 0;
+	right : 0;
+	z-index: -1;
+}
+
+.slider {
+	overflow-y: hidden;
+	bottom: 0; /* approximate max height */
+	transition-property: all;
+	transition-duration: 1s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.slider.closed {
+	bottom: 100%;
+}
+
+.myinfo-views{
+	position : relative;
+	margin-top: 5%;
+	width: 100%;
+	height: 500px;
+}
+
+.content-picture{
+	flex : 1 50%;
+	background-position	: center;
+    background-repeat	: no-repeat;
+    background-size		: cover;
+}
+
+.content-text{
+	flex : 1 40%;
+	padding : 30px;
+}
+
+.myinfo-view {
+	display : flex;
+	flex-flow: row wrap;
+	position: absolute;
+	width : 100%;
+	height: 100%;
+}
+
+.myinfo-view00 {left: 0%; background: #FFF;}
+.myinfo-view01 {left: 100%; background: #333;}
+.myinfo-view02 {left: 100%; background: #666;}
+.myinfo-view03 {left: 100%; background: #999;}
+
+.btns-view{
+	width : 100%;
+	text-align: center;
+	margin-top : 30px;
+}
+
+.btn-view{
+	display : inline-block;
+	width : 20px;
+	height: 20px;
+	border-radius : 10px;
+	background : #888;
+	margin : 20px 10px 0px 10px;
+	cursor : pointer;
+}
+
+.btn-view.on{
+	background : #000;
+}
+
+@media (max-width: 800px){
+	/*
 	.nav-icon{
 		width: 30px;
 		height: 30px;
@@ -136,31 +212,91 @@
 	.nav-icon span:nth-child(4) {
 	  top: 20px;
 	}
-	
-	.sub-menu img{
+	*/
+	.menu img{
 		width : 40px;
 		height: 40px;
 	}
+	
+	.myinfo-views{
+		margin-top: 20%;
+		height: 1000px;
+	}
+	
+	.myinfo-view{
+		flex-flow: column wrap;
+	}
+	
+	.btns-view{
+		margin-top : 100px;
+	}
 }
 
-
 </style>
-<div class="nav">
+<script>
+var setIntervalId;
+function openMyInfo(){
+	var wrap	= $(".myinfo-views");
+	var views	= $(".myinfo-views > .myinfo-view");
+	var btns 	= $(".btns-view > .btn-view");
+	var current = 0 ;
+	
+	views.css({left : "-100%"});
+	views.eq(0).css({left : "0"});
 
+	btns.on("click", function(){
+		var tg = $(this);
+		var index = tg.index();
+		
+		btns.removeClass("on");
+		tg.addClass("on");
+		
+		move(index);
+	});
+	
+	wrap.on("mouseover", function(){clearInterval(setIntervalId);});
+	wrap.on("mouseout", function(){timer();});
+
+	function move(index){
+		var currentEl =  views.eq(current);
+		var nextEl = views.eq(index);
+		
+		currentEl.css({left : "0"}).stop().animate({left : "-100%"});
+		nextEl.css({left : "100%"}).stop().animate({left : "0%"});
+		
+		current = index;
+	}
+	
+	timer();
+	function timer(){
+		setIntervalId = setInterval(function(){
+			var n = current + 1;
+			if(n === views.length){
+				n = 0;
+			}
+			
+			btns.eq(n).trigger("click");
+		}, 7000);
+	}
+}
+
+function closeMyInfo(){
+	clearInterval(setIntervalId);
+}
+</script>
+<div class="nav">
+	
+	<!--
 	<div class="nav-icon">
-		<span></span> <span></span> <span></span> <span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
 	</div>
 	<script>
 	(function(){
 		$('.nav-icon').click(function(){
 			$(this).toggleClass("open");
-			if($(this).hasClass("open")){
-				$(".wrap-myinfo").removeClass("closed");
-				$(".main").addClass("display-none");
-			} else{
-				$(".wrap-myinfo").addClass("closed");
-				$(".main").removeClass("display-none");
-			}
 		});
 		
 		$('.nav-icon').hover(function(){
@@ -171,50 +307,83 @@
 		
 	})();
 	</script>
-	
+	 -->
+	<div class="main-menus">
+		<span class="menu myinfo-icon">
+			<a> 
+				<img src="${pageContext.request.contextPath}/resources/image/icon_myinfo.png" />
+			</a>
+		</span> 
+		<script>
+			(function(){
+				$(".myinfo-icon").on("click", function(){
+					var tg = $(this);
+					tg.toggleClass("open");
+					if(tg.hasClass("open")){
+						$(".wrap-myinfo").removeClass("closed");
+						openMyInfo();
+					} else{
+						$(".wrap-myinfo").addClass("closed");
+						closeMyInfo();
+					}
+				});
+			})();
+		</script>
+	</div>
 
 	<div class="sub-menus">
-		<span class="sub-menu git-icon"> <a target="_blank"
-			href="https://github.com/cgLee079"> <img
-				src="${pageContext.request.contextPath}/resources/image/icon_github.png" />
-		</a>
-		</span> <span class="sub-menu insta-icon"> <a target="_blank"
-			href="https://www.instagram.com/cglee079"> <img
-				src="${pageContext.request.contextPath}/resources/image/icon_insta.png" />
-		</a>
+		<span class="menu git-icon"> 
+			<a target="_blank" href="https://github.com/cgLee079"> 
+				<img src="${pageContext.request.contextPath}/resources/image/icon_github.png" />
+			</a>
+		</span> 
+		
+		<span class="menu insta-icon">
+			<a target="_blank" href="https://www.instagram.com/cglee079"> 
+				<img src="${pageContext.request.contextPath}/resources/image/icon_insta.png" />
+			</a>
 		</span>
 	</div>
 	<script>
 		(function(){
-			var subMenus = $(".sub-menu");
-			
-			subMenus.bind("touchstart", function(){
-				$(this).addClass("hover");
-			});
-			
-			subMenus.bind("touchend", function(){
-				$(this).removeClass("hover");
-			});
+			var subMenus = $(".sub-menus .menu");
 			
 			subMenus.each(function(){
 				var tg 		= $(this);
 				var title 	= tg.find("a").attr("href");
 				var option	= {
-					tooltipClass: "sub-menu-tooltip",
+					tooltipClass: "menu-tooltip",
 			       	show	: "fadeIn",
 				};
-				tg.attr("title", title);
 				
+				tg.attr("title", title);
 				tg.tooltip(option);
-				tg.bind("tocuchstart", function(){
-					$(this).tooltip(option);
-					$(this).tooltip("open");
-				});
-				tg.bind("touchend", function(){
-					$(this).tooltip("close");
-				})
 			});
 		})();
-	
 	</script>
+	
+	<div class="wrap-myinfo slider closed">
+		<div class="myinfo-views">
+			<div class="myinfo-view myinfo-view00">
+				<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpg)"></div>
+				<div class="content-text">
+					<h1 class="ml6">
+						<span class="text-wrapper">
+						<span class="letters">Who am I?</span>
+						</span>
+					</h1>
+				</div>
+			</div>
+			<div class="myinfo-view myinfo-view01"></div>
+			<div class="myinfo-view myinfo-view02"></div>
+			<div class="myinfo-view myinfo-view03"></div>
+		</div>
+		
+		<div class="btns-view">
+			<div class="btn-view btn-view00 on"></div>
+			<div class="btn-view btn-view01"></div>
+			<div class="btn-view btn-view02"></div>
+			<div class="btn-view btn-view03"></div>
+		</div>
+	</div>
 </div>
