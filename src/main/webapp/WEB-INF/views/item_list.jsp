@@ -45,12 +45,12 @@
 <script type="text/javascript">
 	function itemDelete(seq){
 		var contextPath = "${pageContext.request.contextPath}";
-		window.location.href = contextPath + "/item/delete?seq=" + seq;		
+		window.location.href = contextPath + "/admin/item/delete.do?seq=" + seq;		
 	}
 	
 	function itemModify(seq){
 		var contextPath = "${pageContext.request.contextPath}";
-		window.location.href = contextPath + "/item/upload?seq=" + seq;		
+		window.location.href = contextPath + "/admin/item/upload?seq=" + seq;		
 	}
 </script>
 </head>
@@ -62,7 +62,7 @@
 	
 	<div class="nav">
 		<ul class="menu">
-			<li><a href="${pageContext.request.contextPath}/item/upload">Upload</a></li>
+			<li><a href="${pageContext.request.contextPath}/admin/item/upload">Upload</a></li>
 		</ul>
 	</div>
 	

@@ -58,7 +58,7 @@
 	</div>
 	<div class="main">
 		<div class="wrap-upload-form">
-			<form id="upload-form" action="${pageContext.request.contextPath}/item/upload.do" 
+			<form id="upload-form" action="${pageContext.request.contextPath}/admin/item/upload.do" 
 				method="post"  enctype="multipart/form-data">
 				<h5>name</h5>
 				<input type='text' id="name" name='name' class="item-name"/>

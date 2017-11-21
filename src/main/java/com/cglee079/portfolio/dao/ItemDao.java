@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cglee079.portfolio.model.Item;
+import com.cglee079.portfolio.model.ItemVo;
 
 @Repository
 public class ItemDao {
@@ -16,15 +16,15 @@ public class ItemDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public List<Item> list(){
+	public List<ItemVo> list(){
 		return sqlSession.selectList(namespace + ".list");
 	}
 	
-	public Item get(int seq) {
+	public ItemVo get(int seq) {
 		return sqlSession.selectOne(namespace + ".get", seq);
 	}
 	
-	public boolean insert(Item item) {
+	public boolean insert(ItemVo item) {
 		return sqlSession.insert(namespace + ".insert", item) == 1;
 	}
 
@@ -32,7 +32,7 @@ public class ItemDao {
 		return sqlSession.delete(namespace + ".delete", seq) == 1;
 	}
 
-	public boolean update(Item item) {
+	public boolean update(ItemVo item) {
 		return sqlSession.update(namespace + ".update", item) == 1;
 	}
 }

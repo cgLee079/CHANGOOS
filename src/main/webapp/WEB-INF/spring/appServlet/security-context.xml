@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+
+	<!-- 로그아웃 성공시 핸들러 -->
+	<bean id="LoginSuccessHandler" class="com.cglee079.security.LoginSuccessHandler" />
+	
+	<security:http pattern="/resources/**" security="none"></security:http> <!-- 리소스 파일은 Security(X) -->
+	
+	<security:http use-expressions="true" auto-config="true">
+		<!-- auto-config='true' 를 설정한것만으로 기본 로그인페이지/ HTTP 기본인증 / 로그아웃기능등을 제공 -->
+		<!-- use-expressions 사용 여부 (hasRole(),hasAnyRole() 등등) -->
+		<!-- access ='permitAll, denyAll, hasRole(), hasAnyRole, hasIpAddress(ip)-->
+		<!-- ex. access="hasIpAddress('162.79.8.30')" 또는  access="hasIpAddress('162.0.0.0/224')"-->
+		<security:intercept-url  pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />
+		
+		<security:form-login username-parameter="username"
+		 	login-page="/login"
+			default-target-url="/admin/item"
+			login-processing-url="/j_spring_security_check"
+			password-parameter="password" authentication-failure-url="/login?result=false"
+			authentication-success-handler-ref="LoginSuccessHandler"
+			always-use-default-target="true" />
+		<!-- login-page: 로그인 페이지 지정 -->
+		<!-- login-processing-url: 로그인시 진행될 링크 (default) 로그인 페이지의 form action과 일치 시켜야 함 -->
+		<!-- username-parameter : 로그인 페이지,  id의 input name값 -->
+		<!-- password-parameter : 로그인 페이지,  password의 input name값 -->
+		<!-- authentication-failure-url : 로그인 실패 시, 이동할 페이지 -->
+		<!-- default-target-url : 로그인 성공시 이동할 페이지 -->
+		<!-- always-use-default-target : 항상 로그인 성공 시 default-target-url로 이동하는지 설정 (false: 기존에 이동하려던 페이지로) -->
+		<!-- authentication-success-handler-ref : 로그인 성공시 핸들러 (bean) -->
+		
+		<security:logout invalidate-session="true"
+			logout-success-url="/" logout-url="/j_spring_security_logout" />
+		<!-- invalidate-session : 로그아웃시 세션 초기화 설정 -->
+		<!-- logout-success-url : 로그아웃시 이동할 페이지 -->
+		<!-- logout-url : j_spring_security_logout(default) -->
+		
+		<security:csrf disabled="true" />
+		<!--<security:access-denied-handler error-page="/main/denied" />  -->
+		<!-- error-page : 접근권한이 없는 페이지 이동시 , 이동할 페이지 -->
+	
+	</security:http>
+	<security:authentication-manager> <!-- 로그인 관리자 -->
+		<security:authentication-provider user-service-ref="adminService">
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+</beans>

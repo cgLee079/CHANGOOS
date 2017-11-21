@@ -1,6 +1,6 @@
 package com.cglee079.portfolio.model;
 
-public class Item {
+public class ItemVo {
 	private int seq;
 	private String name;
 	private String desc;
@@ -11,10 +11,10 @@ public class Item {
 	private boolean dirt; 
 	private int hits;
 
-	public Item() {
+	public ItemVo() {
 	}
 	
-	public Item(int seq, String name, String desc, String content, String snapsht, String wrDate, String dirtURL,
+	public ItemVo(int seq, String name, String desc, String content, String snapsht, String wrDate, String dirtURL,
 			boolean dirt, int hits) {
 		super();
 		this.seq = seq;

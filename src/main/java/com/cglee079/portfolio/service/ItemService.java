@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cglee079.portfolio.dao.ItemDao;
-import com.cglee079.portfolio.model.Item;
+import com.cglee079.portfolio.model.ItemVo;
 
 @Service
 public class ItemService {
@@ -17,11 +17,11 @@ public class ItemService {
 	@Autowired
 	private ItemDao itemDao;
 	
-	public List<Item> list(){
+	public List<ItemVo> list(){
 		return itemDao.list();
 	}
 	
-	public boolean insert(Item item) {
+	public boolean insert(ItemVo item) {
 		if(item.getDirtURL() != null){
 			item.setDirt(true);
 		}
@@ -31,7 +31,7 @@ public class ItemService {
 		return itemDao.insert(item);
 	}
 
-	public boolean update(Item item) {
+	public boolean update(ItemVo item) {
 		if(item.getDirtURL() != null){
 			item.setDirt(true);
 		}
@@ -45,7 +45,7 @@ public class ItemService {
 		return itemDao.delete(seq);
 	}
 	
-	public Item get(int seq){
+	public ItemVo get(int seq){
 		return itemDao.get(seq);
 	}
 	
