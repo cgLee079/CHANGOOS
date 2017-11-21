@@ -363,7 +363,14 @@ function closeMyInfo(){
 				var title 	= tg.find("a").attr("href");
 				var option	= {
 					tooltipClass: "menu-tooltip",
-			       	show	: "fadeIn",
+					delay: 0,
+					show : false,
+					hide : false,
+					position: { 
+						 my: "right+20 top",
+						 at: "center bottom+10",
+						 collision : "none"
+					}
 				};
 				
 				tg.attr("title", title);
