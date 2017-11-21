@@ -7,9 +7,6 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 
-	<!-- 로그아웃 성공시 핸들러 -->
-	<bean id="LoginSuccessHandler" class="com.cglee079.security.LoginSuccessHandler" />
-	
 	<security:http pattern="/resources/**" security="none"></security:http> <!-- 리소스 파일은 Security(X) -->
 	
 	<security:http use-expressions="true" auto-config="true">
@@ -24,8 +21,12 @@
 			default-target-url="/admin/item"
 			login-processing-url="/j_spring_security_check"
 			password-parameter="password" authentication-failure-url="/login?result=false"
-			authentication-success-handler-ref="LoginSuccessHandler"
 			always-use-default-target="true" />
+			
+				<!-- 로그아웃 성공시 핸들러 -->
+		<!-- <bean id="LoginSuccessHandler" class="com.cglee079.portfolio.security.LoginSuccessHandler" />  -->
+		<!-- authentication-success-handler-ref="LoginSuccessHandler"-->
+			
 		<!-- login-page: 로그인 페이지 지정 -->
 		<!-- login-processing-url: 로그인시 진행될 링크 (default) 로그인 페이지의 form action과 일치 시켜야 함 -->
 		<!-- username-parameter : 로그인 페이지,  id의 input name값 -->

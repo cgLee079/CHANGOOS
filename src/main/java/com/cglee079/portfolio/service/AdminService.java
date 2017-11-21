@@ -23,10 +23,9 @@ public class AdminService implements UserDetailsService {
 
 		if (admin != null) {
 			List<Role> adminAuths = adminDao.getAuths(username);
-			System.out.println(adminAuths.get(0).getAuthority());
 			admin.setAuthorities(adminAuths);
 		} else{
-			new UsernameNotFoundException(username);
+			throw new UsernameNotFoundException(username);
 		}
 		
 		return admin;

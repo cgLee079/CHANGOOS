@@ -43,7 +43,7 @@ public class ItemController {
 	@RequestMapping(value = "/admin/item/delete.do")
 	public String itemDelete(int seq) {
 		boolean result = itemService.delete(seq);
-		return "redirect:" + "/item";
+		return "redirect:" + "/admin/item";
 	}
 	
 	@RequestMapping(value = "/admin/item/upload", params = "!seq")
