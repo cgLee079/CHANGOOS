@@ -279,7 +279,7 @@ function openMyInfo(){
 	
 	openAni = anime({
 		  targets: '.wrap-myinfo',
-		  easing : 'easeInOutExpo',
+		  easing : 'easeInOutQuad',
 		  bottom : 0,
 		  left   : 0,
 		  top 	 : 0,
