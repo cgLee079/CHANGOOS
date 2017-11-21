@@ -117,29 +117,6 @@
 	margin-right: 10px;
 }
 
-.wrap-myinfo {
-	background: rgba(255, 255, 255, 1);
-	overflow : hidden;
-	position : fixed;
-	top : 0;
-	left : 0;
-	bottom : 0;
-	right : 0;
-	z-index: -1;
-}
-
-.slider {
-	overflow-y: hidden;
-	bottom: 0; /* approximate max height */
-	transition-property: all;
-	transition-duration: 1s;
-	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-}
-
-.slider.closed {
-	bottom: 100%;
-}
-
 .myinfo-views{
 	position : relative;
 	margin-top: 5%;
@@ -183,7 +160,7 @@
 	width : 20px;
 	height: 20px;
 	border-radius : 10px;
-	background : #888;
+	background : #CCC;
 	margin : 20px 10px 0px 10px;
 	cursor : pointer;
 }
@@ -236,9 +213,24 @@
 	}
 }
 
+.wrap-myinfo {
+	position : fixed;
+	overflow : hidden;
+	background : #FFF;
+	top : 50%;
+	left : 50%;
+	bottom : 50%;
+	right : 50%;
+	opacity : 0.5;
+	z-index: -1;
+	
+}
+
 </style>
+
 <script>
 var setIntervalId;
+var openAni;
 function openMyInfo(){
 	var wrap	= $(".myinfo-views");
 	var views	= $(".myinfo-views > .myinfo-view");
@@ -282,12 +274,25 @@ function openMyInfo(){
 			}
 			
 			btns.eq(n).trigger("click");
-		}, 3000);
+		}, 7000);
 	}
+	
+	openAni = anime({
+		  targets: '.wrap-myinfo',
+		  easing : 'easeInOutExpo',
+		  bottom : 0,
+		  left   : 0,
+		  top 	 : 0,
+		  right  : 0,
+		  opacity : 1,
+		  duration : 500
+	});
 }
 
 function closeMyInfo(){
 	clearInterval(setIntervalId);
+	openAni.play();
+	openAni.reverse();
 }
 </script>
 <div class="nav">
@@ -334,10 +339,8 @@ function closeMyInfo(){
 					var tg = $(this);
 					tg.toggleClass("open");
 					if(tg.hasClass("open")){
-						$(".wrap-myinfo").removeClass("closed");
 						openMyInfo();
 					} else{
-						$(".wrap-myinfo").addClass("closed");
 						closeMyInfo();
 					}
 				});
@@ -377,7 +380,7 @@ function closeMyInfo(){
 	<div class="wrap-myinfo slider closed">
 		<div class="myinfo-views">
 			<div class="myinfo-view myinfo-view00">
-				<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpg)"></div>
+				<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpeg)"></div>
 				<div class="content-text">
 					<h1 class="ml6">
 						<span class="text-wrapper">
