@@ -5,7 +5,7 @@
 	left: 2%;
 	right: 2%;
 	top : 20px;
-	z-index : 30;
+	z-index : 1000;
 	display: flex;
 	justify-content : space-between;
 }
@@ -117,23 +117,23 @@
 	margin-right: 10px;
 }
 
+.wrap-myinfo {
+	position : fixed;
+	overflow : hidden;
+	background : #FFF;
+	top : 50%;
+	left : 50%;
+	bottom : 50%;
+	right : 50%;
+	opacity : 0.5;
+	z-index: 100;
+}
+
 .myinfo-views{
 	position : relative;
-	margin-top: 5%;
+	margin-top: 70px;
 	width: 100%;
 	height: 500px;
-}
-
-.content-picture{
-	flex : 1 50%;
-	background-position	: center;
-    background-repeat	: no-repeat;
-    background-size		: cover;
-}
-
-.content-text{
-	flex : 1 40%;
-	padding : 30px;
 }
 
 .myinfo-view {
@@ -148,6 +148,18 @@
 .myinfo-view01 {left: 100%; background: #333;}
 .myinfo-view02 {left: 100%; background: #666;}
 .myinfo-view03 {left: 100%; background: #999;}
+
+.content-picture{
+	flex : 1 50%;
+	background-position	: center;
+    background-repeat	: no-repeat;
+    background-size		: cover;
+}
+
+.content-text{
+	flex : 1 40%;
+	padding : 30px;
+}
 
 .btns-view{
 	width : 100%;
@@ -213,19 +225,6 @@
 	}
 }
 
-.wrap-myinfo {
-	position : fixed;
-	overflow : hidden;
-	background : #FFF;
-	top : 50%;
-	left : 50%;
-	bottom : 50%;
-	right : 50%;
-	opacity : 0.5;
-	z-index: -1;
-	
-}
-
 </style>
 
 <script>
@@ -252,9 +251,6 @@ function openMyInfo(){
 		move(index);
 	});
 	
-	wrap.on("mouseover", function(){clearInterval(setIntervalId);});
-	wrap.on("mouseout", function(){timer();});
-
 	function move(index){
 		var currentEl =  views.eq(current);
 		var nextEl = views.eq(index);
@@ -265,17 +261,16 @@ function openMyInfo(){
 		current = index;
 	}
 	
-	timer();
 	function timer(){
 		setIntervalId = setInterval(function(){
 			var n = current + 1;
 			if(n === views.length){
 				n = 0;
 			}
-			
 			btns.eq(n).trigger("click");
 		}, 7000);
 	}
+	timer();
 	
 	openAni = anime({
 		  targets: '.wrap-myinfo',
@@ -376,29 +371,29 @@ function closeMyInfo(){
 			});
 		})();
 	</script>
-	
-	<div class="wrap-myinfo slider closed">
-		<div class="myinfo-views">
-			<div class="myinfo-view myinfo-view00">
-				<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpeg)"></div>
-				<div class="content-text">
-					<h1 class="ml6">
-						<span class="text-wrapper">
-						<span class="letters">Who am I?</span>
-						</span>
-					</h1>
-				</div>
+</div>
+
+<div class="wrap-myinfo slider closed">
+	<div class="myinfo-views">
+		<div class="myinfo-view myinfo-view00">
+			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpeg)"></div>
+			<div class="content-text">
+				<h1 class="ml6">
+					<span class="text-wrapper">
+					<span class="letters">Who am I?</span>
+					</span>
+				</h1>
 			</div>
-			<div class="myinfo-view myinfo-view01"></div>
-			<div class="myinfo-view myinfo-view02"></div>
-			<div class="myinfo-view myinfo-view03"></div>
 		</div>
-		
-		<div class="btns-view">
-			<div class="btn-view btn-view00 on"></div>
-			<div class="btn-view btn-view01"></div>
-			<div class="btn-view btn-view02"></div>
-			<div class="btn-view btn-view03"></div>
-		</div>
+		<div class="myinfo-view myinfo-view01"></div>
+		<div class="myinfo-view myinfo-view02"></div>
+		<div class="myinfo-view myinfo-view03"></div>
+	</div>
+	
+	<div class="btns-view">
+		<div class="btn-view btn-view00 on"></div>
+		<div class="btn-view btn-view01"></div>
+		<div class="btn-view btn-view02"></div>
+		<div class="btn-view btn-view03"></div>
 	</div>
 </div>
