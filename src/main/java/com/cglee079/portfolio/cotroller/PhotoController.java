@@ -12,11 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.portfolio.model.ItemVo;
 import com.cglee079.portfolio.model.PhotoVo;
 import com.cglee079.portfolio.service.PhotoService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class PhotoController {
@@ -25,15 +28,25 @@ public class PhotoController {
 	private PhotoService photoService;
 	
 	@RequestMapping(value = "/photo")
-	public String photoView(Model model) {
+	public String photoHome(Model model) {
+		List<PhotoVo> photos = photoService.list();
+		model.addAttribute("photos", photos);
 		return "photo/photo_view";
 	}
 	
 	@RequestMapping(value = "admin/photo/list")
 	public String photoList(Model model) {
-		List<PhotoVo> photos =photoService.list();
+		List<PhotoVo> photos = photoService.list();
 		model.addAttribute("photos", photos);
 		return "photo/photo_list";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/photo/view.do")
+	public String photoDoView(int seq) throws JsonProcessingException {
+		PhotoVo photo = photoService.get(seq);
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(photo);
 	}
 	
 	@RequestMapping(value = "admin/photo/delete.do")

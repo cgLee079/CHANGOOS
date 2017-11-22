@@ -1,9 +1,9 @@
 <style>
 .footer {
-	margin-top: 30px;
+	margin-top: 100px;
 	margin-bottom: 30px;
 	width : 100%;
-	height: 300px;
+	height: 200px;
 }
 
 .info-contact {

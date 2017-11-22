@@ -22,9 +22,53 @@
 
 .photo-view{
 	width: 80%;
-	height: 400px;
+	height: 500px;
 	margin: 0px auto;
-	background: #EEE;
+	display: flex;
+	flex-flow: column wrap;
+}
+
+.photo-view > .photo-img{
+	width: 100%;
+	flex : 8 70%;
+	
+	background-position	: center;
+    background-repeat	: no-repeat;
+    background-size		: contain;
+}
+
+.photo-view > .photo-detail{
+	padding : 10px;
+	width: 100%;
+	flex : 2 10%;
+}
+
+.photo-view > .photo-detail > .photo-info{
+	display: flex;
+	justify-content: space-between;
+}
+
+.photo-view > .photo-detail > .photo-info > .photo-name{
+	color: #000;
+	font-weight: bold;
+	font-style: oblique;
+}
+
+.photo-view > .photo-detail > .photo-info > .photo-date-loc{
+	color: #AAA;
+	font-size: 12px;
+}
+
+.photo-view > .photo-detail > .photo-desc{
+	width : 100%;
+	color : #888;
+	font-size: 13px;
+	word-break : break-all;
+}
+
+.photo-view > .photo-detail > .photo-people-tag{
+	color : #00F;
+	font-size: 13px;
 }
 
 .wrap-photo-list{
@@ -44,7 +88,6 @@
 	flex : 8;
 	width: 80%;
 	height: 100%;
-	background: #EEE;
 	position: relative;
 	overflow: hidden;
 	margin : 0px auto;
@@ -54,21 +97,25 @@
 	width: 20px;
 	height: 20px;
 	flex : 1;
+	
+	background-position	: center;
+    background-repeat	: no-repeat;
+    background-size		: contain;
 }
 
 .btn-right-list{
 	width: 20px;
 	height: 20px;
 	flex : 1;
+	
+	background-position	: center;
+    background-repeat	: no-repeat;
+    background-size		: contain;
 }
 
 .btn{
 	cursor: pointer;
 	opacity: 0.5;
-	
-	background-position	: center;
-    background-repeat	: no-repeat;
-    background-size		: contain;
 }
 
 .btn:hover{
@@ -87,7 +134,9 @@
 .photo-item{
 	position : absolute;
 	height : 100%;
-	background : #AAA;
+	background-position	: center;
+    background-repeat	: no-repeat;
+    background-size		: contain;
 }
 
 @media (max-width: 800px){
@@ -151,6 +200,28 @@
 		});
 
 	});
+	
+	function showPhoto(seq){
+		console.log("dd");
+		$.ajax({
+			type	: "POST",
+			url 	: "${pageContext.request.contextPath}" + "/photo/view.do",
+			dataType: "JSON",
+			data 	: {
+				"seq" : seq
+			},
+			success : function(photo) {
+				$(".photo-img").css("background-image", 
+						"url('${pageContext.request.contextPath}" + photo.image +"')");
+				$(".photo-name").html(photo.name);
+				$(".photo-date-loc").html(photo.date + "  " + photo.location);
+				$(".photo-desc").html(photo.desc);
+				$(".photo-people-tag").html(photo.people + "  " + photo.tag);
+			}
+			
+		});
+	}
+	
 </script>
 </head>
 <body>
@@ -158,24 +229,34 @@
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8">
 	</c:import>
 	<div class="wrap-photo-view">
-		<div class="photo-view"></div>
+		<div class="photo-view">
+			<div class="photo-img"></div>
+			<div class="photo-detail">
+				<div class="photo-info">
+					<div class="photo-name">NAME</div>
+					<div class="photo-date-loc">1992.08.26 , 의정부</div>
+				</div>
+				
+				<div class="photo-desc">
+				photototoeophotototoeophotototoeophotototoeophotototoeophotototoeophotototoeophotototoeophotototoeo
+				photototoeophotototoeophotototoeophotototoeophotototoeo
+				</div>
+				<div class="photo-people-tag">
+					@나 #노는중 #혼자
+				</div>
+			</div>
+		</div>
 		<div class="wrap-photo-list">
-			<div class="btn btn-left-list h-reverse" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_arrow.png)"></div>
+			<div class="btn btn-left-list h-reverse" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_arrow.png)">
+			</div>
+			
 			<div class="photo-list">
-				<div class="btn photo-item">0</div>
-				<div class="btn photo-item">1</div>
-				<div class="btn photo-item">2</div>
-				<div class="btn photo-item">3</div>
-				<div class="btn photo-item">4</div>
-				<div class="btn photo-item">5</div>
-				<div class="btn photo-item">6</div>
-				<div class="btn photo-item">7</div>
-				<div class="btn photo-item">8</div>
-				<div class="btn photo-item">9</div>
-				<div class="btn photo-item">10</div>
-				<div class="btn photo-item">11</div>
-				<div class="btn photo-item">12</div>
-				<div class="btn photo-item">13</div>
+				<c:forEach var="photo" items="${photos}">
+				<div class="btn photo-item" onclick="showPhoto('${photo.seq}')"  
+					style="background-image: url('${pageContext.request.contextPath}${photo.image}')">
+				</div>
+			</c:forEach>
+				
 			</div>
 			<script>
 			(function(){
@@ -197,7 +278,8 @@
 				
 			})();
 			</script>
-			<div class="btn btn-right-list" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_arrow.png)"></div>
+			<div class="btn btn-right-list"  style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_arrow.png)">
+			</div>
 	
 		</div>
 	</div>
