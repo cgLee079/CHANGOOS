@@ -90,10 +90,14 @@
 	background : #AAA;
 }
 
+@media (max-width: 800px){
+	.wrap-photo-view{
+		margin-top: 400px;
+	}
+}
 </style>
 <script>
 	$(document).ready(function(){
-		
 		$(".btn-right-list").on("click", function(){
 			var photoList = $(".photo-list");
 			var photoItems = $(".photo-list > .photo-item");
@@ -152,6 +156,7 @@
 <div class="wrapper">
 	<c:import url="included/included_nav.jsp" charEncoding="UTF-8">
 	</c:import>
+	ddddddddddddddddddd
 	<div class="wrap-photo-view">
 		<div class="photo-view"></div>
 		<div class="wrap-photo-list">
