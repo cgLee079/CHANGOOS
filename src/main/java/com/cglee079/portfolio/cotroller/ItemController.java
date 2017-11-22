@@ -30,32 +30,32 @@ public class ItemController {
 	public String itemView(Model model, int seq){
 		ItemVo item = itemService.get(seq);
 		model.addAttribute("item", item);
-		return "item_view";
+		return "item/item_view";
 	}
 	
-	@RequestMapping(value = "/admin/item")
+	@RequestMapping(value = "/admin/item/list")
 	public String item(Model model) {
 		List<ItemVo> items = itemService.list();
 		model.addAttribute("items", items);
-		return "item_list";
+		return "item/item_list";
 	}
 	
 	@RequestMapping(value = "/admin/item/delete.do")
 	public String itemDelete(int seq) {
 		boolean result = itemService.delete(seq);
-		return "redirect:" + "/admin/item";
+		return "redirect:" + "/admin/item/list";
 	}
 	
 	@RequestMapping(value = "/admin/item/upload", params = "!seq")
 	public String itemUpload() {
-		return "item_upload";
+		return "item/item_upload";
 	}
 	
 	@RequestMapping(value = "/admin/item/upload", params = "seq")
 	public String itemModify(Model model, int seq) {
 		ItemVo item = itemService.get(seq);
 		model.addAttribute("item", item);
-		return "item_upload";
+		return "item/item_upload";
 	}
 	
 	@RequestMapping(value = "/admin/item/upload.do", method = RequestMethod.POST, params = "!seq")
@@ -77,13 +77,11 @@ public class ItemController {
 		
 		itemService.insert(item);
 		
-		return "redirect:" + "/admin/item";
+		return "redirect:" + "/admin/item/list";
 	}
 	
 	@RequestMapping(value = "/admin/item/upload.do", method = RequestMethod.POST, params = "seq")
 	public String itemDoModify(HttpServletRequest request, ItemVo item, MultipartFile snapshtFile) throws IllegalStateException, IOException{
-		System.out.println("itemDoModify");
-		
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
 		String imgPath	= "/resources/image/snapshot/";
@@ -104,7 +102,7 @@ public class ItemController {
 		
 		itemService.update(item);
 		
-		return "redirect:" + "/admin/item";
+		return "redirect:" + "/admin/item/list";
 	}
 	
 	@RequestMapping(value = "/admin/item/imgUpload.do", method = RequestMethod.POST)
@@ -124,7 +122,7 @@ public class ItemController {
 		model.addAttribute("path", request.getContextPath() + imgPath + filename);
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
 		
-		return "item_imgupload";
+		return "item/item_imgupload";
 	}
 
 }

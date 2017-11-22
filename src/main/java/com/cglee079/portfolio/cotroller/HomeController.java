@@ -26,7 +26,8 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		List<ItemVo> items = itemService.list();
 		model.addAttribute("items", items);
-		return "album_list";
+//		return "home"
+		return "redirect:" +"/photo";
 	}
 
 

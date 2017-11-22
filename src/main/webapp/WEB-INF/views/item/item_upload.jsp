@@ -8,13 +8,13 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
 <style>
 
-.header{
-	text-align: center;
+.wrapper{
+	width: 80%;
+	margin: 0px auto;
 }
 
-.wrap-upload-form{
-	width: 70%;
-	margin: 0px auto;
+.header{
+	text-align: center;
 }
 
 .item-name{
@@ -53,10 +53,10 @@
 
 </head>
 <body>
-	<div class="header">
-		<h1>test</h1>
-	</div>
-	<div class="main">
+	<div class="wrpper">
+		<div class="header">
+			<h1>test</h1>
+		</div>
 		<div class="wrap-upload-form">
 			<form id="upload-form" action="${pageContext.request.contextPath}/admin/item/upload.do" 
 				method="post"  enctype="multipart/form-data">

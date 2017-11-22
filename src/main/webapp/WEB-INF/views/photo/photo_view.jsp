@@ -95,6 +95,7 @@
 		margin-top: 400px;
 	}
 }
+
 </style>
 <script>
 	$(document).ready(function(){
@@ -154,9 +155,8 @@
 </head>
 <body>
 <div class="wrapper">
-	<c:import url="included/included_nav.jsp" charEncoding="UTF-8">
+	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8">
 	</c:import>
-	ddddddddddddddddddd
 	<div class="wrap-photo-view">
 		<div class="photo-view"></div>
 		<div class="wrap-photo-list">
@@ -202,7 +202,7 @@
 		</div>
 	</div>
 	
-	<c:import url="included/included_footer.jsp" charEncoding="UTF-8">
+	<c:import url="../included/included_footer.jsp" charEncoding="UTF-8">
 	</c:import>
 	
 </div>

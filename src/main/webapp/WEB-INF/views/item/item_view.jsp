@@ -65,7 +65,7 @@
 </head>
 <body>
 	<div class="wrapper">
-		<c:import url="included/included_nav.jsp" charEncoding="UTF-8">
+		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8">
 		</c:import>
 		
 		<div class="item-detail">
@@ -83,7 +83,7 @@
 			<div class="item-content">${item.content}</div>
 		</div>
 		
-		<c:import url="included/included_footer.jsp" charEncoding="UTF-8">
+		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8">
 		</c:import>
 	</div>
 </body>

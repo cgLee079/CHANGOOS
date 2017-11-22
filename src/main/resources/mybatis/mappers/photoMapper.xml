@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cglee079.portfolio.mapper.PhotoMapper">
+
+	<select id="list" resultType="com.cglee079.portfolio.model.PhotoVo">
+		SELECT
+		PHOTO_SEQ as "seq",
+		PHOTO_IMAGE as "image",
+		PHOTO_NAME as "name",
+		PHOTO_DESC as "desc",
+		PHOTO_LOC as "location",
+		PHOTO_DATE as "date",
+		PHOTO_PEPLE as "people",
+		PHOTO_TAG as "tag",
+		PHOTO_LIKE as "like"
+		FROM TB_PTPOLIO_PHOTOS
+	</select>
+	
+	<select id="get" resultType="com.cglee079.portfolio.model.PhotoVo" parameterType="Integer">
+		SELECT
+		PHOTO_SEQ as "seq",
+		PHOTO_IMAGE as "image",
+		PHOTO_NAME as "name",
+		PHOTO_DESC as "desc",
+		PHOTO_LOC as "location",
+		PHOTO_PEPLE as "people",
+		PHOTO_DATE as "date",
+		PHOTO_TAG as "tag",
+		PHOTO_LIKE as "like"
+		FROM TB_PTPOLIO_PHOTOS
+		WHERE PHOTO_SEQ = #{seq}
+	</select>
+	
+	<delete id="delete">
+		DELETE FROM TB_PTPOLIO_PHOTOS
+		WHERE PHOTO_SEQ = #{seq}
+	</delete>
+	
+	<insert id="insert">
+		INSERT TB_PTPOLIO_PHOTOS (PHOTO_IMAGE, PHOTO_NAME, PHOTO_DESC, PHOTO_LOC, PHOTO_DATE, PHOTO_PEPLE, PHOTO_TAG, PHOTO_LIKE)
+		VALUES (#{image}, #{name}, #{desc}, #{location}, #{date}, #{people}, #{tag}, #{like})
+	</insert>
+	
+	<update id="update">
+		UPDATE TB_PTPOLIO_PHOTOS
+		SET 
+		PHOTO_IMAGE = #{image},
+		PHOTO_NAME = #{name},
+		PHOTO_DESC = #{desc},
+		PHOTO_LOC = #{location},
+		PHOTO_PEPLE = #{people},
+		PHOTO_DATE = #{date},
+		PHOTO_TAG = #{tag},
+		PHOTO_LIKE = #{like}
+		WHERE PHOTO_SEQ = ${seq}
+	</update>
+	
+	
+</mapper>

@@ -1,6 +1,8 @@
 package com.cglee079.portfolio.model;
 
 public class PhotoVo {
+	private int seq;
+	private String image;
 	private String name;
 	private String desc;
 	private String location;
@@ -9,11 +11,13 @@ public class PhotoVo {
 	private String tag;
 	private int like;
 
-	
 	public PhotoVo() {
 	}
 
-	public PhotoVo(String name, String desc, String location, String date, String people, String tag, int like) {
+	public PhotoVo(int seq, String image, String name, String desc, String location, String date, String people,
+			String tag, int like) {
+		this.seq = seq;
+		this.image = image;
 		this.name = name;
 		this.desc = desc;
 		this.location = location;
@@ -21,6 +25,29 @@ public class PhotoVo {
 		this.people = people;
 		this.tag = tag;
 		this.like = like;
+	}
+
+	
+	@Override
+	public String toString() {
+		return "PhotoVo [seq=" + seq + ", image=" + image + ", name=" + name + ", desc=" + desc + ", location="
+				+ location + ", date=" + date + ", people=" + people + ", tag=" + tag + ", like=" + like + "]";
+	}
+
+	public int getSeq() {
+		return seq;
+	}
+
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public String getName() {

@@ -14,15 +14,6 @@
 		text-align: center;
 	}
 	
-	.menu{
-		display: flex;
-		justify-content : flex-end;
-	}
-	
-	.menu li {
-		list-style-type: none;
-	}
-	
 	.item-list{
 		border-collapse: collapse;
 		border-spacing: 0px;
@@ -61,9 +52,7 @@
 	</div>
 	
 	<div class="nav">
-		<ul class="menu">
-			<li><a href="${pageContext.request.contextPath}/admin/item/upload">Upload</a></li>
-		</ul>
+		<a href="${pageContext.request.contextPath}/admin/item/upload">Upload</a>
 	</div>
 	
 	<div class="wrap-item-list">
@@ -72,7 +61,7 @@
 			<td> SEQ </td>
 			<td> Name </td>
 			<td> Desc </td>
-			<td> Snapshot-Path </td>
+			<td> Snapshot </td>
 			<td> Write-Date </td>
 			<td> dirt </td>
 			<td> dirtURL </td>
@@ -86,7 +75,7 @@
 				<td> ${item.seq} </td>
 				<td> ${item.name} </td>
 				<td> ${item.desc} </td>
-				<td> ${item.snapsht} </td>
+				<td> <img height="100" src="${pageContext.request.contextPath}${item.snapsht}"/> </td>
 				<td> ${item.wrDate} </td>
 				<td> ${item.dirtURL} </td>
 				<td> ${item.dirt} </td>
