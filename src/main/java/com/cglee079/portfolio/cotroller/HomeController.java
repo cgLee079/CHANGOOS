@@ -19,15 +19,16 @@ public class HomeController {
 	@Autowired
 	private ItemService itemService;
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/")
-	public String home(Locale locale, Model model) {
+	public String home(Model model) {
 		List<ItemVo> items = itemService.list();
 		model.addAttribute("items", items);
-//		return "home"
-		return "redirect:" +"/photo";
+		return "main_home";
+	}
+	
+	@RequestMapping(value = "/myinfo")
+	public String myinfo() {
+		return "main_myinfo";
 	}
 
 
