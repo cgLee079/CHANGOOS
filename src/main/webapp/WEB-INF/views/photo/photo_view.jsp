@@ -55,20 +55,22 @@
 }
 
 .photo-view > .photo-detail > .photo-info > .photo-date-loc{
-	color: #AAA;
+	color: #555;
 	font-size: 12px;
 }
 
 .photo-view > .photo-detail > .photo-desc{
+	margin-top: 5px;
 	width : 100%;
-	color : #888;
+	color : #555;
 	font-size: 13px;
 	word-break : break-all;
 }
 
 .photo-view > .photo-detail > .photo-people-tag{
-	color : #00F;
-	font-size: 13px;
+	margin-top: 5px;
+	color : #33F;
+	font-size: 10px;
 }
 
 .wrap-photo-list{
@@ -233,16 +235,14 @@
 			<div class="photo-img"></div>
 			<div class="photo-detail">
 				<div class="photo-info">
-					<div class="photo-name">NAME</div>
-					<div class="photo-date-loc">1992.08.26 , 의정부</div>
+					<div class="photo-name"></div>
+					<div class="photo-date-loc"></div>
 				</div>
 				
 				<div class="photo-desc">
-				photototoeophotototoeophotototoeophotototoeophotototoeophotototoeophotototoeophotototoeophotototoeo
-				photototoeophotototoeophotototoeophotototoeophotototoeo
+			
 				</div>
 				<div class="photo-people-tag">
-					@나 #노는중 #혼자
 				</div>
 			</div>
 		</div>
