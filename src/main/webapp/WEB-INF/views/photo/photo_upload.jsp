@@ -17,11 +17,6 @@
 	text-align: center;
 }
 
-.wrap-upload-form{
-	
-	
-}
-
 .photo-image{
 	width : 100%;
 }
@@ -76,7 +71,7 @@
 <body>
 	<div class="wrapper">
 		<div class="header">
-			<h1>test</h1>
+			<h1>Photo-upload</h1>
 		</div>
 		
 		<div class="wrap-upload-form">

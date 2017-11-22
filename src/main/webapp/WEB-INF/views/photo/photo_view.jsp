@@ -95,9 +95,9 @@
 }
 
 .btn-left-list{
+	flex : 1;
 	width: 20px;
 	height: 20px;
-	flex : 1;
 	
 	background-position	: center;
     background-repeat	: no-repeat;
@@ -105,9 +105,9 @@
 }
 
 .btn-right-list{
+	flex : 1;
 	width: 20px;
 	height: 20px;
-	flex : 1;
 	
 	background-position	: center;
     background-repeat	: no-repeat;
