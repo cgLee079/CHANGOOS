@@ -317,7 +317,7 @@ function closeMyInfo(){
 	<div class="main-menus">
 		<span class="menu git-icon"> 
 			<a href="${pageContext.request.contextPath}"> 
-				<img src="${pageContext.request.contextPath}/resources/image/icon_home.png" />
+				<img src="${pageContext.request.contextPath}/resources/image/btn_home.png" />
 			</a>
 		</span> 
 	</div>
@@ -325,7 +325,7 @@ function closeMyInfo(){
 	<div class="sub-menus">
 		<span class="menu myinfo-icon">
 			<a> 
-				<img src="${pageContext.request.contextPath}/resources/image/icon_myinfo.png" />
+				<img src="${pageContext.request.contextPath}/resources/image/btn_myinfo.png" />
 			</a>
 		</span> 
 		<script>
@@ -344,13 +344,13 @@ function closeMyInfo(){
 		
 		<span class="menu git-icon"> 
 			<a target="_blank" href="https://github.com/cgLee079"> 
-				<img src="${pageContext.request.contextPath}/resources/image/icon_github.png" />
+				<img src="${pageContext.request.contextPath}/resources/image/btn_github.png" />
 			</a>
 		</span> 
 		
 		<span class="menu insta-icon">
 			<a target="_blank" href="https://www.instagram.com/cglee079"> 
-				<img src="${pageContext.request.contextPath}/resources/image/icon_insta.png" />
+				<img src="${pageContext.request.contextPath}/resources/image/btn_insta.png" />
 			</a>
 		</span>
 	</div>
