@@ -24,14 +24,11 @@
 	width: 80%;
 	height: 500px;
 	margin: 0px auto;
-	display: flex;
-	flex-flow: column wrap;
 }
 
 .photo-view > .photo-img{
-	width: 100%;
-	flex : 8 70%;
-	
+	width : 100%;
+	height: 75%;
 	background-position	: center;
     background-repeat	: no-repeat;
     background-size		: contain;
@@ -40,7 +37,7 @@
 .photo-view > .photo-detail{
 	padding : 10px;
 	width: 100%;
-	flex : 2 10%;
+	height : 20%;
 }
 
 .photo-view > .photo-detail > .photo-info{
@@ -62,6 +59,8 @@
 .photo-view > .photo-detail > .photo-desc{
 	margin-top: 5px;
 	width : 100%;
+	height: 80%;
+	overflow : hidden;
 	color : #555;
 	font-size: 13px;
 	word-break : break-all;
@@ -143,7 +142,11 @@
 
 @media (max-width: 800px){
 	.wrap-photo-view{
-		margin-top: 400px;
+		margin-top: 300px;
+	}
+	
+	.wrap-photo-list{
+		margin-top: 100px;
 	}
 }
 
@@ -204,7 +207,6 @@
 	});
 	
 	function showPhoto(seq){
-		console.log("dd");
 		$.ajax({
 			type	: "POST",
 			url 	: "${pageContext.request.contextPath}" + "/photo/view.do",
@@ -215,6 +217,17 @@
 			success : function(photo) {
 				$(".photo-img").css("background-image", 
 						"url('${pageContext.request.contextPath}" + photo.image +"')");
+				
+				var begin = anime({
+					  targets	: ".photo-img",
+					  duration	: 1000,
+					  opacity	: 1,
+					  begin: function(anim) {
+					   	var tg = $(".photo-img");
+					   	tg.css("opacity", 0);
+					  }
+				});
+				
 				$(".photo-name").html(photo.name);
 				$(".photo-date-loc").html(photo.date + "  " + photo.location);
 				$(".photo-desc").html(photo.desc);
@@ -239,11 +252,9 @@
 					<div class="photo-date-loc"></div>
 				</div>
 				
-				<div class="photo-desc">
-			
-				</div>
-				<div class="photo-people-tag">
-				</div>
+				<div class="photo-people-tag"></div>
+				<div class="photo-desc"></div>
+				
 			</div>
 		</div>
 		<div class="wrap-photo-list">

@@ -21,8 +21,7 @@ function itemView(seq){
 
 function scrollToItems(){
 	var top = $(".main-items-title").offset().top;
-	console.log(top);
-	$("html, body").animate({ scrollTop: top });
+	$("html, body").animate({ scrollTop: (top - 50) });
 }
 
 </script>
