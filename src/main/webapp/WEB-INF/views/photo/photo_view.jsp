@@ -127,7 +127,7 @@
 
 @media (max-width: 720px){
 	.wrap-photo-view{
-		margin-top: 20px;
+		margin-top: 30px;
 	}
 	
 	.wrap-photo-list{
