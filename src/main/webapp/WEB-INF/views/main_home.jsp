@@ -3,7 +3,7 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home-basic.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home-width-800.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home-responsive.css" />
 
 <script>
 function itemView(seq){

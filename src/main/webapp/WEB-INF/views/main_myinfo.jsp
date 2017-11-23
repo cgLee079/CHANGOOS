@@ -62,7 +62,7 @@
 	background : #000;
 }
 
-@media (max-width: 800px){
+@media (max-width: 720px){
 	.myinfo-views{
 		margin-top : 50px;
 		height: 400px;

@@ -134,7 +134,7 @@
     background-size		: contain;
 }
 
-@media (max-width: 800px){
+@media (max-width: 720px){
 	.wrap-photo-view{
 		margin-top: 20px;
 	}

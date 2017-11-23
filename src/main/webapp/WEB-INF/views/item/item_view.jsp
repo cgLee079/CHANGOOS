@@ -17,7 +17,7 @@
 
 .item-name{
 	display: inline-block;
-	margin-right: 10px;
+	margin-right: 5px;
 }
 
 .item-subinfo{
@@ -26,7 +26,7 @@
 	bottom : 0px;
 	
 	color: #888;
-	font-size: 12px;
+	font-size: 0.5rem;
 	text-align: right;
 }
 
@@ -34,7 +34,7 @@
 	margin-top: 50px;
 }
 
-@media (max-width: 800px){
+@media (max-width: 720px){
 	.item-detail {
 		margin-top: 50px;
 	}
