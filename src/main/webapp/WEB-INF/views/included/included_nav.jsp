@@ -116,6 +116,10 @@
 	margin-right: 10px;
 }
 
+.menu.myinfo-icon{
+	margin-right: 10px;
+}
+
 .menu.home-icon{
 	margin-right: 10px;
 }
@@ -145,8 +149,20 @@
 	}
 	*/
 	.menu img{
-		width : 40px;
-		height: 40px;
+		width : 20px;
+		height: 20px;
+	}
+	
+	.menu.git-icon{
+		margin-right: 5px;
+	}
+	
+	.menu.myinfo-icon{
+		margin-right: 5px;
+	}
+	
+	.menu.home-icon{
+		margin-right: 5px;
 	}
 }
 
@@ -178,13 +194,19 @@
 	<div class="main-menus">
 		<span class="menu home-icon"> 
 			<a href="${pageContext.request.contextPath}"> 
-				<img src="${pageContext.request.contextPath}/resources/image/btn_home.png" />
+				<img src="${pageContext.request.contextPath}/resources/image/btn_nav_home.png" />
 			</a>
 		</span>
 		
 		<span class="menu myinfo-icon">
 			<a href="${pageContext.request.contextPath}/myinfo"> 
-				<img src="${pageContext.request.contextPath}/resources/image/btn_myinfo.png" />
+				<img src="${pageContext.request.contextPath}/resources/image/btn_nav_myinfo.png" />
+			</a>
+		</span>  
+		
+		<span class="menu photo-icon">
+			<a href="${pageContext.request.contextPath}/photo"> 
+				<img src="${pageContext.request.contextPath}/resources/image/btn_nav_photo.png" />
 			</a>
 		</span>  
 	</div>
@@ -192,13 +214,13 @@
 	<div class="sub-menus">
 		<span class="menu git-icon"> 
 			<a target="_blank" href="https://github.com/cgLee079"> 
-				<img src="${pageContext.request.contextPath}/resources/image/btn_github.png" />
+				<img src="${pageContext.request.contextPath}/resources/image/btn_nav_github.png" />
 			</a>
 		</span> 
 		
 		<span class="menu insta-icon">
 			<a target="_blank" href="https://www.instagram.com/cglee079"> 
-				<img src="${pageContext.request.contextPath}/resources/image/btn_insta.png" />
+				<img src="${pageContext.request.contextPath}/resources/image/btn_nav_insta.png" />
 			</a>
 		</span>
 	</div>

@@ -8,26 +8,25 @@
     to   { opacity: 0; }
 }
 
-.wrapper{
-	width: 80%;
-	margin: 0px auto;
-}
-
 .main{
-
+	width : 80%;
+	margin: 0px auto;	
 }
 
 .main-introduce{
-	max-width: 700px;
+	max-width: 70%;
 	margin : 0px auto;
 	margin-top: 150px; 
 	text-align: center;
 } 
 
+.main-introduce-name{
+	font-size: 10px;
+}
 
 .me-icon{
 	width : 30%;
-	height: 200px;
+	height: 30%;
 	margin: 20px auto;
 	
 	background-position	: center;

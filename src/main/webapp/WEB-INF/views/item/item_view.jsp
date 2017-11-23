@@ -5,38 +5,43 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <style>
-.wrapper{
-	width: 70%;
-	margin: 0px auto;
-}
-
 .item-detail {
+	width : 80%;
+	margin : 0px auto;
 	margin-top: 100px;
 }
 
 .item-head {
-	
 	position: relative;
 }
 
-.item-hits{
-	position: absolute;
-	bottom: 0px;
-	right : 120px;
-	color: #888;
-	font-size: 12px;
+.item-name{
+	display: inline-block;
+	margin-right: 10px;
 }
 
-.item-date{
+.item-subinfo{
 	position: absolute;
-	bottom: 0px;
 	right : 0px;
+	bottom : 0px;
+	
 	color: #888;
 	font-size: 12px;
+	text-align: right;
 }
 
 .item-content {
 	margin-top: 50px;
+}
+
+@media (max-width: 800px){
+	.item-detail {
+		margin-top: 50px;
+	}
+	
+	.item-content{
+		margin-top: 10px;
+	}
 }
 
 </style>
@@ -60,10 +65,19 @@
 		
 		<div class="item-detail">
 			<div class="item-head">
-				<h1>${item.name}</h1>
+				<h1 class="item-name">${item.name}</h1>
+				<c:if test="${!empty item.developer}">
+					<a class="item-developer">with ${item.developer}</a>
+				</c:if>
 				
-				<a class="item-hits">hits : ${item.hits}</a>
-				<a class="item-date">date : ${item.date}</a>
+				<div class="item-subinfo">
+					<a class="item-sect">sect : ${item.sect}</a>
+					<br>
+					<a class="item-date">date : ${item.date}</a>
+					<br>
+					<a class="item-hits">hits : ${item.hits}</a>
+					
+				</div>
 			</div>
 
 			<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="5px">

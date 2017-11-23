@@ -10,7 +10,6 @@
 }
 
 .myinfo-views{
-	overflow : hidden;
 	position : relative;
 	margin-top: 100px;
 	width: 100%;
@@ -64,16 +63,31 @@
 
 @media (max-width: 800px){
 	.myinfo-views{
-		margin-top: 20%;
-		height: 1000px;
+		margin-top : 50px;
+		height: 400px;
 	}
 	
 	.myinfo-view{
-		flex-flow: column wrap;
+		flex-flow : column wrap;
+		height: 100%;
+	}
+	
+	.content-picture{
+		width : 100%;
+		height: 300px;
+	}
+	
+	.content-text{
+		flex : 1;
 	}
 	
 	.btns-view{
-		margin-top : 100px;
+		margin-top : 50px;
+	}
+	
+	.btn-view{
+		width : 10px;
+		height: 10px;
 	}
 }
 </style>

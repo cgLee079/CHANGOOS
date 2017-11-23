@@ -4,19 +4,18 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <style>
 .wrapper{
-	width: 80%;
-	margin : 0px auto;
+	width : 100%;
 }
 
 .wrap-photo-view{
-	width : 100%;
+	width : 80%;
+	margin : 0px auto;
 	margin-top: 70px;
 }
 
 .photo-view{
-	width: 80%;
-	height: 500px;
-	margin: 0px auto;
+	width: 100%;
+	height: 400px;
 }
 
 .photo-view > .photo-img{
@@ -68,8 +67,9 @@
 .wrap-photo-list{
 	display : flex;
 	height: 100px;
-	width : 100%;
-	margin-top: 30px;
+	width : 90%;
+	margin: 0px auto;
+	margin-top: 35px;
 	
 	-ms-flex-align: center;
 	-webkit-align-items: center;
@@ -135,17 +135,51 @@
 
 @media (max-width: 800px){
 	.wrap-photo-view{
-		margin-top: 300px;
+		margin-top: 20px;
 	}
 	
 	.wrap-photo-list{
-		margin-top: 100px;
+		margin-top: 50px;
+		height: 50px;
+	}
+	
+	.photo-view > .photo-detail {
+		margin-top: 5px;
+	}
+	
+	.photo-view > .photo-detail > .photo-info > .photo-name{
+		font-size: 8px;
+	}
+	
+	.photo-view > .photo-detail > .photo-info > .photo-date-loc{
+		font-size: 3px;
+	}
+	
+	.photo-view > .photo-detail > .photo-desc{
+		font-size: 7px;
+	}
+	
+	.photo-view > .photo-detail > .photo-people-tag{
+		font-size: 3px;
+	}
+	
+	.btn-left-list{
+		width: 10px;
+		height: 10px;
+	}
+	
+	.btn-right-list{
+		width: 10px;
+		height: 10px;
 	}
 }
 
 </style>
 <script>
 	$(document).ready(function(){
+		var items 		= $(".photo-item");
+		items.eq(0).trigger("click");
+		 
 		$(".btn-right-list").on("click", function(){
 			var photoList = $(".photo-list");
 			var photoItems = $(".photo-list > .photo-item");
@@ -196,10 +230,40 @@
 				}
 			}
 		});
-
+		
+		$(".photo-view").touchwipe({
+		     wipeLeft: function() {
+		    	 var tg = $(".photo-view");
+		    	 var index 		= parseInt(tg.find(".photo-index").html());
+		    	 var toIndex 	= index + 1;
+		    	 var items 		= $(".photo-item");
+		    	 var itemLength = items.length;
+		    	 if(toIndex < itemLength){
+					items.eq(toIndex).trigger("click");
+		    	 } else{
+		    		alert("더 이상 사진이 없습니다.");
+		    	 } 
+		     },
+		     
+		     wipeRight: function() {
+		    	 var tg = $(".photo-view");
+		    	 var index 		= parseInt(tg.find(".photo-index").html());
+		    	 var toIndex 	= index - 1;
+		    	 var items 		= $(".photo-item");
+		    	 if(toIndex >= 0){
+		    		 items.eq(toIndex).trigger("click");
+		    	 } else{
+		    		 alert("더 이상 사진이 없습니다.");
+		    	 }
+		     },
+		     
+		     min_move_x: 20,
+		     min_move_y: 20,
+		     preventDefaultEvents: true
+		});
 	});
 	
-	function showPhoto(seq){
+	function showPhoto(seq, index){
 		$.ajax({
 			type	: "POST",
 			url 	: "${pageContext.request.contextPath}" + "/photo/view.do",
@@ -225,7 +289,8 @@
 				$(".photo-date-loc").html(photo.date + "  " + photo.location);
 				$(".photo-desc").html(photo.desc);
 				$(".photo-people-tag").html(photo.people + "  " + photo.tag);
-			}
+				$(".photo-index").html(index);
+			}	
 			
 		});
 	}
@@ -247,7 +312,7 @@
 				
 				<div class="photo-people-tag"></div>
 				<div class="photo-desc"></div>
-				
+				<div class="photo-index display-none"></div>
 			</div>
 		</div>
 		<div class="wrap-photo-list">
@@ -255,8 +320,8 @@
 			</div>
 			
 			<div class="photo-list">
-				<c:forEach var="photo" items="${photos}">
-				<div class="btn photo-item" onclick="showPhoto('${photo.seq}')"  
+				<c:forEach items="${photos}" var="photo" varStatus="status" >
+				<div class="btn photo-item" onclick="showPhoto('${photo.seq}', '${status.index}')"  
 					style="background-image: url('${pageContext.request.contextPath}${photo.image}')">
 				</div>
 			</c:forEach>
