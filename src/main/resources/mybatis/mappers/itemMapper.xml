@@ -15,7 +15,7 @@
 		ITM_GITURL as "gitURL",
 		ITM_HASGIT as "git",
 		ITM_DEVELOPER as "developer",
-		ITM_HITS as "hit"
+		ITM_HITS as "hits"
 		FROM TB_PTFOLIO_ITEMS
 	</select>
 	
@@ -31,7 +31,7 @@
 		ITM_GITURL as "gitURL",
 		ITM_HASGIT as "git",
 		ITM_DEVELOPER as "developer",
-		ITM_HITS as "hit"
+		ITM_HITS as "hits"
 		FROM TB_PTFOLIO_ITEMS
 		WHERE ITM_SEQ = #{seq}
 	</select>

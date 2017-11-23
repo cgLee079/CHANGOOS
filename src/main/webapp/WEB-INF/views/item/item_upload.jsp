@@ -40,7 +40,7 @@ input[class*="item"] {margin-bottom: 20px;}
 			$("#gitURL").val("${item.gitURL}");
 			$("#date").val("${item.date}");
 			$("#developer").val("${item.developer}");
-			if("${item.git}"){
+			if("${item.git}" === 1){
 				$("#gitTrue").attr("checked", true).trigger("change");
 			} else{
 				$("#gitFalse").attr("checked", true).trigger("change");

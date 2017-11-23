@@ -104,12 +104,8 @@
 .menu-tooltip{
 	background: #000;
 	color : #EEE;
-	box-shadow: 0 0 0px black;
-}
-
-.menu-tooltip.hover{
-	display: inherit;
-	animation : fadein 2s;
+	font-size: 0.7rem;
+	box-shadow: 0 0 0 black;
 }
 
 .menu.git-icon{
@@ -124,7 +120,7 @@
 	margin-right: 10px;
 }
 
-@media (max-width: 800px){
+@media (max-width: 720px){
 	/*
 	.nav-icon{
 		width: 30px;
@@ -236,11 +232,6 @@
 					delay: 0,
 					show : false,
 					hide : false,
-					position: { 
-						 my: "right+20 top",
-						 at: "center bottom+10",
-						 collision : "none"
-					}
 				};
 				
 				tg.attr("title", title);

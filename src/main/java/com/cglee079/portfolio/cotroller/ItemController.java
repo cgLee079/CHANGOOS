@@ -29,6 +29,9 @@ public class ItemController {
 	@RequestMapping(value = "/item/view")
 	public String itemView(Model model, int seq){
 		ItemVo item = itemService.get(seq);
+		int hits = item.getHits();
+		item.setHits(hits + 1);
+		itemService.update(item);
 		model.addAttribute("item", item);
 		return "item/item_view";
 	}

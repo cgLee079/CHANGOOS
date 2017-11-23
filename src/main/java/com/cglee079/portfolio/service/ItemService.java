@@ -25,7 +25,6 @@ public class ItemService {
 	}
 
 	public boolean update(ItemVo item) {
-		item.setHits(0);
 		return itemDao.update(item);
 	}
 	

@@ -31,10 +31,25 @@
 }
 
 .item-content {
+	position : relative;
 	margin-top: 50px;
 }
 
+.item-git-link{
+	position : absolute;
+	
+	width : 20px;
+    height : 20px;
+    right : 0px;
+    top : 0px;
+    
+	background-position	: center;
+    background-repeat	: no-repeat;
+    background-size		: contain;
+}
+
 @media (max-width: 720px){
+
 	.item-detail {
 		margin-top: 50px;
 	}
@@ -53,7 +68,6 @@
 			strokeDashoffset: [anime.setDashoffset, 0],
 			easing: 'easeInOutSine',
 			duration: 1000,
-			delay: function(el, i){return i * 250 },
 			loop: false
 		});
 	});
@@ -85,7 +99,13 @@
 				<path class="path" fill="none" stroke="#999" d="M0 0 L2000 0" />
 	   		</svg>
 
-			<div class="item-content">${item.content}</div>
+			<div class="item-content">
+				<c:if test="${item.git eq true}">
+					<div class="item-git-link" style="background-image: url('${pageContext.request.contextPath}/resources/image/btn_item_git.png')"></div>
+				</c:if>
+				
+				${item.content}
+			</div>
 		</div>
 		
 		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8">
