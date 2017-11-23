@@ -55,7 +55,7 @@ input[class*="item"] {margin-bottom: 20px;}
 <body>
 	<div class="wrapper">
 		<div class="header">
-			<h1>test</h1>
+			<h1>Item-upload</h1>
 		</div>
 		<div class="wrap-upload-form">
 			<form id="upload-form" action="${pageContext.request.contextPath}/admin/item/upload.do" 

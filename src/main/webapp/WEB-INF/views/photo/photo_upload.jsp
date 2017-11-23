@@ -5,7 +5,7 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <style>
 .wrapper{
-	width: 70%;
+	width: 80%;
 	margin: 0px auto;
 }
 
@@ -13,38 +13,19 @@
 	text-align: center;
 }
 
-.photo-image{
-	width : 100%;
-}
-
-.photo-name{
-	width : 100%;
-}
-
+input[class*="photo"] {margin-bottom: 20px;}
+.photo-image{ width : 100%; }
+.photo-name{ width : 100%; }
+.photo-location{ width: 100%; }
+.photo-date{ width: 100%; }
+.photo-people{ 	width: 100%; }
+.photo-tag{ width: 100%; }
+.photo-submit{ width: 100%; }
 .photo-desc{
 	width: 100%;
 	height: 100px;
 }
 
-.photo-location{
-	width: 100%;
-}
-
-.photo-date{
-	width: 100%;
-}
-
-.photo-people{
-	width: 100%;
-}
-
-.photo-tag{
-	width: 100%;
-}
-
-.submit{
-	width: 100%;
-}
 </style>
 
 <c:if test="${!empty photo}">
@@ -96,7 +77,7 @@
 				<input type="text" id="tag" name="tag" class="photo-tag"/>
 				
 				<hr>
-				<input type="submit" class="submit">
+				<input type="submit" class="photo-submit">
 				
 			</form>
 		</div>
