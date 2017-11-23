@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>.
 
 <title>test page!</title>
-<meta name="viewport" content="width=device-width"  charset="UTF-8">
+<meta id="viewport" name="viewport" content="width=device-width"  charset="UTF-8">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css" />

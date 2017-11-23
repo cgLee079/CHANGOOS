@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8"%>
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
@@ -18,7 +19,7 @@
 
 .myinfo-view {
 	display : flex;
-	flex-flow: row wrap;
+	flex-direction : row;
 	position: absolute;
 	width : 100%;
 	height: 100%;
@@ -68,7 +69,7 @@
 	}
 	
 	.myinfo-view{
-		flex-flow : column wrap;
+		flex-direction : column;
 		height: 100%;
 	}
 	
@@ -96,6 +97,14 @@
 var setIntervalId;
 var openAni;
 $(document).ready(function(){
+	var viewport = $("#viewport");
+	var content = viewport.attr("content");
+	viewport.attr("content", content + ",  user-scalable=no");
+	
+	setSlideMyInfo();
+});
+
+function setSlideMyInfo(){
 	var wrap	= $(".myinfo-views");
 	var views	= $(".myinfo-views > .myinfo-view");
 	var btns 	= $(".btns-view > .btn-view");
@@ -136,7 +145,61 @@ $(document).ready(function(){
 		}, 7000);
 	}
 	timer();
-});
+	
+	$(".myinfo-views").touchwipe({
+		wipeLeft: function() {
+			var tg = $(".myinfo-views");
+			var index 		= current;
+			var toIndex 	= index + 1;
+			var items 		= $(".myinfo-view");
+			var itemLength 	= items.length;
+			var btns 		= $(".btns-view > .btn-view");
+			var currentEl	= undefined;
+			var nextEl		= undefined;
+			
+			if(toIndex >= itemLength){ // 4 to 0
+				toIndex = 0;
+			}
+			
+			currentEl 	= items.eq(index);
+			nextEl 		= items.eq(toIndex);
+			  	 
+			currentEl.css({left : "0"}).stop().animate({left : "-100%"});
+		  	nextEl.css({left : "100%"}).stop().animate({left : "0%"});	
+		  	
+		  	btns.removeClass("on");
+		  	btns.eq(toIndex).addClass("on");
+		  	current = toIndex;
+		},
+		   
+		wipeRight: function() {
+			var tg = $(".myinfo-views");
+			var index 		= current;
+			var toIndex 	= index - 1;
+			var items 		= $(".myinfo-view");
+			var btns 		= $(".btns-view > .btn-view");
+			var currentEl	= undefined;
+			var nextEl		= undefined;
+			if(toIndex < 0){ //  -1 to 3 
+				toIndex = 3;
+			} 
+			
+			currentEl 	= items.eq(index);
+			nextEl 		= items.eq(toIndex);
+			
+			currentEl.css({left : "0"}).stop().animate({left : "100%"});
+		  	nextEl.css({left : "-100%"}).stop().animate({left : "0%"});	
+		  	
+		  	btns.removeClass("on");
+		  	btns.eq(toIndex).addClass("on");
+			current = toIndex;
+		},
+		   
+		min_move_x: 20,
+		min_move_y: 20,
+		preventDefaultEvents: true
+	});
+}
 </script>
 </head>
 
