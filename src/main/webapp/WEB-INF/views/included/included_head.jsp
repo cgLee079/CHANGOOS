@@ -1,6 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>.
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<title>test page!</title>
+<title>Lee Changoo</title>
 <meta id="viewport" name="viewport" content="width=device-width"  charset="UTF-8">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css" />
@@ -13,7 +13,3 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/anime2.2.0.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/letter-motion.js"></script>
-
-
-
-
