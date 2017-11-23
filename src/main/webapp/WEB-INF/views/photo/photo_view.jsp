@@ -15,7 +15,7 @@
 
 .photo-view{
 	width: 100%;
-	height: 400px;
+	height: 500px;
 }
 
 .photo-view > .photo-img{
@@ -40,12 +40,18 @@
 .photo-view > .photo-detail > .photo-info > .photo-name{
 	color: #000;
 	font-weight: bold;
-	font-style: oblique;
+	font-size: 0.8rem;
 }
 
 .photo-view > .photo-detail > .photo-info > .photo-date-loc{
 	color: #555;
-	font-size: 12px;
+	font-size: 0.5rem;
+}
+
+.photo-view > .photo-detail > .photo-people-tag{
+	margin-top: 5px;
+	color : #33F;
+	font-size: 0.5rem;
 }
 
 .photo-view > .photo-detail > .photo-desc{
@@ -54,15 +60,10 @@
 	height: 80%;
 	overflow : hidden;
 	color : #555;
-	font-size: 13px;
+	font-size: 0.6rem;
 	word-break : break-all;
 }
 
-.photo-view > .photo-detail > .photo-people-tag{
-	margin-top: 5px;
-	color : #33F;
-	font-size: 10px;
-}
 
 .wrap-photo-list{
 	display : flex;
@@ -143,24 +144,11 @@
 		height: 50px;
 	}
 	
+	.photo-view{
+		height: 400px;
+	}
 	.photo-view > .photo-detail {
 		margin-top: 5px;
-	}
-	
-	.photo-view > .photo-detail > .photo-info > .photo-name{
-		font-size: 8px;
-	}
-	
-	.photo-view > .photo-detail > .photo-info > .photo-date-loc{
-		font-size: 3px;
-	}
-	
-	.photo-view > .photo-detail > .photo-desc{
-		font-size: 7px;
-	}
-	
-	.photo-view > .photo-detail > .photo-people-tag{
-		font-size: 3px;
 	}
 	
 	.btn-left-list{
@@ -272,18 +260,16 @@
 				"seq" : seq
 			},
 			success : function(photo) {
-				$(".photo-img").css("background-image", 
-						"url('${pageContext.request.contextPath}" + photo.image +"')");
-				
+			 	$(".photo-view").css("opacity", 0);
 				var begin = anime({
-					  targets	: ".photo-img",
-					  duration	: 1000,
+					  targets	: ".photo-view",
+					  duration	: 500,
 					  opacity	: 1,
-					  begin: function(anim) {
-					   	var tg = $(".photo-img");
-					   	tg.css("opacity", 0);
-					  }
+					  easing	: 'easeInOutSine',
 				});
+				
+				$(".photo-img")
+					.css("background-image", "url('${pageContext.request.contextPath}" + photo.image +"')");
 				
 				$(".photo-name").html(photo.name);
 				$(".photo-date-loc").html(photo.date + "  " + photo.location);

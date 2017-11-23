@@ -42,6 +42,7 @@
 	.item-content{
 		margin-top: 10px;
 	}
+	
 }
 
 </style>
@@ -62,7 +63,7 @@
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8">
 		</c:import>
-		
+
 		<div class="item-detail">
 			<div class="item-head">
 				<h1 class="item-name">${item.name}</h1>

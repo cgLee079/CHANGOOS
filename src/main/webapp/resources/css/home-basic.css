@@ -16,12 +16,16 @@
 .main-introduce{
 	max-width: 70%;
 	margin : 0px auto;
-	margin-top: 150px; 
+	margin-top: 120px; 
 	text-align: center;
 } 
 
 .main-introduce-name{
-	font-size: 10px;
+	font-size: 1rem;
+}
+
+.main-introduce-desc{
+	font-size: 0.7rem;
 }
 
 .me-icon{
@@ -39,7 +43,7 @@
 }
 
 .main-items-title h1{
-	font-size: 50px;
+	font-size: 3rem;
 }
 
 .main-items{

@@ -1,27 +1,15 @@
 @media (max-width: 800px){
 	.main-introduce{
-		margin-top: 100px;
-	}
-	
-	.main-introduce-name{
-		font-size: 10px;
-	}
-	
-	.main-introduce-desc{
-		font-size: 10px;
+		margin-top: 150px;
 	}
 	
 	.me-icon{
-		width : 60%;
-		heigt : 60%;
+		width : 80%;
+		heigt : 80%;
 	}
 	
 	.main-items-title{
 		margin-top: 150px;
-	}
-	
-	.main-items-title h1{
-	font-size: 20px;
 	}
 	
 	.item{
