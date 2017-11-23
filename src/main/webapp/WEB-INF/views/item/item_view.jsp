@@ -33,6 +33,7 @@
 .item-content {
 	position : relative;
 	margin-top: 50px;
+	font-size: 0.6rem;
 }
 
 .item-git-link{

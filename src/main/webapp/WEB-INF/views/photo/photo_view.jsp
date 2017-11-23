@@ -10,7 +10,7 @@
 .wrap-photo-view{
 	width : 80%;
 	margin : 0px auto;
-	margin-top: 70px;
+	margin-top: 100px;
 }
 
 .photo-view{
@@ -70,7 +70,7 @@
 	height: 100px;
 	width : 90%;
 	margin: 0px auto;
-	margin-top: 35px;
+	margin-top: 50px;
 	
 	-ms-flex-align: center;
 	-webkit-align-items: center;
@@ -127,7 +127,7 @@
 
 @media (max-width: 720px){
 	.wrap-photo-view{
-		margin-top: 30px;
+		margin-top: 50px;
 	}
 	
 	.wrap-photo-list{
