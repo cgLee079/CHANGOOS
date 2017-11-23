@@ -12,7 +12,7 @@
 
 .myinfo-views{
 	position : relative;
-	margin-top: 100px;
+	margin-top:  80px;
 	width: 100%;
 	height: 500px;
 }
