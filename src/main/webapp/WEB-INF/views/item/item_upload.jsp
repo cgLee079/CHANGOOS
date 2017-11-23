@@ -1,11 +1,9 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page pageEncoding="utf-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
 <style>
 
 .wrapper{
@@ -17,25 +15,19 @@
 	text-align: center;
 }
 
-.item-name{
-	width : 100%;
-}
+input[class*="item"] {margin-bottom: 20px;}
+.item-name{ width : 100%;}
+.item-sect{ width : 100%;}
+.item-gitURL{ width : 100%;}
+.item-date{ width : 100%;}
+.item-developer{ width : 100%;}
+.item-submit {width : 100%;}
+
 .item-desc{
-	width: 100%;
-	height: 100px;
+	width : 100%;
+	height : 100px;
 }
 
-.item-snapsht{
-	width: 100%;
-}
-
-.item-dirtURL{
-	width: 100%;
-}
-
-.submit{
-	width: 100%;
-}
 </style>
 
 <c:if test="${!empty item}">
@@ -43,17 +35,25 @@
 		$(document).ready(function(){
 			$("#name").val("${item.name}");
 			$("#desc").val("${item.desc}");
-			$("#dirtURL").val("${item.dirtURL}");
+			$("#sect").val("${item.sect}");
 			$("#content").val("${item.content}");
+			$("#gitURL").val("${item.gitURL}");
+			$("#date").val("${item.date}");
+			$("#developer").val("${item.developer}");
+			if("${item.git}"){
+				$("#gitTrue").attr("checked", true).trigger("change");
+			} else{
+				$("#gitFalse").attr("checked", true).trigger("change");
+			}
+			
 			$("<input>", { type : "hidden", name : "seq", value: "${item.seq}"}).appendTo($("#upload-form"));
 			$("<input>", { type : "hidden", name : "snapsht", value: "${item.snapsht}"}).appendTo($("#upload-form"));
 		});
 	</script>
 </c:if>
-
 </head>
 <body>
-	<div class="wrpper">
+	<div class="wrapper">
 		<div class="header">
 			<h1>test</h1>
 		</div>
@@ -63,11 +63,28 @@
 				<h5>name</h5>
 				<input type='text' id="name" name='name' class="item-name"/>
 				
+				<h5>sect</h5>
+				<input id="sect" name="sect" class="item-sect"/>
+				
 				<h5>desc</h5>
 				<textarea id="desc" name="desc" class="item-desc"></textarea>
 				
-				<h5>dirtURL</h5>
-				<input type="text" id="dirtURL" name="dirtURL" class="item-dirtURL"/>
+				<h5>isGIT</h5>
+				<input type="radio" id="gitTrue" name="git" class="item-git" value="true">true &nbsp;&nbsp;&nbsp;
+				<input type="radio" id="gitFalse" name="git" class="item-git" value="false" checked="true">false
+				<div class="wrap-git display-none">
+					<h5>gitURL</h5>
+					<input type="text" id="gitURL" name="gitURL" class="item-gitURL"/>
+				</div>
+				<script>
+					$("input[type=radio][name=git]").change(function() {
+						if (this.value === "true") {
+							$(".wrap-git").removeClass("display-none");
+						} else if (this.value === "false") {
+							$(".wrap-git").addClass("display-none");
+						}
+				  	});
+				</script>
 				
 				<h5>contents</h5>
 				<textarea name="content" id="content"></textarea>
@@ -88,11 +105,17 @@
 					});
 				</script>
 				
+				<h5>date</h5>
+				<input type="text" id="date" name="date" class="item-date"/>
+				
+				<h5>developer</h5>
+				<input type="text" id="developer" name="developer" class="item-developer"/>
+				
 				<h5>snapshot</h5>
-				<input type="file" id="snapshtFile" name="snapshtFile"/>
+				<input type="file" id="snapshtFile" name="snapshtFile" class="item-snapshot"/>
 
 				<hr>
-				<input type="submit" class="submit">
+				<input type="submit" class="item-submit">
 				
 			</form>
 		</div>

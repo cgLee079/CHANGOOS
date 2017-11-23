@@ -40,15 +40,17 @@
 	</bean>
 	
 	<!-- 
-	CREATE TABLE TB_PTFOLIO_ITEMS(
+ 	CREATE TABLE TB_PTFOLIO_ITEMS(
 	ITM_SEQ int auto_increment,
-	ITM_NAME varchar(100),
+	ITM_NAME varchar(200),
+	ITM_SECT varchar(100),
 	ITM_DESC varchar(1000),
 	ITM_CONTENT varchar(5000),
-	ITM_SNAPSHT varchar(200),
-	ITM_WRDATE date,
-	ITM_ISDIRT boolean,
-	ITM_DIRTURL varchar(200),
+	ITM_SNAPSHT varchar(500),
+	ITM_DATE varchar(300),
+	ITM_HASGIT boolean,
+	ITM_GITURL	varchar(500),
+	ITM_DEVELOPER varchar(300),
 	ITM_HITS	int,
 	constraint pk_ptfolio_items primary key(ITM_SEQ)
 	)

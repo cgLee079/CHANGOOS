@@ -1,17 +1,9 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page pageEncoding="UTF-8" %>
 <html>
 <head>
-<title>Home</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css" />
+<%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home-basic.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home-width-800.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/letter-motion.css" />
-<script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/anime2.2.0.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/letter-motion.js"></script>
 
 <script>
 function itemView(seq){
@@ -29,8 +21,7 @@ function scrollToItems(){
 <body>
 	
 <div class="wrapper">
-	<c:import url="included/included_nav.jsp" charEncoding="UTF-8">
-	</c:import>
+	<c:import url="included/included_nav.jsp" charEncoding="UTF-8" />
 	
 	<div class="main">
 		<div class="main-introduce">

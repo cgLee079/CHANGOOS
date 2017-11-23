@@ -7,12 +7,14 @@
 		SELECT
 		ITM_SEQ as "seq",
 		ITM_NAME as "name",
+		ITM_SECT as "sect",
 		ITM_DESC as "desc",
 		ITM_CONTENT as "content",
 		ITM_SNAPSHT as "snapsht",
-		ITM_WRDATE as "wrDate",
-		ITM_DIRTURL as "dirtURL",
-		ITM_ISDIRT as "dirt",
+		ITM_DATE as "date",
+		ITM_GITURL as "gitURL",
+		ITM_HASGIT as "git",
+		ITM_DEVELOPER as "developer",
 		ITM_HITS as "hit"
 		FROM TB_PTFOLIO_ITEMS
 	</select>
@@ -21,12 +23,14 @@
 		SELECT
 		ITM_SEQ as "seq",
 		ITM_NAME as "name",
+		ITM_SECT as "sect",
 		ITM_DESC as "desc",
 		ITM_CONTENT as "content",
 		ITM_SNAPSHT as "snapsht",
-		ITM_WRDATE as "wrDate",
-		ITM_DIRTURL as "dirtURL",
-		ITM_ISDIRT as "dirt",
+		ITM_DATE as "date",
+		ITM_GITURL as "gitURL",
+		ITM_HASGIT as "git",
+		ITM_DEVELOPER as "developer",
 		ITM_HITS as "hit"
 		FROM TB_PTFOLIO_ITEMS
 		WHERE ITM_SEQ = #{seq}
@@ -38,22 +42,25 @@
 	</delete>
 	
 	<insert id="insert">
-		INSERT TB_PTFOLIO_ITEMS (ITM_NAME, ITM_DESC, ITM_CONTENT, ITM_SNAPSHT, ITM_WRDATE, ITM_DIRTURL, ITM_ISDIRT, ITM_HITS)
-		VALUES (#{name}, #{desc}, #{content}, #{snapsht}, #{wrDate}, #{dirtURL}, #{dirt}, #{hits})
+		INSERT TB_PTFOLIO_ITEMS 
+		(ITM_NAME, ITM_SECT, ITM_DESC, ITM_CONTENT, ITM_SNAPSHT, ITM_DATE, ITM_GITURL, ITM_HASGIT, ITM_DEVELOPER, ITM_HITS)
+		VALUES (#{name}, #{sect}, #{desc}, #{content}, #{snapsht}, #{date}, #{gitURL}, #{git}, #{developer}, #{hits})
 	</insert>
 	
 	<update id="update">
 		UPDATE TB_PTFOLIO_ITEMS
 		SET 
 		ITM_NAME = #{name},
+		ITM_SECT = #{sect},
 		ITM_DESC = #{desc},
 		ITM_CONTENT = #{content},
 		ITM_SNAPSHT = #{snapsht},
-		ITM_WRDATE = #{wrDate},
-		ITM_DIRTURL = #{dirtURL},
-		ITM_ISDIRT = #{dirt},
+		ITM_DATE = #{date},
+		ITM_GITURL = #{gitURL},
+		ITM_HASGIT = #{git},
+		ITM_DEVELOPER = #{developer},
 		ITM_HITS = #{hits}
-		WHERE ITM_SEQ = ${seq}
+		WHERE ITM_SEQ = #{seq}
 	</update>
 	
 	

@@ -1,9 +1,8 @@
 <%@ page pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <style>
 	.wrapper{
 		width : 90%;
@@ -60,11 +59,13 @@
 			<tr>
 			<td> SEQ </td>
 			<td> Name </td>
+			<td> Sect </td>
 			<td> Desc </td>
 			<td> Snapshot </td>
-			<td> Write-Date </td>
-			<td> dirt </td>
-			<td> dirtURL </td>
+			<td> date </td>
+			<td> git </td>
+			<td> gitURL </td>
+			<td> developer </td>
 			<td> Hits </td>
 			<td> Modify</td>
 			<td> Delete</td>
@@ -74,11 +75,13 @@
 				<tr>
 				<td> ${item.seq} </td>
 				<td> ${item.name} </td>
+				<td> ${item.sect} </td>
 				<td> ${item.desc} </td>
 				<td> <img height="100" src="${pageContext.request.contextPath}${item.snapsht}"/> </td>
-				<td> ${item.wrDate} </td>
-				<td> ${item.dirtURL} </td>
-				<td> ${item.dirt} </td>
+				<td> ${item.date} </td>
+				<td> ${item.gitURL} </td>
+				<td> ${item.git} </td>
+				<td> ${item.developer} </td>
 				<td> ${item.hits} </td>
 				<td> <a href="javascript:void(0)" onclick="itemModify('${item.seq}')">수정</a> </td>
 				<td> <a href="javascript:void(0)" onclick="itemDelete('${item.seq}')">삭제</a> </td>

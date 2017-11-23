@@ -3,28 +3,31 @@ package com.cglee079.portfolio.model;
 public class ItemVo {
 	private int seq;
 	private String name;
+	private String sect;
 	private String desc;
 	private String content;
 	private String snapsht;
-	private String wrDate;
-	private String dirtURL;
-	private boolean dirt; 
+	private String date;
+	private String gitURL;
+	private boolean git;
+	private String developer;
 	private int hits;
 
 	public ItemVo() {
 	}
-	
-	public ItemVo(int seq, String name, String desc, String content, String snapsht, String wrDate, String dirtURL,
-			boolean dirt, int hits) {
-		super();
+
+	public ItemVo(int seq, String name, String sect, String desc, String content, String snapsht, String date,
+			String gitURL, boolean git, String developer, int hits) {
 		this.seq = seq;
 		this.name = name;
+		this.sect = sect;
 		this.desc = desc;
 		this.content = content;
 		this.snapsht = snapsht;
-		this.wrDate = wrDate;
-		this.dirtURL = dirtURL;
-		this.dirt = dirt;
+		this.date = date;
+		this.gitURL = gitURL;
+		this.git = git;
+		this.developer = developer;
 		this.hits = hits;
 	}
 
@@ -42,6 +45,14 @@ public class ItemVo {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getSect() {
+		return sect;
+	}
+
+	public void setSect(String sect) {
+		this.sect = sect;
 	}
 
 	public String getDesc() {
@@ -68,28 +79,36 @@ public class ItemVo {
 		this.snapsht = snapsht;
 	}
 
-	public String getWrDate() {
-		return wrDate;
+	public String getDate() {
+		return date;
 	}
 
-	public void setWrDate(String wrDate) {
-		this.wrDate = wrDate;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
-	public String getDirtURL() {
-		return dirtURL;
+	public String getGitURL() {
+		return gitURL;
 	}
 
-	public void setDirtURL(String dirtURL) {
-		this.dirtURL = dirtURL;
+	public void setGitURL(String gitURL) {
+		this.gitURL = gitURL;
 	}
 
-	public boolean isDirt() {
-		return dirt;
+	public boolean isGit() {
+		return git;
 	}
 
-	public void setDirt(boolean dirt) {
-		this.dirt = dirt;
+	public void setGit(boolean git) {
+		this.git = git;
+	}
+
+	public String getDeveloper() {
+		return developer;
+	}
+
+	public void setDeveloper(String developer) {
+		this.developer = developer;
 	}
 
 	public int getHits() {
@@ -100,5 +119,4 @@ public class ItemVo {
 		this.hits = hits;
 	}
 
-	
 }

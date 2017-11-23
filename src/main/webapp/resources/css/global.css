@@ -7,3 +7,7 @@
 a, a:VISITED{
 	text-decoration: none;
 }
+
+.display-none{
+	display: none;
+}

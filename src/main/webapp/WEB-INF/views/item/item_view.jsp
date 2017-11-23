@@ -1,19 +1,9 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/global.css" />
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/anime2.2.0.js"></script>
+<%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <style>
 .wrapper{
 	width: 70%;
@@ -73,7 +63,7 @@
 				<h1>${item.name}</h1>
 				
 				<a class="item-hits">hits : ${item.hits}</a>
-				<a class="item-date">date : ${item.wrDate}</a>
+				<a class="item-date">date : ${item.date}</a>
 			</div>
 
 			<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="5px">

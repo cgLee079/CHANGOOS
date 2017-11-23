@@ -1,20 +1,10 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page pageEncoding="UTF-8" %>
 <html>
 <head>
-<title>Home</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/letter-motion.css" />
-<script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/anime2.2.0.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/letter-motion.js"></script>
-
+<%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <style>
 .wrap-myinfo {
 	background : #FFF;
-	width : 80%;
+	width : 100%;
 	height: 100%;
 	margin: 0px auto;
 }
@@ -138,8 +128,7 @@ $(document).ready(function(){
 
 <body>
 <div class="wrap-myinfo slider">
-	<c:import url="included/included_nav.jsp" charEncoding="UTF-8">
-	</c:import>
+	<c:import url="included/included_nav.jsp" charEncoding="UTF-8" />
 	
 	<div class="myinfo-views">
 		<div class="myinfo-view myinfo-view00">
@@ -164,8 +153,7 @@ $(document).ready(function(){
 		<div class="btn-view btn-view03"></div>
 	</div>
 	
-	<c:import url="included/included_footer.jsp" charEncoding="UTF-8">
-	</c:import>
+	<c:import url="included/included_footer.jsp" charEncoding="UTF-8" />
 </div>
 </body>
 </html>

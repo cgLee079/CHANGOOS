@@ -1,14 +1,7 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page pageEncoding="UTF-8" %>
 <html>
 <head>
-<title>Home</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css" />
-<script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/anime2.2.0.js"></script>
-
+<%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <style>
 .wrapper{
 	width: 80%;

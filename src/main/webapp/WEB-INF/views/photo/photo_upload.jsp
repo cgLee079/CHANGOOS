@@ -1,13 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
-<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
+<%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <style>
-
 .wrapper{
 	width: 70%;
 	margin: 0px auto;
