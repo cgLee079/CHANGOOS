@@ -25,7 +25,7 @@
 	right : 0px;
 	bottom : 0px;
 	
-	color: #888;
+	color: #666;
 	font-size: 0.5rem;
 	text-align: right;
 }
@@ -37,15 +37,13 @@
 
 .item-git-link{
 	position : absolute;
-	
-	width : 20px;
-    height : 20px;
     right : 0px;
     top : 0px;
-    
-	background-position	: center;
-    background-repeat	: no-repeat;
-    background-size		: contain;
+}
+
+.item-git-link img{
+	width : 50px;
+	height: 50px;
 }
 
 @media (max-width: 720px){
@@ -56,6 +54,11 @@
 	
 	.item-content{
 		margin-top: 10px;
+	}
+	
+	.item-git-link img{
+		width : 20px;
+    	height : 20px;
 	}
 	
 }
@@ -101,7 +104,11 @@
 
 			<div class="item-content">
 				<c:if test="${item.git eq true}">
-					<div class="item-git-link" style="background-image: url('${pageContext.request.contextPath}/resources/image/btn_item_git.png')"></div>
+					<div class="btn item-git-link">
+						 <a target="_black" href="${item.gitURL}">
+						 	<img src="${pageContext.request.contextPath}/resources/image/btn_item_git.png" />
+						 </a>
+					</div>
 				</c:if>
 				
 				${item.content}

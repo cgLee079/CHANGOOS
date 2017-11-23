@@ -87,18 +87,9 @@
 }
 
 */
-.menu {
-	cursor: pointer;
-}
-
-.menu img{
+.btn.menu img{
 	width : 25px;
 	height: 25px;
-	opacity: 0.5;
-}
-
-.menu:hover img, .menu.hover img{
-	opacity: 1;
 }
 
 .menu-tooltip{
@@ -108,15 +99,15 @@
 	box-shadow: 0 0 0 black;
 }
 
-.menu.git-icon{
+.btn.git-icon{
 	margin-right: 10px;
 }
 
-.menu.myinfo-icon{
+.btn.myinfo-icon{
 	margin-right: 10px;
 }
 
-.menu.home-icon{
+.btn.home-icon{
 	margin-right: 10px;
 }
 
@@ -144,20 +135,20 @@
 	  top: 20px;
 	}
 	*/
-	.menu img{
+	.btn.menu img{
 		width : 20px;
 		height: 20px;
 	}
 	
-	.menu.git-icon{
+	.btn.git-icon{
 		margin-right: 5px;
 	}
 	
-	.menu.myinfo-icon{
+	.btn.myinfo-icon{
 		margin-right: 5px;
 	}
 	
-	.menu.home-icon{
+	.btn.home-icon{
 		margin-right: 5px;
 	}
 }
@@ -188,19 +179,19 @@
 	</script>
 	 -->
 	<div class="main-menus">
-		<span class="menu home-icon"> 
+		<span class="btn menu home-icon"> 
 			<a href="${pageContext.request.contextPath}"> 
 				<img src="${pageContext.request.contextPath}/resources/image/btn_nav_home.png" />
 			</a>
 		</span>
 		
-		<span class="menu myinfo-icon">
+		<span class="btn menu myinfo-icon">
 			<a href="${pageContext.request.contextPath}/myinfo"> 
 				<img src="${pageContext.request.contextPath}/resources/image/btn_nav_myinfo.png" />
 			</a>
 		</span>  
 		
-		<span class="menu photo-icon">
+		<span class="btn menu photo-icon">
 			<a href="${pageContext.request.contextPath}/photo"> 
 				<img src="${pageContext.request.contextPath}/resources/image/btn_nav_photo.png" />
 			</a>
@@ -208,13 +199,13 @@
 	</div>
 
 	<div class="sub-menus">
-		<span class="menu git-icon"> 
+		<span class="btn menu git-icon"> 
 			<a target="_blank" href="https://github.com/cgLee079"> 
 				<img src="${pageContext.request.contextPath}/resources/image/btn_nav_github.png" />
 			</a>
 		</span> 
 		
-		<span class="menu insta-icon">
+		<span class="btn menu insta-icon">
 			<a target="_blank" href="https://www.instagram.com/cglee079"> 
 				<img src="${pageContext.request.contextPath}/resources/image/btn_nav_insta.png" />
 			</a>

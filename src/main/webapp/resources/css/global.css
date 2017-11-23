@@ -11,3 +11,12 @@ a, a:VISITED{
 .display-none{
 	display: none;
 }
+
+.btn{
+	cursor: pointer;
+	opacity: 0.5;
+}
+
+.btn:hover{
+	opacity: 1;
+}

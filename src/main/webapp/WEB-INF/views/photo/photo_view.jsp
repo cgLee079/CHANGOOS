@@ -108,15 +108,6 @@
     background-size		: contain;
 }
 
-.btn{
-	cursor: pointer;
-	opacity: 0.5;
-}
-
-.btn:hover{
-	opacity: 1;
-}
-
 .h-reverse{
 	-moz-transform: scaleX(-1);
 	-o-transform: scaleX(-1);
