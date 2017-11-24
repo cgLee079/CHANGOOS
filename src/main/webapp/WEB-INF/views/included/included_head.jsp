@@ -5,7 +5,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global-responsive.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-nanumgothic.css" />
+<!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-nanumgothic.css" />  -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/letter-motion.css" />
 
