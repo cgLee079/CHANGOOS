@@ -14,14 +14,14 @@
 		<!-- use-expressions 사용 여부 (hasRole(),hasAnyRole() 등등) -->
 		<!-- access ='permitAll, denyAll, hasRole(), hasAnyRole, hasIpAddress(ip)-->
 		<!-- ex. access="hasIpAddress('162.79.8.30')" 또는  access="hasIpAddress('162.0.0.0/224')"-->
-		<!--<security:intercept-url  pattern="/admin/*" access="hasRole('ROLE_ADMIN')" /> -->
+		<!-- <security:intercept-url pattern="/admin/*/*" access="hasRole('ROLE_ADMIN')" />  -->
+		<!-- <security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />  -->
 		
 		<security:form-login username-parameter="username"
 		 	login-page="/login"
-			default-target-url="/admin/item"
 			login-processing-url="/j_spring_security_check"
 			password-parameter="password" authentication-failure-url="/login?result=false"
-			always-use-default-target="true" />
+		 />
 			
 				<!-- 로그아웃 성공시 핸들러 -->
 		<!-- <bean id="LoginSuccessHandler" class="com.cglee079.portfolio.security.LoginSuccessHandler" />  -->
@@ -49,7 +49,11 @@
 	</security:http>
 	<security:authentication-manager> <!-- 로그인 관리자 -->
 		<security:authentication-provider user-service-ref="adminService">
+		<security:password-encoder ref="passwordEncoder"></security:password-encoder>
 		</security:authentication-provider>
 	</security:authentication-manager>
 	
+	<bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+  		<constructor-arg name="strength" value="256"></constructor-arg>
+	</bean>
 </beans>

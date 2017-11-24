@@ -220,6 +220,13 @@
 			<artifactId>log4jdbc-remix</artifactId>
 			<version>0.2.7</version>
 		</dependency>
+		
+		<!-- imageMedata extractor -->
+		<dependency>
+		  <groupId>com.drewnoakes</groupId>
+		  <artifactId>metadata-extractor</artifactId>
+		  <version>2.10.1</version>
+		</dependency>
 
 	</dependencies>
 	<build>

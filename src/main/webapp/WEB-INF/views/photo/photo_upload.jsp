@@ -35,7 +35,6 @@ input[class*="photo"] {margin-bottom: 20px;}
 			$("#desc").val("${photo.desc}");
 			$("#location").val("${photo.location}");
 			$("#date").val("${photo.date}");
-			$("#people").val("${photo.people}");
 			$("#tag").val("${photo.tag}");
 			
 			$("<input>", { type : "hidden", name : "seq", value: "${photo.seq}"}).appendTo($("#upload-form"));
@@ -69,9 +68,6 @@ input[class*="photo"] {margin-bottom: 20px;}
 				
 				<h5>date</h5>
 				<input type="text" id="date" name="date" class="photo-date"/>
-				
-				<h5>people</h5>
-				<input type="text" id="people" name="people" class="photo-people"/>
 				
 				<h5>tag</h5>
 				<input type="text" id="tag" name="tag" class="photo-tag"/>

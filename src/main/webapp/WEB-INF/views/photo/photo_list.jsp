@@ -63,8 +63,8 @@
 			<td> Desc </td>
 			<td> date </td>
 			<td> location </td>
-			<td> people </td>
 			<td> tag </td>
+			<td> device </td>
 			<td> like </td>
 			<td> Modify</td>
 			<td> Delete</td>
@@ -78,8 +78,8 @@
 				<td> ${photo.desc} </td>
 				<td> ${photo.date} </td>
 				<td> ${photo.location} </td>
-				<td> ${photo.people} </td>
 				<td> ${photo.tag} </td>
+				<td> ${photo.device} </td>
 				<td> ${photo.like} </td>
 				<td> <a href="javascript:void(0)" onclick="photoModify('${photo.seq}')">수정</a> </td>
 				<td> <a href="javascript:void(0)" onclick="photoDelete('${photo.seq}')">삭제</a> </td>

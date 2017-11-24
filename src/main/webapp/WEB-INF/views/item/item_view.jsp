@@ -32,23 +32,17 @@
 
 .item-content {
 	position : relative;
-	margin-top: 50px;
-	font-size: 0.6rem;
+	margin-top: 70px;
+	font-size: 0.8rem;
 }
 
-.item-git-link{
-	position : absolute;
-    right : 0px;
-    top : 0px;
-}
-
-.item-git-link img{
-	width : 50px;
-	height: 50px;
+.item-subinfo2 {
+	display : flex;
+	justify-content: space-between;
+	font-size: 0.7rem;
 }
 
 @media (max-width: 720px){
-
 	.item-detail {
 		margin-top: 50px;
 	}
@@ -85,10 +79,6 @@
 		<div class="item-detail">
 			<div class="item-head">
 				<h1 class="item-name">${item.name}</h1>
-				<c:if test="${!empty item.developer}">
-					<a class="item-developer">with ${item.developer}</a>
-				</c:if>
-				
 				<div class="item-subinfo">
 					<a class="item-sect">sect : ${item.sect}</a>
 					<br>
@@ -102,16 +92,17 @@
 			<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="5px">
 				<path class="path" fill="none" stroke="#999" d="M0 0 L2000 0" />
 	   		</svg>
-
-			<div class="item-content">
-				<c:if test="${item.git eq true}">
-					<div class="btn item-git-link">
-						 <a target="_black" href="${item.gitURL}">
-						 	<img src="${pageContext.request.contextPath}/resources/image/btn_item_git.png" />
-						 </a>
-					</div>
+	   			
+			<div class="item-subinfo2">
+				<c:if test="${!empty item.developer}"> 
+					<a class="item-developer">with ${item.developer}</a>
 				</c:if>
-				
+				<c:if test="${!empty item.gitURL}">
+					<a class="item-soruce" target="_black" href="${item.gitURL}"> source</a>
+				</c:if>
+			</div>
+			
+			<div class="item-content">
 				${item.content}
 			</div>
 		</div>

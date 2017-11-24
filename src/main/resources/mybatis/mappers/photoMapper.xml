@@ -8,12 +8,13 @@
 		SELECT
 		PHOTO_SEQ as "seq",
 		PHOTO_IMAGE as "image",
+		PHOTO_SNAPSHT as "snapsht",
 		PHOTO_NAME as "name",
 		PHOTO_DESC as "desc",
 		PHOTO_LOC as "location",
 		PHOTO_DATE as "date",
-		PHOTO_PEPLE as "people",
 		PHOTO_TAG as "tag",
+		PHOTO_DEVICE as "device",
 		PHOTO_LIKE as "like"
 		FROM TB_PTPOLIO_PHOTOS
 	</select>
@@ -22,12 +23,13 @@
 		SELECT
 		PHOTO_SEQ as "seq",
 		PHOTO_IMAGE as "image",
+		PHOTO_SNAPSHT as "snapsht",
 		PHOTO_NAME as "name",
 		PHOTO_DESC as "desc",
 		PHOTO_LOC as "location",
-		PHOTO_PEPLE as "people",
 		PHOTO_DATE as "date",
 		PHOTO_TAG as "tag",
+		PHOTO_DEVICE as "device",
 		PHOTO_LIKE as "like"
 		FROM TB_PTPOLIO_PHOTOS
 		WHERE PHOTO_SEQ = #{seq}
@@ -39,20 +41,21 @@
 	</delete>
 	
 	<insert id="insert">
-		INSERT TB_PTPOLIO_PHOTOS (PHOTO_IMAGE, PHOTO_NAME, PHOTO_DESC, PHOTO_LOC, PHOTO_DATE, PHOTO_PEPLE, PHOTO_TAG, PHOTO_LIKE)
-		VALUES (#{image}, #{name}, #{desc}, #{location}, #{date}, #{people}, #{tag}, #{like})
+		INSERT TB_PTPOLIO_PHOTOS (PHOTO_IMAGE, PHOTO_SNAPSHT, PHOTO_NAME, PHOTO_DESC, PHOTO_LOC, PHOTO_DATE, PHOTO_TAG, PHOTO_DEVICE, PHOTO_LIKE)
+		VALUES (#{image}, #{snapsht}, #{name}, #{desc}, #{location}, #{date}, #{tag}, #{device}, #{like})
 	</insert>
 	
 	<update id="update">
 		UPDATE TB_PTPOLIO_PHOTOS
 		SET 
 		PHOTO_IMAGE = #{image},
+		PHOTO_SNAPSHT = #{snapsht},
 		PHOTO_NAME = #{name},
 		PHOTO_DESC = #{desc},
 		PHOTO_LOC = #{location},
-		PHOTO_PEPLE = #{people},
 		PHOTO_DATE = #{date},
 		PHOTO_TAG = #{tag},
+		PHOTO_DEVICE = #{device},
 		PHOTO_LIKE = #{like}
 		WHERE PHOTO_SEQ = ${seq}
 	</update>

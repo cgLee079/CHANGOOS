@@ -48,7 +48,7 @@
 	font-size: 0.5rem;
 }
 
-.photo-view > .photo-detail > .photo-people-tag{
+.photo-view > .photo-detail > .photo-tag{
 	margin-top: 5px;
 	color : #33F;
 	font-size: 0.5rem;
@@ -240,7 +240,30 @@
 		     min_move_y: 20,
 		     preventDefaultEvents: true
 		});
+		
+		$(window).resize(function(){
+			photoSnapshtResize();
+		});
+		
 	});
+	
+	function photoSnapshtResize(){
+		var photoItems = $(".photo-item");
+		var length = photoItems.length;
+		
+		photoItems.each(function(){
+			var tg = $(this);
+			var height 	= parseInt(tg.css("height"));
+			var width	= height * (4/3);
+			tg.css("width", width);
+		});
+		
+		for(var i = 0; i < length; i++){
+			var tg = photoItems.eq(i);
+			var width = parseInt(tg.css("width"));
+			tg.css("left", (width * i) + (5 * i));
+		}
+	}
 	
 	function showPhoto(seq, index){
 		$.ajax({
@@ -265,7 +288,7 @@
 				$(".photo-name").html(photo.name);
 				$(".photo-date-loc").html(photo.date + "  " + photo.location);
 				$(".photo-desc").html(photo.desc);
-				$(".photo-people-tag").html(photo.people + "  " + photo.tag);
+				$(".photo-tag").html(photo.tag);
 				$(".photo-index").html(index);
 			}	
 			
@@ -287,7 +310,7 @@
 					<div class="photo-date-loc"></div>
 				</div>
 				
-				<div class="photo-people-tag"></div>
+				<div class="photo-tag"></div>
 				<div class="photo-desc"></div>
 				<div class="photo-index display-none"></div>
 			</div>
@@ -299,31 +322,15 @@
 			<div class="photo-list">
 				<c:forEach items="${photos}" var="photo" varStatus="status" >
 				<div class="btn photo-item" onclick="showPhoto('${photo.seq}', '${status.index}')"  
-					style="background-image: url('${pageContext.request.contextPath}${photo.image}')">
+					style="background-image: url('${pageContext.request.contextPath}${photo.snapsht}')">
 				</div>
 			</c:forEach>
 				
 			</div>
 			<script>
-			(function(){
-				var photoItems = $(".photo-item");
-				var length = photoItems.length;
-				
-				photoItems.each(function(){
-					var tg = $(this);
-					var height 	= parseInt(tg.css("height"));
-					var width	= height * (4/3);
-					tg.css("width", width);
-				});
-				
-				for(var i = 0; i < length; i++){
-					var tg = photoItems.eq(i);
-					var width = parseInt(tg.css("width"));
-					tg.css("left", (width * i) + (5 * i));
-				}
-				
-			})();
+				photoSnapshtResize();
 			</script>
+			
 			<div class="btn btn-right-list"  style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_arrow.png)">
 			</div>
 	

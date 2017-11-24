@@ -75,15 +75,16 @@
 	
 	CREATE TABLE TB_PTPOLIO_PHOTOS(
 	PHOTO_SEQ int AUTO_INCREMENT,
-	PHOTO_IMAGE varchar(200),
+	PHOTO_IMAGE varchar(500),
+	PHOTO_SNAPSHT varchar(500),
 	PHOTO_NAME varchar(200),
 	PHOTO_DESC varchar(1000),
 	PHOTO_LOC varchar(200),
-	PHOTO_DATE varchar(15),
-	PHOTO_PEPLE varchar(200),
+	PHOTO_DATE varchar(100),
+	PHOTO_DEVICE varchar(200),
 	PHOTO_TAG varchar(200),
 	PHOTO_LIKE int,
-	constraint pk_ptfolio_photos primary key(PHOTO_SEQ )
+	constraint pk_ptfolio_photos primary key(PHOTO_SEQ)
 	)
 	-->
 	
