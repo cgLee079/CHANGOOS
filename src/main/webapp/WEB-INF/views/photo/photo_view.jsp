@@ -284,6 +284,19 @@
 	}
 	
 	function showPhoto(seq, index){
+		var photoItems = $(".photo-list > .photo-item");
+		var tg = photoItems.eq(index);
+		photoItems.removeClass("on");
+		tg.addClass("on");
+		
+		var tgLeft = parseInt(tg.css("left"));
+		console.log("left");
+		photoItems.each(function(){
+			var left = parseInt($(this).css("left"));
+			var toLeft = left - tgLeft;
+			$(this).css({"left" : left}).stop().animate({"left" : toLeft});
+		})
+		
 		$.ajax({
 			type	: "POST",
 			url 	: "${pageContext.request.contextPath}" + "/photo/view.do",

@@ -22,6 +22,10 @@ a, a:VISITED{
 	opacity: 0.5;
 }
 
+.btn.on{
+	opacity: 1;
+}
+
 .btn:hover{
 	opacity: 1;
 }
