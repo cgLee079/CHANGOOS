@@ -51,33 +51,30 @@ function scrollToItems(){
 		</div>
 		<div class="main-items">
 			<c:forEach var="item" items="${items}">
-				<div onclick="itemView(${item.seq})" class="item">
-					<div class="item-bg" style="background-image: url('${pageContext.request.contextPath}${item.snapsht}')"></div>
-					<div class="item-desc">
-					
-					<a>
-						${item.name}</br>
-						${item.desc}
-					</a>
+				<div onclick="itemView(${item.seq})" class="item-view">
+					<div class="item-snapsht" style="background-image: url('${pageContext.request.contextPath}${item.snapsht}')">
+						<div class="item-info display-none">
+						<h3>${item.name}</h3>
+						<a class="item-desc">${item.desc}</a>
+						</div>
 					</div>
 				</div>
 			</c:forEach>
 			
 			<script>
 			(function(){
-				$(".item").bind("mouseover", function(){
-					var tg = $(this);
-					tg.css("opacity","1");
-					tg.find(".item-desc").addClass("fade-in");
-					tg.find(".item-desc").removeClass("fade-out");
-				});
+				function itemResize(){
+					$(".item-view").each(function(){
+						var width = parseInt($(this).width());
+						console.log(width);
+						$(this).css("height", width *(2/3));
+					});
+				}
+				itemResize();
 				
-				$(".item").bind("mouseout", function(){
-					var tg = $(this);
-					tg.css("opacity","0.5");
-					tg.find(".item-desc").removeClass("fade-in");
-					tg.find(".item-desc").addClass("fade-out");
-				});
+				$(window).resize(function(){
+					itemResize();	
+				})
 			})();
 			</script>
 		</div>

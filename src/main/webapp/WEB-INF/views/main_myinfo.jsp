@@ -3,13 +3,6 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <style>
-.wrap-myinfo {
-	background : #FFF;
-	width : 100%;
-	height: 100%;
-	margin: 0px auto;
-}
-
 .myinfo-views{
 	position : relative;
 	margin-top:  50px;
@@ -23,6 +16,9 @@
 	position: absolute;
 	width : 100%;
 	height: 100%;
+	
+	border-top : 1px solid #EEE;
+	border-bottom : 1px solid #EEE;
 }
 
 .myinfo-view00 {left: 0%; background: #FFF;}
@@ -204,7 +200,7 @@ function setSlideMyInfo(){
 </head>
 
 <body>
-<div class="wrap-myinfo slider">
+<div class="wrapper">
 	<c:import url="included/included_nav.jsp" charEncoding="UTF-8" />
 	
 	<div class="myinfo-views">
