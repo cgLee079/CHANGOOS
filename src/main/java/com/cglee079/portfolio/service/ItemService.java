@@ -25,6 +25,7 @@ public class ItemService {
 	}
 
 	public boolean update(ItemVo item) {
+		item.setContent(filterWrapChar(item.getContent()));
 		return itemDao.update(item);
 	}
 	
@@ -37,7 +38,7 @@ public class ItemService {
 	}
 	
 	public String filterWrapChar(String text){
-		text = text.replaceAll("\\r\\n|\\r|\\n", "&nbsp");
+		text = text.replaceAll("\\r\\n|\\r|\\n", "");
 //		text = text.replaceAll("\\R", "");
 		return text;
 	}

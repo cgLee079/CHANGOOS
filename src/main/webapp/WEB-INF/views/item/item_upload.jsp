@@ -15,15 +15,20 @@
 	text-align: center;
 }
 
-input[class*="item"] {margin-bottom: 20px;}
+.wrap-upload-form h5 {margin-top: 20px;}
 .item-name{ width : 100%;}
 .item-sect{ width : 100%;}
-.item-gitURL{ width : 100%;}
+.item-sourcecode{ width : 100%;}
 .item-date{ width : 100%;}
 .item-developer{ width : 100%;}
 .item-submit {width : 100%;}
 
 .item-desc{
+	width : 100%;
+	height : 100px;
+}
+
+.item-tools{
 	width : 100%;
 	height : 100px;
 }
@@ -37,14 +42,10 @@ input[class*="item"] {margin-bottom: 20px;}
 			$("#desc").val("${item.desc}");
 			$("#sect").val("${item.sect}");
 			$("#content").val("${item.content}");
-			$("#gitURL").val("${item.gitURL}");
+			$("#sourcecode").val("${item.sourcecode}");
 			$("#date").val("${item.date}");
 			$("#developer").val("${item.developer}");
-			if("${item.git}" === "true"){
-				$("#gitTrue").attr("checked", true).trigger("change");
-			} else{
-				$("#gitFalse").attr("checked", true).trigger("change");
-			}
+			$("#tools").val("${item.tools}");
 			
 			$("<input>", { type : "hidden", name : "seq", value: "${item.seq}"}).appendTo($("#upload-form"));
 			$("<input>", { type : "hidden", name : "snapsht", value: "${item.snapsht}"}).appendTo($("#upload-form"));
@@ -69,28 +70,27 @@ input[class*="item"] {margin-bottom: 20px;}
 				<h5>desc</h5>
 				<textarea id="desc" name="desc" class="item-desc"></textarea>
 				
-				<h5>isGIT</h5>
-				<input type="radio" id="gitTrue" name="git" class="item-git" value="true">true &nbsp;&nbsp;&nbsp;
-				<input type="radio" id="gitFalse" name="git" class="item-git" value="false" checked="true">false
-				<div class="wrap-git display-none">
-					<h5>gitURL</h5>
-					<input type="text" id="gitURL" name="gitURL" class="item-gitURL"/>
-				</div>
-				<script>
-					$("input[type=radio][name=git]").change(function() {
-						if (this.value === "true") {
-							$(".wrap-git").removeClass("display-none");
-						} else if (this.value === "false") {
-							$(".wrap-git").addClass("display-none");
-						}
-				  	});
-				</script>
+				<h5>sourcecode</h5>
+				<input type="text" id="sourcecode" name="sourcecode" class="item-sourcecode"/>
 				
 				<h5>contents</h5>
 				<textarea name="content" id="content"></textarea>
 				<script>
 					var editor = CKEDITOR.replace("content", {
-						filebrowserUploadUrl : '<%=request.getContextPath()%>' + "/item/imgUpload.do"
+						filebrowserUploadUrl : '<%=request.getContextPath()%>' + "/item/imgUpload.do",
+						on : {
+							instanceReady : function( ev ){
+							    // Output paragraphs as <p>Text</p>.
+							    this.dataProcessor.writer.setRules( 'p',
+							        {
+							            indent : false,
+							            breakBeforeOpen : true,
+							            breakAfterOpen : false,
+							            breakBeforeClose : false,
+							            breakAfterClose : true
+							        });
+							}
+						}
 					});
 
 					CKEDITOR.on('dialogDefinition', function(ev) {
@@ -103,6 +103,12 @@ input[class*="item"] {margin-bottom: 20px;}
 							dialogDefinition.removeContents('advanced'); //상세정보 탭 제거
 						}
 					});
+					
+					CKEDITOR.on( 'instanceReady', function( ev ) {
+						        // Ends self closing tags the HTML4 way, like <br>.
+						        ev.editor.dataProcessor.writer.selfClosingEnd = '/>';
+				    });
+					
 				</script>
 				
 				<h5>date</h5>
@@ -110,6 +116,9 @@ input[class*="item"] {margin-bottom: 20px;}
 				
 				<h5>developer</h5>
 				<input type="text" id="developer" name="developer" class="item-developer"/>
+				
+				<h5>tools</h5>
+				<textarea id="tools" name="tools" class="item-tools"></textarea>
 				
 				<h5>snapshot</h5>
 				<input type="file" id="snapshtFile" name="snapshtFile" class="item-snapshot"/>

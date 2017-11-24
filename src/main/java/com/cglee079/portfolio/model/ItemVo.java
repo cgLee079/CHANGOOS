@@ -8,16 +8,16 @@ public class ItemVo {
 	private String content;
 	private String snapsht;
 	private String date;
-	private String gitURL;
-	private boolean git;
+	private String sourcecode;
 	private String developer;
+	private String tools;
 	private int hits;
 
 	public ItemVo() {
 	}
 
 	public ItemVo(int seq, String name, String sect, String desc, String content, String snapsht, String date,
-			String gitURL, boolean git, String developer, int hits) {
+			String sourcecode, String developer, String tools, int hits) {
 		this.seq = seq;
 		this.name = name;
 		this.sect = sect;
@@ -25,10 +25,17 @@ public class ItemVo {
 		this.content = content;
 		this.snapsht = snapsht;
 		this.date = date;
-		this.gitURL = gitURL;
-		this.git = git;
+		this.sourcecode = sourcecode;
 		this.developer = developer;
+		this.tools = tools;
 		this.hits = hits;
+	}
+	
+	@Override
+	public String toString() {
+		return "ItemVo [seq=" + seq + ", name=" + name + ", sect=" + sect + ", desc=" + desc + ", content=" + content
+				+ ", snapsht=" + snapsht + ", date=" + date + ", sourcecode=" + sourcecode + ", developer=" + developer
+				+ ", tools=" + tools + ", hits=" + hits + "]";
 	}
 
 	public int getSeq() {
@@ -87,20 +94,12 @@ public class ItemVo {
 		this.date = date;
 	}
 
-	public String getGitURL() {
-		return gitURL;
+	public String getSourcecode() {
+		return sourcecode;
 	}
 
-	public void setGitURL(String gitURL) {
-		this.gitURL = gitURL;
-	}
-
-	public boolean isGit() {
-		return git;
-	}
-
-	public void setGit(boolean git) {
-		this.git = git;
+	public void setSourcecode(String sourcecode) {
+		this.sourcecode = sourcecode;
 	}
 
 	public String getDeveloper() {
@@ -109,6 +108,14 @@ public class ItemVo {
 
 	public void setDeveloper(String developer) {
 		this.developer = developer;
+	}
+
+	public String getTools() {
+		return tools;
+	}
+
+	public void setTools(String tools) {
+		this.tools = tools;
 	}
 
 	public int getHits() {

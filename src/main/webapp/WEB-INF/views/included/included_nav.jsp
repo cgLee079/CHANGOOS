@@ -2,7 +2,7 @@
 
 .nav{
 	position: fixed;
-	top : 0px;
+	top : 0;
 	left: 0;
 	right: 0;
 	padding : 1% 2%;
@@ -154,6 +154,17 @@
 }
 
 </style>
+<script>
+	$(document).ready(function(){
+		var height = $(".nav").outerHeight();
+		$(".nav-occupy").css("height", height);	
+		
+		$(window).resize(function(){
+			var height = $(".nav").outerHeight();
+			$(".nav-occupy").css("height", height);			
+		})
+	})
+</script>
 <div class="nav">
 	
 	<!--
@@ -231,4 +242,5 @@
 		})();
 	</script>
 </div>
+<div class="nav-occupy"></div>
 

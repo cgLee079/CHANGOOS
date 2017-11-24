@@ -5,7 +5,7 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <style>
 	.wrapper{
-		width : 90%;
+		width : 100%;
 		margin: 0px auto;
 	}
 	
@@ -63,9 +63,9 @@
 			<td> Desc </td>
 			<td> Snapshot </td>
 			<td> date </td>
-			<td> git </td>
-			<td> gitURL </td>
+			<td> sourcecode </td>
 			<td> developer </td>
+			<td> tools </td>
 			<td> Hits </td>
 			<td> Modify</td>
 			<td> Delete</td>
@@ -79,9 +79,9 @@
 				<td> ${item.desc} </td>
 				<td> <img height="100" src="${pageContext.request.contextPath}${item.snapsht}"/> </td>
 				<td> ${item.date} </td>
-				<td> ${item.gitURL} </td>
-				<td> ${item.git} </td>
+				<td> ${item.sourcecode} </td>
 				<td> ${item.developer} </td>
+				<td> ${item.tools} </td>
 				<td> ${item.hits} </td>
 				<td> <a href="javascript:void(0)" onclick="itemModify('${item.seq}')">수정</a> </td>
 				<td> <a href="javascript:void(0)" onclick="itemDelete('${item.seq}')">삭제</a> </td>

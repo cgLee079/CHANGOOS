@@ -28,6 +28,13 @@ public class PhotoVo {
 		this.device = device;
 		this.like = like;
 	}
+	
+	@Override
+	public String toString() {
+		return "PhotoVo [seq=" + seq + ", image=" + image + ", snapsht=" + snapsht + ", name=" + name + ", desc=" + desc
+				+ ", location=" + location + ", date=" + date + ", tag=" + tag + ", device=" + device + ", like=" + like
+				+ "]";
+	}
 
 	public int getSeq() {
 		return seq;

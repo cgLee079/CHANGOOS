@@ -12,9 +12,9 @@
 		ITM_CONTENT as "content",
 		ITM_SNAPSHT as "snapsht",
 		ITM_DATE as "date",
-		ITM_GITURL as "gitURL",
-		ITM_HASGIT as "git",
+		ITM_SOURCECD as "sourcecode",
 		ITM_DEVELOPER as "developer",
+		ITM_TOOLS as "tools",
 		ITM_HITS as "hits"
 		FROM TB_PTFOLIO_ITEMS
 	</select>
@@ -28,9 +28,9 @@
 		ITM_CONTENT as "content",
 		ITM_SNAPSHT as "snapsht",
 		ITM_DATE as "date",
-		ITM_GITURL as "gitURL",
-		ITM_HASGIT as "git",
+		ITM_SOURCECD as "sourcecode",
 		ITM_DEVELOPER as "developer",
+		ITM_TOOLS as "tools",
 		ITM_HITS as "hits"
 		FROM TB_PTFOLIO_ITEMS
 		WHERE ITM_SEQ = #{seq}
@@ -43,8 +43,8 @@
 	
 	<insert id="insert">
 		INSERT TB_PTFOLIO_ITEMS 
-		(ITM_NAME, ITM_SECT, ITM_DESC, ITM_CONTENT, ITM_SNAPSHT, ITM_DATE, ITM_GITURL, ITM_HASGIT, ITM_DEVELOPER, ITM_HITS)
-		VALUES (#{name}, #{sect}, #{desc}, #{content}, #{snapsht}, #{date}, #{gitURL}, #{git}, #{developer}, #{hits})
+		(ITM_NAME, ITM_SECT, ITM_DESC, ITM_CONTENT, ITM_SNAPSHT, ITM_DATE, ITM_SOURCECD, ITM_DEVELOPER, ITM_TOOLS, ITM_HITS)
+		VALUES (#{name}, #{sect}, #{desc}, #{content}, #{snapsht}, #{date}, #{sourcecode},#{developer}, #{tools}, #{hits})
 	</insert>
 	
 	<update id="update">
@@ -56,9 +56,9 @@
 		ITM_CONTENT = #{content},
 		ITM_SNAPSHT = #{snapsht},
 		ITM_DATE = #{date},
-		ITM_GITURL = #{gitURL},
-		ITM_HASGIT = #{git},
+		ITM_SOURCECD = #{sourcecode},
 		ITM_DEVELOPER = #{developer},
+		ITM_TOOLS = #{tools},
 		ITM_HITS = #{hits}
 		WHERE ITM_SEQ = #{seq}
 	</update>

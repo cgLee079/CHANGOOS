@@ -12,7 +12,7 @@
 
 .myinfo-views{
 	position : relative;
-	margin-top:  80px;
+	margin-top:  50px;
 	width: 100%;
 	height: 500px;
 }
@@ -97,9 +97,9 @@
 var setIntervalId;
 var openAni;
 $(document).ready(function(){
-	var viewport = $("#viewport");
-	var content = viewport.attr("content");
-	viewport.attr("content", content + ",  user-scalable=no");
+	//var viewport = $("#viewport");
+	//var content = viewport.attr("content");
+	//viewport.attr("content", content + ",  user-scalable=no");
 	
 	setSlideMyInfo();
 });

@@ -2,7 +2,10 @@
 	margin	: 0px;
 	padding	: 0px;
 	z-index : 0;
-	/*font-family:'Nanum Gothic';*/
+}
+
+body{
+	overflow-x : hidden;
 }
 
 a, a:VISITED{

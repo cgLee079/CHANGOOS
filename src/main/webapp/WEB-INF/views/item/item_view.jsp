@@ -8,7 +8,7 @@
 .item-detail {
 	width : 80%;
 	margin : 0px auto;
-	margin-top: 100px;
+	margin-top: 50px;
 }
 
 .item-head {
@@ -95,10 +95,10 @@
 	   			
 			<div class="item-subinfo2">
 				<c:if test="${!empty item.developer}"> 
-					<a class="item-developer">with ${item.developer}</a>
+					<a class="item-developer">by ${item.developer}</a>
 				</c:if>
-				<c:if test="${!empty item.gitURL}">
-					<a class="item-soruce" target="_black" href="${item.gitURL}"> source</a>
+				<c:if test="${!empty item.sourcecode}">
+					<a class="item-soruce" target="_black" href="${item.sourcecode}"> source</a>
 				</c:if>
 			</div>
 			

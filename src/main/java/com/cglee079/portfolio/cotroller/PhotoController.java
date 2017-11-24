@@ -21,6 +21,7 @@ import com.cglee079.portfolio.model.PhotoVo;
 import com.cglee079.portfolio.service.PhotoService;
 import com.cglee079.portfolio.util.ImageManager;
 import com.drew.imaging.ImageProcessingException;
+import com.drew.metadata.MetadataException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -53,7 +54,12 @@ public class PhotoController {
 	}
 	
 	@RequestMapping(value = "admin/photo/delete.do")
-	public String photoDelete(int seq) {
+	public String photoDelete(HttpSession session, int seq) {
+		String rootPath = session.getServletContext().getRealPath("");
+		PhotoVo photo = photoService.get(seq);
+		deleteFile(rootPath, photo.getImage());
+		deleteFile(rootPath, photo.getSnapsht());
+		
 		boolean result = photoService.delete(seq);
 		return "redirect:" + "/admin/photo/list";
 	}
@@ -71,31 +77,40 @@ public class PhotoController {
 	}
 	
 	@RequestMapping(value = "admin/photo/upload.do", params = "!seq")
-	public String photoDoUpload(HttpServletRequest request, PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException {
+	public String photoDoUpload(HttpServletRequest request, PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
 		HttpSession session = request.getSession();
 		String rootPath 	= session.getServletContext().getRealPath("");
 		String imgPath		= "/resources/image/photo/";
 		String snapshtPath 	= "/resources/image/photo/snapsht/";
-		String imgName		= "photo_" + photo.getName() + "_";
-		String snapshtName	= "photo_snapsht_" + photo.getName() + "_";
+		String imgName		= "photo_" + photo.getName();
+		String snapshtName	= "photo_snapsht_" + photo.getName();
 		
 		if(imageFile.getSize() != 0){
-			//image save
-			imgName += imageFile.getOriginalFilename();
-			File file = new File(rootPath + imgPath + imgName);
-			imageFile.transferTo(file);
-			photo.setImage(imgPath + imgName);
+			//naming
+			String imgExt = ImageManager.getExt(imageFile.getOriginalFilename());
+			imgName 	+= "." + imgExt;
+			snapshtName += "." + imgExt;
 			
-			HashMap<String, String> metadata = ImageManager.getImageMetaData(file);
+			//multipartfile save;
+			File photofile = new File(rootPath + imgPath + imgName);
+			imageFile.transferTo(photofile);
+			HashMap<String, String> metadata = ImageManager.getImageMetaData(photofile);
 			photo.setDate(metadata.get("Date/Time"));
 			photo.setDevice(metadata.get("Model"));
 			
 			//snapsht save
-			snapshtName += imageFile.getOriginalFilename();
-			BufferedImage shapshtImg = ImageManager.getScaledImage(file, 100); 
+			BufferedImage shapshtImg = ImageManager.getScaledImage(photofile, 100); 
+			shapshtImg = ImageManager.rotateImageForMobile(shapshtImg, ImageManager.getOrientation(photofile));
 			File snapshtfile = new File(rootPath + snapshtPath + snapshtName);
-			ImageIO.write(shapshtImg, "jpg", snapshtfile);
+			ImageIO.write(shapshtImg, imgExt, snapshtfile);
+			
+			//img rotate;
+			BufferedImage photoImg = ImageManager.rotateImageForMobile(photofile, ImageManager.getOrientation(photofile));
+			ImageIO.write(photoImg, imgExt, photofile);
+			
 			photo.setSnapsht(snapshtPath + snapshtName);
+			photo.setImage(imgPath + imgName);
+			
 		} else{
 			photo.setImage(imgPath + "default.jpg");
 			photo.setSnapsht(snapshtPath + "default.jpg");
@@ -107,45 +122,52 @@ public class PhotoController {
 	}
 	
 	@RequestMapping(value = "/admin/photo/upload.do", params = "seq")
-	public String photoDoModify(HttpServletRequest request, PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException{
+	public String photoDoModify(HttpServletRequest request, PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException{
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
-		String imgPath	= "/resources/image/photo/";
+		String imgPath		= "/resources/image/photo/";
 		String snapshtPath 	= "/resources/image/photo/snapsht/";
-		String imgName		= "photo_" + photo.getName() + "_";
-		String snapshtName	= "photo_" + photo.getName() + "_snapsht";
+		String imgName		= "photo_" + photo.getName();
+		String snapshtName	= "photo_snapsht_" + photo.getName();
 		
 		if(imageFile.getSize() != 0){
-			File existFile = null;
+			deleteFile(rootPath, photo.getImage());
+			deleteFile(rootPath, photo.getSnapsht());
+			//naming
+			String imgExt = ImageManager.getExt(imageFile.getOriginalFilename());
+			imgName 	+= "." + imgExt;
+			snapshtName += "." + imgExt;
 			
-			//image delete
-			existFile = new File (rootPath + photo.getImage());
-			if(existFile.exists()){ existFile.delete(); }
-			
-			//snapsht delete
-			existFile = new File (rootPath + photo.getSnapsht());
-			if(existFile.exists()){ existFile.delete(); }
-			
-			//image save
-			imgName += imageFile.getOriginalFilename();
-			File file = new File(rootPath + imgPath + imgName);
-			imageFile.transferTo(file);
-			photo.setImage(imgPath + imgName);
-			
-			HashMap<String, String> metadata = ImageManager.getImageMetaData(file);
+			//multipartfile save;
+			File photofile = new File(rootPath + imgPath + imgName);
+			imageFile.transferTo(photofile);
+			HashMap<String, String> metadata = ImageManager.getImageMetaData(photofile);
 			photo.setDate(metadata.get("Date/Time"));
 			photo.setDevice(metadata.get("Model"));
 			
 			//snapsht save
-			BufferedImage shapshtImg = ImageManager.getScaledImage(file, 100); 
+			BufferedImage shapshtImg = ImageManager.getScaledImage(photofile, 100); 
+			shapshtImg = ImageManager.rotateImageForMobile(shapshtImg, ImageManager.getOrientation(photofile));
 			File snapshtfile = new File(rootPath + snapshtPath + snapshtName);
-			ImageIO.write(shapshtImg, "jpg", snapshtfile);
-			photo.setSnapsht(snapshtPath + snapshtName + ".jpg");
+			ImageIO.write(shapshtImg, imgExt, snapshtfile);
+			
+			//img rotate;
+			BufferedImage photoImg = ImageManager.rotateImageForMobile(photofile, ImageManager.getOrientation(photofile));
+			ImageIO.write(photoImg, imgExt, photofile);
+			
+			photo.setSnapsht(snapshtPath + snapshtName);
+			photo.setImage(imgPath + imgName);
 		} 
 		
 		photoService.update(photo);
 		
 		return "redirect:" + "/admin/photo/list";
+	}
+	
+	private void deleteFile(String rootPath, String subPath){
+		File existFile = null;
+		existFile = new File (rootPath + subPath);
+		if(existFile.exists()){ existFile.delete(); }
 	}
 	
 }

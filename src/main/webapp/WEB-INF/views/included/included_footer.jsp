@@ -1,22 +1,19 @@
 <style>
 .footer {
-	margin : 0px auto;
+	width : 100%;
 	margin-top: 100px;
-	margin-bottom: 30px;
-	width : 80%;
-	height: 100px;
+	padding : 30px 0px 30px 0px;
+	background : #555;
+	color : #FFF;
 }
 
 .info-contact {
 	text-align: center;
-	font-size: 10px;
+	font-size: 0.5rem;
 }
+
 </style>
 <div class="footer">
-	<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="10px">
-	<path d="M0 0, L2000 0" fill="none" stroke="#CCC" />
- 	</svg>
-
 	<div class="info-contact">
 		<p>#contact information</p>
 		<p>Email : cglee079@gmail.com</p>

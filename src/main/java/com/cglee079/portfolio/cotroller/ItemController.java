@@ -39,6 +39,9 @@ public class ItemController {
 	@RequestMapping(value = "/admin/item/list")
 	public String item(Model model) {
 		List<ItemVo> items = itemService.list();
+		for(int i = 0; i < items.size(); i++){
+			System.out.println(items.get(i));
+		}
 		model.addAttribute("items", items);
 		return "item/item_list";
 	}
