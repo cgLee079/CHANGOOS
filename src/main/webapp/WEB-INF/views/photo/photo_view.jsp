@@ -10,7 +10,7 @@
 .wrap-photo-view{
 	width : 100%;
 	margin : 0px auto;
-	margin-top: 50px;
+	margin-top: 20px;
 }
 
 .photo-view{
@@ -18,6 +18,7 @@
 	padding : 20px 0px;
 	height: 400px;
 	border: 1px solid #eee;
+	background: #FFF;
 }
 
 .photo-view > .photo-img{

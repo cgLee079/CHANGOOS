@@ -3,6 +3,8 @@ package com.cglee079.portfolio.cotroller;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -82,8 +84,9 @@ public class PhotoController {
 		String rootPath 	= session.getServletContext().getRealPath("");
 		String imgPath		= "/resources/image/photo/";
 		String snapshtPath 	= "/resources/image/photo/snapsht/";
-		String imgName		= "photo_" + photo.getName();
-		String snapshtName	= "photo_snapsht_" + photo.getName();
+		String timeStamp	= new SimpleDateFormat("YYMMdd_HHmmss").format(new Date());
+		String imgName		= "photo_" + timeStamp + "_" + photo.getName();
+		String snapshtName	= "photo_snapsht_" + timeStamp + "_" + photo.getName();
 		
 		if(imageFile.getSize() != 0){
 			//naming
@@ -127,8 +130,9 @@ public class PhotoController {
 		String rootPath = session.getServletContext().getRealPath("");
 		String imgPath		= "/resources/image/photo/";
 		String snapshtPath 	= "/resources/image/photo/snapsht/";
-		String imgName		= "photo_" + photo.getName();
-		String snapshtName	= "photo_snapsht_" + photo.getName();
+		String timeStamp	= new SimpleDateFormat("YYMMdd_HHmmss").format(new Date());
+		String imgName		= "photo_" + timeStamp + "_" + photo.getName();
+		String snapshtName	= "photo_snapsht_" + timeStamp + "_" + photo.getName();
 		
 		if(imageFile.getSize() != 0){
 			deleteFile(rootPath, photo.getImage());
