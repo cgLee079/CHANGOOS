@@ -1,5 +1,6 @@
 package com.cglee079.portfolio.util;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -53,7 +54,6 @@ public class ImageManager {
 		    	sepeartor = sepeartor[1].split(sep2);
 		    	key = sepeartor[0].trim();
 		    	value = sepeartor[1].trim();
-		    	System.out.println(tag.toString());
 		    	map.put(key, value);
 		    }
 		}
@@ -64,8 +64,11 @@ public class ImageManager {
         int orientation = 1;
 	    Metadata metadata = ImageMetadataReader.readMetadata(file);
 	    ExifIFD0Directory directory = metadata.getDirectory(ExifIFD0Directory.class);
-	    orientation = directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
-        return orientation;
+	    if(directory != null){
+	    	orientation = directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
+	    } 
+	    return orientation;
+        
     }
     
     public synchronized static BufferedImage rotateImageForMobile(BufferedImage bi, int orientation) throws IOException {

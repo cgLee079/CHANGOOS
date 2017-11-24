@@ -39,6 +39,7 @@ input[class*="photo"] {margin-bottom: 20px;}
 			
 			$("<input>", { type : "hidden", name : "seq", value: "${photo.seq}"}).appendTo($("#upload-form"));
 			$("<input>", { type : "hidden", name : "image", value: "${photo.image}"}).appendTo($("#upload-form"));
+			$("<input>", { type : "hidden", name : "snapsht", value: "${photo.snapsht}"}).appendTo($("#upload-form"));
 		});
 	</script>
 </c:if>
