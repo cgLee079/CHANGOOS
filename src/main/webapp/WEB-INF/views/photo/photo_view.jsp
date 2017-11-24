@@ -182,7 +182,6 @@
 					tg.css({"left" : left}).stop().animate({"left" : toLeft});
 				}
 			}
-			
 		});
 		
 		$(".btn-left-list").on("click", function(){
@@ -244,11 +243,27 @@
 		     preventDefaultEvents: true
 		});
 		
+		$(".photo-list").touchwipe({
+		     wipeLeft: function() {
+		    	 $(".btn-right-list").trigger("click");
+		     },
+		     
+		     wipeRight: function() {
+		    	 $(".btn-left-list").trigger("click");
+		     },
+		     
+		     min_move_x: 20,
+		     min_move_y: 20,
+		     preventDefaultEvents: true
+		});
+		
 		$(window).resize(function(){
 			photoSnapshtResize();
 		});
 		
+		
 	});
+	
 	
 	function photoSnapshtResize(){
 		var photoItems = $(".photo-item");
@@ -294,7 +309,6 @@
 				$(".photo-tag").html(photo.tag);
 				$(".photo-index").html(index);
 			}	
-			
 		});
 	}
 	
