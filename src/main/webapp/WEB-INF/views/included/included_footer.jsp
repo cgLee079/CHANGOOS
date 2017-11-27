@@ -1,8 +1,8 @@
 <style>
 .footer {
 	width : 100%;
-	margin-top: 100px;
-	padding : 30px 0px 30px 0px;
+	margin-top: 5rem;
+	padding : 1rem 0 1rem 0;
 	background : #555;
 	color : #FFF;
 }

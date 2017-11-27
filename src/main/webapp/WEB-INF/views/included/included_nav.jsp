@@ -105,6 +105,18 @@
 	box-shadow: 0 0 0 black;
 }
 
+.btn.git-icon{
+	margin-right: 0.2rem;
+}
+
+.btn.myinfo-icon{
+	margin-right: 0.2rem;
+}
+
+.btn.home-icon{
+	margin-right: 0.2rem;
+}
+	
 @media (max-width: 720px){
 	.nav {
 		padding-top: 4%;
@@ -138,17 +150,6 @@
 		height: 18px;
 	}
 	
-	.btn.git-icon{
-		margin-right: 5px;
-	}
-	
-	.btn.myinfo-icon{
-		margin-right: 5px;
-	}
-	
-	.btn.home-icon{
-		margin-right: 5px;
-	}
 }
 
 </style>
@@ -162,7 +163,6 @@
 			$(".nav-occupy").css("height", height);			
 		})
 		
-		console.log("a");
 		$(".nav").css("top", -height);
 		var navAni = anime({
 			targets	: ".nav",
