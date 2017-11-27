@@ -33,6 +33,11 @@
 </style>
 
 <script type="text/javascript">
+	function itemView(seq){
+		var contextPath = "${pageContext.request.contextPath}";
+		window.location.href = contextPath + "/item/view?seq=" + seq;		
+	}
+
 	function itemDelete(seq){
 		var contextPath = "${pageContext.request.contextPath}";
 		window.location.href = contextPath + "/admin/item/delete.do?seq=" + seq;		
@@ -67,6 +72,7 @@
 			<td> developer </td>
 			<td> tools </td>
 			<td> Hits </td>
+			<td> view </td>
 			<td> Modify</td>
 			<td> Delete</td>
 			</tr>
@@ -77,12 +83,16 @@
 				<td> ${item.name} </td>
 				<td> ${item.sect} </td>
 				<td> ${item.desc} </td>
-				<td> <img height="100" src="${pageContext.request.contextPath}${item.snapsht}"/> </td>
+				<td> 
+					<img height="100" src="${pageContext.request.contextPath}${item.snapsht}"/> <br/>
+					${item.snapsht}
+				</td>
 				<td> ${item.date} </td>
 				<td> ${item.sourcecode} </td>
 				<td> ${item.developer} </td>
 				<td> ${item.tools} </td>
 				<td> ${item.hits} </td>
+				<td> <a href="javascript:void(0)" onclick="itemView('${item.seq}')">보기</a> </td>
 				<td> <a href="javascript:void(0)" onclick="itemModify('${item.seq}')">수정</a> </td>
 				<td> <a href="javascript:void(0)" onclick="itemDelete('${item.seq}')">삭제</a> </td>
 				</tr>
