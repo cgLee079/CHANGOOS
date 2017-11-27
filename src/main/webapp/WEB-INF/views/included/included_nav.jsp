@@ -2,12 +2,19 @@
 
 .nav{
 	position: fixed;
-	top : 0;
+	top : -1000;
 	left: 0;
 	right: 0;
 	padding : 1% 2%;
 	z-index : 1000;
+	display: -ms-flexbox;
+	display: -webkit-flex;
 	display: flex;
+
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	-webkit-box-align: center;
+	align-items: center;
 	justify-content : space-between;
 	background: #FFF;
 	border-bottom: 1px solid #EEE;
@@ -99,19 +106,11 @@
 	box-shadow: 0 0 0 black;
 }
 
-.btn.git-icon{
-	margin-right: 10px;
-}
-
-.btn.myinfo-icon{
-	margin-right: 10px;
-}
-
-.btn.home-icon{
-	margin-right: 10px;
-}
-
 @media (max-width: 720px){
+	.nav {
+		padding-top: 4%;
+		padding-bottom: 4%;
+	}
 	/*
 	.nav-icon{
 		width: 30px;
@@ -136,8 +135,8 @@
 	}
 	*/
 	.btn.menu img{
-		width : 20px;
-		height: 20px;
+		width : 18px;
+		height: 18px;
 	}
 	
 	.btn.git-icon{
@@ -163,10 +162,22 @@
 			var height = $(".nav").outerHeight();
 			$(".nav-occupy").css("height", height);			
 		})
+		
+		var navAni = anime({
+			targets	: ".nav",
+			duration: 500,
+			easing: 'easeOutCubic',
+			top : 0,
+			begin : function(){
+				$(".nav").css("top", -height);
+			}
+		});
 	})
+	
+		
 </script>
 <div class="nav">
-	
+
 	<!--
 	<div class="nav-icon">
 		<span></span>
@@ -208,7 +219,7 @@
 			</a>
 		</span>  
 	</div>
-
+	
 	<div class="sub-menus">
 		<span class="btn menu git-icon"> 
 			<a target="_blank" href="https://github.com/cgLee079"> 
@@ -223,6 +234,7 @@
 		</span>
 	</div>
 	<script>
+	/*
 		(function(){
 			var subMenus = $(".sub-menus .menu");
 			
@@ -240,6 +252,7 @@
 				tg.tooltip(option);
 			});
 		})();
+	*/
 	</script>
 </div>
 <div class="nav-occupy"></div>

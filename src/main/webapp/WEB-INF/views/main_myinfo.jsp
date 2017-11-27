@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
@@ -12,6 +13,7 @@
 
 .myinfo-view {
 	display : flex;
+	background: #FFF;
 	flex-direction : row;
 	position: absolute;
 	width : 100%;
@@ -21,10 +23,10 @@
 	border-bottom : 1px solid #EEE;
 }
 
-.myinfo-view00 {left: 0%; background: #FFF;}
-.myinfo-view01 {left: 100%; background: #333;}
-.myinfo-view02 {left: 100%; background: #666;}
-.myinfo-view03 {left: 100%; background: #999;}
+.myinfo-view00 {left: 0%;}
+.myinfo-view01 {left: 100%; }
+.myinfo-view02 {left: 100%; }
+.myinfo-view03 {left: 100%; }
 
 .content-picture{
 	flex : 1 50%;
@@ -60,7 +62,7 @@
 
 @media (max-width: 720px){
 	.myinfo-views{
-		margin-top : 60px;
+		margin-top : 20px;
 		height: 400px;
 	}
 	
@@ -71,15 +73,15 @@
 	
 	.content-picture{
 		width : 100%;
-		height: 300px;
 	}
 	
 	.content-text{
-		flex : 1;
+		flex : 1 30%;
+		line-height: 150%;
 	}
 	
 	.btns-view{
-		margin-top : 50px;
+		margin-top : 30px;
 	}
 	
 	.btn-view{
@@ -96,8 +98,12 @@ $(document).ready(function(){
 	//var viewport = $("#viewport");
 	//var content = viewport.attr("content");
 	//viewport.attr("content", content + ",  user-scalable=no");
-	
 	setSlideMyInfo();
+	
+	if(isMobile){
+		$(".myinfo-view01 .content-text").insertAfter(".myinfo-view01 .content-picture");
+		$(".myinfo-view03 .content-text").insertAfter(".myinfo-view03 .content-picture");
+	}
 });
 
 function setSlideMyInfo(){
@@ -212,11 +218,52 @@ function setSlideMyInfo(){
 					<span class="letters">Who am I?</span>
 					</span>
 				</h1>
+				<p>
+				Hello? My name is <strong>changoo Lee</strong>.<br/> 
+				I live in south korea and
+					<jsp:useBean id="date" class="java.util.Date" />
+					<fmt:formatDate value="${date}" pattern="yyyy" var="currentYear" />
+					<c:out value="${currentYear - 1992 + 1}" />
+				old. <br/>
+				I specialized Computer Engineering at Hansung University. <br/>
+				
+				</p>
 			</div>
 		</div>
-		<div class="myinfo-view myinfo-view01"></div>
-		<div class="myinfo-view myinfo-view02"></div>
-		<div class="myinfo-view myinfo-view03"></div>
+		
+		<div class="myinfo-view myinfo-view01">
+			<div class="content-text">
+				<h1 class="ml6">
+					<span class="text-wrapper">
+					<span class="letters">Who am I?</span>
+					</span>
+				</h1>
+			</div>
+			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpeg)"></div>
+		</div>
+		
+		<div class="myinfo-view myinfo-view02">
+			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpeg)"></div>
+			<div class="content-text">
+				<h1 class="ml6">
+					<span class="text-wrapper">
+					<span class="letters">Who am I?</span>
+					</span>
+				</h1>
+			</div>
+		</div>
+		
+		<div class="myinfo-view myinfo-view03">
+			<div class="content-text">
+				<h1 class="ml6">
+					<span class="text-wrapper">
+					<span class="letters">Who am I?</span>
+					</span>
+				</h1>
+			</div>
+			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpeg)"></div>
+		</div>
+		
 	</div>
 	
 	<div class="btns-view">

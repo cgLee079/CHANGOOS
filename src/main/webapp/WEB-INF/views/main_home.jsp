@@ -66,7 +66,6 @@ function scrollToItems(){
 				function itemResize(){
 					$(".item-view").each(function(){
 						var width = parseInt($(this).width());
-						console.log(width);
 						$(this).css("height", width *(2/3));
 					});
 				}
@@ -79,7 +78,6 @@ function scrollToItems(){
 			</script>
 		</div>
 	</div>
-	
 	<c:import url="included/included_footer.jsp" charEncoding="UTF-8" />
 </div>
 </body>

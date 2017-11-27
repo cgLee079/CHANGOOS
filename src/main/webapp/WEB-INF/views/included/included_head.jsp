@@ -17,6 +17,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/letter-motion.js"></script>
 
 <script>
+/*
 var isMobile = {
 	    Android: function() {
 	        return navigator.userAgent.match(/Android/i);
@@ -38,6 +39,21 @@ var isMobile = {
 	    }
 	};
 
-//if( isMobile.any() ) {alert('Mobile');}
-//else {alert('pc');}
+if( isMobile.any() ) { console.log("isMobile")}
+else {console.log("is Not Mobile");}
+*/
+var isMobile = false;
+function checkDevice(){
+	var deviceWidth = Math.min(window.innerWidth || Infinity, screen.width);
+	if(deviceWidth <= 720){
+		isMobile = true;
+	}
+}
+checkDevice();
+
+$(window).resize(function(){
+	checkDevice();
+})
+
+
 </script>

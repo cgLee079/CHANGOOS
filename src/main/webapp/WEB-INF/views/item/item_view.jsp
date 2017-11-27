@@ -1,7 +1,7 @@
 <%@ page pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <style>
@@ -66,6 +66,7 @@
 			strokeDashoffset: [anime.setDashoffset, 0],
 			easing: 'easeInOutSine',
 			duration: 1000,
+			delay : 300,
 			loop: false
 		});
 	});
