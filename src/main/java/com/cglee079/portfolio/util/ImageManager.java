@@ -26,10 +26,13 @@ public class ImageManager {
 		return image;
 	}
 	
-	public synchronized static BufferedImage getScaledImage(File file, int h , String imgExt) throws IOException {
+	public synchronized static BufferedImage getLowScaledImage(File file, int h , String imgExt) throws IOException {
 		BufferedImage srcImg = ImageIO.read(file);
 		int width = srcImg.getWidth();
 		int height = srcImg.getHeight();
+		
+		if(height < h) { return srcImg; }
+		
 		double ratio = (double)h / (double)height;
 		int w = (int)(width * ratio);
 		

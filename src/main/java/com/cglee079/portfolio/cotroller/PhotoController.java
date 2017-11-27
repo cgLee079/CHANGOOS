@@ -103,14 +103,14 @@ public class PhotoController {
 			
 			//photo resize , rotate;
 			int orientation = ImageManager.getOrientation(photofile);
-			BufferedImage photoImg = ImageManager.getScaledImage(photofile, 720 , imgExt); 
+			BufferedImage photoImg = ImageManager.getLowScaledImage(photofile, 720 , imgExt); 
 			if(orientation != 1){
 				photoImg =  ImageManager.rotateImageForMobile(photoImg, orientation);
 			}
 			ImageIO.write(photoImg, imgExt, photofile);
 			
 			//make snapsht
-			BufferedImage shapshtImg = ImageManager.getScaledImage(photofile, 100, imgExt); 
+			BufferedImage shapshtImg = ImageManager.getLowScaledImage(photofile, 100, imgExt); 
 			if(orientation != 1 ){
 				shapshtImg = ImageManager.rotateImageForMobile(shapshtImg, orientation);
 			}
@@ -157,14 +157,14 @@ public class PhotoController {
 			
 			//photo resize , rotate;
 			int orientation = ImageManager.getOrientation(photofile);
-			BufferedImage photoImg = ImageManager.getScaledImage(photofile, 720 , imgExt);
+			BufferedImage photoImg = ImageManager.getLowScaledImage(photofile, 720 , imgExt);
 			if(orientation != 1){
 				photoImg =  ImageManager.rotateImageForMobile(photoImg, orientation);
 			}
 			ImageIO.write(photoImg, imgExt, photofile);
 			
 			//make snapsht
-			BufferedImage shapshtImg = ImageManager.getScaledImage(photofile, 100, imgExt); 
+			BufferedImage shapshtImg = ImageManager.getLowScaledImage(photofile, 100, imgExt); 
 			if(orientation != 1 ){
 				shapshtImg = ImageManager.rotateImageForMobile(shapshtImg, orientation);
 			}

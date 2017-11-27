@@ -33,15 +33,15 @@
     	 }	
     	 
     	 function onTouchMove(e) {
-    		 if(config.preventDefaultEvents) {
-    			 e.preventDefault();
-    		 }
     		 if(isMoving) {
 	    		 var x = e.touches[0].pageX;
 	    		 var y = e.touches[0].pageY;
 	    		 var dx = startX - x;
 	    		 var dy = startY - y;
 	    		 if(Math.abs(dx) >= config.min_move_x) {
+	    			if(config.preventDefaultEvents) {
+	    				e.preventDefault();
+	        		}
 	    			cancelTouch();
 	    			if(dx > 0) {
 	    				config.wipeLeft();
