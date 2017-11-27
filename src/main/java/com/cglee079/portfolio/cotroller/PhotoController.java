@@ -101,20 +101,21 @@ public class PhotoController {
 			photo.setDate(metadata.get("Date/Time"));
 			photo.setDevice(metadata.get("Model"));
 			
-			//snapsht save
+			//photo resize , rotate;
 			int orientation = ImageManager.getOrientation(photofile);
-			BufferedImage shapshtImg = ImageManager.getScaledImage(photofile, 100); 
+			BufferedImage photoImg = ImageManager.getScaledImage(photofile, 720 , imgExt); 
+			if(orientation != 1){
+				photoImg =  ImageManager.rotateImageForMobile(photoImg, orientation);
+			}
+			ImageIO.write(photoImg, imgExt, photofile);
+			
+			//make snapsht
+			BufferedImage shapshtImg = ImageManager.getScaledImage(photofile, 100, imgExt); 
 			if(orientation != 1 ){
 				shapshtImg = ImageManager.rotateImageForMobile(shapshtImg, orientation);
 			}
 			File snapshtfile = new File(rootPath + snapshtPath + snapshtName);
 			ImageIO.write(shapshtImg, imgExt, snapshtfile);
-			
-			//img rotate;
-			if(orientation != 1){
-				BufferedImage photoImg = ImageManager.rotateImageForMobile(photofile, orientation);
-				ImageIO.write(photoImg, imgExt, photofile);
-			}
 			
 			photo.setSnapsht(snapshtPath + snapshtName);
 			photo.setImage(imgPath + imgName);
@@ -154,20 +155,21 @@ public class PhotoController {
 			photo.setDate(metadata.get("Date/Time"));
 			photo.setDevice(metadata.get("Model"));
 			
-			//snapsht save
+			//photo resize , rotate;
 			int orientation = ImageManager.getOrientation(photofile);
-			BufferedImage shapshtImg = ImageManager.getScaledImage(photofile, 100); 
+			BufferedImage photoImg = ImageManager.getScaledImage(photofile, 720 , imgExt);
+			if(orientation != 1){
+				photoImg =  ImageManager.rotateImageForMobile(photoImg, orientation);
+			}
+			ImageIO.write(photoImg, imgExt, photofile);
+			
+			//make snapsht
+			BufferedImage shapshtImg = ImageManager.getScaledImage(photofile, 100, imgExt); 
 			if(orientation != 1 ){
 				shapshtImg = ImageManager.rotateImageForMobile(shapshtImg, orientation);
 			}
 			File snapshtfile = new File(rootPath + snapshtPath + snapshtName);
 			ImageIO.write(shapshtImg, imgExt, snapshtfile);
-			
-			//img rotate;
-			if(orientation != 1){
-				BufferedImage photoImg = ImageManager.rotateImageForMobile(photofile, orientation);
-				ImageIO.write(photoImg, imgExt, photofile);
-			}
 			
 			photo.setSnapsht(snapshtPath + snapshtName);
 			photo.setImage(imgPath + imgName);
@@ -179,7 +181,6 @@ public class PhotoController {
 	}
 	
 	private void deleteFile(String rootPath, String subPath){
-		System.out.println("###" + rootPath + subPath);
 		File existFile = null;
 		existFile = new File (rootPath + subPath);
 		if(existFile.exists()){ existFile.delete(); }

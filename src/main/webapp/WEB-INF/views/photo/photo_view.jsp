@@ -205,7 +205,7 @@
 				var toLeft 	= left + wrapWidth;
 				
 				if(overLeft){
-					tg.css("left", (width * i) + (5 * i));
+					tg.stop().animate({"left" : (width * i) + (5 * i) });
 				} else {				
 					tg.css({"left" : left}).stop().animate({"left" : toLeft});
 				}

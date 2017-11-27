@@ -1,14 +1,10 @@
 package com.cglee079.portfolio.util;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -22,20 +18,28 @@ import com.drew.metadata.Tag;
 import com.drew.metadata.exif.ExifIFD0Directory;
 
 public class ImageManager {
+	public static final String EXT_JPG = "jpg";
+	public static final String EXT_PNG = "png";
+	
 	public synchronized static Image fileToImage(File file) throws IOException{
 		Image image = ImageIO.read(file);
 		return image;
 	}
 	
-	public synchronized static BufferedImage getScaledImage(File file, int h) throws IOException {
+	public synchronized static BufferedImage getScaledImage(File file, int h , String imgExt) throws IOException {
 		BufferedImage srcImg = ImageIO.read(file);
 		int width = srcImg.getWidth();
 		int height = srcImg.getHeight();
 		double ratio = (double)h / (double)height;
 		int w = (int)(width * ratio);
-	    BufferedImage destImg = new BufferedImage( w, h, BufferedImage.TYPE_3BYTE_BGR);
-	    Graphics2D g = destImg.createGraphics();
-	    g.drawImage(srcImg, 0, 0, w, h, null);
+		
+		BufferedImage destImg =  null;
+		if(imgExt.equals(ImageManager.EXT_PNG)) { destImg = new BufferedImage( w, h, BufferedImage.TYPE_4BYTE_ABGR); }
+		if(imgExt.equals(ImageManager.EXT_JPG)) { destImg =new BufferedImage( w, h, BufferedImage.TYPE_3BYTE_BGR); }
+
+    	Graphics2D g = destImg.createGraphics();
+    	g.drawImage(srcImg, 0, 0, w, h, null);
+	    
 	    return destImg;
 	}    
 	
@@ -65,7 +69,9 @@ public class ImageManager {
 	    Metadata metadata = ImageMetadataReader.readMetadata(file);
 	    ExifIFD0Directory directory = metadata.getDirectory(ExifIFD0Directory.class);
 	    if(directory != null){
-	    	orientation = directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
+	    	if(directory.hasTagName(ExifIFD0Directory.TAG_ORIENTATION)){
+	    		orientation = directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
+	    	}
 	    } 
 	    return orientation;
         
@@ -87,27 +93,17 @@ public class ImageManager {
     
     public synchronized static BufferedImage rotateImageForMobile(File file, int orientation) throws IOException {
     	BufferedImage bi = ImageIO.read(file);
-		if(orientation == 6){ //정위치
-		        return rotateImage(bi, 90);
-		} else if (orientation == 1){ //왼쪽으로 눞였을때
-		        return bi;
-		} else if (orientation == 3){//오른쪽으로 눞였을때
-		        return rotateImage(bi, 180);
-		} else if (orientation == 8){//180도
-		        return rotateImage(bi, 270);      
-		} else{
-		        return bi;
-		}       
+    	return rotateImageForMobile(bi, orientation);
     }
     
     public synchronized static BufferedImage rotateImage(BufferedImage orgImage,int radians) {
 		BufferedImage newImage;
 		 if(radians==90 || radians==270){
-		       newImage = new BufferedImage(orgImage.getHeight(),orgImage.getWidth(),orgImage.getType());
+		       newImage = new BufferedImage(orgImage.getHeight(), orgImage.getWidth(), orgImage.getType());
 		} else if (radians==180){
-		       newImage = new BufferedImage(orgImage.getWidth(),orgImage.getHeight(),orgImage.getType());
+		       newImage = new BufferedImage(orgImage.getWidth(), orgImage.getHeight(), orgImage.getType());
 		} else{
-		        return orgImage;
+		       return orgImage;
 		}
 		Graphics2D graphics = (Graphics2D) newImage.getGraphics();
 		graphics.rotate(Math. toRadians(radians), newImage.getWidth() / 2, newImage.getHeight() / 2);
@@ -117,9 +113,11 @@ public class ImageManager {
 		return newImage;	
     }
     
-    public static String getExt(String filename){
+    public synchronized static String getExt(String filename){
     	int pos = filename.lastIndexOf( "." );
     	String ext = filename.substring( pos + 1 );
-    	return ext;
+    	if(ext.equals(ImageManager.EXT_JPG)) { return ImageManager.EXT_JPG; };
+    	if(ext.equals(ImageManager.EXT_PNG)) { return ImageManager.EXT_PNG; };
+    	return ImageManager.EXT_JPG;
     }
 }
