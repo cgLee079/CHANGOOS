@@ -1,12 +1,13 @@
 package com.cglee079.portfolio.cotroller;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.portfolio.model.ItemVo;
 import com.cglee079.portfolio.service.ItemService;
+import com.cglee079.portfolio.util.ImageManager;
 
 @Controller
 public class ItemController {
@@ -39,9 +41,6 @@ public class ItemController {
 	@RequestMapping(value = "/admin/item/list")
 	public String item(Model model) {
 		List<ItemVo> items = itemService.list();
-		for(int i = 0; i < items.size(); i++){
-			System.out.println(items.get(i));
-		}
 		model.addAttribute("items", items);
 		return "item/item_list";
 	}
@@ -70,11 +69,15 @@ public class ItemController {
 		String rootPath = session.getServletContext().getRealPath("");
 		String imgPath	= "/resources/image/snapshot/";
 		String filename	= "snapshot_" + item.getName() + "_";
+		String imgExt	= null;
 		
 		if(snapshtFile.getSize() != 0){
 			filename += snapshtFile.getOriginalFilename();
+			imgExt = ImageManager.getExt(filename);
 			File file = new File(rootPath + imgPath + filename);
 			snapshtFile.transferTo(file);
+			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
+			ImageIO.write(image, imgExt, file);
 			
 			item.setSnapsht(imgPath + filename);
 		} else{
@@ -92,7 +95,7 @@ public class ItemController {
 		String rootPath = session.getServletContext().getRealPath("");
 		String imgPath	= "/resources/image/snapshot/";
 		String filename	= "snapshot_" + item.getName() + "_";
-		
+		String imgExt	= null;
 		if(snapshtFile.getSize() != 0){
 			File existFile = new File (rootPath + item.getSnapsht());
 			if(existFile.exists()){
@@ -100,8 +103,11 @@ public class ItemController {
 			}
 			
 			filename += snapshtFile.getOriginalFilename();
+			imgExt = ImageManager.getExt(filename);
 			File file = new File(rootPath + imgPath + filename);
 			snapshtFile.transferTo(file);
+			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
+			ImageIO.write(image, imgExt, file);
 			
 			item.setSnapsht(imgPath + filename);
 		} 
@@ -118,11 +124,15 @@ public class ItemController {
 		String rootPath = session.getServletContext().getRealPath("");
 		String imgPath	= "/resources/image/contents/";
 		String filename	= "content_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_";
+		String imgExt 	= null;
 		
 		if(multiFile != null){
 			filename += multiFile.getOriginalFilename();
+			imgExt = ImageManager.getExt(filename);
 			File file = new File(rootPath + imgPath + filename);
 			multiFile.transferTo(file);
+			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
+			ImageIO.write(image, imgExt, file);
 		}
 		
 		model.addAttribute("path", request.getContextPath() + imgPath + filename);

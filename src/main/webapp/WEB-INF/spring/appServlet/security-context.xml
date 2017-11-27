@@ -8,7 +8,6 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 
 	<security:http pattern="/resources/**" security="none"></security:http> <!-- 리소스 파일은 Security(X) -->
-	
 	<security:http use-expressions="true" auto-config="true">
 		<!-- auto-config='true' 를 설정한것만으로 기본 로그인페이지/ HTTP 기본인증 / 로그아웃기능등을 제공 -->
 		<!-- use-expressions 사용 여부 (hasRole(),hasAnyRole() 등등) -->
@@ -17,6 +16,10 @@
 		<!-- <security:intercept-url pattern="/admin/*/*" access="hasRole('ROLE_ADMIN')" />  -->
 		<!-- <security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />  -->
 		
+		<security:headers>
+	        <security:frame-options policy="SAMEORIGIN" />
+	    </security:headers>
+	    
 		<security:form-login username-parameter="username"
 		 	login-page="/login"
 			login-processing-url="/j_spring_security_check"

@@ -77,7 +77,7 @@
 				<textarea name="content" id="content"></textarea>
 				<script>
 					var editor = CKEDITOR.replace("content", {
-						filebrowserUploadUrl : '<%=request.getContextPath()%>' + "/item/imgUpload.do",
+						filebrowserUploadUrl : '<%=request.getContextPath()%>' + "/admin/item/imgUpload.do",
 						on : {
 							instanceReady : function( ev ){
 							    // Output paragraphs as <p>Text</p>.
