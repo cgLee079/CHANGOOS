@@ -2,7 +2,6 @@
 
 .nav{
 	position: fixed;
-	top : -1000;
 	left: 0;
 	right: 0;
 	padding : 1% 2%;
@@ -163,21 +162,19 @@
 			$(".nav-occupy").css("height", height);			
 		})
 		
+		console.log("a");
+		$(".nav").css("top", -height);
 		var navAni = anime({
 			targets	: ".nav",
 			duration: 500,
-			easing: 'easeOutCubic',
-			top : 0,
-			begin : function(){
-				$(".nav").css("top", -height);
-			}
+			easing: 'easeInQuad',
+			top : 0
 		});
 	})
 	
 		
 </script>
 <div class="nav">
-
 	<!--
 	<div class="nav-icon">
 		<span></span>

@@ -1,6 +1,4 @@
 <%@ page pageEncoding="UTF-8"%>
-
-<!DOCTYPE html>
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
@@ -61,6 +59,7 @@
 </style>
 <script>
 	$(document).ready(function(){
+		console.log("h");
 		var lineDrawing = anime({
 			targets: '.path',
 			strokeDashoffset: [anime.setDashoffset, 0],
@@ -74,8 +73,7 @@
 </head>
 <body>
 	<div class="wrapper">
-		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8">
-		</c:import>
+		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 
 		<div class="item-detail">
 			<div class="item-head">

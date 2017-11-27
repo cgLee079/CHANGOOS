@@ -6,7 +6,7 @@
 <style>
 .myinfo-views{
 	position : relative;
-	margin-top:  50px;
+	margin-top:  2rem;
 	width: 100%;
 	height: 500px;
 }
@@ -62,7 +62,7 @@
 
 @media (max-width: 720px){
 	.myinfo-views{
-		margin-top : 20px;
+		margin-top:  5rem;
 		height: 400px;
 	}
 	
