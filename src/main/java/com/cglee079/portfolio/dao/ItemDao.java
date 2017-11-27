@@ -1,6 +1,5 @@
 package com.cglee079.portfolio.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -16,7 +15,7 @@ public class ItemDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public List<ItemVo> list(){
+	public List<ItemVo> list(){	
 		return sqlSession.selectList(namespace + ".list");
 	}
 	

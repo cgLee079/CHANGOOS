@@ -70,7 +70,6 @@
 			<td> date </td>
 			<td> sourcecode </td>
 			<td> developer </td>
-			<td> tools </td>
 			<td> Hits </td>
 			<td> view </td>
 			<td> Modify</td>
@@ -90,7 +89,6 @@
 				<td> ${item.date} </td>
 				<td> ${item.sourcecode} </td>
 				<td> ${item.developer} </td>
-				<td> ${item.tools} </td>
 				<td> ${item.hits} </td>
 				<td> <a href="javascript:void(0)" onclick="itemView('${item.seq}')">보기</a> </td>
 				<td> <a href="javascript:void(0)" onclick="itemModify('${item.seq}')">수정</a> </td>

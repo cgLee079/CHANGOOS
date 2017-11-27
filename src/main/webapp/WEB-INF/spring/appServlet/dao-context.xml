@@ -50,7 +50,6 @@
 	ITM_DATE varchar(300),
 	ITM_SOURCECD varchar(500),
 	ITM_DEVELOPER varchar(300),
-	ITM_TOOLS	varchar(2000),
 	ITM_HITS	int,
 	constraint pk_ptfolio_items primary key(ITM_SEQ)
 	)

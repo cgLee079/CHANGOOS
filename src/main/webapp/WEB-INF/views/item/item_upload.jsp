@@ -45,7 +45,6 @@
 			$("#sourcecode").val("${item.sourcecode}");
 			$("#date").val("${item.date}");
 			$("#developer").val("${item.developer}");
-			$("#tools").val("${item.tools}");
 			
 			$("<input>", { type : "hidden", name : "seq", value: "${item.seq}"}).appendTo($("#upload-form"));
 			$("<input>", { type : "hidden", name : "snapsht", value: "${item.snapsht}"}).appendTo($("#upload-form"));
@@ -116,9 +115,6 @@
 				
 				<h5>developer</h5>
 				<input type="text" id="developer" name="developer" class="item-developer"/>
-				
-				<h5>tools</h5>
-				<textarea id="tools" name="tools" class="item-tools"></textarea>
 				
 				<h5>snapshot</h5>
 				<input type="file" id="snapshtFile" name="snapshtFile" class="item-snapshot"/>

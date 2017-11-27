@@ -10,14 +10,13 @@ public class ItemVo {
 	private String date;
 	private String sourcecode;
 	private String developer;
-	private String tools;
 	private int hits;
 
 	public ItemVo() {
 	}
 
 	public ItemVo(int seq, String name, String sect, String desc, String content, String snapsht, String date,
-			String sourcecode, String developer, String tools, int hits) {
+			String sourcecode, String developer, int hits) {
 		this.seq = seq;
 		this.name = name;
 		this.sect = sect;
@@ -27,15 +26,14 @@ public class ItemVo {
 		this.date = date;
 		this.sourcecode = sourcecode;
 		this.developer = developer;
-		this.tools = tools;
 		this.hits = hits;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "ItemVo [seq=" + seq + ", name=" + name + ", sect=" + sect + ", desc=" + desc + ", content=" + content
 				+ ", snapsht=" + snapsht + ", date=" + date + ", sourcecode=" + sourcecode + ", developer=" + developer
-				+ ", tools=" + tools + ", hits=" + hits + "]";
+				+ ", hits=" + hits + "]";
 	}
 
 	public int getSeq() {
@@ -108,14 +106,6 @@ public class ItemVo {
 
 	public void setDeveloper(String developer) {
 		this.developer = developer;
-	}
-
-	public String getTools() {
-		return tools;
-	}
-
-	public void setTools(String tools) {
-		this.tools = tools;
 	}
 
 	public int getHits() {

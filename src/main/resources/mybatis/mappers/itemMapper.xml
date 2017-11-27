@@ -14,7 +14,6 @@
 		ITM_DATE as "date",
 		ITM_SOURCECD as "sourcecode",
 		ITM_DEVELOPER as "developer",
-		ITM_TOOLS as "tools",
 		ITM_HITS as "hits"
 		FROM TB_PTFOLIO_ITEMS
 	</select>
@@ -30,7 +29,6 @@
 		ITM_DATE as "date",
 		ITM_SOURCECD as "sourcecode",
 		ITM_DEVELOPER as "developer",
-		ITM_TOOLS as "tools",
 		ITM_HITS as "hits"
 		FROM TB_PTFOLIO_ITEMS
 		WHERE ITM_SEQ = #{seq}
@@ -43,8 +41,8 @@
 	
 	<insert id="insert">
 		INSERT TB_PTFOLIO_ITEMS 
-		(ITM_NAME, ITM_SECT, ITM_DESC, ITM_CONTENT, ITM_SNAPSHT, ITM_DATE, ITM_SOURCECD, ITM_DEVELOPER, ITM_TOOLS, ITM_HITS)
-		VALUES (#{name}, #{sect}, #{desc}, #{content}, #{snapsht}, #{date}, #{sourcecode},#{developer}, #{tools}, #{hits})
+		(ITM_NAME, ITM_SECT, ITM_DESC, ITM_CONTENT, ITM_SNAPSHT, ITM_DATE, ITM_SOURCECD, ITM_DEVELOPER, ITM_HITS)
+		VALUES (#{name}, #{sect}, #{desc}, #{content}, #{snapsht}, #{date}, #{sourcecode},#{developer}, #{hits})
 	</insert>
 	
 	<update id="update">
@@ -58,7 +56,6 @@
 		ITM_DATE = #{date},
 		ITM_SOURCECD = #{sourcecode},
 		ITM_DEVELOPER = #{developer},
-		ITM_TOOLS = #{tools},
 		ITM_HITS = #{hits}
 		WHERE ITM_SEQ = #{seq}
 	</update>
