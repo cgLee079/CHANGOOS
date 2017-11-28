@@ -192,7 +192,6 @@
 </div>
 <script>
 (function(){
-	var aniId = undefined;
 	$(".nav-icon").click(function(){
 		$(this).toggleClass("open");
 		
@@ -224,7 +223,7 @@
 			   return false;
 			});
 			
-			aniId = anime.timeline({loop : false})
+			var ani = anime.timeline({loop : false})
 				.add({
 					targets	: ".nav-background",
 					easing: "easeInQuad",
@@ -248,18 +247,8 @@
 					  return 50 * (i)
 					}
 				}).add({
-					targets: ".ml1 .line",
-					scaleX: [0,1],
-					opacity: [0.5,1],
-					easing: "easeOutExpo",
-					duration: 200,
-					offset: "-=875",
-					delay: function(el, i, l) {
-					  return 40 * (l - i);
-					}
-				}).add({
 					targets: ".menu-option li",
-					scaleX: [0,1],
+					scale: [0,1],
 					easing: "easeOutExpo",
 					duration: 300,
 					delay: function(el, i) {
@@ -267,8 +256,21 @@
 					}
 				})
 		} else{
-			aniId.play();
-			aniId.reverse();
+			var ani = anime.timeline({loop : false})
+				.add({
+					targets : ".nav-menu",
+					opacity : [1, 0],
+					duration: 100,
+					easing: "easeOutExpo"
+				}).add({
+					targets	: ".nav-background",
+					easing: "easeInQuad",
+					duration: 500,
+					scale : [3, 1],
+					borderRadius : [0, "100%"],
+					background : ["#FEFDFE", "#EDECED"],
+				})
+			
 			$(".nav-menu").addClass("unvalid");
 			$("html, body").off("scroll touchmove mousewheel");
 			$("html, body").removeClass("scroll-no");
