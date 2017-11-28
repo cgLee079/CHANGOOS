@@ -15,7 +15,7 @@
 
 <div class="footer">
 	<div class="info-contact">
-		<p>#contact information</p>
+		<h4>contact information</h4>
 		<p>Email : cglee079@gmail.com</p>
 		<p>Tel	 : 010 - 2062 - 2979</p>
 	</div>
