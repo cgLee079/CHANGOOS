@@ -38,7 +38,7 @@
 .nav-icon span{
   display: block;
   position: absolute;
-  height: 0.2rem;
+  height: 0.1rem;
   width: 100%;
   background: #999;
   border-radius: 9px;
