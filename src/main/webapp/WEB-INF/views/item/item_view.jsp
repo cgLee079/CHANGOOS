@@ -122,10 +122,16 @@
 		     preventDefaultEvents: true
 		});
 		
-		if(isMobile){
-			$("img").css("width", "100%");
-		}
-		
+		$(window).resize(function(){
+			var parentWidth = parseInt($(".item-content").width());
+			var imgs = $(".item-content img");
+			imgs.each(function(){
+				var width = parseInt($(this).width());
+				if(width > parentWidth){
+					$(this).css("width", "100%");
+				}
+			})
+		});
 	});
 </script>
 </head>
