@@ -43,8 +43,11 @@ if( isMobile.any() ) { console.log("isMobile")}
 else {console.log("is Not Mobile");}
 */
 var isMobile = false;
+var deviceWidth = undefined;
+var deviceHeight = undefined;
 function checkDevice(){
-	var deviceWidth = Math.min(window.innerWidth || Infinity, screen.width);
+	deviceWidth = Math.min(window.innerWidth || Infinity, screen.width);
+	deviceWidth = Math.min(window.innerHeight || Infinity, screen.height);
 	if(deviceWidth <= 720){
 		isMobile = true;
 	}

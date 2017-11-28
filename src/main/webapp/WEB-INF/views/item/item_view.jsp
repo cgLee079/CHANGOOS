@@ -122,6 +122,10 @@
 		     preventDefaultEvents: true
 		});
 		
+		if(isMobile){
+			$("img").css("width", "100%");
+		}
+		
 	});
 </script>
 </head>

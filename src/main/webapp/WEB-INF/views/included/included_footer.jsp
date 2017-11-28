@@ -22,7 +22,6 @@
 </div>
 <script>
 function footerRelocate(){
-	var deviceHeight = Math.min(window.innerHeight || Infinity, screen.height);
 	var footer = $(".footer");
 	var offset = footer.offset();
 	var top = offset.top;
