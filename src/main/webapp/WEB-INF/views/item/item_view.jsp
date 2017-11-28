@@ -40,7 +40,7 @@
 	font-size: 0.7rem;
 }
 
-@media (max-width: 720px){
+@media (max-width: 420px){
 	.item-detail {
 		margin-top: 7rem;
 	}

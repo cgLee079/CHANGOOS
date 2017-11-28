@@ -130,7 +130,7 @@
     background-size		: contain;
 }
 
-@media (max-width: 720px){
+@media (max-width: 420px){
 	.wrap-photo-view{
 		margin-top: 6rem;
 	}

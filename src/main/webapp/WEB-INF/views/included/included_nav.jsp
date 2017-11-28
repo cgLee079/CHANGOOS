@@ -21,8 +21,8 @@
 	width: 25px;
 	height: 15px;
 	position: fixed;
-	top : 3%;
-	left: 3%;
+	top : 1rem;
+	left: 1rem;
 	z-index :10000;
 	-webkit-transform: rotate(0deg);
 	-moz-transform: rotate(0deg);
@@ -130,13 +130,15 @@
 	overflow: hidden;
 }
 
-@media (max-width: 720px){
+@media (max-width: 420px){
 	.nav-occupy{
 		height : 5rem;
 	}
 	.nav-icon{
 		width: 20px;
 		height: 15px;
+		top : 2rem;
+		left: 2rem;
 	}	
 	
 	.nav-icon span{
