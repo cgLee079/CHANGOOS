@@ -10,7 +10,7 @@
 .wrap-photo-view{
 	width : 100%;
 	margin : 0px auto;
-	margin-top: 2rem;
+	margin-top: 3rem;
 }
 
 .photo-view{
@@ -132,7 +132,7 @@
 
 @media (max-width: 720px){
 	.wrap-photo-view{
-		margin-top: 3rem;
+		margin-top: 6rem;
 	}
 	
 	.wrap-photo-list{

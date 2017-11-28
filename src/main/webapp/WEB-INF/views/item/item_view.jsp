@@ -6,7 +6,7 @@
 .item-detail {
 	width : 80%;
 	margin : 0px auto;
-	margin-top: 50px;
+	margin-top: 5rem;
 }
 
 .item-head {
@@ -30,7 +30,7 @@
 
 .item-content {
 	position : relative;
-	margin-top: 70px;
+	margin-top: 3rem;
 	font-size: 0.8rem;
 }
 
@@ -42,11 +42,11 @@
 
 @media (max-width: 720px){
 	.item-detail {
-		margin-top: 50px;
+		margin-top: 7rem;
 	}
 	
 	.item-content{
-		margin-top: 10px;
+		margin-top: 1rem;
 	}
 	
 	.item-git-link img{

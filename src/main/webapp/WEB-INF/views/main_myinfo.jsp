@@ -6,7 +6,7 @@
 <style>
 .myinfo-views{
 	position : relative;
-	margin-top:  2rem;
+	margin-top: 3rem;
 	width: 100%;
 	height: 500px;
 }
@@ -62,7 +62,7 @@
 
 @media (max-width: 720px){
 	.myinfo-views{
-		margin-top:  5rem;
+		margin-top: 8rem;
 		height: 450px;
 	}
 	
@@ -90,7 +90,6 @@
 	}
 }
 </style>
-
 <script>
 var setIntervalId;
 var openAni;

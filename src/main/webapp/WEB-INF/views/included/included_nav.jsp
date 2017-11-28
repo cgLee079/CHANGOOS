@@ -1,27 +1,29 @@
 <style>
-.nav{
+.nav-occupy{
 	position: fixed;
-	left: 0;
-	right: 0;
-	padding : 1% 2%;
+	top : 0px;
+	width : 100%;
+	height : 2.5rem;
 	z-index : 2000;
 	display: -ms-flexbox;
 	display: -webkit-flex;
 	display: flex;
-
 	-ms-flex-align: center;
 	-webkit-align-items: center;
 	-webkit-box-align: center;
 	align-items: center;
 	justify-content : space-between;
 	background: #FFF;
-	border-bottom: 1px solid #EEE;
+	border-bottom: 1px solid #ddd;
 }
 
 .nav-icon{
-	width: 20px;
+	width: 25px;
 	height: 15px;
-	position: relative;
+	position: fixed;
+	top : 3%;
+	left: 3%;
+	z-index :10000;
 	-webkit-transform: rotate(0deg);
 	-moz-transform: rotate(0deg);
 	-o-transform: rotate(0deg);
@@ -94,7 +96,7 @@
 	position: fixed;
 	width : 100%;
 	height : 100%;
-	z-index: 999;
+	z-index: 3000;
 	pointer-events: none;
 }
 
@@ -102,7 +104,7 @@
 	position: fixed;
 	width : 100%;
 	height: 100%;
-	z-index: 1001;
+	z-index: 3000;
 	text-align: center;
 	opacity: 0;
 }
@@ -112,7 +114,7 @@
 }
 
 .menu-header{
-	margin:  3rem;
+	margin:  1.5rem;
 }
 
 .menu-option{
@@ -129,9 +131,8 @@
 }
 
 @media (max-width: 720px){
-	.nav {
-		padding-top: 4%;
-		padding-bottom: 4%;
+	.nav-occupy{
+		height : 5rem;
 	}
 	.nav-icon{
 		width: 20px;
@@ -156,7 +157,7 @@
 	}
 	
 	.menu-header{
-		margin-top:  13rem;
+		margin-top:  11rem;
 	}
 	
 }
@@ -180,109 +181,106 @@
 		});
 	})
 </script>
-
-<div class="nav">
-	<div class="nav-icon">
-		<span></span>
-		<span></span>
-		<span></span>
-		<span></span>
-	</div>
-	<script>
-	(function(){
-		var aniId = undefined;
-		$(".nav-icon").click(function(){
-			$(this).toggleClass("open");
-			
-			function navBgResize(){
-				var width = $(".nav-background").width();
-				var height = $(".nav-background").height();
-				if(width > height){
-					$(".nav-background").css("height", width);
-					$(".nav-background").css("top", -width);
-					$(".nav-background").css("left", -width);
-				} else{
-					$(".nav-background").css("width", height);
-					$(".nav-background").css("top", -height);
-					$(".nav-background").css("left", -height);
-				}
+<div class="nav-occupy"></div>
+<div class="nav-icon">
+	<span></span>
+	<span></span>
+	<span></span>
+	<span></span>
+</div>
+<script>
+(function(){
+	var aniId = undefined;
+	$(".nav-icon").click(function(){
+		$(this).toggleClass("open");
+		
+		function navBgResize(){
+			var width = $(".nav-background").width();
+			var height = $(".nav-background").height();
+			if(width > height){
+				$(".nav-background").css("height", width);
+				$(".nav-background").css("top", -width);
+				$(".nav-background").css("left", -width);
+			} else{
+				$(".nav-background").css("width", height);
+				$(".nav-background").css("top", -height);
+				$(".nav-background").css("left", -height);
 			}
-			
+		}
+		
+		navBgResize();
+		$(window).resize(function(){
 			navBgResize();
-			$(window).resize(function(){
-				navBgResize();
+		});
+		
+		if($(this).hasClass("open")){
+			$(".nav-menu").removeClass("unvalid");
+			$("html, body").addClass("scroll-no");
+			$("html, body").on("scroll touchmove mousewheel", function(event) {
+			   event.preventDefault();
+			   event.stopPropagation();
+			   return false;
 			});
 			
-			if($(this).hasClass("open")){
-				$(".nav-menu").removeClass("unvalid");
-				$("html, body").addClass("scroll-no");
-				$("html, body").on("scroll touchmove mousewheel", function(event) {
-				   event.preventDefault();
-				   event.stopPropagation();
-				   return false;
-				});
-				
-				aniId = anime.timeline({loop : false})
-					.add({
-						targets	: ".nav-background",
-						easing: "easeInQuad",
-						duration: 300,
-						scale : [1, 3],
-						borderRadius : ["100%", 0],
-						background : ["#EDEDED", "#FEFDFE"],
-					}).add({
-						targets : ".nav-menu",
-						opacity : [0, 1],
-						duration: 1,
-						easing: "easeOutExpo"
-					}).add({
-						targets: ".ml1 .letter",
-						scale: [0.3,1],
-						opacity: [0,1],
-						translateZ: 0,
-						easing: "easeOutExpo",
-						duration: 500,
-						delay: function(el, i) {
-						  return 50 * (i)
-						}
-					}).add({
-						targets: ".ml1 .line",
-						scaleX: [0,1],
-						opacity: [0.5,1],
-						easing: "easeOutExpo",
-						duration: 200,
-						offset: "-=875",
-						delay: function(el, i, l) {
-						  return 40 * (l - i);
-						}
-					}).add({
-						targets: ".menu-option li",
-						scaleX: [0,1],
-						easing: "easeOutExpo",
-						duration: 300,
-						delay: function(el, i) {
-						  return 50 * (i);
-						}
-					})
-			} else{
-				aniId.play();
-				aniId.reverse();
-				$(".nav-menu").addClass("unvalid");
-				$("html, body").off("scroll touchmove mousewheel");
-				$("html, body").removeClass("scroll-no");
-			}
-		});
-		
-		$(".nav-icon").hover(function(){
-			$(this).find("span").css("background","#000");
-		}, function(){
-			$(this).find("span").css("background","#999");
-		});
-		
-	})();
-	</script>
-</div>
-<div class="nav-occupy"></div>
+			aniId = anime.timeline({loop : false})
+				.add({
+					targets	: ".nav-background",
+					easing: "easeInQuad",
+					duration: 300,
+					scale : [1, 3],
+					borderRadius : ["100%", 0],
+					background : ["#EDECED", "#FEFDFE"],
+				}).add({
+					targets : ".nav-menu",
+					opacity : [0, 1],
+					duration: 1,
+					easing: "easeOutExpo"
+				}).add({
+					targets: ".ml1 .letter",
+					scale: [0.3,1],
+					opacity: [0,1],
+					translateZ: 0,
+					easing: "easeOutExpo",
+					duration: 500,
+					delay: function(el, i) {
+					  return 50 * (i)
+					}
+				}).add({
+					targets: ".ml1 .line",
+					scaleX: [0,1],
+					opacity: [0.5,1],
+					easing: "easeOutExpo",
+					duration: 200,
+					offset: "-=875",
+					delay: function(el, i, l) {
+					  return 40 * (l - i);
+					}
+				}).add({
+					targets: ".menu-option li",
+					scaleX: [0,1],
+					easing: "easeOutExpo",
+					duration: 300,
+					delay: function(el, i) {
+					  return 50 * (i);
+					}
+				})
+		} else{
+			aniId.play();
+			aniId.reverse();
+			$(".nav-menu").addClass("unvalid");
+			$("html, body").off("scroll touchmove mousewheel");
+			$("html, body").removeClass("scroll-no");
+		}
+	});
+	
+	$(".nav-icon").hover(function(){
+		$(this).find("span").css("background","#000");
+	}, function(){
+		$(this).find("span").css("background","#999");
+	});
+	
+})();
+</script>
 <div class="nav-background"></div>
 <div class="nav-menu unvalid">
 	<div class="menu-header">
