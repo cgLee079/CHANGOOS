@@ -63,7 +63,7 @@
 @media (max-width: 720px){
 	.myinfo-views{
 		margin-top:  5rem;
-		height: 400px;
+		height: 450px;
 	}
 	
 	.myinfo-view{

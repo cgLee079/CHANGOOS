@@ -1,11 +1,10 @@
 <style>
-
 .nav{
 	position: fixed;
 	left: 0;
 	right: 0;
 	padding : 1% 2%;
-	z-index : 1000;
+	z-index : 2000;
 	display: -ms-flexbox;
 	display: -webkit-flex;
 	display: flex;
@@ -19,10 +18,9 @@
 	border-bottom: 1px solid #EEE;
 }
 
-/*
 .nav-icon{
 	width: 20px;
-	height: 10px;
+	height: 15px;
 	position: relative;
 	-webkit-transform: rotate(0deg);
 	-moz-transform: rotate(0deg);
@@ -38,7 +36,7 @@
 .nav-icon span{
   display: block;
   position: absolute;
-  height: 3px;
+  height: 0.2rem;
   width: 100%;
   background: #999;
   border-radius: 9px;
@@ -59,15 +57,15 @@
 }
 
 .nav-icon span:nth-child(2),.nav-icon span:nth-child(3) {
-  top: 6px;
+  top: 0.3rem;
 }
 
 .nav-icon span:nth-child(4) {
-  top: 12px;
+  top: 0.6rem;
 }
 
 .nav-icon.open span:nth-child(1) {
-  top: 10px;
+  top: 0.5rem;
   width: 0%;
   left: 50%;
 }
@@ -92,66 +90,76 @@
   left: 50%;
 }
 
-*/
-.btn.menu img{
-	width : 25px;
-	height: 25px;
+.nav-background{
+	position: fixed;
+	width : 100%;
+	height : 100%;
+	z-index: 999;
+	pointer-events: none;
 }
 
-.menu-tooltip{
-	background: #000;
-	color : #EEE;
-	font-size: 0.7rem;
-	box-shadow: 0 0 0 black;
+.nav-menu{
+	position: fixed;
+	width : 100%;
+	height: 100%;
+	z-index: 1001;
+	text-align: center;
+	opacity: 0;
 }
 
-.btn.git-icon{
-	margin-right: 0.2rem;
+.nav-menu.unvalid{
+	pointer-events: none;	
 }
 
-.btn.myinfo-icon{
-	margin-right: 0.2rem;
+.menu-header{
+	margin:  3rem;
 }
 
-.btn.home-icon{
-	margin-right: 0.2rem;
+.menu-option{
+	font-size: 1.6rem;
+	line-height: 2.5rem;
 }
-	
+
+.menu-option li{
+	list-style-type: none;
+}
+
+.scroll-no{
+	overflow: hidden;
+}
+
 @media (max-width: 720px){
 	.nav {
 		padding-top: 4%;
 		padding-bottom: 4%;
 	}
-	/*
 	.nav-icon{
-		width: 30px;
-		height: 30px;
+		width: 20px;
+		height: 15px;
 	}	
 	
 	.nav-icon span{
-	  height: 6px;
+	  height: 0.3rem;
 	  width: 100%;
 	}
 	
 	.nav-icon span:nth-child(1) {
-	  top: 0px;
+	  top: 0;
 	}
 	
 	.nav-icon span:nth-child(2),.nav-icon span:nth-child(3) {
-	  top: 10px;
+	  top: 0.6rem;
 	}
 	
 	.nav-icon span:nth-child(4) {
-	  top: 20px;
+	  top: 1.2rem;
 	}
-	*/
-	.btn.menu img{
-		width : 18px;
-		height: 18px;
+	
+	.menu-header{
+		margin-top:  13rem;
 	}
 	
 }
-
 </style>
 <script>
 	$(document).ready(function(){
@@ -167,15 +175,13 @@
 		var navAni = anime({
 			targets	: ".nav",
 			duration: 500,
-			easing: 'easeInQuad',
+			easing: "easeInQuad",
 			top : 0
 		});
 	})
-	
-		
 </script>
+
 <div class="nav">
-	<!--
 	<div class="nav-icon">
 		<span></span>
 		<span></span>
@@ -184,73 +190,115 @@
 	</div>
 	<script>
 	(function(){
-		$('.nav-icon').click(function(){
+		var aniId = undefined;
+		$(".nav-icon").click(function(){
 			$(this).toggleClass("open");
+			
+			function navBgResize(){
+				var width = $(".nav-background").width();
+				var height = $(".nav-background").height();
+				if(width > height){
+					$(".nav-background").css("height", width);
+					$(".nav-background").css("top", -width);
+					$(".nav-background").css("left", -width);
+				} else{
+					$(".nav-background").css("width", height);
+					$(".nav-background").css("top", -height);
+					$(".nav-background").css("left", -height);
+				}
+			}
+			
+			navBgResize();
+			$(window).resize(function(){
+				navBgResize();
+			});
+			
+			if($(this).hasClass("open")){
+				$(".nav-menu").removeClass("unvalid");
+				$("html, body").addClass("scroll-no");
+				$("html, body").on("scroll touchmove mousewheel", function(event) {
+				   event.preventDefault();
+				   event.stopPropagation();
+				   return false;
+				});
+				
+				aniId = anime.timeline({loop : false})
+					.add({
+						targets	: ".nav-background",
+						easing: "easeInQuad",
+						duration: 300,
+						scale : [1, 3],
+						borderRadius : ["100%", 0],
+						background : ["#EDEDED", "#FEFDFE"],
+					}).add({
+						targets : ".nav-menu",
+						opacity : [0, 1],
+						duration: 1,
+						easing: "easeOutExpo"
+					}).add({
+						targets: ".ml1 .letter",
+						scale: [0.3,1],
+						opacity: [0,1],
+						translateZ: 0,
+						easing: "easeOutExpo",
+						duration: 500,
+						delay: function(el, i) {
+						  return 50 * (i)
+						}
+					}).add({
+						targets: ".ml1 .line",
+						scaleX: [0,1],
+						opacity: [0.5,1],
+						easing: "easeOutExpo",
+						duration: 200,
+						offset: "-=875",
+						delay: function(el, i, l) {
+						  return 40 * (l - i);
+						}
+					}).add({
+						targets: ".menu-option li",
+						scaleX: [0,1],
+						easing: "easeOutExpo",
+						duration: 300,
+						delay: function(el, i) {
+						  return 50 * (i);
+						}
+					})
+			} else{
+				aniId.play();
+				aniId.reverse();
+				$(".nav-menu").addClass("unvalid");
+				$("html, body").off("scroll touchmove mousewheel");
+				$("html, body").removeClass("scroll-no");
+			}
 		});
 		
-		$('.nav-icon').hover(function(){
-			$(this).find('span').css("background","#000");
+		$(".nav-icon").hover(function(){
+			$(this).find("span").css("background","#000");
 		}, function(){
-			$(this).find('span').css("background","#999");
+			$(this).find("span").css("background","#999");
 		});
 		
 	})();
 	</script>
-	 -->
-	<div class="main-menus">
-		<span class="btn menu home-icon"> 
-			<a href="${pageContext.request.contextPath}"> 
-				<img src="${pageContext.request.contextPath}/resources/image/btn_nav_home.png" />
-			</a>
-		</span>
-		
-		<span class="btn menu myinfo-icon">
-			<a href="${pageContext.request.contextPath}/myinfo"> 
-				<img src="${pageContext.request.contextPath}/resources/image/btn_nav_myinfo.png" />
-			</a>
-		</span>  
-		
-		<span class="btn menu photo-icon">
-			<a href="${pageContext.request.contextPath}/photo"> 
-				<img src="${pageContext.request.contextPath}/resources/image/btn_nav_photo.png" />
-			</a>
-		</span>  
-	</div>
-	
-	<div class="sub-menus">
-		<span class="btn menu git-icon"> 
-			<a target="_blank" href="https://github.com/cgLee079"> 
-				<img src="${pageContext.request.contextPath}/resources/image/btn_nav_github.png" />
-			</a>
-		</span> 
-		
-		<span class="btn menu insta-icon">
-			<a target="_blank" href="https://www.instagram.com/cglee079"> 
-				<img src="${pageContext.request.contextPath}/resources/image/btn_nav_insta.png" />
-			</a>
-		</span>
-	</div>
-	<script>
-	/*
-		(function(){
-			var subMenus = $(".sub-menus .menu");
-			
-			subMenus.each(function(){
-				var tg 		= $(this);
-				var title 	= tg.find("a").attr("href");
-				var option	= {
-					tooltipClass: "menu-tooltip",
-					delay: 0,
-					show : false,
-					hide : false,
-				};
-				
-				tg.attr("title", title);
-				tg.tooltip(option);
-			});
-		})();
-	*/
-	</script>
 </div>
 <div class="nav-occupy"></div>
-
+<div class="nav-background"></div>
+<div class="nav-menu unvalid">
+	<div class="menu-header">
+		<h1 class="ml1">
+			<span class="text-wrapper">
+				<span class="line line1"></span>
+				<span class="letters">Menu</span>
+				<span class="line line2"></span>
+			</span>
+		</h1>
+	</div>
+	<ul class="menu-option">
+		<li class="btn"><a href="${pageContext.request.contextPath}">Home</a></li>
+		<li class="btn"><a href="${pageContext.request.contextPath}/myinfo">Introduce</a></li>
+		<li class="btn"><a href="${pageContext.request.contextPath}/photo">Photo</a></li>
+		<li class="btn"><a target="_blank" href="https://github.com/cgLee079">Github</a></li>
+		<li class="btn"><a target="_blank" href="https://www.instagram.com/cglee079">Instagram</a></li>
+	</ul>
+</div>

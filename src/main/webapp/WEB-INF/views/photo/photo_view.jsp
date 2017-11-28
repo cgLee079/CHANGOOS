@@ -132,17 +132,17 @@
 
 @media (max-width: 720px){
 	.wrap-photo-view{
-		margin-top: 5rem;
+		margin-top: 3rem;
 	}
 	
 	.wrap-photo-list{
-		margin-top: 5rem;
+		margin-top: 3rem;
 		height: 50px;
 	}
 	
 	.photo-view{
 		width : 100%;
-		height: 300px;
+		height: 400px;
 	}
 	
 	.photo-view > .photo-detail {
