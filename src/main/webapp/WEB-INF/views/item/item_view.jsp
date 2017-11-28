@@ -40,6 +40,28 @@
 	font-size: 0.7rem;
 }
 
+.btn-item-before{
+	position : fixed;
+	top : 50%;
+	left : 1.5rem;
+	width: 3%;
+	height: 3%;
+	background-position	: center;
+    background-repeat	: no-repeat;
+    background-size		: contain;
+}
+
+.btn-item-next{
+	position : fixed;
+	top : 50%;
+	right : 1.5rem;
+	width: 3%;
+	height: 3%;
+	background-position	: center;
+    background-repeat	: no-repeat;
+    background-size		: contain;
+}
+
 @media (max-width: 420px){
 	.item-detail {
 		margin-top: 7rem;
@@ -59,7 +81,6 @@
 </style>
 <script>
 	$(document).ready(function(){
-		console.log("h");
 		var lineDrawing = anime({
 			targets: '.path',
 			strokeDashoffset: [anime.setDashoffset, 0],
@@ -68,6 +89,39 @@
 			delay : 300,
 			loop: false
 		});
+		
+		if(isMobile){
+			$(".btn-item-before, .btn-item-next").addClass("display-none");
+		}
+		
+		$(".btn-item-next").on("click", function(){
+			var afterItemSeq = '${afterItem.seq}';
+			var contextPath = "${pageContext.request.contextPath}";
+			if(afterItemSeq){
+				window.location.href = contextPath + "/item/view?seq=" + afterItemSeq;
+			} 
+		});
+		
+		$(".btn-item-before").on("click", function(){
+			var beforeItemSeq= '${beforeItem.seq}';
+			var contextPath = "${pageContext.request.contextPath}";
+			if(beforeItemSeq){
+				window.location.href = contextPath + "/item/view?seq=" + beforeItemSeq;
+			} 
+		});
+		
+		$(".wrapper").touchwipe({
+		     wipeLeft: function() {
+		    	 $(".btn-item-next").trigger("click");
+		     },		     
+		     wipeRight: function() {
+		    	 $(".btn-item-before").trigger("click");
+		     },		     
+		     min_move_x: 50,
+		     min_move_y: 20,
+		     preventDefaultEvents: true
+		});
+		
 	});
 </script>
 </head>
@@ -108,6 +162,16 @@
 		
 		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8">
 		</c:import>
+		
+		<c:if test="${!empty beforeItem}">
+			<div class="btn btn-item-before h-reverse" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_item_arrow.png)"></div>
+		</c:if>
+		
+		<c:if test="${!empty afterItem}">
+			<div class="btn btn-item-next" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_item_arrow.png)"></div>
+		</c:if>
 	</div>
+	
+	
 </body>
 </html>

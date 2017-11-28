@@ -41,7 +41,7 @@
 			$("#name").val("${item.name}");
 			$("#desc").val("${item.desc}");
 			$("#sect").val("${item.sect}");
-			$("#content").val("${item.content}");
+			$("#content").val('${item.content}');
 			$("#sourcecode").val("${item.sourcecode}");
 			$("#date").val("${item.date}");
 			$("#developer").val("${item.developer}");

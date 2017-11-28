@@ -30,11 +30,31 @@ public class ItemController {
 
 	@RequestMapping(value = "/item/view")
 	public String itemView(Model model, int seq){
-		ItemVo item = itemService.get(seq);
+		List<ItemVo> items = itemService.list();
+		ItemVo item 		= null;
+		ItemVo beforeItem	= null;
+		ItemVo afterItem	= null;
+		
+		int size = items.size();
+		int index = 0;
+		for(index = 0; index < size; index++){
+			item = items.get(index);
+			if(item.getSeq() == seq){
+				break;
+			}
+		}
+		
+		if(index -1 >= 0 ) { beforeItem = items.get(index - 1); }
+		if(index +1 < size) { afterItem = items.get(index + 1); }
+		
 		int hits = item.getHits();
 		item.setHits(hits + 1);
 		itemService.update(item);
+				
 		model.addAttribute("item", item);
+		model.addAttribute("beforeItem", beforeItem);
+		model.addAttribute("afterItem", afterItem);
+		
 		return "item/item_view";
 	}
 	
