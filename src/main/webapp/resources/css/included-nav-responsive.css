@@ -1,0 +1,33 @@
+@media ( max-width : 420px) {
+	.nav-occupy {
+		height: 4rem;
+	}
+	
+	.nav-icon {
+		width: 20px;
+		height: 15px;
+		top: 1.5rem;
+		left: 1.5rem;
+	}
+	
+	.nav-icon span {
+		height: 0.1rem;
+		width: 100%;
+	}
+	
+	.nav-icon span:nth-child(1) {
+		top: 0;
+	}
+	
+	.nav-icon span:nth-child(2), .nav-icon span:nth-child(3) {
+		top: 0.6rem;
+	}
+	
+	.nav-icon span:nth-child(4) {
+		top: 1.2rem;
+	}
+	
+	.menu-header {
+		margin-top: 11rem;
+	}
+}

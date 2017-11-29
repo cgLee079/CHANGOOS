@@ -1,176 +1,3 @@
-<style>
-.nav-occupy{
-	position: fixed;
-	top : 0px;
-	width : 100%;
-	height : 2.5rem;
-	z-index : 2000;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-	-ms-flex-align: center;
-	-webkit-align-items: center;
-	-webkit-box-align: center;
-	align-items: center;
-	justify-content : space-between;
-	background: #FFF;
-	border-bottom: 1px solid #ddd;
-}
-
-.nav-icon{
-	width: 25px;
-	height: 15px;
-	position: fixed;
-	top : 1rem;
-	left: 1rem;
-	z-index :10000;
-	-webkit-transform: rotate(0deg);
-	-moz-transform: rotate(0deg);
-	-o-transform: rotate(0deg);
-	transform: rotate(0deg);
-	-webkit-transition: .5s ease-in-out;
-	-moz-transition: .5s ease-in-out;
-	-o-transition: .5s ease-in-out;
-	transition: .5s ease-in-out;
-	cursor: pointer;
-}
-
-.nav-icon span{
-  display: block;
-  position: absolute;
-  height: 0.1rem;
-  width: 100%;
-  background: #999;
-  border-radius: 9px;
-  opacity: 1;
-  left: 0;
-  -webkit-transform: rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
-  transform: rotate(0deg);
-  -webkit-transition: .25s ease-in-out;
-  -moz-transition: .25s ease-in-out;
-  -o-transition: .25s ease-in-out;
-  transition: .25s ease-in-out;
-}
-
-.nav-icon:hover span{
-	background : #000;
-}
-
-.nav-icon span:nth-child(1) {
-  top: 0px;
-}
-
-.nav-icon span:nth-child(2),.nav-icon span:nth-child(3) {
-  top: 0.3rem;
-}
-
-.nav-icon span:nth-child(4) {
-  top: 0.6rem;
-}
-
-.nav-icon.open span:nth-child(1) {
-  top: 0.5rem;
-  width: 0%;
-  left: 50%;
-}
-
-.nav-icon.open span:nth-child(2) {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-.nav-icon.open span:nth-child(3) {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-}
-
-.nav-icon.open span:nth-child(4) {
-  top: 10px;
-  width: 0%;
-  left: 50%;
-}
-
-.nav-background{
-	position: fixed;
-	width : 100%;
-	height : 100%;
-	z-index: 3000;
-	pointer-events: none;
-}
-
-.nav-menu{
-	position: fixed;
-	width : 100%;
-	height: 100%;
-	top : 0;
-	z-index: 3000;
-	text-align: center;
-	opacity: 0;
-}
-
-.nav-menu.unvalid{
-	pointer-events: none;	
-}
-
-.menu-header{
-	margin:  0.5rem;
-	margin-top : 5rem;
-}
-
-.menu-option{
-	font-size: 1.6rem;
-	line-height: 2.5rem;
-}
-
-.menu-option li{
-	list-style-type: none;
-}
-
-.scroll-no{
-	overflow: hidden;
-}
-
-@media (max-width: 420px){
-	.nav-occupy{
-		height : 4rem;
-	}
-	
-	.nav-icon{
-		width: 20px;
-		height: 15px;
-		top : 1.5rem;
-		left: 1.5rem;
-	}	
-	
-	.nav-icon span{
-	  height: 0.1rem;
-	  width: 100%;
-	}
-	
-	.nav-icon span:nth-child(1) {
-	  top: 0;
-	}
-	
-	.nav-icon span:nth-child(2),.nav-icon span:nth-child(3) {
-	  top: 0.6rem;
-	}
-	
-	.nav-icon span:nth-child(4) {
-	  top: 1.2rem;
-	}
-	
-	.menu-header{
-		margin-top:  11rem;
-	}
-	
-}
-</style>
 <div class="nav-occupy"></div>
 <div class="nav-icon">
 	<span></span>
@@ -276,17 +103,31 @@
 	<div class="menu-header">
 		<h1 class="ml1">
 			<span class="text-wrapper">
-				<span class="line line1"></span>
 				<span class="letters">Menu</span>
-				<span class="line line2"></span>
 			</span>
 		</h1>
 	</div>
 	<ul class="menu-option">
-		<li class="btn"><a href="${pageContext.request.contextPath}">Home</a></li>
-		<li class="btn"><a href="${pageContext.request.contextPath}/myinfo">Introduce</a></li>
-		<li class="btn"><a href="${pageContext.request.contextPath}/photo">Photo</a></li>
+		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}">Home</a></li>
+		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/myinfo">Introduce</a></li>
+		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">Photo</a></li>
 		<li class="btn"><a target="_blank" href="https://github.com/cgLee079">Github</a></li>
 		<li class="btn"><a target="_blank" href="https://www.instagram.com/cglee079">Instagram</a></li>
 	</ul>
 </div>
+<div class="progress-bar display-none">
+	<div class="spinner">
+	  <div class="double-bounce1"></div>
+	  <div class="double-bounce2"></div>
+	</div>
+</div>
+<script>
+var Progress ={
+	start : function (){
+		$(".progress-bar").removeClass("display-none");
+	},
+	stop : function(){
+		$(".progress-bar").addClass("display-none");
+	}
+}
+</script>

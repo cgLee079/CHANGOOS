@@ -6,6 +6,8 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global-responsive.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included-nav-basic.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included-nav-responsive.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/letter-motion.css" />
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>

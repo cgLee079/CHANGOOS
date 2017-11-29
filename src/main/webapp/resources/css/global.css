@@ -39,3 +39,7 @@ a, a:VISITED{
 	filter: FlipH;
 	-ms-filter: "FlipH";
 }
+
+.scroll-no {
+	overflow: hidden;
+}
