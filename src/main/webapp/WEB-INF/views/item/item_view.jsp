@@ -88,6 +88,17 @@
 
 </style>
 <script>
+	function contentImgResize(){
+		var parentWidth = parseInt($(".item-content").width());
+		var imgs = $(".item-content img");
+		imgs.each(function(){
+			var width = parseInt($(this).width());
+			if(width > parentWidth){
+				$(this).css("width", "100%");
+			}
+		});
+	}
+
 	$(document).ready(function(){
 		var lineDrawing = anime({
 			targets: ".item-line",
@@ -129,17 +140,10 @@
 		     preventDefaultEvents: true
 		});
 		
+		contentImgResize();
 		$(window).resize(function(){
-			var parentWidth = parseInt($(".item-content").width());
-			var imgs = $(".item-content img");
-			imgs.each(function(){
-				var width = parseInt($(this).width());
-				if(width > parentWidth){
-					$(this).css("width", "100%");
-				}
-			})
+			contentImgResize();
 		});
-		$(window).trigger("resize");
 	});
 </script>
 </head>

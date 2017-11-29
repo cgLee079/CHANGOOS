@@ -4,18 +4,44 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home-basic.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home-responsive.css" />
-
 <script>
-function itemView(seq){
-	var contextPath = "${pageContext.request.contextPath}";
-	window.location.href = contextPath + "/item/view?seq=" + seq;		
-}
-
-function scrollToItems(){
-	var top = $(".main-items-title").offset().top;
-	$("html, body").animate({ scrollTop: (top - 50) });
-}
-
+	function itemView(seq){
+		var contextPath = "${pageContext.request.contextPath}";
+		window.location.href = contextPath + "/item/view?seq=" + seq;		
+	}
+	
+	function scrollToItems(){
+		var top = $(".main-items-title").offset().top;
+		$("html, body").animate({ scrollTop: (top - 50) });
+	}
+	
+	function relocateItemTitle(){
+		var itemTitle = $(".main-items-title");
+		var offset = itemTitle.offset();
+		var top = offset.top;
+		
+		if(top < deviceHeight){
+			var marginTop = parseInt(itemTitle.css("margin-top"));
+			itemTitle.css("margin-top", marginTop + (deviceHeight - top));
+		}
+	}	
+	
+	function itemResize(){
+		$(".item-view").each(function(){
+			var width = parseInt($(this).width());
+			$(this).css("height", width *(2/3));
+		});
+	}
+	
+	$(document).ready(function(){
+		relocateItemTitle();
+		itemResize();
+		
+		$(window).resize(function(){
+			relocateItemTitle();
+			itemResize();	
+		})
+	})
 </script>
 </head>
 <body>
@@ -50,23 +76,6 @@ function scrollToItems(){
 			<h1>Projects</h1>
 		</div>
 		
-		<script>
-			function relocateItemTitle(){
-				var itemTitle = $(".main-items-title");
-				var offset = itemTitle.offset();
-				var top = offset.top;
-				
-				if(top < deviceHeight){
-					var marginTop = parseInt(itemTitle.css("margin-top"));
-					itemTitle.css("margin-top", marginTop + (deviceHeight - top));
-				}
-			}	
-			relocateItemTitle();
-
-			$(window).resize(function(){
-				relocateItemTitle();	
-			})
-		</script>
 		<div class="main-items">
 			<c:forEach var="item" items="${items}">
 				<div onclick="itemView(${item.seq})" class="item-view">
@@ -78,24 +87,9 @@ function scrollToItems(){
 					</div>
 				</div>
 			</c:forEach>
-			
-			<script>
-			(function(){
-				function itemResize(){
-					$(".item-view").each(function(){
-						var width = parseInt($(this).width());
-						$(this).css("height", width *(2/3));
-					});
-				}
-				itemResize();
-				
-				$(window).resize(function(){
-					itemResize();	
-				})
-			})();
-			</script>
 		</div>
 	</div>
+	
 	<c:import url="included/included_footer.jsp" charEncoding="UTF-8" />
 </div>
 </body>

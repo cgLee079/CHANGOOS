@@ -91,116 +91,113 @@
 }
 </style>
 <script>
-var setIntervalId;
-var openAni;
-$(document).ready(function(){
-	//var viewport = $("#viewport");
-	//var content = viewport.attr("content");
-	//viewport.attr("content", content + ",  user-scalable=no");
-	setSlideMyInfo();
-	
-	if(isMobile){
-		$(".myinfo-view01 .content-text").insertAfter(".myinfo-view01 .content-picture");
-		$(".myinfo-view03 .content-text").insertAfter(".myinfo-view03 .content-picture");
-	}
-});
-
-function setSlideMyInfo(){
-	var wrap	= $(".myinfo-views");
-	var views	= $(".myinfo-views > .myinfo-view");
-	var btns 	= $(".btns-view > .btn-view");
-	var current = 0 ;
-	
-	views.css({left : "-100%"});
-	views.eq(0).css({left : "0"});
-	btns.removeClass("on");
-	btns.eq(0).addClass("on");
-	
-	btns.on("click", function(){
-		var tg = $(this);
-		var index = tg.index();
+	$(document).ready(function(){
+		setSlideMyInfo();
 		
+		if(isMobile){
+			$(".myinfo-view01 .content-text").insertAfter(".myinfo-view01 .content-picture");
+			$(".myinfo-view03 .content-text").insertAfter(".myinfo-view03 .content-picture");
+		}
+	});
+	
+	function setSlideMyInfo(){
+		var wrap	= $(".myinfo-views");
+		var views	= $(".myinfo-views > .myinfo-view");
+		var btns 	= $(".btns-view > .btn-view");
+		var current = 0 ;
+		var setIntervalId;
+		var openAni;
+		
+		views.css({left : "-100%"});
+		views.eq(0).css({left : "0"});
 		btns.removeClass("on");
-		tg.addClass("on");
+		btns.eq(0).addClass("on");
 		
-		move(index);
-	});
-	
-	function move(index){
-		var currentEl =  views.eq(current);
-		var nextEl = views.eq(index);
-		
-		currentEl.css({left : "0"}).stop().animate({left : "-100%"});
-		nextEl.css({left : "100%"}).stop().animate({left : "0%"});
-		
-		current = index;
-	}
-	
-	function timer(){
-		setIntervalId = setInterval(function(){
-			var n = current + 1;
-			if(n === views.length){
-				n = 0;
-			}
-			btns.eq(n).trigger("click");
-		}, 7000);
-	}
-	timer();
-	
-	$(".myinfo-views").touchwipe({
-		wipeLeft: function() {
-			var tg = $(".myinfo-views");
-			var index 		= current;
-			var toIndex 	= index + 1;
-			var items 		= $(".myinfo-view");
-			var itemLength 	= items.length;
-			var btns 		= $(".btns-view > .btn-view");
-			var currentEl	= undefined;
-			var nextEl		= undefined;
+		btns.on("click", function(){
+			var tg = $(this);
+			var index = tg.index();
 			
-			if(toIndex >= itemLength){ // 4 to 0
-				toIndex = 0;
-			}
+			btns.removeClass("on");
+			tg.addClass("on");
 			
-			currentEl 	= items.eq(index);
-			nextEl 		= items.eq(toIndex);
-			  	 
+			move(index);
+		});
+		
+		function move(index){
+			var currentEl =  views.eq(current);
+			var nextEl = views.eq(index);
+			
 			currentEl.css({left : "0"}).stop().animate({left : "-100%"});
-		  	nextEl.css({left : "100%"}).stop().animate({left : "0%"});	
-		  	
-		  	btns.removeClass("on");
-		  	btns.eq(toIndex).addClass("on");
-		  	current = toIndex;
-		},
-		   
-		wipeRight: function() {
-			var tg = $(".myinfo-views");
-			var index 		= current;
-			var toIndex 	= index - 1;
-			var items 		= $(".myinfo-view");
-			var btns 		= $(".btns-view > .btn-view");
-			var currentEl	= undefined;
-			var nextEl		= undefined;
-			if(toIndex < 0){ //  -1 to 3 
-				toIndex = 3;
-			} 
+			nextEl.css({left : "100%"}).stop().animate({left : "0%"});
 			
-			currentEl 	= items.eq(index);
-			nextEl 		= items.eq(toIndex);
-			
-			currentEl.css({left : "0"}).stop().animate({left : "100%"});
-		  	nextEl.css({left : "-100%"}).stop().animate({left : "0%"});	
-		  	
-		  	btns.removeClass("on");
-		  	btns.eq(toIndex).addClass("on");
-			current = toIndex;
-		},
-		   
-		min_move_x: 20,
-		min_move_y: 20,
-		preventDefaultEvents: true
-	});
-}
+			current = index;
+		}
+		
+		function timer(){
+			setIntervalId = setInterval(function(){
+				var n = current + 1;
+				if(n === views.length){
+					n = 0;
+				}
+				btns.eq(n).trigger("click");
+			}, 7000);
+		}
+		timer();
+		
+		$(".myinfo-views").touchwipe({
+			wipeLeft: function() {
+				var tg = $(".myinfo-views");
+				var index 		= current;
+				var toIndex 	= index + 1;
+				var items 		= $(".myinfo-view");
+				var itemLength 	= items.length;
+				var btns 		= $(".btns-view > .btn-view");
+				var currentEl	= undefined;
+				var nextEl		= undefined;
+				
+				if(toIndex >= itemLength){ // 4 to 0
+					toIndex = 0;
+				}
+				
+				currentEl 	= items.eq(index);
+				nextEl 		= items.eq(toIndex);
+				  	 
+				currentEl.css({left : "0"}).stop().animate({left : "-100%"});
+			  	nextEl.css({left : "100%"}).stop().animate({left : "0%"});	
+			  	
+			  	btns.removeClass("on");
+			  	btns.eq(toIndex).addClass("on");
+			  	current = toIndex;
+			},
+			   
+			wipeRight: function() {
+				var tg = $(".myinfo-views");
+				var index 		= current;
+				var toIndex 	= index - 1;
+				var items 		= $(".myinfo-view");
+				var btns 		= $(".btns-view > .btn-view");
+				var currentEl	= undefined;
+				var nextEl		= undefined;
+				if(toIndex < 0){ //  -1 to 3 
+					toIndex = 3;
+				} 
+				
+				currentEl 	= items.eq(index);
+				nextEl 		= items.eq(toIndex);
+				
+				currentEl.css({left : "0"}).stop().animate({left : "100%"});
+			  	nextEl.css({left : "-100%"}).stop().animate({left : "0%"});	
+			  	
+			  	btns.removeClass("on");
+			  	btns.eq(toIndex).addClass("on");
+				current = toIndex;
+			},
+			   
+			min_move_x: 20,
+			min_move_y: 20,
+			preventDefaultEvents: true
+		});
+	}
 </script>
 </head>
 

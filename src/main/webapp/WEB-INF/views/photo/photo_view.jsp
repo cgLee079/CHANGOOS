@@ -153,6 +153,65 @@
 
 </style>
 <script>
+	function photoSnapshtResize(){
+		var photoItems = $(".photo-item");
+		var length = photoItems.length;
+		
+		photoItems.each(function(){
+			var tg = $(this);
+			var height 	= parseInt(tg.css("height"));
+			var width	= height * (4/3);
+			tg.css("width", width);
+		});
+		
+		for(var i = 0; i < length; i++){
+			var tg = photoItems.eq(i);
+			var width = parseInt(tg.css("width"));
+			tg.stop().css("left", (width * i) + (5 * i));
+		}
+	}
+	
+	function showPhoto(seq, index){
+		var photoItems = $(".photo-list > .photo-item");
+		var tg = photoItems.eq(index);
+		photoItems.removeClass("on");
+		tg.addClass("on");
+		
+		var tgLeft = parseInt(tg.css("left"));
+		photoItems.each(function(){
+			var left = parseInt($(this).css("left"));
+			var toLeft = left - tgLeft;
+			$(this).css({"left" : left}).stop().animate({"left" : toLeft});
+		})
+		
+		$.ajax({
+			type	: "POST",
+			url 	: "${pageContext.request.contextPath}" + "/photo/view.do",
+			dataType: "JSON",
+			data 	: {
+				"seq" : seq
+			},
+			success : function(photo) {
+			 	$(".photo-view").css("opacity", 0);
+				var begin = anime({
+					  targets	: ".photo-view",
+					  duration	: 500,
+					  opacity	: 1,
+					  easing	: 'easeInOutSine',
+				});
+				
+				$(".photo-img")
+					.css("background-image", "url('${pageContext.request.contextPath}" + photo.image +"')");
+				
+				$(".photo-name").html(photo.name);
+				$(".photo-date-loc").html(photo.date + "  " + photo.location);
+				$(".photo-desc").html(photo.desc);
+				$(".photo-tag").html(photo.tag);
+				$(".photo-index").html(index);
+			}	
+		});
+	}
+	
 	$(document).ready(function(){
 		var items 		= $(".photo-item");
 		items.eq(0).trigger("click");
@@ -252,73 +311,14 @@
 		     preventDefaultEvents: true
 		});
 		
+		console.log("st");
+		photoSnapshtResize();
+		console.log("end");
 		$(window).resize(function(){
 			photoSnapshtResize();
 		});
 		
-		
 	});
-	
-	
-	function photoSnapshtResize(){
-		var photoItems = $(".photo-item");
-		var length = photoItems.length;
-		
-		photoItems.each(function(){
-			var tg = $(this);
-			var height 	= parseInt(tg.css("height"));
-			var width	= height * (4/3);
-			tg.css("width", width);
-		});
-		
-		for(var i = 0; i < length; i++){
-			var tg = photoItems.eq(i);
-			var width = parseInt(tg.css("width"));
-			tg.css("left", (width * i) + (5 * i));
-		}
-	}
-	
-	function showPhoto(seq, index){
-		var photoItems = $(".photo-list > .photo-item");
-		var tg = photoItems.eq(index);
-		photoItems.removeClass("on");
-		tg.addClass("on");
-		
-		var tgLeft = parseInt(tg.css("left"));
-		console.log("left");
-		photoItems.each(function(){
-			var left = parseInt($(this).css("left"));
-			var toLeft = left - tgLeft;
-			$(this).css({"left" : left}).stop().animate({"left" : toLeft});
-		})
-		
-		$.ajax({
-			type	: "POST",
-			url 	: "${pageContext.request.contextPath}" + "/photo/view.do",
-			dataType: "JSON",
-			data 	: {
-				"seq" : seq
-			},
-			success : function(photo) {
-			 	$(".photo-view").css("opacity", 0);
-				var begin = anime({
-					  targets	: ".photo-view",
-					  duration	: 500,
-					  opacity	: 1,
-					  easing	: 'easeInOutSine',
-				});
-				
-				$(".photo-img")
-					.css("background-image", "url('${pageContext.request.contextPath}" + photo.image +"')");
-				
-				$(".photo-name").html(photo.name);
-				$(".photo-date-loc").html(photo.date + "  " + photo.location);
-				$(".photo-desc").html(photo.desc);
-				$(".photo-tag").html(photo.tag);
-				$(".photo-index").html(index);
-			}	
-		});
-	}
 	
 </script>
 </head>
@@ -346,19 +346,14 @@
 			
 			<div class="photo-list">
 				<c:forEach items="${photos}" var="photo" varStatus="status" >
-				<div class="btn photo-item" onclick="showPhoto('${photo.seq}', '${status.index}')"  
-					style="background-image: url('${pageContext.request.contextPath}${photo.snapsht}')">
-				</div>
-			</c:forEach>
-				
+					<div class="btn photo-item" onclick="showPhoto('${photo.seq}', '${status.index}')"  
+						style="background-image: url('${pageContext.request.contextPath}${photo.snapsht}')">
+					</div>
+				</c:forEach>
 			</div>
-			<script>
-				photoSnapshtResize();
-			</script>
 			
 			<div class="btn btn-right-list"  style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_photo_arrow.png)">
 			</div>
-	
 		</div>
 	</div>
 	

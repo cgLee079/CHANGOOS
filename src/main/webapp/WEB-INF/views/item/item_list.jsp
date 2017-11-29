@@ -30,7 +30,7 @@ function itemView(seq){
 	}
 	
 	.item-view{
-		flex : 1 30%;
+		flex : 1 33%;
 		border: 1px solid #EEE;
 		background: #FFF;
 		cursor: pointer;
@@ -104,6 +104,13 @@ function itemView(seq){
 	}
 </style>
 <script>
+function itemResize(){
+	$(".wrap-items > .item-view").each(function(){
+		var width = parseInt($(this).width());
+		$(this).css("height", width *(2/3));
+	});
+}
+
 $(document).ready(function(){
 	var ani = anime.timeline({loop : false})
 		.add({
@@ -117,7 +124,13 @@ $(document).ready(function(){
 				return (gap * i) + 100;
 			}
 		});
+	
+	itemResize();
+	$(window).resize(function(){
+		itemResize();	
+	})
 })
+
 </script>
 </head>
 <body>
@@ -140,23 +153,6 @@ $(document).ready(function(){
 					</div>
 				</div>
 			</c:forEach>
-			
-			<script>
-			(function(){
-				function itemResize(){
-					$(".wrap-items > .item-view").each(function(){
-						var width = parseInt($(this).width());
-						$(this).css("height", width *(2/3));
-					});
-				}
-				itemResize();
-				
-				$(window).resize(function(){
-					itemResize();	
-				})
-				
-			})();
-			</script>
 		</div>
 	</div>
 	
