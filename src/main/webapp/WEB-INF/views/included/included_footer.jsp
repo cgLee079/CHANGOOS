@@ -3,7 +3,7 @@
 	width : 100%;
 	margin-top : 3rem;
 	padding : 1rem 0 1rem 0;
-	background : #555;
+	background : #333;
 	color : #FFF;
 }
 
