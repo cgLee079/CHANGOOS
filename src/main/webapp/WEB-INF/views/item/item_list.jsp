@@ -31,7 +31,7 @@ function itemView(seq){
 	}
 	
 	.item-view{
-		flex : 1 33%;
+		width: 33%;
 		border: 1px solid #EEE;
 		background: #FFF;
 		cursor: pointer;
