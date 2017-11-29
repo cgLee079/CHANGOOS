@@ -25,14 +25,15 @@ function footerRelocate(){
 	var footer = $(".footer");
 	var offset = footer.offset();
 	var top = offset.top;
+	
 	if(top < deviceHeight){
-		var marginTop = parseInt($(".footer").css("margin-top"));
+		var marginTop = parseInt(footer.css("margin-top"));
 		$(".footer").css("margin-top", marginTop + (deviceHeight - top));
 	}
 	
 }
-footerRelocate();
 
+footerRelocate();
 $(window).resize(function(){
 	footerRelocate();
 })
