@@ -68,6 +68,30 @@
 				
 				<h5>desc</h5>
 				<textarea id="desc" name="desc" class="item-desc"></textarea>
+				<script>
+					var editor = CKEDITOR.replace("desc", {
+						on : {
+							instanceReady : function( ev ){
+							    // Output paragraphs as <p>Text</p>.
+							    this.dataProcessor.writer.setRules( 'p',
+							        {
+							            indent : false,
+							            breakBeforeOpen : true,
+							            breakAfterOpen : false,
+							            breakBeforeClose : false,
+							            breakAfterClose : true
+							        });
+							}
+						}
+					});
+
+					CKEDITOR.on( 'instanceReady', function( ev ) {
+						        // Ends self closing tags the HTML4 way, like <br>.
+						        ev.editor.dataProcessor.writer.selfClosingEnd = '/>';
+				    });
+					
+				</script>
+				
 				
 				<h5>sourcecode</h5>
 				<input type="text" id="sourcecode" name="sourcecode" class="item-sourcecode"/>

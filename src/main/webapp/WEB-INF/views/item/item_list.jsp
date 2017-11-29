@@ -71,8 +71,10 @@ function itemView(seq){
 	
 	.item-view .item-info{
 		color: white; /* Good thing we set a fallback color! */
-		padding: 25%;
-		width : 40%;
+		padding: 25% 15%;
+		width : 50%;
+		height: 10%;
+		overflow : hidden;
 		word-break : break-all;
 		position: absolute;
 	}
@@ -82,7 +84,7 @@ function itemView(seq){
 	}
 	
 	.item-info .item-desc{
-		font-size: 0.7rem;
+		font-size: 0.7em;
 	}
 	
 	@media (max-width: 420px){

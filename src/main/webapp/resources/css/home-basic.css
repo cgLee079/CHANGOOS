@@ -88,8 +88,10 @@
 
 .item-view .item-info{
 	color: white; /* Good thing we set a fallback color! */
-	padding: 25%;
+	padding: 25% 15%;
 	width : 50%;
+	height: 10%;
+	overflow : hidden;
 	word-break : break-all;
 	position: absolute;
 }

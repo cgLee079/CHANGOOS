@@ -20,12 +20,15 @@ public class ItemService {
 	
 	public boolean insert(ItemVo item) {
 		item.setContent(filterWrapChar(item.getContent()));
+		item.setDesc(filterWrapChar(item.getDesc()));
+		
 		item.setHits(0);
 		return itemDao.insert(item);
 	}
 
 	public boolean update(ItemVo item) {
 		item.setContent(filterWrapChar(item.getContent()));
+		item.setDesc(filterWrapChar(item.getDesc()));
 		return itemDao.update(item);
 	}
 	
