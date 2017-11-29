@@ -33,11 +33,9 @@ function footerRelocate(){
 	
 }
 
-$(document).ready(function(){
+footerRelocate();
+$(window).resize(function(){
 	footerRelocate();
-	$(window).resize(function(){
-		footerRelocate();
-	})
 })
 
 </script>
