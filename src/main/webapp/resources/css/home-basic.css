@@ -52,6 +52,7 @@
 	background: #FFF;
 	cursor: pointer;
 	overflow: hidden;
+	position: relative;
 	opacity: 0.8;
 }
 

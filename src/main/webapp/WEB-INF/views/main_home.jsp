@@ -49,6 +49,24 @@ function scrollToItems(){
 		<div class="main-items-title">
 			<h1>Projects</h1>
 		</div>
+		
+		<script>
+			function relocateItemTitle(){
+				var itemTitle = $(".main-items-title");
+				var offset = itemTitle.offset();
+				var top = offset.top;
+				
+				if(top < deviceHeight){
+					var marginTop = parseInt(itemTitle.css("margin-top"));
+					itemTitle.css("margin-top", marginTop + (deviceHeight - top));
+				}
+			}	
+			relocateItemTitle();
+
+			$(window).resize(function(){
+				relocateItemTitle();	
+			})
+		</script>
 		<div class="main-items">
 			<c:forEach var="item" items="${items}">
 				<div onclick="itemView(${item.seq})" class="item-view">

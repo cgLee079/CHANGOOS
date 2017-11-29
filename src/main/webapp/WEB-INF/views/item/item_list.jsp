@@ -90,10 +90,9 @@ function itemView(seq){
 			flex : 1 100%;
 		}
 		
-		
 		.item-snapsht:before {
 			display: block;
-			background-color: rgba(0, 0, 0, 0.5);
+			background-color: rgba(0, 0, 0, 0.35);
 		}
 		
 		.item-info{
@@ -113,7 +112,7 @@ $(document).ready(function(){
 			delay : function (el, i){
 				var length = $(".wrap-items .item-view").length;
 				var gap = 500 / length;
-				return gap * i;
+				return (gap * i) + 100;
 			}
 		});
 })
