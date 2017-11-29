@@ -38,12 +38,13 @@
 .content-text{
 	flex : 1 40%;
 	padding : 30px;
+	line-height: 1.5rem;
 }
 
 .btns-view{
 	width : 100%;
 	text-align: center;
-	margin-top : 30px;
+	margin-top : 2rem;
 }
 
 .btn-view{
@@ -77,11 +78,6 @@
 	
 	.content-text{
 		flex : 1 30%;
-		line-height: 150%;
-	}
-	
-	.btns-view{
-		margin-top : 30px;
 	}
 	
 	.btn-view{
