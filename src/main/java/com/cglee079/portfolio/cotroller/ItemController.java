@@ -58,17 +58,17 @@ public class ItemController {
 		return "item/item_view";
 	}
 	
-	@RequestMapping(value = "/admin/item/list")
+	@RequestMapping(value = "/admin/item/manage")
 	public String item(Model model) {
 		List<ItemVo> items = itemService.list();
 		model.addAttribute("items", items);
-		return "item/item_list";
+		return "item/item_manage";
 	}
 	
 	@RequestMapping(value = "/admin/item/delete.do")
 	public String itemDelete(int seq) {
 		boolean result = itemService.delete(seq);
-		return "redirect:" + "/admin/item/list";
+		return "redirect:" + "/admin/item/manage";
 	}
 	
 	@RequestMapping(value = "/admin/item/upload", params = "!seq")
@@ -106,7 +106,7 @@ public class ItemController {
 		
 		itemService.insert(item);
 		
-		return "redirect:" + "/admin/item/list";
+		return "redirect:" + "/admin/item/manage";
 	}
 	
 	@RequestMapping(value = "/admin/item/upload.do", method = RequestMethod.POST, params = "seq")
@@ -134,7 +134,7 @@ public class ItemController {
 		
 		itemService.update(item);
 		
-		return "redirect:" + "/admin/item/list";
+		return "redirect:" + "/admin/item/manage";
 	}
 	
 	@RequestMapping(value = "/admin/item/imgUpload.do", method = RequestMethod.POST)

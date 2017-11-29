@@ -40,11 +40,11 @@ public class PhotoController {
 		return "photo/photo_view";
 	}
 	
-	@RequestMapping(value = "admin/photo/list")
+	@RequestMapping(value = "admin/photo/manage")
 	public String photoList(Model model) {
 		List<PhotoVo> photos = photoService.list();
 		model.addAttribute("photos", photos);
-		return "photo/photo_list";
+		return "photo/photo_manage";
 	}
 	
 	@ResponseBody
@@ -63,7 +63,7 @@ public class PhotoController {
 		deleteFile(rootPath, photo.getSnapsht());
 		
 		boolean result = photoService.delete(seq);
-		return "redirect:" + "/admin/photo/list";
+		return "redirect:" + "/admin/photo/manage";
 	}
 	
 	@RequestMapping(value = "admin/photo/upload", params = "!seq")
@@ -126,7 +126,7 @@ public class PhotoController {
 		
 		photoService.insert(photo);
 		
-		return "redirect:" + "/admin/photo/list";
+		return "redirect:" + "/admin/photo/manage";
 	}
 	
 	@RequestMapping(value = "/admin/photo/upload.do", params = "seq")
@@ -177,7 +177,7 @@ public class PhotoController {
 		
 		photoService.update(photo);
 		
-		return "redirect:" + "/admin/photo/list";
+		return "redirect:" + "/admin/photo/manage";
 	}
 	
 	private void deleteFile(String rootPath, String subPath){
