@@ -17,6 +17,7 @@ function itemView(seq){
 	}
 	
 	.items-title{
+		letter-spacing : 1.5rem;
 		font-size: 3.5rem;
 		font-weight : bold;
 		text-align: center;
