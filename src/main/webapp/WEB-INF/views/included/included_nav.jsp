@@ -109,6 +109,7 @@
 	<ul class="menu-option">
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}">Home</a></li>
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/myinfo">Introduce</a></li>
+		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/item">Projects</a></li>
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">Photo</a></li>
 		<li class="btn"><a target="_blank" href="https://github.com/cgLee079">Github</a></li>
 		<li class="btn"><a target="_blank" href="https://www.instagram.com/cglee079">Instagram</a></li>

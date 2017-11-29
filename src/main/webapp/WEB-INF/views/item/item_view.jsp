@@ -139,6 +139,7 @@
 				}
 			})
 		});
+		$(window).trigger("resize");
 	});
 </script>
 </head>

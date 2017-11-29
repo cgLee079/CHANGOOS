@@ -28,6 +28,13 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
+	@RequestMapping(value = "item")
+	public String itemList(Model model) {
+		List<ItemVo> items = itemService.list();
+		model.addAttribute("items", items);
+		return "item/item_list";
+	}
+	
 	@RequestMapping(value = "/item/view")
 	public String itemView(Model model, int seq){
 		List<ItemVo> items = itemService.list();
@@ -59,7 +66,7 @@ public class ItemController {
 	}
 	
 	@RequestMapping(value = "/admin/item/manage")
-	public String item(Model model) {
+	public String itemManage(Model model) {
 		List<ItemVo> items = itemService.list();
 		model.addAttribute("items", items);
 		return "item/item_manage";
