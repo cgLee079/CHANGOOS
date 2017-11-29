@@ -341,7 +341,7 @@
 			</div>
 		</div>
 		<div class="wrap-photo-list">
-			<div class="btn btn-left-list h-reverse" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_arrow.png)">
+			<div class="btn btn-left-list h-reverse" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_photo_arrow.png)">
 			</div>
 			
 			<div class="photo-list">
@@ -356,7 +356,7 @@
 				photoSnapshtResize();
 			</script>
 			
-			<div class="btn btn-right-list"  style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_arrow.png)">
+			<div class="btn btn-right-list"  style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_photo_arrow.png)">
 			</div>
 	
 		</div>
