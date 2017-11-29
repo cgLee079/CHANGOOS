@@ -39,8 +39,6 @@ function itemView(seq){
 		position : relative;
 	}
 	
-
-	
 	.item-view:hover > .item-snapsht{
 		transform: scale(1.1);
 		transition: all .5s;
@@ -63,7 +61,7 @@ function itemView(seq){
 		position: absolute;
 		top: 0;
 		left: 0;
-		background-color: rgba(52, 73, 94, 0.75);
+		background-color: rgba(0, 0, 0, 0.5);
 	}
 	
 	.item-view:hover .item-snapsht:before,
@@ -90,6 +88,17 @@ function itemView(seq){
 	@media (max-width: 420px){
 		.item-view{
 			flex : 1 100%;
+		}
+		
+		
+		.item-snapsht:before {
+			display: block;
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+		
+		.item-info{
+			display: block;
+			font-size: 2rem;
 		}
 	}
 </style>
@@ -124,8 +133,8 @@ $(document).ready(function(){
 				<div onclick="itemView(${item.seq})" class="item-view">
 					<div class="item-snapsht" style="background-image: url('${pageContext.request.contextPath}${item.snapsht}')">
 						<div class="item-info display-none">
-						<h3>${item.name}</h3>
-						<a class="item-desc">${item.desc}</a>
+							<h3>${item.name}</h3>
+							<a class="item-desc">${item.desc}</a>
 						</div>
 					</div>
 				</div>
