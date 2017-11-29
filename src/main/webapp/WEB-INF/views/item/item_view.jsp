@@ -25,6 +25,7 @@
 	
 	color: #666;
 	font-size: 0.5rem;
+	line-height : 1rem;
 	text-align: right;
 }
 
@@ -32,6 +33,7 @@
 	position : relative;
 	margin-top: 2rem;
 	font-size: 0.8rem;
+	line-height: 2rem;
 }
 
 .item-subinfo2 {
@@ -143,16 +145,14 @@
 			<div class="item-head">
 				<h1 class="item-name">${item.name}</h1>
 				<div class="item-subinfo">
+					<a class="item-date">date : ${item.date}</a> <br/>
 					<a class="item-sect">sect : ${item.sect}</a>
-					<br>
-					<a class="item-date">date : ${item.date}</a>
-					<br>
+					,&nbsp
 					<a class="item-hits">hits : ${item.hits}</a>
-					
 				</div>
 			</div>
 
-			<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="5px">
+			<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="0.1rem" style="margin-top: 0.5rem">
 				<path class="path" fill="none" stroke="#999" d="M0 0 L2000 0" />
 	   		</svg>
 	   			
@@ -161,7 +161,7 @@
 					<a class="item-developer">by ${item.developer}</a>
 				</c:if>
 				<c:if test="${!empty item.sourcecode}">
-					<a class="item-soruce" target="_black" href="${item.sourcecode}"> source</a>
+					<a class="btn item-soruce" target="_black" href="${item.sourcecode}"> source</a>
 				</c:if>
 			</div>
 			
