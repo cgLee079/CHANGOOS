@@ -30,8 +30,8 @@
 }
 
 .item-line{
-	background: #EEE;
-	height : 1.5px;
+	background: #AAA;
+	height : 1px;
 	margin: 0.5rem 0;
 }
 
