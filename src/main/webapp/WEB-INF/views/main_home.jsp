@@ -68,7 +68,7 @@
 				and interested in Android, Web development. <br/>
 				If you want to see my projects, show below.<br/>
 				<br/>
-				<a href="#items" onclick="scrollToItems()">going on</a>
+				<a href="javascript:void(0)" onclick="scrollToItems()" class ="btn btn-show-items" >going on</a>
 			</div>
 		</div>
 		

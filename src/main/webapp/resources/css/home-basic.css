@@ -29,6 +29,11 @@
     background-size		: contain;
 }
 
+.btn-show-items{
+	color : #00F;
+	font-weight: bold;
+}
+
 .main-items-title {
 	margin-top: 10rem;
 }
