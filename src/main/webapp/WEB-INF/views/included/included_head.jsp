@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" >
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global-basic.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global-responsive.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included-nav-basic.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included-nav-responsive.css" />
