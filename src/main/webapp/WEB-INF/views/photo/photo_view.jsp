@@ -311,9 +311,7 @@
 		     preventDefaultEvents: true
 		});
 		
-		console.log("st");
 		photoSnapshtResize();
-		console.log("end");
 		$(window).resize(function(){
 			photoSnapshtResize();
 		});
