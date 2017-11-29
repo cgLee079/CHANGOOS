@@ -12,7 +12,7 @@
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.touchwipe.1.1.1.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/anime2.2.0.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/anime-2.2.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/letter-motion.js"></script>
 
 <script>

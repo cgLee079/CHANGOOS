@@ -29,6 +29,12 @@
 	text-align: right;
 }
 
+.item-line{
+	background: #EEE;
+	height : 1.5px;
+	margin: 0.5rem 0;
+}
+
 .item-content {
 	position : relative;
 	margin-top: 2rem;
@@ -84,12 +90,11 @@
 <script>
 	$(document).ready(function(){
 		var lineDrawing = anime({
-			targets: '.path',
-			strokeDashoffset: [anime.setDashoffset, 0],
-			easing: 'easeInOutSine',
-			duration: 1000,
+			targets: ".item-line",
+			easing: "easeInQuad",
+			width : [0, "100%"],
+			duration: 500,
 			delay : 300,
-			loop: false
 		});
 		
 		if(isMobile){
@@ -152,10 +157,8 @@
 				</div>
 			</div>
 
-			<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="0.1rem" style="margin-top: 0.5rem">
-				<path class="path" fill="none" stroke="#999" d="M0 0 L2000 0" />
-	   		</svg>
-	   			
+			<div class="item-line"></div>
+				   			
 			<div class="item-subinfo2">
 				<c:if test="${!empty item.developer}"> 
 					<a class="item-developer">by ${item.developer}</a>

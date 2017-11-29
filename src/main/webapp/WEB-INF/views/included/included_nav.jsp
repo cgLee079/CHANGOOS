@@ -18,7 +18,6 @@
 		if(width >= height) { radius = deviceWidth; }
 		else { radius = deviceHeight; }
 		
-		console.log(width +" x " + height + " => " + radius);
 		$(".nav-background").css("width", radius);
 		$(".nav-background").css("height", radius);
 		$(".nav-background").css("top", -radius);
