@@ -54,6 +54,10 @@
   transition: .25s ease-in-out;
 }
 
+.nav-icon:hover span{
+	background : #000;
+}
+
 .nav-icon span:nth-child(1) {
   top: 0px;
 }
@@ -104,6 +108,7 @@
 	position: fixed;
 	width : 100%;
 	height: 100%;
+	top : 0;
 	z-index: 3000;
 	text-align: center;
 	opacity: 0;
@@ -115,6 +120,7 @@
 
 .menu-header{
 	margin:  0.5rem;
+	margin-top : 5rem;
 }
 
 .menu-option{
@@ -132,17 +138,18 @@
 
 @media (max-width: 420px){
 	.nav-occupy{
-		height : 5rem;
+		height : 4rem;
 	}
+	
 	.nav-icon{
 		width: 20px;
 		height: 15px;
-		top : 2rem;
-		left: 2rem;
+		top : 1.5rem;
+		left: 1.5rem;
 	}	
 	
 	.nav-icon span{
-	  height: 0.3rem;
+	  height: 0.1rem;
 	  width: 100%;
 	}
 	
@@ -164,25 +171,6 @@
 	
 }
 </style>
-<script>
-	$(document).ready(function(){
-		var height = $(".nav").outerHeight();
-		$(".nav-occupy").css("height", height);	
-		
-		$(window).resize(function(){
-			var height = $(".nav").outerHeight();
-			$(".nav-occupy").css("height", height);			
-		})
-		
-		$(".nav").css("top", -height);
-		var navAni = anime({
-			targets	: ".nav",
-			duration: 500,
-			easing: "easeInQuad",
-			top : 0
-		});
-	})
-</script>
 <div class="nav-occupy"></div>
 <div class="nav-icon">
 	<span></span>
@@ -192,27 +180,32 @@
 </div>
 <script>
 (function(){
+	function navBgResize(){
+		$(".nav-background").css("width", "100%");
+		$(".nav-background").css("height", "100%");
+		
+		var width = $(".nav-background").width();
+		var height = $(".nav-background").height();
+		var radius = undefined;
+		
+		if(width >= height) { radius = deviceWidth; }
+		else { radius = deviceHeight; }
+		
+		console.log(width +" x " + height + " => " + radius);
+		$(".nav-background").css("width", radius);
+		$(".nav-background").css("height", radius);
+		$(".nav-background").css("top", -radius);
+		$(".nav-background").css("left", -radius);
+	}
+	
+	$(window).resize(function(){
+		navBgResize();
+	});
+	
 	$(".nav-icon").click(function(){
 		$(this).toggleClass("open");
 		
-		function navBgResize(){
-			var width = $(".nav-background").width();
-			var height = $(".nav-background").height();
-			if(width > height){
-				$(".nav-background").css("height", width);
-				$(".nav-background").css("top", -width);
-				$(".nav-background").css("left", -width);
-			} else{
-				$(".nav-background").css("width", height);
-				$(".nav-background").css("top", -height);
-				$(".nav-background").css("left", -height);
-			}
-		}
-		
 		navBgResize();
-		$(window).resize(function(){
-			navBgResize();
-		});
 		
 		if($(this).hasClass("open")){
 			$(".nav-menu").removeClass("unvalid");
@@ -276,13 +269,6 @@
 			$("html, body").removeClass("scroll-no");
 		}
 	});
-	
-	$(".nav-icon").hover(function(){
-		$(this).find("span").css("background","#000");
-	}, function(){
-		$(this).find("span").css("background","#999");
-	});
-	
 })();
 </script>
 <div class="nav-background"></div>
