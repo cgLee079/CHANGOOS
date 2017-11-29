@@ -1,4 +1,8 @@
-<div class="nav-occupy"></div>
+<div class="nav-occupy">
+	<div class="nav-home-logo">
+		CHANGOO'S
+	</div>
+</div>
 <div class="nav-icon">
 	<span></span>
 	<span></span>
