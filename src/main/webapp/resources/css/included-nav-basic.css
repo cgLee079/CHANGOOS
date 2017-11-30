@@ -16,9 +16,25 @@
 	border-bottom: 1px solid #ddd;
 }
 
-.nav-occupy .nav-home-logo{
+.nav-occupy .wrap-home-logo{
+	display: flex;
+	flex-flow : column wrap;
+	align-items: center;
+	justify-content: center;
 	cursor : pointer;
+	width : 6rem;
+	height : 100%;
+	margin : 0px auto;
 }
+
+.wrap-home-logo .logo-line{
+	width : 100%;
+	height: 2px;
+	background: #333;
+	margin: 1px 0px;
+	transform : scale(0);
+}
+
 
 .nav-icon {
 	width: 25px;

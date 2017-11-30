@@ -1,8 +1,28 @@
 <div class="nav-occupy">
-	<div class="nav-home-logo">
+	<div class="wrap-home-logo">
+		<div>
 		CHANGOO'S
+		</div>
+		<div class="logo-line"></div>
 	</div>
 </div>
+<script>
+(function(){
+	var drawingLine = undefined;
+	$(".wrap-home-logo").hover(function(){
+		drawingLine = anime({
+			targets : ".logo-line",
+			scale : [0, 1],
+			easing : "easeInQuad",
+			duration : 200
+		})
+	}, function(){
+		drawingLine.play();
+		drawingLine.reverse();
+	});
+		
+})();
+</script>
 <div class="nav-icon">
 	<span></span>
 	<span></span>
