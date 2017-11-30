@@ -37,8 +37,12 @@
 
 .content-text{
 	flex : 1 40%;
-	padding : 30px;
-	line-height: 1.5rem;
+	padding : 3.5rem;
+	line-height: 2rem;
+}
+
+.content-text > .content-head{
+	margin-bottom: 1rem;
 }
 
 .btns-view{
@@ -205,17 +209,16 @@
 		<div class="myinfo-view myinfo-view00">
 			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpeg)"></div>
 			<div class="content-text">
-				<h1 class="ml6">
-					<span class="text-wrapper">
-					<span class="letters">Who am I?</span>
-					</span>
-				</h1>
+				<h1 class="content-head">Who am I?</h1>
+				
 				<p>
 				Hello? My name is <strong>changoo Lee</strong>.<br/> 
 				I live in south korea and
+					<strong>
 					<jsp:useBean id="date" class="java.util.Date" />
 					<fmt:formatDate value="${date}" pattern="yyyy" var="currentYear" />
 					<c:out value="${currentYear - 1992 + 1}" />
+					</strong>
 				old. <br/>
 				I specialized Computer Engineering at Hansung University. <br/>
 				
@@ -225,11 +228,14 @@
 		
 		<div class="myinfo-view myinfo-view01">
 			<div class="content-text">
-				<h1 class="ml6">
-					<span class="text-wrapper">
-					<span class="letters">Who am I?</span>
-					</span>
-				</h1>
+				 <h1 class="content-head">My History.</h1>
+				 <p>
+					 <strong>2011.03</strong> &nbsp&nbsp Admissions C.E at Hansug University. <br/>
+					 <strong>2012.05</strong> &nbsp&nbsp Join to army. <br/>
+					 <strong>2017.02</strong> &nbsp&nbsp Victory Graduate Competition <br/>
+					 <strong>2017.07</strong> &nbsp&nbsp Intern at Nexgen Associate (Web, SI) <br/>
+					 <strong>2018.02</strong> &nbsp&nbsp Graduated from university <br/>
+				 </p>
 			</div>
 			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpeg)"></div>
 		</div>
@@ -237,21 +243,24 @@
 		<div class="myinfo-view myinfo-view02">
 			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpeg)"></div>
 			<div class="content-text">
-				<h1 class="ml6">
-					<span class="text-wrapper">
-					<span class="letters">Who am I?</span>
-					</span>
-				</h1>
+				<h1 class="content-head">My Resume.</h1>
+				Bachelor's degree at Hausng University. <br/>
+				Grade &nbsp&nbsp<strong>4.22 / 4.5</strong> <br/>
+				Toeic &nbsp&nbsp&nbsp<strong>855</strong> <br/>
+				Data Processing Engineer, <br/>
+				Craftsman Information Equipment Operation,<br/>
+				MS master, GTQ
 			</div>
 		</div>
 		
 		<div class="myinfo-view myinfo-view03">
 			<div class="content-text">
-				<h1 class="ml6">
-					<span class="text-wrapper">
-					<span class="letters">Who am I?</span>
-					</span>
-				</h1>
+				<h1 class="content-head">CONTACT.</h1>
+				<strong>Name.</strong> 이찬구(Changoo Lee) <br/>
+				<strong>Email.</strong> cgLee079@gmail.com <br/>
+				<strong>Tel.</strong> 010 - 2062 - 2979 <br/>
+				<br/>
+				<h3>Contact Me!!</h3>
 			</div>
 			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpeg)"></div>
 		</div>
