@@ -34,18 +34,17 @@
 
 <script type="text/javascript">
 	function itemView(seq){
-		var contextPath = "${pageContext.request.contextPath}";
-		window.location.href = contextPath + "/item/view?seq=" + seq;		
+		window.location.href = getContextPath() + "/item/view?seq=" + seq;		
 	}
 
 	function itemDelete(seq){
 		var contextPath = "${pageContext.request.contextPath}";
-		window.location.href = contextPath + "/admin/item/delete.do?seq=" + seq;		
+		window.location.href = getContextPath() + "/admin/item/delete.do?seq=" + seq;
 	}
 	
 	function itemModify(seq){
 		var contextPath = "${pageContext.request.contextPath}";
-		window.location.href = contextPath + "/admin/item/upload?seq=" + seq;		
+		window.location.href = getContextPath() + "/admin/item/upload?seq=" + seq;		
 	}
 </script>
 </head>

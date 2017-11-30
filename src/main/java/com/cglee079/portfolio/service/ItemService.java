@@ -1,5 +1,6 @@
 package com.cglee079.portfolio.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class ItemService {
 	}
 	
 	public boolean delete(int seq) {
-		return itemDao.delete(seq);
+		return true; //ItemDao.delete(seq);
 	}
 	
 	public ItemVo get(int seq){
@@ -44,5 +45,29 @@ public class ItemService {
 		text = text.replaceAll("\\r\\n|\\r|\\n", "");
 //		text = text.replaceAll("\\R", "");
 		return text;
+	}
+	
+	public List<String> getContentImg(int seq){
+		final String path = "/resources/image/contents/";
+		List<String> imgPaths = new ArrayList<String>();
+		ItemVo item = itemDao.get(seq);
+		String content = item.getContent();
+		
+		int stIndex = 0;
+		int endIndex= 0;
+		
+		while(true){
+			stIndex = content.indexOf(path, endIndex);
+			endIndex = content.indexOf("\"", stIndex);
+			
+			if(stIndex == -1){ break;}
+			if(endIndex == -1){ break;}
+			
+			imgPaths.add(content.substring(stIndex, endIndex));
+		}
+	
+		
+		return imgPaths;
+		
 	}
 }

@@ -73,8 +73,19 @@ public class ItemController {
 	}
 	
 	@RequestMapping(value = "/admin/item/delete.do")
-	public String itemDelete(int seq) {
-		boolean result = itemService.delete(seq);
+	public String itemDelete(HttpSession session, int seq) {
+		String rootPath = session.getServletContext().getRealPath("");
+		List<String> imgPaths = itemService.getContentImg(seq);
+		int imgPathsLength = imgPaths.size();
+		File existFile = null;
+		
+		for (int i = 0; i < imgPathsLength; i++){
+			existFile = new File (rootPath + imgPaths.get(i));
+			if(existFile.exists()){
+				existFile.delete();
+			}
+		}
+		itemService.delete(seq);
 		return "redirect:" + "/admin/item/manage";
 	}
 	

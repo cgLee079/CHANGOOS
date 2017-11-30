@@ -65,6 +65,9 @@ if(!isMobile){
 	$("*").css("font-family", "Nanum Gothic");
 }
 
-
+var contextPath = "${pageContext.request.contextPath}";
+function getContextPath(){
+	return contextPath;
+}
 
 </script>
