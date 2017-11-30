@@ -1,6 +1,6 @@
 <div class="nav-occupy">
 	<div class="wrap-home-logo">
-		<div>
+		<div onclick="window.location.href = '${pageContext.request.contextPath}'">
 		CHANGOO'S
 		</div>
 		<div class="logo-line"></div>
@@ -14,7 +14,7 @@
 			targets : ".logo-line",
 			scale : [0, 1],
 			easing : "easeInQuad",
-			duration : 200
+			duration : 300
 		})
 	}, function(){
 		drawingLine.play();
