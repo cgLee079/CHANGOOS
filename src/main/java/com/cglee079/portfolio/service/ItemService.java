@@ -34,7 +34,7 @@ public class ItemService {
 	}
 	
 	public boolean delete(int seq) {
-		return true; //ItemDao.delete(seq);
+		return itemDao.delete(seq);
 	}
 	
 	public ItemVo get(int seq){
