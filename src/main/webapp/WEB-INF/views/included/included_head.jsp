@@ -16,6 +16,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/letter-motion.js"></script>
 
 <script>
+
 /*
 var isMobile = {
 	    Android: function() {
@@ -69,5 +70,4 @@ var contextPath = "${pageContext.request.contextPath}";
 function getContextPath(){
 	return contextPath;
 }
-
 </script>
