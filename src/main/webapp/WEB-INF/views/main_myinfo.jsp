@@ -9,6 +9,7 @@
 	margin-top: 4rem;
 	width: 100%;
 	height: 500px;
+	overflow: hidden;
 }
 
 .myinfo-view {
@@ -142,7 +143,11 @@
 				btns.eq(n).trigger("click");
 			}, 7000);
 		}
-		timer();
+		
+		if(!isMobile){
+			timer();	
+		}
+		
 		
 		$(".myinfo-views").touchwipe({
 			wipeLeft: function() {

@@ -1,4 +1,4 @@
-jdbc.username=root
-jdbc.password=lig050129!
+jdbc.username=cglee079
+jdbc.password=lcg050179!
 jdbc.driverClassName=net.sf.log4jdbc.DriverSpy
-jdbc.url=jdbc:log4jdbc:mysql://localhost:3306/CGLEE079?autoReconnect=true&useSSL=false
+jdbc.url=jdbc:log4jdbc:mysql://125.186.242.83:3307/cglee079?autoReconnect=true&useSSL=false
