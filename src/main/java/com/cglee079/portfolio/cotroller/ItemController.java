@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,7 +157,7 @@ public class ItemController {
 	}
 	
 	@RequestMapping(value = "/admin/item/imgUpload.do", method = RequestMethod.POST)
-	public String itemImgUpload(HttpServletRequest request, Model model,
+	public String itemImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
@@ -173,6 +174,7 @@ public class ItemController {
 			ImageIO.write(image, imgExt, file);
 		}
 		
+		response.setHeader("X-Frame-Options", "SAMEORIGIN");
 		model.addAttribute("path", request.getContextPath() + imgPath + filename);
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
 		
