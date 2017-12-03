@@ -212,7 +212,7 @@
 	
 	<div class="myinfo-views">
 		<div class="myinfo-view myinfo-view00">
-			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpeg)"></div>
+			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_myinfo_view00.jpg)"></div>
 			<div class="content-text">
 				<h1 class="content-head">Who am I?</h1>
 				
@@ -242,11 +242,11 @@
 					 <strong>2018.02</strong> &nbsp&nbsp Graduated from university <br/>
 				 </p>
 			</div>
-			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpeg)"></div>
+			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_myinfo_view01.jpg)"></div>
 		</div>
 		
 		<div class="myinfo-view myinfo-view02">
-			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpeg)"></div>
+			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_myinfo_view02.jpg)"></div>
 			<div class="content-text">
 				<h1 class="content-head">My Resume.</h1>
 				Bachelor's degree at Hausng University. <br/>
@@ -267,7 +267,7 @@
 				<br/>
 				<h3>Contact Me!!</h3>
 			</div>
-			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_sample1.jpeg)"></div>
+			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_myinfo_view03.jpg)"></div>
 		</div>
 		
 	</div>

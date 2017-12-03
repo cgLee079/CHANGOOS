@@ -51,13 +51,13 @@
 	
 	<div class="main">
 		<div class="main-introduce">
-			<div class="me-icon" style="background-image : url(resources/image/icon_me.png);">
+			<div class="me-icon" style="background-image : url(resources/image/home_icon_me.png);">
 			</div>
 			
 			<div class="main-introduce-name">
 				<h1 class="ml9">
 				  <span class="text-wrapper">
-				    <span class="letters">Toyo dim</span>
+				    <span class="letters">Changoo Lee</span>
 				  </span>
 				</h1>
 			</div>
