@@ -39,7 +39,15 @@
 	position : relative;
 	margin-top: 2rem;
 	font-size: 0.8rem;
-	
+}
+
+.item-content h1, h2, h3{
+	margin: 0.5rem 0px;
+}
+
+.item-content p{
+	margin: 0.2rem 0px;
+	line-height: 1.2rem;
 }
 
 .item-subinfo2 {
@@ -76,7 +84,7 @@
 	}
 	
 	.item-content{
-		margin-top: 1rem;
+		margin-top: 3rem;
 	}
 	
 	.item-git-link img{
@@ -105,7 +113,7 @@
 		videos.each(function(){
 			if(parentWidth >= 640){
 				$(this).attr("width", "640");
-				$(this).attr("height", "480");
+				$(this).attr("height", "360");
 			} else{
 				var width = parentWidth;
 				var ratio = parseFloat($(this).attr("width") /$(this).attr("height"));

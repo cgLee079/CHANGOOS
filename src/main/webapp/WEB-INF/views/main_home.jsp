@@ -54,10 +54,11 @@
 			</div>
 			
 			<div class="main-introduce-desc">
-				Hello! Thank you for visiting my portfolio site. <br/>
+				Hello! Thank you for visiting my site. <br/>
 				I specialized Computer Engineering at Hansung University.<br/>
-				and interested in Android, Web development. <br/>
+				and interested in Android, Web development.<br/>
 				If you want to see my projects, show below.<br/>
+				<p style="color: blue;">#Spring</p>
 				<br/>
 				<a href="javascript:void(0)" onclick="scrollToItems()" class ="btn btn-show-items" >going on</a>
 			</div>
