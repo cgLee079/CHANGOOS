@@ -39,7 +39,7 @@
 	position : relative;
 	margin-top: 2rem;
 	font-size: 0.8rem;
-	line-height: 2rem;
+	line-height: 1.3rem;
 }
 
 .item-subinfo2 {
