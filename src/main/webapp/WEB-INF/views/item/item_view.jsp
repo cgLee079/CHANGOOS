@@ -46,8 +46,8 @@
 }
 
 .item-content p{
-	margin: 0.2rem 0px;
-	line-height: 1.2rem;
+	margin : 0.1rem 0;
+	line-height: 1.1rem;
 }
 
 .item-subinfo2 {
@@ -112,7 +112,7 @@
 		var videos = $("iframe");
 		videos.each(function(){
 			if(parentWidth >= 640){
-				$(this).attr("width", "640");
+				$(this).attr("width", "720");
 				$(this).attr("height", "360");
 			} else{
 				var width = parentWidth;
