@@ -36,10 +36,11 @@
 }
 
 .item-content {
+	margin: ;
+	padding: ;
 	position : relative;
 	margin-top: 2rem;
 	font-size: 0.8rem;
-	line-height: 1.3rem;
 }
 
 .item-subinfo2 {
@@ -101,15 +102,16 @@
 	
 	function contentYoutubeResize(){
 		var parentWidth = parseInt($(".item-content").width());
-		var videos = $(".youtube-embed-wrapper iframe");
+		var videos = $("iframe");
 		videos.each(function(){
-			var width = parseInt($(this).width());
-			if(parentWidth >= 720){
-				$(this).css("width", "720");
-				$(this).css("height", "480");
+			if(parentWidth >= 640){
+				$(this).attr("width", "640");
+				$(this).attr("height", "480");
 			} else{
-				$(this).css("width", "100%");
-				$(this).css("height", "100%");
+				var width = parentWidth;
+				var ratio = parseFloat($(this).attr("width") /$(this).attr("height"));
+				$(this).attr("width", width);
+				$(this).attr("height", width * (1/ratio));
 			} 
 		});
 	}
