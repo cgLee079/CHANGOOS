@@ -104,13 +104,13 @@
 		var videos = $(".youtube-embed-wrapper iframe");
 		videos.each(function(){
 			var width = parseInt($(this).width());
-			if(width >= parentWidth){
-				$(this).css("width", "100%");
-				$(this).css("height", "100%");
-			} else{
+			if(parentWidth >= 720){
 				$(this).css("width", "720");
 				$(this).css("height", "480");
-			}
+			} else{
+				$(this).css("width", "100%");
+				$(this).css("height", "100%");
+			} 
 		});
 	}
 
