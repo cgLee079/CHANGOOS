@@ -66,7 +66,7 @@
 		<div class="main-items-title">
 			<h1>Projects</h1>
 		</div>
-		<%@ include file="/WEB-INF/views/included/included_item_list.jsp" %> 
+		<%@ include file="included/included_item_list.jsp" %> 
 	</div>
 	
 	<c:import url="included/included_footer.jsp" charEncoding="UTF-8" />
