@@ -98,6 +98,21 @@
 			}
 		});
 	}
+	
+	function contentYoutubeResize(){
+		var parentWidth = parseInt($(".item-content").width());
+		var videos = $(".youtube-embed-wrapper iframe");
+		videos.each(function(){
+			var width = parseInt($(this).width());
+			if(width >= parentWidth){
+				$(this).css("width", "100%");
+				$(this).css("height", "100%");
+			} else{
+				$(this).css("width", "720");
+				$(this).css("height", "480");
+			}
+		});
+	}
 
 	$(document).ready(function(){
 		var lineDrawing = anime({
@@ -141,8 +156,10 @@
 		});
 		
 		contentImgResize();
+		contentYoutubeResize();
 		$(window).resize(function(){
 			contentImgResize();
+			contentYoutubeResize();
 		});
 	});
 </script>
