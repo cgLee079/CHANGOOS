@@ -1,6 +1,6 @@
 <div class="nav-occupy">
 	<div class="wrap-home-logo">
-		<div onclick="window.location.href = '${pageContext.request.contextPath}'">
+		<div onclick="window.location.href = '${pageContext.request.contextPath}/'">
 		CHANGOO'S
 		</div>
 		<div class="logo-line"></div>
@@ -131,7 +131,7 @@
 		</h1>
 	</div>
 	<ul class="menu-option">
-		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}">Home</a></li>
+		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/">Home</a></li>
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/myinfo">Introduce</a></li>
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/item">Projects</a></li>
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">Photo</a></li>
