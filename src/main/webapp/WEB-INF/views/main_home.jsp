@@ -26,20 +26,11 @@
 		}
 	}	
 	
-	function itemResize(){
-		$(".item-view").each(function(){
-			var width = parseInt($(this).width());
-			$(this).css("height", width *(2/3));
-		});
-	}
-	
 	$(document).ready(function(){
 		relocateItemTitle();
-		itemResize();
 		
 		$(window).resize(function(){
 			relocateItemTitle();
-			itemResize();	
 		})
 	})
 </script>
@@ -75,19 +66,7 @@
 		<div class="main-items-title">
 			<h1>Projects</h1>
 		</div>
-		
-		<div class="main-items">
-			<c:forEach var="item" items="${items}">
-				<div onclick="itemView(${item.seq})" class="item-view">
-					<div class="item-snapsht" style="background-image: url('${pageContext.request.contextPath}${item.snapsht}')">
-						<div class="item-info display-none">
-						<h3>${item.name}</h3>
-						<a class="item-desc">${item.desc}</a>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
+		<%@ include file="/WEB-INF/views/included/included_item_list.jsp" %> 
 	</div>
 	
 	<c:import url="included/included_footer.jsp" charEncoding="UTF-8" />
