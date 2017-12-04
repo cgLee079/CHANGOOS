@@ -11,18 +11,4 @@
 	.main-items-title{
 		margin-top: 15rem;
 	}
-	
-	.item-view{
-		flex : 1 100%;
-	}
-	
-	.item-snapsht:before {
-		display: block;
-		background-color: rgba(0, 0, 0, 0.35);
-	}
-	
-	.item-info{
-		display: block;
-		font-size: 2rem;
-	}
 }
