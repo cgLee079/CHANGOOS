@@ -58,7 +58,6 @@
 				I specialized Computer Engineering at Hansung University.<br/>
 				and interested in Android, Web development.<br/>
 				If you want to see my projects, show below.<br/>
-				<p style="color: blue;">#Spring</p>
 				<br/>
 				<a href="javascript:void(0)" onclick="scrollToItems()" class ="btn btn-show-items" >going on</a>
 			</div>
