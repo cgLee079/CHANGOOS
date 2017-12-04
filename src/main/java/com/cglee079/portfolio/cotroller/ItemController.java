@@ -107,7 +107,7 @@ public class ItemController {
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
 		String imgPath	= "/resources/image/snapshot/";
-		String filename	= "snapshot_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_";
+		String filename	= "snapshot_" + item.getName() + "_";
 		String imgExt	= null;
 		
 		if(snapshtFile.getSize() != 0){
@@ -133,7 +133,7 @@ public class ItemController {
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
 		String imgPath	= "/resources/image/snapshot/";
-		String filename	= "snapshot_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_";
+		String filename	= "snapshot_" + item.getName() + "_";
 		String imgExt	= null;
 		if(snapshtFile.getSize() != 0){
 			File existFile = new File (rootPath + item.getSnapsht());

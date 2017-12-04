@@ -116,7 +116,7 @@ $(document).ready(function(){
 		<div onclick="itemView(${item.seq})" class="item-view">
 			<div class="item-snapsht" style="background-image: url('${pageContext.request.contextPath}${item.snapsht}')">
 				<div class="item-info display-none">
-				<h3 class="item-title">${item.name}</h3>
+				<h4 class="item-title">[${item.sect}] ${item.name}</h4>
 				<a class="item-desc">${item.desc}</a>
 				</div>
 			</div>

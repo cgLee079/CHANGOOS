@@ -155,10 +155,10 @@
 			<div class="item-head">
 				<h1 class="item-name">${item.name}</h1>
 				<div class="item-subinfo">
-					<a class="item-date">date : ${item.date}</a> <br/>
-					<a class="item-sect">sect : ${item.sect}</a>
+					<a class="item-date">DATE : ${item.date}</a> <br/>
+					<a class="item-sect">SECT : ${item.sect}</a>
 					,&nbsp
-					<a class="item-hits">hits : ${item.hits}</a>
+					<a class="item-hits">HITS : ${item.hits}</a>
 				</div>
 			</div>
 
