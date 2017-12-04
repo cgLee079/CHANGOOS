@@ -36,11 +36,10 @@
 }
 
 .item-content {
-	margin: ;
-	padding: ;
 	position : relative;
 	margin-top: 2rem;
 	font-size: 0.8rem;
+	
 }
 
 .item-subinfo2 {
