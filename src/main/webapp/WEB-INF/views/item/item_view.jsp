@@ -78,6 +78,10 @@
     background-size		: contain;
 }
 
+code {
+	overflow-x: auto;
+}
+
 @media (max-width: 420px){
 	.item-detail {
 		margin-top: 7rem;
@@ -103,6 +107,8 @@
 			var width = parseInt($(this).width());
 			if(width > parentWidth){
 				$(this).css("width", "100%");
+			}else{
+				$(this).css("width", "");
 			}
 		});
 	}
@@ -152,6 +158,7 @@
 			} 
 		});
 		
+		/*
 		$(".wrapper").touchwipe({
 		     wipeLeft: function() {
 		    	 $(".btn-item-next").trigger("click");
@@ -163,6 +170,7 @@
 		     min_move_y: 20,
 		     preventDefaultEvents: true
 		});
+		*/
 		
 		contentImgResize();
 		contentYoutubeResize();

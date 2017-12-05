@@ -42,7 +42,7 @@ public class ItemService {
 	}
 	
 	public String filterWrapChar(String text){
-		text = text.replaceAll("\\r\\n|\\r|\\n", "");
+//		text = text.replaceAll("\\r\\n|\\r|\\n", "");
 //		text = text.replaceAll("\\R", "");
 		return text;
 	}

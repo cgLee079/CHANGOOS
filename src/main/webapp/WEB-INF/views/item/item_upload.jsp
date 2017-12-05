@@ -39,9 +39,7 @@
 	<script>
 		$(document).ready(function(){
 			$("#name").val("${item.name}");
-			$("#desc").val("${item.desc}");
 			$("#sect").val("${item.sect}");
-			$("#content").val('${item.content}');
 			$("#sourcecode").val("${item.sourcecode}");
 			$("#date").val("${item.date}");
 			$("#developer").val("${item.developer}");
@@ -67,7 +65,11 @@
 				<input id="sect" name="sect" class="item-sect"/>
 				
 				<h5>desc</h5>
-				<textarea id="desc" name="desc" class="item-desc"></textarea>
+				<textarea id="desc" name="desc" class="item-desc">
+					<c:if test="${!empty item.desc }">
+						${item.desc }
+					</c:if>
+				</textarea>
 				<script>
 					var editor = CKEDITOR.replace("desc", {
 						on : {
@@ -97,7 +99,11 @@
 				<input type="text" id="sourcecode" name="sourcecode" class="item-sourcecode"/>
 				
 				<h5>contents</h5>
-				<textarea name="content" id="content"></textarea>
+				<textarea name="content" id="content">
+					<c:if test="${!empty item.content }">
+						${item.content}
+					</c:if>
+				</textarea>
 				<script>
 					var editor = CKEDITOR.replace("content", {
 						filebrowserUploadUrl : '<%=request.getContextPath()%>' + "/admin/item/imgUpload.do",

@@ -233,7 +233,7 @@
 		
 		<div class="myinfo-view myinfo-view01">
 			<div class="content-text">
-				 <h1 class="content-head">My History.</h1>
+				 <h1 class="content-head">History.</h1>
 				 <p>
 					 <strong>2011.03</strong> &nbsp&nbsp Admissions C.E at Hansug University. <br/>
 					 <strong>2012.05</strong> &nbsp&nbsp Join to army. <br/>
@@ -248,7 +248,7 @@
 		<div class="myinfo-view myinfo-view02">
 			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/bg_myinfo_view02.jpg)"></div>
 			<div class="content-text">
-				<h1 class="content-head">My Resume.</h1>
+				<h1 class="content-head">Resume.</h1>
 				Bachelor's degree at Hausng University. <br/>
 				Grade &nbsp&nbsp<strong>4.22 / 4.5</strong> <br/>
 				Toeic &nbsp&nbsp&nbsp<strong>855</strong> <br/>

@@ -37,7 +37,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.7);
 }
 
 .item-view:hover .item-snapsht:before,
@@ -48,7 +48,7 @@
 .item-view .item-info{
 	color: white; /* Good thing we set a fallback color! */
 	padding: 25% 15%;
-	width : 50%;
+	width : 70%;
 	height: 10%;
 	overflow : hidden;
 	word-break : break-all;
@@ -67,6 +67,11 @@
 	font-size: 0.6rem;
 }
 
+.item-info .item-desc p{
+	margin : 0.1rem 0;
+}
+
+
 @media (max-width: 420px){
 	.item-view{
 		flex : 1 100%;
@@ -74,13 +79,19 @@
 	
 	.item-snapsht:before {
 		display: block;
-		background-color: rgba(0, 0, 0, 0.35);
+		background-color: rgba(0, 0, 0, 0.4);
 	}
 	
 	.item-info{
 		display: block;
 		font-size: 1.5rem;
 	}
+
+	.item-info .item-desc{
+		font-size: 0.8rem;
+	}
+
+
 }
 </style>
 <script>
