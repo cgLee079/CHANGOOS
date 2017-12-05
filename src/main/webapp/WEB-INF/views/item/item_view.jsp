@@ -37,8 +37,11 @@
 
 .item-content {
 	position : relative;
-	margin-top: 2rem;
+	margin-top: 1rem;
 	font-size: 0.8rem;
+	padding : 1rem;
+	background: #FFF;
+	border: 1px solid #DDD;
 }
 
 .item-content h1, h2, h3{
@@ -80,16 +83,17 @@
 
 code {
 	overflow-x: auto;
-	margin: 0.5rem;
+	margin: 1rem 0.1rem;
 }
 
 @media (max-width: 420px){
 	.item-detail {
+		width : 90%;
 		margin-top: 7rem;
 	}
 	
 	.item-content{
-		margin-top: 3rem;
+		margin-top: 1rem;
 	}
 	
 	.item-git-link img{

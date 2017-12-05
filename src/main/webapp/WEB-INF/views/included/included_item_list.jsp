@@ -105,12 +105,12 @@ function itemResize(){
 $(document).ready(function(){
 	var ani = anime.timeline({loop : false})
 		.add({
-			targets : ".wrap-items .item-view",
+			targets : ".main-items .item-view",
 			opacity : [0, 0.8],
 			easing : "easeInQuad",
 			duration : 500,
 			delay : function (el, i){
-				var length = $(".wrap-items .item-view").length;
+				var length = $(".main-items .item-view").length;
 				var gap = 500 / length;
 				return (gap * i) + 100;
 			}

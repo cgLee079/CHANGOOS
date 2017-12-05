@@ -64,7 +64,7 @@
 		</div>
 		
 		<div class="main-items-title">
-			<h1>Projects</h1>
+			<a href="${pageContext.request.contextPath}/item"><h1>Projects</h1></a>
 		</div>
 		<%@ include file="included/included_item_list.jsp" %> 
 	</div>
