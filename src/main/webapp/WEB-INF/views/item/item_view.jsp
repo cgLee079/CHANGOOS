@@ -30,7 +30,7 @@
 }
 
 .item-line{
-	background: #AAA;
+	background: #DDD;
 	height : 1px;
 	margin: 0.5rem 0;
 }
@@ -42,6 +42,7 @@
 	padding : 1rem;
 	background: #FFF;
 	border: 1px solid #DDD;
+	min-height: 100%;
 }
 
 .item-content h1, h2, h3{
@@ -188,7 +189,9 @@
 			<div class="item-head">
 				<h1 class="item-name">${item.name}</h1>
 				<div class="item-subinfo">
-					<a class="item-date">DATE : ${item.date}</a> <br/>
+					<c:if test="${!empty item.date}"> 
+						<a class="item-date">DATE : ${item.date}</a> <br/>
+					</c:if>
 					<a class="item-sect">SECT : ${item.sect}</a>
 					,&nbsp
 					<a class="item-hits">HITS : ${item.hits}</a>

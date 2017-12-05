@@ -32,7 +32,6 @@ input[class*="photo"] {margin-bottom: 20px;}
 	<script>
 		$(document).ready(function(){
 			$("#name").val("${photo.name}");
-			$("#desc").val("${photo.desc}");
 			$("#location").val("${photo.location}");
 			$("#date").val("${photo.date}");
 			$("#tag").val("${photo.tag}");
@@ -62,7 +61,9 @@ input[class*="photo"] {margin-bottom: 20px;}
 				<input type="text" id="name" name="name" class="photo-name"/>
 				
 				<h5>desc</h5>
-				<textarea id="desc" name="desc" class="photo-desc"></textarea>
+				<textarea id="desc" name="desc" class="photo-desc">
+					<c:if test="${!empty photo.desc}">${photo.desc}</c:if>
+				</textarea>
 				
 				<h5>location</h5>
 				<input type="text" id="location" name="location" class="photo-location"/>
