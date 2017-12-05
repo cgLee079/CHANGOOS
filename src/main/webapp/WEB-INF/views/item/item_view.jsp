@@ -37,7 +37,7 @@
 
 .item-content {
 	position : relative;
-	margin-top: 1rem;
+	margin-top: 1.5rem;
 	font-size: 0.8rem;
 	padding : 1rem;
 	background: #FFF;
@@ -53,10 +53,20 @@
 	line-height: 1.1rem;
 }
 
+.item-content code {
+	overflow-x: auto;
+	margin: 1rem 0.1rem;
+	border: 1px solid #DDD;
+}
+
 .item-subinfo2 {
 	display : flex;
 	justify-content: space-between;
 	font-size: 0.7rem;
+}
+
+.item-source{
+	font-weight: bold;
 }
 
 .btn-item-before{
@@ -81,27 +91,11 @@
     background-size		: contain;
 }
 
-code {
-	overflow-x: auto;
-	margin: 1rem 0.1rem;
-	border: 1px solid #DDD;
-}
-
 @media (max-width: 420px){
 	.item-detail {
 		width : 90%;
 		margin-top: 7rem;
 	}
-	
-	.item-content{
-		margin-top: 1rem;
-	}
-	
-	.item-git-link img{
-		width : 20px;
-    	height : 20px;
-	}
-	
 }
 
 </style>
@@ -140,8 +134,7 @@ code {
 			targets: ".item-line",
 			easing: "easeInQuad",
 			width : [0, "100%"],
-			duration: 500,
-			delay : 300,
+			duration: 400,
 		});
 		
 		if(isMobile){
@@ -209,7 +202,7 @@ code {
 					<a class="item-developer">by ${item.developer}</a>
 				</c:if>
 				<c:if test="${!empty item.sourcecode}">
-					<a class="btn item-soruce" target="_black" href="${item.sourcecode}"> source</a>
+					<a class="btn item-source" target="_black" href="${item.sourcecode}"> source</a>
 				</c:if>
 			</div>
 			
