@@ -62,6 +62,7 @@
 		<table class="item-list">
 			<tr>
 			<td> SEQ </td>
+			<td> SORT </td>
 			<td> Name </td>
 			<td> Sect </td>
 			<td> Desc </td>
@@ -78,6 +79,7 @@
 			<c:forEach var="item" items="${items}">
 				<tr>
 				<td> ${item.seq} </td>
+				<td> ${item.sort} </td>
 				<td> ${item.name} </td>
 				<td> ${item.sect} </td>
 				<td> ${item.desc} </td>

@@ -6,6 +6,7 @@
 	<select id="list" resultType="com.cglee079.portfolio.model.ItemVo">
 		SELECT
 		ITM_SEQ as "seq",
+		ITM_SORT as "sort",
 		ITM_NAME as "name",
 		ITM_SECT as "sect",
 		ITM_DESC as "desc",
@@ -16,11 +17,13 @@
 		ITM_DEVELOPER as "developer",
 		ITM_HITS as "hits"
 		FROM TB_PTFOLIO_ITEMS
+		ORDER BY ITM_SORT
 	</select>
 	
 	<select id="get" resultType="com.cglee079.portfolio.model.ItemVo" parameterType="Integer">
 		SELECT
 		ITM_SEQ as "seq",
+		ITM_SORT as "sort",
 		ITM_NAME as "name",
 		ITM_SECT as "sect",
 		ITM_DESC as "desc",
@@ -41,13 +44,14 @@
 	
 	<insert id="insert">
 		INSERT TB_PTFOLIO_ITEMS 
-		(ITM_NAME, ITM_SECT, ITM_DESC, ITM_CONTENT, ITM_SNAPSHT, ITM_DATE, ITM_SOURCECD, ITM_DEVELOPER, ITM_HITS)
-		VALUES (#{name}, #{sect}, #{desc}, #{content}, #{snapsht}, #{date}, #{sourcecode},#{developer}, #{hits})
+		(ITM_SORT, ITM_NAME, ITM_SECT, ITM_DESC, ITM_CONTENT, ITM_SNAPSHT, ITM_DATE, ITM_SOURCECD, ITM_DEVELOPER, ITM_HITS)
+		VALUES (#{sort}, #{name}, #{sect}, #{desc}, #{content}, #{snapsht}, #{date}, #{sourcecode},#{developer}, #{hits})
 	</insert>
 	
 	<update id="update">
 		UPDATE TB_PTFOLIO_ITEMS
 		SET 
+		ITM_SORT = #{sort},
 		ITM_NAME = #{name},
 		ITM_SECT = #{sect},
 		ITM_DESC = #{desc},

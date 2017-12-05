@@ -16,6 +16,7 @@
 }
 
 .wrap-upload-form h5 {margin-top: 20px;}
+.item-sort{ width : 100%;}
 .item-name{ width : 100%;}
 .item-sect{ width : 100%;}
 .item-sourcecode{ width : 100%;}
@@ -38,8 +39,8 @@
 <c:if test="${!empty item}">
 	<script>
 		$(document).ready(function(){
-			$("#name").val("${item.name}");
 			$("#sect").val("${item.sect}");
+			$("#name").val("${item.name}");
 			$("#sourcecode").val("${item.sourcecode}");
 			$("#date").val("${item.date}");
 			$("#developer").val("${item.developer}");
@@ -58,11 +59,16 @@
 		<div class="wrap-upload-form">
 			<form id="upload-form" action="${pageContext.request.contextPath}/admin/item/upload.do" 
 				method="post"  enctype="multipart/form-data">
+				
+				<h5>sort</h5>
+				<input type="text" id="sort" name="sort" class="item-sort" value="99999"/>
+				
 				<h5>name</h5>
-				<input type='text' id="name" name='name' class="item-name"/>
+				<input type="text" id="name" name='name' class="item-name"/>
 				
 				<h5>sect</h5>
-				<input id="sect" name="sect" class="item-sect"/>
+				<input type="text" 
+				id="sect" name="sect" class="item-sect"/>
 				
 				<h5>desc</h5>
 				<textarea id="desc" name="desc" class="item-desc">

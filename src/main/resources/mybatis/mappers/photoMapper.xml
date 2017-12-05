@@ -10,6 +10,7 @@
 	<select id="list" resultType="com.cglee079.portfolio.model.PhotoVo">
 		SELECT
 		PHOTO_SEQ as "seq",
+		PHOTO_SORT as "sort",
 		PHOTO_IMAGE as "image",
 		PHOTO_SNAPSHT as "snapsht",
 		PHOTO_NAME as "name",
@@ -20,11 +21,13 @@
 		PHOTO_DEVICE as "device",
 		PHOTO_LIKE as "like"
 		FROM TB_PTPOLIO_PHOTOS
+		ORDER BY PHOTO_SORT
 	</select>
 	
 	<select id="get" resultType="com.cglee079.portfolio.model.PhotoVo" parameterType="Integer">
 		SELECT
 		PHOTO_SEQ as "seq",
+		PHOTO_SORT as "sort",
 		PHOTO_IMAGE as "image",
 		PHOTO_SNAPSHT as "snapsht",
 		PHOTO_NAME as "name",
@@ -36,6 +39,7 @@
 		PHOTO_LIKE as "like"
 		FROM TB_PTPOLIO_PHOTOS
 		WHERE PHOTO_SEQ = #{seq}
+		ORDER BY PHOTO_SORT
 	</select>
 	
 	<delete id="delete">
@@ -44,13 +48,14 @@
 	</delete>
 	
 	<insert id="insert">
-		INSERT TB_PTPOLIO_PHOTOS (PHOTO_IMAGE, PHOTO_SNAPSHT, PHOTO_NAME, PHOTO_DESC, PHOTO_LOC, PHOTO_DATE, PHOTO_TAG, PHOTO_DEVICE, PHOTO_LIKE)
-		VALUES (#{image}, #{snapsht}, #{name}, #{desc}, #{location}, #{date}, #{tag}, #{device}, #{like})
+		INSERT TB_PTPOLIO_PHOTOS (PHOTO_SORT, PHOTO_IMAGE,  PHOTO_SNAPSHT, PHOTO_NAME, PHOTO_DESC, PHOTO_LOC, PHOTO_DATE, PHOTO_TAG, PHOTO_DEVICE, PHOTO_LIKE)
+		VALUES (#{sort}, #{image}, #{snapsht}, #{name}, #{desc}, #{location}, #{date}, #{tag}, #{device}, #{like})
 	</insert>
 	
 	<update id="update">
 		UPDATE TB_PTPOLIO_PHOTOS
-		SET 
+		SET
+		PHOTO_SORT = #{sort}, 
 		PHOTO_IMAGE = #{image},
 		PHOTO_SNAPSHT = #{snapsht},
 		PHOTO_NAME = #{name},

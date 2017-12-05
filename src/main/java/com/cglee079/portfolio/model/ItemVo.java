@@ -2,6 +2,7 @@ package com.cglee079.portfolio.model;
 
 public class ItemVo {
 	private int seq;
+	private int sort;
 	private String name;
 	private String sect;
 	private String desc;
@@ -15,9 +16,10 @@ public class ItemVo {
 	public ItemVo() {
 	}
 
-	public ItemVo(int seq, String name, String sect, String desc, String content, String snapsht, String date,
+	public ItemVo(int seq, int sort, String name, String sect, String desc, String content, String snapsht, String date,
 			String sourcecode, String developer, int hits) {
 		this.seq = seq;
+		this.sort = sort;
 		this.name = name;
 		this.sect = sect;
 		this.desc = desc;
@@ -31,9 +33,9 @@ public class ItemVo {
 
 	@Override
 	public String toString() {
-		return "ItemVo [seq=" + seq + ", name=" + name + ", sect=" + sect + ", desc=" + desc + ", content=" + content
-				+ ", snapsht=" + snapsht + ", date=" + date + ", sourcecode=" + sourcecode + ", developer=" + developer
-				+ ", hits=" + hits + "]";
+		return "ItemVo [seq=" + seq + ", sort=" + sort + ", name=" + name + ", sect=" + sect + ", desc=" + desc
+				+ ", content=" + content + ", snapsht=" + snapsht + ", date=" + date + ", sourcecode=" + sourcecode
+				+ ", developer=" + developer + ", hits=" + hits + "]";
 	}
 
 	public int getSeq() {
@@ -42,6 +44,14 @@ public class ItemVo {
 
 	public void setSeq(int seq) {
 		this.seq = seq;
+	}
+
+	public int getSort() {
+		return sort;
+	}
+
+	public void setSort(int sort) {
+		this.sort = sort;
 	}
 
 	public String getName() {

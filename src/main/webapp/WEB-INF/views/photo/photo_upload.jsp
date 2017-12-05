@@ -3,6 +3,7 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
+<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 <style>
 .wrapper{
 	width: 80%;
@@ -14,6 +15,7 @@
 }
 
 input[class*="photo"] {margin-bottom: 20px;}
+.photo-sort{ width : 100%; }
 .photo-image{ width : 100%; }
 .photo-name{ width : 100%; }
 .photo-location{ width: 100%; }
@@ -31,6 +33,7 @@ input[class*="photo"] {margin-bottom: 20px;}
 <c:if test="${!empty photo}">
 	<script>
 		$(document).ready(function(){
+			$("#sort").val("${photo.sort}");
 			$("#name").val("${photo.name}");
 			$("#location").val("${photo.location}");
 			$("#date").val("${photo.date}");
@@ -54,6 +57,9 @@ input[class*="photo"] {margin-bottom: 20px;}
 			<form id="upload-form" action="${pageContext.request.contextPath}/admin/photo/upload.do" 
 				method="post"  enctype="multipart/form-data">
 				
+				<h5>sort</h5>
+				<input type="text" id="sort" name="sort" class="photo-sort" value="99999"/>
+				
 				<h5>image</h5>
 				<input type="file" id="imageFile" name="imageFile" class="photo-image"/>
 				
@@ -64,6 +70,29 @@ input[class*="photo"] {margin-bottom: 20px;}
 				<textarea id="desc" name="desc" class="photo-desc">
 					<c:if test="${!empty photo.desc}">${photo.desc}</c:if>
 				</textarea>
+				<script>
+					var editor = CKEDITOR.replace("desc", {
+						on : {
+							instanceReady : function( ev ){
+							    // Output paragraphs as <p>Text</p>.
+							    this.dataProcessor.writer.setRules( 'p',
+							        {
+							            indent : false,
+							            breakBeforeOpen : true,
+							            breakAfterOpen : false,
+							            breakBeforeClose : false,
+							            breakAfterClose : true
+							        });
+							}
+						}
+					});
+
+					CKEDITOR.on( 'instanceReady', function( ev ) {
+						        // Ends self closing tags the HTML4 way, like <br>.
+						        ev.editor.dataProcessor.writer.selfClosingEnd = '/>';
+				    });
+					
+				</script>
 				
 				<h5>location</h5>
 				<input type="text" id="location" name="location" class="photo-location"/>

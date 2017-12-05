@@ -42,6 +42,7 @@
 	<!-- 
  	CREATE TABLE TB_PTFOLIO_ITEMS(
 	ITM_SEQ int auto_increment,
+	ITM_SORT int,
 	ITM_NAME varchar(200),
 	ITM_SECT varchar(100),
 	ITM_DESC varchar(5000),
@@ -74,6 +75,7 @@
 	
 	CREATE TABLE TB_PTPOLIO_PHOTOS(
 	PHOTO_SEQ int AUTO_INCREMENT,
+	PHOTO_SORT int,
 	PHOTO_IMAGE varchar(500),
 	PHOTO_SNAPSHT varchar(500),
 	PHOTO_NAME varchar(200),

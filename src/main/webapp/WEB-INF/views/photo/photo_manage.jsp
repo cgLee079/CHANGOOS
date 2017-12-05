@@ -58,6 +58,7 @@
 		<table class="photo-list">
 			<tr>
 			<td> SEQ </td>
+			<td> SORT </td>
 			<td> image </td>
 			<td> Name </td>
 			<td> Desc </td>
@@ -73,6 +74,7 @@
 			<c:forEach var="photo" items="${photos}">
 				<tr>
 				<td> ${photo.seq} </td>
+				<td> ${photo.sort} </td>
 				<td> <img height="100" src="${pageContext.request.contextPath}${photo.image}"/> </td>
 				<td> ${photo.name} </td>
 				<td> ${photo.desc} </td>

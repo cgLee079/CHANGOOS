@@ -2,6 +2,7 @@ package com.cglee079.portfolio.model;
 
 public class PhotoVo {
 	private int seq;
+	private int sort;
 	private String image;
 	private String snapsht;
 	private String name;
@@ -15,9 +16,10 @@ public class PhotoVo {
 	public PhotoVo() {
 	}
 
-	public PhotoVo(int seq, String image, String snapsht, String name, String desc, String location, String date,
-			String tag, String device, int like) {
+	public PhotoVo(int seq, int sort, String image, String snapsht, String name, String desc, String location,
+			String date, String tag, String device, int like) {
 		this.seq = seq;
+		this.sort = sort;
 		this.image = image;
 		this.snapsht = snapsht;
 		this.name = name;
@@ -28,12 +30,12 @@ public class PhotoVo {
 		this.device = device;
 		this.like = like;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "PhotoVo [seq=" + seq + ", image=" + image + ", snapsht=" + snapsht + ", name=" + name + ", desc=" + desc
-				+ ", location=" + location + ", date=" + date + ", tag=" + tag + ", device=" + device + ", like=" + like
-				+ "]";
+		return "PhotoVo [seq=" + seq + ", sort=" + sort + ", image=" + image + ", snapsht=" + snapsht + ", name=" + name
+				+ ", desc=" + desc + ", location=" + location + ", date=" + date + ", tag=" + tag + ", device=" + device
+				+ ", like=" + like + "]";
 	}
 
 	public int getSeq() {
@@ -42,6 +44,14 @@ public class PhotoVo {
 
 	public void setSeq(int seq) {
 		this.seq = seq;
+	}
+
+	public int getSort() {
+		return sort;
+	}
+
+	public void setSort(int sort) {
+		this.sort = sort;
 	}
 
 	public String getImage() {
