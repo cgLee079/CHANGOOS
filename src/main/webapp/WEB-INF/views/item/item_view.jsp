@@ -84,6 +84,7 @@
 code {
 	overflow-x: auto;
 	margin: 1rem 0.1rem;
+	border: 1px solid #DDD;
 }
 
 @media (max-width: 420px){
