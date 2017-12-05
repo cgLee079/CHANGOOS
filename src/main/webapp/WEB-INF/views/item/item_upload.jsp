@@ -107,6 +107,7 @@
 				<script>
 					var editor = CKEDITOR.replace("content", {
 						filebrowserUploadUrl : '<%=request.getContextPath()%>' + "/admin/item/imgUpload.do",
+						codeSnippet_theme : 'github',
 						on : {
 							instanceReady : function( ev ){
 							    // Output paragraphs as <p>Text</p>.

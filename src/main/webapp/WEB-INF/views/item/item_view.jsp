@@ -80,6 +80,7 @@
 
 code {
 	overflow-x: auto;
+	margin: 0.5rem;
 }
 
 @media (max-width: 420px){
@@ -118,7 +119,7 @@ code {
 		var videos = $("iframe");
 		videos.each(function(){
 			if(parentWidth >= 640){
-				$(this).attr("width", "720");
+				$(this).attr("width", "640");
 				$(this).attr("height", "360");
 			} else{
 				var width = parentWidth;

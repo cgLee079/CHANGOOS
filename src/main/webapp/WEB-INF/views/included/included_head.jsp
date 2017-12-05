@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/letter-motion.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ckeditor/plugins/codesnippet/lib/highlight/styles/github.css" />
 
+
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.touchwipe.1.1.1.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/anime-2.2.0.min.js"></script>
