@@ -50,8 +50,8 @@
 }
 
 .item-content p{
-	margin : 0.1rem 0;
-	line-height: 1.1rem;
+	margin : 0.2rem 0;
+	line-height: 1.2rem;
 }
 
 .item-content code {
