@@ -39,6 +39,7 @@
 <c:if test="${!empty item}">
 	<script>
 		$(document).ready(function(){
+			$("#sort").val("${item.sort}");
 			$("#sect").val("${item.sect}");
 			$("#name").val("${item.name}");
 			$("#sourcecode").val("${item.sourcecode}");
