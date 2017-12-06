@@ -22,7 +22,6 @@
 	position: absolute;
 	right : 0px;
 	bottom : 0px;
-	
 	color: #666;
 	font-size: 0.5rem;
 	line-height : 1rem;
@@ -33,6 +32,13 @@
 	background: #DDD;
 	height : 1px;
 	margin: 0.5rem 0;
+}
+
+.item-snapsht-crop{
+    width: 360px;
+    height:	200px;
+    overflow: hidden;
+	margin-bottom: 2rem;    
 }
 
 .item-content {
@@ -50,8 +56,8 @@
 }
 
 .item-content p{
-	margin : 0.2rem 0;
-	line-height: 1.2rem;
+	margin : 0.3rem 0;
+	line-height: 1.3rem;
 }
 
 .item-content code {
@@ -101,6 +107,32 @@
 
 </style>
 <script>
+	function snapshtResize(){
+		var parentWidth = parseInt($(".item-content").width());
+		var crop 	= $(".item-snapsht-crop");
+		var img 	= $(".item-snapsht");
+		var width 	= parseInt(crop.width());
+		var cropHeight;
+		var imgHeight;
+		
+		if(width > parentWidth){
+			crop.css("width", "100%");
+			img.attr("width", "100%");
+		} else{
+			crop.css("width", "");
+			img.attr("width", "360px");
+		}
+		
+		cropHeight = crop.height();
+		imgHeight = img.height();
+		if(imgHeight > cropHeight){
+			img.css("margin-top", (cropHeight- imgHeight) / 2);
+		} else{
+			crop.css("height", imgHeight);
+		}
+		
+	}
+	
 	function contentImgResize(){
 		var parentWidth = parseInt($(".item-content").width());
 		var imgs = $(".item-content img");
@@ -171,10 +203,11 @@
 		     preventDefaultEvents: true
 		});
 		*/
-		
+		snapshtResize();
 		contentImgResize();
 		contentYoutubeResize();
 		$(window).resize(function(){
+			snapshtResize();
 			contentImgResize();
 			contentYoutubeResize();
 		});
@@ -209,7 +242,11 @@
 				</c:if>
 			</div>
 			
+			
 			<div class="item-content">
+				<div class="item-snapsht-crop">
+					<img class="item-snapsht" src="${pageContext.request.contextPath}${item.snapsht}" width="400px">
+				</div>
 				${item.content}
 			</div>
 		</div>
