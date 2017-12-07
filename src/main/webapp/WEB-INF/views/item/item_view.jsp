@@ -38,7 +38,8 @@
     width: 360px;
     height:	200px;
     overflow: hidden;
-	margin-bottom: 2rem;    
+	margin-bottom: 2rem; 
+	   
 }
 
 .item-content {
@@ -162,7 +163,7 @@
 		});
 	}
 
-	$(document).ready(function(){
+	window.onload = function(){
 		var lineDrawing = anime({
 			targets: ".item-line",
 			easing: "easeInQuad",
@@ -211,7 +212,7 @@
 			contentImgResize();
 			contentYoutubeResize();
 		});
-	});
+	}
 </script>
 </head>
 <body>
@@ -242,11 +243,12 @@
 				</c:if>
 			</div>
 			
-			
 			<div class="item-content">
-				<div class="item-snapsht-crop">
-					<img class="item-snapsht" src="${pageContext.request.contextPath}${item.snapsht}" width="400px">
-				</div>
+				<c:if test="${item.video eq 'N'}">
+					<div class="item-snapsht-crop">
+						<img class="item-snapsht" src="${pageContext.request.contextPath}${item.snapsht}">
+					</div>
+				</c:if>
 				${item.content}
 			</div>
 		</div>

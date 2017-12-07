@@ -48,6 +48,7 @@
 	ITM_DESC varchar(5000),
 	ITM_CONTENT TEXT,
 	ITM_SNAPSHT varchar(500),
+	ITM_HASVIDEO char(1),
 	ITM_DATE varchar(300),
 	ITM_SOURCECD varchar(500),
 	ITM_DEVELOPER varchar(300),

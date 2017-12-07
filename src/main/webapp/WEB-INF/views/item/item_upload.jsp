@@ -23,6 +23,7 @@
 .item-date{ width : 100%;}
 .item-developer{ width : 100%;}
 .item-submit {width : 100%;}
+.item-submit {width : 100%;}
 
 .item-desc{
 	width : 100%;
@@ -45,9 +46,11 @@
 			$("#sourcecode").val("${item.sourcecode}");
 			$("#date").val("${item.date}");
 			$("#developer").val("${item.developer}");
+			$("#video").val("${item.video}");
 			
 			$("<input>", { type : "hidden", name : "seq", value: "${item.seq}"}).appendTo($("#upload-form"));
 			$("<input>", { type : "hidden", name : "snapsht", value: "${item.snapsht}"}).appendTo($("#upload-form"));
+			$("<input>", { type : "hidden", name : "hits", value: "${item.hits}"}).appendTo($("#upload-form"));
 		});
 	</script>
 </c:if>
@@ -156,6 +159,12 @@
 				
 				<h5>snapshot</h5>
 				<input type="file" id="snapshtFile" name="snapshtFile" class="item-snapshot"/>
+				
+				<h5>video</h5>
+				<select id="video" name="video" class="item-video">
+					<option>Y</option>
+					<option selected="selected">N</option>
+				</select>
 
 				<hr>
 				<input type="submit" class="item-submit">

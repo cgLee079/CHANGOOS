@@ -8,6 +8,7 @@ public class ItemVo {
 	private String desc;
 	private String content;
 	private String snapsht;
+	private String video;
 	private String date;
 	private String sourcecode;
 	private String developer;
@@ -16,8 +17,8 @@ public class ItemVo {
 	public ItemVo() {
 	}
 
-	public ItemVo(int seq, int sort, String name, String sect, String desc, String content, String snapsht, String date,
-			String sourcecode, String developer, int hits) {
+	public ItemVo(int seq, int sort, String name, String sect, String desc, String content, String snapsht, String video,
+			String date, String sourcecode, String developer, int hits) {
 		this.seq = seq;
 		this.sort = sort;
 		this.name = name;
@@ -25,17 +26,11 @@ public class ItemVo {
 		this.desc = desc;
 		this.content = content;
 		this.snapsht = snapsht;
+		this.video = video;
 		this.date = date;
 		this.sourcecode = sourcecode;
 		this.developer = developer;
 		this.hits = hits;
-	}
-
-	@Override
-	public String toString() {
-		return "ItemVo [seq=" + seq + ", sort=" + sort + ", name=" + name + ", sect=" + sect + ", desc=" + desc
-				+ ", content=" + content + ", snapsht=" + snapsht + ", date=" + date + ", sourcecode=" + sourcecode
-				+ ", developer=" + developer + ", hits=" + hits + "]";
 	}
 
 	public int getSeq() {
@@ -92,6 +87,14 @@ public class ItemVo {
 
 	public void setSnapsht(String snapsht) {
 		this.snapsht = snapsht;
+	}
+
+	public String getVideo() {
+		return video;
+	}
+
+	public void setVideo(String video) {
+		this.video = video;
 	}
 
 	public String getDate() {

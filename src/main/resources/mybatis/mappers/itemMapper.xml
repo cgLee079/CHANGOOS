@@ -12,6 +12,7 @@
 		ITM_DESC as "desc",
 		ITM_CONTENT as "content",
 		ITM_SNAPSHT as "snapsht",
+		ITM_HASVIDEO as "video",
 		ITM_DATE as "date",
 		ITM_SOURCECD as "sourcecode",
 		ITM_DEVELOPER as "developer",
@@ -29,6 +30,7 @@
 		ITM_DESC as "desc",
 		ITM_CONTENT as "content",
 		ITM_SNAPSHT as "snapsht",
+		ITM_HASVIDEO as "video",
 		ITM_DATE as "date",
 		ITM_SOURCECD as "sourcecode",
 		ITM_DEVELOPER as "developer",
@@ -44,8 +46,8 @@
 	
 	<insert id="insert">
 		INSERT TB_PTFOLIO_ITEMS 
-		(ITM_SORT, ITM_NAME, ITM_SECT, ITM_DESC, ITM_CONTENT, ITM_SNAPSHT, ITM_DATE, ITM_SOURCECD, ITM_DEVELOPER, ITM_HITS)
-		VALUES (#{sort}, #{name}, #{sect}, #{desc}, #{content}, #{snapsht}, #{date}, #{sourcecode},#{developer}, #{hits})
+		(ITM_SORT, ITM_NAME, ITM_SECT, ITM_DESC, ITM_CONTENT, ITM_SNAPSHT, ITM_HASVIDEO, ITM_DATE, ITM_SOURCECD, ITM_DEVELOPER, ITM_HITS)
+		VALUES (#{sort}, #{name}, #{sect}, #{desc}, #{content}, #{snapsht}, #{video}, #{date}, #{sourcecode},#{developer}, #{hits})
 	</insert>
 	
 	<update id="update">
@@ -57,6 +59,7 @@
 		ITM_DESC = #{desc},
 		ITM_CONTENT = #{content},
 		ITM_SNAPSHT = #{snapsht},
+		ITM_HASVIDEO = #{video},
 		ITM_DATE = #{date},
 		ITM_SOURCECD = #{sourcecode},
 		ITM_DEVELOPER = #{developer},

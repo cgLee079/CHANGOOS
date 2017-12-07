@@ -67,6 +67,7 @@
 			<td> Sect </td>
 			<td> Desc </td>
 			<td> Snapshot </td>
+			<td> Video </td>
 			<td> date </td>
 			<td> sourcecode </td>
 			<td> developer </td>
@@ -87,6 +88,7 @@
 					<img height="100" src="${pageContext.request.contextPath}${item.snapsht}"/> <br/>
 					${item.snapsht}
 				</td>
+				<td> ${item.video} </td>
 				<td> ${item.date} </td>
 				<td> ${item.sourcecode} </td>
 				<td> ${item.developer} </td>
