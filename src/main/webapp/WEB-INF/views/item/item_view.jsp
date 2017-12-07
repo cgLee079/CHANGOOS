@@ -118,6 +118,9 @@
 			var height 	= parseInt($(this).css("height"));
 			var ratio	= width / height;
 			
+			$(this).css("width", "");
+			$(this).css("height", "");
+			
 			if(width > parentWidth){
 				$(this).css("width", "100%");
 			} else if (width <= parentWidth){
