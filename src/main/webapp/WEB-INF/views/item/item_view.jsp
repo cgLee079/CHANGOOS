@@ -145,7 +145,7 @@
 				var width = parentWidth;
 				var ratio = parseFloat($(this).attr("width") /$(this).attr("height"));
 				$(this).attr("width", width);
-				$(this).attr("height", width * (1/ratio));
+				$(this).attr("height", width / ratio );
 			} 
 		});
 	}
@@ -198,11 +198,12 @@
 		     wipeRight: function() {
 		    	 $(".btn-item-before").trigger("click");
 		     },		     
-		     min_move_x: 50,
+		     min_move_x: 30,
 		     min_move_y: 20,
 		     preventDefaultEvents: true
 		});
 		*/
+		
 		contentImgResize();
 		contentYoutubeResize();
 	}
