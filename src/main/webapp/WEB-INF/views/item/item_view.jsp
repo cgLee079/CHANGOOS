@@ -59,6 +59,10 @@
 	line-height: 1.3rem;
 }
 
+.item-content img{
+	height : auto;
+}
+
 .item-content code {
 	overflow-x: auto;
 	margin: 1rem 0.1rem;
@@ -112,12 +116,18 @@
 			var parentWidth = parseInt($(".item-content").width());
 			var width 	= parseInt($(this).css("width"));
 			var height 	= parseInt($(this).css("height"));
+			var ratio	= width / height;
 			
 			if(width > parentWidth){
 				$(this).css("width", "100%");
 			} else if (width <= parentWidth){
 				$(this).css("width", "");
+				width 	= parseInt($(this).css("width"));
+				if(width > parentWidth){
+					$(this).css("width", "100%");
+				}
 			} 
+			
 		});
 	}
 	
@@ -137,6 +147,18 @@
 		});
 	}
 
+	
+	function resizedw(){
+		contentImgResize();
+		contentYoutubeResize();
+	}
+
+	var doit;
+	$(window).resize(function(){
+	  clearTimeout(doit);
+	  doit = setTimeout(resizedw, 100);
+	});
+	
 	window.onload = function(){
 		var lineDrawing = anime({
 			targets: ".item-line",
@@ -180,10 +202,6 @@
 		*/
 		contentImgResize();
 		contentYoutubeResize();
-		$(window).resize(function(){
-			contentImgResize();
-			contentYoutubeResize();
-		});
 	}
 </script>
 </head>
