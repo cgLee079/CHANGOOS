@@ -34,13 +34,6 @@
 	margin: 0.5rem 0;
 }
 
-.item-snapsht-crop{
-    width: 360px;
-    height:	200px;
-    overflow: hidden;
-	margin-bottom: 2rem; 
-	   
-}
 
 .item-content {
 	position : relative;
@@ -50,6 +43,11 @@
 	background: #FFF;
 	border: 1px solid #DDD;
 	min-height: 100%;
+}
+
+.item-snapsht{
+	width : 360px;
+	margin-bottom: 1rem;
 }
 
 .item-content h1, h2, h3{
@@ -108,42 +106,18 @@
 
 </style>
 <script>
-	function snapshtResize(){
-		var parentWidth = parseInt($(".item-content").width());
-		var crop 	= $(".item-snapsht-crop");
-		var img 	= $(".item-snapsht");
-		var width 	= parseInt(crop.width());
-		var cropHeight;
-		var imgHeight;
-		
-		if(width > parentWidth){
-			crop.css("width", "100%");
-			img.attr("width", "100%");
-		} else{
-			crop.css("width", "");
-			img.attr("width", "360px");
-		}
-		
-		cropHeight = crop.height();
-		imgHeight = img.height();
-		if(imgHeight > cropHeight){
-			img.css("margin-top", (cropHeight- imgHeight) / 2);
-		} else{
-			crop.css("height", imgHeight);
-		}
-		
-	}
-	
 	function contentImgResize(){
-		var parentWidth = parseInt($(".item-content").width());
 		var imgs = $(".item-content img");
 		imgs.each(function(){
-			var width = parseInt($(this).width());
+			var parentWidth = parseInt($(".item-content").width());
+			var width 	= parseInt($(this).css("width"));
+			var height 	= parseInt($(this).css("height"));
+			
 			if(width > parentWidth){
 				$(this).css("width", "100%");
-			}else{
+			} else if (width <= parentWidth){
 				$(this).css("width", "");
-			}
+			} 
 		});
 	}
 	
@@ -204,11 +178,9 @@
 		     preventDefaultEvents: true
 		});
 		*/
-		snapshtResize();
 		contentImgResize();
 		contentYoutubeResize();
 		$(window).resize(function(){
-			snapshtResize();
 			contentImgResize();
 			contentYoutubeResize();
 		});
@@ -245,9 +217,7 @@
 			
 			<div class="item-content">
 				<c:if test="${item.video eq 'N'}">
-					<div class="item-snapsht-crop">
-						<img class="item-snapsht" src="${pageContext.request.contextPath}${item.snapsht}">
-					</div>
+					<img class="item-snapsht" src="${pageContext.request.contextPath}${item.snapsht}" >
 				</c:if>
 				${item.content}
 			</div>
