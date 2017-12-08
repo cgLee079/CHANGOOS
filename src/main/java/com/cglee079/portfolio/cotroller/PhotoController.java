@@ -98,7 +98,7 @@ public class PhotoController {
 			File photofile = new File(rootPath + imgPath + imgName);
 			imageFile.transferTo(photofile);
 			HashMap<String, String> metadata = ImageManager.getImageMetaData(photofile);
-			photo.setDate(metadata.get("Date/Time"));
+			photo.setDate(metadata.get("Date/Time Original"));
 			photo.setDevice(metadata.get("Model"));
 			
 			//photo resize , rotate;
@@ -111,9 +111,6 @@ public class PhotoController {
 			
 			//make snapsht
 			BufferedImage shapshtImg = ImageManager.getLowScaledImage(photofile, 100, imgExt); 
-			if(orientation != 1 ){
-				shapshtImg = ImageManager.rotateImageForMobile(shapshtImg, orientation);
-			}
 			File snapshtfile = new File(rootPath + snapshtPath + snapshtName);
 			ImageIO.write(shapshtImg, imgExt, snapshtfile);
 			
@@ -152,15 +149,12 @@ public class PhotoController {
 			File photofile = new File(rootPath + imgPath + imgName);
 			imageFile.transferTo(photofile);
 			HashMap<String, String> metadata = ImageManager.getImageMetaData(photofile);
-			photo.setDate(metadata.get("Date/Time"));
+			photo.setDate(metadata.get("Date/Time Original"));
 			photo.setDevice(metadata.get("Model"));
 			
 			//photo resize , rotate;
 			int orientation = ImageManager.getOrientation(photofile);
 			BufferedImage photoImg = ImageManager.getLowScaledImage(photofile, 720 , imgExt);
-			if(orientation != 1){
-				photoImg =  ImageManager.rotateImageForMobile(photoImg, orientation);
-			}
 			ImageIO.write(photoImg, imgExt, photofile);
 			
 			//make snapsht

@@ -193,16 +193,17 @@
 			},
 			success : function(photo) {
 			 	$(".photo-view").css("opacity", 0);
-				var begin = anime({
+				anime({
 					  targets	: ".photo-view",
 					  duration	: 500,
 					  opacity	: 1,
 					  easing	: 'easeInOutSine',
 				});
-				
-				$(".photo-img")
-					.css("background-image", "url('${pageContext.request.contextPath}" + photo.image +"')");
-				
+
+				if(photo.device === null){
+					photo.device = "";
+				}
+				$(".photo-img")	.css("background-image", "url('${pageContext.request.contextPath}" + photo.image +"')");
 				$(".photo-name").html(photo.name);
 				$(".photo-date-loc").html(photo.date + "  " + photo.location);
 				$(".photo-desc").html(photo.desc);

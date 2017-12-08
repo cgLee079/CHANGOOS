@@ -21,7 +21,7 @@
 		PHOTO_DEVICE as "device",
 		PHOTO_LIKE as "like"
 		FROM TB_PTPOLIO_PHOTOS
-		ORDER BY PHOTO_SORT
+		ORDER BY PHOTO_SORT, PHOTO_DATE DESC
 	</select>
 	
 	<select id="get" resultType="com.cglee079.portfolio.model.PhotoVo" parameterType="Integer">
@@ -39,7 +39,6 @@
 		PHOTO_LIKE as "like"
 		FROM TB_PTPOLIO_PHOTOS
 		WHERE PHOTO_SEQ = #{seq}
-		ORDER BY PHOTO_SORT
 	</select>
 	
 	<delete id="delete">

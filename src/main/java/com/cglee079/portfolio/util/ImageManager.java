@@ -62,6 +62,7 @@ public class ImageManager {
 		    	key = sepeartor[0].trim();
 		    	value = sepeartor[1].trim();
 		    	map.put(key, value);
+		    	System.out.println(key+"\t"+value);
 		    }
 		}
 		return map;
@@ -72,7 +73,7 @@ public class ImageManager {
 	    Metadata metadata = ImageMetadataReader.readMetadata(file);
 	    ExifIFD0Directory directory = metadata.getDirectory(ExifIFD0Directory.class);
 	    if(directory != null){
-	    	if(directory.hasTagName(ExifIFD0Directory.TAG_ORIENTATION)){
+	    	if(directory.hasTagName(ExifIFD0Directory.TAG_ORIENTATION) && directory.containsTag(ExifIFD0Directory.TAG_ORIENTATION)){
 	    		orientation = directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
 	    	}
 	    } 
