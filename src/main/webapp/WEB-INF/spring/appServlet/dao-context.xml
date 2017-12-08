@@ -88,6 +88,20 @@
 	PHOTO_LIKE int,
 	constraint pk_ptfolio_photos primary key(PHOTO_SEQ)
 	)
+	
+	CREATE TABLE TB_PTFOLIO_BOARDS(
+	BOARD_SEQ int AUTO_INCREMENT, 
+	BOARD_SORT int ,
+	BOARD_TYPE varchar(200), 
+	BOARD_SECT varchar(500),
+	BOARD_TITLE varchar(500),
+	BOARD_CONTENTS text,
+	BOARD_DATE varchar(100),
+	BOARD_HITS int,
+	CONSTRAINT PRIMARY KEY (BOARD_SEQ)
+	)
+
+	
 	-->
 	
 	

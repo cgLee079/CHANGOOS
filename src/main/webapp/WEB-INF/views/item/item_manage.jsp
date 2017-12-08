@@ -38,12 +38,13 @@
 	}
 
 	function itemDelete(seq){
-		var contextPath = "${pageContext.request.contextPath}";
-		window.location.href = getContextPath() + "/admin/item/delete.do?seq=" + seq;
+		var question = "정말로 삭제 하시겠습니까?";
+		if(confirm(question)){
+			window.location.href = getContextPath() + "/admin/item/delete.do?seq=" + seq;	
+		}
 	}
 	
 	function itemModify(seq){
-		var contextPath = "${pageContext.request.contextPath}";
 		window.location.href = getContextPath() + "/admin/item/upload?seq=" + seq;		
 	}
 </script>

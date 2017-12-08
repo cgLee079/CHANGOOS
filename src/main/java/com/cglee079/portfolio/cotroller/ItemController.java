@@ -106,7 +106,7 @@ public class ItemController {
 	public String itemDoUpload(HttpServletRequest request, ItemVo item, MultipartFile snapshtFile) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
-		String imgPath	= "/resources/image/snapshot/";
+		String imgPath	= "/resources/image/item/snapshot/";
 		String filename	= "snapshot_" + item.getName() + "_";
 		String imgExt	= null;
 		
@@ -132,7 +132,7 @@ public class ItemController {
 	public String itemDoModify(HttpServletRequest request, ItemVo item, MultipartFile snapshtFile) throws IllegalStateException, IOException{
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
-		String imgPath	= "/resources/image/snapshot/";
+		String imgPath	= "/resources/image/item/snapshot/";
 		String filename	= "snapshot_" + item.getName() + "_";
 		String imgExt	= null;
 		if(snapshtFile.getSize() != 0){
@@ -161,7 +161,7 @@ public class ItemController {
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
-		String imgPath	= "/resources/image/contents/";
+		String imgPath	= "/resources/image/item/contents/";
 		String filename	= "content_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_";
 		String imgExt 	= null;
 		

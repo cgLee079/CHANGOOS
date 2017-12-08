@@ -6,8 +6,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home-responsive.css" />
 <script>
 	function itemView(seq){
-		var contextPath = "${pageContext.request.contextPath}";
-		window.location.href = contextPath + "/item/view?seq=" + seq;		
+		window.location.href = getContextPath() + "/item/view?seq=" + seq;		
 	}
 	
 	function scrollToItems(){

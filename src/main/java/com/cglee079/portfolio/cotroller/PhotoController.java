@@ -83,7 +83,7 @@ public class PhotoController {
 		HttpSession session = request.getSession();
 		String rootPath 	= session.getServletContext().getRealPath("");
 		String imgPath		= "/resources/image/photo/";
-		String snapshtPath 	= "/resources/image/photo/snapsht/";
+		String snapshtPath 	= "/resources/image/photo/snapshot/";
 		String timeStamp	= new SimpleDateFormat("YYMMdd_HHmmss").format(new Date());
 		String imgName		= "photo_" + timeStamp + "_" + photo.getName();
 		String snapshtName	= "photo_snapsht_" + timeStamp + "_" + photo.getName();
@@ -131,7 +131,7 @@ public class PhotoController {
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
 		String imgPath		= "/resources/image/photo/";
-		String snapshtPath 	= "/resources/image/photo/snapsht/";
+		String snapshtPath 	= "/resources/image/photo/snapshot/";
 		String timeStamp	= new SimpleDateFormat("YYMMdd_HHmmss").format(new Date());
 		String imgName		= "photo_" + timeStamp + "_" + photo.getName();
 		String snapshtName	= "photo_snapsht_" + timeStamp + "_" + photo.getName();

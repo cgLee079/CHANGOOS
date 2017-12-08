@@ -61,7 +61,7 @@ input[class*="photo"] {margin-bottom: 20px;}
 				<input type="text" id="sort" name="sort" class="photo-sort" value="99999"/>
 				
 				<h5>image</h5>
-				<input type="file" id="imageFile" name="imageFile" class="photo-image"/>
+				<input type="file" id="imageFile" name="imageFile" class="photo-image" accept="image/*"/>
 				
 				<h5>name</h5>
 				<input type="text" id="name" name="name" class="photo-name"/>

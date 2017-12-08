@@ -4,8 +4,7 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <script>
 function itemView(seq){
-	var contextPath = "${pageContext.request.contextPath}";
-	window.location.href = contextPath + "/item/view?seq=" + seq;		
+	window.location.href = getContextPath() + "/item/view?seq=" + seq;		
 }
 </script>
 
