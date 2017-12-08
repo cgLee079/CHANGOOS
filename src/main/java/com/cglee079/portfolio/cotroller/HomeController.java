@@ -26,9 +26,9 @@ public class HomeController {
 		return "main_home";
 	}
 	
-	@RequestMapping(value = "/myinfo")
+	@RequestMapping(value = "/introduce")
 	public String myinfo() {
-		return "main_myinfo";
+		return "introduce/introduce_view";
 	}
 
 

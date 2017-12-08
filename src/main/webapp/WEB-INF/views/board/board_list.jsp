@@ -3,24 +3,27 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
+
 <script>
 	var allRowCnt = '${count}';
 	var perPgLine = 10; 
+	var page = undefined;
 	
 	function boardView(seq){
-		window.location.href = getContextPath() + "/item/view?seq=" + seq;		
+		window.location.href = getContextPath() + "/board/board_view?seq=" + seq;		
 	}
 	
-	function pageMove(page){
+	function pageMove(pg){
 		$.ajax({
 			type	: "POST",
 			url		: getContextPath() + "/board/board_paging.do",
 			data	: {
-				'page'		: page,
+				'page'		: pg,
 				'perPgLine' : perPgLine
 			},
 			dataType: 'JSON',
 			success : function(data) {
+				page = pg;
 				updateBoard(data);
 				updatePaging("pageMove", page, allRowCnt, perPgLine, 3);
 			},
@@ -48,8 +51,8 @@
 		
 		for (var i = 0; i < length; i++){
 			board = data[i];
-			item = $("<div>", {'class' : 'board-list-item'});
-			$("<div>",{ 'class' : 'list-item-index', text : board.seq}).appendTo(item);
+			item = $("<div>", {'class' : 'btn board-list-item', onclick : "boardView(" + board.seq + ")"});
+			$("<div>",{ 'class' : 'list-item-index', text : (page - 1 ) * perPgLine + 1 + i}).appendTo(item);
 			$("<div>",{ 'class' : 'list-item-sect', text : board.sect}).appendTo(item);
 			$("<div>",{ 'class' : 'list-item-title', text : board.title}).appendTo(item);
 			$("<div>",{ 'class' : 'list-item-date', text : board.date}).appendTo(item);
@@ -86,6 +89,7 @@
 			color : #666;
 			padding : 0.3rem 0rem;
 			font-size: 0.6rem;
+			cursor: pointer;
 		}
 		
 		.board-list .board-list-item:FIRST-CHILD{
@@ -102,7 +106,6 @@
 			border-top: #F0F0F0;
 			border-bottom: #F0F0F0;
 		}
-		
 		
 		.board-list .board-list-item div{
 			padding : 0px 0.5rem;

@@ -35,7 +35,7 @@
 		BOARD_CONTENTS as "contents",
 		BOARD_DATE as "date",
 		BOARD_HITS as "hits"
-		FROM TB_PTPOLIO_BOARDS
+		FROM TB_PTFOLIO_BOARDS
 		WHERE BOARD_SEQ = #{seq}
 	</select>
 	

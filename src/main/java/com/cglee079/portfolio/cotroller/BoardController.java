@@ -34,5 +34,12 @@ public class BoardController {
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(boards);
 	}
+	
+	@RequestMapping("/board/board_view")
+	public String doPaging(Model model, int seq) throws SQLException, JsonProcessingException{
+		BoardVo board = boardService.get(seq);
+		model.addAttribute("board", board);
+		return "board/board_view";
+	}
 
 }

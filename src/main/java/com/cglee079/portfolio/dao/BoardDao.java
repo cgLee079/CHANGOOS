@@ -32,4 +32,8 @@ public class BoardDao {
 	public int count() {
 		return sqlSession.selectOne(namespace +".count");
 	}
+
+	public BoardVo get(int seq) {
+		return sqlSession.selectOne(namespace +".get", seq);
+	}
 }

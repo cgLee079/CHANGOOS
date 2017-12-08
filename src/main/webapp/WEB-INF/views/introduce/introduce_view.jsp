@@ -6,7 +6,7 @@
 <style>
 .myinfo-views{
 	position : relative;
-	margin-top: 4rem;
+	margin-top: 2rem;
 	width: 100%;
 	height: 500px;
 	overflow: hidden;
@@ -68,7 +68,7 @@
 
 @media (max-width: 420px){
 	.myinfo-views{
-		margin-top: 8rem;
+		margin-top: 6rem;
 		height: 450px;
 	}
 	
@@ -208,7 +208,7 @@
 
 <body>
 <div class="wrapper">
-	<c:import url="included/included_nav.jsp" charEncoding="UTF-8" />
+	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 	
 	<div class="myinfo-views">
 		<div class="myinfo-view myinfo-view00">
@@ -279,7 +279,7 @@
 		<div class="btn-view btn-view03"></div>
 	</div>
 	
-	<c:import url="included/included_footer.jsp" charEncoding="UTF-8" />
+	<c:import url="../included/included_footer.jsp" charEncoding="UTF-8" />
 </div>
 </body>
 </html>

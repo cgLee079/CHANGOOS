@@ -1,4 +1,4 @@
-.nav-occupy {
+.nav-bg {
 	position: fixed;
 	top: 0px;
 	width: 100%;
@@ -16,7 +16,7 @@
 	border-bottom: 1px solid #ddd;
 }
 
-.nav-occupy .wrap-home-logo{
+.nav-bg .wrap-home-logo{
 	display: flex;
 	flex-flow : column wrap;
 	align-items: center;

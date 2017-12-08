@@ -1,4 +1,4 @@
-<div class="nav-occupy">
+<div class="nav-bg">
 	<div class="wrap-home-logo">
 		<div onclick="window.location.href = '${pageContext.request.contextPath}/'">
 		CHANGOO'S
@@ -6,7 +6,19 @@
 		<div class="logo-line"></div>
 	</div>
 </div>
+<div class="nav-occupy"></div>
+
 <script>
+function navOccupyReHeight(){
+	var navBg = $(".nav-bg");
+	var height = navBg.outerHeight();
+	$(".nav-occupy").height(height);
+}
+navOccupyReHeight();
+$(window).resize(function(){
+	navOccupyReHeight();
+});
+
 (function(){
 	var drawingLine = undefined;
 	$(".wrap-home-logo").hover(function(){
@@ -132,7 +144,7 @@
 	</div>
 	<ul class="menu-option">
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/">Home</a></li>
-		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/myinfo">Introduce</a></li>
+		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">Introduce</a></li>
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/item">Projects</a></li>
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">Photo</a></li>
 		<li class="btn"><a target="_blank" href="https://github.com/cgLee079">Github</a></li>

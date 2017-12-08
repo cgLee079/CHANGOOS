@@ -6,7 +6,7 @@
 .item-detail {
 	width : 80%;
 	margin : 0px auto;
-	margin-top: 5rem;
+	margin-top: 3rem;
 }
 
 .item-head {
@@ -105,7 +105,7 @@
 @media (max-width: 420px){
 	.item-detail {
 		width : 90%;
-		margin-top: 7rem;
+		margin-top: 3rem;
 	}
 }
 

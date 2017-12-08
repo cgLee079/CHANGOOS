@@ -12,7 +12,7 @@ function itemView(seq){
 	.main{
 		width : 90%;
 		margin: 0px auto;
-		margin-top : 5rem;	
+		margin-top : 3rem;	
 	}
 	
 	.items-title{

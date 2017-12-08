@@ -27,4 +27,8 @@ public class BoardService{
 	public int count() {
 		return boardDao.count();
 	}
+
+	public BoardVo get(int seq) {
+		return boardDao.get(seq);
+	}
 }
