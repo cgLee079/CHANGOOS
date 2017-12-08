@@ -41,7 +41,8 @@
 	font-size: 0.8rem;
 	padding : 1rem;
 	background: #FFF;
-	border: 1px solid #DDD;
+	color : #444;
+	border: 0.5px solid #DDD;
 	min-height: 100%;
 }
 
@@ -233,7 +234,7 @@
 					<a class="item-developer">by ${item.developer}</a>
 				</c:if>
 				<c:if test="${!empty item.sourcecode}">
-					<a class="btn item-source" target="_black" href="${item.sourcecode}"> source</a>
+					<a class="btn item-source" target="_black" href="${item.sourcecode}"> SOURCE</a>
 				</c:if>
 			</div>
 			
