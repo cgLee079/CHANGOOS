@@ -10,31 +10,31 @@
 .wrap-photo-view{
 	width : 100%;
 	margin : 0px auto;
-	margin-top: 4rem;
+	margin-top: 3rem;
 }
 
 .photo-view{
 	width: 100%;
 	padding : 20px 0px;
-	height: 400px;
+	height: 450px;
 	border: 1px solid #eee;
 	background: #FFF;
 }
 
 .photo-view > .photo-img{
 	width : 100%;
-	height: 75%;
+	height: 70%;
 	background-position	: center;
     background-repeat	: no-repeat;
     background-size		: contain;
 }
 
 .photo-view > .photo-detail{
-	padding : 10px;
-	width: 80%;
+	padding : 0.5rem;
+	width: 60%;
 	margin: 0px auto;
-	margin-top: 10px;
-	height : 20%;
+	margin-top: 1rem;
+	height : 25%;
 }
 
 .photo-view > .photo-detail > .photo-info{
@@ -137,7 +137,24 @@
 	}
 	
 	.photo-view > .photo-detail {
-		margin-top: 5px;
+		width: 80%;
+		margin-top: 0.5rem;
+	}
+	
+	.photo-view > .photo-detail > .photo-info > .photo-name{
+		font-size: 1rem;
+	}
+	
+	.photo-view > .photo-detail > .photo-info > .photo-date-loc{
+		font-size: 0.5rem;
+	}
+	
+	.photo-view > .photo-detail > .photo-tag{
+		font-size: 0.7rem;
+	}
+	
+	.photo-view > .photo-detail > .photo-desc{
+		font-size: 0.8rem;
 	}
 	
 	.btn-left-list{
