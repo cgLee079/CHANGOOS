@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cglee079.portfolio.model.BoardVo;
-import com.cglee079.portfolio.service.BComtService;
+import com.cglee079.portfolio.service.comtService;
 import com.cglee079.portfolio.service.BoardService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,9 +22,6 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
-	
-	@Autowired 
-	private BComtService bcomtService;
 	
 	@RequestMapping("/board")
 	public String board(Model model) throws SQLException, JsonProcessingException{
@@ -44,9 +41,7 @@ public class BoardController {
 	@RequestMapping("/board/board_view")
 	public String doPaging(Model model, int seq) throws SQLException, JsonProcessingException{
 		BoardVo board = boardService.get(seq);
-		int comtCnt = bcomtService.count(seq);
 		model.addAttribute("board", board);
-		model.addAttribute("comtCnt", comtCnt);
 		return "board/board_view";
 	}
 

@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.portfolio.model.ItemVo;
 import com.cglee079.portfolio.service.ItemService;
+import com.cglee079.portfolio.service.comtService;
 import com.cglee079.portfolio.util.ImageManager;
 
 @Controller
@@ -29,6 +30,9 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
+	@Autowired 
+	private comtService comtService;
+	
 	@RequestMapping(value = "item")
 	public String itemList(Model model) {
 		List<ItemVo> items = itemService.list();
@@ -62,6 +66,9 @@ public class ItemController {
 		model.addAttribute("item", item);
 		model.addAttribute("beforeItem", beforeItem);
 		model.addAttribute("afterItem", afterItem);
+		
+		int comtCnt = comtService.count(seq);
+		model.addAttribute("comtCnt", comtCnt);
 		
 		return "item/item_view";
 	}

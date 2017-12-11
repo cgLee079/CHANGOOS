@@ -1,8 +1,8 @@
 package com.cglee079.portfolio.model;
 
-public class BComtVo {
+public class ComtVo {
 	int seq;
-	int boardSeq;
+	int itemSeq;
 	String name;
 	String password;
 	String contents;
@@ -16,12 +16,12 @@ public class BComtVo {
 		this.seq = seq;
 	}
 
-	public int getBoardSeq() {
-		return boardSeq;
+	public int getItemSeq() {
+		return itemSeq;
 	}
 
-	public void setBoardSeq(int boardSeq) {
-		this.boardSeq = boardSeq;
+	public void setItemSeq(int itemSeq) {
+		this.itemSeq = itemSeq;
 	}
 
 	public String getName() {

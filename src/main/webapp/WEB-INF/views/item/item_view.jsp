@@ -2,6 +2,7 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
+<script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
 <style>
 .item-detail {
 	width : 80%;
@@ -102,6 +103,101 @@
     background-size		: contain;
 }
 
+.warp-comment {
+	border: 1px solid #DDD;
+	background: #FFF;
+	margin-top: 1rem;
+	padding: 1rem;
+}
+
+.comment-item {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	padding: 0.5rem;
+	border-bottom: 1px solid #F0F0F0;
+}
+
+.comment {
+	flex: 1;
+}
+
+.comment .comment-writer {
+	color: #00D;
+	font-size: 0.7rem;
+}
+
+.comment .comment-date {
+	color: #777;
+	font-size: 0.5rem;
+}
+
+.comment .comment-contents {
+	color: #444;
+	font-size: 0.6rem;
+	padding-top : 0.5rem;
+	word-break:break-all;
+	word-wrap:break-word;
+}
+
+.comment-menu {
+	font-size: 0.6rem;
+	width: 5rem;
+	color: #444;
+	text-align: center;
+}
+
+.comment-menu a {
+	margin-left: 0.5rem;
+}
+
+.comt-pager {
+	margin: 1rem;
+	text-align: center;
+}
+
+.comment-write {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	margin: 1rem 0.5rem;
+	margin-top: 2rem;
+	height: 3rem;
+}
+
+.comment-write-pinfo {
+	display: flex;
+	flex-flow: column nowrap;
+	width: 5rem;
+	height: 100%;
+	margin-right: 0.5rem;
+}
+
+.comment-write-pinfo input {
+	width: 100%;
+	height: 1rem;
+	font-size: 0.5rem;
+	margin-bottom: 0.2rem;
+}
+
+.comment-write-contents {
+	flex: 1;
+	height: 100%;
+	resize: none;
+}
+
+.comment-write-submit {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #FFF;
+	width: 5rem;
+	height: 100%;
+	background: #666;
+	cursor: pointer;
+	font-size: 0.7rem;
+}
+		
 @media (max-width: 420px){
 	.item-detail {
 		width : 90%;
@@ -213,7 +309,7 @@
 <body>
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
-
+		
 		<div class="item-detail">
 			<div class="item-head">
 				<h1 class="item-name">${item.name}</h1>
@@ -243,6 +339,152 @@
 					<img class="item-snapsht" src="${pageContext.request.contextPath}${item.snapsht}" >
 				</c:if>
 				${item.content}
+			</div>
+		
+		<script>
+			var page;
+			var perPgLine 	= 10;
+			var itemSeq	= '${item.seq}';
+			var comtCnt		= parseInt('${comtCnt}');
+			
+			function commentPageMove(pg){
+				$.ajax({
+					type	: "POST",
+					url		: getContextPath() + "/item/comment_paging.do",
+					data	: {
+						'itemSeq'	: itemSeq,					
+						'page'		: pg,
+						'perPgLine' : perPgLine
+					},
+					dataType: 'JSON',
+					success : function(data) {
+						page = pg;
+						updateComment(data);
+						updatePaging("commentPageMove", page, comtCnt, perPgLine, 3);
+					},
+					error : function(e) {
+						console.log(e);
+					}
+				});
+			}
+			
+			function updatePaging(callFunc, page, comtCnt, perPgLine, pgGrpCnt){
+				var boardPager	= $('.comt-pager');
+				var	pager		= drawPager(callFunc, page, comtCnt, perPgLine, pgGrpCnt);
+					
+				boardPager.empty();
+				boardPager.append(pager);
+			}
+			
+			function makeComment(){
+				var comment = "";
+				comment += '<div class="comment-item">';
+				comment += '<input type="hidden" class="comment-seq">';
+				comment += '<input type="hidden" class="comment-itemSeq">';
+				comment += '<div class="comment">';
+				comment += '<a class="comment-writer"></a> <a class="comment-date"></a>'
+				comment += '<div class="comment-contents"></div>';
+				comment += '</div>';
+				comment += '<div class="comment-menu">';
+				comment += '<a onclick="commentDelete(this)" class="btn">삭제</a>';
+				comment += '</div>';
+				comment += '</div>';
+				return comment;
+			}
+			
+			function updateComment(data){
+				var container = $(".comments");
+				var length = data.length;
+				var comment;
+				var item;
+				
+				container.empty();
+				for(var i = 0; i < length; i++){
+					comment = data[i];
+					item = $(makeComment());
+					item.find(".comment-seq").val(comment.seq);
+					item.find(".comment-itemSeq").val(comment.itemSeq);
+					item.find(".comment-writer").text(comment.name);
+					item.find(".comment-date").text(comment.date);
+					item.find(".comment-contents").html(comment.contents);
+					item.appendTo(container);					
+				}
+			}
+			
+			function commentDelete(tg){
+				var person = prompt("비밀번호를 입력해주세요", "");
+				
+				if (person){
+					var item= $(tg).parents(".comment-item");
+					var seq	= item.find(".comment-seq").val();
+					$.ajax({	
+						type	: "POST",
+						url		: getContextPath() + "/item/comment_delete.do",
+						data	: {
+							'seq' : seq,
+							'password' : person
+						},
+						dataType: 'JSON',
+						success : function(data) {
+							if(data){
+								alert("댓글이 삭제 되었습니다.");
+								comtCnt = comtCnt - 1;
+								commentPageMove(parseInt((comtCnt-1) / perPgLine)+1);
+							} else{
+								alert("비밀번호가 틀렸습니다.");
+							}
+						}
+					});
+				}
+			}
+			
+			function commentSubmit(){
+				var name = $(".comment-write-pinfo #name");
+				var password = $(".comment-write-pinfo #password");
+				var contents  = $(".comment-write-contents");
+				
+				$.ajax({
+					type	: "POST",
+					url		: getContextPath() + "/item/comment_submit.do",
+					data	: {
+						'itemSeq'	: itemSeq,				
+						'name'		: name.val(),					
+						'password'	: password.val(),
+						'contents' 	: contents.val()
+					},
+					dataType: 'JSON',
+					success : function(data) {
+						if(data){
+							alert("댓글이 등록 되었습니다.");
+							contents.val('');
+							comtCnt = comtCnt + 1;
+							commentPageMove(parseInt((comtCnt-1) / perPgLine)+1);
+						}
+					},
+					error : function(e) {
+						console.log(e);
+					}
+				});
+			}
+			
+			$(document).ready(function(){
+				commentPageMove(1);
+			})
+			
+			</script>
+			<div class="warp-comment">
+				<div class="comments"></div>
+				<div class="comt-pager"></div>
+				
+				<div class="comment-write">
+					<div class="comment-write-pinfo">
+						<input type="text" id="name" name="name" placeholder="name">
+						<input type="password" id="password" name="password" placeholder="password">					
+					</div>
+					
+					<textarea class="comment-write-contents" id="contents" name="contents"></textarea>
+					<div onclick="commentSubmit()" class="comment-write-submit">등록</div>				
+				</div>
 			</div>
 		</div>
 		

@@ -72,6 +72,12 @@
 }
 
 
+@media (max-width: 1080px){
+	.item-view{
+		flex : 1 49%;
+	}
+}
+
 @media (max-width: 420px){
 	.item-view{
 		flex : 1 100%;

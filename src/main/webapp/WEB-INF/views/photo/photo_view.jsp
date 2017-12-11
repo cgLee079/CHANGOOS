@@ -122,10 +122,6 @@
 }
 
 @media (max-width: 420px){
-	.wrap-photo-view{
-		margin-top: 4rem;
-	}
-	
 	.wrap-photo-list{
 		margin-top: 3rem;
 		height: 50px;

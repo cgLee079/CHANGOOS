@@ -146,8 +146,10 @@ $(window).resize(function(){
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/">Home</a></li>
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">Introduce</a></li>
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/item">Projects</a></li>
-		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/board">Board</a></li>
+		<!--<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/board">Board</a></li>-->
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">Photo</a></li>
+		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">Github</a></li>
+		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">Instagram</a></li>
 	</ul>
 </div>
 <div class="progress-bar display-none">

@@ -6,9 +6,9 @@
 <style>
 .myinfo-views{
 	position : relative;
-	margin-top: 2rem;
+	margin-top: 1rem;
 	width: 100%;
-	height: 500px;
+	height: 70%;
 	overflow: hidden;
 }
 
@@ -68,8 +68,6 @@
 
 @media (max-width: 420px){
 	.myinfo-views{
-		margin-top: 6rem;
-		height: 450px;
 	}
 	
 	.myinfo-view{
