@@ -12,12 +12,12 @@ const	FIRST_MOVE_TAG		= '[처음]',	// first move
 		LAST_MOVE_TAG		= '[마지막]',	// last move
 		PREV_MOVE_TAG		= '[이전]',	// prev move
 		NEXT_MOVE_TAG		= '[다음]',	// next move
-		MOVE_TAG_FONT_SIZE	= '11px',	// move tag text size
-		PAGER_FONT_SIZE		= '14px',	// pager font size
-		PAGER_CUR_FONT_SIZE	= '16px',	// current page font size
+		MOVE_TAG_FONT_SIZE	= '0.7rem',	// move tag text size
+		PAGER_FONT_SIZE		= '0.8rem',	// pager font size
+		PAGER_CUR_FONT_SIZE	= '0.8rem',	// current page font size
 		PAGER_CUR_COLOR		= '#000',	// current page font color
 		PAGER_CUR_FONT_WEIG	= 'bold',	// current page font bold
-		LR_MARGIN			= '3px',	// All tag left, right padding
+		LR_MARGIN			= '0.1rem',	// All tag left, right padding
 		TAG_OUT_COLOR		= '#888', 	// All tag hover out
 		TAG_IN_COLOR		= '#000';	// All tag hover in 
 /***** ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ****/

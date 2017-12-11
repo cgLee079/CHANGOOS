@@ -1,4 +1,4 @@
-<div class="nav-bg">
+<div class="nav-top">
 	<div class="wrap-home-logo">
 		<div onclick="window.location.href = '${pageContext.request.contextPath}/'">
 		CHANGOO'S
@@ -10,8 +10,8 @@
 
 <script>
 function navOccupyReHeight(){
-	var navBg = $(".nav-bg");
-	var height = navBg.outerHeight();
+	var navTop = $(".nav-top");
+	var height = navTop.outerHeight();
 	$(".nav-occupy").height(height);
 }
 navOccupyReHeight();
@@ -146,9 +146,8 @@ $(window).resize(function(){
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/">Home</a></li>
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">Introduce</a></li>
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/item">Projects</a></li>
+		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/board">Board</a></li>
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">Photo</a></li>
-		<li class="btn"><a target="_blank" href="https://github.com/cgLee079">Github</a></li>
-		<li class="btn"><a target="_blank" href="https://www.instagram.com/cglee079">Instagram</a></li>
 	</ul>
 </div>
 <div class="progress-bar display-none">

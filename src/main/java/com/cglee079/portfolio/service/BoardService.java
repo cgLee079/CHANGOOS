@@ -14,13 +14,8 @@ public class BoardService{
 	@Autowired
 	BoardDao boardDao;
 	
-	public List<BoardVo> list(){
-		return null;
-		//return boardDao.list();
-	}
-	
 	public List<BoardVo> paging(int page, int perPgLine){
-		int startRow = (page - 1) * perPgLine + 1;
+		int startRow = (page - 1) * perPgLine;
 		return boardDao.list(startRow, perPgLine);
 	}
 

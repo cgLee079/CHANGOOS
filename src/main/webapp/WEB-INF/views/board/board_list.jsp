@@ -6,8 +6,8 @@
 
 <script>
 	var allRowCnt = '${count}';
-	var perPgLine = 10; 
-	var page = undefined;
+	var perPgLine = 1; 
+	var page = 1;
 	
 	function boardView(seq){
 		window.location.href = getContextPath() + "/board/board_view?seq=" + seq;		
@@ -22,6 +22,7 @@
 				'perPgLine' : perPgLine
 			},
 			dataType: 'JSON',
+			async	: false,
 			success : function(data) {
 				page = pg;
 				updateBoard(data);
@@ -51,7 +52,7 @@
 		
 		for (var i = 0; i < length; i++){
 			board = data[i];
-			item = $("<div>", {'class' : 'btn board-list-item', onclick : "boardView(" + board.seq + ")"});
+			item = $("<div>", {'class' : 'board-list-item', onclick : "boardView(" + board.seq + ")"});
 			$("<div>",{ 'class' : 'list-item-index', text : (page - 1 ) * perPgLine + 1 + i}).appendTo(item);
 			$("<div>",{ 'class' : 'list-item-sect', text : board.sect}).appendTo(item);
 			$("<div>",{ 'class' : 'list-item-title', text : board.title}).appendTo(item);
@@ -60,12 +61,30 @@
 		}
 	}
 	
+	function resizedw(){
+		var parent = $(".board-list")
+		var items = $(".board-list-item");
+		var pHeight = parseInt(parent.height())
+		var cHeight = parseInt(items.eq(1).outerHeight());
+		perPgLine = parseInt(pHeight / cHeight) - 2;
+		pageMove(page);
+	}
+
+	var doit;
+	$(window).resize(function(){
+	  clearTimeout(doit);
+	  doit = setTimeout(resizedw, 100);
+	});
+	
 	/* 페이지가 로드됨과 동시에 계정 리스트의 첫 번째 페이지를 출력 */
 	$(document).ready(function(){
 		pageMove(1);
+		resizedw();
 	});
+	
 </script> 
 </head>
+
 <body>
 <div class="wrapper">
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
@@ -74,7 +93,7 @@
 			height : 500px;
 			background: #FFF;
 			border: 1px solid #DDD;
-			margin-top: 4rem;
+			margin-top: 1.5rem;
 			padding: 2rem;
 		}
 		
@@ -96,15 +115,18 @@
 			font-weight: bold;
 			background: #777;
 			color: #FFF;
-			border-top : 1px solid #333;
-			border-bottom : 1px solid #333;
 			margin-bottom: 0.5rem;
 		}
 		
-		.board-list .board-list-item:NOT(:FIRST-CHILD):NTH-CHILD(odd){
-			background: #F7F7F7;
-			border-top: #F0F0F0;
-			border-bottom: #F0F0F0;
+		.board-list .board-list-item:NOT(:FIRST-CHILD){
+			opacity: 0.8;
+			border-bottom: 1px soild #FAFAFA;
+		}
+			
+		.board-list .board-list-item:NOT(:FIRST-CHILD):HOVER{
+			opacity: 1;
+			font-weight: bold;
+			background: #FCFCFC;
 		}
 		
 		.board-list .board-list-item div{
@@ -123,7 +145,7 @@
 		
 		@media (max-width: 420px){
 			.wrap-board-list{
-				margin-top: 6rem;
+				margin-top: 3rem;
 			}
 		}
 		
@@ -136,7 +158,6 @@
 				<div class="list-item-title">TITLE</div>
 				<div class="list-item-date">DATE</div>
 			</div>
-			
 		</div>
 		
 		<div class="board-pager"></div>
