@@ -141,13 +141,9 @@
 	pointer-events: none;
 }
 
-.menu-header {
-	margin: 0.5rem;
-	margin-top: 5rem;
-}
-
 .menu-option {
 	font-size: 1.3rem;
+	margin-top: 7rem;
 	line-height: 2.5rem;
 }
 
@@ -207,7 +203,7 @@
 }
 
 @media ( max-width : 420px) {
-	.menu-header {
-		margin-top: 17rem;
+	.menu-option  {
+		margin-top: 18em;
 	}
 }

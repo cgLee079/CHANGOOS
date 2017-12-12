@@ -135,13 +135,6 @@ $(window).resize(function(){
 </script>
 <div class="nav-background"></div>
 <div class="nav-menu unvalid">
-	<div class="menu-header">
-		<h1 class="ml1">
-			<span class="text-wrapper">
-				<span class="letters">Menu</span>
-			</span>
-		</h1>
-	</div>
 	<ul class="menu-option">
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/">Home</a></li>
 		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">Introduce</a></li>

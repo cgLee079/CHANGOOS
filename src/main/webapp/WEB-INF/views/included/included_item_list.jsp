@@ -1,140 +1,139 @@
+<%@ page pageEncoding="UTF-8"%>
 <style>
 .main-items{
-	display: flex;
-	flex-flow: row wrap;
-	align-items: flex-start;
 }   
 
-.item-view{
-	width : 33%;
-	border: 1px solid #EEE;
+.item-view{	
+	display : flex;
+	flex-flow: row wrap;
 	background: #FFF;
-	cursor: pointer;
-	overflow: hidden;
-	position: relative;
-	opacity: 0.8;
-}
-
-.item-view:hover > .item-snapsht{
-	transform: scale(1.1);
-	transition: all .5s;
+	border : 1px solid #DDD;
+	padding : 2rem;
+	margin-bottom: 1rem;
+	opacity: 0;
 }
 
 .item-snapsht{
-	height : 100%;
-	width  : 100%;
+	flex : 1 50%;
+	height : 400px;
+	border : 1px solid #DDD;
+	opacity: 0.9;
 	background-position	: center;
     background-repeat	: no-repeat;
     background-size		: cover;
-    overflow: hidden;
 }
 
-.item-snapsht::before {
-	content: "";
-	display: none;
-	height: 100%;
-	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-color: rgba(0, 0, 0, 0.7);
+.item-info{
+	margin : 1rem;
+	flex : 1 35%;
+	position: relative;
 }
 
-.item-view:hover .item-snapsht:before,
-.item-view:focus .item-snapsht:before {
-	display: block;
+.item-title {
+	font-size: 1.3rem;
+	margin-bottom: 1rem;
 }
 
-.item-view .item-info{
-	color: white; /* Good thing we set a fallback color! */
-	padding: 25% 15%;
-	width : 70%;
-	height: 10%;
-	overflow : hidden;
-	word-break : break-all;
-	position: absolute;
+.item-desc {
+	font-size: 0.8rem;
+	color : #444;
 }
 
-.item-view:hover .item-info{
-	display: block;
+.item-desc p{
+	margin: 0.2rem 0;
+	line-height: 1.5rem;
 }
 
-.item-info .item-title{
-	margin-bottom: 0.4rem;
-}
 
-.item-info .item-desc{
-	font-size: 0.6rem;
+.item-menu{
+	position : absolute;
+	bottom: 0;
+	right : 0;
 }
-
-.item-info .item-desc p{
-	margin : 0.1rem 0;
-}
-
 
 @media (max-width: 1080px){
 	.item-view{
-		flex : 1 49%;
-	}
-}
-
-@media (max-width: 420px){
-	.item-view{
-		flex : 1 100%;
+		flex-flow: column wrap;
 	}
 	
-	.item-snapsht:before {
-		display: block;
-		background-color: rgba(0, 0, 0, 0.4);
+	.item-snapsht{
+		flex : 1 30%;
+		height : auto;
+		border : 1px solid #DDD;
 	}
 	
 	.item-info{
-		display: block;
-		font-size: 1.5rem;
+		flex : 1 20%;
+		margin: 0;
+		margin-top: 2rem;
 	}
-
-	.item-info .item-desc{
-		font-size: 0.8rem;
-	}
-
-
-}
-</style>
-<script>
-function itemResize(){
-	$(".main-items > .item-view").each(function(){
-		var width = parseInt($(this).width());
-		$(this).css("height", width *(2/3));
-	});
-}
-
-$(document).ready(function(){
-	var ani = anime.timeline({loop : false})
-		.add({
-			targets : ".main-items .item-view",
-			opacity : [0, 0.8],
-			easing : "easeInQuad",
-			duration : 500,
-			delay : function (el, i){
-				var length = $(".main-items .item-view").length;
-				var gap = 500 / length;
-				return (gap * i) + 100;
-			}
-		});
 	
-	itemResize();
-	$(window).resize(function(){
-		itemResize();	
-	})
-})
+}
+
+.example a {  
+	padding: 3px; 
+	border-radius: 1px; 
+	color: rgba(107,54,62,0.9);
+	-webkit-transition: all 0.15s ease;
+	-moz-transition: all 0.15s ease; 
+	transition: all 0.15s ease;
+	background-size: 100% 200%;
+	background-position: 0 -100%;
+	background-image: linear-gradient(to top, transparent 50%, rgba(50, 50, 50, 0.9) 50%);
+}
+
+.example a:hover {
+	cursor : pointer;
+	color: #fff;
+	background-position: 0 0; 
+}
+
+</style>
+
+
+<script>
+var currentView = 0;
+var tops = [];
+var pass = [];
+var itemViews;
+$(document).ready(function(){
+	itemViews = $(".item-view");
+	itemViews.each(function(){
+		var top = $(this).offset().top;
+		tops.push(top);
+		pass.push(false);
+	});
+	
+	$(window).scroll(function(){
+		var scrollTop = $(window).scrollTop() + 600;
+		if(tops[currentView] <= scrollTop && pass[currentView] == false){
+			pass[currentView] = true;
+			var target = document.querySelector(".item-view:nth-child(" + (currentView + 1)+ ")");
+			anime.timeline()
+				.add({
+					targets: target,
+					opacity : [0, 1],
+					duration: 700,
+					easing : "easeInQuad"
+				})
+			currentView += 1;
+		}
+	});
+	
+	$(window).trigger("scroll");
+});
 </script>
 <div class="main-items">
 	<c:forEach var="item" items="${items}">
-		<div onclick="itemView(${item.seq})" class="item-view">
-			<div class="item-snapsht" style="background-image: url('${pageContext.request.contextPath}${item.snapsht}')">
-				<div class="item-info display-none">
-				<h5 class="item-title">[${item.sect}] ${item.name}</h5>
-				<a class="item-desc">${item.desc}</a>
+		<div onclick="" class="item-view">
+			<div class="item-snapsht" style="background-image: url('${pageContext.request.contextPath}${item.snapsht}')"></div>
+			<div class="item-info">
+				<div class="item-title">[${item.sect}] ${item.name}</div>
+				<div class="item-desc">${item.desc}</div>
+				<div class="item-menu">
+					<div class="example">
+						<a onclick="itemView(${item.seq})">SHOW</a>					
+					</div>
 				</div>
 			</div>
 		</div>
