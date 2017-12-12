@@ -3,18 +3,14 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <style>
-.wrapper{
-	width : 100%;
-}
-
 .wrap-photo-view{
-	width : 100%;
 	margin : 0px auto;
 	margin-top: 1rem;
 }
 
 .photo-view{
 	width: 100%;
+	height : 80%;
 	padding : 20px 0px;
 	height: 450px;
 	border: 1px solid #eee;

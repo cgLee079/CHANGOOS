@@ -2,308 +2,236 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/item-view.css" />
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
-<style>
-.item-detail {
-	width : 80%;
-	margin : 0px auto;
-	margin-top: 3rem;
-}
-
-.item-head {
-	position: relative;
-}
-
-.item-name{
-	display: inline-block;
-	margin-right: 5px;
-}
-
-.item-subinfo{
-	position: absolute;
-	right : 0px;
-	bottom : 0px;
-	color: #666;
-	font-size: 0.5rem;
-	line-height : 1rem;
-	text-align: right;
-}
-
-.item-line{
-	background: #DDD;
-	height : 1px;
-	margin: 0.5rem 0;
-}
-
-
-.item-content {
-	position : relative;
-	margin-top: 1.5rem;
-	font-size: 0.8rem;
-	padding : 1rem;
-	background: #FFF;
-	color : #444;
-	border: 0.5px solid #DDD;
-	min-height: 100%;
-}
-
-.item-snapsht{
-	width : 360px;
-	margin-bottom: 1rem;
-}
-
-.item-content h1, h2, h3{
-	margin: 0.5rem 0px;
-}
-
-.item-content p{
-	margin : 0.3rem 0;
-	line-height: 1.3rem;
-}
-
-.item-content img{
-	height : auto;
-}
-
-.item-content code {
-	overflow-x: auto;
-	margin: 1rem 0.1rem;
-	border: 1px solid #DDD;
-}
-
-.item-subinfo2 {
-	display : flex;
-	justify-content: space-between;
-	font-size: 0.7rem;
-}
-
-.item-source{
-	font-weight: bold;
-}
-
-.btn-item-before{
-	position : fixed;
-	top : 50%;
-	left : 1.5rem;
-	width: 3%;
-	height: 3%;
-	background-position	: center;
-    background-repeat	: no-repeat;
-    background-size		: contain;
-}
-
-.btn-item-next{
-	position : fixed;
-	top : 50%;
-	right : 1.5rem;
-	width: 3%;
-	height: 3%;
-	background-position	: center;
-    background-repeat	: no-repeat;
-    background-size		: contain;
-}
-
-.warp-comment {
-	border: 1px solid #DDD;
-	background: #FFF;
-	margin-top: 1rem;
-	padding: 1rem;
-}
-
-.comment-item {
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: space-between;
-	padding: 0.5rem;
-	border-bottom: 1px solid #F0F0F0;
-}
-
-.comment {
-	flex: 1;
-}
-
-.comment .comment-writer {
-	color: #00D;
-	font-size: 0.7rem;
-}
-
-.comment .comment-date {
-	color: #777;
-	font-size: 0.5rem;
-}
-
-.comment .comment-contents {
-	color: #444;
-	font-size: 0.6rem;
-	padding-top : 0.5rem;
-	word-break:break-all;
-	word-wrap:break-word;
-}
-
-.comment-menu {
-	font-size: 0.6rem;
-	width: 5rem;
-	color: #444;
-	text-align: center;
-}
-
-.comment-menu a {
-	margin-left: 0.5rem;
-}
-
-.comt-pager {
-	margin: 1rem;
-	text-align: center;
-}
-
-.comment-write {
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: space-between;
-	margin: 1rem 0.5rem;
-	margin-top: 2rem;
-	height: 3rem;
-}
-
-.comment-write-pinfo {
-	display: flex;
-	flex-flow: column nowrap;
-	width: 5rem;
-	height: 100%;
-	margin-right: 0.5rem;
-}
-
-.comment-write-pinfo input {
-	width: 100%;
-	height: 1rem;
-	font-size: 0.5rem;
-	margin-bottom: 0.2rem;
-}
-
-.comment-write-contents {
-	flex: 1;
-	height: 100%;
-	resize: none;
-}
-
-.comment-write-submit {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: #FFF;
-	width: 5rem;
-	height: 100%;
-	background: #666;
-	cursor: pointer;
-	font-size: 0.7rem;
-}
-		
-@media (max-width: 420px){
-	.item-detail {
-		width : 90%;
-		margin-top: 3rem;
-	}
-}
-
-</style>
 <script>
-	function contentImgResize(){
-		var imgs = $(".item-content img");
-		imgs.each(function(){
-			var parentWidth = parseInt($(".item-content").width());
-			var width 	= parseInt($(this).css("width"));
-			var height 	= parseInt($(this).css("height"));
-			var ratio	= width / height;
-			
+function contentImgResize(){
+	var imgs = $(".item-content img");
+	imgs.each(function(){
+		var parentWidth = parseInt($(".item-content").width());
+		var width 	= parseInt($(this).css("width"));
+		var height 	= parseInt($(this).css("height"));
+		var ratio	= width / height;
+		
+		$(this).css("width", "");
+		$(this).css("height", "");
+		
+		if(width > parentWidth){
+			$(this).css("width", "100%");
+		} else if (width <= parentWidth){
 			$(this).css("width", "");
-			$(this).css("height", "");
-			
+			width 	= parseInt($(this).css("width"));
 			if(width > parentWidth){
 				$(this).css("width", "100%");
-			} else if (width <= parentWidth){
-				$(this).css("width", "");
-				width 	= parseInt($(this).css("width"));
-				if(width > parentWidth){
-					$(this).css("width", "100%");
-				}
-			} 
-			
-		});
-	}
-	
-	function contentYoutubeResize(){
-		var parentWidth = parseInt($(".item-content").width());
-		var videos = $("iframe");
-		videos.each(function(){
-			if(parentWidth >= 640){
-				$(this).attr("width", "640");
-				$(this).attr("height", "360");
-			} else{
-				var width = parentWidth;
-				var ratio = parseFloat($(this).attr("width") /$(this).attr("height"));
-				$(this).attr("width", width);
-				$(this).attr("height", width / ratio );
-			} 
-		});
-	}
+			}
+		} 
+		
+	});
+}
 
-	
-	function resizedw(){
-		contentImgResize();
-		contentYoutubeResize();
-	}
+function contentYoutubeResize(){
+	var parentWidth = parseInt($(".item-content").width());
+	var videos = $("iframe");
+	videos.each(function(){
+		if(parentWidth >= 640){
+			$(this).attr("width", "640");
+			$(this).attr("height", "360");
+		} else{
+			var width = parentWidth;
+			var ratio = parseFloat($(this).attr("width") /$(this).attr("height"));
+			$(this).attr("width", width);
+			$(this).attr("height", width / ratio );
+		} 
+	});
+}
 
-	var doit;
-	$(window).resize(function(){
-	  clearTimeout(doit);
-	  doit = setTimeout(resizedw, 100);
+
+function resizedw(){
+	contentImgResize();
+	contentYoutubeResize();
+}
+
+var doit;
+$(window).resize(function(){
+  clearTimeout(doit);
+  doit = setTimeout(resizedw, 100);
+});
+
+window.onload = function(){
+	var lineDrawing = anime({
+		targets: ".item-line",
+		easing: "easeInQuad",
+		width : [0, "100%"],
+		duration: 400,
 	});
 	
-	window.onload = function(){
-		var lineDrawing = anime({
-			targets: ".item-line",
-			easing: "easeInQuad",
-			width : [0, "100%"],
-			duration: 400,
-		});
-		
-		if(isMobile){
-			$(".btn-item-before, .btn-item-next").addClass("display-none");
-		}
-		
-		$(".btn-item-next").on("click", function(){
-			var afterItemSeq = '${afterItem.seq}';
-			var contextPath = "${pageContext.request.contextPath}";
-			if(afterItemSeq){
-				window.location.href = contextPath + "/item/view?seq=" + afterItemSeq;
-			} 
-		});
-		
-		$(".btn-item-before").on("click", function(){
-			var beforeItemSeq= '${beforeItem.seq}';
-			var contextPath = "${pageContext.request.contextPath}";
-			if(beforeItemSeq){
-				window.location.href = contextPath + "/item/view?seq=" + beforeItemSeq;
-			} 
-		});
-		
-		/*
-		$(".wrapper").touchwipe({
-		     wipeLeft: function() {
-		    	 $(".btn-item-next").trigger("click");
-		     },		     
-		     wipeRight: function() {
-		    	 $(".btn-item-before").trigger("click");
-		     },		     
-		     min_move_x: 30,
-		     min_move_y: 20,
-		     preventDefaultEvents: true
-		});
-		*/
-		
-		contentImgResize();
-		contentYoutubeResize();
+	if(isMobile){
+		$(".btn-item-before, .btn-item-next").addClass("display-none");
 	}
+	
+	$(".btn-item-next").on("click", function(){
+		var afterItemSeq = '${afterItem.seq}';
+		if(afterItemSeq){
+			window.location.href = getContextPath() + "/item/view?seq=" + afterItemSeq;
+		} 
+	});
+	
+	$(".btn-item-before").on("click", function(){
+		var beforeItemSeq= '${beforeItem.seq}';
+		if(beforeItemSeq){
+			window.location.href = getContextPath() + "/item/view?seq=" + beforeItemSeq;
+		} 
+	});
+	
+	/*
+	$(".wrapper").touchwipe({
+	     wipeLeft: function() {
+	    	 $(".btn-item-next").trigger("click");
+	     },		     
+	     wipeRight: function() {
+	    	 $(".btn-item-before").trigger("click");
+	     },		     
+	     min_move_x: 30,
+	     min_move_y: 20,
+	     preventDefaultEvents: true
+	});
+	*/
+	
+	contentImgResize();
+	contentYoutubeResize();
+}
+
+/*script about comment */
+
+var page;
+var perPgLine 	= 10;
+var itemSeq	= '${item.seq}';
+var comtCnt		= parseInt('${comtCnt}');
+
+function commentPageMove(pg){
+	$.ajax({
+		type	: "POST",
+		url		: getContextPath() + "/item/comment_paging.do",
+		data	: {
+			'itemSeq'	: itemSeq,					
+			'page'		: pg,
+			'perPgLine' : perPgLine
+		},
+		dataType: 'JSON',
+		success : function(data) {
+			page = pg;
+			updateComment(data);
+			updatePaging("commentPageMove", page, comtCnt, perPgLine, 3);
+		},
+		error : function(e) {
+			console.log(e);
+		}
+	});
+}
+
+function updatePaging(callFunc, page, comtCnt, perPgLine, pgGrpCnt){
+	var boardPager	= $('.comt-pager');
+	var	pager		= drawPager(callFunc, page, comtCnt, perPgLine, pgGrpCnt);
+		
+	boardPager.empty();
+	boardPager.append(pager);
+}
+
+function makeComment(){
+	var comment = "";
+	comment += '<div class="comment-item">';
+	comment += '<input type="hidden" class="comment-seq">';
+	comment += '<input type="hidden" class="comment-itemSeq">';
+	comment += '<div class="comment">';
+	comment += '<a class="comment-writer"></a> <a class="comment-date"></a>'
+	comment += '<div class="comment-contents"></div>';
+	comment += '</div>';
+	comment += '<div class="comment-menu">';
+	comment += '<a onclick="commentDelete(this)" class="btn">삭제</a>';
+	comment += '</div>';
+	comment += '</div>';
+	return comment;
+}
+
+function updateComment(data){
+	var container = $(".comments");
+	var length = data.length;
+	var comment;
+	var item;
+	
+	container.empty();
+	for(var i = 0; i < length; i++){
+		comment = data[i];
+		item = $(makeComment());
+		item.find(".comment-seq").val(comment.seq);
+		item.find(".comment-itemSeq").val(comment.itemSeq);
+		item.find(".comment-writer").text(comment.name);
+		item.find(".comment-date").text(comment.date);
+		item.find(".comment-contents").html(comment.contents);
+		item.appendTo(container);					
+	}
+}
+
+function commentDelete(tg){
+	var person = prompt("비밀번호를 입력해주세요", "");
+	
+	if (person){
+		var item= $(tg).parents(".comment-item");
+		var seq	= item.find(".comment-seq").val();
+		$.ajax({	
+			type	: "POST",
+			url		: getContextPath() + "/item/comment_delete.do",
+			data	: {
+				'seq' : seq,
+				'password' : person
+			},
+			dataType: 'JSON',
+			success : function(data) {
+				if(data){
+					alert("댓글이 삭제 되었습니다.");
+					comtCnt = comtCnt - 1;
+					commentPageMove(parseInt((comtCnt-1) / perPgLine)+1);
+				} else{
+					alert("비밀번호가 틀렸습니다.");
+				}
+			}
+		});
+	}
+}
+
+function commentSubmit(){
+	var name = $(".comment-write-pinfo #name");
+	var password = $(".comment-write-pinfo #password");
+	var contents  = $(".comment-write-contents");
+	
+	$.ajax({
+		type	: "POST",
+		url		: getContextPath() + "/item/comment_submit.do",
+		data	: {
+			'itemSeq'	: itemSeq,				
+			'name'		: name.val(),					
+			'password'	: password.val(),
+			'contents' 	: contents.val()
+		},
+		dataType: 'JSON',
+		success : function(data) {
+			if(data){
+				alert("댓글이 등록 되었습니다.");
+				contents.val('');
+				comtCnt = comtCnt + 1;
+				commentPageMove(parseInt((comtCnt-1) / perPgLine)+1);
+			}
+		},
+		error : function(e) {
+			console.log(e);
+		}
+	});
+}
+
+$(document).ready(function(){
+	commentPageMove(1);
+})
+	
 </script>
 </head>
 <body>
@@ -341,138 +269,7 @@
 				${item.content}
 			</div>
 		
-		<script>
-			var page;
-			var perPgLine 	= 10;
-			var itemSeq	= '${item.seq}';
-			var comtCnt		= parseInt('${comtCnt}');
-			
-			function commentPageMove(pg){
-				$.ajax({
-					type	: "POST",
-					url		: getContextPath() + "/item/comment_paging.do",
-					data	: {
-						'itemSeq'	: itemSeq,					
-						'page'		: pg,
-						'perPgLine' : perPgLine
-					},
-					dataType: 'JSON',
-					success : function(data) {
-						page = pg;
-						updateComment(data);
-						updatePaging("commentPageMove", page, comtCnt, perPgLine, 3);
-					},
-					error : function(e) {
-						console.log(e);
-					}
-				});
-			}
-			
-			function updatePaging(callFunc, page, comtCnt, perPgLine, pgGrpCnt){
-				var boardPager	= $('.comt-pager');
-				var	pager		= drawPager(callFunc, page, comtCnt, perPgLine, pgGrpCnt);
-					
-				boardPager.empty();
-				boardPager.append(pager);
-			}
-			
-			function makeComment(){
-				var comment = "";
-				comment += '<div class="comment-item">';
-				comment += '<input type="hidden" class="comment-seq">';
-				comment += '<input type="hidden" class="comment-itemSeq">';
-				comment += '<div class="comment">';
-				comment += '<a class="comment-writer"></a> <a class="comment-date"></a>'
-				comment += '<div class="comment-contents"></div>';
-				comment += '</div>';
-				comment += '<div class="comment-menu">';
-				comment += '<a onclick="commentDelete(this)" class="btn">삭제</a>';
-				comment += '</div>';
-				comment += '</div>';
-				return comment;
-			}
-			
-			function updateComment(data){
-				var container = $(".comments");
-				var length = data.length;
-				var comment;
-				var item;
-				
-				container.empty();
-				for(var i = 0; i < length; i++){
-					comment = data[i];
-					item = $(makeComment());
-					item.find(".comment-seq").val(comment.seq);
-					item.find(".comment-itemSeq").val(comment.itemSeq);
-					item.find(".comment-writer").text(comment.name);
-					item.find(".comment-date").text(comment.date);
-					item.find(".comment-contents").html(comment.contents);
-					item.appendTo(container);					
-				}
-			}
-			
-			function commentDelete(tg){
-				var person = prompt("비밀번호를 입력해주세요", "");
-				
-				if (person){
-					var item= $(tg).parents(".comment-item");
-					var seq	= item.find(".comment-seq").val();
-					$.ajax({	
-						type	: "POST",
-						url		: getContextPath() + "/item/comment_delete.do",
-						data	: {
-							'seq' : seq,
-							'password' : person
-						},
-						dataType: 'JSON',
-						success : function(data) {
-							if(data){
-								alert("댓글이 삭제 되었습니다.");
-								comtCnt = comtCnt - 1;
-								commentPageMove(parseInt((comtCnt-1) / perPgLine)+1);
-							} else{
-								alert("비밀번호가 틀렸습니다.");
-							}
-						}
-					});
-				}
-			}
-			
-			function commentSubmit(){
-				var name = $(".comment-write-pinfo #name");
-				var password = $(".comment-write-pinfo #password");
-				var contents  = $(".comment-write-contents");
-				
-				$.ajax({
-					type	: "POST",
-					url		: getContextPath() + "/item/comment_submit.do",
-					data	: {
-						'itemSeq'	: itemSeq,				
-						'name'		: name.val(),					
-						'password'	: password.val(),
-						'contents' 	: contents.val()
-					},
-					dataType: 'JSON',
-					success : function(data) {
-						if(data){
-							alert("댓글이 등록 되었습니다.");
-							contents.val('');
-							comtCnt = comtCnt + 1;
-							commentPageMove(parseInt((comtCnt-1) / perPgLine)+1);
-						}
-					},
-					error : function(e) {
-						console.log(e);
-					}
-				});
-			}
-			
-			$(document).ready(function(){
-				commentPageMove(1);
-			})
-			
-			</script>
-			<div class="warp-comment">
+			<div class="wrap-comment">
 				<div class="comments"></div>
 				<div class="comt-pager"></div>
 				

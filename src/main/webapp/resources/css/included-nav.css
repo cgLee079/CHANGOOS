@@ -205,3 +205,9 @@
 		-webkit-transform: scale(1.0);
 	}
 }
+
+@media ( max-width : 420px) {
+	.menu-header {
+		margin-top: 17rem;
+	}
+}
