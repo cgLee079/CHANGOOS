@@ -66,7 +66,7 @@
 		var items = $(".board-list-item");
 		var pHeight = parseInt(parent.height())
 		var cHeight = parseInt(items.eq(1).outerHeight());
-		perPgLine = parseInt(pHeight / cHeight) - 2;
+		perPgLine = parseInt(pHeight / cHeight) - 5;
 		pageMove(page);
 	}
 
@@ -107,20 +107,19 @@
 			justify-content: space-between;
 			color : #666;
 			padding : 0.3rem 0rem;
-			font-size: 0.6rem;
-			cursor: pointer;
+			font-size: 0.7rem;
 		}
 		
 		.board-list .board-list-item:FIRST-CHILD{
 			font-weight: bold;
-			background: #777;
-			color: #FFF;
 			margin-bottom: 0.5rem;
+			border-bottom: 2px solid #EEE;
 		}
 		
 		.board-list .board-list-item:NOT(:FIRST-CHILD){
 			opacity: 0.8;
 			border-bottom: 1px soild #FAFAFA;
+			cursor: pointer;
 		}
 			
 		.board-list .board-list-item:NOT(:FIRST-CHILD):HOVER{
@@ -136,7 +135,7 @@
 		.board-list-item .list-item-index{ width : 2rem; text-align: center;}
 		.board-list-item .list-item-sect{ width : 4rem;  text-align: center;}
 		.board-list-item .list-item-title{ flex : 1; text-align: left; overflow: hidden;}
-		.board-list-item:NOT(:FIRST-CHILD) .list-item-title{ color: #00F;}
+		.board-list-item:NOT(:FIRST-CHILD) .list-item-title{ color: #00C;}
 		.board-list-item .list-item-date{ width : 7rem; text-align: center;}
 		
 		.board-pager {

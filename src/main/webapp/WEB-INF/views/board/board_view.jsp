@@ -54,7 +54,7 @@
 						<p><strong>AreaCaclualotr.java</strong></p>
 				</div>
 			</div>
-			
+		</div>	
 		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8">
 		</c:import>
 		
