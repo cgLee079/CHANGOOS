@@ -45,4 +45,20 @@ public class ComtController {
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
 	}
+	
+	@ResponseBody
+	@RequestMapping("/item/comment_checkPwd.do")
+	public String doCheckPwd(int seq, String password) throws SQLException, JsonProcessingException{
+		boolean result = comtService.checkPwd(seq, password);
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(result);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/item/comment_update.do")
+	public String doUpdate(int seq, String contents) throws SQLException, JsonProcessingException{
+		boolean result = comtService.update(seq, contents);
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(result);
+	}
 }

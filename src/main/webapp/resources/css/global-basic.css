@@ -43,3 +43,10 @@ a, a:VISITED{
 .scroll-no {
 	overflow: hidden;
 }
+
+.center{
+	display : flex;
+	flex-flow : row wrap;
+	align-items: center;
+	justify-content: center;
+}

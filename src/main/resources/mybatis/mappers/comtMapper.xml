@@ -50,4 +50,11 @@
 		WHERE COMT_SEQ = #{seq}
 	</delete>
 	
+	<update id="update" parameterType="map">
+		UPDATE TB_PTFOLIO_COMTS
+		SET 
+		COMT_CONTENTS = #{contents}
+		WHERE COMT_SEQ = #{seq}
+	</update>
+	
 </mapper>

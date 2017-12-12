@@ -137,10 +137,6 @@
 		font-size: 1rem;
 	}
 	
-	.photo-view > .photo-detail > .photo-info > .photo-date-loc{
-		font-size: 0.5rem;
-	}
-	
 	.photo-view > .photo-detail > .photo-tag{
 		font-size: 0.7rem;
 	}

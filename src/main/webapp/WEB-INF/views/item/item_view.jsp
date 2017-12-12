@@ -147,10 +147,11 @@ function makeComment(){
 	comment += '<div class="comment-contents"></div>';
 	comment += '</div>';
 	comment += '<div class="comment-menu">';
+	comment += '<a onclick="commentModify(this)" class="btn">수정</a>';
 	comment += '<a onclick="commentDelete(this)" class="btn">삭제</a>';
 	comment += '</div>';
 	comment += '</div>';
-	return comment;
+	return $(comment);
 }
 
 function updateComment(data){
@@ -162,7 +163,7 @@ function updateComment(data){
 	container.empty();
 	for(var i = 0; i < length; i++){
 		comment = data[i];
-		item = $(makeComment());
+		item = makeComment();
 		item.find(".comment-seq").val(comment.seq);
 		item.find(".comment-itemSeq").val(comment.itemSeq);
 		item.find(".comment-writer").text(comment.name);
@@ -170,6 +171,70 @@ function updateComment(data){
 		item.find(".comment-contents").html(comment.contents);
 		item.appendTo(container);					
 	}
+}
+
+function doModify(tg){
+	var item	= $(tg).parents(".comment-item");
+	var seq 	= item.find(".comment-seq").val();
+	var contents = item.find(".comment-modify #contents").val();
+	$.ajax({	
+		type	: "POST",
+		url		: getContextPath() + "/item/comment_update.do",
+		data	: {
+			'seq' : seq,
+			'contents' : contents
+		},
+		dataType : "JSON",
+		success : function(result) {
+			if(result) {
+				commentPageMove(page);
+			} else{
+				alert("수정 실패하였습니다.");
+			}
+		}
+	});
+}
+
+function commentModify(tg){
+	var tg = $(tg);
+	if(tg.hasClass("open")){
+		commentPageMove(page);
+	} else {
+		var person = prompt("비밀번호를 입력해주세요", "");
+		if(person){
+			var item= tg.parents(".comment-item");
+			var seq	= item.find(".comment-seq").val();
+			$.ajax({	
+				type	: "POST",
+				url		: getContextPath() + "/item/comment_checkPwd.do",
+				data	: {
+					'seq' : seq,
+					'password' : person
+				},
+				dataType : "JSON",
+				success : function(result) {
+					console.log(result);
+					if (result){
+						changeToForm();
+					} else{
+						alert("비밀번호가 틀렸습니다.");
+					}
+				}
+			});
+		}
+		
+		function changeToForm(){
+			var contentsDiv = item.find(".comment-contents");
+			var contents = contentsDiv.text();
+			tg.toggleClass("open");
+			
+			var modifyForm = $("<div>" , {style : "display : flex; flex-flow : row wrap; height : 50px;", "class" : "comment-modify"});
+			$("<textarea>", {text : contents, id : "contents", "class" : "comment-write-contents"}).appendTo(modifyForm);
+			$("<div>", {text : "등록", onclick:  "doModify(this)", "class" : "center comment-write-submit"}).appendTo(modifyForm);
+			contentsDiv.empty();
+			contentsDiv.append(modifyForm);
+		}
+	} 
 }
 
 function commentDelete(tg){
@@ -200,9 +265,13 @@ function commentDelete(tg){
 }
 
 function commentSubmit(){
-	var name = $(".comment-write-pinfo #name");
-	var password = $(".comment-write-pinfo #password");
-	var contents  = $(".comment-write-contents");
+	var name = $(".comment-write #name");
+	var password = $(".comment-write #password");
+	var contents  = $(".comment-write #contents");
+	
+	if(!name.val()) { alert("이름을 입력해주세요."); return ;}
+	if(!password.val()) { alert("비밀번호를 입력해주세요."); return ;}
+	if(!contents.val()) { alert("내용을 입력해주세요."); return ;}
 	
 	$.ajax({
 		type	: "POST",
@@ -231,7 +300,11 @@ function commentSubmit(){
 $(document).ready(function(){
 	commentPageMove(1);
 })
-	
+
+/*
+
+
+ */
 </script>
 </head>
 <body>
@@ -258,7 +331,10 @@ $(document).ready(function(){
 					<a class="item-developer">by ${item.developer}</a>
 				</c:if>
 				<c:if test="${!empty item.sourcecode}">
-					<a class="btn item-source" target="_black" href="${item.sourcecode}"> SOURCE</a>
+					<a class="btn center item-source" target="_black" href="${item.sourcecode}">
+						<img src="${pageContext.request.contextPath}/resources/image/btn_itemview_source.png" style="width:0.8rem; height:0.8rem; margin-right:0.1rem">
+						SOURCE
+					</a>
 				</c:if>
 			</div>
 			
@@ -280,7 +356,7 @@ $(document).ready(function(){
 					</div>
 					
 					<textarea class="comment-write-contents" id="contents" name="contents"></textarea>
-					<div onclick="commentSubmit()" class="comment-write-submit">등록</div>				
+					<div onclick="commentSubmit()" class="comment-write-submit center">등록</div>				
 				</div>
 			</div>
 		</div>

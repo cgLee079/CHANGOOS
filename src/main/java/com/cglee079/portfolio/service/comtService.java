@@ -39,5 +39,17 @@ public class comtService{
 			return false;
 		}
 	}
-	
+
+	public boolean checkPwd(int seq, String password) {
+		ComtVo comtVo = comtDao.get(seq);
+		if(comtVo.getPassword().equals(password)){
+			return true;			
+		} else {
+			return false;
+		}
+	}
+
+	public boolean update(int seq, String contents) {
+		return comtDao.update(seq, contents);
+	}
 }
