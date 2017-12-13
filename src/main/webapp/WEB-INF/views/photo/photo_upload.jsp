@@ -84,7 +84,8 @@ input[class*="photo"] {margin-bottom: 20px;}
 							            breakAfterClose : true
 							        });
 							}
-						}
+						},
+						toolbar : "Basic"
 					});
 
 					CKEDITOR.on( 'instanceReady', function( ev ) {

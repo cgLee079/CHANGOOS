@@ -1,5 +1,6 @@
 package com.cglee079.portfolio.service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,12 +22,14 @@ public class PhotoService {
 		return photoDao.list();
 	}
 	
-	public boolean insert(PhotoVo photo) {
+	public boolean insert(PhotoVo photo){
 		photo.setLike(0);
+		photo.setDate(formatDate(photo.getDate()));
 		return photoDao.insert(photo);
 	}
 
-	public boolean update(PhotoVo photo) {
+	public boolean update(PhotoVo photo){
+		photo.setDate(formatDate(photo.getDate()));
 		return photoDao.update(photo);
 	}
 	
@@ -38,9 +41,19 @@ public class PhotoService {
 		return photoDao.get(seq);
 	}
 	
-	public String filterWrapChar(String text){
-		text = text.replaceAll("\\r\\n|\\r|\\n", "&nbsp");
-//		text = text.replaceAll("\\R", "");
-		return text;
+	private String formatDate(String dateStr){
+		try {
+			if (dateStr != null){
+				SimpleDateFormat transFormat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
+				Date date;
+				date = transFormat.parse(dateStr);
+				return new SimpleDateFormat("yyyy.MM.dd").format(date);
+			} else {
+				return "";
+			}
+		} catch (ParseException e) {
+			return dateStr;
+		}
+	
 	}
 }
