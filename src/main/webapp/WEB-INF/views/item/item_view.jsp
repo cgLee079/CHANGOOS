@@ -228,11 +228,11 @@ function commentModify(tg){
 			var contents = contentsDiv.text();
 			tg.toggleClass("open");
 			
-			var modifyForm = $("<div>" , {style : "display : flex; flex-flow : row wrap; height : 50px;", "class" : "comment-modify"});
-			$("<textarea>", {text : contents, id : "contents", "class" : "comment-write-contents"}).appendTo(modifyForm);
-			$("<div>", {text : "등록", onclick:  "doModify(this)", "class" : "center comment-write-submit"}).appendTo(modifyForm);
+			var commentModify = $("<div>" , {"class" : "comment-modify"});
+			$("<textarea>", {text : contents, id : "contents", "class" : "comment-write-contents"}).appendTo(commentModify);
+			$("<div>", {text : "등록", onclick:  "doModify(this)", "class" : "center comment-write-submit"}).appendTo(commentModify);
 			contentsDiv.empty();
-			contentsDiv.append(modifyForm);
+			contentsDiv.append(commentModify);
 		}
 	} 
 }

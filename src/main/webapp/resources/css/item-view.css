@@ -192,6 +192,12 @@
 	cursor: pointer;
 	font-size: 0.7rem;
 }
+
+.comment-modify{
+	display : flex; 
+	flex-flow : row wrap;
+	height : 50px;
+}
 		
 @media (max-width: 420px){
 	.item-detail {
