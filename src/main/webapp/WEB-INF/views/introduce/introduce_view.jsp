@@ -34,14 +34,14 @@
 .myinfo-view03 {left: 100%; }
 
 .content-picture{
-	flex : 1 50%;
+	flex : 1;
 	background-position	: center;
     background-repeat	: no-repeat;
     background-size		: cover;
 }
 
 .content-text{
-	flex : 1 40%;
+	width : 40%;
 	padding : 2rem;
 	line-height: 1.3rem;
 	font-size: 0.8rem;
@@ -73,12 +73,13 @@
 
 @media (max-width: 700px){
 	.myinfo-view{
-		flex-direction : column;
+		flex-flow : column wrap;
 		height: 100%;
 	}
 	
 	.content-text{
-		flex : 1 30%;
+		width: 100%;
+		height: 40%;
 	}
 	
 	.btn-view{
