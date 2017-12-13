@@ -95,10 +95,10 @@ $(document).ready(function(){
 	
 	
 	if(isMobile){
-		var seq;
 		itemViews.each(function(){
-			seq = $(this).find("#item-seq").val();
 			$(this).bind("click", function(){
+				var seq = $(this).find("#item-seq").val();
+				console.log(seq);
 				itemView(seq);
 			});
 		});	
