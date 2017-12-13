@@ -345,7 +345,7 @@
 					<div class="photo-name"></div>
 					<div class="photo-date-loc row-center">
 						<a class="photo-date"></a>
-						<img src="${pageContext.request.contextPath}/resources/image/btn_photoview_loc.png" style="width:0.5rem; height:0.5rem; opacity: 0.5">
+						<img src="${pageContext.request.contextPath}/resources/image/btn_photoview_loc.png" style="width:0.4rem; height:0.4rem; opacity: 0.5">
 						<a class="photo-loc"></a>
 					</div>
 				</div>
