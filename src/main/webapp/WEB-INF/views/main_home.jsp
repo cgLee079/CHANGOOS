@@ -58,7 +58,11 @@
 		</div>
 		
 		<div class="wrap-items">
-			<a href="${pageContext.request.contextPath}/item"><h1>Projects</h1></a>
+			<div class="item-head row-center">
+				<div class="circle"></div>
+				<div class="circle"></div>
+				<div class="circle"></div>
+			</div>
 			<%@ include file="included/included_item_list.jsp" %>
 		</div>
 	</div>
