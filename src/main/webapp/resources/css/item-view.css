@@ -173,6 +173,7 @@
 	font-size: 0.5rem;
 	margin-bottom: 0.2rem;
 	padding-left : 0.2rem;
+	border: 1px solid #999;
 }
 
 .comment-write-contents {
@@ -180,6 +181,7 @@
 	height: 100%;
 	resize: none;
 	overflow: hidden;
+	border: 1px solid #999;
 }
 
 .comment-write-submit {
