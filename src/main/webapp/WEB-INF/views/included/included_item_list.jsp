@@ -133,7 +133,7 @@ $(document).ready(function(){
 				<div class="item-title">[${item.sect}] ${item.name}</div>
 				<div class="item-desc">${item.desc}</div>
 				<div class="item-menu">
-					<div class="btn-slideup btn-item-shoq">
+					<div class="btn-slideup btn-item-show">
 						<a onclick="itemView(${item.seq})">SHOW</a>					
 					</div>
 				</div>
