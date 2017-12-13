@@ -1,8 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
 <style>
-.main-items{
-}   
-
 .item-view{	
 	display : flex;
 	flex-flow: row wrap;
@@ -51,23 +48,8 @@
 	right : 0;
 }
 
-.btn-show a {  
-	padding: 3px; 
-	border-radius: 1px; 
-	color: rgba(107,54,62,0.9);
+.item-menu .btn-item-show{
 	font-weight : bold;
-	-webkit-transition: all 0.15s ease;
-	-moz-transition: all 0.15s ease; 
-	transition: all 0.15s ease;
-	background-size: 110% 200%;
-	background-position: 0 -100%;
-	background-image: linear-gradient(to top, transparent 50%, rgba(50, 50, 50, 0.9) 51%);
-}
-
-.btn-show a:hover {
-	cursor : pointer;
-	color: #fff;
-	background-position: 0 0; 
 }
 
 @media (max-width: 700px){
@@ -98,6 +80,12 @@ var tops 	= [];
 var pass 	= [];
 
 var itemViews;
+
+function itemView(seq){
+	Progress.start();
+	window.location.href = getContextPath() + "/item/view?seq=" + seq;		
+}
+
 $(document).ready(function(){
 	itemViews = $(".item-view");
 	itemViews.each(function(){
@@ -126,7 +114,7 @@ $(document).ready(function(){
 				.add({
 					targets: target,
 					opacity : [0, 1],
-					duration: 700,
+					duration: 650,
 					easing : "easeInQuad"
 				});
 			currentView += 1;
@@ -145,7 +133,7 @@ $(document).ready(function(){
 				<div class="item-title">[${item.sect}] ${item.name}</div>
 				<div class="item-desc">${item.desc}</div>
 				<div class="item-menu">
-					<div class="btn-show">
+					<div class="btn-slideup btn-item-shoq">
 						<a onclick="itemView(${item.seq})">SHOW</a>					
 					</div>
 				</div>

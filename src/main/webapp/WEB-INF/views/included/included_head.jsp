@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global-basic.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global-responsive.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included-nav.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/letter-motion.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ckeditor/plugins/codesnippet/lib/highlight/styles/github.css" />
 

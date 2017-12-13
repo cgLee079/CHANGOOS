@@ -71,7 +71,9 @@ window.onload = function(){
 	
 	$(".btn-item-next").on("click", function(){
 		var afterItemSeq = '${afterItem.seq}';
+		
 		if(afterItemSeq){
+			Progress.start();
 			window.location.href = getContextPath() + "/item/view?seq=" + afterItemSeq;
 		} 
 	});
@@ -79,6 +81,7 @@ window.onload = function(){
 	$(".btn-item-before").on("click", function(){
 		var beforeItemSeq= '${beforeItem.seq}';
 		if(beforeItemSeq){
+			Progress.start();
 			window.location.href = getContextPath() + "/item/view?seq=" + beforeItemSeq;
 		} 
 	});

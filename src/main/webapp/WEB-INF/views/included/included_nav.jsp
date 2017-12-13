@@ -135,15 +135,29 @@ $(window).resize(function(){
 </script>
 <div class="nav-background"></div>
 <div class="nav-menu unvalid col-center">
-	<ul class="menu-option">
-		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/">Home</a></li>
-		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">Introduce</a></li>
-		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/item">Projects</a></li>
-		<!--<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/board">Board</a></li>-->
-		<li class="btn"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">Photo</a></li>
-		<li class="btn"><a target="_blank" href="https://github.com/cglee079">Github</a></li>
-		<li class="btn"><a target="_blank" href="https://www.instagram.com/cglee079">Instagram</a></li>
-	</ul>
+	<div class="btn-slideup">
+		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/">Home</a>
+	</div>
+	
+	<div class="btn-slideup">
+		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">Introduce</a>
+	</div>
+	
+	<div class="btn-slideup">
+		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/item">Projects</a>
+	</div>
+	
+	<div class="btn-slideup">
+		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">Photo</a>
+	</div>
+	
+	<div class="btn-slideup">
+		<a target="_blank" href="https://github.com/cglee079">Github</a>
+	</div>
+	
+	<div class="btn-slideup">
+		<a target="_blank" href="https://www.instagram.com/cglee079">Instagram</a>
+	</div>
 </div>
 <div class="progress-bar display-none">
 	<div class="spinner">

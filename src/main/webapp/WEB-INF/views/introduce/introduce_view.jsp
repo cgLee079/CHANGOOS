@@ -4,22 +4,26 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <style>
+
+.wrap-myinfo{
+	height : 100%;
+	margin-top: -1rem;
+}
+
 .myinfo-views{
 	position : relative;
-	margin-top: 1rem;
 	width: 100%;
 	height: 70%;
 	overflow: hidden;
 }
 
 .myinfo-view {
-	display : flex;
-	background: #FFF;
-	flex-direction : row;
 	position: absolute;
 	width : 100%;
 	height: 100%;
-	
+	display : flex;
+	flex-flow : row wrap;
+	background: #FFF;
 	border-top : 1px solid #EEE;
 	border-bottom : 1px solid #EEE;
 }
@@ -38,15 +42,16 @@
 
 .content-text{
 	flex : 1 40%;
-	padding : 3.5rem;
-	line-height: 2rem;
+	padding : 2rem;
+	line-height: 1.3rem;
+	font-size: 0.8rem;
 }
 
 .content-text > .content-head{
 	margin-bottom: 1rem;
 }
 
-.btns-view{
+.btn-views{
 	width : 100%;
 	text-align: center;
 	margin-top : 2rem;
@@ -72,10 +77,6 @@
 		height: 100%;
 	}
 	
-	.content-picture{
-		width : 100%;
-	}
-	
 	.content-text{
 		flex : 1 30%;
 	}
@@ -99,7 +100,7 @@
 	function setSlideMyInfo(){
 		var wrap	= $(".myinfo-views");
 		var views	= $(".myinfo-views > .myinfo-view");
-		var btns 	= $(".btns-view > .btn-view");
+		var btns 	= $(".btn-views > .btn-view");
 		var current = 0 ;
 		var setIntervalId;
 		var openAni;
@@ -151,7 +152,7 @@
 				var toIndex 	= index + 1;
 				var items 		= $(".myinfo-view");
 				var itemLength 	= items.length;
-				var btns 		= $(".btns-view > .btn-view");
+				var btns 		= $(".btn-views > .btn-view");
 				var currentEl	= undefined;
 				var nextEl		= undefined;
 				
@@ -175,7 +176,7 @@
 				var index 		= current;
 				var toIndex 	= index - 1;
 				var items 		= $(".myinfo-view");
-				var btns 		= $(".btns-view > .btn-view");
+				var btns 		= $(".btn-views > .btn-view");
 				var currentEl	= undefined;
 				var nextEl		= undefined;
 				if(toIndex < 0){ //  -1 to 3 
@@ -205,73 +206,75 @@
 <div class="wrapper">
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 	
-	<div class="myinfo-views">
-		<div class="myinfo-view myinfo-view00">
-			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view00.jpg)"></div>
-			<div class="content-text">
-				<h1 class="content-head">Who am I?</h1>
-				
-				<p>
-				Hello? My name is <strong>changoo Lee</strong>.<br/> 
-				I live in south korea and
-					<strong>
-					<jsp:useBean id="date" class="java.util.Date" />
-					<fmt:formatDate value="${date}" pattern="yyyy" var="currentYear" />
-					<c:out value="${currentYear - 1992 + 1}" />
-					</strong>
-				old. <br/>
-				I specialized Computer Engineering at Hansung University. <br/>
-				
-				</p>
+	<div class="wrap-myinfo col-center">
+		<div class="myinfo-views">
+			<div class="myinfo-view myinfo-view00">
+				<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view00.jpg)"></div>
+				<div class="content-text">
+					<h1 class="content-head">Who am I?</h1>
+					
+					<p>
+					Hello? My name is <strong>changoo Lee</strong>.<br/> 
+					I live in south korea and
+						<strong>
+						<jsp:useBean id="date" class="java.util.Date" />
+						<fmt:formatDate value="${date}" pattern="yyyy" var="currentYear" />
+						<c:out value="${currentYear - 1992 + 1}" />
+						</strong>
+					old. <br/>
+					I specialized Computer Engineering at Hansung University. <br/>
+					
+					</p>
+				</div>
 			</div>
+			
+			<div class="myinfo-view myinfo-view01">
+				<div class="content-text">
+					 <h1 class="content-head">History.</h1>
+					 <p>
+						 <strong>2011.03</strong> &nbsp&nbsp Admissions C.E at Hansug University. <br/>
+						 <strong>2012.05</strong> &nbsp&nbsp Join to army. <br/>
+						 <strong>2017.02</strong> &nbsp&nbsp Victory Graduate Competition <br/>
+						 <strong>2017.07</strong> &nbsp&nbsp Intern at Nexgen Associate (Web, SI) <br/>
+						 <strong>2018.02</strong> &nbsp&nbsp Graduated from university <br/>
+					 </p>
+				</div>
+				<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view01.jpg)"></div>
+			</div>
+			
+			<div class="myinfo-view myinfo-view02">
+				<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view02.jpg)"></div>
+				<div class="content-text">
+					<h1 class="content-head">Resume.</h1>
+					Bachelor's degree at Hausng University. <br/>
+					Grade &nbsp&nbsp<strong>4.22 / 4.5</strong> <br/>
+					Toeic &nbsp&nbsp&nbsp<strong>855</strong> <br/>
+					Data Processing Engineer, <br/>
+					Craftsman Information Equipment Operation,<br/>
+					MS master, GTQ
+				</div>
+			</div>
+			
+			<div class="myinfo-view myinfo-view03">
+				<div class="content-text">
+					<h1 class="content-head">CONTACT.</h1>
+					<strong>Name.</strong> 이찬구(Changoo Lee) <br/>
+					<strong>Email.</strong> cgLee079@gmail.com <br/>
+					<strong>Tel.</strong> 010 - 2062 - 2979 <br/>
+					<br/>
+					<h3>Contact Me!!</h3>
+				</div>
+				<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view03.jpg)"></div>
+			</div>
+			
 		</div>
 		
-		<div class="myinfo-view myinfo-view01">
-			<div class="content-text">
-				 <h1 class="content-head">History.</h1>
-				 <p>
-					 <strong>2011.03</strong> &nbsp&nbsp Admissions C.E at Hansug University. <br/>
-					 <strong>2012.05</strong> &nbsp&nbsp Join to army. <br/>
-					 <strong>2017.02</strong> &nbsp&nbsp Victory Graduate Competition <br/>
-					 <strong>2017.07</strong> &nbsp&nbsp Intern at Nexgen Associate (Web, SI) <br/>
-					 <strong>2018.02</strong> &nbsp&nbsp Graduated from university <br/>
-				 </p>
-			</div>
-			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view01.jpg)"></div>
+		<div class="btn-views">
+			<div class="btn-view btn-view00 on"></div>
+			<div class="btn-view btn-view01"></div>
+			<div class="btn-view btn-view02"></div>
+			<div class="btn-view btn-view03"></div>
 		</div>
-		
-		<div class="myinfo-view myinfo-view02">
-			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view02.jpg)"></div>
-			<div class="content-text">
-				<h1 class="content-head">Resume.</h1>
-				Bachelor's degree at Hausng University. <br/>
-				Grade &nbsp&nbsp<strong>4.22 / 4.5</strong> <br/>
-				Toeic &nbsp&nbsp&nbsp<strong>855</strong> <br/>
-				Data Processing Engineer, <br/>
-				Craftsman Information Equipment Operation,<br/>
-				MS master, GTQ
-			</div>
-		</div>
-		
-		<div class="myinfo-view myinfo-view03">
-			<div class="content-text">
-				<h1 class="content-head">CONTACT.</h1>
-				<strong>Name.</strong> 이찬구(Changoo Lee) <br/>
-				<strong>Email.</strong> cgLee079@gmail.com <br/>
-				<strong>Tel.</strong> 010 - 2062 - 2979 <br/>
-				<br/>
-				<h3>Contact Me!!</h3>
-			</div>
-			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view03.jpg)"></div>
-		</div>
-		
-	</div>
-	
-	<div class="btns-view">
-		<div class="btn-view btn-view00 on"></div>
-		<div class="btn-view btn-view01"></div>
-		<div class="btn-view btn-view02"></div>
-		<div class="btn-view btn-view03"></div>
 	</div>
 	
 	<c:import url="../included/included_footer.jsp" charEncoding="UTF-8" />

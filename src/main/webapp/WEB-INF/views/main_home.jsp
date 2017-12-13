@@ -4,10 +4,6 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home-basic.css" />
 <script>
-	function itemView(seq){
-		window.location.href = getContextPath() + "/item/view?seq=" + seq;		
-	}
-	
 	function scrollToItems(){
 		var top = $(".wrap-items").offset().top;
 		$("html, body").animate({ scrollTop: (top - 50) });

@@ -2,12 +2,6 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
-<script>
-function itemView(seq){
-	window.location.href = getContextPath() + "/item/view?seq=" + seq;		
-}
-</script>
-
 <style>
 	.main{
 		width : 90%;

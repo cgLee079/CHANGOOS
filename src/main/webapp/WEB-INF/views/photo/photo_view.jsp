@@ -4,8 +4,8 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <style>
 .wrap-photo-view{
-	margin : 0px auto;
-	margin-top: 1rem;
+	height : 100%;
+	margin-top: -2rem;
 }
 
 .photo-view{
@@ -119,7 +119,6 @@
 
 @media (max-width: 420px){
 	.wrap-photo-list{
-		margin-top: 3rem;
 		height: 50px;
 	}
 	
@@ -330,7 +329,7 @@
 <div class="wrapper">
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8">
 	</c:import>
-	<div class="wrap-photo-view">
+	<div class="wrap-photo-view col-center">
 		<div class="photo-view">
 			<div class="photo-img"></div>
 			<div class="photo-detail">

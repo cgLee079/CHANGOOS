@@ -56,3 +56,21 @@
   display: inline-block;
   line-height: 1em;
 }
+
+.btn-slideup a {  
+	padding: 3px 4px; 
+	border-radius: 1px; 
+	color: rgba(50, 50, 50, 0.9);
+	-webkit-transition: all 0.15s ease;
+	-moz-transition: all 0.15s ease; 
+	transition: all 0.15s ease;
+	background-size: 110% 200%;
+	background-position: 0 -100%;
+	background-image: linear-gradient(to top, transparent 50%, rgba(50, 50, 50, 0.9) 51%);
+}
+
+.btn-slideup a:hover {
+	cursor : pointer;
+	color: #fff;
+	background-position: 0 0; 
+}
