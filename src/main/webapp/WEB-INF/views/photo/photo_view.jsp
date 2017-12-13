@@ -44,9 +44,16 @@
 	font-size: 0.8rem;
 }
 
-.photo-view > .photo-detail > .photo-info > .photo-date-loc{
+.photo-view > .photo-detail > .photo-info .photo-date{
 	color: #555;
 	font-size: 0.5rem;
+	margin-right: 0.5rem;
+}
+
+.photo-view > .photo-detail > .photo-info .photo-loc{
+	color: #555;
+	font-size: 0.5rem;
+	margin: 0px 1px;
 }
 
 .photo-view > .photo-detail > .photo-tag{
@@ -209,7 +216,8 @@
 				}
 				$(".photo-img")	.css("background-image", "url('${pageContext.request.contextPath}" + photo.image +"')");
 				$(".photo-name").html(photo.name);
-				$(".photo-date-loc").html(photo.date + "  " + photo.location);
+				$(".photo-date").html(photo.date);
+				$(".photo-loc").html(photo.location);
 				$(".photo-desc").html(photo.desc);
 				$(".photo-tag").html(photo.tag);
 				$(".photo-index").html(index);
@@ -335,7 +343,11 @@
 			<div class="photo-detail">
 				<div class="photo-info">
 					<div class="photo-name"></div>
-					<div class="photo-date-loc"></div>
+					<div class="photo-date-loc row-center">
+						<a class="photo-date"></a>
+						<img src="${pageContext.request.contextPath}/resources/image/btn_photoview_loc.png" style="width:0.5rem; height:0.5rem; opacity: 0.5">
+						<a class="photo-loc"></a>
+					</div>
 				</div>
 				
 				<div class="photo-tag"></div>
