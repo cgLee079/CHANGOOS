@@ -20,16 +20,16 @@ public class ItemService {
 	}
 	
 	public boolean insert(ItemVo item) {
-		item.setContent(filterWrapChar(item.getContent()));
-		item.setDesc(filterWrapChar(item.getDesc()));
+		item.setContent(item.getContent());
+		item.setDesc(item.getDesc());
 		
 		item.setHits(0);
 		return itemDao.insert(item);
 	}
 
 	public boolean update(ItemVo item) {
-		item.setContent(filterWrapChar(item.getContent()));
-		item.setDesc(filterWrapChar(item.getDesc()));
+		item.setContent(item.getContent());
+		item.setDesc(item.getDesc());
 		return itemDao.update(item);
 	}
 	
@@ -39,12 +39,6 @@ public class ItemService {
 	
 	public ItemVo get(int seq){
 		return itemDao.get(seq);
-	}
-	
-	public String filterWrapChar(String text){
-//		text = text.replaceAll("\\r\\n|\\r|\\n", "");
-//		text = text.replaceAll("\\R", "");
-		return text;
 	}
 	
 	public List<String> getContentImg(int seq){

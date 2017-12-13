@@ -7,6 +7,7 @@ CKEDITOR.editorConfig = function( config ) {
     // Define changes to default configuration here. For example:
     // config.language = 'fr';
     // config.uiColor = '#AADC6E';
+	
     config.toolbar_Full =
         [
             { name: 'document', items : [ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ] },

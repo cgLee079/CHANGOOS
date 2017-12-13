@@ -124,6 +124,7 @@ $(document).ready(function(){
 	
 	$(window).trigger("scroll");
 });
+
 </script>
 <div class="main-items">
 	<c:forEach var="item" items="${items}">

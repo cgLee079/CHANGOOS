@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cglee079.portfolio.model.BoardVo;
-import com.cglee079.portfolio.service.comtService;
+import com.cglee079.portfolio.service.ComtService;
 import com.cglee079.portfolio.service.BoardService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

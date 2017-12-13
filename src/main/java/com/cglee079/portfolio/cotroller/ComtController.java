@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cglee079.portfolio.model.ComtVo;
 import com.cglee079.portfolio.model.BoardVo;
-import com.cglee079.portfolio.service.comtService;
+import com.cglee079.portfolio.service.ComtService;
 import com.cglee079.portfolio.service.BoardService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ComtController {
 	
 	@Autowired
-	private comtService comtService;
+	private ComtService comtService;
 	
 	@ResponseBody
 	@RequestMapping("/item/comment_paging.do")

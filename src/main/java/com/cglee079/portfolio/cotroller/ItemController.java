@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.portfolio.model.ItemVo;
 import com.cglee079.portfolio.service.ItemService;
-import com.cglee079.portfolio.service.comtService;
+import com.cglee079.portfolio.service.ComtService;
 import com.cglee079.portfolio.util.ImageManager;
 
 @Controller
@@ -31,7 +31,7 @@ public class ItemController {
 	private ItemService itemService;
 
 	@Autowired 
-	private comtService comtService;
+	private ComtService comtService;
 	
 	@RequestMapping(value = "item")
 	public String itemList(Model model) {

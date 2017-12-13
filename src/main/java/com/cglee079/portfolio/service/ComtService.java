@@ -11,7 +11,7 @@ import com.cglee079.portfolio.dao.ComtDao;
 import com.cglee079.portfolio.model.ComtVo;
 
 @Service
-public class comtService{
+public class ComtService{
 	
 	@Autowired
 	ComtDao comtDao;
@@ -51,5 +51,10 @@ public class comtService{
 
 	public boolean update(int seq, String contents) {
 		return comtDao.update(seq, contents);
+	}
+	
+	private String changeLiner(String text){
+		text = text.replaceAll("\\r\\n|\\r|\\n", "<br/>");
+		return text;
 	}
 }

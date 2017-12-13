@@ -104,13 +104,19 @@ window.onload = function(){
 	contentYoutubeResize();
 }
 
-/*script about comment */
-
+/*** script about comment ****/
 var page;
 var perPgLine 	= 10;
 var itemSeq	= '${item.seq}';
 var comtCnt		= parseInt('${comtCnt}');
 
+function br2nl(text){
+	return text.replace(/(<br\s*\/?>)+/g, "\n");
+}
+
+function nl2br(text){
+	return text.replace(/\n/g, "<br />");
+}
 function commentPageMove(pg){
 	$.ajax({
 		type	: "POST",
@@ -180,6 +186,8 @@ function doModify(tg){
 	var item	= $(tg).parents(".comment-item");
 	var seq 	= item.find(".comment-seq").val();
 	var contents = item.find(".comment-modify #contents").val();
+	contents = nl2br(contents);
+	
 	$.ajax({	
 		type	: "POST",
 		url		: getContextPath() + "/item/comment_update.do",
@@ -228,7 +236,7 @@ function commentModify(tg){
 		
 		function changeToForm(){
 			var contentsDiv = item.find(".comment-contents");
-			var contents = contentsDiv.text();
+			var contents = br2nl(contentsDiv.html());
 			tg.toggleClass("open");
 			
 			var commentModify = $("<div>" , {"class" : "comment-modify"});
@@ -283,7 +291,7 @@ function commentSubmit(){
 			'itemSeq'	: itemSeq,				
 			'name'		: name.val(),					
 			'password'	: password.val(),
-			'contents' 	: contents.val()
+			'contents' 	: nl2br(contents.val())
 		},
 		dataType: 'JSON',
 		success : function(data) {
@@ -304,10 +312,6 @@ $(document).ready(function(){
 	commentPageMove(1);
 })
 
-/*
-
-
- */
 </script>
 </head>
 <body>
