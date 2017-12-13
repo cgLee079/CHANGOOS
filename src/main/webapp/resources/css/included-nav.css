@@ -4,30 +4,14 @@
 	width: 100%;
 	height: 50px;
 	z-index: 2000;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-	-ms-flex-align: center;
-	-webkit-align-items: center;
-	-webkit-box-align: center;
-	align-items: center;
-	justify-content: center;
 	background: #FFF;
 	border-bottom: 1px solid #ddd;
 }
 
-.nav-top .wrap-go-page{
-	margin-right: 2rem;	
-}
-
 .nav-top .wrap-home-logo{
-	display: flex;
-	flex-flow : column wrap;
-	align-items: center;
-	justify-content: center;
 	cursor : pointer;
-	width : 6rem;
 	height : 100%;
+	font-size: 15px;
 }
 
 .wrap-home-logo .logo-line{

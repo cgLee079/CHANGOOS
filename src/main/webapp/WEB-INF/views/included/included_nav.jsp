@@ -1,5 +1,5 @@
-<div class="nav-top">
-	<div class="wrap-home-logo">
+<div class="nav-top row-center">
+	<div class="wrap-home-logo col-center">
 		<div onclick="window.location.href = '${pageContext.request.contextPath}/'">
 		CHANGOO'S
 		</div>
