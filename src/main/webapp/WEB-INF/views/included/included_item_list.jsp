@@ -24,7 +24,7 @@
 }
 
 .item-info{
-	margin : 1rem;
+	margin-left : 1rem;
 	flex : 1 35%;
 	position: relative;
 }
@@ -51,9 +51,10 @@
 	right : 0;
 }
 
-@media (max-width: 1080px){
+@media (max-width: 700px){
 	.item-view{
 		flex-flow: column wrap;
+		padding : 1rem;
 	}
 	
 	.item-snapsht{
@@ -70,7 +71,7 @@
 	
 }
 
-.example a {  
+.btn-show a {  
 	padding: 3px; 
 	border-radius: 1px; 
 	color: rgba(107,54,62,0.9);
@@ -82,7 +83,7 @@
 	background-image: linear-gradient(to top, transparent 50%, rgba(50, 50, 50, 0.9) 50%);
 }
 
-.example a:hover {
+.btn-show a:hover {
 	cursor : pointer;
 	color: #fff;
 	background-position: 0 0; 
@@ -105,7 +106,7 @@ $(document).ready(function(){
 	});
 	
 	$(window).scroll(function(){
-		var scrollTop = $(window).scrollTop() + 600;
+		var scrollTop = $(window).scrollTop() + 550;
 		if(tops[currentView] <= scrollTop && pass[currentView] == false){
 			pass[currentView] = true;
 			var target = document.querySelector(".item-view:nth-child(" + (currentView + 1)+ ")");
@@ -131,7 +132,7 @@ $(document).ready(function(){
 				<div class="item-title">[${item.sect}] ${item.name}</div>
 				<div class="item-desc">${item.desc}</div>
 				<div class="item-menu">
-					<div class="example">
+					<div class="btn-show">
 						<a onclick="itemView(${item.seq})">SHOW</a>					
 					</div>
 				</div>
