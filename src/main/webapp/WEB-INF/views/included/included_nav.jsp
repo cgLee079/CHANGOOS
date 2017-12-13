@@ -102,12 +102,15 @@ $(window).resize(function(){
 					  return 50 * (i)
 					}
 				}).add({
-					targets: ".menu-option li",
+					targets: ".nav-menu div",
 					scale: [0,1],
 					easing: "easeOutExpo",
 					duration: 300,
 					delay: function(el, i) {
 					  return 50 * (i);
+					},
+					complete : function(){
+						$(".nav-menu div").addClass("btn-slideup");
 					}
 				})
 		} else{
@@ -123,9 +126,10 @@ $(window).resize(function(){
 					duration: 500,
 					scale : [3, 1],
 					borderRadius : [0, "100%"],
-					background : ["#FEFDFE", "#EDECED"],
+					background : ["#FEFDFE", "#EDECED"]
 				})
 			
+			$(".nav-menu div").removeClass("btn-slideup");
 			$(".nav-menu").addClass("unvalid");
 			$("html, body").off("scroll touchmove mousewheel");
 			$("html, body").removeClass("scroll-no");
@@ -135,27 +139,27 @@ $(window).resize(function(){
 </script>
 <div class="nav-background"></div>
 <div class="nav-menu unvalid col-center">
-	<div class="btn-slideup">
+	<div>
 		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/">Home</a>
 	</div>
 	
-	<div class="btn-slideup">
+	<div>
 		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">Introduce</a>
 	</div>
 	
-	<div class="btn-slideup">
+	<div>
 		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/item">Projects</a>
 	</div>
 	
-	<div class="btn-slideup">
+	<div>
 		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">Photo</a>
 	</div>
 	
-	<div class="btn-slideup">
+	<div>
 		<a target="_blank" href="https://github.com/cglee079">Github</a>
 	</div>
 	
-	<div class="btn-slideup">
+	<div>
 		<a target="_blank" href="https://www.instagram.com/cglee079">Instagram</a>
 	</div>
 </div>
