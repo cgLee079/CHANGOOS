@@ -44,7 +44,14 @@ a, a:VISITED{
 	overflow: hidden;
 }
 
-.center{
+.col-center{
+	display : flex;
+	flex-flow : column wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.row-center{
 	display : flex;
 	flex-flow : row wrap;
 	align-items: center;

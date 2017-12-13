@@ -24,11 +24,11 @@
 <div class="footer">
 	<div class="info-contact">
 		<div class="footer-head"><h4>CONTACT INFOMATION</h4></div>
-		<div class="center">
+		<div class="row-center">
 			<img src="${pageContext.request.contextPath}/resources/image/icon_footer_email.png" style="width:0.6rem; height:0.6rem; margin-right: 0.3rem">
 			cglee079@gmail.com
 		</div>
-		<div class="center">
+		<div class="row-center">
 			<img src="${pageContext.request.contextPath}/resources/image/icon_footer_phone.png" style="width:0.6rem; height:0.6rem; margin-right: 0.3rem">
 			010 - 2062 - 2979
 		</div>

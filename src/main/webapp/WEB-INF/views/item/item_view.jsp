@@ -230,7 +230,7 @@ function commentModify(tg){
 			
 			var commentModify = $("<div>" , {"class" : "comment-modify"});
 			$("<textarea>", {text : contents, id : "contents", "class" : "comment-write-contents"}).appendTo(commentModify);
-			$("<div>", {text : "등록", onclick:  "doModify(this)", "class" : "center comment-write-submit"}).appendTo(commentModify);
+			$("<div>", {text : "등록", onclick:  "doModify(this)", "class" : "col-center comment-write-submit"}).appendTo(commentModify);
 			contentsDiv.empty();
 			contentsDiv.append(commentModify);
 		}
@@ -331,7 +331,7 @@ $(document).ready(function(){
 					<a class="item-developer">by ${item.developer}</a>
 				</c:if>
 				<c:if test="${!empty item.sourcecode}">
-					<a class="btn center item-source" target="_black" href="${item.sourcecode}">
+					<a class="btn row-center item-source" target="_black" href="${item.sourcecode}">
 						<img src="${pageContext.request.contextPath}/resources/image/btn_itemview_source.png" style="width:0.8rem; height:0.8rem; margin-right:0.1rem">
 						SOURCE
 					</a>
@@ -356,7 +356,7 @@ $(document).ready(function(){
 					</div>
 					
 					<textarea class="comment-write-contents" id="contents" name="contents"></textarea>
-					<div onclick="commentSubmit()" class="comment-write-submit center">등록</div>				
+					<div onclick="commentSubmit()" class="comment-write-submit col-center">등록</div>				
 				</div>
 			</div>
 		</div>

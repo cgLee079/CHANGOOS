@@ -3,19 +3,18 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home-basic.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home-responsive.css" />
 <script>
 	function itemView(seq){
 		window.location.href = getContextPath() + "/item/view?seq=" + seq;		
 	}
 	
 	function scrollToItems(){
-		var top = $(".main-items-title").offset().top;
+		var top = $(".wrap-items").offset().top;
 		$("html, body").animate({ scrollTop: (top - 50) });
 	}
 	
 	function relocateItemTitle(){
-		var itemTitle = $(".main-items-title");
+		var itemTitle = $(".wrap-items");
 		var offset = itemTitle.offset();
 		var top = offset.top;
 		
@@ -40,11 +39,11 @@
 	<c:import url="included/included_nav.jsp" charEncoding="UTF-8" />
 	
 	<div class="main">
-		<div class="main-introduce">
+		<div class="col-center wrap-introduce">
 			<div class="me-icon" style="background-image : url(resources/image/home_icon_me.png);">
 			</div>
 			
-			<div class="main-introduce-name">
+			<div class="introduce-name">
 				<h1 class="ml9">
 				  <span class="text-wrapper">
 				    <span class="letters">Changoo Lee</span>
@@ -52,7 +51,7 @@
 				</h1>
 			</div>
 			
-			<div class="main-introduce-desc">
+			<div class="introduce-desc">
 				Hello! Thank you for visiting my site. <br/>
 				I specialized Computer Engineering at Hansung University.<br/>
 				and interested in Android, Web development.<br/>
@@ -62,10 +61,10 @@
 			</div>
 		</div>
 		
-		<div class="main-items-title">
+		<div class="wrap-items">
 			<a href="${pageContext.request.contextPath}/item"><h1>Projects</h1></a>
+			<%@ include file="included/included_item_list.jsp" %>
 		</div>
-		<%@ include file="included/included_item_list.jsp" %> 
 	</div>
 	
 	<c:import url="included/included_footer.jsp" charEncoding="UTF-8" />
