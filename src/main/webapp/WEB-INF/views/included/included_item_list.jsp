@@ -105,6 +105,16 @@ $(document).ready(function(){
 		pass.push(false);
 	});
 	
+	if(isMobile){
+		var seq;
+		itemViews.each(function(){
+			seq = $(this).find("#item-seq").val();
+			$(this).bind("click", function(){
+				itemView(seq);
+			});
+		});	
+	}
+	
 	$(window).scroll(function(){
 		var scrollTop = $(window).scrollTop() + 550;
 		if(tops[currentView] <= scrollTop && pass[currentView] == false){
@@ -137,6 +147,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 			</div>
+			<input type="hidden" id="item-seq" class="item-seq" value="${item.seq}">
 		</div>
 	</c:forEach>
 </div>
