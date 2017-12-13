@@ -1,8 +1,6 @@
 <div class="nav-top row-center">
-	<div class="wrap-home-logo col-center">
-		<div onclick="window.location.href = '${pageContext.request.contextPath}/'">
-		CHANGOO'S
-		</div>
+	<div class="wrap-home-logo col-center" onclick="window.location.href = '${pageContext.request.contextPath}/'">
+		<div>CHANGOO'S</div>
 		<div class="logo-line"></div>
 	</div>
 </div>
@@ -105,7 +103,7 @@ $(window).resize(function(){
 					targets: ".nav-menu div",
 					scale: [0,1],
 					easing: "easeOutExpo",
-					duration: 300,
+					duration: 500,
 					delay: function(el, i) {
 					  return 50 * (i);
 					},
