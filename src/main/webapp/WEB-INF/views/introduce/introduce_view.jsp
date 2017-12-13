@@ -66,10 +66,7 @@
 	background : #000;
 }
 
-@media (max-width: 420px){
-	.myinfo-views{
-	}
-	
+@media (max-width: 700px){
 	.myinfo-view{
 		flex-direction : column;
 		height: 100%;

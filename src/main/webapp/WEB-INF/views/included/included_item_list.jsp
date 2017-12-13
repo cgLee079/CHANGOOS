@@ -51,6 +51,25 @@
 	right : 0;
 }
 
+.btn-show a {  
+	padding: 3px; 
+	border-radius: 1px; 
+	color: rgba(107,54,62,0.9);
+	font-weight : bold;
+	-webkit-transition: all 0.15s ease;
+	-moz-transition: all 0.15s ease; 
+	transition: all 0.15s ease;
+	background-size: 110% 200%;
+	background-position: 0 -100%;
+	background-image: linear-gradient(to top, transparent 50%, rgba(50, 50, 50, 0.9) 51%);
+}
+
+.btn-show a:hover {
+	cursor : pointer;
+	color: #fff;
+	background-position: 0 0; 
+}
+
 @media (max-width: 700px){
 	.item-view{
 		flex-flow: column wrap;
@@ -70,40 +89,22 @@
 	}
 	
 }
-
-.btn-show a {  
-	padding: 3px; 
-	border-radius: 1px; 
-	color: rgba(107,54,62,0.9);
-	-webkit-transition: all 0.15s ease;
-	-moz-transition: all 0.15s ease; 
-	transition: all 0.15s ease;
-	background-size: 100% 200%;
-	background-position: 0 -100%;
-	background-image: linear-gradient(to top, transparent 50%, rgba(50, 50, 50, 0.9) 50%);
-}
-
-.btn-show a:hover {
-	cursor : pointer;
-	color: #fff;
-	background-position: 0 0; 
-}
-
 </style>
 
 
 <script>
 var currentView = 0;
-var tops = [];
-var pass = [];
+var tops 	= [];
+var pass 	= [];
+
 var itemViews;
 $(document).ready(function(){
 	itemViews = $(".item-view");
 	itemViews.each(function(){
-		var top = $(this).offset().top;
-		tops.push(top);
+		tops.push($(this).offset().top);
 		pass.push(false);
 	});
+	
 	
 	if(isMobile){
 		var seq;
@@ -115,9 +116,10 @@ $(document).ready(function(){
 		});	
 	}
 	
+	
 	$(window).scroll(function(){
-		var scrollTop = $(window).scrollTop() + 550;
-		if(tops[currentView] <= scrollTop && pass[currentView] == false){
+		var scrollTop = $(window).scrollTop();
+		if(tops[currentView] <= (scrollTop + 550) && pass[currentView] == false){
 			pass[currentView] = true;
 			var target = document.querySelector(".item-view:nth-child(" + (currentView + 1)+ ")");
 			anime.timeline()
@@ -126,9 +128,10 @@ $(document).ready(function(){
 					opacity : [0, 1],
 					duration: 700,
 					easing : "easeInQuad"
-				})
+				});
 			currentView += 1;
 		}
+		
 	});
 	
 	$(window).trigger("scroll");
