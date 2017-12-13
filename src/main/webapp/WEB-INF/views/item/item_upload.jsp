@@ -94,8 +94,10 @@
 							            breakAfterClose : true
 							        });
 							}
-						}
+						},
+						toolbar : 'Basic'
 					});
+					
 
 					CKEDITOR.on( 'instanceReady', function( ev ) {
 						        // Ends self closing tags the HTML4 way, like <br>.
