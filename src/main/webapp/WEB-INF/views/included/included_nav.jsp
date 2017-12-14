@@ -108,7 +108,7 @@ $(window).resize(function(){
 					  return 50 * (i);
 					},
 					complete : function(){
-						$(".nav-menu div").addClass("btn-slideup");
+						//$(".nav-menu div").addClass("btn-slideup");
 					}
 				})
 		} else{
@@ -137,27 +137,27 @@ $(window).resize(function(){
 </script>
 <div class="nav-background"></div>
 <div class="nav-menu unvalid col-center">
-	<div>
+	<div class="btn-slideup">
 		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/">Home</a>
 	</div>
 	
-	<div>
+	<div class="btn-slideup">
 		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">Introduce</a>
 	</div>
 	
-	<div>
+	<div class="btn-slideup">
 		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/item">Projects</a>
 	</div>
 	
-	<div>
+	<div class="btn-slideup">
 		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">Photo</a>
 	</div>
 	
-	<div>
+	<div class="btn-slideup">
 		<a target="_blank" href="https://github.com/cglee079">Github</a>
 	</div>
 	
-	<div>
+	<div class="btn-slideup">
 		<a target="_blank" href="https://www.instagram.com/cglee079">Instagram</a>
 	</div>
 </div>
