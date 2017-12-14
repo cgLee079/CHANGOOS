@@ -13,11 +13,47 @@
 .item-snapsht{
 	flex : 1 50%;
 	height : 400px;
-	border : 1px solid #DDD;
 	opacity: 0.9;
+	cursor : pointer;
+	position : relative;
 	background-position	: center;
     background-repeat	: no-repeat;
     background-size		: cover;
+}
+
+.item-snapsht .item-snapsht-overlay {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    padding: 17px 30px;
+    background-color: #000;
+    z-index: 2;
+    color: #fff;
+    font-size: 13px;
+    transform-origin: 0 0;
+    will-change: transform, opacity;
+    transform: scaleY(0) translateZ(0);
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.item-snapsht:HOVER .item-snapsht-overlay {
+	transform:scaleY(1) translateZ(0);
+	transition:transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.item-snapsht .item-snapsht-fg{
+	position: absolute;
+	left : 0;
+	top : 0;
+	right : 0;
+	bottom  : 0;
+	z-index: 1;
+	background: rgba(0, 0, 0, 0.2);
+	transform: scale(0);
+}
+
+.item-snapsht:hover .item-snapsht-fg{
+	transform: scale(1);
 }
 
 .item-info{
@@ -28,10 +64,10 @@
 
 .item-title {
 	font-size: 1.3rem;
-	margin-bottom: 1rem;
 }
 
 .item-desc {
+	margin-top : 1rem;
 	font-size: 0.8rem;
 	color : #444;
 }
@@ -48,9 +84,6 @@
 	right : 0;
 }
 
-.item-menu .btn-item-show{
-	font-weight : bold;
-}
 
 @media (max-width: 700px){
 	.item-view{
@@ -129,13 +162,16 @@ $(document).ready(function(){
 <div class="main-items">
 	<c:forEach var="item" items="${items}">
 		<div onclick="" class="item-view">
-			<div class="item-snapsht" style="background-image: url('${pageContext.request.contextPath}${item.snapsht}')"></div>
+			<div onclick="itemView(${item.seq})" class="item-snapsht" style="background-image: url('${pageContext.request.contextPath}${item.snapsht}')">
+				<span class="item-snapsht-overlay">Show</span>
+				<div class="item-snapsht-fg"></div>
+			</div>
 			<div class="item-info">
 				<div class="item-title">[${item.sect}] ${item.name}</div>
 				<div class="item-desc">${item.desc}</div>
 				<div class="item-menu">
 					<div class="btn-slideup btn-item-show">
-						<a onclick="itemView(${item.seq})">SHOW</a>					
+						<a onclick="itemView(${item.seq})">Show</a>	
 					</div>
 				</div>
 			</div>
