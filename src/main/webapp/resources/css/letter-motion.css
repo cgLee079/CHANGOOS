@@ -62,15 +62,12 @@
 	padding: 3px 4px; 
 	border-radius: 1px; 
 	color: rgba(50, 50, 50, 0.9);
-	background-size: 99% 200%;
-	background-position: 0 -101%;
-	background-image: linear-gradient(to top, transparent 51%, rgba(50, 50, 50, 0.9) 51%);
+	background-size: 100% 200%;
+    background-image: linear-gradient(to bottom, transparent 50% , rgba(50, 50, 50, 0.9) 50%);
 }
 
 .btn-slideup a:hover {
 	color : #fff;
-	background-position: 0 0%; 
-	-webkit-transition: all 0.2s ease;
-	-moz-transition: all 0.2s ease; 
-	transition: all 0.2s ease;
+	background-position: 0 100%; 
+	transition: background-position 0.2s;
 }

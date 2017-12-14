@@ -4,16 +4,12 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <style>
-.wrap-photo-view{
-	height : 100%;
-	margin-top: -2rem;
-}
 
 .photo-view{
 	width: 100%;
-	height : 80%;
+	height : 450px;
 	padding : 20px 0px;
-	height: 450px;
+	margin-top: 0.5rem;
 	border: 1px solid #eee;
 	background: #FFF;
 }
@@ -69,8 +65,8 @@
 
 
 .wrap-photo-list{
+	height : 4rem;
 	display : flex;
-	height: 100px;
 	width : 90%;
 	margin: 0px auto;
 	margin-top: 30px;
@@ -85,7 +81,7 @@
 .photo-list{
 	flex : 8;
 	width: 80%;
-	height: 100%;
+	height : 100%;
 	position: relative;
 	overflow: hidden;
 	margin : 0px auto;
@@ -120,15 +116,6 @@
 }
 
 @media (max-width: 420px){
-	.wrap-photo-list{
-		height: 50px;
-	}
-	
-	.photo-view{
-		width : 100%;
-		height: 400px;
-	}
-	
 	.photo-view > .photo-detail {
 		width: 80%;
 		margin-top: 0.5rem;
