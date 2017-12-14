@@ -25,7 +25,7 @@
     position: absolute;
     top: 0;
     left: 30px;
-    padding: 17px 30px;
+    padding: 0.7rem 1.5rem;
     background-color: #000;
     z-index: 2;
     color: #fff;
