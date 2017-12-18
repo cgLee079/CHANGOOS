@@ -8,6 +8,7 @@
 	width: 100%;
 	height : 450px;
 	padding : 20px 0px;
+	margin-top: 0.5rem;
 	border: 1px solid #eee;
 	background: #FFF;
 }
@@ -147,10 +148,6 @@
 	function photoSnapshtResize(){
 		var photoItems = $(".photo-item");
 		var length = photoItems.length;
-		console.log(deviceHeight);
-		console.log($(".nav-occupy").height());
-		
-		$(".wrap-photo-view").css("height", deviceHeight - $(".nav-occpy").height());
 		
 		photoItems.each(function(){
 			var tg = $(this);
