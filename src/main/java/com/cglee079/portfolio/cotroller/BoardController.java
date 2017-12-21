@@ -46,7 +46,13 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board/board_upload")
-	public String boardUpload(Model model) throws SQLException, JsonProcessingException{
+	public String boardUpload(Model model)throws SQLException, JsonProcessingException{
+		return "board/board_upload";
+	}
+	
+	@RequestMapping("/board/board_upload.do")
+	public String boardDoUpload(Model model, BoardVo board) throws SQLException, JsonProcessingException{
+		boardService.insert(board);
 		return "board/board_upload";
 	}
 

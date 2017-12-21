@@ -20,6 +20,10 @@ public class Formatter {
 		}
 	}
 	
+	public static String toDate(Date date) {
+		return new SimpleDateFormat("yyyy-MM-dd").format(date);
+	}
+	
 	public synchronized static String toTime(String str) {
 		try {
 			if (str != null) {
@@ -34,4 +38,5 @@ public class Formatter {
 			return str;
 		}
 	}
+
 }

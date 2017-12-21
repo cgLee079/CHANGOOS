@@ -39,4 +39,10 @@
 		WHERE BOARD_SEQ = #{seq}
 	</select>
 	
+	<insert id="insert" parameterType="com.cglee079.portfolio.model.BoardVo">
+		INSERT TB_PTFOLIO_BOARDS 
+		(BOARD_SORT, BOARD_TYPE, BOARD_SECT, BOARD_TITLE, BOARD_CONTENTS, BOARD_DATE, BOARD_HITS)
+		VALUES (#{sort}, #{type}, #{sect}, #{title}, #{contents}, #{date}, #{hits})
+	</insert>
+	
 </mapper>

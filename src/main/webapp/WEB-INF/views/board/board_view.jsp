@@ -12,7 +12,7 @@
 		
 		<div class="wrap-board">
 			<div class="board-submenu">
-				<a class="btn">목록</a>
+				<a class="btn" href="${pageContext.request.contextPath}/board">목록</a>
 				<a class="btn">이전글</a>
 				<a class="btn">다음글</a>
 			</div>

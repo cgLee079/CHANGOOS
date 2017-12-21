@@ -23,6 +23,14 @@ public class BoardVo {
 		this.date = date;
 		this.hits = hits;
 	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "BoardVo [seq=" + seq + ", type=" + type + ", sort=" + sort + ", sect=" + sect + ", title=" + title
+				+ ", contents=" + contents + ", date=" + date + ", hits=" + hits + "]";
+	}
 
 	public int getSeq() {
 		return seq;

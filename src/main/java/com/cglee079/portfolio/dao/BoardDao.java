@@ -36,4 +36,8 @@ public class BoardDao {
 	public BoardVo get(int seq) {
 		return sqlSession.selectOne(namespace +".get", seq);
 	}
+
+	public boolean insert(BoardVo board) {
+		return  sqlSession.insert(namespace +".insert", board) == 1;
+	}
 }

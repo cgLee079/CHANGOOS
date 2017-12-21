@@ -6,36 +6,34 @@
 <script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 <style>
 .board-upload-form{
-	font-size: 0.7rem;
-	margin-top : 50px;
+	margin-top : 30px;
 	background: #FFF;
 	border: 1px solid #DDD;
 	padding : 1rem 5rem;
+	font-size: 0.7rem;
 }
 
 .board-upload-item{
 	display: flex;
 	flex-flow : row nowrap;
-	algin-items : center;
 	margin-bottom : 0.5rem;
 }
 
 .board-upload-item .item-name{
-	width : 150px;
+	width : 5rem;
 }
 
 .board-upload-item .item-input{
 	flex : 1;
 }
 
-.board-sect{
-	padding-left : 0.5rem;
+.board-upload-item .item-input input[type='text']{
+	padding : 0.1rem;
 	width : 50%;
 }
 
-.board-title{
-	padding-left : 0.5rem;
-	width : 50%;
+.board-type {
+	padding: 0.1rem;
 }
 
 .board-contents{
@@ -54,20 +52,34 @@
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8"/>
 		<div class="board-upload-form col-center">
-			<form action="" method="post">
+			<form id="upload-form" action="${pageContext.request.contextPath}/board/board_upload.do" method="post">
 				<div class="board-upload-item">
-					<div class="item-name">TITLE</div>
-					<div class="item-input"><input class="board-title" type="text"></div>
+					<div class="item-name">TYPE</div>
+					<div class="item-input">
+					<select class="board-type" name="type">
+						<option selected="selected">기본</option>
+						<option>공지사항</option>
+					</select></div>
+				</div>
+				
+				<div class="board-upload-item">
+					<div class="item-name">SORT</div>
+					<div class="item-input"><input type="text" name="sort"  value="99999" class="board-sort"></div>
 				</div>
 				
 				<div class="board-upload-item">
 					<div class="item-name">SECT</div>
-					<div class="item-input"><input class="board-sect" type="text"></div>
+					<div class="item-input"><input type="text" name="sect" class="board-sect" ></div>
+				</div>
+				
+				<div class="board-upload-item">
+					<div class="item-name">TITLE</div>
+					<div class="item-input"><input type="text" name="title" class="board-title"> </div>
 				</div>
 				
 				<div class="board-upload-item">
 					<div class="item-name">CONTENTS</div>
-					<div class="item-input"><textarea id="board-contents" name="board-contents" class="board-contents"></textarea></div>
+					<div class="item-input"><textarea id="board-contents" name="contents" class="board-contents"></textarea></div>
 				</div>
 				<script>
 					var editor = CKEDITOR.replace("board-contents", {
@@ -94,7 +106,7 @@
 				</script>
 				<div class="board-upload-item">
 					<div class="item-name"></div>
-					<div class="item-input board-submit"><a class="btn">저장</a></div>
+					<div class="item-input board-submit"><a class="btn" onclick="$('#upload-form').submit()">저장</a></div>
 				</div>	
 				
 			</form>
