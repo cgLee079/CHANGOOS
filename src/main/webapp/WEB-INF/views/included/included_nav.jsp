@@ -154,6 +154,10 @@ $(window).resize(function(){
 	</div>
 	
 	<div class="btn-slideup">
+		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/board">Board</a>
+	</div>
+	
+	<div class="btn-slideup">
 		<a target="_blank" href="https://github.com/cglee079">Github</a>
 	</div>
 	

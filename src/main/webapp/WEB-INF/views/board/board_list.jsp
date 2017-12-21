@@ -66,7 +66,7 @@
 		var items = $(".board-list-item");
 		var pHeight = parseInt(parent.height())
 		var cHeight = parseInt(items.eq(1).outerHeight());
-		perPgLine = parseInt(pHeight / cHeight) - 5;
+		perPgLine = parseInt(pHeight / cHeight) - 3;
 		pageMove(page);
 	}
 
@@ -113,19 +113,18 @@
 		.board-list .board-list-item:FIRST-CHILD{
 			font-weight: bold;
 			margin-bottom: 0.5rem;
-			border-bottom: 2px solid #EEE;
+			border-bottom: 1px solid #EEE;
 		}
 		
 		.board-list .board-list-item:NOT(:FIRST-CHILD){
-			opacity: 0.8;
+			opacity: 1;
 			border-bottom: 1px soild #FAFAFA;
+			border: 1px solid rgba(0,0,0,0);
 			cursor: pointer;
 		}
 			
 		.board-list .board-list-item:NOT(:FIRST-CHILD):HOVER{
-			opacity: 1;
-			font-weight: bold;
-			background: #FCFCFC;
+			border: 1px solid #DDF;
 		}
 		
 		.board-list .board-list-item div{
@@ -137,6 +136,10 @@
 		.board-list-item .list-item-title{ flex : 1; text-align: left; overflow: hidden;}
 		.board-list-item:NOT(:FIRST-CHILD) .list-item-title{ color: #00C;}
 		.board-list-item .list-item-date{ width : 7rem; text-align: center;}
+		
+		.board-menu{
+			text-align: right;
+		}
 		
 		.board-pager {
 			text-align: center;
@@ -157,6 +160,10 @@
 				<div class="list-item-title">TITLE</div>
 				<div class="list-item-date">DATE</div>
 			</div>
+		</div>
+		
+		<div class="board-menu">
+		 	<a href="${pageContext.request.contextPath}/board/board_upload" class="btn">글쓰기</a>
 		</div>
 		
 		<div class="board-pager"></div>

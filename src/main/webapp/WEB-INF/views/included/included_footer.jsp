@@ -36,7 +36,6 @@
 </div>
 <script>
 function footerRelocate(){
-	
 	var footer = $(".footer");
 	var top = undefined;
 	footer.css("margin-top", "3rem");

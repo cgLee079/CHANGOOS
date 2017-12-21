@@ -39,10 +39,15 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board/board_view")
-	public String doPaging(Model model, int seq) throws SQLException, JsonProcessingException{
+	public String boardView(Model model, int seq) throws SQLException, JsonProcessingException{
 		BoardVo board = boardService.get(seq);
 		model.addAttribute("board", board);
 		return "board/board_view";
+	}
+	
+	@RequestMapping("/board/board_upload")
+	public String boardUpload(Model model) throws SQLException, JsonProcessingException{
+		return "board/board_upload";
 	}
 
 }
