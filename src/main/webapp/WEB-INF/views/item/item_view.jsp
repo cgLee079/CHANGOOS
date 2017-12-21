@@ -345,7 +345,7 @@ $(document).ready(function(){
 				</c:if>
 			</div>
 			
-			<div class="item-content">
+			<div class="item-content editor-contents">
 				<c:if test="${item.video eq 'N'}">
 					<img class="item-snapsht" src="${pageContext.request.contextPath}${item.snapsht}" >
 				</c:if>

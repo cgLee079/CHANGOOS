@@ -46,25 +46,6 @@
 	margin-bottom: 1rem;
 }
 
-.item-content h1, h2, h3{
-	margin: 0.5rem 0px;
-}
-
-.item-content p{
-	margin : 0.3rem 0;
-	line-height: 1.3rem;
-}
-
-.item-content img{
-	height : auto;
-}
-
-.item-content code {
-	overflow-x: auto;
-	margin: 1rem 0.1rem;
-	border: 1px solid #DDD;
-}
-
 .item-subinfo2 {
 	display : flex;
 	justify-content: space-between;

@@ -259,6 +259,13 @@
 			}
 		});
 		
+		$(".wrap-photo-list").on("wheel", function(e){
+			e.preventDefault();
+            var delta = e.originalEvent.deltaY;
+            if(delta > 0 ) {$(".btn-right-list").trigger("click"); }
+            else  {$(".btn-left-list").trigger("click"); }
+		})
+		
 		$(".photo-view").touchwipe({
 		     wipeLeft: function() {
 		    	 var tg = $(".photo-view");
@@ -328,7 +335,7 @@
 				</div>
 				
 				<div class="photo-tag"></div>
-				<div class="photo-desc"></div>
+				<div class="photo-desc editor-contents"></div>
 				<div class="photo-index display-none"></div>
 			</div>
 		</div>

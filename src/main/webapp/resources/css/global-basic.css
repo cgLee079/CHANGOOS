@@ -57,3 +57,22 @@ a, a:VISITED{
 	align-items: center;
 	justify-content: center;
 }
+
+.editor-contents h1, h2, h3{
+	margin: 0.5rem 0px;
+}
+
+.editor-contents p{
+	margin : 0.1rem 0;
+	line-height: 1.0rem;
+}
+
+.editor-contents img{
+	height : auto;
+}
+
+.editor-contents code {
+	overflow-x: auto;
+	margin: 1rem 0.1rem;
+	border: 1px solid #DDD;
+}
