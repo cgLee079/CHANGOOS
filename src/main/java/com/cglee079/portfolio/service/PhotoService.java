@@ -24,12 +24,10 @@ public class PhotoService {
 	
 	public boolean insert(PhotoVo photo){
 		photo.setLike(0);
-		photo.setDate(formatDate(photo.getDate()));
 		return photoDao.insert(photo);
 	}
 
 	public boolean update(PhotoVo photo){
-		photo.setDate(formatDate(photo.getDate()));
 		return photoDao.update(photo);
 	}
 	
@@ -39,21 +37,5 @@ public class PhotoService {
 	
 	public PhotoVo get(int seq){
 		return photoDao.get(seq);
-	}
-	
-	private String formatDate(String dateStr){
-		try {
-			if (dateStr != null){
-				SimpleDateFormat transFormat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
-				Date date;
-				date = transFormat.parse(dateStr);
-				return new SimpleDateFormat("yyyy.MM.dd").format(date);
-			} else {
-				return "";
-			}
-		} catch (ParseException e) {
-			return dateStr;
-		}
-	
 	}
 }

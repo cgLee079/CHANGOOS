@@ -14,11 +14,12 @@
 		PHOTO_DESC as "desc",
 		PHOTO_LOC as "location",
 		PHOTO_DATE as "date",
+		PHOTO_TIME as "time",
 		PHOTO_TAG as "tag",
 		PHOTO_DEVICE as "device",
 		PHOTO_LIKE as "like"
 		FROM TB_PTPOLIO_PHOTOS
-		ORDER BY PHOTO_SORT, PHOTO_DATE DESC
+		ORDER BY PHOTO_SORT, PHOTO_DATE DESC, PHOTO_TIME ASC
 	</select>
 	
 	<select id="get" resultType="com.cglee079.portfolio.model.PhotoVo" parameterType="Integer">
@@ -31,6 +32,7 @@
 		PHOTO_DESC as "desc",
 		PHOTO_LOC as "location",
 		PHOTO_DATE as "date",
+		PHOTO_TIME as "time",
 		PHOTO_TAG as "tag",
 		PHOTO_DEVICE as "device",
 		PHOTO_LIKE as "like"
@@ -44,8 +46,8 @@
 	</delete>
 	
 	<insert id="insert">
-		INSERT TB_PTPOLIO_PHOTOS (PHOTO_SORT, PHOTO_IMAGE,  PHOTO_SNAPSHT, PHOTO_NAME, PHOTO_DESC, PHOTO_LOC, PHOTO_DATE, PHOTO_TAG, PHOTO_DEVICE, PHOTO_LIKE)
-		VALUES (#{sort}, #{image}, #{snapsht}, #{name}, #{desc}, #{location}, #{date}, #{tag}, #{device}, #{like})
+		INSERT TB_PTPOLIO_PHOTOS (PHOTO_SORT, PHOTO_IMAGE, PHOTO_SNAPSHT, PHOTO_NAME, PHOTO_DESC, PHOTO_LOC, PHOTO_DATE, PHOTO_TIME, PHOTO_TAG, PHOTO_DEVICE, PHOTO_LIKE)
+		VALUES (#{sort}, #{image}, #{snapsht}, #{name}, #{desc}, #{location}, #{date}, #{time}, #{tag}, #{device}, #{like})
 	</insert>
 	
 	<update id="update">
@@ -58,6 +60,7 @@
 		PHOTO_DESC = #{desc},
 		PHOTO_LOC = #{location},
 		PHOTO_DATE = #{date},
+		PHOTO_TIME = #{time},
 		PHOTO_TAG = #{tag},
 		PHOTO_DEVICE = #{device},
 		PHOTO_LIKE = #{like}

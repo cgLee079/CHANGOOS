@@ -72,12 +72,6 @@
 	color : #444;
 }
 
-.item-desc p{
-	margin: 0.2rem 0;
-	line-height: 1.5rem;
-}
-
-
 .item-menu{
 	position : absolute;
 	bottom: 0;
@@ -168,7 +162,7 @@ $(document).ready(function(){
 			</div>
 			<div class="item-info">
 				<div class="item-title">[${item.sect}] ${item.name}</div>
-				<div class="item-desc">${item.desc}</div>
+				<div class="item-desc editor-contents">${item.desc}</div>
 				<div class="item-menu">
 					<div class="btn-slideup btn-item-show">
 						<a onclick="itemView(${item.seq})">Show</a>	

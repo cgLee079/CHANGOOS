@@ -66,6 +66,7 @@
 			<td> Name </td>
 			<td> Desc </td>
 			<td> date </td>
+			<td> time </td>
 			<td> location </td>
 			<td> tag </td>
 			<td> device </td>
@@ -82,6 +83,7 @@
 				<td> ${photo.name} </td>
 				<td> ${photo.desc} </td>
 				<td> ${photo.date} </td>
+				<td> ${photo.time} </td>
 				<td> ${photo.location} </td>
 				<td> ${photo.tag} </td>
 				<td> ${photo.device} </td>

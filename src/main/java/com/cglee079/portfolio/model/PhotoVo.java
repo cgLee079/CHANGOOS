@@ -9,34 +9,10 @@ public class PhotoVo {
 	private String desc;
 	private String location;
 	private String date;
+	private String time;
 	private String tag;
 	private String device;
 	private int like;
-
-	public PhotoVo() {
-	}
-
-	public PhotoVo(int seq, int sort, String image, String snapsht, String name, String desc, String location,
-			String date, String tag, String device, int like) {
-		this.seq = seq;
-		this.sort = sort;
-		this.image = image;
-		this.snapsht = snapsht;
-		this.name = name;
-		this.desc = desc;
-		this.location = location;
-		this.date = date;
-		this.tag = tag;
-		this.device = device;
-		this.like = like;
-	}
-
-	@Override
-	public String toString() {
-		return "PhotoVo [seq=" + seq + ", sort=" + sort + ", image=" + image + ", snapsht=" + snapsht + ", name=" + name
-				+ ", desc=" + desc + ", location=" + location + ", date=" + date + ", tag=" + tag + ", device=" + device
-				+ ", like=" + like + "]";
-	}
 
 	public int getSeq() {
 		return seq;
@@ -100,6 +76,14 @@ public class PhotoVo {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public String getTag() {

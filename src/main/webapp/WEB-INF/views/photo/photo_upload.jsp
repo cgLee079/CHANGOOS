@@ -20,6 +20,7 @@ input[class*="photo"] {margin-bottom: 20px;}
 .photo-name{ width : 100%; }
 .photo-location{ width: 100%; }
 .photo-date{ width: 100%; }
+.photo-name{ width: 100%; }
 .photo-people{ 	width: 100%; }
 .photo-tag{ width: 100%; }
 .photo-submit{ width: 100%; }
@@ -37,6 +38,7 @@ input[class*="photo"] {margin-bottom: 20px;}
 			$("#name").val("${photo.name}");
 			$("#location").val("${photo.location}");
 			$("#date").val("${photo.date}");
+			$("#time").val("${photo.time}");
 			$("#tag").val("${photo.tag}");
 			
 			$("<input>", { type : "hidden", name : "seq", value: "${photo.seq}"}).appendTo($("#upload-form"));
@@ -100,6 +102,9 @@ input[class*="photo"] {margin-bottom: 20px;}
 				
 				<h5>date</h5>
 				<input type="text" id="date" name="date" class="photo-date"/>
+				
+				<h5>time</h5>
+				<input type="text" id="time" name="time" class="photo-date"/>
 				
 				<h5>tag</h5>
 				<input type="text" id="tag" name="tag" class="photo-tag"/>

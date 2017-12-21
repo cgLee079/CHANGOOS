@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.portfolio.model.PhotoVo;
 import com.cglee079.portfolio.service.PhotoService;
+import com.cglee079.portfolio.util.Formatter;
 import com.cglee079.portfolio.util.ImageManager;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.MetadataException;
@@ -98,7 +99,8 @@ public class PhotoController {
 			File photofile = new File(rootPath + imgPath + imgName);
 			imageFile.transferTo(photofile);
 			HashMap<String, String> metadata = ImageManager.getImageMetaData(photofile);
-			photo.setDate(metadata.get("Date/Time Original"));
+			photo.setDate(Formatter.toDate(metadata.get("Date/Time Original")));
+			photo.setTime(Formatter.toTime(metadata.get("Date/Time Original")));
 			photo.setDevice(metadata.get("Model"));
 			
 			//photo resize , rotate;
@@ -149,7 +151,8 @@ public class PhotoController {
 			File photofile = new File(rootPath + imgPath + imgName);
 			imageFile.transferTo(photofile);
 			HashMap<String, String> metadata = ImageManager.getImageMetaData(photofile);
-			photo.setDate(metadata.get("Date/Time Original"));
+			photo.setDate(Formatter.toDate(metadata.get("Date/Time Original")));
+			photo.setTime(Formatter.toTime(metadata.get("Date/Time Original")));
 			photo.setDevice(metadata.get("Model"));
 			
 			//photo resize , rotate;

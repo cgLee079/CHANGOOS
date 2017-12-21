@@ -83,6 +83,7 @@
 	PHOTO_DESC varchar(1000),
 	PHOTO_LOC varchar(200),
 	PHOTO_DATE varchar(100),
+	PHOTO_TIME varchar(100),
 	PHOTO_DEVICE varchar(200),
 	PHOTO_TAG varchar(200),
 	PHOTO_LIKE int,
