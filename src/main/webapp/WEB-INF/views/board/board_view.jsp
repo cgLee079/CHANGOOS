@@ -26,33 +26,8 @@
 						<a>조회수 ${board.hits}</a>
 					</div>
 				</div>
-				
-				<div class="board-contents">	
-						<h2>OCP, Open-Closed Principle (개방-폐쇄 원칙)</h2>
-					
-						<p>소프트웨어 개체(클래스, 모듈, 함수 등등)는 확장에 대해 열려 있어야 하고,<br/>
-						수정에 대해서는 닫혀 있어야 한다<br/>
-						<br/>
-						기존의 코드를 변경하지 않으면서, 기능을 추가 할 수 있도록 설계한다.</p>
-						
-						<p><br/>
-						&nbsp;</p>
-						
-						<h3>#Before Branch</h3>
-						
-						<p><img alt="" src="/resources/image/item/contents/content_171205_132752_OCP before.jpg" style="height:300px; width:470px"/><br/>
-						<br/>
-						AreaCalculator 클래스는 shape들의 넓이의 합을 계산하고.<br/>
-						ConsolePrinter 클래스는 결과를 출력한다.<br/>
-						<br/>
-						이 프로그램은 OCP원칙이 위배됨을 보여준다</p>
-						
-						<p>&nbsp;</p>
-						
-						<p>&nbsp;</p>
-						
-						<p><strong>AreaCaclualotr.java</strong></p>
-				</div>
+
+				<div class="board-contents editor-contents">${board.contents}</div>
 			</div>
 		</div>	
 		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8">
