@@ -10,7 +10,7 @@
 	var page = 1;
 	
 	function boardView(seq){
-		window.location.href = getContextPath() + "/board/board_view?seq=" + seq;		
+		window.location.href = getContextPath() + "/board/view?seq=" + seq;		
 	}
 	
 	function pageMove(pg){
@@ -163,7 +163,7 @@
 		</div>
 		
 		<div class="board-menu">
-		 	<a href="${pageContext.request.contextPath}/board/board_upload" class="btn">글쓰기</a>
+		 	<a href="${pageContext.request.contextPath}/admin/board/upload" class="btn">글쓰기</a>
 		</div>
 		
 		<div class="board-pager"></div>

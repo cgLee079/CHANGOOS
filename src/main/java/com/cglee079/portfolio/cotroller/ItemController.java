@@ -83,7 +83,9 @@ public class ItemController {
 	@RequestMapping(value = "/admin/item/delete.do")
 	public String itemDelete(HttpSession session, int seq) {
 		String rootPath = session.getServletContext().getRealPath("");
-		List<String> imgPaths = itemService.getContentImg(seq);
+		String path = "/resources/image/item/contents/";
+		
+		List<String> imgPaths = itemService.getContentImgPath(seq, path);
 		int imgPathsLength = imgPaths.size();
 		File existFile = null;
 		

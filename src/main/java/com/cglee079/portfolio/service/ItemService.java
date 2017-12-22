@@ -41,8 +41,7 @@ public class ItemService {
 		return itemDao.get(seq);
 	}
 	
-	public List<String> getContentImg(int seq){
-		final String path = "/resources/image/contents/";
+	public List<String> getContentImgPath(int seq, String path){
 		List<String> imgPaths = new ArrayList<String>();
 		ItemVo item = itemDao.get(seq);
 		String content = item.getContent();
@@ -59,9 +58,7 @@ public class ItemService {
 			
 			imgPaths.add(content.substring(stIndex, endIndex));
 		}
-	
 		
 		return imgPaths;
-		
 	}
 }

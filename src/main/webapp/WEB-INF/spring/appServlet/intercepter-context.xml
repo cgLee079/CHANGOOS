@@ -7,15 +7,16 @@
 	
 	<!-- Spring Interceptor -->
 	<!-- 링크 이동시 가로챔 -->
+	<!--
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/**/*" /> <!-- 모든 링크에 대하여 Interceptor -->
-			<mvc:exclude-mapping path="/resources/**" /> <!--리소스 파일 제외 -->
+			<mvc:mapping path="/**/*" />
+			<mvc:exclude-mapping path="/resources/**" />
 			<mvc:exclude-mapping path="/" />
-			<bean
+			 <bean
 				class="com.cglee079.portfolio.interceptor.Interceptor">
-			</bean><!-- Interceptor 클래스 (Custom) -->
+			</bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
-	
+	-->
 </beans>

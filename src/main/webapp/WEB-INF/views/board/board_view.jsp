@@ -5,6 +5,18 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board-view-basic.css" />
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
+<script>
+function boardDelete(seq){
+	var question = "정말로 삭제 하시겠습니까?";
+	if(confirm(question)){
+		window.location.href = getContextPath() + "/admin/board/delete.do?seq=" + seq;	
+	}
+}
+
+function boardModify(seq){
+	window.location.href = getContextPath() + "/admin/board/upload?seq=" + seq;		
+}
+</script>
 </head>
 <body>
 	<div class="wrapper">
@@ -29,7 +41,15 @@
 
 				<div class="board-contents editor-contents">${board.contents}</div>
 			</div>
+			
+			<div class="board-bottom-menu">
+				<a class="btn" onclick="boardModify('${board.seq}')">수정</a>
+				<a class="btn" onclick="boardDelete('${board.seq}')">삭제</a>
+			</div>
 		</div>	
+	
+		
+		
 		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8">
 		</c:import>
 		

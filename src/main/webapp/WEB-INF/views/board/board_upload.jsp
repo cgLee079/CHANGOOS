@@ -52,7 +52,7 @@
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8"/>
 		<div class="board-upload-form col-center">
-			<form id="upload-form" action="${pageContext.request.contextPath}/board/board_upload.do" method="post">
+			<form id="upload-form" action="${pageContext.request.contextPath}/admin/board/upload.do" method="post">
 				<div class="board-upload-item">
 					<div class="item-name">TYPE</div>
 					<div class="item-input">
@@ -82,27 +82,39 @@
 					<div class="item-input"><textarea id="board-contents" name="contents" class="board-contents"></textarea></div>
 				</div>
 				<script>
-					var editor = CKEDITOR.replace("board-contents", {
-						height: '450px',
-						on : {
-							instanceReady : function( ev ){
-							    // Output paragraphs as <p>Text</p>.
-							    this.dataProcessor.writer.setRules( 'p',
-							        {
-							            indent : false,
-							            breakBeforeOpen : true,
-							            breakAfterOpen : false,
-							            breakBeforeClose : false,
-							            breakAfterClose : true
-							        });
-							}
-						},
-					});
-					
-					CKEDITOR.on( 'instanceReady', function( ev ) {
-						        // Ends self closing tags the HTML4 way, like <br>.
-						        ev.editor.dataProcessor.writer.selfClosingEnd = '/>';
-				    });
+				var editor = CKEDITOR.replace("board-contents", {
+					filebrowserUploadUrl : '<%=request.getContextPath()%>' + "/admin/board/imgUpload.do",
+					codeSnippet_theme : 'github',
+					on : {
+						instanceReady : function( ev ){
+						    // Output paragraphs as <p>Text</p>.
+						    this.dataProcessor.writer.setRules( 'p',
+						        {
+						            indent : false,
+						            breakBeforeOpen : true,
+						            breakAfterOpen : false,
+						            breakBeforeClose : false,
+						            breakAfterClose : true
+						        });
+						}
+					}
+				});
+
+				CKEDITOR.on('dialogDefinition', function(ev) {
+					var dialogName = ev.data.name;
+					var dialog = ev.data.definition.dialog;
+					var dialogDefinition = ev.data.definition;
+
+					if (dialogName == 'image') {
+						dialogDefinition.removeContents('Link'); //링크 탭 제거
+						dialogDefinition.removeContents('advanced'); //상세정보 탭 제거
+					}
+				});
+				
+				CKEDITOR.on( 'instanceReady', function( ev ) {
+					        // Ends self closing tags the HTML4 way, like <br>.
+					        ev.editor.dataProcessor.writer.selfClosingEnd = '/>';
+			    });
 				</script>
 				<div class="board-upload-item">
 					<div class="item-name"></div>

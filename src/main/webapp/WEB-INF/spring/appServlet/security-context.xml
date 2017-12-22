@@ -13,8 +13,9 @@
 		<!-- use-expressions 사용 여부 (hasRole(),hasAnyRole() 등등) -->
 		<!-- access ='permitAll, denyAll, hasRole(), hasAnyRole, hasIpAddress(ip)-->
 		<!-- ex. access="hasIpAddress('162.79.8.30')" 또는  access="hasIpAddress('162.0.0.0/224')"-->
-		<security:intercept-url pattern="/admin/*/*" access="hasRole('ROLE_ADMIN')" />  
-		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />  
+		<!-- <security:intercept-url pattern="/admin/*/*" access="hasRole('ROLE_ADMIN')" />  
+		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />
+		 -->  
 		
 		<security:form-login username-parameter="username"
 		 	login-page="/login"
