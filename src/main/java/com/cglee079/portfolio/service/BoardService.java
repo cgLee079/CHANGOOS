@@ -49,14 +49,16 @@ public class BoardService{
 		int stIndex = 0;
 		int endIndex= 0;
 		
-		while(true){
-			stIndex = content.indexOf(path, endIndex);
-			endIndex = content.indexOf("\"", stIndex);
-			
-			if(stIndex == -1){ break;}
-			if(endIndex == -1){ break;}
-			
-			imgPaths.add(content.substring(stIndex, endIndex));
+		if(content != null){
+			while(true){
+				stIndex = content.indexOf(path, endIndex);
+				endIndex = content.indexOf("\"", stIndex);
+				
+				if(stIndex == -1){ break;}
+				if(endIndex == -1){ break;}
+				
+				imgPaths.add(content.substring(stIndex, endIndex));
+			}
 		}
 		
 		return imgPaths;

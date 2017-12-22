@@ -119,12 +119,11 @@
 		.board-list .board-list-item:NOT(:FIRST-CHILD){
 			opacity: 1;
 			border-bottom: 1px soild #FAFAFA;
-			border: 1px solid rgba(0,0,0,0);
 			cursor: pointer;
 		}
 			
 		.board-list .board-list-item:NOT(:FIRST-CHILD):HOVER{
-			border: 1px solid #DDF;
+			background: #FAFAFA
 		}
 		
 		.board-list .board-list-item div{
