@@ -23,7 +23,7 @@ public class ComtController {
 	private ComtService comtService;
 	
 	@ResponseBody
-	@RequestMapping("/item/comment_paging.do")
+	@RequestMapping("/comment/paging.do")
 	public String doPaging(int parentSeq, int page, int perPgLine) throws SQLException, JsonProcessingException{
 		List<ComtVo> bcomts= comtService.paging(parentSeq, page, perPgLine);
 		ObjectMapper mapper = new ObjectMapper();
@@ -31,7 +31,7 @@ public class ComtController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/item/comment_submit.do")
+	@RequestMapping("comment/submit.do")
 	public String doSubmit(ComtVo comt) throws SQLException, JsonProcessingException{
 		boolean result = comtService.insert(comt);
 		ObjectMapper mapper = new ObjectMapper();
@@ -39,7 +39,7 @@ public class ComtController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/item/comment_delete.do")
+	@RequestMapping("comment/delete.do")
 	public String doDelete(int seq, String password) throws SQLException, JsonProcessingException{
 		boolean result = comtService.delete(seq, password);
 		ObjectMapper mapper = new ObjectMapper();
@@ -47,7 +47,7 @@ public class ComtController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/item/comment_checkPwd.do")
+	@RequestMapping("comment/checkPwd.do")
 	public String doCheckPwd(int seq, String password) throws SQLException, JsonProcessingException{
 		boolean result = comtService.checkPwd(seq, password);
 		ObjectMapper mapper = new ObjectMapper();
@@ -55,7 +55,7 @@ public class ComtController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/item/comment_update.do")
+	@RequestMapping("comment/update.do")
 	public String doUpdate(int seq, String contents) throws SQLException, JsonProcessingException{
 		boolean result = comtService.update(seq, contents);
 		ObjectMapper mapper = new ObjectMapper();

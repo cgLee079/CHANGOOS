@@ -69,7 +69,7 @@ function nl2br(text){
 function commentPageMove(pg){
 	$.ajax({
 		type	: "POST",
-		url		: getContextPath() + "/item/comment_paging.do",
+		url		: getContextPath() + "/comment/paging.do",
 		data	: {
 			'parentSeq'	: parentSeq,					
 			'page'		: pg,
@@ -139,7 +139,7 @@ function doModify(tg){
 	
 	$.ajax({	
 		type	: "POST",
-		url		: getContextPath() + "/item/comment_update.do",
+		url		: getContextPath() + "/comment/update.do",
 		data	: {
 			'seq' : seq,
 			'contents' : contents
@@ -166,7 +166,7 @@ function commentModify(tg){
 			var seq	= item.find(".comment-seq").val();
 			$.ajax({	
 				type	: "POST",
-				url		: getContextPath() + "/item/comment_checkPwd.do",
+				url		: getContextPath() + "/comment/checkPwd.do",
 				data	: {
 					'seq' : seq,
 					'password' : person
@@ -205,7 +205,7 @@ function commentDelete(tg){
 		var seq	= item.find(".comment-seq").val();
 		$.ajax({	
 			type	: "POST",
-			url		: getContextPath() + "/item/comment_delete.do",
+			url		: getContextPath() + "/comment/delete.do",
 			data	: {
 				'seq' : seq,
 				'password' : person
@@ -235,7 +235,7 @@ function commentSubmit(){
 	
 	$.ajax({
 		type	: "POST",
-		url		: getContextPath() + "/item/comment_submit.do",
+		url		: getContextPath() + "/comment/submit.do",
 		data	: {
 			'parentSeq'	: parentSeq,				
 			'name'		: name.val(),					
