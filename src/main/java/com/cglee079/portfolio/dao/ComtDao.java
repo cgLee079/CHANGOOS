@@ -21,16 +21,16 @@ public class ComtDao {
 		return sqlSession.selectList(namespace +".list");
 	}
 
-	public List<ComtVo> list(int itemSeq, int startRow, int perPgLine) {
+	public List<ComtVo> list(int parentSeq, int startRow, int perPgLine) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("itemSeq", itemSeq);
+		map.put("parentSeq", parentSeq);
 		map.put("startRow", startRow);
 		map.put("perPgLine", perPgLine);
 		return sqlSession.selectList(namespace +".list", map);
 	}
 
-	public int count(int itemSeq) {
-		return sqlSession.selectOne(namespace +".count", itemSeq);
+	public int count(int parentSeq) {
+		return sqlSession.selectOne(namespace +".count", parentSeq);
 	}
 
 	public boolean insert(ComtVo bcomt) {

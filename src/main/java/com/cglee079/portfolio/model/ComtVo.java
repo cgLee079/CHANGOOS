@@ -1,12 +1,14 @@
 package com.cglee079.portfolio.model;
 
 public class ComtVo {
-	int seq;
-	int itemSeq;
-	String name;
-	String password;
-	String contents;
-	String date;
+	private int seq;
+	private int parentSeq;
+	private int depth;
+	private String name;
+	private String password;
+	private String contents;
+	private String parentType;
+	private String date;
 
 	public int getSeq() {
 		return seq;
@@ -16,12 +18,20 @@ public class ComtVo {
 		this.seq = seq;
 	}
 
-	public int getItemSeq() {
-		return itemSeq;
+	public int getParentSeq() {
+		return parentSeq;
 	}
 
-	public void setItemSeq(int itemSeq) {
-		this.itemSeq = itemSeq;
+	public void setParentSeq(int parentSeq) {
+		this.parentSeq = parentSeq;
+	}
+
+	public int getDepth() {
+		return depth;
+	}
+
+	public void setDepth(int depth) {
+		this.depth = depth;
 	}
 
 	public String getName() {
@@ -46,6 +56,14 @@ public class ComtVo {
 
 	public void setContents(String contents) {
 		this.contents = contents;
+	}
+
+	public String getParentType() {
+		return parentType;
+	}
+
+	public void setParentType(String parentType) {
+		this.parentType = parentType;
 	}
 
 	public String getDate() {

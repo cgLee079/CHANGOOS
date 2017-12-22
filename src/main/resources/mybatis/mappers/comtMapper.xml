@@ -9,20 +9,21 @@
 			count(*)
 		FROM TB_PTFOLIO_COMTS
 		WHERE 1=1
-		AND COMT_ITEM_SEQ = #{itemSeq} 
+		AND COMT_PARNT_SEQ = #{parentSeq} 
 	</select>
 	
 	<select id="list" resultType="com.cglee079.portfolio.model.ComtVo" parameterType="map">
 		SELECT
 		COMT_SEQ as "seq",
-		COMT_ITEM_SEQ as "boardSeq",
+		COMT_PARNT_SEQ as "boardSeq",
 		COMT_NAME as "name",
 		COMT_PWD as "password",
 		COMT_CONTENTS as "contents",
-		COMT_DATE as "DATE"
+		COMT_DATE as "DATE",
+		COMT_DEPTH as "depth"
 		FROM TB_PTFOLIO_COMTS
 		WHERE 1=1
-		AND COMT_ITEM_SEQ = #{itemSeq}
+		AND COMT_PARNT_SEQ = #{parentSeq}
 		ORDER BY COMT_DATE
 		LIMIT #{startRow}, #{perPgLine}
 	</select>
@@ -30,19 +31,20 @@
 	<select id="get" resultType="com.cglee079.portfolio.model.ComtVo" parameterType="Integer">
 		SELECT
 		COMT_SEQ as "seq",
-		COMT_ITEM_SEQ as "boardSeq",
+		COMT_PARNT_SEQ as "boardSeq",
 		COMT_NAME as "name",
 		COMT_PWD as "password",
 		COMT_CONTENTS as "contents",
-		COMT_DATE as "DATE"
+		COMT_DATE as "DATE",
+		COMT_DEPTH as "depth"
 		FROM TB_PTFOLIO_COMTS
 		WHERE COMT_SEQ = #{seq}
 	</select>
 	
 	<insert id="insert">
 		INSERT TB_PTFOLIO_COMTS 
-		(COMT_ITEM_SEQ, COMT_NAME, COMT_PWD, COMT_CONTENTS, COMT_DATE)
-		VALUES (#{itemSeq}, #{name}, #{password}, #{contents}, #{date});
+		(COMT_PARNT_SEQ, COMT_NAME, COMT_PWD, COMT_CONTENTS, COMT_DATE, COMT_DEPTH)
+		VALUES (#{parentSeq}, #{name}, #{password}, #{contents}, #{date}, #{depth});
 	</insert>
 	
 	<delete id="delete">

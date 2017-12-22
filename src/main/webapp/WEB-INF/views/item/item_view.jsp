@@ -19,19 +19,19 @@ window.onload = function(){
 	}
 	
 	$(".btn-item-next").on("click", function(){
-		var afterItemSeq = '${afterItem.seq}';
+		var afterparentSeq = '${afterItem.seq}';
 		
-		if(afterItemSeq){
+		if(afterparentSeq){
 			Progress.start();
-			window.location.href = getContextPath() + "/item/view?seq=" + afterItemSeq;
+			window.location.href = getContextPath() + "/item/view?seq=" + afterparentSeq;
 		} 
 	});
 	
 	$(".btn-item-before").on("click", function(){
-		var beforeItemSeq= '${beforeItem.seq}';
-		if(beforeItemSeq){
+		var beforeparentSeq= '${beforeItem.seq}';
+		if(beforeparentSeq){
 			Progress.start();
-			window.location.href = getContextPath() + "/item/view?seq=" + beforeItemSeq;
+			window.location.href = getContextPath() + "/item/view?seq=" + beforeparentSeq;
 		} 
 	});
 	
@@ -56,7 +56,7 @@ window.onload = function(){
 /*** script about comment ****/
 var page;
 var perPgLine 	= 10;
-var itemSeq	= '${item.seq}';
+var parentSeq	= '${item.seq}';
 var comtCnt		= parseInt('${comtCnt}');
 
 function br2nl(text){
@@ -71,7 +71,7 @@ function commentPageMove(pg){
 		type	: "POST",
 		url		: getContextPath() + "/item/comment_paging.do",
 		data	: {
-			'itemSeq'	: itemSeq,					
+			'parentSeq'	: parentSeq,					
 			'page'		: pg,
 			'perPgLine' : perPgLine
 		},
@@ -99,7 +99,7 @@ function makeComment(){
 	var comment = "";
 	comment += '<div class="comment-item">';
 	comment += '<input type="hidden" class="comment-seq">';
-	comment += '<input type="hidden" class="comment-itemSeq">';
+	comment += '<input type="hidden" class="comment-parentSeq">';
 	comment += '<div class="comment">';
 	comment += '<a class="comment-writer"></a> <a class="comment-date"></a>'
 	comment += '<div class="comment-contents"></div>';
@@ -123,7 +123,7 @@ function updateComment(data){
 		comment = data[i];
 		item = makeComment();
 		item.find(".comment-seq").val(comment.seq);
-		item.find(".comment-itemSeq").val(comment.itemSeq);
+		item.find(".comment-parentSeq").val(comment.parentSeq);
 		item.find(".comment-writer").text(comment.name);
 		item.find(".comment-date").text(comment.date);
 		item.find(".comment-contents").html(comment.contents);
@@ -237,7 +237,7 @@ function commentSubmit(){
 		type	: "POST",
 		url		: getContextPath() + "/item/comment_submit.do",
 		data	: {
-			'itemSeq'	: itemSeq,				
+			'parentSeq'	: parentSeq,				
 			'name'		: name.val(),					
 			'password'	: password.val(),
 			'contents' 	: nl2br(contents.val())

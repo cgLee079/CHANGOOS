@@ -16,13 +16,13 @@ public class ComtService{
 	@Autowired
 	ComtDao comtDao;
 
-	public List<ComtVo> paging(int itemSeq, int page, int perPgLine) {
+	public List<ComtVo> paging(int parentSeq, int page, int perPgLine) {
 		int startRow = (page - 1) * perPgLine;
-		return comtDao.list(itemSeq, startRow, perPgLine);
+		return comtDao.list(parentSeq, startRow, perPgLine);
 	}
 
-	public int count(int itemSeq) {
-		return comtDao.count(itemSeq);
+	public int count(int parentSeq) {
+		return comtDao.count(parentSeq);
 	}
 
 	public boolean insert(ComtVo comt) {
