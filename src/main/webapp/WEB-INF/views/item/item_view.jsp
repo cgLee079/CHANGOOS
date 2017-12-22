@@ -4,59 +4,8 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/item-view.css" />
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/editor-contents-resizer.js"></script>
 <script>
-function contentImgResize(){
-	var imgs = $(".item-content img");
-	imgs.each(function(){
-		var parentWidth = parseInt($(".item-content").width());
-		var width 	= parseInt($(this).css("width"));
-		var height 	= parseInt($(this).css("height"));
-		var ratio	= width / height;
-		
-		$(this).css("width", "");
-		$(this).css("height", "");
-		
-		if(width > parentWidth){
-			$(this).css("width", "100%");
-		} else if (width <= parentWidth){
-			$(this).css("width", "");
-			width 	= parseInt($(this).css("width"));
-			if(width > parentWidth){
-				$(this).css("width", "100%");
-			}
-		} 
-		
-	});
-}
-
-function contentYoutubeResize(){
-	var parentWidth = parseInt($(".item-content").width());
-	var videos = $("iframe");
-	videos.each(function(){
-		if(parentWidth >= 640){
-			$(this).attr("width", "640");
-			$(this).attr("height", "360");
-		} else{
-			var width = parentWidth;
-			var ratio = parseFloat($(this).attr("width") /$(this).attr("height"));
-			$(this).attr("width", width);
-			$(this).attr("height", width / ratio );
-		} 
-	});
-}
-
-
-function resizedw(){
-	contentImgResize();
-	contentYoutubeResize();
-}
-
-var doit;
-$(window).resize(function(){
-  clearTimeout(doit);
-  doit = setTimeout(resizedw, 100);
-});
-
 window.onload = function(){
 	var lineDrawing = anime({
 		targets: ".item-line",

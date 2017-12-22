@@ -5,6 +5,7 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board-view-basic.css" />
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/editor-contents-resizer.js"></script>
 <script>
 var page = '${page}';
 
