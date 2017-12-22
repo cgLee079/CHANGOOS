@@ -52,11 +52,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board/view")
-	public String boardView(Model model, int seq) throws SQLException, JsonProcessingException{
-		BoardVo board = boardService.get(seq);
+	public String boardView(Model model, int seq, Integer page) throws SQLException, JsonProcessingException{
+		BoardVo board = boardService.doView(seq);
 		BoardVo beforeBoard = boardService.getBefore(seq, board.getType());
 		BoardVo afterBoard = boardService.getAfter(seq, board.getType());
 		
+		model.addAttribute("page", page);
 		model.addAttribute("beforeBoard", beforeBoard);
 		model.addAttribute("board", board);
 		model.addAttribute("afterBoard", afterBoard);

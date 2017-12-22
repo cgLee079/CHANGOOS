@@ -30,6 +30,13 @@ public class BoardService{
 	public BoardVo get(int seq) {
 		return boardDao.get(seq);
 	}
+	
+	public BoardVo doView(int seq) {
+		BoardVo board = boardDao.get(seq);
+		board.setHits(board.getHits() + 1);
+		boardDao.update(board);
+		return board;
+	}
 
 	public int insert(BoardVo board) {
 		board.setDate(Formatter.toDate(new Date()));

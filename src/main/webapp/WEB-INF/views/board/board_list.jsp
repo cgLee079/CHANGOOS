@@ -26,10 +26,14 @@
 			dataType: 'JSON',
 			async	: false,
 			success : function(data) {
-				page = pg;
-				window.location.hash = page;
-				updateBoard(data);
-				updatePaging("pageMove", page, allRowCnt, perPgLine, 3);
+				if(!data.length){
+					pageMove(pg - 1);
+				} else{
+					page = pg;
+					window.location.hash = page;
+					updateBoard(data);
+					updatePaging("pageMove", page, allRowCnt, perPgLine, 3);
+				}
 			},
 			error : function(e) {
 				console.log(e);
@@ -123,8 +127,6 @@
 		}
 		
 		.board-list .board-list-item.board-notice{
-			border-radius : 1px;
-			cursor: pointer;
 			color : #444;
 		}
 		
@@ -141,8 +143,8 @@
 		
 		.board-list-item div{ padding : 0px 0.5rem; }
 		.board-list-item .list-item-index{ width : 2rem; text-align: center;}
-		.board-list-item .list-item-sect{ width : 4rem;  text-align: center;}
-		.board-list-item .list-item-title{ flex : 1; text-align: left; overflow: hidden;}
+		.board-list-item .list-item-sect{ width : 5rem;  text-align: center;}
+		.board-list-item .list-item-title{ flex : 1; text-align: left; overflow: hidden; white-space: nowrap;}
 		.board-list-item.board-basic .list-item-title{ color: #00C;}
 		.board-list-item .list-item-date{ width : 7rem; text-align: center;}
 		
@@ -171,7 +173,7 @@
 				<div class="list-item-date">DATE</div>
 			</div>
 			<c:forEach var="notice" items="${notices}">
-				<div class="board-list-item board-notice"  onclick="boardView('${notice.seq}')">
+				<div class="board-list-item board-notice">
 					<div class="list-item-index">★★★</div>
 					<div class="list-item-sect">NOTE</div>
 					<div class="list-item-title">${notice.title}</div>
