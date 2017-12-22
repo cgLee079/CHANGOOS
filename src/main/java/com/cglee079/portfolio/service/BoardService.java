@@ -61,4 +61,8 @@ public class BoardService{
 		
 		return imgPaths;
 	}
+
+	public boolean update(BoardVo board) {
+		return boardDao.update(board);
+	}
 }

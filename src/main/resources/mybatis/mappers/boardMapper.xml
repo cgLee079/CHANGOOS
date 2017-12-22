@@ -50,4 +50,17 @@
 		WHERE BOARD_SEQ = #{seq}
 	</delete>
 	
+	<update id="update" parameterType="com.cglee079.portfolio.model.BoardVo">
+		UPDATE TB_PTFOLIO_BOARDS
+		SET 
+		BOARD_SORT = #{sort},
+		BOARD_TYPE = #{type},
+		BOARD_SECT = #{sect},
+		BOARD_TITLE = #{title},
+		BOARD_CONTENTS = #{contents},
+		BOARD_DATE = #{date},
+		BOARD_HITS = #{hits}
+		WHERE BOARD_SEQ = #{seq}
+	</update>
+	
 </mapper>

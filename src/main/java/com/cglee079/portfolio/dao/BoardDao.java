@@ -45,4 +45,8 @@ public class BoardDao {
 	public boolean delete(int seq) {
 		return  sqlSession.delete(namespace +".delete", seq) == 1;
 	}
+
+	public boolean update(BoardVo board) {
+		return  sqlSession.update(namespace +".update", board) == 1;
+	}
 }

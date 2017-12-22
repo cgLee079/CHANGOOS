@@ -46,7 +46,20 @@
 
 
 </style>
-
+<c:if test="${!empty board}">
+	<script>
+		$(document).ready(function(){
+			$("#type").val("${board.type}");
+			$("#sort").val("${board.sort}");
+			$("#sect").val("${board.sect}");
+			$("#title").val("${board.title}");
+			
+			$("<input>", { type : "hidden", name : "seq", value: "${board.seq}"}).appendTo($("#upload-form"));
+			$("<input>", { type : "hidden", name : "date", value: "${board.date}"}).appendTo($("#upload-form"));
+			$("<input>", { type : "hidden", name : "hits", value: "${board.hits}"}).appendTo($("#upload-form"));
+		});
+	</script>
+</c:if>
 </head>
 <body>
 	<div class="wrapper">
@@ -56,7 +69,7 @@
 				<div class="board-upload-item">
 					<div class="item-name">TYPE</div>
 					<div class="item-input">
-					<select class="board-type" name="type">
+					<select id="type" class="board-type" name="type">
 						<option selected="selected">기본</option>
 						<option>공지사항</option>
 					</select></div>
@@ -64,22 +77,28 @@
 				
 				<div class="board-upload-item">
 					<div class="item-name">SORT</div>
-					<div class="item-input"><input type="text" name="sort"  value="99999" class="board-sort"></div>
+					<div class="item-input"><input type="text" id="sort" name="sort"  value="99999" class="board-sort"></div>
 				</div>
 				
 				<div class="board-upload-item">
 					<div class="item-name">SECT</div>
-					<div class="item-input"><input type="text" name="sect" class="board-sect" ></div>
+					<div class="item-input"><input type="text" id="sect" name="sect" class="board-sect" ></div>
 				</div>
 				
 				<div class="board-upload-item">
 					<div class="item-name">TITLE</div>
-					<div class="item-input"><input type="text" name="title" class="board-title"> </div>
+					<div class="item-input"><input type="text" id="title" name="title" class="board-title"> </div>
 				</div>
 				
 				<div class="board-upload-item">
 					<div class="item-name">CONTENTS</div>
-					<div class="item-input"><textarea id="board-contents" name="contents" class="board-contents"></textarea></div>
+					<div class="item-input">
+						<textarea id="board-contents" name="contents" class="board-contents">
+						<c:if test="${!empty board.contents }">
+							${board.contents}
+						</c:if>
+						</textarea>
+					</div>
 				</div>
 				<script>
 				var editor = CKEDITOR.replace("board-contents", {

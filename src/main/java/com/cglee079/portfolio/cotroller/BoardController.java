@@ -69,10 +69,16 @@ public class BoardController {
 	}
 	
 	
-	@RequestMapping("/admin/board/upload.do")
+	@RequestMapping(value = "/admin/board/upload.do", params = "!seq")
 	public String boardDoUpload(Model model, BoardVo board) throws SQLException, JsonProcessingException{
 		int seq = boardService.insert(board);
 		return "redirect:" + "/board/view?seq=" + seq;
+	}
+	
+	@RequestMapping(value = "/admin/board/upload.do", params = "seq")
+	public String boardDoModify(Model model, BoardVo board) throws SQLException, JsonProcessingException{
+		boardService.update(board);
+		return "redirect:" + "/board/view?seq=" + board.getSeq();
 	}
 	
 	@RequestMapping("/admin/board/delete.do")
