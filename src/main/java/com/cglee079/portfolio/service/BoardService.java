@@ -18,9 +18,9 @@ public class BoardService{
 	@Autowired
 	BoardDao boardDao;
 	
-	public List<BoardVo> paging(int page, int perPgLine){
+	public List<BoardVo> paging(int page, int perPgLine, String type){
 		int startRow = (page - 1) * perPgLine;
-		return boardDao.list(startRow, perPgLine);
+		return boardDao.list(startRow, perPgLine, type);
 	}
 
 	public int count() {
@@ -67,4 +67,17 @@ public class BoardService{
 	public boolean update(BoardVo board) {
 		return boardDao.update(board);
 	}
+
+	public BoardVo getBefore(int seq, String type) {
+		return boardDao.getBefore(seq, type);
+	}
+
+	public BoardVo getAfter(int seq, String type) {
+		return boardDao.getAfter(seq, type);
+	}
+
+	public List<BoardVo> list(String type) {
+		return boardDao.list(type);
+	}
+
 }

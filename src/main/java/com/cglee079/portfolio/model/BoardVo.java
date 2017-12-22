@@ -95,5 +95,4 @@ public class BoardVo {
 	public void setHits(int hits) {
 		this.hits = hits;
 	}
-
 }

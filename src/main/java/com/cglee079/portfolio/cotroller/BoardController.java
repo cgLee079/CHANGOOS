@@ -36,15 +36,17 @@ public class BoardController {
 	
 	@RequestMapping("/board")
 	public String board(Model model) throws SQLException, JsonProcessingException{
+		List<BoardVo> notices =  boardService.list("공지사항");
 		int count = boardService.count();
 		model.addAttribute("count", count);
+		model.addAttribute("notices", notices);
 		return "board/board_list";
 	}
 		
 	@ResponseBody
 	@RequestMapping("/board/board_paging.do")
 	public String doPaging(int page, int perPgLine) throws SQLException, JsonProcessingException{
-		List<BoardVo> boards= boardService.paging(page, perPgLine);
+		List<BoardVo> boards= boardService.paging(page, perPgLine, "기본");
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(boards);
 	}
@@ -52,7 +54,12 @@ public class BoardController {
 	@RequestMapping("/board/view")
 	public String boardView(Model model, int seq) throws SQLException, JsonProcessingException{
 		BoardVo board = boardService.get(seq);
+		BoardVo beforeBoard = boardService.getBefore(seq, board.getType());
+		BoardVo afterBoard = boardService.getAfter(seq, board.getType());
+		
+		model.addAttribute("beforeBoard", beforeBoard);
 		model.addAttribute("board", board);
+		model.addAttribute("afterBoard", afterBoard);
 		return "board/board_view";
 	}
 	
@@ -68,7 +75,7 @@ public class BoardController {
 		return "board/board_upload";
 	}
 	
-	
+	 
 	@RequestMapping(value = "/admin/board/upload.do", params = "!seq")
 	public String boardDoUpload(Model model, BoardVo board) throws SQLException, JsonProcessingException{
 		int seq = boardService.insert(board);

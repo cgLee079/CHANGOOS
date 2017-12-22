@@ -3,14 +3,16 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
-
 <script>
 	var allRowCnt = '${count}';
 	var perPgLine = 1; 
-	var page = 1;
+	var page = window.location.hash.substring(1);
+	if(!page){
+		page = 1;
+	}
 	
 	function boardView(seq){
-		window.location.href = getContextPath() + "/board/view?seq=" + seq;		
+		window.location.href = getContextPath() + "/board/view?seq=" + seq + "&page=" + page;		
 	}
 	
 	function pageMove(pg){
@@ -25,6 +27,7 @@
 			async	: false,
 			success : function(data) {
 				page = pg;
+				window.location.hash = page;
 				updateBoard(data);
 				updatePaging("pageMove", page, allRowCnt, perPgLine, 3);
 			},
@@ -47,12 +50,13 @@
 		var board 		= undefined;
 		var item 		= undefined;
 		var length		= data.length;
+		var noticeLen	= boardList.find(".board-list-item.board-notice").length;
 		
-		boardList.find('.board-list-item:gt(0)').remove();
+		boardList.find(".board-list-item:gt(" + noticeLen + ")").remove();
 		
 		for (var i = 0; i < length; i++){
 			board = data[i];
-			item = $("<div>", {'class' : 'board-list-item', onclick : "boardView(" + board.seq + ")"});
+			item = $("<div>", {'class' : 'board-list-item board-basic', onclick : "boardView(" + board.seq + ")"});
 			$("<div>",{ 'class' : 'list-item-index', text : (page - 1 ) * perPgLine + 1 + i}).appendTo(item);
 			$("<div>",{ 'class' : 'list-item-sect', text : board.sect}).appendTo(item);
 			$("<div>",{ 'class' : 'list-item-title', text : board.title}).appendTo(item);
@@ -66,7 +70,8 @@
 		var items = $(".board-list-item");
 		var pHeight = parseInt(parent.height())
 		var cHeight = parseInt(items.eq(1).outerHeight());
-		perPgLine = parseInt(pHeight / cHeight) - 3;
+		var noticeLen = parent.find(".board-list-item.board-notice").length;
+		perPgLine = parseInt(pHeight / cHeight) - noticeLen - 3;
 		pageMove(page);
 	}
 
@@ -78,7 +83,7 @@
 	
 	/* 페이지가 로드됨과 동시에 계정 리스트의 첫 번째 페이지를 출력 */
 	$(document).ready(function(){
-		pageMove(1);
+		pageMove(page);
 		resizedw();
 	});
 	
@@ -94,11 +99,11 @@
 			background: #FFF;
 			border: 1px solid #DDD;
 			margin-top: 1.5rem;
-			padding: 2rem;
+			padding: 2rem 3rem;
 		}
 		
 		.board-list {
-			height: 95%;
+			height: 90%;
 		}
 		
 		.board-list .board-list-item{
@@ -110,34 +115,40 @@
 			font-size: 0.7rem;
 		}
 		
-		.board-list .board-list-item:FIRST-CHILD{
+		.board-list .board-list-item.board-header{
 			font-weight: bold;
-			margin-bottom: 0.5rem;
 			border-bottom: 1px solid #EEE;
+			margin-bottom: 0.5rem;
+			color : #333;
 		}
 		
-		.board-list .board-list-item:NOT(:FIRST-CHILD){
+		.board-list .board-list-item.board-notice{
+			border-radius : 1px;
+			cursor: pointer;
+			color : #444;
+		}
+		
+		.board-list .board-list-item.board-basic{
 			opacity: 1;
 			border-bottom: 1px soild #FAFAFA;
+			margin-top : 0.1rem;
 			cursor: pointer;
 		}
-			
-		.board-list .board-list-item:NOT(:FIRST-CHILD):HOVER{
-			background: #FAFAFA
+		
+		.board-list .board-list-item.board-basic:HOVER{
+			background: #FAFAFA;
 		}
 		
-		.board-list .board-list-item div{
-			padding : 0px 0.5rem;
-		}
-		
+		.board-list-item div{ padding : 0px 0.5rem; }
 		.board-list-item .list-item-index{ width : 2rem; text-align: center;}
 		.board-list-item .list-item-sect{ width : 4rem;  text-align: center;}
 		.board-list-item .list-item-title{ flex : 1; text-align: left; overflow: hidden;}
-		.board-list-item:NOT(:FIRST-CHILD) .list-item-title{ color: #00C;}
+		.board-list-item.board-basic .list-item-title{ color: #00C;}
 		.board-list-item .list-item-date{ width : 7rem; text-align: center;}
 		
 		.board-menu{
 			text-align: right;
+			font-size: 0.8rem;
 		}
 		
 		.board-pager {
@@ -153,12 +164,20 @@
 	</style>
 	<div class="wrap-board-list">
 		<div class="board-list">
-			<div class="board-list-item">
+			<div class="board-list-item board-header">
 				<div class="list-item-index">INDEX</div>
 				<div class="list-item-sect">SECT</div>
 				<div class="list-item-title">TITLE</div>
 				<div class="list-item-date">DATE</div>
 			</div>
+			<c:forEach var="notice" items="${notices}">
+				<div class="board-list-item board-notice"  onclick="boardView('${notice.seq}')">
+					<div class="list-item-index">★★★</div>
+					<div class="list-item-sect">NOTE</div>
+					<div class="list-item-title">${notice.title}</div>
+					<div class="list-item-date">${notice.date}</div>
+				</div>
+			</c:forEach>
 		</div>
 		
 		<div class="board-menu">

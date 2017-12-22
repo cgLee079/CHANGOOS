@@ -21,8 +21,13 @@
 		BOARD_DATE as "date",
 		BOARD_HITS as "hits"
 		FROM TB_PTFOLIO_BOARDS
-		ORDER BY BOARD_SORT, BOARD_DATE
-		LIMIT #{startRow}, #{perPgLine}
+		WHERE 1 = 1 
+		AND BOARD_TYPE = #{type}
+		ORDER BY BOARD_SORT, BOARD_DATE DESC
+		<if test="startRow != null and perPgLine != null">
+ 		LIMIT #{startRow}, #{perPgLine}
+  		</if>
+		
 	</select>
 	
 	<select id="get" resultType="com.cglee079.portfolio.model.BoardVo" parameterType="Integer">
@@ -37,6 +42,38 @@
 		BOARD_HITS as "hits"
 		FROM TB_PTFOLIO_BOARDS
 		WHERE BOARD_SEQ = #{seq}
+	</select>
+	
+	<select id="getBefore" parameterType="map" resultType="com.cglee079.portfolio.model.BoardVo">
+		SELECT 
+		BOARD_SEQ as "seq",
+		BOARD_SORT as "sort",
+		BOARD_TYPE as "type",
+		BOARD_SECT as "sect",
+		BOARD_TITLE as "title",
+		BOARD_CONTENTS as "contents",
+		BOARD_DATE as "date",
+		BOARD_HITS as "hits"
+		FROM TB_PTFOLIO_BOARDS B 
+		WHERE <![CDATA[BOARD_SEQ < #{seq}]]>  
+		AND BOARD_TYPE = #{type} 
+		ORDER BY BOARD_SEQ DESC LIMIT 1
+	</select>
+	
+	<select id="getAfter" parameterType="map" resultType="com.cglee079.portfolio.model.BoardVo">
+		SELECT 
+		BOARD_SEQ as "seq",
+		BOARD_SORT as "sort",
+		BOARD_TYPE as "type",
+		BOARD_SECT as "sect",
+		BOARD_TITLE as "title",
+		BOARD_CONTENTS as "contents",
+		BOARD_DATE as "date",
+		BOARD_HITS as "hits"
+		FROM TB_PTFOLIO_BOARDS
+		WHERE <![CDATA[BOARD_SEQ > #{seq}]]>
+		AND BOARD_TYPE = #{type} 
+		ORDER BY BOARD_SEQ ASC LIMIT 1
 	</select>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.portfolio.model.BoardVo">

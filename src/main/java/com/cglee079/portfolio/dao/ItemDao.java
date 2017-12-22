@@ -34,4 +34,5 @@ public class ItemDao {
 	public boolean update(ItemVo item) {
 		return sqlSession.update(namespace + ".update", item) == 1;
 	}
+
 }

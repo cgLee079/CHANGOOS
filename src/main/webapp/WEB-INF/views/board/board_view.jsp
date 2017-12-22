@@ -6,6 +6,15 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board-view-basic.css" />
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
 <script>
+var page = '${page}';
+
+function boardList(){
+	if(!page){
+		page = 1;
+	}
+	window.location.href = getContextPath() + "/board#" + page;
+}
+
 function boardDelete(seq){
 	var question = "정말로 삭제 하시겠습니까?";
 	if(confirm(question)){
@@ -16,6 +25,14 @@ function boardDelete(seq){
 function boardModify(seq){
 	window.location.href = getContextPath() + "/admin/board/upload?seq=" + seq;		
 }
+
+function boardView(seq){
+	if (seq){
+		window.location.href = getContextPath() + "/board/view?seq=" + seq +"&page=" + page;
+	} else {
+		alert("글이 없습니다.");
+	}
+}
 </script>
 </head>
 <body>
@@ -24,9 +41,9 @@ function boardModify(seq){
 		
 		<div class="wrap-board">
 			<div class="board-submenu">
-				<a class="btn" href="${pageContext.request.contextPath}/board">목록</a>
-				<a class="btn">이전글</a>
-				<a class="btn">다음글</a>
+				<a class="btn" onclick="boardList()">목록</a>
+				<a class="btn" onclick="boardView('${beforeBoard.seq}')">이전글</a>
+				<a class="btn" onclick="boardView('${afterBoard.seq}')">다음글</a>
 			</div>
 			<div class="board-detail">
 				<div class="board-head">
@@ -48,8 +65,6 @@ function boardModify(seq){
 			</div>
 		</div>	
 	
-		
-		
 		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8">
 		</c:import>
 		

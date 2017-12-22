@@ -21,11 +21,18 @@ public class BoardDao {
 	public List<BoardVo> list() {
 		return sqlSession.selectList(namespace +".list");
 	}
+	
+	public List<BoardVo> list(String type) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		return sqlSession.selectList(namespace +".list", map);
+	}
 
-	public List<BoardVo> list( int startRow, int perPgLine) {
+	public List<BoardVo> list(int startRow, int perPgLine, String type) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", startRow);
 		map.put("perPgLine", perPgLine);
+		map.put("type", type);
 		return sqlSession.selectList(namespace +".list", map);
 	}
 
@@ -48,5 +55,19 @@ public class BoardDao {
 
 	public boolean update(BoardVo board) {
 		return  sqlSession.update(namespace +".update", board) == 1;
+	}
+
+	public BoardVo getBefore(int seq, String type) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("seq", seq);
+		map.put("type", type);
+		return sqlSession.selectOne(namespace +".getBefore", map);
+	}
+	
+	public BoardVo getAfter(int seq, String type) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("seq", seq);
+		map.put("type", type);
+		return sqlSession.selectOne(namespace +".getAfter", map);
 	}
 }
