@@ -24,8 +24,8 @@ public class ComtController {
 	
 	@ResponseBody
 	@RequestMapping("/comment/paging.do")
-	public String doPaging(int parentSeq, int page, int perPgLine) throws SQLException, JsonProcessingException{
-		List<ComtVo> bcomts= comtService.paging(parentSeq, page, perPgLine);
+	public String doPaging(String boardType, int boardSeq, int page, int perPgLine) throws SQLException, JsonProcessingException{
+		List<ComtVo> bcomts= comtService.paging(boardType, boardSeq, page, perPgLine);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(bcomts);
 	}

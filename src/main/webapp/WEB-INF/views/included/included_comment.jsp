@@ -1,5 +1,108 @@
 <%@ page pageEncoding="UTF-8"%>
+<style>
+.wrap-comment {
+	border: 1px solid #DDD;
+	background: #FFF;
+	margin-top: 1rem;
+	padding: 1rem;
+}
 
+.comment-item {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	padding: 0.5rem;
+	border-bottom: 1px solid #F0F0F0;
+}
+
+.comment {
+	flex: 1;
+}
+
+.comment .comment-writer {
+	color: #00D;
+	font-size: 0.7rem;
+}
+
+.comment .comment-date {
+	color: #777;
+	font-size: 0.5rem;
+}
+
+.comment .comment-contents {
+	color: #444;
+	font-size: 0.6rem;
+	padding-top : 0.5rem;
+	word-break:break-all;
+	word-wrap:break-word;
+}
+
+.comment-menu {
+	font-size: 0.6rem;
+	width: 5rem;
+	color: #444;
+	text-align: center;
+}
+
+.comment-menu a {
+	margin-left: 0.5rem;
+}
+
+.comt-pager {
+	margin: 1rem;
+	text-align: center;
+}
+
+.comment-write {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	margin: 1rem 0.5rem;
+	margin-top: 2rem;
+	height: 3rem;
+}
+
+.comment-write-pinfo {
+	display: flex;
+	flex-flow: column nowrap;
+	width: 5rem;
+	height: 100%;
+	margin-right: 0.5rem;
+}
+
+.comment-write-pinfo input {
+	width: 100%;
+	height: 1rem;
+	font-size: 0.5rem;
+	margin-bottom: 0.2rem;
+	padding-left : 0.2rem;
+	border: 1px solid #CCC;
+}
+
+.comment-write-contents {
+	flex: 1;
+	height: 100%;
+	resize: none;
+	overflow: hidden;
+	border: 1px solid #CCC;
+}
+
+.comment-write-submit {
+	color: #FFF;
+	width: 5rem;
+	height: 100%;
+	background: #666;
+	cursor: pointer;
+	font-size: 0.7rem;
+}
+
+.comment-modify{
+	display : flex; 
+	flex-flow : row wrap;
+	height : 50px;
+}
+		
+</style>
 <div class="wrap-comment">
 	<div class="comments"></div>
 	<div class="comt-pager"></div>
@@ -18,9 +121,11 @@
 <script>
 
 /*** script about comment ****/
+
 var page;
 var perPgLine 	= 10;
-var parentSeq	= '${item.seq}';
+var boardType	= "ITEM";
+var boardSeq	= '${item.seq}';
 var comtCnt		= parseInt('${comtCnt}');
 
 function br2nl(text){
@@ -35,7 +140,8 @@ function commentPageMove(pg){
 		type	: "POST",
 		url		: getContextPath() + "/comment/paging.do",
 		data	: {
-			'parentSeq'	: parentSeq,					
+			'boardType'	: boardType,			
+			'boardSeq'	: boardSeq,					
 			'page'		: pg,
 			'perPgLine' : perPgLine
 		},
@@ -63,7 +169,7 @@ function makeComment(){
 	var comment = "";
 	comment += '<div class="comment-item">';
 	comment += '<input type="hidden" class="comment-seq">';
-	comment += '<input type="hidden" class="comment-parentSeq">';
+	comment += '<input type="hidden" class="comment-boardSeq">';
 	comment += '<div class="comment">';
 	comment += '<a class="comment-writer"></a> <a class="comment-date"></a>'
 	comment += '<div class="comment-contents"></div>';
@@ -87,7 +193,7 @@ function updateComment(data){
 		comment = data[i];
 		item = makeComment();
 		item.find(".comment-seq").val(comment.seq);
-		item.find(".comment-parentSeq").val(comment.parentSeq);
+		item.find(".comment-boardSeq").val(comment.boardSeq);
 		item.find(".comment-writer").text(comment.name);
 		item.find(".comment-date").text(comment.date);
 		item.find(".comment-contents").html(comment.contents);
@@ -201,7 +307,8 @@ function commentSubmit(){
 		type	: "POST",
 		url		: getContextPath() + "/comment/submit.do",
 		data	: {
-			'parentSeq'	: parentSeq,				
+			'boardType' : boardType,			
+			'boardSeq'	: boardSeq,				
 			'name'		: name.val(),					
 			'password'	: password.val(),
 			'contents' 	: nl2br(contents.val())

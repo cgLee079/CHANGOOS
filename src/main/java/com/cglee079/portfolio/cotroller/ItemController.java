@@ -67,7 +67,7 @@ public class ItemController {
 		model.addAttribute("beforeItem", beforeItem);
 		model.addAttribute("afterItem", afterItem);
 		
-		int comtCnt = comtService.count(seq);
+		int comtCnt = comtService.count("ITEM", seq);
 		model.addAttribute("comtCnt", comtCnt);
 		
 		return "item/item_view";

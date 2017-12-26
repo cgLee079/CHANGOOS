@@ -16,13 +16,13 @@ public class ComtService{
 	@Autowired
 	ComtDao comtDao;
 
-	public List<ComtVo> paging(int parentSeq, int page, int perPgLine) {
+	public List<ComtVo> paging(String boardType, int boardSeq, int page, int perPgLine) {
 		int startRow = (page - 1) * perPgLine;
-		return comtDao.list(parentSeq, startRow, perPgLine);
+		return comtDao.list(boardType, boardSeq, startRow, perPgLine);
 	}
 
-	public int count(int parentSeq) {
-		return comtDao.count(parentSeq);
+	public int count(String boardType, int boardSeq) {
+		return comtDao.count(boardType, boardSeq);
 	}
 
 	public boolean insert(ComtVo comt) {
@@ -53,8 +53,4 @@ public class ComtService{
 		return comtDao.update(seq, contents);
 	}
 	
-	private String changeLiner(String text){
-		text = text.replaceAll("\\r\\n|\\r|\\n", "<br/>");
-		return text;
-	}
 }
