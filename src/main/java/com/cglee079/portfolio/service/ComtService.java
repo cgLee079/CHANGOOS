@@ -39,6 +39,10 @@ public class ComtService{
 			return false;
 		}
 	}
+	
+	public void deleteCasecade(String boardType, int boardSeq) {
+		comtDao.deleteCasecade(boardType, boardSeq);
+	}
 
 	public boolean checkPwd(int seq, String password) {
 		ComtVo comtVo = comtDao.get(seq);
@@ -52,5 +56,4 @@ public class ComtService{
 	public boolean update(int seq, String contents) {
 		return comtDao.update(seq, contents);
 	}
-	
 }

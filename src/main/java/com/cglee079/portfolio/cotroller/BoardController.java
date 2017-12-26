@@ -24,15 +24,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.portfolio.model.BoardVo;
 import com.cglee079.portfolio.service.BoardService;
+import com.cglee079.portfolio.service.ComtService;
 import com.cglee079.portfolio.util.ImageManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class BoardController {
-	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired 
+	private ComtService comtService;
 	
 	@RequestMapping("/board")
 	public String board(Model model) throws SQLException, JsonProcessingException{
@@ -61,6 +64,10 @@ public class BoardController {
 		model.addAttribute("beforeBoard", beforeBoard);
 		model.addAttribute("board", board);
 		model.addAttribute("afterBoard", afterBoard);
+		
+		int comtCnt = comtService.count("BOARD", seq);
+		model.addAttribute("comtCnt", comtCnt);
+		
 		return "board/board_view";
 	}
 	
@@ -106,6 +113,7 @@ public class BoardController {
 		}
 		
 		boardService.delete(seq);
+		comtService.deleteCasecade("BOARD", seq);
 		return "redirect:" + "/board";
 	}
 	

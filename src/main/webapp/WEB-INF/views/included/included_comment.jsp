@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
+
 <style>
 .wrap-comment {
 	border: 1px solid #DDD;
@@ -101,8 +102,9 @@
 	flex-flow : row wrap;
 	height : 50px;
 }
-		
 </style>
+
+
 <div class="wrap-comment">
 	<div class="comments"></div>
 	<div class="comt-pager"></div>
@@ -122,11 +124,12 @@
 
 /*** script about comment ****/
 
+
 var page;
 var perPgLine 	= 10;
-var boardType	= "ITEM";
-var boardSeq	= '${item.seq}';
-var comtCnt		= parseInt('${comtCnt}');
+var boardType	= "${param.boardType}";
+var boardSeq	= "${param.boardSeq}";
+var comtCnt		= parseInt("${param.comtCnt}");
 
 function br2nl(text){
 	return text.replace(/(<br\s*\/?>)+/g, "\n");

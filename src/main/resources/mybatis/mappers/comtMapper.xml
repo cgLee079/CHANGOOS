@@ -55,6 +55,13 @@
 		WHERE COMT_SEQ = #{seq}
 	</delete>
 	
+	<delete id="deleteCasecade">
+		DELETE FROM TB_PTFOLIO_COMTS
+		WHERE 1 = 1
+		AND COMT_BOARD_TYPE = #{boardType}
+		AND COMT_BOARD_SEQ = #{boardSeq}
+	</delete>
+	
 	<update id="update" parameterType="map">
 		UPDATE TB_PTFOLIO_COMTS
 		SET 

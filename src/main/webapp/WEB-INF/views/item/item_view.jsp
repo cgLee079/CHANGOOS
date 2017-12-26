@@ -95,9 +95,12 @@ window.onload = function(){
 			</div>
 		
 			<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">
+			   <c:param name = "perPgLine" value = "10" />
+			   <c:param name = "boardType" value = "ITEM" />
+			   <c:param name = "boardSeq" value = "${item.seq}" />
+			   <c:param name = "comtCnt" value = "${comtCnt}" />
 			</c:import>
 		</div>
-		
 		
 		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8">
 		</c:import>

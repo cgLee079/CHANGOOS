@@ -42,6 +42,8 @@ function boardView(seq){
 		
 		<div class="wrap-board">
 			<div class="board-submenu">
+				<a class="btn" onclick="boardModify('${board.seq}')">수정</a>
+				<a class="btn" onclick="boardDelete('${board.seq}')">삭제</a>
 				<a class="btn" onclick="boardList()">목록</a>
 				<a class="btn" onclick="boardView('${beforeBoard.seq}')">이전글</a>
 				<a class="btn" onclick="boardView('${afterBoard.seq}')">다음글</a>
@@ -60,10 +62,12 @@ function boardView(seq){
 				<div class="board-contents editor-contents">${board.contents}</div>
 			</div>
 			
-			<div class="board-bottom-menu">
-				<a class="btn" onclick="boardModify('${board.seq}')">수정</a>
-				<a class="btn" onclick="boardDelete('${board.seq}')">삭제</a>
-			</div>
+			<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">
+			   <c:param name = "perPgLine" value = "10" />
+			   <c:param name = "boardType" value = "BOARD" />
+			   <c:param name = "boardSeq" value = "${board.seq}" />
+			   <c:param name = "comtCnt" value = "${comtCnt}" />
+			</c:import>
 		</div>	
 	
 		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8">

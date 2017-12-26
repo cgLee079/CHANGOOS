@@ -104,6 +104,7 @@ public class ItemController {
 			}
 		}
 		itemService.delete(seq);
+		comtService.deleteCasecade("ITEM", seq);
 		return "redirect:" + "/admin/item/manage";
 	}
 	

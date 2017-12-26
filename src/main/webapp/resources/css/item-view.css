@@ -78,6 +78,7 @@
     background-size		: contain;
 }
 
+
 @media (max-width: 420px){
 	.item-detail {
 		width : 90%;

@@ -3,6 +3,80 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
+
+<style>
+	.wrap-board-list{
+		height : 500px;
+		background: #FFF;
+		border: 1px solid #DDD;
+		margin-top: 1.5rem;
+		padding: 2rem 3rem;
+	}
+	
+	.board-list {
+		height: 90%;
+	}
+	
+	.board-list .board-list-item{
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		color : #666;
+		padding : 0.3rem 0rem;
+		font-size: 0.7rem;
+	}
+	
+	.board-list .board-list-item.board-header{
+		font-weight: bold;
+		border-bottom: 1px solid #EEE;
+		margin-bottom: 0.5rem;
+		color : #333;
+	}
+	
+	.board-list .board-list-item.board-notice{
+		color : #444;
+	}
+	
+	.board-list .board-list-item.board-basic{
+		opacity: 1;
+		border-bottom: 1px soild #FAFAFA;
+		margin-top : 0.1rem;
+		cursor: pointer;
+	}
+	
+	.board-list .board-list-item.board-basic:HOVER{
+		background: #FAFAFA;
+	}
+	
+	.board-list-item div{ padding : 0px 0.5rem; }
+	.board-list-item .list-item-index{ width : 2rem; text-align: center;}
+	.board-list-item .list-item-sect{ width : 5rem;  text-align: center;}
+	.board-list-item .list-item-title{ flex : 1; text-align: left; overflow: hidden; white-space: nowrap;}
+	.board-list-item.board-basic .list-item-title{ color: #00C;}
+	.board-list-item .list-item-date{ width : 7rem; text-align: center;}
+	
+	.board-menu{
+		text-align: right;
+		font-size: 0.7rem;
+	}
+
+	.board_search .search-val{
+		width: 5rem;
+	}	
+	
+	.board-pager {
+		margin-top : 20px;
+		text-align: center;
+	}
+	
+	@media (max-width: 420px){
+		.wrap-board-list{
+			margin-top: 3rem;
+		}
+	}
+	
+</style>
+	
 <script>
 	var allRowCnt = '${count}';
 	var perPgLine = 1; 
@@ -75,7 +149,7 @@
 		var pHeight = parseInt(parent.height())
 		var cHeight = parseInt(items.eq(1).outerHeight());
 		var noticeLen = parent.find(".board-list-item.board-notice").length;
-		perPgLine = parseInt(pHeight / cHeight) - noticeLen - 3;
+		perPgLine = parseInt(pHeight / cHeight) - noticeLen - 4;
 		pageMove(page);
 	}
 
@@ -97,73 +171,7 @@
 <body>
 <div class="wrapper">
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
-	<style>
-		.wrap-board-list{
-			height : 500px;
-			background: #FFF;
-			border: 1px solid #DDD;
-			margin-top: 1.5rem;
-			padding: 2rem 3rem;
-		}
-		
-		.board-list {
-			height: 90%;
-		}
-		
-		.board-list .board-list-item{
-			display: flex;
-			flex-flow: row nowrap;
-			justify-content: space-between;
-			color : #666;
-			padding : 0.3rem 0rem;
-			font-size: 0.7rem;
-		}
-		
-		.board-list .board-list-item.board-header{
-			font-weight: bold;
-			border-bottom: 1px solid #EEE;
-			margin-bottom: 0.5rem;
-			color : #333;
-		}
-		
-		.board-list .board-list-item.board-notice{
-			color : #444;
-		}
-		
-		.board-list .board-list-item.board-basic{
-			opacity: 1;
-			border-bottom: 1px soild #FAFAFA;
-			margin-top : 0.1rem;
-			cursor: pointer;
-		}
-		
-		.board-list .board-list-item.board-basic:HOVER{
-			background: #FAFAFA;
-		}
-		
-		.board-list-item div{ padding : 0px 0.5rem; }
-		.board-list-item .list-item-index{ width : 2rem; text-align: center;}
-		.board-list-item .list-item-sect{ width : 5rem;  text-align: center;}
-		.board-list-item .list-item-title{ flex : 1; text-align: left; overflow: hidden; white-space: nowrap;}
-		.board-list-item.board-basic .list-item-title{ color: #00C;}
-		.board-list-item .list-item-date{ width : 7rem; text-align: center;}
-		
-		.board-menu{
-			text-align: right;
-			font-size: 0.8rem;
-		}
-		
-		.board-pager {
-			text-align: center;
-		}
-		
-		@media (max-width: 420px){
-			.wrap-board-list{
-				margin-top: 3rem;
-			}
-		}
-		
-	</style>
+
 	<div class="wrap-board-list">
 		<div class="board-list">
 			<div class="board-list-item board-header">
