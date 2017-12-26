@@ -115,6 +115,7 @@ public class ItemController {
 	@RequestMapping(value = "/admin/item/upload", params = "seq")
 	public String itemModify(Model model, int seq) {
 		ItemVo item = itemService.get(seq);
+		item.setContent(item.getContent().replace("&", "&amp;"));
 		model.addAttribute("item", item);
 		return "item/item_upload";
 	}

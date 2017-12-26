@@ -80,6 +80,7 @@ public class BoardController {
 	public String boardModify(Model model, int seq)throws SQLException, JsonProcessingException{
 		BoardVo board = boardService.get(seq);
 		model.addAttribute("board", board);
+		board.setContents(board.getContents().replace("&", "&amp;"));
 		return "board/board_upload";
 	}
 	

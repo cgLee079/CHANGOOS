@@ -94,13 +94,14 @@
 					<div class="item-name">CONTENTS</div>
 					<div class="item-input">
 						<textarea id="board-contents" name="contents" class="board-contents">
-						<c:if test="${!empty board.contents }">
-							${board.contents}
-						</c:if>
+							<c:if test="${!empty board.contents }">
+								${board.contents}
+							</c:if>
 						</textarea>
 					</div>
 				</div>
 				<script>
+				
 				var editor = CKEDITOR.replace("board-contents", {
 					filebrowserUploadUrl : '<%=request.getContextPath()%>' + "/admin/board/imgUpload.do",
 					codeSnippet_theme : 'github',
