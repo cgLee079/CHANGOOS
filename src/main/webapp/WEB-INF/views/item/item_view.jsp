@@ -48,9 +48,6 @@ window.onload = function(){
 	     preventDefaultEvents: true
 	});
 	*/
-	
-	contentImgResize();
-	contentYoutubeResize();
 }
 
 

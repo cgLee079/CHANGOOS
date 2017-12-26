@@ -7,13 +7,13 @@
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/editor-contents-resizer.js"></script>
 <script>
-var page = '${page}';
+var boardPage = '${page}';
 
 function boardList(){
-	if(!page){
-		page = 1;
+	if(!boardPage){
+		boardPage = 1;
 	}
-	window.location.href = getContextPath() + "/board#" + page;
+	window.location.href = getContextPath() + "/board#" + boardPage;
 }
 
 function boardDelete(seq){
@@ -29,7 +29,7 @@ function boardModify(seq){
 
 function boardView(seq){
 	if (seq){
-		window.location.href = getContextPath() + "/board/view?seq=" + seq +"&page=" + page;
+		window.location.href = getContextPath() + "/board/view?seq=" + seq +"&page=" + boardPage;
 	} else {
 		alert("글이 없습니다.");
 	}

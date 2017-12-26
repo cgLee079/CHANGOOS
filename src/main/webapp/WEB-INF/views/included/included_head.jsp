@@ -17,11 +17,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/anime-2.2.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/letter-motion.js"></script>
 <script src="${pageContext.request.contextPath}/resources/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
-<script>
-$(document).ready(function(){
-	hljs.initHighlightingOnLoad();
-})
-</script>
+<script>hljs.initHighlightingOnLoad();</script>
 <script>
 
 var isMobile = false;

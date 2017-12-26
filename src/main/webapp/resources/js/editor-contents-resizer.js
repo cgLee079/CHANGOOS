@@ -49,3 +49,8 @@ $(window).resize(function(){
   clearTimeout(doit);
   doit = setTimeout(resizedw, 100);
 });
+
+window.onload = function(){
+	contentImgResize();
+	contentYoutubeResize();
+}
