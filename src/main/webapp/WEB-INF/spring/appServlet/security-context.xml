@@ -9,6 +9,7 @@
 
 	<security:http pattern="/resources/**" security="none"></security:http> <!-- 리소스 파일은 Security(X) -->
 	<security:http use-expressions="true" auto-config="true">
+		
 		<!-- auto-config='true' 를 설정한것만으로 기본 로그인페이지/ HTTP 기본인증 / 로그아웃기능등을 제공 -->
 		<!-- use-expressions 사용 여부 (hasRole(),hasAnyRole() 등등) -->
 		<!-- access ='permitAll, denyAll, hasRole(), hasAnyRole, hasIpAddress(ip)-->
@@ -16,7 +17,6 @@
 		
 		<security:intercept-url pattern="/admin/*/*" access="hasRole('ROLE_ADMIN')" />  
 		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />
-		
 		
 		<security:form-login username-parameter="username"
 		 	login-page="/login"
@@ -46,7 +46,7 @@
 		<security:csrf disabled="true" />
 		<!--<security:access-denied-handler error-page="/main/denied" />  -->
 		<!-- error-page : 접근권한이 없는 페이지 이동시 , 이동할 페이지 -->
-	
+
 	</security:http>
 	<security:authentication-manager> <!-- 로그인 관리자 -->
 		<security:authentication-provider user-service-ref="adminService">

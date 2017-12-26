@@ -39,7 +39,7 @@ public class BoardController {
 	
 	@RequestMapping("/board")
 	public String board(Model model) throws SQLException, JsonProcessingException{
-		List<BoardVo> notices =  boardService.list("공지사항");
+		List<BoardVo> notices =  boardService.list("NOTICE");
 		int count = boardService.count();
 		model.addAttribute("count", count);
 		model.addAttribute("notices", notices);
@@ -49,7 +49,7 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping("/board/board_paging.do")
 	public String doPaging(int page, int perPgLine) throws SQLException, JsonProcessingException{
-		List<BoardVo> boards= boardService.paging(page, perPgLine, "기본");
+		List<BoardVo> boards= boardService.paging(page, perPgLine, "BASIC");
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(boards);
 	}
@@ -131,12 +131,11 @@ public class BoardController {
 			imgExt = ImageManager.getExt(filename);
 			File file = new File(rootPath + imgPath + filename);
 			multiFile.transferTo(file);
-			System.out.println(imgExt);
 			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
 			ImageIO.write(image, imgExt, file);
 		}
 		
-		response.setHeader("X-Frame-Options", "SAMEORIGIN");
+		response.setHeader("x-frame-options", "SAMEORIGIN");
 		model.addAttribute("path", request.getContextPath() + imgPath + filename);
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
 		

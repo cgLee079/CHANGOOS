@@ -87,7 +87,6 @@ public class ItemController {
 		ItemVo item = itemService.get(seq);
 		File existFile = null;
 		
-		//Ω∫≥¿º¶ ªË¡¶
 		existFile = new File (rootPath + item.getSnapsht());
 		if(existFile.exists()){
 			existFile.delete();
@@ -192,7 +191,7 @@ public class ItemController {
 			ImageIO.write(image, imgExt, file);
 		}
 		
-		response.setHeader("X-Frame-Options", "SAMEORIGIN");
+		response.setHeader("x-frame-options", "SAMEORIGIN");
 		model.addAttribute("path", request.getContextPath() + imgPath + filename);
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
 		

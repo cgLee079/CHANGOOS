@@ -70,8 +70,8 @@
 					<div class="item-name">TYPE</div>
 					<div class="item-input">
 					<select id="type" class="board-type" name="type">
-						<option selected="selected">기본</option>
-						<option>공지사항</option>
+						<option selected="selected">BASIC</option>
+						<option>NOTICE</option>
 					</select></div>
 				</div>
 				
