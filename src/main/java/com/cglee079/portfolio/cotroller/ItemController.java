@@ -174,7 +174,7 @@ public class ItemController {
 		return "redirect:" + "/admin/item/manage";
 	}
 	
-	@RequestMapping(value = "/admin/item/imgUpload.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/item/imgUpload.do")
 	public String itemImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();

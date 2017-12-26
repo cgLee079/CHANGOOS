@@ -117,7 +117,7 @@ public class BoardController {
 		return "redirect:" + "/board";
 	}
 	
-	@RequestMapping(value = "/admin/board/imgUpload.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/board/imgUpload.do")
 	public String boardDoImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
@@ -131,6 +131,7 @@ public class BoardController {
 			imgExt = ImageManager.getExt(filename);
 			File file = new File(rootPath + imgPath + filename);
 			multiFile.transferTo(file);
+			System.out.println(imgExt);
 			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
 			ImageIO.write(image, imgExt, file);
 		}

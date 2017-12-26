@@ -145,6 +145,8 @@
 
 </style>
 <script>
+	const moveDuration = 1000;
+	
 	function photoSnapshtResize(){
 		var photoItems = $(".photo-item");
 		var length = photoItems.length;
@@ -173,7 +175,7 @@
 		photoItems.each(function(){
 			var left = parseInt($(this).css("left"));
 			var toLeft = left - tgLeft;
-			$(this).css({"left" : left}).stop().animate({"left" : toLeft});
+			$(this).css({"left" : left}).stop().animate({"left" : toLeft}, moveDuration);
 		})
 		
 		$.ajax({
@@ -226,7 +228,7 @@
 					var width 	= parseInt(tg.css("width"));
 					var left 	= parseInt(tg.css("left"));
 					var toLeft 	= left - wrapWidth;
-					tg.css({"left" : left}).stop().animate({"left" : toLeft});
+					tg.css({"left" : left}).stop().animate({"left" : toLeft}, moveDuration);
 				}
 			}
 		});
@@ -252,9 +254,9 @@
 				var toLeft 	= left + wrapWidth;
 				
 				if(overLeft){
-					tg.stop().animate({"left" : (width * i) + (5 * i) });
+					tg.stop().animate({"left" : (width * i) + (5 * i)}, moveDuration);
 				} else {				
-					tg.css({"left" : left}).stop().animate({"left" : toLeft});
+					tg.css({"left" : left}).stop().animate({"left" : toLeft}, moveDuration);
 				}
 			}
 		});

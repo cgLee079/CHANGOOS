@@ -37,8 +37,8 @@ public class ImageManager {
 		int w = (int)(width * ratio);
 		
 		BufferedImage destImg =  null;
-		if(imgExt.equals(ImageManager.EXT_PNG)) { destImg = new BufferedImage( w, h, BufferedImage.TYPE_4BYTE_ABGR); }
-		if(imgExt.equals(ImageManager.EXT_JPG)) { destImg =new BufferedImage( w, h, BufferedImage.TYPE_3BYTE_BGR); }
+		if(imgExt.equalsIgnoreCase(ImageManager.EXT_PNG)) { destImg = new BufferedImage( w, h, BufferedImage.TYPE_4BYTE_ABGR); }
+		if(imgExt.equalsIgnoreCase(ImageManager.EXT_JPG)) { destImg = new BufferedImage( w, h, BufferedImage.TYPE_3BYTE_BGR); }
 
     	Graphics2D g = destImg.createGraphics();
     	g.drawImage(srcImg, 0, 0, w, h, null);
@@ -82,13 +82,13 @@ public class ImageManager {
     }
     
     public synchronized static BufferedImage rotateImageForMobile(BufferedImage bi, int orientation) throws IOException {
-		if(orientation == 6){ //정위치
+		if(orientation == 6){
 		        return rotateImage(bi, 90);
-		} else if (orientation == 1){ //왼쪽으로 눞였을때
+		} else if (orientation == 1){
 		        return bi;
-		} else if (orientation == 3){//오른쪽으로 눞였을때
+		} else if (orientation == 3){
 		        return rotateImage(bi, 180);
-		} else if (orientation == 8){//180도
+		} else if (orientation == 8){
 		        return rotateImage(bi, 270);      
 		} else{
 		        return bi;
@@ -120,8 +120,9 @@ public class ImageManager {
     public synchronized static String getExt(String filename){
     	int pos = filename.lastIndexOf( "." );
     	String ext = filename.substring( pos + 1 );
-    	if(ext.equals(ImageManager.EXT_JPG)) { return ImageManager.EXT_JPG; };
-    	if(ext.equals(ImageManager.EXT_PNG)) { return ImageManager.EXT_PNG; };
+    	System.out.println("##" + ext);
+    	if(ext.equalsIgnoreCase(ImageManager.EXT_JPG)) { return ImageManager.EXT_JPG; };
+    	if(ext.equalsIgnoreCase(ImageManager.EXT_PNG)) { return ImageManager.EXT_PNG; };
     	return ImageManager.EXT_JPG;
     }
 }

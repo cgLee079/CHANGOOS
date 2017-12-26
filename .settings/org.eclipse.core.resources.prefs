@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/cglee079/portfolio/util/ImageManager.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/included/included_comment.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/included/included_item_list.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/item/item_imgupload.jsp=UTF-8
