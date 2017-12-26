@@ -138,8 +138,9 @@
 				<div class="board-upload-item">
 					<div class="item-name"></div>
 					<div class="item-input board-submit">
-					<a class="btn" onclick="${pageContext.request.contextPath}/board">취소</a>
-					<a class="btn" onclick="$('#upload-form').submit()">저장</a></div>
+						<a class="btn" href="${pageContext.request.contextPath}/board">취소</a>
+						<a class="btn" onclick="$('#upload-form').submit()">저장</a>
+					</div>
 				</div>	
 				
 			</form>
