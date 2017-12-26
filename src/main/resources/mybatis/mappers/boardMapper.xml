@@ -23,7 +23,7 @@
 		FROM TB_PTFOLIO_BOARDS
 		WHERE 1 = 1 
 		AND BOARD_TYPE = #{type}
-		ORDER BY BOARD_SORT, BOARD_DATE DESC
+		ORDER BY BOARD_SORT, BOARD_DATE DESC, BOARD_SEQ DESC
 		<if test="startRow != null and perPgLine != null">
  		LIMIT #{startRow}, #{perPgLine}
   		</if>
