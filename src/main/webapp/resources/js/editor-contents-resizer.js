@@ -24,7 +24,7 @@ function contentImgResize(){
 
 function contentYoutubeResize(){
 	var parentWidth = parseInt($(".editor-contents").width());
-	var videos = $("iframe");
+	var videos = $(".editor-contents iframe");
 	videos.each(function(){
 		if(parentWidth >= 640){
 			$(this).attr("width", "640");
@@ -50,7 +50,7 @@ $(window).resize(function(){
   doit = setTimeout(resizedw, 100);
 });
 
-window.onload = function(){
+window.addEventListener("load", function(){
 	contentImgResize();
 	contentYoutubeResize();
-}
+});

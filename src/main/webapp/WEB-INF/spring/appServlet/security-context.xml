@@ -18,13 +18,14 @@
 		<security:intercept-url pattern="/admin/*/*" access="hasRole('ROLE_ADMIN')" />  
 		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />
 		
-		<security:form-login username-parameter="username"
+		<security:form-login
+			username-parameter="username"
+			password-parameter="password" 
 		 	login-page="/login"
 			login-processing-url="/j_spring_security_check"
-			password-parameter="password" authentication-failure-url="/login?result=false"
-		 />
+			authentication-failure-url="/login?result=false" />
 			
-				<!-- 로그아웃 성공시 핸들러 -->
+		<!-- 로그아웃 성공시 핸들러 -->
 		<!-- <bean id="LoginSuccessHandler" class="com.cglee079.portfolio.security.LoginSuccessHandler" />  -->
 		<!-- authentication-success-handler-ref="LoginSuccessHandler"-->
 			
@@ -48,6 +49,7 @@
 		<!-- error-page : 접근권한이 없는 페이지 이동시 , 이동할 페이지 -->
 
 	</security:http>
+	
 	<security:authentication-manager> <!-- 로그인 관리자 -->
 		<security:authentication-provider user-service-ref="adminService">
 		<security:password-encoder ref="passwordEncoder"></security:password-encoder>

@@ -183,7 +183,7 @@
 			<c:forEach var="notice" items="${notices}">
 				<div class="board-list-item board-notice">
 					<div class="list-item-index">★★★</div>
-					<div class="list-item-sect">NOTE</div>
+					<div class="list-item-sect">NOTICE</div>
 					<div class="list-item-title">${notice.title}</div>
 					<div class="list-item-date">${notice.date}</div>
 				</div>

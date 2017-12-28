@@ -58,13 +58,17 @@ a, a:VISITED{
 	justify-content: center;
 }
 
+.editor-contents{
+	color: #333;
+	font-size: 0.75rem;	
+}
+
 .editor-contents h1, h2, h3{
 	margin: 0.5rem 0px;
 }
 
 .editor-contents p{
-	margin : 0.2rem 0;
-	line-height: 1.2rem;
+	line-height: 1.3rem;
 }
 
 .editor-contents img{

@@ -36,28 +36,7 @@
 }
 
 .board-detail .board-contents {
-	color: #444;
-	font-size: 0.8rem;
 	margin-top: 2rem;
-}
-
-.board-contents h1, h2, h3 {
-	margin: 0.5rem 0px;
-}
-
-.board-contents p {
-	margin: 0.3rem 0;
-	line-height: 1.3rem;
-}
-
-.board-contents img {
-	height: auto;
-}
-
-.board-contents code {
-	overflow-x: auto;
-	margin: 1rem 0.1rem;
-	border: 1px solid #DDD;
 }
 
 @media ( max-width : 420px) {

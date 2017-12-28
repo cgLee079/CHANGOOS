@@ -4,6 +4,10 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.ui.widget.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.iframe-transport.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.fileupload.js"></script>
+
 <style>
 .board-upload-form{
 	margin-top : 30px;
@@ -137,6 +141,33 @@
 			    });
 				</script>
 				<div class="board-upload-item">
+					<input id="fileupload" type="file" name="files[]" multiple>
+					<div id="files" class="files"></div>
+				
+					<script>
+					$(function () {
+					    // Change this to the location of your server-side upload handler:
+					    var url = '/file/upload.do';  // 사용
+					    $('#fileupload').fileupload({
+					        url: url,
+					        dataType: 'json',
+					        done: function (e, data) {
+					            $.each(data.result.files, function (index, file) {
+					                $('<p/>').text(file.name).appendTo('#files');
+					            });
+					        },
+					
+					        progressall: function (e, data) {
+					            var progress = parseInt(data.loaded / data.total * 100, 10);
+					            $('#progress .progress-bar').css( 'width', progress + '%');
+					        }
+					
+					    }).prop('disabled', !$.support.fileInput)
+					        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+					});
+					</script>
+				</div>
+				<div class="board-upload-item">
 					<div class="item-name"></div>
 					<div class="item-input board-submit">
 						<a class="btn" href="${pageContext.request.contextPath}/board">취소</a>
@@ -149,5 +180,9 @@
 		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8" />
 		
 	</div>
+	
+
+
+	
 </body>
 </html>
