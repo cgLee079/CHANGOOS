@@ -2,13 +2,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
+<%@ include file="/WEB-INF/views/included/included_head.jsp" %>
 <script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.ui.widget.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.iframe-transport.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.fileupload.js"></script>
 
 <style>
+
+#uploadForm {
+	width : 100%;
+}
+
 .board-upload-form{
 	margin-top : 30px;
 	background: #FFF;
@@ -48,6 +50,26 @@
 	text-align: right;
 }
 
+.file-infos .file-info{
+	display : flex;
+	align-items : center;
+	justify-content : space-between;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	padding : 0.5rem;
+}
+
+.file-infos .file-info:NOT(:FIRST-CHILD){
+	margin-top: 0.5rem;
+}
+
+.file-info-name {
+	flex : 1;
+}
+
+.btn-file-upload, .btn-file-remove {
+	max-width: 100px;
+}
 
 </style>
 <c:if test="${!empty board}">
@@ -69,7 +91,7 @@
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8"/>
 		<div class="board-upload-form col-center">
-			<form id="upload-form" action="${pageContext.request.contextPath}/admin/board/upload.do" method="post">
+			<form id="uploadForm" action="${pageContext.request.contextPath}/admin/board/upload.do" method="post" enctype="multipart/form-data">
 				<div class="board-upload-item">
 					<div class="item-name">TYPE</div>
 					<div class="item-input">
@@ -140,38 +162,53 @@
 					        ev.editor.dataProcessor.writer.selfClosingEnd = '/>';
 			    });
 				</script>
-				<div class="board-upload-item">
-					<input id="fileupload" type="file" name="files[]" multiple>
-					<div id="files" class="files"></div>
 				
+				<div class="board-upload-item">
+					<div class="item-name">File</div>
+					<div class="item-input">
+						<div class="file-infos">
+							<div class="file-info">
+								<input type="file" id="itemFile" class="item-file" name="file"
+									onchange="fileChange(this)" style="display: none;"/>
+								<div class="btn-file-upload btn-gray-text" onclick="$(this).siblings('.item-file').click();">UPLOAD</div>
+								<div class="btn-file-remove btn-red-text" onclick="fileRemove(this)" style="display: none;">REMOVE</div>
+							</div>
+						</div>
+					</div>
+					
 					<script>
-					$(function () {
-					    // Change this to the location of your server-side upload handler:
-					    var url = '/file/upload.do';  // 사용
-					    $('#fileupload').fileupload({
-					        url: url,
-					        dataType: 'json',
-					        done: function (e, data) {
-					            $.each(data.result.files, function (index, file) {
-					                $('<p/>').text(file.name).appendTo('#files');
-					            });
-					        },
-					
-					        progressall: function (e, data) {
-					            var progress = parseInt(data.loaded / data.total * 100, 10);
-					            $('#progress .progress-bar').css( 'width', progress + '%');
-					        }
-					
-					    }).prop('disabled', !$.support.fileInput)
-					        .parent().addClass($.support.fileInput ? undefined : 'disabled');
-					});
+						var form = $(".file-info").clone(true);
+						
+						function fileRemove(tg){
+							var fileInfo = $(tg).parents(".file-info");
+							fileInfo.remove();
+						}
+						
+						function fileChange(tg){
+							var file = tg.files[0];
+							var fileInfo = $(tg).parents(".file-info");
+							var fileInfos= fileInfo.parents(".file-infos");
+							
+							if($(tg).val()){
+								fileInfo.find(".btn-file-remove").css("display", "");
+								fileInfo.find(".btn-file-upload").css("display", "none");
+								
+								$("<div>", {
+									"class" : "file-info-name",
+									text : "(" + (file.size/1000)  + " Kb) " + file.name 
+								}).prependTo(fileInfo);
+								
+								fileInfos.append(form.clone(true));
+							} 
+						}
 					</script>
 				</div>
+				
 				<div class="board-upload-item">
 					<div class="item-name"></div>
 					<div class="item-input board-submit">
 						<a class="btn" href="${pageContext.request.contextPath}/board">취소</a>
-						<a class="btn" onclick="$('#upload-form').submit()">저장</a>
+						<a class="btn" onclick="$('#uploadForm').submit()">저장</a>
 					</div>
 				</div>	
 				

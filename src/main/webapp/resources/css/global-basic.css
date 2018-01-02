@@ -73,10 +73,42 @@ a, a:VISITED{
 
 .editor-contents img{
 	height : auto;
+	border : 1px solid #AAA;
+	margin-bottom: 1rem;
 }
 
 .editor-contents code {
 	overflow-x: auto;
 	margin: 1rem 0.1rem;
 	border: 1px solid #DDD;
+}
+
+
+
+.btn-gray-text {
+	display: inline-block;
+	padding: 5px 10px 5px 10px;
+	background: #CCC;
+	text-align: center;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.btn-gray-text:hover, .btn-gray-text1.on{
+	color: #FFF;
+	background: #888;
+}
+
+.btn-red-text {
+	display: inline-block;
+	padding: 5px 10px 5px 10px;
+	background: #FCC;
+	text-align: center;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.btn-red-text:hover, .btn-gray-text1.on{
+	color: #FFF;
+	background: #888;
 }

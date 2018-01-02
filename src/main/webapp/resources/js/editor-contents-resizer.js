@@ -1,3 +1,5 @@
+var initImgSize = [];
+
 function contentImgResize(){
 	var imgs = $(".editor-contents img");
 	imgs.each(function(){
@@ -5,6 +7,7 @@ function contentImgResize(){
 		var width 	= parseInt($(this).css("width"));
 		var height 	= parseInt($(this).css("height"));
 		var ratio	= width / height;
+		var index 	= imgs.index(this);
 		
 		$(this).css("width", "");
 		$(this).css("height", "");
@@ -12,7 +15,7 @@ function contentImgResize(){
 		if(width > parentWidth){
 			$(this).css("width", "100%");
 		} else if (width <= parentWidth){
-			$(this).css("width", "");
+			$(this).css("width", initImgSize[index]);
 			width 	= parseInt($(this).css("width"));
 			if(width > parentWidth){
 				$(this).css("width", "100%");
@@ -51,6 +54,11 @@ $(window).resize(function(){
 });
 
 window.addEventListener("load", function(){
+	var imgs = $(".editor-contents img");
+	for(var i = 0; i < imgs.length; i++){
+		initImgSize.push($(imgs[i]).css("width"));
+	}
+	
 	contentImgResize();
 	contentYoutubeResize();
 });

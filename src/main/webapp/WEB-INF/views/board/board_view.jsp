@@ -34,6 +34,10 @@ function boardView(seq){
 		alert("글이 없습니다.");
 	}
 }
+
+function downloadFile(pathNm){
+	window.location.assign(getContextPath()	+ "/board/download.do?filename="+ pathNm);
+}
 </script>
 </head>
 <body>
@@ -59,6 +63,26 @@ function boardView(seq){
 					</div>
 				</div>
 
+				<style>
+					a.board-file{
+						display: block;
+						font-size: 0.6rem;
+						color: #77F;
+						margin: 0.2rem 0rem;
+						text-align: right;
+						cursor: pointer;
+						text-decoration: underline;
+					}
+				</style>
+				<c:if test="${!empty files}">
+					<div class="board-files">
+						<c:forEach var="file" items="${files}">
+							 <a class="board-file" onclick="downloadFile('${file.pathNm}')">
+							 	${file.realNm} (${file.size} KB)
+							 </a>												
+						</c:forEach>
+					</div>
+				</c:if>
 				<div class="board-contents editor-contents">${board.contents}</div>
 			</div>
 			

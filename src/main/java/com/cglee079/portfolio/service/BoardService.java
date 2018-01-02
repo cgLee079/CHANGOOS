@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cglee079.portfolio.dao.BoardDao;
+import com.cglee079.portfolio.dao.BoardFileDao;
+import com.cglee079.portfolio.model.BoardFileVo;
 import com.cglee079.portfolio.model.BoardVo;
 import com.cglee079.portfolio.model.ItemVo;
 import com.cglee079.portfolio.util.Formatter;
@@ -17,6 +19,9 @@ public class BoardService{
 	
 	@Autowired
 	BoardDao boardDao;
+	
+	@Autowired
+	BoardFileDao boardFileDao;
 	
 	public List<BoardVo> paging(int page, int perPgLine, String type){
 		int startRow = (page - 1) * perPgLine;
@@ -85,6 +90,18 @@ public class BoardService{
 
 	public List<BoardVo> list(String type) {
 		return boardDao.list(type);
+	}
+
+	public boolean saveFile(BoardFileVo boardFile) {
+		return boardFileDao.insert(boardFile);
+	}
+
+	public List<BoardFileVo> getFiles(int seq) {
+		return boardFileDao.getFiles(seq);
+	}
+
+	public BoardFileVo getFile(String pathNm) {
+		return boardFileDao.BoardFileVo(pathNm);
 	}
 
 }

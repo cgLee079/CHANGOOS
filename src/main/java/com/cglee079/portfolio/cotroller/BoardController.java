@@ -3,25 +3,33 @@ package com.cglee079.portfolio.cotroller;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.support.MultipartFilter;
 
+import com.cglee079.portfolio.model.BoardFileVo;
 import com.cglee079.portfolio.model.BoardVo;
 import com.cglee079.portfolio.service.BoardService;
 import com.cglee079.portfolio.service.ComtService;
@@ -59,7 +67,6 @@ public class BoardController {
 		BoardVo board = boardService.doView(seq);
 		BoardVo beforeBoard = boardService.getBefore(seq, board.getType());
 		BoardVo afterBoard = boardService.getAfter(seq, board.getType());
-		
 		model.addAttribute("page", page);
 		model.addAttribute("beforeBoard", beforeBoard);
 		model.addAttribute("board", board);
@@ -68,7 +75,32 @@ public class BoardController {
 		int comtCnt = comtService.count("BOARD", seq);
 		model.addAttribute("comtCnt", comtCnt);
 		
+		List<BoardFileVo> files = boardService.getFiles(seq);
+		model.addAttribute("files", files);
+		
 		return "board/board_view";
+	}
+	
+	@RequestMapping("/board/download.do")
+	public void  download(HttpSession session, HttpServletResponse response, String filename) throws IOException{
+		String rootPath = session.getServletContext().getRealPath("");
+		String path = "/resources/file/board/";
+		BoardFileVo boardFile = boardService.getFile(filename);
+		
+		File file = new File(rootPath + path, boardFile.getPathNm());
+		byte fileByte[] = FileUtils.readFileToByteArray(file);
+
+		
+		if(file.exists()){
+			response.setContentType("application/octet-stream");
+		    response.setContentLength(fileByte.length);
+		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(boardFile.getRealNm(),"UTF-8")+"\";");
+		    response.setHeader("Content-Transfer-Encoding", "binary");
+		    response.getOutputStream().write(fileByte);
+		     
+		    response.getOutputStream().flush();
+		    response.getOutputStream().close();
+		}
 	}
 	
 	@RequestMapping(value = "/admin/board/upload", params = "!seq")
@@ -86,8 +118,39 @@ public class BoardController {
 	
 	 
 	@RequestMapping(value = "/admin/board/upload.do", params = "!seq")
-	public String boardDoUpload(Model model, BoardVo board) throws SQLException, JsonProcessingException{
+	public String boardDoUpload(HttpSession session, Model model, BoardVo board, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
+		String rootPath = session.getServletContext().getRealPath("");
+		String path = "/resources/file/board/";
+		
 		int seq = boardService.insert(board);
+		
+		File file = null;
+		MultipartFile multipartFile = null;
+		BoardFileVo boardFile = null;
+		String realNm = null;
+		String pathNm = null;
+		long size = -1;
+		
+		int length = files.size();
+		for(int i = 0 ; i < length ; i++){
+			multipartFile = files.get(i);
+			realNm 	= multipartFile.getOriginalFilename();
+			pathNm	= "board" + seq + "_" + realNm + "_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_";
+			size 	= multipartFile.getSize();
+			
+			file = new File(rootPath + path, pathNm);
+			multipartFile.transferTo(file);
+			
+			if(size > 0 ){
+				boardFile = new BoardFileVo();
+				boardFile.setPathNm(pathNm);
+				boardFile.setRealNm(realNm);
+				boardFile.setSize(size/1000);
+				boardFile.setBoardSeq(seq);
+				boardService.saveFile(boardFile);
+			}
+		}
+		
 		return "redirect:" + "/board/view?seq=" + seq;
 	}
 	
@@ -142,5 +205,5 @@ public class BoardController {
 		
 		return "board/board_imgupload";
 	}
-
+	
 }
