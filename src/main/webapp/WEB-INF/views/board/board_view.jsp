@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -64,22 +65,29 @@ function downloadFile(pathNm){
 				</div>
 
 				<style>
-					a.board-file{
-						display: block;
+					.board-files{
+						margin-top: 1rem;
+					}
+					
+					.board-file{
 						font-size: 0.6rem;
-						color: #77F;
+						color: #55F;
 						margin: 0.2rem 0rem;
 						text-align: right;
 						cursor: pointer;
 						text-decoration: underline;
 					}
+					
 				</style>
 				<c:if test="${!empty files}">
 					<div class="board-files">
 						<c:forEach var="file" items="${files}">
-							 <a class="board-file" onclick="downloadFile('${file.pathNm}')">
-							 	${file.realNm} (${file.size} KB)
-							 </a>												
+							<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>
+							<div class="board-file">
+								 <a onclick="downloadFile('${file.pathNm}')">
+								 	${file.realNm} (${filesize}MB)
+								 </a>
+							</div>												
 						</c:forEach>
 					</div>
 				</c:if>

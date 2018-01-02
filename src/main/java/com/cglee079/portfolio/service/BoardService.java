@@ -101,7 +101,15 @@ public class BoardService{
 	}
 
 	public BoardFileVo getFile(String pathNm) {
-		return boardFileDao.BoardFileVo(pathNm);
+		return boardFileDao.getFile(pathNm);
+	}
+
+	public BoardFileVo getFile(int seq) {
+		return boardFileDao.getFile(seq);
+	}
+
+	public boolean deleteFile(int seq) {
+		return boardFileDao.delete(seq);
 	}
 
 }

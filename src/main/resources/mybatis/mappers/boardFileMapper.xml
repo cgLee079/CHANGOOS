@@ -28,7 +28,12 @@
 		FILE_SIZE	 as 'size'
 		FROM TB_PTFOLIO_BOARD_FILES
 		WHERE 1 = 1
-		AND FILE_PATH_NM = #{pathNm} 
+		<if test="pathNm != null">
+  		AND FILE_PATH_NM = #{pathNm} 
+  		</if>
+  		<if test="seq != null">
+  		AND FILE_SEQ = #{seq} 
+  		</if>
 	</select>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.portfolio.model.BoardFileVo">
@@ -36,5 +41,12 @@
 		(FILE_BOARD_SEQ, FILE_PATH_NM, FILE_REAL_NM, FILE_SIZE)
 		VALUES (#{boardSeq}, #{pathNm}, #{realNm}, #{size})
 	</insert>
+	
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM TB_PTFOLIO_BOARD_FILES
+		WHERE 1 = 1 
+		AND FILE_SEQ = #{seq}
+	</delete>	
+	
 	
 </mapper>

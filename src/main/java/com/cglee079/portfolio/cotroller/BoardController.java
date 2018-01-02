@@ -112,6 +112,10 @@ public class BoardController {
 	public String boardModify(Model model, int seq)throws SQLException, JsonProcessingException{
 		BoardVo board = boardService.get(seq);
 		model.addAttribute("board", board);
+		
+		List<BoardFileVo> files = boardService.getFiles(seq);
+		model.addAttribute("files", files);
+		
 		board.setContents(board.getContents().replace("&", "&amp;"));
 		return "board/board_upload";
 	}
@@ -119,10 +123,10 @@ public class BoardController {
 	 
 	@RequestMapping(value = "/admin/board/upload.do", params = "!seq")
 	public String boardDoUpload(HttpSession session, Model model, BoardVo board, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
+		int seq = boardService.insert(board);
+		
 		String rootPath = session.getServletContext().getRealPath("");
 		String path = "/resources/file/board/";
-		
-		int seq = boardService.insert(board);
 		
 		File file = null;
 		MultipartFile multipartFile = null;
@@ -135,17 +139,17 @@ public class BoardController {
 		for(int i = 0 ; i < length ; i++){
 			multipartFile = files.get(i);
 			realNm 	= multipartFile.getOriginalFilename();
-			pathNm	= "board" + seq + "_" + realNm + "_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_";
+			pathNm	= "board" + seq + "_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_" + realNm;
 			size 	= multipartFile.getSize();
 			
-			file = new File(rootPath + path, pathNm);
-			multipartFile.transferTo(file);
-			
 			if(size > 0 ){
+				file = new File(rootPath + path, pathNm);
+				multipartFile.transferTo(file);
+				
 				boardFile = new BoardFileVo();
 				boardFile.setPathNm(pathNm);
 				boardFile.setRealNm(realNm);
-				boardFile.setSize(size/1000);
+				boardFile.setSize(size);
 				boardFile.setBoardSeq(seq);
 				boardService.saveFile(boardFile);
 			}
@@ -155,22 +159,67 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/admin/board/upload.do", params = "seq")
-	public String boardDoModify(Model model, BoardVo board) throws SQLException, JsonProcessingException{
+	public String boardDoModify(HttpSession session, Model model, BoardVo board, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
+		System.out.println("################ do modify ################");
+		
 		boardService.update(board);
+		
+		String rootPath = session.getServletContext().getRealPath("");
+		String filePath = "/resources/file/board/";
+		
+		File file = null;
+		MultipartFile multipartFile = null;
+		BoardFileVo boardFile = null;
+		String realNm = null;
+		String pathNm = null;
+		long size = -1;
+		int length = files.size();
+		for(int i = 0 ; i < length ; i++){
+			multipartFile = files.get(i);
+			realNm 	= multipartFile.getOriginalFilename();
+			pathNm	= "board" + board.getSeq() + "_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_" + realNm;
+			size 	= multipartFile.getSize();
+			
+			if(size > 0 ){
+				file = new File(rootPath + filePath, pathNm);
+				multipartFile.transferTo(file);
+				
+				boardFile = new BoardFileVo();
+				boardFile.setPathNm(pathNm);
+				boardFile.setRealNm(realNm);
+				boardFile.setSize(size);
+				boardFile.setBoardSeq(board.getSeq());
+				boardService.saveFile(boardFile);
+			}
+		}
+		
 		return "redirect:" + "/board/view?seq=" + board.getSeq();
 	}
 	
 	@RequestMapping("/admin/board/delete.do")
 	public String boardDoDelete(HttpSession session, Model model, int seq) throws SQLException, JsonProcessingException{
 		String rootPath = session.getServletContext().getRealPath("");
-		String path = "/resources/image/board/contents/";
-		
-		List<String> imgPaths = boardService.getContentImgPath(seq, path);
-		int imgPathsLength = imgPaths.size();
+		String contentImgPath = "/resources/image/board/contents/";
+		String filePath = "/resources/file/board/";
 		File existFile = null;
 		
+		//Content Img 삭제
+		List<String> imgPaths = boardService.getContentImgPath(seq, contentImgPath);
+		int imgPathsLength = imgPaths.size();
 		for (int i = 0; i < imgPathsLength; i++){
 			existFile = new File (rootPath + imgPaths.get(i));
+			if(existFile.exists()){
+				existFile.delete();
+			}
+		}
+		
+		//File 삭제
+		List<BoardFileVo> files = boardService.getFiles(seq);
+		BoardFileVo file = null;
+		int fileLength = files.size();
+		for(int i = 0 ;  i < fileLength; i++){
+			file = files.get(i);
+			existFile = new File(rootPath + filePath, file.getPathNm());
 			if(existFile.exists()){
 				existFile.delete();
 			}
@@ -179,6 +228,27 @@ public class BoardController {
 		boardService.delete(seq);
 		comtService.deleteCasecade("BOARD", seq);
 		return "redirect:" + "/board";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/admin/board/deleteFile.do")
+	public String deleteFile(HttpSession session, int seq){
+		JSONObject data = new JSONObject();
+		data.put("result", false);
+		
+		String rootPath = session.getServletContext().getRealPath("");
+		String filePath = "/resources/file/board/";
+		BoardFileVo boardFile = boardService.getFile(seq);
+		File file = new File(rootPath + filePath, boardFile.getPathNm());
+		if(file.exists()){
+			if(file.delete()){
+				if(boardService.deleteFile(seq)){
+					data.put("result", true);
+				};
+			};
+		}
+		
+		return data.toString();
 	}
 	
 	@RequestMapping(value = "/admin/board/imgUpload.do")

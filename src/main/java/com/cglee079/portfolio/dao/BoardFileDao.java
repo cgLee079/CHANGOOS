@@ -24,10 +24,20 @@ public class BoardFileDao {
 		return sqlSession.selectList(namespace +".list", boardSeq);
 	}
 
-	public BoardFileVo BoardFileVo(String pathNm) {
+	public BoardFileVo getFile(String pathNm) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("pathNm", pathNm);
 		return  sqlSession.selectOne(namespace +".get", map);
+	}
+	
+	public BoardFileVo getFile(int seq) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("seq", seq);
+		return  sqlSession.selectOne(namespace +".get", map);
+	}
+
+	public boolean delete(int seq) {
+		return  sqlSession.delete(namespace +".delete", seq) == 1;
 	}
 
 }

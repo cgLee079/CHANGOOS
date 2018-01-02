@@ -80,9 +80,9 @@
 			$("#sect").val("${board.sect}");
 			$("#title").val("${board.title}");
 			
-			$("<input>", { type : "hidden", name : "seq", value: "${board.seq}"}).appendTo($("#upload-form"));
-			$("<input>", { type : "hidden", name : "date", value: "${board.date}"}).appendTo($("#upload-form"));
-			$("<input>", { type : "hidden", name : "hits", value: "${board.hits}"}).appendTo($("#upload-form"));
+			$("<input>", { type : "hidden", name : "seq", value: "${board.seq}"}).appendTo($("#uploadForm"));
+			$("<input>", { type : "hidden", name : "date", value: "${board.date}"}).appendTo($("#uploadForm"));
+			$("<input>", { type : "hidden", name : "hits", value: "${board.hits}"}).appendTo($("#uploadForm"));
 		});
 	</script>
 </c:if>
@@ -172,16 +172,37 @@
 									onchange="fileChange(this)" style="display: none;"/>
 								<div class="btn-file-upload btn-gray-text" onclick="$(this).siblings('.item-file').click();">UPLOAD</div>
 								<div class="btn-file-remove btn-red-text" onclick="fileRemove(this)" style="display: none;">REMOVE</div>
+								<input type="hidden" class="file-seq"/>
 							</div>
 						</div>
 					</div>
-					
 					<script>
 						var form = $(".file-info").clone(true);
 						
 						function fileRemove(tg){
 							var fileInfo = $(tg).parents(".file-info");
-							fileInfo.remove();
+							var seq = fileInfo.find(".file-seq").val();
+							
+							if(seq){
+								$.ajax({
+									type	: "POST",
+									url 	: getContextPath() + "/admin/board/deleteFile.do",
+									dataType: "JSON",
+									data 	: {
+										"seq" : seq
+									},
+									success : function(data) {
+										if(data.result === true){
+											alert("서버에서 파일이 삭제되었습니다.");
+											fileInfo.remove();
+										} else{
+											alet("파일삭제 실패!");
+										}
+									}	
+								});
+							} else{
+								fileInfo.remove();
+							}
 						}
 						
 						function fileChange(tg){
@@ -195,13 +216,34 @@
 								
 								$("<div>", {
 									"class" : "file-info-name",
-									text : "(" + (file.size/1000)  + " Kb) " + file.name 
+									text : "(" + (file.size/(1024 * 1024)).toFixed(2) + " MB) " + file.name 
 								}).prependTo(fileInfo);
 								
 								fileInfos.append(form.clone(true));
 							} 
 						}
 					</script>
+					<c:if test="${!empty files}">
+						<c:forEach var="file" items="${files}">
+							<script>
+								(function(){
+									var fileInfos= $(".file-infos");										
+									var fileInfo = form.clone(true);
+									
+									fileInfo.find(".btn-file-remove").css("display", "");
+									fileInfo.find(".btn-file-upload").css("display", "none");
+									fileInfo.find(".file-seq").val("${file.seq}");
+									
+									$("<div>", {
+										"class" : "file-info-name",
+										text : "(" + ("${file.size}"/(1024 * 1024)).toFixed(2) + " MB) " + "${file.realNm}" 
+									}).prependTo(fileInfo);
+									
+									fileInfos.prepend(fileInfo);
+								})();
+							</script>							
+						</c:forEach>
+					</c:if>
 				</div>
 				
 				<div class="board-upload-item">
