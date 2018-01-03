@@ -32,5 +32,5 @@ CKEDITOR.editorConfig = function( config ) {
             ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink','-','About']
         ];
     
-    config.extraPlugins = 'youtube';
+    config.extraPlugins = 'youtube,prism';
 };

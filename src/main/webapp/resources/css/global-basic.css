@@ -80,10 +80,7 @@ a, a:VISITED{
 .editor-contents code {
 	overflow-x: auto;
 	margin: 1rem 0.1rem;
-	border: 1px solid #DDD;
 }
-
-
 
 .btn-gray-text {
 	display: inline-block;

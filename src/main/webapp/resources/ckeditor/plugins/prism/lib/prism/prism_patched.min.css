@@ -1,0 +1,149 @@
+code[class*="language-"], pre {
+	color : #222;
+	font-family: Monaco, Consolas, 'Andale Mono', 'Ubuntu Mono', monospace;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none
+}
+
+@media print {
+	code[class*="language-"], pre {
+		text-shadow: none
+	}
+}
+
+pre, :not(pre)>code[class*="language-"] {
+	background: #fdfdfd
+}
+
+pre {
+	padding: 1em;
+	border: 1px solid #DDD;
+	margin: .5em 0;
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+:not(pre)>code[class*="language-"] {
+	padding: .15em .2em .05em;
+	border-radius: .3em;
+	border: .13em solid hsl(30, 20%, 40%);
+	box-shadow: 1px 1px .3em -.1em black inset;
+	white-space: normal
+}
+
+.token.comment, .token.prolog, .token.doctype, .token.cdata {
+	color: hsl(30, 20%, 50%);
+	font-style: italic;
+	font-weight: normal;
+}
+
+.token.punctuation {
+	opacity: .7
+}
+
+.namespace {
+	opacity: .8;
+}
+
+.token.property, .token.tag, .token.boolean, .token.number, .token.constant,
+	.token.symbol {
+	color: #003366;
+    font-weight: normal;
+}
+
+.token.selector, .token.attr-name, .token.string, .token.char, .token.builtin,
+	.token.inserted {
+	color: #408080;
+}
+
+.token.operator, .token.entity, .token.url, .language-css .token.string,
+	.style .token.string, .token.variable {
+}
+
+.token.class-name{
+	color: #45A;
+}
+
+.token.function{
+	color : #458;
+}
+
+.token.keyword{
+	color: #574a5b;
+	font-weight: bold;
+} 
+
+.token.atrule, .token.attr-value {
+	color: #777;
+}
+
+.token.regex, .token.important {
+	color: #e90;
+}
+
+.token.important, .token.bold {
+	font-weight: bold
+}
+
+.token.italic {
+	font-style: italic
+}
+
+.token.entity {
+	cursor: help
+}
+
+.token.deleted {
+	color: red
+}
+
+pre {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber
+}
+
+pre>code {
+	position: relative
+}
+
+pre>code .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em;
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none
+}
+
+.line-numbers-rows>span {
+	pointer-events: none;
+	display: block;
+	counter-increment: linenumber
+}
+
+.line-numbers-rows>span:before {
+	content: counter(linenumber);
+	color: #999;
+	display: block;
+	padding-right: .8em;
+	text-align: right
+}
