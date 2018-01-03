@@ -54,18 +54,38 @@
 	.board-list-item .list-item-title{ flex : 1; text-align: left; overflow: hidden; white-space: nowrap;}
 	.board-list-item.board-basic .list-item-title{ color: #00C;}
 	.board-list-item .list-item-date{ width : 7rem; text-align: center;}
+	.board-list-item .list-item-none{ width : 100%; color : #F00; text-align: center;}
 	
 	.board-menu{
 		text-align: right;
 		font-size: 0.7rem;
 	}
 
-	.board_search .search-val{
-		width: 5rem;
-	}	
+	.board-search{
+		height : 1rem;
+		font-size: 0.5rem;
+	}
 	
+	.search-type{
+		height: 100%;
+	}
+	
+	.search-value{
+		height: 100%;
+		padding : .1rem;
+		width : 7rem;
+	}
+	
+	.search-submit{
+		color: #FFF;
+		width: 2rem;
+		background: #666;
+		cursor: pointer;
+		height: 100%;
+	}
+		
 	.board-pager {
-		margin-top : 20px;
+		margin-top : 10px;
 		text-align: center;
 	}
 	
@@ -79,14 +99,25 @@
 	
 <script>
 	var allRowCnt = '${count}';
-	var perPgLine = 1; 
+	var perPgLine = 1;
+	var searchType = "";
+	var searchValue = "";
+	
 	var page = window.location.hash.substring(1);
 	if(!page){
 		page = 1;
 	}
 	
 	function boardView(seq){
+		Progress.start();
 		window.location.href = getContextPath() + "/board/view?seq=" + seq + "&page=" + page;		
+	}
+	
+	function search(){
+		searchType	= $(".search-type").val();
+		searchValue = $(".search-value").val();
+		
+		pageMove(1);
 	}
 	
 	function pageMove(pg){
@@ -94,13 +125,19 @@
 			type	: "POST",
 			url		: getContextPath() + "/board/board_paging.do",
 			data	: {
-				'page'		: pg,
-				'perPgLine' : perPgLine
+				'page'			: pg,
+				'perPgLine' 	: perPgLine,
+				'searchType'	: searchType,
+				'searchValue'	: searchValue
 			},
 			dataType: 'JSON',
 			async	: false,
-			success : function(data) {
-				if(!data.length){
+			success : function(result) {
+				var count = result['count'];
+				var data = result['data'];
+				allRowCnt = count;
+				
+				if(!data.length && pg != 1){
 					pageMove(pg - 1);
 				} else{
 					page = pg;
@@ -131,6 +168,13 @@
 		var noticeLen	= boardList.find(".board-list-item.board-notice").length;
 		
 		boardList.find(".board-list-item:gt(" + noticeLen + ")").remove();
+		
+		if(!data.length){
+			board = data[i];
+			item = $("<div>", {'class' : 'board-list-item board-basic', onclick : "$('.search-value').val(''); search();"});
+			$("<div>",{ 'class' : 'list-item-none', text: "조회된 글이 없습니다.(목록으로)" }).appendTo(item);
+			item.appendTo(boardList);
+		}
 		
 		for (var i = 0; i < length; i++){
 			board = data[i];
@@ -188,6 +232,15 @@
 					<div class="list-item-date">${notice.date}</div>
 				</div>
 			</c:forEach>
+		</div>
+		
+		<div class="board-search row-center">
+			<select class="search-type">
+				<option>SECT</option>
+				<option>TITLE</option>
+			</select>
+			<input type="text" class="search-value" onkeydown="javascript:if(event.keyCode==13){search();}"/>
+			<div class="search-submit col-center" onclick="search()">검색</div>
 		</div>
 		
 		<div class="board-menu">

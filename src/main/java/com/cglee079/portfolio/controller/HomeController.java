@@ -1,4 +1,4 @@
-package com.cglee079.portfolio.cotroller;
+package com.cglee079.portfolio.controller;
 
 import java.util.List;
 import java.util.Locale;

@@ -7,45 +7,42 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cglee079.portfolio.dao.ComtDao;
+import com.cglee079.portfolio.dao.BComtDao;
 import com.cglee079.portfolio.model.ComtVo;
 
 @Service
-public class ComtService{
+public class BComtService{
 	
 	@Autowired
-	ComtDao comtDao;
+	BComtDao bcomtDao;
 
-	public List<ComtVo> paging(String boardType, int boardSeq, int page, int perPgLine) {
+	public List<ComtVo> paging(int boardSeq, int page, int perPgLine) {
 		int startRow = (page - 1) * perPgLine;
-		return comtDao.list(boardType, boardSeq, startRow, perPgLine);
+		return bcomtDao.list(boardSeq, startRow, perPgLine);
 	}
 
-	public int count(String boardType, int boardSeq) {
-		return comtDao.count(boardType, boardSeq);
+	public int count(int boardSeq) {
+		return bcomtDao.count(boardSeq);
 	}
 
 	public boolean insert(ComtVo comt) {
 		String date = new SimpleDateFormat("YYYY-MM-dd").format(new Date());
 		comt.setDate(date);
-		return comtDao.insert(comt);
+		return bcomtDao.insert(comt);
 	}
 
 	public boolean delete(int seq, String password) {
-		ComtVo comtVo = comtDao.get(seq);
+		ComtVo comtVo = bcomtDao.get(seq);
 		if(comtVo.getPassword().equals(password)){
-			return comtDao.delete(seq);			
+			return bcomtDao.delete(seq);			
 		} else {
 			return false;
 		}
 	}
 	
-	public void deleteCasecade(String boardType, int boardSeq) {
-		comtDao.deleteCasecade(boardType, boardSeq);
-	}
 
 	public boolean checkPwd(int seq, String password) {
-		ComtVo comtVo = comtDao.get(seq);
+		ComtVo comtVo = bcomtDao.get(seq);
 		if(comtVo.getPassword().equals(password)){
 			return true;			
 		} else {
@@ -54,6 +51,6 @@ public class ComtService{
 	}
 
 	public boolean update(int seq, String contents) {
-		return comtDao.update(seq, contents);
+		return bcomtDao.update(seq, contents);
 	}
 }

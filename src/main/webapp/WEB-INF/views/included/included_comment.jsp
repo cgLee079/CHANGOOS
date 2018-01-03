@@ -123,13 +123,12 @@
 <script>
 
 /*** script about comment ****/
-
-
 var page;
 var perPgLine 	= 10;
 var boardType	= "${param.boardType}";
 var boardSeq	= "${param.boardSeq}";
 var comtCnt		= parseInt("${param.comtCnt}");
+var path 		= getContextPath() + "/" + boardType;
 
 function br2nl(text){
 	return text.replace(/(<br\s*\/?>)+/g, "\n");
@@ -141,9 +140,8 @@ function nl2br(text){
 function commentPageMove(pg){
 	$.ajax({
 		type	: "POST",
-		url		: getContextPath() + "/comment/paging.do",
+		url		: path + "/comment/paging.do",
 		data	: {
-			'boardType'	: boardType,			
 			'boardSeq'	: boardSeq,					
 			'page'		: pg,
 			'perPgLine' : perPgLine
@@ -212,7 +210,7 @@ function doModify(tg){
 	
 	$.ajax({	
 		type	: "POST",
-		url		: getContextPath() + "/comment/update.do",
+		url		: path + "/comment/update.do",
 		data	: {
 			'seq' : seq,
 			'contents' : contents
@@ -239,7 +237,7 @@ function commentModify(tg){
 			var seq	= item.find(".comment-seq").val();
 			$.ajax({	
 				type	: "POST",
-				url		: getContextPath() + "/comment/checkPwd.do",
+				url		: path + "/comment/checkPwd.do",
 				data	: {
 					'seq' : seq,
 					'password' : person
@@ -278,7 +276,7 @@ function commentDelete(tg){
 		var seq	= item.find(".comment-seq").val();
 		$.ajax({	
 			type	: "POST",
-			url		: getContextPath() + "/comment/delete.do",
+			url		: path + "/comment/delete.do",
 			data	: {
 				'seq' : seq,
 				'password' : person
@@ -308,9 +306,8 @@ function commentSubmit(){
 	
 	$.ajax({
 		type	: "POST",
-		url		: getContextPath() + "/comment/submit.do",
+		url		: path + "/comment/submit.do",
 		data	: {
-			'boardType' : boardType,			
 			'boardSeq'	: boardSeq,				
 			'name'		: name.val(),					
 			'password'	: password.val(),

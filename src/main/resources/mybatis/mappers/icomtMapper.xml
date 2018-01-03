@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cglee079.portfolio.mapper.IComtMapper">
+	
+	<select id="count" resultType="Integer">
+		SELECT
+			count(*)
+		FROM TB_PTFOLIO_ICOMTS
+		WHERE 1=1
+		AND ICOMT_BOARD_SEQ = #{boardSeq} 
+	</select>
+	
+	<select id="list" resultType="com.cglee079.portfolio.model.ComtVo" parameterType="map">
+		SELECT
+		ICOMT_SEQ as "seq",
+		ICOMT_BOARD_SEQ as "boardSeq",
+		ICOMT_NAME as "name",
+		ICOMT_PWD as "password",
+		ICOMT_CONTENTS as "contents",
+		ICOMT_DATE as "date",
+		ICOMT_PARENT_SEQ as "parentSeq"
+		FROM TB_PTFOLIO_ICOMTS
+		WHERE 1=1
+		AND ICOMT_BOARD_SEQ = #{boardSeq}
+		ORDER BY ICOMT_DATE
+		LIMIT #{startRow}, #{perPgLine}
+	</select>
+	
+	<select id="get" resultType="com.cglee079.portfolio.model.ComtVo" parameterType="Integer">
+		SELECT
+		ICOMT_SEQ as "seq",
+		ICOMT_BOARD_SEQ as "boardSeq",
+		ICOMT_NAME as "name",
+		ICOMT_PWD as "password",
+		ICOMT_CONTENTS as "contents",
+		ICOMT_DATE as "DATE",
+		ICOMT_PARENT_SEQ as "parentSeq"
+		FROM TB_PTFOLIO_ICOMTS
+		WHERE ICOMT_SEQ = #{seq}
+	</select>
+	
+	<insert id="insert">
+		INSERT TB_PTFOLIO_ICOMTS 
+		(ICOMT_BOARD_SEQ, ICOMT_NAME, ICOMT_PWD, ICOMT_CONTENTS, ICOMT_DATE, ICOMT_PARENT_SEQ)
+		VALUES (#{boardSeq}, #{name}, #{password}, #{contents}, #{date}, #{parentSeq});
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM TB_PTFOLIO_ICOMTS
+		WHERE ICOMT_SEQ = #{seq}
+	</delete>
+	
+	<update id="update" parameterType="map">
+		UPDATE TB_PTFOLIO_ICOMTS
+		SET 
+		ICOMT_CONTENTS = #{contents}
+		WHERE ICOMT_SEQ = #{seq}
+	</update>
+	
+</mapper>

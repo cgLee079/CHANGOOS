@@ -2,7 +2,6 @@ package com.cglee079.portfolio.model;
 
 public class ComtVo {
 	private int seq;
-	private String boardType;
 	private int boardSeq;
 	private String name;
 	private String password;
@@ -16,14 +15,6 @@ public class ComtVo {
 
 	public void setSeq(int seq) {
 		this.seq = seq;
-	}
-
-	public String getBoardType() {
-		return boardType;
-	}
-
-	public void setBoardType(String boardType) {
-		this.boardType = boardType;
 	}
 
 	public int getBoardSeq() {

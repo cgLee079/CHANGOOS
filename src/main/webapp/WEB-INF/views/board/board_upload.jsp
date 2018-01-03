@@ -130,7 +130,6 @@
 				
 				var editor = CKEDITOR.replace("board-contents", {
 					filebrowserUploadUrl : '<%=request.getContextPath()%>' + "/admin/board/imgUpload.do",
-					codeSnippet_theme : 'github',
 					on : {
 						instanceReady : function( ev ){
 						    // Output paragraphs as <p>Text</p>.

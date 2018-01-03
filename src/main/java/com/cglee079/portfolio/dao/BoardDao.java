@@ -28,17 +28,21 @@ public class BoardDao {
 		return sqlSession.selectList(namespace +".list", map);
 	}
 
-	public List<BoardVo> list(int startRow, int perPgLine, String type) {
+	public List<BoardVo> list(int startRow, int perPgLine, String type, String searchType, String searchValue) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", startRow);
 		map.put("perPgLine", perPgLine);
 		map.put("type", type);
+		map.put("searchType", searchType);
+		map.put("searchValue", searchValue);
 		return sqlSession.selectList(namespace +".list", map);
 	}
 
-	public int count(String type) {
+	public int count(String type, String searchType, String searchValue) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("type", type);
+		map.put("searchType", searchType);
+		map.put("searchValue", searchValue);
 		return sqlSession.selectOne(namespace +".count", map);
 	}
 

@@ -1,4 +1,4 @@
-package com.cglee079.portfolio.cotroller;
+package com.cglee079.portfolio.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -32,10 +32,11 @@ import org.springframework.web.multipart.support.MultipartFilter;
 import com.cglee079.portfolio.model.BoardFileVo;
 import com.cglee079.portfolio.model.BoardVo;
 import com.cglee079.portfolio.service.BoardService;
-import com.cglee079.portfolio.service.ComtService;
+import com.cglee079.portfolio.service.BComtService;
 import com.cglee079.portfolio.util.ImageManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 @Controller
 public class BoardController {
@@ -43,12 +44,12 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@Autowired 
-	private ComtService comtService;
+	private BComtService bcomtService;
 	
 	@RequestMapping("/board")
 	public String board(Model model) throws SQLException, JsonProcessingException{
 		List<BoardVo> notices =  boardService.list("NOTICE");
-		int count = boardService.count("BASIC");
+		int count = boardService.count("BASIC", null, null);
 		model.addAttribute("count", count);
 		model.addAttribute("notices", notices);
 		return "board/board_list";
@@ -56,10 +57,17 @@ public class BoardController {
 		
 	@ResponseBody
 	@RequestMapping("/board/board_paging.do")
-	public String doPaging(int page, int perPgLine) throws SQLException, JsonProcessingException{
-		List<BoardVo> boards= boardService.paging(page, perPgLine, "BASIC");
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(boards);
+	public String doPaging(int page, int perPgLine, String searchType, String searchValue) throws SQLException, JsonProcessingException{
+		List<BoardVo> boards= boardService.paging(page, perPgLine, "BASIC", searchType, searchValue);
+		int count = boardService.count("BASIC", searchType, searchValue);
+		
+		JSONObject result = new JSONObject();
+		Gson gson = new Gson();
+		String data = gson.toJson(boards);
+		
+		result.put("count", count);
+		result.put("data", new JSONArray(data));
+		return result.toString();
 	}
 	
 	@RequestMapping("/board/view")
@@ -72,7 +80,7 @@ public class BoardController {
 		model.addAttribute("board", board);
 		model.addAttribute("afterBoard", afterBoard);
 		
-		int comtCnt = comtService.count("BOARD", seq);
+		int comtCnt = bcomtService.count(seq);
 		model.addAttribute("comtCnt", comtCnt);
 		
 		List<BoardFileVo> files = boardService.getFiles(seq);
@@ -226,7 +234,6 @@ public class BoardController {
 		}
 		
 		boardService.delete(seq);
-		comtService.deleteCasecade("BOARD", seq);
 		return "redirect:" + "/board";
 	}
 	

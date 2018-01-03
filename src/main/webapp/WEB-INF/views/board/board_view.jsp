@@ -96,7 +96,7 @@ function downloadFile(pathNm){
 			
 			<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">
 			   <c:param name = "perPgLine" value = "10" />
-			   <c:param name = "boardType" value = "BOARD" />
+			   <c:param name = "boardType" value = "board" />
 			   <c:param name = "boardSeq" value = "${board.seq}" />
 			   <c:param name = "comtCnt" value = "${comtCnt}" />
 			</c:import>

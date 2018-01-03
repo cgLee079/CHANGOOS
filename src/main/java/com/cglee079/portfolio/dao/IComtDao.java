@@ -11,8 +11,8 @@ import com.cglee079.portfolio.model.ComtVo;
 import com.cglee079.portfolio.model.BoardVo;
 
 @Repository
-public class ComtDao {
-	private static final String namespace = "com.cglee079.portfolio.mapper.ComtMapper";
+public class IComtDao {
+	private static final String namespace = "com.cglee079.portfolio.mapper.IComtMapper";
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
@@ -21,18 +21,16 @@ public class ComtDao {
 		return sqlSession.selectList(namespace +".list");
 	}
 
-	public List<ComtVo> list(String boardType, int boardSeq, int startRow, int perPgLine) {
+	public List<ComtVo> list(int boardSeq, int startRow, int perPgLine) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("boardType", boardType);
 		map.put("boardSeq", boardSeq);
 		map.put("startRow", startRow);
 		map.put("perPgLine", perPgLine);
 		return sqlSession.selectList(namespace +".list", map);
 	}
 
-	public int count(String boardType, int boardSeq) {
+	public int count(int boardSeq) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("boardType", boardType);
 		map.put("boardSeq", boardSeq);
 		return sqlSession.selectOne(namespace +".count", map);
 	}
@@ -45,13 +43,6 @@ public class ComtDao {
 		return sqlSession.delete(namespace + ".delete", seq) == 1;
 	}
 
-	public int deleteCasecade(String boardType, int boardSeq) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("boardType", boardType);
-		map.put("boardSeq", boardSeq);
-		return sqlSession.delete(namespace + ".deleteCasecade", map);
-	}
-	
 	public ComtVo get(int seq) {
 		return sqlSession.selectOne(namespace +".get", seq);
 	}

@@ -23,13 +23,13 @@ public class BoardService{
 	@Autowired
 	BoardFileDao boardFileDao;
 	
-	public List<BoardVo> paging(int page, int perPgLine, String type){
+	public List<BoardVo> paging(int page, int perPgLine, String type, String searchType, String searchValue){
 		int startRow = (page - 1) * perPgLine;
-		return boardDao.list(startRow, perPgLine, type);
+		return boardDao.list(startRow, perPgLine, type, searchType, searchValue);
 	}
 
-	public int count(String type) {
-		return boardDao.count(type);
+	public int count(String type, String searchType, String searchValue) {
+		return boardDao.count(type, searchType, searchValue);
 	}
 
 	public BoardVo get(int seq) {

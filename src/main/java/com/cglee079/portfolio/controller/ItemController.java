@@ -1,4 +1,4 @@
-package com.cglee079.portfolio.cotroller;
+package com.cglee079.portfolio.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -21,9 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.portfolio.model.ItemVo;
+import com.cglee079.portfolio.service.IComtService;
 import com.cglee079.portfolio.service.ItemService;
-import com.cglee079.portfolio.service.ComtService;
 import com.cglee079.portfolio.util.ImageManager;
+
 
 @Controller
 public class ItemController {
@@ -31,7 +32,7 @@ public class ItemController {
 	private ItemService itemService;
 
 	@Autowired 
-	private ComtService comtService;
+	private IComtService icomtService;
 	
 	@RequestMapping(value = "item")
 	public String itemList(Model model) {
@@ -67,7 +68,7 @@ public class ItemController {
 		model.addAttribute("beforeItem", beforeItem);
 		model.addAttribute("afterItem", afterItem);
 		
-		int comtCnt = comtService.count("ITEM", seq);
+		int comtCnt = icomtService.count(seq);
 		model.addAttribute("comtCnt", comtCnt);
 		
 		return "item/item_view";
@@ -103,7 +104,6 @@ public class ItemController {
 			}
 		}
 		itemService.delete(seq);
-		comtService.deleteCasecade("ITEM", seq);
 		return "redirect:" + "/admin/item/manage";
 	}
 	

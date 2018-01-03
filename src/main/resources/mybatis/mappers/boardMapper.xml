@@ -12,6 +12,12 @@
 		<if test="type != null">
 		AND BOARD_TYPE = #{type}
 		</if>
+		<if test="searchType == 'SECT' and searchValue != ''">
+ 		<![CDATA[AND UPPER(BOARD_SECT) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
+  		</if>
+  		<if test="searchType == 'TITLE' and searchValue != ''">
+ 		<![CDATA[AND UPPER(BOARD_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
+  		</if>
 	</select>
 	
 	<select id="list" resultType="com.cglee079.portfolio.model.BoardVo" parameterType="map">
@@ -21,12 +27,17 @@
 		BOARD_TYPE as "type",
 		BOARD_SECT as "sect",
 		BOARD_TITLE as "title",
-		BOARD_CONTENTS as "contents",
 		BOARD_DATE as "date",
 		BOARD_HITS as "hits"
 		FROM TB_PTFOLIO_BOARDS
 		WHERE 1 = 1 
 		AND BOARD_TYPE = #{type}
+		<if test="searchType == 'SECT' and searchValue != ''">
+ 		<![CDATA[AND UPPER(BOARD_SECT) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
+  		</if>
+  		<if test="searchType == 'TITLE' and searchValue != ''">
+ 		<![CDATA[AND UPPER(BOARD_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
+  		</if>
 		ORDER BY BOARD_SORT, BOARD_DATE DESC, BOARD_SEQ DESC
 		<if test="startRow != null and perPgLine != null">
  		LIMIT #{startRow}, #{perPgLine}
