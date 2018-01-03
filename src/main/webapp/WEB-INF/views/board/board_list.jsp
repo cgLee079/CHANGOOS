@@ -63,7 +63,7 @@
 
 	.board-search{
 		height : 1rem;
-		font-size: 0.5rem;
+		font-size: 0.7rem;
 	}
 	
 	.search-type{
@@ -235,11 +235,11 @@
 		</div>
 		
 		<div class="board-search row-center">
-			<select class="search-type">
+			<select class="search-type" style="font-size: 0.7rem">
 				<option>SECT</option>
 				<option>TITLE</option>
 			</select>
-			<input type="text" class="search-value" onkeydown="javascript:if(event.keyCode==13){search();}"/>
+			<input type="text"onkeydown="javascript:if(event.keyCode==13){search();}" style="font-size: 0.7rem" class="search-value" />
 			<div class="search-submit col-center" onclick="search()">검색</div>
 		</div>
 		

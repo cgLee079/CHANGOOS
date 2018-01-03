@@ -10,7 +10,6 @@
 		ITM_NAME as "name",
 		ITM_SECT as "sect",
 		ITM_DESC as "desc",
-		ITM_CONTENT as "content",
 		ITM_SNAPSHT as "snapsht",
 		ITM_HASVIDEO as "video",
 		ITM_DATE as "date",
