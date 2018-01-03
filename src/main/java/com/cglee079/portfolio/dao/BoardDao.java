@@ -36,8 +36,10 @@ public class BoardDao {
 		return sqlSession.selectList(namespace +".list", map);
 	}
 
-	public int count() {
-		return sqlSession.selectOne(namespace +".count");
+	public int count(String type) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		return sqlSession.selectOne(namespace +".count", map);
 	}
 
 	public BoardVo get(int seq) {

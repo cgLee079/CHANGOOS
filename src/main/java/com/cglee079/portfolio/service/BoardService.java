@@ -28,8 +28,8 @@ public class BoardService{
 		return boardDao.list(startRow, perPgLine, type);
 	}
 
-	public int count() {
-		return boardDao.count();
+	public int count(String type) {
+		return boardDao.count(type);
 	}
 
 	public BoardVo get(int seq) {

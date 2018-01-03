@@ -48,7 +48,7 @@ public class BoardController {
 	@RequestMapping("/board")
 	public String board(Model model) throws SQLException, JsonProcessingException{
 		List<BoardVo> notices =  boardService.list("NOTICE");
-		int count = boardService.count();
+		int count = boardService.count("BASIC");
 		model.addAttribute("count", count);
 		model.addAttribute("notices", notices);
 		return "board/board_list";
