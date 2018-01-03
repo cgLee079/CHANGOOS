@@ -2,30 +2,30 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cglee079.portfolio.mapper.BoardFileMapper">
+<mapper namespace="com.cglee079.portfolio.mapper.ItemFileMapper">
 	<select id="count" resultType="Integer">
 	</select>
 	
 	<select id="list" resultType="com.cglee079.portfolio.model.FileVo" parameterType="Integer">
 		SELECT 
 		FILE_SEQ as 'seq',
-		FILE_BOARD_SEQ as 'boardSeq',
+		FILE_ITEM_SEQ as 'boardSeq',
 		FILE_REAL_NM as 'realNm',
 		FILE_PATH_NM as 'pathNm',
 		FILE_SIZE	 as 'size'
-		FROM TB_PTFOLIO_BOARD_FILES
+		FROM TB_PTFOLIO_ITEM_FILES
 		WHERE 1 = 1 
-		AND FILE_BOARD_SEQ = #{boardSeq}
+		AND FILE_ITEM_SEQ = #{boardSeq}
 	</select>
 	
 	<select id="get" resultType="com.cglee079.portfolio.model.FileVo" parameterType="map">
 		SELECT 
 		FILE_SEQ as 'seq',
-		FILE_BOARD_SEQ as 'boardSeq',
+		FILE_ITEM_SEQ as 'boardSeq',
 		FILE_REAL_NM as 'realNm',
 		FILE_PATH_NM as 'pathNm',
 		FILE_SIZE	 as 'size'
-		FROM TB_PTFOLIO_BOARD_FILES
+		FROM TB_PTFOLIO_ITEM_FILES
 		WHERE 1 = 1
 		<if test="pathNm != null">
   		AND FILE_PATH_NM = #{pathNm} 
@@ -36,13 +36,13 @@
 	</select>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.portfolio.model.FileVo">
-		INSERT TB_PTFOLIO_BOARD_FILES 
-		(FILE_BOARD_SEQ, FILE_PATH_NM, FILE_REAL_NM, FILE_SIZE)
+		INSERT TB_PTFOLIO_ITEM_FILES 
+		(FILE_ITEM_SEQ, FILE_PATH_NM, FILE_REAL_NM, FILE_SIZE)
 		VALUES (#{boardSeq}, #{pathNm}, #{realNm}, #{size})
 	</insert>
 	
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM TB_PTFOLIO_BOARD_FILES
+		DELETE FROM TB_PTFOLIO_ITEM_FILES
 		WHERE 1 = 1 
 		AND FILE_SEQ = #{seq}
 	</delete>	

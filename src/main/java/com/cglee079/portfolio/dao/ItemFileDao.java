@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.cglee079.portfolio.model.FileVo;
 
 @Repository
-public class BoardFileDao {
-	private static final String namespace = "com.cglee079.portfolio.mapper.BoardFileMapper";
+public class ItemFileDao {
+	private static final String namespace = "com.cglee079.portfolio.mapper.ItemFileMapper";
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;

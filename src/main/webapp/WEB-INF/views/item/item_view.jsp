@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
@@ -6,7 +7,11 @@
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/editor-contents-resizer.js"></script>
 <script>
-window.onload = function(){
+function downloadFile(pathNm){
+	window.location.assign(getContextPath()	+ "/item/download.do?filename="+ pathNm);
+}
+
+$(document).ready(function(){
 	var lineDrawing = anime({
 		targets: ".item-line",
 		easing: "easeInQuad",
@@ -48,7 +53,7 @@ window.onload = function(){
 	     preventDefaultEvents: true
 	});
 	*/
-}
+})
 
 
 </script>
@@ -89,6 +94,20 @@ window.onload = function(){
 					<img class="item-snapsht" src="${pageContext.request.contextPath}${item.snapsht}" >
 				</c:if>
 				${item.content}
+				
+				<c:if test="${!empty files}">
+					<h3>첨부파일</h3>
+					<div class="item-files">
+						<c:forEach var="file" items="${files}">
+							<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>
+							<div class="item-file">
+								 <a onclick="downloadFile('${file.pathNm}')">
+								 	${file.realNm} (${filesize}MB)
+								 </a>
+							</div>												
+						</c:forEach>
+					</div>
+				</c:if>
 			</div>
 		
 			<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">

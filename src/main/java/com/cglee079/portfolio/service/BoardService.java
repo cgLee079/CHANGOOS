@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.cglee079.portfolio.dao.BoardDao;
 import com.cglee079.portfolio.dao.BoardFileDao;
-import com.cglee079.portfolio.model.BoardFileVo;
+import com.cglee079.portfolio.model.FileVo;
 import com.cglee079.portfolio.model.BoardVo;
 import com.cglee079.portfolio.model.ItemVo;
 import com.cglee079.portfolio.util.Formatter;
@@ -92,24 +92,23 @@ public class BoardService{
 		return boardDao.list(type);
 	}
 
-	public boolean saveFile(BoardFileVo boardFile) {
+	public boolean saveFile(FileVo boardFile) {
 		return boardFileDao.insert(boardFile);
 	}
 
-	public List<BoardFileVo> getFiles(int seq) {
+	public List<FileVo> getFiles(int seq) {
 		return boardFileDao.getFiles(seq);
 	}
 
-	public BoardFileVo getFile(String pathNm) {
+	public FileVo getFile(String pathNm) {
 		return boardFileDao.getFile(pathNm);
 	}
 
-	public BoardFileVo getFile(int seq) {
+	public FileVo getFile(int seq) {
 		return boardFileDao.getFile(seq);
 	}
 
 	public boolean deleteFile(int seq) {
 		return boardFileDao.delete(seq);
 	}
-
 }

@@ -76,6 +76,16 @@
     background-size		: contain;
 }
 
+.item-files .item-file{
+	margin: 0.5rem 0;
+}
+
+.item-files .item-file a{
+	cursor: pointer;
+	color: #00D;
+	text-decoration: none;
+}
+					
 
 @media (max-width: 420px){
 	.item-detail {

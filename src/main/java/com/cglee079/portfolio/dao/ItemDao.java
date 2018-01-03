@@ -23,8 +23,9 @@ public class ItemDao {
 		return sqlSession.selectOne(namespace + ".get", seq);
 	}
 	
-	public boolean insert(ItemVo item) {
-		return sqlSession.insert(namespace + ".insert", item) == 1;
+	public int insert(ItemVo item) {
+		sqlSession.insert(namespace + ".insert", item);
+		return item.getSeq();
 	}
 
 	public boolean delete(int seq) {

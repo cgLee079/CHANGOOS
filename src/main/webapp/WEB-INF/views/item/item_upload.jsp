@@ -167,7 +167,12 @@
 					<option>Y</option>
 					<option selected="selected">N</option>
 				</select>
-
+				
+				<h5>file</h5>
+				<c:import url="../included/included_fileupload.jsp" charEncoding="UTF-8">
+					<c:param name="boardType" value="item"/>
+				</c:import>
+				
 				<hr>
 				<input type="submit" class="item-submit">
 				

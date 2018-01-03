@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.support.MultipartFilter;
 
-import com.cglee079.portfolio.model.BoardFileVo;
+import com.cglee079.portfolio.model.FileVo;
 import com.cglee079.portfolio.model.BoardVo;
 import com.cglee079.portfolio.service.BoardService;
 import com.cglee079.portfolio.service.BComtService;
@@ -40,6 +40,9 @@ import com.google.gson.Gson;
 
 @Controller
 public class BoardController {
+	final static String CONTENT_PATH	= "/resources/image/board/contents/";
+	final static String FILE_PATH 		= "/resources/file/board/";
+	
 	@Autowired
 	private BoardService boardService;
 	
@@ -83,7 +86,7 @@ public class BoardController {
 		int comtCnt = bcomtService.count(seq);
 		model.addAttribute("comtCnt", comtCnt);
 		
-		List<BoardFileVo> files = boardService.getFiles(seq);
+		List<FileVo> files = boardService.getFiles(seq);
 		model.addAttribute("files", files);
 		
 		return "board/board_view";
@@ -92,10 +95,9 @@ public class BoardController {
 	@RequestMapping("/board/download.do")
 	public void  download(HttpSession session, HttpServletResponse response, String filename) throws IOException{
 		String rootPath = session.getServletContext().getRealPath("");
-		String path = "/resources/file/board/";
-		BoardFileVo boardFile = boardService.getFile(filename);
+		FileVo boardFile = boardService.getFile(filename);
 		
-		File file = new File(rootPath + path, boardFile.getPathNm());
+		File file = new File(rootPath + FILE_PATH, boardFile.getPathNm());
 		byte fileByte[] = FileUtils.readFileToByteArray(file);
 
 		
@@ -119,12 +121,12 @@ public class BoardController {
 	@RequestMapping(value = "/admin/board/upload", params = "seq")
 	public String boardModify(Model model, int seq)throws SQLException, JsonProcessingException{
 		BoardVo board = boardService.get(seq);
+		board.setContents(board.getContents().replace("&", "&amp;"));
 		model.addAttribute("board", board);
 		
-		List<BoardFileVo> files = boardService.getFiles(seq);
+		List<FileVo> files = boardService.getFiles(seq);
 		model.addAttribute("files", files);
 		
-		board.setContents(board.getContents().replace("&", "&amp;"));
 		return "board/board_upload";
 	}
 	
@@ -138,7 +140,7 @@ public class BoardController {
 		
 		File file = null;
 		MultipartFile multipartFile = null;
-		BoardFileVo boardFile = null;
+		FileVo boardFile = null;
 		String realNm = null;
 		String pathNm = null;
 		long size = -1;
@@ -154,7 +156,7 @@ public class BoardController {
 				file = new File(rootPath + path, pathNm);
 				multipartFile.transferTo(file);
 				
-				boardFile = new BoardFileVo();
+				boardFile = new FileVo();
 				boardFile.setPathNm(pathNm);
 				boardFile.setRealNm(realNm);
 				boardFile.setSize(size);
@@ -168,8 +170,6 @@ public class BoardController {
 	
 	@RequestMapping(value = "/admin/board/upload.do", params = "seq")
 	public String boardDoModify(HttpSession session, Model model, BoardVo board, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
-		System.out.println("################ do modify ################");
-		
 		boardService.update(board);
 		
 		String rootPath = session.getServletContext().getRealPath("");
@@ -177,7 +177,7 @@ public class BoardController {
 		
 		File file = null;
 		MultipartFile multipartFile = null;
-		BoardFileVo boardFile = null;
+		FileVo boardFile = null;
 		String realNm = null;
 		String pathNm = null;
 		long size = -1;
@@ -192,7 +192,7 @@ public class BoardController {
 				file = new File(rootPath + filePath, pathNm);
 				multipartFile.transferTo(file);
 				
-				boardFile = new BoardFileVo();
+				boardFile = new FileVo();
 				boardFile.setPathNm(pathNm);
 				boardFile.setRealNm(realNm);
 				boardFile.setSize(size);
@@ -207,12 +207,10 @@ public class BoardController {
 	@RequestMapping("/admin/board/delete.do")
 	public String boardDoDelete(HttpSession session, Model model, int seq) throws SQLException, JsonProcessingException{
 		String rootPath = session.getServletContext().getRealPath("");
-		String contentImgPath = "/resources/image/board/contents/";
-		String filePath = "/resources/file/board/";
 		File existFile = null;
 		
 		//Content Img 삭제
-		List<String> imgPaths = boardService.getContentImgPath(seq, contentImgPath);
+		List<String> imgPaths = boardService.getContentImgPath(seq, CONTENT_PATH);
 		int imgPathsLength = imgPaths.size();
 		for (int i = 0; i < imgPathsLength; i++){
 			existFile = new File (rootPath + imgPaths.get(i));
@@ -222,12 +220,12 @@ public class BoardController {
 		}
 		
 		//File 삭제
-		List<BoardFileVo> files = boardService.getFiles(seq);
-		BoardFileVo file = null;
+		List<FileVo> files = boardService.getFiles(seq);
+		FileVo file = null;
 		int fileLength = files.size();
 		for(int i = 0 ;  i < fileLength; i++){
 			file = files.get(i);
-			existFile = new File(rootPath + filePath, file.getPathNm());
+			existFile = new File(rootPath + FILE_PATH, file.getPathNm());
 			if(existFile.exists()){
 				existFile.delete();
 			}
@@ -245,7 +243,7 @@ public class BoardController {
 		
 		String rootPath = session.getServletContext().getRealPath("");
 		String filePath = "/resources/file/board/";
-		BoardFileVo boardFile = boardService.getFile(seq);
+		FileVo boardFile = boardService.getFile(seq);
 		File file = new File(rootPath + filePath, boardFile.getPathNm());
 		if(file.exists()){
 			if(file.delete()){
@@ -263,21 +261,20 @@ public class BoardController {
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
-		String imgPath	= "/resources/image/board/contents/";
 		String filename	= "content_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_";
 		String imgExt 	= null;
 		
 		if(multiFile != null){
 			filename += multiFile.getOriginalFilename();
 			imgExt = ImageManager.getExt(filename);
-			File file = new File(rootPath + imgPath + filename);
+			File file = new File(rootPath + CONTENT_PATH,filename);
 			multiFile.transferTo(file);
 			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
 			ImageIO.write(image, imgExt, file);
 		}
 		
 		response.setHeader("x-frame-options", "SAMEORIGIN");
-		model.addAttribute("path", request.getContextPath() + imgPath + filename);
+		model.addAttribute("path", request.getContextPath() + CONTENT_PATH + filename);
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
 		
 		return "board/board_imgupload";

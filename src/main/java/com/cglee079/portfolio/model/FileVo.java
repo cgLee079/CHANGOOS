@@ -1,6 +1,6 @@
 package com.cglee079.portfolio.model;
 
-public class BoardFileVo {
+public class FileVo {
 	private int seq;
 	private int boardSeq;
 	private String pathNm;

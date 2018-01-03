@@ -71,6 +71,11 @@ a, a:VISITED{
 	line-height: 1.3rem;
 }
 
+.editor-contents a, .editor-contents a:VISITED{
+	text-decoration: underline;
+	color : #00F;
+}
+
 .editor-contents img{
 	height : auto;
 	border : 1px solid #AAA;

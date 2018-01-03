@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cglee079.portfolio.dao.ItemDao;
+import com.cglee079.portfolio.dao.ItemFileDao;
+import com.cglee079.portfolio.model.FileVo;
 import com.cglee079.portfolio.model.ItemVo;
 
 @Service
@@ -15,11 +17,14 @@ public class ItemService {
 	@Autowired
 	private ItemDao itemDao;
 	
+	@Autowired
+	private ItemFileDao itemFileDao;
+	
 	public List<ItemVo> list(){
 		return itemDao.list();
 	}
 	
-	public boolean insert(ItemVo item) {
+	public int insert(ItemVo item) {
 		item.setContent(item.getContent());
 		item.setDesc(item.getDesc());
 		
@@ -28,8 +33,6 @@ public class ItemService {
 	}
 
 	public boolean update(ItemVo item) {
-		item.setContent(item.getContent());
-		item.setDesc(item.getDesc());
 		return itemDao.update(item);
 	}
 	
@@ -39,6 +42,26 @@ public class ItemService {
 	
 	public ItemVo get(int seq){
 		return itemDao.get(seq);
+	}
+	
+	public boolean saveFile(FileVo boardFile) {
+		return itemFileDao.insert(boardFile);
+	}
+
+	public List<FileVo> getFiles(int seq) {
+		return itemFileDao.getFiles(seq);
+	}
+
+	public FileVo getFile(String pathNm) {
+		return itemFileDao.getFile(pathNm);
+	}
+
+	public FileVo getFile(int seq) {
+		return itemFileDao.getFile(seq);
+	}
+
+	public boolean deleteFile(int seq) {
+		return itemFileDao.delete(seq);
 	}
 	
 	public List<String> getContentImgPath(int seq, String path){

@@ -10,6 +10,7 @@
 		ITM_NAME as "name",
 		ITM_SECT as "sect",
 		ITM_DESC as "desc",
+		ITM_CONTENT as "content",
 		ITM_SNAPSHT as "snapsht",
 		ITM_HASVIDEO as "video",
 		ITM_DATE as "date",
@@ -43,7 +44,7 @@
 		WHERE ITM_SEQ = #{seq}
 	</delete>
 	
-	<insert id="insert">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.portfolio.model.ItemVo">
 		INSERT TB_PTFOLIO_ITEMS 
 		(ITM_SORT, ITM_NAME, ITM_SECT, ITM_DESC, ITM_CONTENT, ITM_SNAPSHT, ITM_HASVIDEO, ITM_DATE, ITM_SOURCECD, ITM_DEVELOPER, ITM_HITS)
 		VALUES (#{sort}, #{name}, #{sect}, #{desc}, #{content}, #{snapsht}, #{video}, #{date}, #{sourcecode},#{developer}, #{hits})
