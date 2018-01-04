@@ -120,7 +120,6 @@ $(document).ready(function(){
 		pass.push(false);
 	});
 	
-	
 	if(isMobile){
 		itemViews.each(function(){
 			$(this).bind("click", function(){

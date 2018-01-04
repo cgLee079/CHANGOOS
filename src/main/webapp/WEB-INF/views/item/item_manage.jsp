@@ -60,7 +60,7 @@
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 	
 	<div class="menu-manage">
-		<a href="${pageContext.request.contextPath}/admin/item/upload">Upload</a>
+		<a href="${pageContext.request.contextPath}/admin/item/upload" class="btn">Upload</a>
 	</div>
 	
 	<div class="wrap-item-list">

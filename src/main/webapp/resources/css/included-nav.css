@@ -166,6 +166,15 @@
 	animation-delay: -1.0s;
 }
 
+.admin-menu {
+	position: fixed;
+	z-index: 2500;
+	right: 1rem;
+	top : 15px;
+	font-size: 0.5rem;
+	opacity: 0.3;
+}
+
 @-webkit-keyframes sk-bounce {
 	0%, 100% { -webkit-transform: scale(0.0) }
 	50% { -webkit-transform: scale(1.0) }

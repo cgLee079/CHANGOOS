@@ -42,24 +42,26 @@ var path = getContextPath() + "/admin" + "/" + boardType;
 function fileRemove(tg){
 	var fileInfo = $(tg).parents(".file-info");
 	var seq = fileInfo.find(".file-seq").val();
-	
 	if(seq){
-		$.ajax({
-			type	: "POST",
-			url 	: path + "/deleteFile.do",
-			dataType: "JSON",
-			data 	: {
-				"seq" : seq
-			},
-			success : function(data) {
-				if(data.result === true){
-					alert("서버에서 파일이 삭제되었습니다.");
-					fileInfo.remove();
-				} else{
-					alet("파일삭제 실패!");
-				}
-			}	
-		});
+		var result = confirm("정말로 파일을 삭제하시겠습니까?\n확인 시 서버에서 파일이 삭제됩니다!!!");
+		if(result){
+			$.ajax({
+				type	: "POST",
+				url 	: path + "/deleteFile.do",
+				dataType: "JSON",
+				data 	: {
+					"seq" : seq
+				},
+				success : function(data) {
+					if(data.result === true){
+						alert("서버에서 파일이 삭제되었습니다.");
+						fileInfo.remove();
+					} else{
+						alet("파일삭제 실패!");
+					}
+				}	
+			});
+		}
 	} else{
 		fileInfo.remove();
 	}

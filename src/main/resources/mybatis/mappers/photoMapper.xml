@@ -18,7 +18,7 @@
 		PHOTO_TAG as "tag",
 		PHOTO_DEVICE as "device",
 		PHOTO_LIKE as "like"
-		FROM TB_PTPOLIO_PHOTOS
+		FROM TB_PTFOLIO_PHOTOS
 		ORDER BY PHOTO_SORT, PHOTO_DATE DESC, PHOTO_TIME ASC
 	</select>
 	
@@ -36,22 +36,22 @@
 		PHOTO_TAG as "tag",
 		PHOTO_DEVICE as "device",
 		PHOTO_LIKE as "like"
-		FROM TB_PTPOLIO_PHOTOS
+		FROM TB_PTFOLIO_PHOTOS
 		WHERE PHOTO_SEQ = #{seq}
 	</select>
 	
 	<delete id="delete">
-		DELETE FROM TB_PTPOLIO_PHOTOS
+		DELETE FROM TB_PTFOLIO_PHOTOS
 		WHERE PHOTO_SEQ = #{seq}
 	</delete>
 	
 	<insert id="insert">
-		INSERT TB_PTPOLIO_PHOTOS (PHOTO_SORT, PHOTO_IMAGE, PHOTO_SNAPSHT, PHOTO_NAME, PHOTO_DESC, PHOTO_LOC, PHOTO_DATE, PHOTO_TIME, PHOTO_TAG, PHOTO_DEVICE, PHOTO_LIKE)
+		INSERT TB_PTFOLIO_PHOTOS (PHOTO_SORT, PHOTO_IMAGE, PHOTO_SNAPSHT, PHOTO_NAME, PHOTO_DESC, PHOTO_LOC, PHOTO_DATE, PHOTO_TIME, PHOTO_TAG, PHOTO_DEVICE, PHOTO_LIKE)
 		VALUES (#{sort}, #{image}, #{snapsht}, #{name}, #{desc}, #{location}, #{date}, #{time}, #{tag}, #{device}, #{like})
 	</insert>
 	
 	<update id="update">
-		UPDATE TB_PTPOLIO_PHOTOS
+		UPDATE TB_PTFOLIO_PHOTOS
 		SET
 		PHOTO_SORT = #{sort}, 
 		PHOTO_IMAGE = #{image},
