@@ -56,11 +56,6 @@
 	.board-list-item .list-item-date{ width : 7rem; text-align: center;}
 	.board-list-item .list-item-none{ width : 100%; color : #F00; text-align: center;}
 	
-	.board-menu{
-		text-align: right;
-		font-size: 0.7rem;
-	}
-
 	.board-search{
 		height : 1rem;
 		font-size: 0.7rem;
@@ -241,10 +236,6 @@
 			</select>
 			<input type="text"onkeydown="javascript:if(event.keyCode==13){search();}" style="font-size: 0.7rem" class="search-value" />
 			<div class="search-submit col-center" onclick="search()">검색</div>
-		</div>
-		
-		<div class="board-menu">
-		 	<a href="${pageContext.request.contextPath}/admin/board/upload" class="btn">글쓰기</a>
 		</div>
 		
 		<div class="board-pager"></div>

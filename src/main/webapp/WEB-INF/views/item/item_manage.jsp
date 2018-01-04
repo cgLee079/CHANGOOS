@@ -9,8 +9,14 @@
 		margin: 0px auto;
 	}
 	
-	.header{
-		text-align: center;
+	.menu-manage{
+		margin : 1rem;
+		margin-top: 30px;
+		text-align: right;
+	}
+	
+	.wrap-item-list{
+		margin-top: 10px;
 	}
 	
 	.item-list{
@@ -51,11 +57,9 @@
 </head>
 <body>
 <div class="wrapper">
-	<div class="header">
-		<h1>item-list</h1>
-	</div>
+	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 	
-	<div class="nav">
+	<div class="menu-manage">
 		<a href="${pageContext.request.contextPath}/admin/item/upload">Upload</a>
 	</div>
 	
@@ -102,6 +106,8 @@
 		
 		</table>
 	</div>
+	
+	<c:import url="../included/included_footer.jsp" charEncoding="UTF-8" />
 </div>
 </body>
 </html>

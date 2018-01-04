@@ -1,3 +1,33 @@
+ <%@ page pageEncoding="UTF-8"%>
+ <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+ 
+<style>
+	.menu-admin {
+		position: fixed;
+		z-index: 10000;
+		right: 1rem;
+		top : 15px;
+		font-size: 0.5rem;
+		opacity: 0.3;
+	}
+	
+</style>
+<sec:authorize access="isAnonymous()">
+	<div class="menu-admin">
+		<a href="${pageContext.request.contextPath}/login" class="btn btn-admin-login">로그인</a>
+	</div>
+</sec:authorize>
+ 
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+  	<div class="menu-admin">
+  		<a href="${pageContext.request.contextPath}/j_spring_security_logout" class="btn btn-admin-login">로그아웃</a>
+  		<a href="${pageContext.request.contextPath}/admin/item/manage" class="btn btn-admin-login">프로젝트관리</a>
+  		<a href="${pageContext.request.contextPath}/admin/photo/manage" class="btn btn-admin-login">사진관리</a>
+  		<a href="${pageContext.request.contextPath}/admin/board/upload" class="btn btn-admin-login">게시판글쓰기</a>
+  	</div>    
+</sec:authorize>
+
+
 <div class="nav-top row-center">
 	<div class="wrap-home-logo col-center" onclick="window.location.href = '${pageContext.request.contextPath}/'">
 		<div>CHANGOO'S</div>
