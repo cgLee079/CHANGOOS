@@ -219,7 +219,7 @@
 				<div class="upload-item">
 					<div class="upload-item-name"></div>
 					<div class="upload-item-input">
-						<input type="submit" class="item-submit">
+						<input type="submit" class="item-submit" onclick="Progress.start()">
 					</div>
 				</div>
 			</form>

@@ -153,7 +153,7 @@
 					<div class="item-name"></div>
 					<div class="item-input board-submit">
 						<a class="btn" href="${pageContext.request.contextPath}/board">취소</a>
-						<a class="btn" onclick="$('#uploadForm').submit()">저장</a>
+						<a class="btn" onclick="Progress.start(); $('#uploadForm').submit()">저장</a>
 					</div>
 				</div>	
 				

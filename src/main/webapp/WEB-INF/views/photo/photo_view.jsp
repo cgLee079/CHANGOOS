@@ -6,7 +6,7 @@
 <style>
 .photo-view{
 	width: 100%;
-	height : 450px;
+	flex :1;
 	padding : 20px 0px;
 	margin-top: 0.5rem;
 	border: 1px solid #eee;
@@ -62,9 +62,8 @@
 	word-break : break-all;
 }
 
-
 .wrap-photo-list{
-	height : 4rem;
+	height : 5rem;
 	display : flex;
 	width : 90%;
 	margin: 0px auto;
@@ -313,12 +312,19 @@
 		     preventDefaultEvents: true
 		});
 		
+		wrapPhotoViewSetHeight();
 		photoSnapshtResize();
 		$(window).resize(function(){
+			wrapPhotoViewSetHeight();
 			photoSnapshtResize();
 		});
 		
 	});
+	
+	function wrapPhotoViewSetHeight(){
+		var wrapPhotoView = $(".wrap-photo-view");
+		wrapPhotoView.css("height", deviceHeight - 100);
+	}
 	
 </script>
 </head>
@@ -341,6 +347,7 @@
 				<div class="photo-index display-none"></div>
 			</div>
 		</div>
+		
 		<div class="wrap-photo-list">
 			<div class="btn btn-left-list h-reverse" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_photo_arrow.png)">
 			</div>

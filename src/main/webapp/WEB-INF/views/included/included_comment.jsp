@@ -118,6 +118,7 @@
 		<textarea class="comment-write-contents" id="contents" name="contents"></textarea>
 		<div onclick="commentSubmit()" class="comment-write-submit col-center">등록</div>
 	</div>
+	
 </div>
 
 <script>
@@ -129,6 +130,7 @@ var boardType	= "${param.boardType}";
 var boardSeq	= "${param.boardSeq}";
 var comtCnt		= parseInt("${param.comtCnt}");
 var path 		= getContextPath() + "/" + boardType;
+var comtFormTemp= $(".comment-write").clone();
 
 function br2nl(text){
 	return text.replace(/(<br\s*\/?>)+/g, "\n");
