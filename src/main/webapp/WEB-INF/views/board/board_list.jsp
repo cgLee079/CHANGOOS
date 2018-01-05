@@ -74,6 +74,7 @@ function updateBoard(data){
 	var item 		= undefined;
 	var length		= data.length;
 	var noticeLen	= boardList.find(".board-list-item.board-notice").length;
+	var boardDesc 	= undefined;
 	
 	boardList.find(".board-list-item:gt(" + noticeLen + ")").remove();
 	
@@ -89,7 +90,13 @@ function updateBoard(data){
 		item = $("<div>", {'class' : 'board-list-item board-basic', onclick : "boardView(" + board.seq + ")"});
 		$("<div>",{ 'class' : 'list-item-index', text : (page - 1 ) * perPgLine + 1 + i}).appendTo(item);
 		$("<div>",{ 'class' : 'list-item-sect', text : board.sect}).appendTo(item);
-		$("<div>",{ 'class' : 'list-item-title', text : board.title}).appendTo(item);
+		
+		boardDesc = $("<div>",{ 'class' : 'list-item-desc'}).appendTo(item);
+		$("<span>",{ 'class' : 'list-item-title', text : board.title}).appendTo(boardDesc);
+		if(board.comtCnt > 0){
+		$("<span>",{ 'class' : 'list-item-comt', text : "(" + board.comtCnt + ")" }).appendTo(boardDesc);
+		}
+		
 		$("<div>",{ 'class' : 'list-item-date', text : board.date}).appendTo(item);
 		item.appendTo(boardList);			
 	}
@@ -128,14 +135,14 @@ $(document).ready(function(){
 			<div class="board-list-item board-header">
 				<div class="list-item-index">INDEX</div>
 				<div class="list-item-sect">SECT</div>
-				<div class="list-item-title">TITLE</div>
+				<div class="list-item-desc">TITLE</div>
 				<div class="list-item-date">DATE</div>
 			</div>
 			<c:forEach var="notice" items="${notices}">
 				<div class="board-list-item board-notice">
 					<div class="list-item-index">★★★</div>
 					<div class="list-item-sect">NOTICE</div>
-					<div class="list-item-title">${notice.title}</div>
+					<div class="list-item-desc">${notice.title}</div>
 					<div class="list-item-date">${notice.date}</div>
 				</div>
 			</c:forEach>

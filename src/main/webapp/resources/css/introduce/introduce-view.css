@@ -35,7 +35,7 @@
 
 .content-text{
 	width : 40%;
-	padding : 2rem;
+	margin : 1.5rem 2rem;
 	line-height: 1.3rem;
 	font-size: 0.8rem;
 }
@@ -71,7 +71,7 @@
 	}
 	
 	.content-text{
-		width: 100%;
+		width: auto;
 		height: 40%;
 	}
 	

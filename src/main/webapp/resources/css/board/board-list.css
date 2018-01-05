@@ -55,15 +55,21 @@
 	text-align: center;
 }
 
-.board-list-item .list-item-title {
+.board-list-item .list-item-desc {
 	flex: 1;
 	text-align: left;
 	overflow: hidden;
 	white-space: nowrap;
 }
 
-.board-list-item.board-basic .list-item-title {
+.board-list-item.board-basic .list-item-desc {
 	color: #00C;
+}
+
+.list-item-desc .list-item-comt{
+	font-size: 0.5rem;
+	color: #F00;
+	margin-left: 0.2rem;
 }
 
 .board-list-item .list-item-date {

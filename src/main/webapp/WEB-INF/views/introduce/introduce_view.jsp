@@ -3,7 +3,7 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/introduce/introduce-view.css" />
 <script>
 	$(document).ready(function(){
 		setSlideMyInfo();
@@ -54,7 +54,7 @@
 					n = 0;
 				}
 				btns.eq(n).trigger("click");
-			}, 7000);
+			}, 30000);
 		}
 		
 		if(!isMobile){
@@ -131,16 +131,23 @@
 					<h1 class="content-head">Who am I?</h1>
 					
 					<p>
-					Hello? My name is <strong>changoo Lee</strong>.<br/> 
-					I live in south korea and
-						<strong>
+					Hi. My name is <strong>Changoo Lee</strong>.<br/> 
+					I am
 						<jsp:useBean id="date" class="java.util.Date" />
 						<fmt:formatDate value="${date}" pattern="yyyy" var="currentYear" />
 						<c:out value="${currentYear - 1992 + 1}" />
-						</strong>
-					old. <br/>
-					I specialized Computer Engineering at Hansung University. <br/>
+					old and specialized Computer Engineering at Hansung University.<br/>
+					When i'm 9 old, i got my first computer as present. 
+					after that so many time in my life were spended to control computer.
+					as a result, I love and very well use computer than other people.<br/>
+					In 19 old i had to decide my major in university. but I didn't have to think about what major.
+					Naturally, choiced Computer Enginnering.<br/>
+					Of course, I know that many people very well use computer.
+					i am not arrogant. so now i study, study, study to become one of best people my area.<br/>
+					<br/>
+					Thank you for reading. 
 					
+								
 					</p>
 				</div>
 			</div>

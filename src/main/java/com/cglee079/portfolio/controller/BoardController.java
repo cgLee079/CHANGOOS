@@ -67,9 +67,18 @@ public class BoardController {
 		JSONObject result = new JSONObject();
 		Gson gson = new Gson();
 		String data = gson.toJson(boards);
+
+		JSONArray dataJson = new JSONArray(data);
+		JSONObject datum;
+		
+		for(int i = 0; i < dataJson.length(); i++){
+			datum = dataJson.getJSONObject(i);
+			datum.put("comtCnt", bcomtService.count(datum.getInt("seq")));
+		}
 		
 		result.put("count", count);
-		result.put("data", new JSONArray(data));
+		result.put("data", dataJson);
+		
 		return result.toString();
 	}
 	
