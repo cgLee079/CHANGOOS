@@ -39,6 +39,19 @@
 	margin-top: 2rem;
 }
 
+.board-files {
+	margin-top: 1rem;
+}
+
+.board-file {
+	font-size: 0.6rem;
+	color: #55F;
+	margin: 0.2rem 0rem;
+	text-align: right;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
 @media ( max-width : 420px) {
 	.wrap-board {
 		width: 90%;

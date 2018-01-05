@@ -4,11 +4,12 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board-view-basic.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board/board-view.css" />
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/editor-contents-resizer.js"></script>
+
 <script>
-var boardPage = '${page}';
+var boardPage = "${page}";
 
 function boardList(){
 	if(!boardPage){
@@ -64,21 +65,6 @@ function downloadFile(pathNm){
 					</div>
 				</div>
 
-				<style>
-					.board-files{
-						margin-top: 1rem;
-					}
-					
-					.board-file{
-						font-size: 0.6rem;
-						color: #55F;
-						margin: 0.2rem 0rem;
-						text-align: right;
-						cursor: pointer;
-						text-decoration: underline;
-					}
-					
-				</style>
 				<c:if test="${!empty files}">
 					<div class="board-files">
 						<c:forEach var="file" items="${files}">

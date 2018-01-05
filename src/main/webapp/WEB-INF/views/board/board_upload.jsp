@@ -4,53 +4,8 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
 <script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}//resources/css/board/board-upload.css" />
 
-<style>
-
-#uploadForm {
-	width : 100%;
-}
-
-.board-upload-form{
-	margin-top : 30px;
-	background: #FFF;
-	border: 1px solid #DDD;
-	padding : 1rem 5rem;
-	font-size: 0.7rem;
-}
-
-.board-upload-item{
-	display: flex;
-	flex-flow : row nowrap;
-	margin-bottom : 0.5rem;
-}
-
-.board-upload-item .item-name{
-	width : 5rem;
-}
-
-.board-upload-item .item-input{
-	flex : 1;
-}
-
-.board-upload-item .item-input input[type='text']{
-	padding : 0.1rem;
-	width : 50%;
-}
-
-.board-type {
-	padding: 0.1rem;
-}
-
-.board-contents{
-	height: 450px;
-}
-
-.board-submit{
-	text-align: right;
-}
-
-</style>
 <c:if test="${!empty board}">
 	<script>
 		$(document).ready(function(){
@@ -65,12 +20,13 @@
 		});
 	</script>
 </c:if>
+
 </head>
 <body>
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8"/>
 		<div class="board-upload-form col-center">
-			<form id="uploadForm" action="${pageContext.request.contextPath}/admin/board/upload.do" method="post" enctype="multipart/form-data">
+			<form id="uploadForm" action="${pageContext.request.contextPath}/admin/board/upload.do" method="post" enctype="multipart/form-data" class="upload-form">
 				<div class="board-upload-item">
 					<div class="item-name">TYPE</div>
 					<div class="item-input">
@@ -160,11 +116,6 @@
 			</form>
 		</div>
 		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8" />
-		
 	</div>
-	
-
-
-	
 </body>
 </html>

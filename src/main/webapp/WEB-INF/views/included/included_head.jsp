@@ -6,7 +6,6 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global-basic.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global-responsive.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included-nav.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/letter-motion.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ckeditor/plugins/prism/lib/prism/prism_patched.min.css" />
@@ -47,5 +46,9 @@ if(!isMobile){
 var contextPath = "${pageContext.request.contextPath}";
 function getContextPath(){
 	return contextPath;
+}
+
+function getAttr(attr){
+	return eval('('+ attr +')');
 }
 </script>
