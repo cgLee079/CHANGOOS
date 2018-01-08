@@ -31,18 +31,18 @@ public class IComtService{
 		return icomtDao.insert(comt);
 	}
 
-	public boolean delete(int seq, String password) {
+	public boolean delete(int seq, String password, boolean isAdmin) {
 		ComtVo comtVo = icomtDao.get(seq);
-		if(comtVo.getPassword().equals(password)){
+		if(comtVo.getPassword().equals(password) || isAdmin){
 			return icomtDao.delete(seq);			
 		} else {
 			return false;
 		}
 	}
 	
-	public boolean checkPwd(int seq, String password) {
+	public boolean checkPwd(int seq, String password, boolean isAdmin) {
 		ComtVo comtVo = icomtDao.get(seq);
-		if(comtVo.getPassword().equals(password)){
+		if(comtVo.getPassword().equals(password) || isAdmin){
 			return true;			
 		} else {
 			return false;

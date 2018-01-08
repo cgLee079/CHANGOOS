@@ -40,8 +40,8 @@ public class BComtController {
 	
 	@ResponseBody
 	@RequestMapping("board/comment/delete.do")
-	public String doDelete(int seq, String password) throws SQLException, JsonProcessingException{
-		boolean result = bcomtService.delete(seq, password);
+	public String doDelete(int seq, String password, boolean isAdmin) throws SQLException, JsonProcessingException{
+		boolean result = bcomtService.delete(seq, password, isAdmin);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
 	}

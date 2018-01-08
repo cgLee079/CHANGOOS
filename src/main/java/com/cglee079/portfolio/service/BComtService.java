@@ -31,9 +31,10 @@ public class BComtService{
 		return bcomtDao.insert(comt);
 	}
 
-	public boolean delete(int seq, String password) {
+	public boolean delete(int seq, String password, boolean isAdmin) {
 		ComtVo comtVo = bcomtDao.get(seq);
-		if(comtVo.getPassword().equals(password)){
+		System.out.println(password + "  " + isAdmin);
+		if(comtVo.getPassword().equals(password) || isAdmin){
 			return bcomtDao.delete(seq);			
 		} else {
 			return false;

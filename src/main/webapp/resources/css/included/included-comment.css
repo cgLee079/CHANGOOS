@@ -9,8 +9,14 @@
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: space-between;
+	align-items : center;
 	padding: 0.5rem;
 	border-bottom: 1px solid #F0F0F0;
+}
+
+.comment-item.reply {
+	margin-left: 1rem;
+	border-left: 2px double #F0F0F0;	
 }
 
 .comment {
@@ -20,6 +26,10 @@
 .comment .comment-writer {
 	color: #00D;
 	font-size: 0.7rem;
+}
+
+.comment-item.reply .comment .comment-writer {
+	color: #1c1c24;
 }
 
 .comment .comment-date {
@@ -37,7 +47,7 @@
 
 .comment-menu {
 	font-size: 0.6rem;
-	width: 5rem;
+	width: 7rem;
 	color: #444;
 	text-align: center;
 }

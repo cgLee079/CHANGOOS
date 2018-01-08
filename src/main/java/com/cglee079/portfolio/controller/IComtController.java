@@ -37,16 +37,16 @@ public class IComtController {
 	
 	@ResponseBody
 	@RequestMapping("item/comment/delete.do")
-	public String doDelete(int seq, String password) throws SQLException, JsonProcessingException{
-		boolean result = icomtService.delete(seq, password);
+	public String doDelete(int seq, String password, boolean isAdmin) throws SQLException, JsonProcessingException{
+		boolean result = icomtService.delete(seq, password, isAdmin);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
 	}
 	
 	@ResponseBody
 	@RequestMapping("item/comment/checkPwd.do")
-	public String doCheckPwd(int seq, String password) throws SQLException, JsonProcessingException{
-		boolean result = icomtService.checkPwd(seq, password);
+	public String doCheckPwd(int seq, String password, boolean isAdmin) throws SQLException, JsonProcessingException{
+		boolean result = icomtService.checkPwd(seq, password, isAdmin);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
 	}
