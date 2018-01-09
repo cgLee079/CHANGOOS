@@ -111,7 +111,7 @@ pre {
 
 pre {
 	position: relative;
-	padding-left: 3.8em;
+	padding-left: 4em;
 	counter-reset: linenumber
 }
 
@@ -125,9 +125,9 @@ pre>code .line-numbers-rows {
 	top: 0;
 	font-size: 100%;
 	left: -3.8em;
-	width: 3em;
+	width: 2.9em;
 	letter-spacing: -1px;
-	border-right: 1px solid #999;
+	border-right: 2px solid #f1d5a3;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
