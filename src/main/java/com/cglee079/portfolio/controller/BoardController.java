@@ -7,9 +7,7 @@ import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -26,16 +24,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.support.MultipartFilter;
 
-import com.cglee079.portfolio.model.FileVo;
 import com.cglee079.portfolio.model.BoardVo;
-import com.cglee079.portfolio.service.BoardService;
+import com.cglee079.portfolio.model.FileVo;
 import com.cglee079.portfolio.service.BComtService;
+import com.cglee079.portfolio.service.BoardService;
 import com.cglee079.portfolio.util.ImageManager;
+import com.cglee079.portfolio.util.TimeStamper;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 @Controller
@@ -158,7 +154,7 @@ public class BoardController {
 		for(int i = 0 ; i < length ; i++){
 			multipartFile = files.get(i);
 			realNm 	= multipartFile.getOriginalFilename();
-			pathNm	= "board" + seq + "_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_" + realNm;
+			pathNm	= "board" + seq + "_" + TimeStamper.stamp() + "_" + realNm;
 			size 	= multipartFile.getSize();
 			
 			if(size > 0 ){
@@ -194,7 +190,7 @@ public class BoardController {
 		for(int i = 0 ; i < length ; i++){
 			multipartFile = files.get(i);
 			realNm 	= multipartFile.getOriginalFilename();
-			pathNm	= "board" + board.getSeq() + "_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_" + realNm;
+			pathNm	= "board" + board.getSeq() + "_" + TimeStamper.stamp() + "_" + realNm;
 			size 	= multipartFile.getSize();
 			
 			if(size > 0 ){
@@ -270,13 +266,13 @@ public class BoardController {
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
-		String filename	= "content_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_";
+		String filename	= "content_" + TimeStamper.stamp() + "_";
 		String imgExt 	= null;
 		
 		if(multiFile != null){
 			filename += multiFile.getOriginalFilename();
 			imgExt = ImageManager.getExt(filename);
-			File file = new File(rootPath + CONTENT_PATH,filename);
+			File file = new File(rootPath + CONTENT_PATH, filename);
 			multiFile.transferTo(file);
 			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
 			ImageIO.write(image, imgExt, file);

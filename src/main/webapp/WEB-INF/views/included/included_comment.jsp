@@ -55,7 +55,7 @@ function makeComment(){
 	comment += '<input type="hidden" class="comment-boardSeq">';
 	comment += '<div class="comment">';
 	comment += '<a class="comment-writer"></a> <a class="comment-date"></a>'
-	comment += '<div class="comment-contents"></div>';
+	comment += '<div class="comment-contents editor-contents"></div>';
 	comment += '</div>';
 	comment += '<div class="comment-menu">';
 	if(isAdmin === 'true'){
@@ -77,7 +77,7 @@ function makeReplyComment(){
 	comment += '<input type="hidden" class="comment-boardSeq">';
 	comment += '<div class="comment">';
 	comment += '<a class="comment-writer"></a> <a class="comment-date"></a>'
-	comment += '<div class="comment-contents"></div>';
+	comment += '<div class="comment-contents editor-contents"></div>';
 	comment += '</div>';
 	comment += '<div class="comment-menu">';
 	if(isAdmin === 'true'){

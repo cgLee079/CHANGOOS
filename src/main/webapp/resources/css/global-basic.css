@@ -61,6 +61,7 @@ a, a:VISITED{
 .editor-contents{
 	color: #333;
 	font-size: 0.75rem;	
+	line-height: 1.3rem;
 }
 
 .editor-contents h1, h2, h3{

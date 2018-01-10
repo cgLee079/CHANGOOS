@@ -29,7 +29,7 @@ import com.cglee079.portfolio.model.ItemVo;
 import com.cglee079.portfolio.service.IComtService;
 import com.cglee079.portfolio.service.ItemService;
 import com.cglee079.portfolio.util.ImageManager;
-
+import com.cglee079.portfolio.util.TimeStamper;
 
 @Controller
 public class ItemController {
@@ -208,7 +208,7 @@ public class ItemController {
 		for(int i = 0 ; i < length ; i++){
 			multipartFile = files.get(i);
 			realNm 	= multipartFile.getOriginalFilename();
-			pathNm	= "item" + seq + "_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_" + realNm;
+			pathNm	= "item" + seq + "_" + TimeStamper.stamp() + "_" + realNm;
 			size 	= multipartFile.getSize();
 			
 			if(size > 0 ){
@@ -263,7 +263,7 @@ public class ItemController {
 		for(int i = 0 ; i < length ; i++){
 			multipartFile = files.get(i);
 			realNm 	= multipartFile.getOriginalFilename();
-			pathNm	= "item" + seq + "_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_" + realNm;
+			pathNm	= "item" + seq + "_" + TimeStamper.stamp() + "_" + realNm;
 			size 	= multipartFile.getSize();
 			
 			if(size > 0 ){
@@ -308,7 +308,7 @@ public class ItemController {
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
-		String filename	= "content_" + new SimpleDateFormat("YYMMdd_HHmmss").format(new Date()) + "_";
+		String filename	= "content_" + TimeStamper.stamp() + "_";
 		String imgExt 	= null;
 		
 		if(multiFile != null){

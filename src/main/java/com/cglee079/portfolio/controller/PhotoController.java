@@ -23,6 +23,7 @@ import com.cglee079.portfolio.model.PhotoVo;
 import com.cglee079.portfolio.service.PhotoService;
 import com.cglee079.portfolio.util.Formatter;
 import com.cglee079.portfolio.util.ImageManager;
+import com.cglee079.portfolio.util.TimeStamper;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.MetadataException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -30,6 +31,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class PhotoController {
+	final static String IMG_PATH	 	= "/resources/image/photo/";
+	final static String SNAPSHT_PATH	= "/resources/image/photo/snapshot/";
 	
 	@Autowired
 	private PhotoService photoService;
@@ -83,9 +86,7 @@ public class PhotoController {
 	public String photoDoUpload(HttpServletRequest request, PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
 		HttpSession session = request.getSession();
 		String rootPath 	= session.getServletContext().getRealPath("");
-		String imgPath		= "/resources/image/photo/";
-		String snapshtPath 	= "/resources/image/photo/snapshot/";
-		String timeStamp	= new SimpleDateFormat("YYMMdd_HHmmss").format(new Date());
+		String timeStamp	= TimeStamper.stamp();
 		String imgName		= "photo_" + timeStamp + "_" + photo.getName();
 		String snapshtName	= "photo_snapsht_" + timeStamp + "_" + photo.getName();
 		
@@ -96,7 +97,7 @@ public class PhotoController {
 			snapshtName += "." + imgExt;
 			
 			//multipartfile save;
-			File photofile = new File(rootPath + imgPath + imgName);
+			File photofile = new File(rootPath + IMG_PATH, imgName);
 			imageFile.transferTo(photofile);
 			HashMap<String, String> metadata = ImageManager.getImageMetaData(photofile);
 			photo.setDate(Formatter.toDate(metadata.get("Date/Time Original")));
@@ -113,14 +114,14 @@ public class PhotoController {
 			
 			//make snapsht
 			BufferedImage shapshtImg = ImageManager.getLowScaledImage(photofile, 100, imgExt); 
-			File snapshtfile = new File(rootPath + snapshtPath + snapshtName);
+			File snapshtfile = new File(rootPath + SNAPSHT_PATH, snapshtName);
 			ImageIO.write(shapshtImg, imgExt, snapshtfile);
 			
-			photo.setSnapsht(snapshtPath + snapshtName);
-			photo.setImage(imgPath + imgName);
+			photo.setSnapsht(SNAPSHT_PATH + snapshtName);
+			photo.setImage(IMG_PATH + imgName);
 		} else{
-			photo.setImage(imgPath + "default.jpg");
-			photo.setSnapsht(snapshtPath + "default.jpg");
+			photo.setImage(IMG_PATH + "default.jpg");
+			photo.setSnapsht(SNAPSHT_PATH + "default.jpg");
 		}
 		
 		photoService.insert(photo);
@@ -132,9 +133,7 @@ public class PhotoController {
 	public String photoDoModify(HttpServletRequest request, PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException{
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
-		String imgPath		= "/resources/image/photo/";
-		String snapshtPath 	= "/resources/image/photo/snapshot/";
-		String timeStamp	= new SimpleDateFormat("YYMMdd_HHmmss").format(new Date());
+		String timeStamp	= TimeStamper.stamp();
 		String imgName		= "photo_" + timeStamp + "_" + photo.getName();
 		String snapshtName	= "photo_snapsht_" + timeStamp + "_" + photo.getName();
 		
@@ -148,7 +147,7 @@ public class PhotoController {
 			snapshtName += "." + imgExt;
 			
 			//multipartfile save;
-			File photofile = new File(rootPath + imgPath + imgName);
+			File photofile = new File(rootPath + 1 + imgName);
 			imageFile.transferTo(photofile);
 			HashMap<String, String> metadata = ImageManager.getImageMetaData(photofile);
 			photo.setDate(Formatter.toDate(metadata.get("Date/Time Original")));
@@ -165,11 +164,11 @@ public class PhotoController {
 			if(orientation != 1 ){
 				shapshtImg = ImageManager.rotateImageForMobile(shapshtImg, orientation);
 			}
-			File snapshtfile = new File(rootPath + snapshtPath + snapshtName);
+			File snapshtfile = new File(rootPath + SNAPSHT_PATH, snapshtName);
 			ImageIO.write(shapshtImg, imgExt, snapshtfile);
 			
-			photo.setSnapsht(snapshtPath + snapshtName);
-			photo.setImage(imgPath + imgName);
+			photo.setSnapsht(SNAPSHT_PATH + snapshtName);
+			photo.setImage(1 + imgName);
 		} 
 		
 		photoService.update(photo);
