@@ -87,4 +87,12 @@ public class ItemService {
 		return imgPaths;
 	}
 
+	public ItemVo getBefore(int sort) {
+		return itemDao.getBefore(sort);
+	}
+
+	public ItemVo getAfter(int sort) {
+		return itemDao.getAfter(sort);
+	}
+
 }

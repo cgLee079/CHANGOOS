@@ -36,4 +36,12 @@ public class ItemDao {
 		return sqlSession.update(namespace + ".update", item) == 1;
 	}
 
+	public ItemVo getBefore(int sort) {
+		return sqlSession.selectOne(namespace + ".getBefore", sort);
+	}
+
+	public ItemVo getAfter(int sort) {
+		return sqlSession.selectOne(namespace + ".getAfter", sort);
+	}
+
 }

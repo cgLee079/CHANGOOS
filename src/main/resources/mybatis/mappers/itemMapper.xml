@@ -10,7 +10,6 @@
 		ITM_NAME as "name",
 		ITM_SECT as "sect",
 		ITM_DESC as "desc",
-		ITM_CONTENT as "content",
 		ITM_SNAPSHT as "snapsht",
 		ITM_HASVIDEO as "video",
 		ITM_DATE as "date",
@@ -37,6 +36,44 @@
 		ITM_HITS as "hits"
 		FROM TB_PTFOLIO_ITEMS
 		WHERE ITM_SEQ = #{seq}
+	</select>
+	
+	<select id="getBefore" resultType="com.cglee079.portfolio.model.ItemVo" parameterType="Integer">
+		SELECT
+		ITM_SEQ as "seq",
+		ITM_SORT as "sort",
+		ITM_NAME as "name",
+		ITM_SECT as "sect",
+		ITM_DESC as "desc",
+		ITM_CONTENT as "content",
+		ITM_SNAPSHT as "snapsht",
+		ITM_HASVIDEO as "video",
+		ITM_DATE as "date",
+		ITM_SOURCECD as "sourcecode",
+		ITM_DEVELOPER as "developer",
+		ITM_HITS as "hits"
+		FROM TB_PTFOLIO_ITEMS
+		WHERE <![CDATA[ITM_SORT < #{sort}]]> 
+		ORDER BY ITM_SORT DESC LIMIT 1
+	</select>
+	
+	<select id="getAfter" resultType="com.cglee079.portfolio.model.ItemVo" parameterType="Integer">
+		SELECT
+		ITM_SEQ as "seq",
+		ITM_SORT as "sort",
+		ITM_NAME as "name",
+		ITM_SECT as "sect",
+		ITM_DESC as "desc",
+		ITM_CONTENT as "content",
+		ITM_SNAPSHT as "snapsht",
+		ITM_HASVIDEO as "video",
+		ITM_DATE as "date",
+		ITM_SOURCECD as "sourcecode",
+		ITM_DEVELOPER as "developer",
+		ITM_HITS as "hits"
+		FROM TB_PTFOLIO_ITEMS
+		WHERE <![CDATA[ITM_SORT > #{sort}]]> 
+		ORDER BY ITM_SORT DESC LIMIT 1
 	</select>
 	
 	<delete id="delete">
