@@ -129,5 +129,6 @@ $(document).ready(function(){
 			<div class="btn btn-item-next" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_item_arrow.png)"></div>
 		</c:if>
 	</div>
+	
 </body>
 </html>
