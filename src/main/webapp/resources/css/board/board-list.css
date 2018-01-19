@@ -14,27 +14,27 @@
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: space-between;
-	color: #666;
 	padding: 0.3rem 0rem;
 	font-size: 0.7rem;
 }
 
 .board-list .board-list-item.board-header {
 	font-weight: bold;
+	padding : 10px 0;
 	border-bottom: 1px solid #EEE;
 	margin-bottom: 0.5rem;
-	color: #333;
-}
-
-.board-list .board-list-item.board-notice {
-	color: #444;
+	box-shadow: 0px 1px 3px #DDD;
 }
 
 .board-list .board-list-item.board-basic {
 	opacity: 1;
-	border-bottom: 1px soild #FAFAFA;
 	margin-top: 0.1rem;
 	cursor: pointer;
+}
+
+.board-list .board-list-item.board-notice, .board-list .board-list-item.board-basic {
+	border-bottom: 1px solid #F3F3F3;	
+	padding: 7px;
 }
 
 .board-list .board-list-item.board-basic:HOVER {
@@ -63,7 +63,6 @@
 }
 
 .board-list-item.board-basic .list-item-desc {
-	color: #00C;
 }
 
 .list-item-desc .list-item-comt{

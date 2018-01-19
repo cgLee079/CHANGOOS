@@ -122,6 +122,22 @@ $(window).resize(function(){
 $(document).ready(function(){
 	pageMove(page);
 	resizedw();
+	
+	$(".wrap-board-list").touchwipe({
+	     wipeLeft: function() {
+	    	 pageMove(page + 1);
+	     },
+	     
+	     wipeRight: function() {
+	    	 if(!(page <= 1)){
+	    		 pageMove(page - 1);
+	    	 }
+	     },
+	     
+	     min_move_x: 20,
+	     min_move_y: 20,
+	     preventDefaultEvents: true
+	});
 });
 </script>
 </head>
