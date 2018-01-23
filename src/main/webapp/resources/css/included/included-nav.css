@@ -5,7 +5,7 @@
 	height: 50px;
 	z-index: 2000;
 	background: #FFF;
-	border-bottom: 1px solid #ddd;
+	box-shadow: 0px 2px 3px #ECF0F1; 
 }
 
 .nav-top .wrap-home-logo{
