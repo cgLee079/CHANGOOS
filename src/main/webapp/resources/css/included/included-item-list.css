@@ -1,0 +1,99 @@
+.item-view{	
+	width : 80%;
+	margin : 0 auto;
+	display : flex;
+	flex-flow: row wrap;
+	margin-bottom: 2.5rem;
+	opacity: 0;
+	box-shadow: 0px 10px 10px #ECF0F1; 
+}
+
+.item-snapsht{
+	flex : 1 50%;
+	height : 400px;
+	opacity: 0.9;
+	cursor : pointer;
+	position : relative;
+	background-position	: center;
+    background-repeat	: no-repeat;
+    background-size		: cover;
+}
+
+.item-snapsht .item-snapsht-overlay {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    padding: 0.7rem 1.5rem;
+    background-color: #000;
+    z-index: 2;
+    color: #fff;
+    font-size: 13px;
+    transform-origin: 0 0;
+    will-change: transform, opacity;
+    transform: scaleY(0) translateZ(0);
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.item-snapsht:HOVER .item-snapsht-overlay {
+	transform:scaleY(1) translateZ(0);
+	transition:transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.item-snapsht .item-snapsht-fg{
+	position: absolute;
+	left : 0;
+	top : 0;
+	right : 0;
+	bottom  : 0;
+	z-index: 1;
+	background: rgba(0, 0, 0, 0.2);
+	transform: scale(0);
+}
+
+.item-snapsht:hover .item-snapsht-fg{
+	transform: scale(1);
+}
+
+.item-info{
+	padding : 1rem;
+	flex : 1 35%;
+	position: relative;
+}
+
+.item-title {
+	font-size: 1.1rem;
+}
+
+.item-desc {
+	margin-top : 1rem;
+	font-size: 0.7rem;
+	color : #444;
+}
+
+.item-menu{
+	position : absolute;
+	bottom: 1rem;
+	right : 1rem;
+	font-size : 0.8rem;
+}
+
+
+@media (max-width: 700px){
+	.item-view{
+		width : 100%;
+		flex-flow: column wrap;
+	}
+	
+	.item-snapsht{
+		flex : 1 30%;
+		height : auto;
+		border : 1px solid #DDD;
+	}
+	
+	.item-info{
+		flex : 1 20%;
+		margin: 0;
+		margin-top: 2rem;
+	}
+	
+}
