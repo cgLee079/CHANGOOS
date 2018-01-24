@@ -34,7 +34,6 @@
 
 .board-list .board-list-item.board-notice, .board-list .board-list-item.board-basic {
 	border-bottom: 1px solid #F3F3F3;	
-	padding: 7px;
 }
 
 .board-list .board-list-item.board-basic:HOVER {

@@ -21,7 +21,7 @@
 }
 
 .board-detail .board-title {
-	font-size: 2rem;
+	font-size: 1.5rem;
 	font-weight: bold;
 }
 
@@ -49,7 +49,6 @@
 	margin: 0.2rem 0rem;
 	text-align: right;
 	cursor: pointer;
-	text-decoration: underline;
 }
 
 @media ( max-width : 420px) {
