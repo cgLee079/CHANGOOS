@@ -67,7 +67,6 @@
 }
 
 .item-desc {
-	margin-top : 1rem;
 	font-size: 0.7rem;
 	color : #444;
 }
@@ -89,13 +88,12 @@
 	.item-snapsht{
 		flex : 1 30%;
 		height : auto;
-		border : 1px solid #DDD;
 	}
 	
 	.item-info{
 		flex : 1 20%;
 		margin: 0;
-		margin-top: 2rem;
+		margin-top: 1rem;
 	}
 	
 }

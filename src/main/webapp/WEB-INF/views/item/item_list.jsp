@@ -15,7 +15,15 @@
 		font-weight : bold;
 		text-align: center;
 		margin-bottom: 3rem;
+		-webkit-transition: trsnform 0.3s;
+    	transition: transform 0.3s;
+    	cursor: default;
 	}
+	
+	.items-title:HOVER {
+		transform : scale(1.1);
+	}
+}
 </style>
 </head>
 <body>
@@ -23,7 +31,7 @@
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 	
 	<div class="main">
-		<div class="items-title">
+		<div class="items-title font-lora">
 			Projects
 		</div>
 		<%@ include file="/WEB-INF/views/included/included_item_list.jsp" %>

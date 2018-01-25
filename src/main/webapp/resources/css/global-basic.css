@@ -58,6 +58,17 @@ a, a:VISITED{
 	justify-content: center;
 }
 
+.font-lora{
+	font-family: Lora, sans-serif;
+}
+
+.row-border{
+	width : 1rem;
+	background: #DDD;
+	margin: 0.8rem 0 0.4rem 0;
+	height: 0.1rem;
+}
+	
 .editor-contents{
 	color: #333;
 	font-size: 0.6rem;	

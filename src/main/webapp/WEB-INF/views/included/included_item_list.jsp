@@ -60,6 +60,7 @@ $(document).ready(function(){
 			</div>
 			<div class="item-info">
 				<div class="item-title">[${item.sect}] ${item.name}</div>
+				<div class="row-border"></div>
 				<div class="item-desc editor-contents">${item.desc}</div>
 				<div class="item-menu">
 					<div class="btn-slideup btn-item-show">

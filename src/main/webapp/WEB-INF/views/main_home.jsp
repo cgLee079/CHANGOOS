@@ -40,14 +40,14 @@
 			</div>
 			
 			<div class="introduce-name">
-				<h1 class="ml9">
+				<h1 class="ml9 font-lora">
 				  <span class="text-wrapper">
 				    <span class="letters">Changoo Lee</span>
 				  </span>
 				</h1>
 			</div>
 			
-			<div class="introduce-desc">
+			<div class="introduce-desc font-lora">
 				Hello! Thank you for visiting my site. <br/>
 				I specialized Computer Engineering at Hansung University.<br/>
 				and interested in <strong>Android, Web development.</strong><br/>

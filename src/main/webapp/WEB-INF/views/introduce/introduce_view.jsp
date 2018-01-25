@@ -53,7 +53,7 @@
 		}
 		
 		if(!isMobile){
-			timer();	
+			//timer();	
 		}
 		
 		function toLeft(){
@@ -130,9 +130,9 @@
 		<div class="myinfo-views">
 			<div class="myinfo-view myinfo-view00">
 				<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view00.jpg)"></div>
-				<div class="content-text">
+				<div class="content-text font-lora">
 					<h1 class="content-head">Who am I?</h1>
-					
+					<div class="row-border"></div>
 					<p>
 					Hi. My name is <strong>Changoo Lee</strong>.<br/> 
 					I am
@@ -157,8 +157,9 @@
 			
 			<div class="myinfo-view myinfo-view01">
 				<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view01.jpg)"></div>
-				<div class="content-text">
+				<div class="content-text font-lora">
 					 <h1 class="content-head">History.</h1>
+					 <div class="row-border"></div>
 					 <p>
 						 <strong>2011.03</strong> &nbsp&nbsp Admissions C.E at Hansug University. <br/>
 						 <strong>2012.05</strong> &nbsp&nbsp Join to army. <br/>
@@ -172,8 +173,9 @@
 			
 			<div class="myinfo-view myinfo-view02">
 				<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view02.jpg)"></div>
-				<div class="content-text">
+				<div class="content-text font-lora">
 					<h1 class="content-head">Resume.</h1>
+					<div class="row-border"></div>
 					Bachelor's degree at Hausng University. <br/>
 					Grade &nbsp&nbsp<strong>4.22 / 4.5</strong> <br/>
 					Toeic &nbsp&nbsp&nbsp<strong>855</strong> <br/>
@@ -185,8 +187,9 @@
 			
 			<div class="myinfo-view myinfo-view03">
 			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view03.jpg)"></div>
-				<div class="content-text">
+				<div class="content-text font-lora">
 					<h1 class="content-head">CONTACT.</h1>
+					<div class="row-border"></div>
 					<strong>Name.</strong> 이찬구(Changoo Lee) <br/>
 					<strong>Email.</strong> cgLee079@gmail.com <br/>
 					<strong>Tel.</strong> 010 - 2062 - 2979 <br/>
