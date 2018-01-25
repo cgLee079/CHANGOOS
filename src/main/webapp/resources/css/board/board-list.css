@@ -102,6 +102,7 @@
 	background: #666;
 	cursor: pointer;
 	height: 100%;
+	font-size: 0.5rem;
 }
 
 .board-pager {

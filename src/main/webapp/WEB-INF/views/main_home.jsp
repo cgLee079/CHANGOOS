@@ -50,7 +50,7 @@
 			<div class="introduce-desc">
 				Hello! Thank you for visiting my site. <br/>
 				I specialized Computer Engineering at Hansung University.<br/>
-				and interested in Android, Web development.<br/>
+				and interested in <strong>Android, Web development.</strong><br/>
 				If you want to see my projects, show below.<br/>
 				<br/>
 				<a href="javascript:void(0)" onclick="scrollToItems()" class ="btn btn-show-items" >going on</a>

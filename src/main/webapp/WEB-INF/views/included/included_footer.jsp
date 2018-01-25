@@ -3,8 +3,8 @@
 	width : 100%;
 	margin-top : 3rem;
 	padding : 1rem 0 1rem 0;
-	background : #333;
 	color : #FFF;
+	background: #444;
 }
 
 .footer-head{
@@ -25,11 +25,9 @@
 	<div class="info-contact">
 		<div class="footer-head"><h4>CONTACT INFOMATION</h4></div>
 		<div class="row-center">
-			<img src="${pageContext.request.contextPath}/resources/image/icon_footer_email.png" style="width:0.6rem; height:0.6rem; margin-right: 0.3rem">
 			cglee079@gmail.com
 		</div>
 		<div class="row-center">
-			<img src="${pageContext.request.contextPath}/resources/image/icon_footer_phone.png" style="width:0.6rem; height:0.6rem; margin-right: 0.3rem">
 			010 - 2062 - 2979
 		</div>
 	</div>

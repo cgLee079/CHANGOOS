@@ -42,10 +42,12 @@ function commentPageMove(pg){
 
 function updatePaging(callFunc, page, comtCnt, perPgLine, pgGrpCnt){
 	var boardPager	= $('.comt-pager');
-	var	pager		= drawPager(callFunc, page, comtCnt, perPgLine, pgGrpCnt);
-		
 	boardPager.empty();
-	boardPager.append(pager);
+	
+	if(comtCnt > 0){
+		var	pager		= drawPager(callFunc, page, comtCnt, perPgLine, pgGrpCnt);
+		boardPager.append(pager);
+	}
 }
 
 function makeComment(){

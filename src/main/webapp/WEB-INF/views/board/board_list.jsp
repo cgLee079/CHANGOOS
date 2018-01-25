@@ -165,11 +165,11 @@ $(document).ready(function(){
 		</div>
 		
 		<div class="board-search row-center">
-			<select class="search-type" style="font-size: 0.7rem">
+			<select class="search-type" style="font-size: 0.5rem">
 				<option>SECT</option>
 				<option>TITLE</option>
 			</select>
-			<input type="text"onkeydown="javascript:if(event.keyCode==13){search();}" style="font-size: 0.7rem" class="search-value" />
+			<input type="text"onkeydown="javascript:if(event.keyCode==13){search();}" style="font-size: 0.5rem" class="search-value" />
 			<div class="search-submit col-center" onclick="search()">검색</div>
 		</div>
 		

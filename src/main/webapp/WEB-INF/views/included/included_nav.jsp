@@ -5,7 +5,7 @@
  
 <sec:authorize access="isAnonymous()">
 	<div class="admin-menu">
-		<a href="${pageContext.request.contextPath}/login" class="btn btn-admin-login">로그인</a>
+		<a href="${pageContext.request.contextPath}/login" class="btn btn-admin-login">관리자</a>
 	</div>
 </sec:authorize>
  

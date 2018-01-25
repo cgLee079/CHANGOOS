@@ -58,10 +58,12 @@
 	padding : 1rem;
 	flex : 1 35%;
 	position: relative;
+	background: #FFF;	
 }
 
 .item-title {
 	font-size: 1.1rem;
+	font-weight: 550;
 }
 
 .item-desc {
