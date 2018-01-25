@@ -127,9 +127,6 @@ $(window).resize(function(){
 					duration: 500,
 					delay: function(el, i) {
 					  return 50 * (i);
-					},
-					complete : function(){
-						//$(".nav-menu div").addClass("btn-slideup");
 					}
 				})
 		} else{

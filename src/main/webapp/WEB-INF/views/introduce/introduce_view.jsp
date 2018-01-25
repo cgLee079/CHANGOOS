@@ -7,12 +7,6 @@
 <script>
 	$(document).ready(function(){
 		setSlideMyInfo();
-		
-		if(isMobile){
-			$(".myinfo-view01 .content-text").insertAfter(".myinfo-view01 .content-picture");
-			$(".myinfo-view03 .content-text").insertAfter(".myinfo-view03 .content-picture");
-		}
-		
 	});
 	
 	function setSlideMyInfo(){
@@ -42,8 +36,8 @@
 			var currentEl =  views.eq(current);
 			var nextEl = views.eq(index);
 			
-			currentEl.css({left : "0"}).stop().animate({left : "-100%"}, {duration : 1500});
-			nextEl.css({left : "100%"}).stop().animate({left : "0%"}, {duration : 1500});
+			currentEl.css({left : "0"}).stop().animate({left : "-100%"});
+			nextEl.css({left : "100%"}).stop().animate({left : "0%"});
 			
 			current = index;
 		}
@@ -79,8 +73,8 @@
 			currentEl 	= items.eq(index);
 			nextEl 		= items.eq(toIndex);
 			  	 
-			currentEl.css({left : "0"}).stop().animate({left : "-100%"}, {duration : 1500});
-		  	nextEl.css({left : "100%"}).stop().animate({left : "0%"}, {duration : 1500});	
+			currentEl.css({left : "0"}).stop().animate({left : "-100%"});
+		  	nextEl.css({left : "100%"}).stop().animate({left : "0%"});	
 		  	
 		  	btns.removeClass("on");
 		  	btns.eq(toIndex).addClass("on");
@@ -102,8 +96,8 @@
 			currentEl 	= items.eq(index);
 			nextEl 		= items.eq(toIndex);
 			
-			currentEl.css({left : "0"}).stop().animate({left : "100%"}, {duration : 1500});
-		  	nextEl.css({left : "-100%"}).stop().animate({left : "0%"}, {duration : 1500});	
+			currentEl.css({left : "0"}).stop().animate({left : "100%"});
+		  	nextEl.css({left : "-100%"}).stop().animate({left : "0%"});	
 		  	
 		  	btns.removeClass("on");
 		  	btns.eq(toIndex).addClass("on");
@@ -162,6 +156,7 @@
 			</div>
 			
 			<div class="myinfo-view myinfo-view01">
+				<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view01.jpg)"></div>
 				<div class="content-text">
 					 <h1 class="content-head">History.</h1>
 					 <p>
@@ -172,7 +167,7 @@
 						 <strong>2018.02</strong> &nbsp&nbsp Graduated from university <br/>
 					 </p>
 				</div>
-				<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view01.jpg)"></div>
+				
 			</div>
 			
 			<div class="myinfo-view myinfo-view02">
@@ -189,6 +184,7 @@
 			</div>
 			
 			<div class="myinfo-view myinfo-view03">
+			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view03.jpg)"></div>
 				<div class="content-text">
 					<h1 class="content-head">CONTACT.</h1>
 					<strong>Name.</strong> 이찬구(Changoo Lee) <br/>
@@ -197,7 +193,6 @@
 					<br/>
 					<h3>Contact Me!!</h3>
 				</div>
-				<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view03.jpg)"></div>
 			</div>
 			
 		</div>
