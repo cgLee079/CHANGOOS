@@ -8,7 +8,7 @@
 }
 
 .photo-view > .photo-img{
-	width : 100%;
+	width : auto;
 	height: 70%;
 	background-position	: center;
     background-repeat	: no-repeat;

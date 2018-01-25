@@ -7,6 +7,11 @@
 <script>
 	const moveDuration = 1000;
 	
+	function wrapPhotoViewSetHeight(){
+		var wrapPhotoView = $(".wrap-photo-view");
+		wrapPhotoView.css("height", deviceHeight - 100);
+	}
+	
 	function photoSnapshtResize(){
 		var photoItems = $(".photo-item");
 		var length = photoItems.length;
@@ -175,18 +180,15 @@
 		
 		wrapPhotoViewSetHeight();
 		photoSnapshtResize();
-		$(window).resize(function(){
-			wrapPhotoViewSetHeight();
-			photoSnapshtResize();
-		});
+		$(".photo-img").css("height", parseInt($(".photo-view").height()) * 0.7);
 		
 	});
 	
-	function wrapPhotoViewSetHeight(){
-		var wrapPhotoView = $(".wrap-photo-view");
-		wrapPhotoView.css("height", deviceHeight - 100);
-	}
-	
+	$(window).resize(function(){
+		wrapPhotoViewSetHeight();
+		photoSnapshtResize();
+		$(".photo-img").css("height", parseInt($(".photo-view").height()) * 0.7);
+	});
 </script>
 </head>
 <body>
