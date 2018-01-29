@@ -330,39 +330,6 @@ $(document).ready(function(){
 	<div class="comments"></div>
 	<div class="comt-pager"></div>
 	
-	<style>
-		.btn-reply.open{
-			opacity: 1;
-		}
-		
-		.btn-modify.open{
-			opacity: 1;
-		}
-		
-		.comment-reply{
-			margin: 0.5rem 0rem;
-			height: 1.5rem;
-			font-size: 0.7rem;
-		}
-		
-		.comment-reply-content{
-			height: 100%;
-			overflow-y: auto;
-			overflow-x: hidden;
-			width : 20rem;
-			resize: none;
-		}
-		
-		.comment-reply-submit{
-			color: #FFF;
-			width: 3rem;
-			height: 100%;
-			background: #666;
-			cursor: pointer;
-			font-size: 0.5rem;
-		}
-	</style>
-	
 	<div class="comment-write">
 		<div class="comment-write-pinfo">
 			<input type="text" id="name" name="name" placeholder="name">

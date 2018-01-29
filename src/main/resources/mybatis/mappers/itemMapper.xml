@@ -73,7 +73,7 @@
 		ITM_HITS as "hits"
 		FROM TB_PTFOLIO_ITEMS
 		WHERE <![CDATA[ITM_SORT > #{sort}]]> 
-		ORDER BY ITM_SORT DESC LIMIT 1
+		ORDER BY ITM_SORT ASC LIMIT 1
 	</select>
 	
 	<delete id="delete">

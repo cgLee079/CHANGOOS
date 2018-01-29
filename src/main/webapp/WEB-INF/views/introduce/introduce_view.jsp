@@ -162,7 +162,7 @@
 					 <div class="row-border"></div>
 					 <p>
 						 <strong>2011.03</strong> &nbsp&nbsp Admissions C.E at Hansug University. <br/>
-						 <strong>2012.05</strong> &nbsp&nbsp Join to army. <br/>
+						 <strong>2012.05</strong> &nbsp&nbsp Military Service (21 Months). <br/>
 						 <strong>2017.02</strong> &nbsp&nbsp Victory Graduate Competition <br/>
 						 <strong>2017.07</strong> &nbsp&nbsp Intern at Nexgen Associate (Web, SI) <br/>
 						 <strong>2018.02</strong> &nbsp&nbsp Graduated from university <br/>
@@ -176,9 +176,10 @@
 				<div class="content-text font-lora">
 					<h1 class="content-head">Resume.</h1>
 					<div class="row-border"></div>
+					Coumputer Enginnering 
 					Bachelor's degree at Hausng University. <br/>
 					Grade &nbsp&nbsp<strong>4.22 / 4.5</strong> <br/>
-					Toeic &nbsp&nbsp&nbsp<strong>855</strong> <br/>
+					Toeic &nbsp&nbsp&nbsp<strong>845</strong> <br/>
 					Data Processing Engineer, <br/>
 					Craftsman Information Equipment Operation,<br/>
 					MS master, GTQ

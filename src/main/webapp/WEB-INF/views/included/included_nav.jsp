@@ -168,11 +168,11 @@ $(window).resize(function(){
 	</div>
 	
 	<div class="btn-slideup">
-		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">Photo</a>
+		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/board">Board</a>
 	</div>
 	
 	<div class="btn-slideup">
-		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/board">Board</a>
+		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">Photo</a>
 	</div>
 	
 	<div class="btn-slideup">

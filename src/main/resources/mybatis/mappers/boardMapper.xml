@@ -27,6 +27,7 @@
 		BOARD_TYPE as "type",
 		BOARD_SECT as "sect",
 		BOARD_TITLE as "title",
+		BOARD_CONTENTS as "contents",
 		BOARD_DATE as "date",
 		BOARD_HITS as "hits"
 		FROM TB_PTFOLIO_BOARDS
