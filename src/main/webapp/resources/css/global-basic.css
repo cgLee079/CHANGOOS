@@ -91,7 +91,7 @@ a, a:VISITED{
 .editor-contents img{
 	height : auto;
 	border : 1px solid #AAA;
-	margin-bottom: 1rem;
+	margin-bottom: 0.3rem;
 }
 
 .editor-contents code {

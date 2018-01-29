@@ -130,6 +130,24 @@
 	margin: 0.5rem 0rem;
 }
 
+.btn-scroll-top{
+	position: fixed;
+	right: 1.5rem;
+	bottom: 1rem;
+	width : 0.2rem;
+	height : 0.2rem;
+	border-radius: 2rem;
+	background: #6C7A89;
+	color: #FFF;
+	font-size: 0.4rem;
+	padding : 1rem;
+	z-index: 100000;
+}
+
+.btn-scroll-top.off{
+	display: none;
+}
+	
 .progress-bar{
 	position : fixed;
 	width: 100%;

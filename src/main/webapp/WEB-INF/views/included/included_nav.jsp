@@ -183,6 +183,26 @@ $(window).resize(function(){
 		<a target="_blank" href="https://www.instagram.com/cglee079">Instagram</a>
 	</div>
 </div>
+<div class="btn btn-scroll-top row-center off">
+	<a>TOP</a>
+</div>
+<script>
+$(window).scroll(function(event){
+	var scroll = $(window).scrollTop();
+	if(scroll > deviceHeight){
+		$(".btn-scroll-top").removeClass("off");
+	} else{
+		$(".btn-scroll-top").addClass("off");
+	}
+});
+
+(function(){
+	$(".btn-scroll-top").click(function(){
+		$("html, body").animate({scrollTop : 0});
+	})
+})();
+</script>
+
 <div class="progress-bar display-none">
 	<div class="spinner">
 	  <div class="double-bounce1"></div>
