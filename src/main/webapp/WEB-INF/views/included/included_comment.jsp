@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-comment.css" />
 <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"></sec:authorize>
 <script>
 var page;

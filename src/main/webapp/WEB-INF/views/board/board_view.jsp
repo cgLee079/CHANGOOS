@@ -5,6 +5,7 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board/board-view.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-comment.css" />
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/editor-contents-resizer.js"></script>
 
