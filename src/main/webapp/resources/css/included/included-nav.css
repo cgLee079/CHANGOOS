@@ -141,7 +141,7 @@
 	color: #FFF;
 	font-size: 0.4rem;
 	padding : 1rem;
-	z-index: 100000;
+	z-index: 2999;
 }
 
 .btn-scroll-top.off{

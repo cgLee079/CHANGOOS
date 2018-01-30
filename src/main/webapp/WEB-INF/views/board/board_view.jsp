@@ -51,17 +51,18 @@ function downloadFile(pathNm){
 				<a class="btn" onclick="boardModify('${board.seq}')">수정</a>
 				<a class="btn" onclick="boardDelete('${board.seq}')">삭제</a>
 				<a class="btn" onclick="boardList()">목록</a>
-				<a class="btn" onclick="boardView('${beforeBoard.seq}')">이전글</a>
-				<a class="btn" onclick="boardView('${afterBoard.seq}')">다음글</a>
+				<a class="btn" onclick="boardView('${afterBoard.seq}')">이전글</a>
+				<a class="btn" onclick="boardView('${beforeBoard.seq}')">다음글</a>
 			</div>
 			<div class="board-detail">
 				<div class="board-head">
 					<div class="board-title">${board.title}</div>
-					<div style="height : 1px; background: #CCC; margin: 0.5rem 0rem" ></div>
 					<div class="board-info">
-						<a>${board.sect}</a>
-						<a>${board.date}</a>
-						<a>조회수 ${board.hits}</a>
+						<div>${board.sect}</div>
+						<div class="colum-border"></div>
+						<div>${board.date}</div>
+						<div class="colum-border"></div>
+						<div>조회수 ${board.hits}</div>
 					</div>
 				</div>
 
@@ -91,13 +92,6 @@ function downloadFile(pathNm){
 		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8">
 		</c:import>
 		
-		<c:if test="${!empty beforeItem}">
-			<div class="btn btn-item-before h-reverse" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_item_arrow.png)"></div>
-		</c:if>
-		
-		<c:if test="${!empty afterItem}">
-			<div class="btn btn-item-next" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_item_arrow.png)"></div>
-		</c:if>
 	</div>
 </body>
 </html>

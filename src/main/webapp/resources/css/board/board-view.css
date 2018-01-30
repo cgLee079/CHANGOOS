@@ -20,23 +20,27 @@
 	padding: 1rem;
 }
 
-.board-detail .board-title {
-	font-size: 1.5rem;
+.board-detail .board-head .board-title {
+	font-size: 2rem;
 	font-weight: bold;
+	margin-bottom: 0.8rem;
 }
 
-.board-detail .board-info {
-	text-align: right;
-	font-size: 0.6rem;
-	padding: 0.2rem;
+.board-detail .board-head .board-info {
+	display : flex;
+	flex-flow : row nowrap;
+	justify-content : flex-start;
+	font-size: 0.5rem;
+	padding: 0 0.1rem;
+	opacity: 0.7;
 }
 
-.board-detail .board-info a {
-	padding: 0 1rem;
+.board-detail .board-info div{
+	margin-right: 0.5rem;
 }
 
 .board-detail .board-contents {
-	margin-top: 2rem;
+	margin-top: 1.5rem;
 }
 
 .board-files {
@@ -45,10 +49,15 @@
 
 .board-file {
 	font-size: 0.6rem;
-	color: #55F;
-	margin: 0.2rem 0rem;
-	text-align: right;
-	cursor: pointer;
+    color: #44F;
+    margin: 0.2rem 0rem;
+    text-align: right;
+    cursor: pointer;
+}
+
+.colum-border{
+	width : 1px;
+   	background : #DDD;
 }
 
 @media ( max-width : 420px) {

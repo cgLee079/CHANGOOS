@@ -122,11 +122,29 @@ $(document).ready(function(){
 		</c:import>
 		
 		<c:if test="${!empty beforeItem}">
-			<div class="btn btn-item-before h-reverse" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_item_arrow.png)"></div>
+			<div class="btn btn-item-before h-reverse" title="[${beforeItem.sect}] ${beforeItem.name}" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_item_arrow.png)"></div>
+			<script>
+			(function() {
+			    $(".btn-item-before").tooltip({
+			    	 tooltipClass: "btn-item-tooltip",
+			    	 show : null,
+			    	 hide : null,
+			    });
+			})();
+			</script>
 		</c:if>
 		
 		<c:if test="${!empty afterItem}">
-			<div class="btn btn-item-next" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_item_arrow.png)"></div>
+			<div class="btn btn-item-next" title="[${afterItem.sect}] ${afterItem.name}" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_item_arrow.png)"></div>
+				<script>
+			(function() {
+			    $(".btn-item-next").tooltip({
+			    	 tooltipClass: "btn-item-tooltip",
+			    	 show : null,
+			    	 hide : null,
+			    });
+			})();
+			</script>
 		</c:if>
 	</div>
 	

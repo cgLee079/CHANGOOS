@@ -6,13 +6,14 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global-basic.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global-responsive.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/letter-motion.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ckeditor/plugins/prism/lib/prism/prism_patched.min.css" />
 <link href='https://fonts.googleapis.com/css?family=Lora:400italic' rel='stylesheet' type='text/css'>
 
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.touchwipe.1.1.1.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/anime-2.2.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/letter-motion.js"></script>
