@@ -1,8 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-nav.css" />
- 
 <sec:authorize access="isAnonymous()">
 	<div class="admin-menu">
 		<a href="${pageContext.request.contextPath}/login" class="btn btn-admin-login">관리자</a>

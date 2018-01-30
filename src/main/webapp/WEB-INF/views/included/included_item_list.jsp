@@ -1,5 +1,4 @@
 <%@ page pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-item-list.css" />
 <script>
 var currentView = 0;
 var tops 	= [];

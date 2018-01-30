@@ -103,12 +103,20 @@ function updateBoard(data){
 }
 
 function resizedw(){
+	var wrapParent = $(".wrap-board-list");
 	var parent = $(".board-list")
 	var items = $(".board-list-item");
-	var pHeight = parseInt(parent.height())
-	var cHeight = parseInt(items.eq(1).outerHeight());
-	var noticeLen = parent.find(".board-list-item.board-notice").length;
+	var pHeight = undefined;
+	var cHeight = undefined;
+	var noticeLen = undefined;
+	
+	wrapParent.css("height", deviceHeight - 200)
+	
+	pHeight = parseInt(parent.height());
+	cHeight = parseInt(items.eq(1).outerHeight());
+	noticeLen = parent.find(".board-list-item.board-notice").length;
 	perPgLine = parseInt(pHeight / cHeight) - noticeLen - 4;
+	
 	pageMove(page);
 }
 

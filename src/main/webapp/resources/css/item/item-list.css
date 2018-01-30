@@ -1,0 +1,20 @@
+.main {
+	width: 90%;
+	margin: 0px auto;
+	margin-top: 3rem;
+}
+
+.items-title {
+	letter-spacing: 1.5rem;
+	font-size: 3.5rem;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 3rem;
+	-webkit-transition: trsnform 0.3s;
+	transition: transform 0.3s;
+	cursor: default;
+}
+
+.items-title:HOVER {
+	transform: scale(1.1);
+}
