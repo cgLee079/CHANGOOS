@@ -23,7 +23,7 @@ public class LogRqstInterceptor extends HandlerInterceptorAdapter{
 			throws Exception {
 		LogRqstVo logRqst = new LogRqstVo();
 		logRqst.setIp(request.getLocalAddr());
-		logRqst.setPage(request.getRequestURL().toString());
+		logRqst.setPage(request.getRequestURI().toString());
 		logRqst.setAgnt(request.getHeader("User-Agent"));
 		logRqst.setDate(Formatter.toDate(new Date()));
 		logRqstService.insert(logRqst);
