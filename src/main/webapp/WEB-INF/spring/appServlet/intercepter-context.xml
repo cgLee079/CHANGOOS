@@ -11,7 +11,9 @@
 			<mvc:exclude-mapping path="/resources/**" />
 			<mvc:exclude-mapping path="/admin/**" />
 			<mvc:exclude-mapping path="/**/*.do" />
-			<bean class="com.cglee079.portfolio.interceptor.LogInterceptor"></bean>
+			<bean class="com.cglee079.portfolio.interceptor.LogRqstInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
+	
+	
 </beans>

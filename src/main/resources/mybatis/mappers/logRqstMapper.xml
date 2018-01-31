@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cglee079.portfolio.mapper.LogRqstMapper">
+	<insert id="insert">
+		INSERT TB_PTFOLIO_LOG_RQST 
+		(RQST_IP, RQST_PAGE, RQST_AGNT, RQST_DATE)
+		VALUES (#{ip}, #{page}, #{agnt}, #{date});
+	</insert>
+	
+</mapper>

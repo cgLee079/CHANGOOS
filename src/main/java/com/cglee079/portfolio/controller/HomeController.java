@@ -16,21 +16,18 @@ import com.cglee079.portfolio.service.ItemService;
  */
 @Controller
 public class HomeController {
-	@Autowired
-	private ItemService itemService;
-
-	@RequestMapping(value = "/")
-	public String home(Model model) {
-		List<ItemVo> items = itemService.list();
-		model.addAttribute("items", items);
-		return "main_home";
-	}
+//	@Autowired
+//	private ItemService itemService;
+//
+//	@RequestMapping(value = "/")
+//	public String home(Model model) {
+//		List<ItemVo> items = itemService.list();
+//		model.addAttribute("items", items);
+//		return "main_home";
+//	}
 	
 	@RequestMapping(value = "/introduce")
 	public String myinfo() {
 		return "introduce/introduce_view";
 	}
-
-
-
 }
