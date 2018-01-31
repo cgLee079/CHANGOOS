@@ -89,7 +89,6 @@
 
 .comment-write-contents {
 	flex: 1;
-	height: 100%;
 	resize: none;
 	overflow: hidden;
 	border: 1px solid #CCC;
@@ -98,7 +97,6 @@
 .comment-write-submit {
 	color: #FFF;
 	width: 5rem;
-	height: 100%;
 	background: #666;
 	cursor: pointer;
 	font-size: 0.7rem;

@@ -179,7 +179,7 @@ $(window).resize(function(){
 		<a target="_blank" href="https://www.instagram.com/cglee079">Instagram</a>
 	</div>
 </div>
-<div class="btn btn-scroll-top row-center off">
+<div class="btn btn-scroll-top col-center off">
 	<a>TOP</a>
 </div>
 <script>

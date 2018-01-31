@@ -92,11 +92,12 @@ function updateBoard(data){
 	for (var i = 0; i < length; i++){
 		board = data[i];
 		item = $("<div>", {'class' : 'board-list-item'});
-		itemTitle = $("<div>",{ 'class' : 'board-item-title' }).appendTo(item);
-		$("<a>", {"class" : "effect-underline", text : board.title, onclick : "boardView(" + board.seq + ")"}).appendTo(itemTitle);
+		itemTitle = $("<div>",{ 'class' : 'board-item-title', onclick : "boardView(" + board.seq + ")"}).appendTo(item);
+		$("<a>", {"class" : "effect-underline", text : board.title}).appendTo(itemTitle);
 		$("<div>",{ 'class' : 'board-item-desc', text : board.contents}).appendTo(item);
+
 		itemInfo = $("<div>",{ 'class' : 'board-item-info'}).appendTo(item);
-		itemInfoL = $("<div>",{ 'class' : 'board-item-info-l'}).appendTo(itemInfo);
+		itemInfoL = $("<div>",{ 'class' : 'board-item-info-l row-center'}).appendTo(itemInfo);
 		itemInfoR = $("<div>",{ 'class' : 'board-item-info-r'}).appendTo(itemInfo);
 		
 		$("<div>",{ 'class' : 'board-item-sect', text : board.sect}).appendTo(itemInfoL);
@@ -106,6 +107,12 @@ function updateBoard(data){
 		$("<div>",{ 'class' : 'board-item-hits', text : "조회수 " + board.hits}).appendTo(itemInfoL);
 		
 		$("<div>",{ 'class' : 'board-item-comtcnt', text : "댓글 " + board.comtCnt}).appendTo(itemInfoR);
+		
+		if(isMobile){
+			item.click(function(){
+				$(this).find(".board-item-title").trigger("click");
+			});
+		} 		
 		item.appendTo(boardList);			
 	}
 	
@@ -115,7 +122,7 @@ function updateBoard(data){
 $(document).ready(function(){
 	pageMove(page);
 	
-	$(".wrap-board-list").touchwipe({
+	$(".wrap-board").touchwipe({
 	     wipeLeft: function() {
 	    	 pageMove(page + 1);
 	     },
@@ -138,7 +145,7 @@ $(document).ready(function(){
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 
 	<div class="wrap-board">
-		<div class="board-submenu">
+		<div class="board-menu">
 			<div class="board-pager"></div>
 			<div class="board-search row-center">
 				<select class="search-type" style="font-size: 0.5rem">
