@@ -5,18 +5,13 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	<!-- Spring Interceptor -->
-	<!-- 링크 이동시 가로챔 -->
-	<!--
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**/*" />
 			<mvc:exclude-mapping path="/resources/**" />
-			<mvc:exclude-mapping path="/" />
-			 <bean
-				class="com.cglee079.portfolio.interceptor.Interceptor">
-			</bean>
+			<mvc:exclude-mapping path="/admin/**" />
+			<mvc:exclude-mapping path="/**/*.do" />
+			<bean class="com.cglee079.portfolio.interceptor.LogInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
-	-->
 </beans>

@@ -142,7 +142,6 @@ $(window).resize(function(){
 					background : ["#FEFDFE", "#EDECED"]
 				})
 			
-			$(".nav-menu div").removeClass("btn-slideup");
 			$(".nav-menu").addClass("unvalid");
 			$("html, body").off("scroll touchmove mousewheel");
 			$("html, body").removeClass("scroll-no");

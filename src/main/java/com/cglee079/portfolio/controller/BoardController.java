@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -17,6 +15,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,9 +67,15 @@ public class BoardController {
 		JSONArray dataJson = new JSONArray(data);
 		JSONObject datum;
 		
+		String contents;
+		Document doc;
 		for(int i = 0; i < dataJson.length(); i++){
 			datum = dataJson.getJSONObject(i);
+			contents = datum.getString("contents");
+			doc = Jsoup.parse(contents);
+			contents = doc.getAllElements().text();
 			datum.put("comtCnt", bcomtService.count(datum.getInt("seq")));
+			datum.put("contents", contents.substring(0, 300));
 		}
 		
 		result.put("count", count);

@@ -6,7 +6,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
 <script>
 var allRowCnt = '${count}';
-var perPgLine = 1;
+var perPgLine = 10;
 var searchType = "";
 var searchValue = "";
 
@@ -70,13 +70,10 @@ function updatePaging(callFunc, page, allRowCnt, perPgLine, pgGrpCnt){
 
 function updateBoard(data){
 	var boardList 	= $(".board-list");
-	var board 		= undefined;
-	var item 		= undefined;
 	var length		= data.length;
 	var noticeLen	= boardList.find(".board-list-item.board-notice").length;
-	var boardDesc 	= undefined;
 	
-	boardList.find(".board-list-item:gt(" + noticeLen + ")").remove();
+	boardList.find(".board-list-item").remove();
 	
 	if(!data.length){
 		board = data[i];
@@ -85,52 +82,38 @@ function updateBoard(data){
 		item.appendTo(boardList);
 	}
 	
+	
+	var board 		= undefined;
+	var item 		= undefined;
+	var itemTitle	= undefined;
+	var itemInfo	= undefined;
+	var itemInfoL 	= undefined;
+	var itemInfoR 	= undefined;
 	for (var i = 0; i < length; i++){
 		board = data[i];
-		item = $("<div>", {'class' : 'board-list-item board-basic'});
-		$("<div>",{ 'class' : 'list-item-index', text : (page - 1 ) * perPgLine + 1 + i}).appendTo(item);
-		$("<div>",{ 'class' : 'list-item-sect', text : board.sect}).appendTo(item);
+		item = $("<div>", {'class' : 'board-list-item'});
+		itemTitle = $("<div>",{ 'class' : 'board-item-title' }).appendTo(item);
+		$("<a>", {"class" : "effect-underline", text : board.title, onclick : "boardView(" + board.seq + ")"}).appendTo(itemTitle);
+		$("<div>",{ 'class' : 'board-item-desc', text : board.contents}).appendTo(item);
+		itemInfo = $("<div>",{ 'class' : 'board-item-info'}).appendTo(item);
+		itemInfoL = $("<div>",{ 'class' : 'board-item-info-l'}).appendTo(itemInfo);
+		itemInfoR = $("<div>",{ 'class' : 'board-item-info-r'}).appendTo(itemInfo);
 		
-		boardDesc = $("<div>",{ 'class' : 'list-item-desc', onclick : "boardView(" + board.seq + ")"}).appendTo(item);
-		$("<span>",{ 'class' : 'list-item-title', text : board.title}).appendTo(boardDesc);
+		$("<div>",{ 'class' : 'board-item-sect', text : board.sect}).appendTo(itemInfoL);
+		$("<div>",{ 'class' : 'colum-border'}).appendTo(itemInfoL);
+		$("<div>",{ 'class' : 'board-item-date', text : board.date}).appendTo(itemInfoL);
+		$("<div>",{ 'class' : 'colum-border'}).appendTo(itemInfoL);
+		$("<div>",{ 'class' : 'board-item-hits', text : "조회수 " + board.hits}).appendTo(itemInfoL);
 		
-		if(board.comtCnt > 0){
-			$("<span>",{ 'class' : 'list-item-comt', text : "(" + board.comtCnt + ")" }).appendTo(boardDesc);
-		}
-		
-		$("<div>",{ 'class' : 'list-item-date', text : board.date}).appendTo(item);
+		$("<div>",{ 'class' : 'board-item-comtcnt', text : "댓글 " + board.comtCnt}).appendTo(itemInfoR);
 		item.appendTo(boardList);			
 	}
+	
 }
-
-function resizedw(){
-	var wrapParent = $(".wrap-board-list");
-	var parent = $(".board-list")
-	var items = $(".board-list-item");
-	var pHeight = undefined;
-	var cHeight = undefined;
-	var noticeLen = undefined;
-	
-	wrapParent.css("height", deviceHeight - 200)
-	
-	pHeight = parseInt(parent.height());
-	cHeight = parseInt(items.eq(1).outerHeight());
-	noticeLen = parent.find(".board-list-item.board-notice").length;
-	perPgLine = parseInt(pHeight / cHeight) - noticeLen - 4;
-	
-	pageMove(page);
-}
-
-var doit;
-$(window).resize(function(){
-  clearTimeout(doit);
-  doit = setTimeout(resizedw, 100);
-});
 
 /* 페이지가 로드됨과 동시에 계정 리스트의 첫 번째 페이지를 출력 */
 $(document).ready(function(){
 	pageMove(page);
-	resizedw();
 	
 	$(".wrap-board-list").touchwipe({
 	     wipeLeft: function() {
@@ -150,19 +133,24 @@ $(document).ready(function(){
 });
 </script>
 </head>
-
 <body>
 <div class="wrapper">
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 
-	<div class="wrap-board-list">
-		<div class="board-list">
-			<div class="board-list-item board-header">
-				<div class="list-item-index">INDEX</div>
-				<div class="list-item-sect">SECT</div>
-				<div class="list-item-desc">TITLE</div>
-				<div class="list-item-date">DATE</div>
+	<div class="wrap-board">
+		<div class="board-submenu">
+			<div class="board-pager"></div>
+			<div class="board-search row-center">
+				<select class="search-type" style="font-size: 0.5rem">
+					<option>TITLE</option>
+					<option>SECT</option>
+				</select>
+				<input type="text"onkeydown="javascript:if(event.keyCode==13){search();}" style="font-size: 0.5rem" class="search-value" />
+				<div class="search-submit col-center" onclick="search()">검색</div>
 			</div>
+		</div>
+		<div class="board-list">
+			<!-- 
 			<c:forEach var="notice" items="${notices}">
 				<div class="board-list-item board-notice">
 					<div class="list-item-index">★</div>
@@ -171,18 +159,9 @@ $(document).ready(function(){
 					<div class="list-item-date">${notice.date}</div>
 				</div>
 			</c:forEach>
+			 -->
 		</div>
 		
-		<div class="board-search row-center">
-			<select class="search-type" style="font-size: 0.5rem">
-				<option>SECT</option>
-				<option>TITLE</option>
-			</select>
-			<input type="text"onkeydown="javascript:if(event.keyCode==13){search();}" style="font-size: 0.5rem" class="search-value" />
-			<div class="search-submit col-center" onclick="search()">검색</div>
-		</div>
-		
-		<div class="board-pager"></div>
 	</div>
 	<c:import url="../included/included_footer.jsp" charEncoding="UTF-8" />
 </div>
