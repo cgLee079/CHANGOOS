@@ -54,6 +54,9 @@ function pageMove(pg){
 				updatePaging("pageMove", page, allRowCnt, perPgLine, 3);
 			}
 		},
+		complete: function(){
+			$("html, body").scrollTop(0);
+		},
 		error : function(e) {
 			console.log(e);
 		}
