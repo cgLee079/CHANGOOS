@@ -87,14 +87,15 @@ function updateBoard(data){
 	
 	for (var i = 0; i < length; i++){
 		board = data[i];
-		item = $("<div>", {'class' : 'board-list-item board-basic', onclick : "boardView(" + board.seq + ")"});
+		item = $("<div>", {'class' : 'board-list-item board-basic'});
 		$("<div>",{ 'class' : 'list-item-index', text : (page - 1 ) * perPgLine + 1 + i}).appendTo(item);
 		$("<div>",{ 'class' : 'list-item-sect', text : board.sect}).appendTo(item);
 		
-		boardDesc = $("<div>",{ 'class' : 'list-item-desc'}).appendTo(item);
+		boardDesc = $("<div>",{ 'class' : 'list-item-desc', onclick : "boardView(" + board.seq + ")"}).appendTo(item);
 		$("<span>",{ 'class' : 'list-item-title', text : board.title}).appendTo(boardDesc);
+		
 		if(board.comtCnt > 0){
-		$("<span>",{ 'class' : 'list-item-comt', text : "(" + board.comtCnt + ")" }).appendTo(boardDesc);
+			$("<span>",{ 'class' : 'list-item-comt', text : "(" + board.comtCnt + ")" }).appendTo(boardDesc);
 		}
 		
 		$("<div>",{ 'class' : 'list-item-date', text : board.date}).appendTo(item);
@@ -164,7 +165,7 @@ $(document).ready(function(){
 			</div>
 			<c:forEach var="notice" items="${notices}">
 				<div class="board-list-item board-notice">
-					<div class="list-item-index">★★★</div>
+					<div class="list-item-index">★</div>
 					<div class="list-item-sect">NOTICE</div>
 					<div class="list-item-desc">${notice.title}</div>
 					<div class="list-item-date">${notice.date}</div>
