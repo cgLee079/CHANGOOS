@@ -6,7 +6,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
 <script>
 var allRowCnt = '${count}';
-var perPgLine = 10;
+var perPgLine = 6;
 var searchType = "";
 var searchValue = "";
 
@@ -23,7 +23,7 @@ function boardView(seq){
 
 function search(){
 	searchType	= $(".search-type").val();
-	searchValue = $(".search-value").val();
+	se`archValue = $(".search-value").val();
 	
 	pageMove(1);
 }
@@ -80,11 +80,10 @@ function updateBoard(data){
 	
 	if(!data.length){
 		board = data[i];
-		item = $("<div>", {'class' : 'board-list-item board-basic', onclick : "$('.search-value').val(''); search();"});
-		$("<div>",{ 'class' : 'list-item-none', text: "조회된 글이 없습니다.(목록으로)" }).appendTo(item);
+		item = $("<div>", {'class' : 'board-list-item', onclick : "$('.search-value').val(''); search();"});
+		$("<div>",{ 'class' : 'board-item-nosearch', text: "조회된 글이 없습니다.(목록으로)" }).appendTo(item);
 		item.appendTo(boardList);
 	}
-	
 	
 	var board 		= undefined;
 	var item 		= undefined;
@@ -95,8 +94,8 @@ function updateBoard(data){
 		board = data[i];
 		item = $("<div>", {'class' : 'board-list-item', onclick : "boardView(" + board.seq + ")"});
 		$("<span>", {"class" : "board-item-overlay", text : "Show"}).appendTo(item);
-		//$("<div>", {"class" : "board-item-fg"}).appendTo(item);
-		$("<div>",{ 'class' : 'board-item-title', text : board.title}).appendTo(item);
+		$("<div>", {"class" : "board-item-fg"}).appendTo(item);
+		$("<div>",{"class" : 'board-item-title', text : board.title}).appendTo(item);
 		$("<div>",{ 'class' : 'board-item-desc', text : board.contents}).appendTo(item);
 
 		itemInfo = $("<div>",{ 'class' : 'board-item-info'}).appendTo(item);
