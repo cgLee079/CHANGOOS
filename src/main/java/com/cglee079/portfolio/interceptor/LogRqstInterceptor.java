@@ -1,6 +1,7 @@
 package com.cglee079.portfolio.interceptor;
 
 import java.util.Date;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,10 +23,14 @@ public class LogRqstInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		LogRqstVo logRqst = new LogRqstVo();
-		logRqst.setIp(request.getLocalAddr());
-		logRqst.setPage(request.getRequestURI().toString());
+		logRqst.setIp(request.getRemoteAddr());
+		String page = request.getRequestURI().toString();
+		if (request.getQueryString() != null){
+			page = page +  "?" + request.getQueryString(); 
+		}
+		logRqst.setPage(page);
 		logRqst.setAgnt(request.getHeader("User-Agent"));
-		logRqst.setDate(Formatter.toDate(new Date()));
+		logRqst.setDate(Formatter.toDateTime(new Date()));
 		logRqstService.insert(logRqst);
 		return true;
 	}
@@ -33,7 +38,7 @@ public class LogRqstInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		System.out.println("######### postHandle()");
+
 	}
 	
 }

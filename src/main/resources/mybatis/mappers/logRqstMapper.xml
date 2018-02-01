@@ -8,5 +8,4 @@
 		(RQST_IP, RQST_PAGE, RQST_AGNT, RQST_DATE)
 		VALUES (#{ip}, #{page}, #{agnt}, #{date});
 	</insert>
-	
 </mapper>

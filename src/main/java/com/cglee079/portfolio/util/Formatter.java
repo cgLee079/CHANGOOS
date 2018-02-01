@@ -24,6 +24,10 @@ public class Formatter {
 		return new SimpleDateFormat("yyyy-MM-dd").format(date);
 	}
 	
+	public static String toDateTime(Date date) {
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+	}
+	
 	public synchronized static String toTime(String str) {
 		try {
 			if (str != null) {
