@@ -4,7 +4,7 @@
 	width: 100%;
 	height: 50px;
 	z-index: 2000;
-	background: #FFF;
+	background: rgba(255, 255, 255, 0.9);
 	box-shadow: 0 1px 0 rgba(12,13,14,0.1), 0 1px 3px rgba(12,13,14,0.1), 0 4px 20px rgba(12,13,14,0.035), 0 1px 1px rgba(12,13,14,0.025);
 }
 
@@ -13,24 +13,29 @@
 	height : 100%;
 	font-size: 10px;
 	letter-spacing: 2px;
+	color : #000;
 }
 
 .wrap-home-logo .logo-line{
 	width : 100%;
 	height: 1px;
-	background: #0A0;
+	background: #000;
 	margin-top: 5px;
 	transform : scale(0);
+	margin-bottom: -5px;
 }
 
+.wrap-nav-icon{
+	position: fixed;
+	top : 0;
+	left : 20px;
+	height : 50px;
+	z-index: 4000;
+}
 
 .nav-icon {
 	width: 25px;
 	height: 15px;
-	position: fixed;
-	top : 20px;
-	left : 20px;
-	z-index: 4000;
 	-webkit-transform: rotate(0deg);
 	-moz-transform: rotate(0deg);
 	-o-transform: rotate(0deg);
@@ -47,7 +52,7 @@
 	position: absolute;
 	height: 1.5px;
 	width: 100%;
-	background: #999;
+	background: #000;
 	border-radius: 9px;
 	opacity: 1;
 	left: 0;
@@ -61,7 +66,7 @@
 	transition: .25s ease-in-out;
 }
 
-.nav-icon:hover span {
+.nav-icon.open span{
 	background: #000;
 }
 
@@ -187,10 +192,12 @@
 .admin-menu {
 	position: fixed;
 	z-index: 2500;
+	height: 50px;
 	right: 1rem;
-	top : 15px;
+	top : 0;
 	font-size: 0.5rem;
-	opacity: 0.3;
+	color: #000;
+	font-weight: bold;
 }
 
 @-webkit-keyframes sk-bounce {

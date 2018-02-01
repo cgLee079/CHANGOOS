@@ -1,17 +1,17 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authorize access="isAnonymous()">
-	<div class="admin-menu">
+	<div class="admin-menu row-center">
 		<a href="${pageContext.request.contextPath}/login" class="btn btn-admin-login">관리자</a>
 	</div>
 </sec:authorize>
  
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-  	<div class="admin-menu">
-  		<a href="${pageContext.request.contextPath}/j_spring_security_logout" class="btn btn-admin-login">로그아웃</a>
-  		<a href="${pageContext.request.contextPath}/admin/item/manage" class="btn btn-admin-login">프로젝트관리</a>
-  		<a href="${pageContext.request.contextPath}/admin/photo/manage" class="btn btn-admin-login">사진관리</a>
-  		<a href="${pageContext.request.contextPath}/admin/board/upload" class="btn btn-admin-login">게시판글쓰기</a>
+  	<div class="admin-menu row-center">
+  		<a href="${pageContext.request.contextPath}/j_spring_security_logout" class="btn btn-admin-login">로그아웃 </a>
+  		<a href="${pageContext.request.contextPath}/admin/item/manage" class="btn btn-admin-login">프로젝트관리 </a>
+  		<a href="${pageContext.request.contextPath}/admin/photo/manage" class="btn btn-admin-login">사진관리 </a>
+  		<a href="${pageContext.request.contextPath}/admin/board/upload" class="btn btn-admin-login">게시판글쓰기 </a>
   	</div>    
 </sec:authorize>
 
@@ -51,11 +51,13 @@ $(window).resize(function(){
 		
 })();
 </script>
-<div class="nav-icon">
-	<span></span>
-	<span></span>
-	<span></span>
-	<span></span>
+<div class="wrap-nav-icon row-center">
+	<div class="nav-icon">
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
 </div>
 <script>
 (function(){
@@ -101,8 +103,8 @@ $(window).resize(function(){
 					duration: 400,
 					scale : [1, 3.5],
 					borderRadius : ["100%", 0],
-					background : ["#EDECED", "#FEFDFE"],
-				}).add({
+					background : ["#000", "#FFF"],
+				}).add({ 
 					targets : ".nav-menu",
 					opacity : [0, 1],
 					duration: 1,
