@@ -88,15 +88,15 @@ function updateBoard(data){
 	
 	var board 		= undefined;
 	var item 		= undefined;
-	var itemTitle	= undefined;
 	var itemInfo	= undefined;
 	var itemInfoL 	= undefined;
 	var itemInfoR 	= undefined;
 	for (var i = 0; i < length; i++){
 		board = data[i];
-		item = $("<div>", {'class' : 'board-list-item'});
-		itemTitle = $("<div>",{ 'class' : 'board-item-title', onclick : "boardView(" + board.seq + ")"}).appendTo(item);
-		$("<a>", {"class" : "effect-underline", text : board.title}).appendTo(itemTitle);
+		item = $("<div>", {'class' : 'board-list-item', onclick : "boardView(" + board.seq + ")"});
+		$("<span>", {"class" : "board-item-overlay", text : "Show"}).appendTo(item);
+		//$("<div>", {"class" : "board-item-fg"}).appendTo(item);
+		$("<div>",{ 'class' : 'board-item-title', text : board.title}).appendTo(item);
 		$("<div>",{ 'class' : 'board-item-desc', text : board.contents}).appendTo(item);
 
 		itemInfo = $("<div>",{ 'class' : 'board-item-info'}).appendTo(item);
@@ -136,7 +136,7 @@ $(document).ready(function(){
 	    	 }
 	     },
 	     
-	     min_move_x: 20,
+	     min_move_x: 60,
 	     min_move_y: 20,
 	     preventDefaultEvents: true
 	});

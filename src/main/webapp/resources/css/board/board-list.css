@@ -12,7 +12,55 @@
 }
 
 .board-list-item {
-	padding: 2rem 0;
+	position : relative;
+	padding: 1.5rem 1rem;
+	margin: 1rem 0;
+	background: #FFF;
+	box-shadow: 0px 10px 10px #ECF0F1;
+	cursor : pointer; 
+	transform: scale(1);
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.board-list-item:HOVER{
+	box-shadow: 0px 15px 15px #CCC;
+	transform: scale(1.02);
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.board-list-item  .board-item-overlay {
+    position: absolute;
+    top: 0;
+    right: 30px;
+    padding: 0.5rem 1rem;
+    background-color: #000;
+    z-index: 2;
+    color: #fff;
+    font-size: 0.5rem;
+    transform-origin: 0 0;
+    will-change: transform, opacity;
+    transform: scaleY(0) translateZ(0);
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.board-list-item:HOVER .board-item-overlay {
+	transform:scaleY(1) translateZ(0);
+	transition:transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.board-list-item .board-item-fg{
+	position: absolute;
+	left : 0;
+	top : 0;
+	right : 0;
+	bottom  : 0;
+	z-index: 1;
+	background: rgba(0, 0, 0, 0.05);
+	transform: scale(0);
+}
+
+.board-list-item:HOVER .board-item-fg{
+	transform: scale(1);
 }
 
 .board-item-title {
@@ -53,7 +101,7 @@
 .board-search .search-submit {
 	color: #FFF;
 	width: 2rem;
-	background: #666;
+	background: #333;
 	cursor: pointer;
 	font-size: 0.5rem;
 }
