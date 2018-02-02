@@ -199,7 +199,7 @@
 					<div class="message-form">
 						<form>
 							<textarea class="input-message"></textarea>
-							<div class="submit-message">SEND</div>
+							<div class="submit-message"><strong>SEND</strong></div>
 						</form>
 					</div>
 					<script>
