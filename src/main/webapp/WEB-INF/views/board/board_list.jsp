@@ -158,7 +158,7 @@ $(document).ready(function(){
 	    		 pageMove(page - 1);
 	    	 }
 	     },
-	     min_move_x: 60,
+	     min_move_x: 30,
 	     min_move_y: 20,
 	     preventDefaultEvents: true
 	});

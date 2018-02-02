@@ -7,6 +7,7 @@
 <script>
 	$(document).ready(function(){
 		setSlideMyInfo();
+		setSendMsg();
 	});
 	
 	function setSlideMyInfo(){
@@ -119,6 +120,36 @@
 			preventDefaultEvents: true
 		});
 	}
+	
+	function setSendMsg(){
+		$(".submit-message").click(function(){
+			var message = $(".input-message").val();
+			
+			$.ajax({
+				type	: "POST",
+				url		: getContextPath() + "/introduce/remain_message.do",
+				data	: {
+					'message' : message	
+				},
+				dataType: 'JSON',
+				success : function(re) {
+					if(re.result){
+						alert("방명록이 등록되었습니다");
+						$(".input-message").val("");
+					} else{
+						alert("방명록이 등록 실패!");
+					}
+				},
+				complete: function(){
+				},
+				error : function(e) {
+					console.log(e);
+					alert("방명록이 등록 실패!");
+				}
+			});							
+		});
+	}
+	
 </script>
 </head>
 
@@ -202,35 +233,6 @@
 							<div class="submit-message"><strong>SEND</strong></div>
 						</form>
 					</div>
-					<script>
-					(function(){
-					$(".submit-message").click(function(){
-						var message = $(".input-message").val();
-						
-						$.ajax({
-							type	: "POST",
-							url		: getContextPath() + "/introduce/remain_message.do",
-							data	: {
-								'message' : message	
-							},
-							dataType: 'JSON',
-							success : function(re) {
-								if(re.result){
-									alert("방명록이 등록되었습니다");
-								} else{
-									alert("방명록이 등록 실패!");
-								}
-							},
-							complete: function(){
-							},
-							error : function(e) {
-								console.log(e);
-								alert("방명록이 등록 실패!");
-							}
-						});							
-					});
-					})();
-					</script>
 				</div>
 			</div>
 			
