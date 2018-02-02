@@ -195,7 +195,42 @@
 					<strong>Email.</strong> cgLee079@gmail.com <br/>
 					<strong>Tel.</strong> 010 - 2062 - 2979 <br/>
 					<br/>
-					<h3>Contact Me!!</h3>
+					<h3>Send Message</h3>
+					<div class="message-form">
+						<form>
+							<textarea class="input-message"></textarea>
+							<div class="submit-message">SEND</div>
+						</form>
+					</div>
+					<script>
+					(function(){
+					$(".submit-message").click(function(){
+						var message = $(".input-message").val();
+						
+						$.ajax({
+							type	: "POST",
+							url		: getContextPath() + "/introduce/remain_message.do",
+							data	: {
+								'message' : message	
+							},
+							dataType: 'JSON',
+							success : function(re) {
+								if(re.result){
+									alert("방명록이 등록되었습니다");
+								} else{
+									alert("방명록이 등록 실패!");
+								}
+							},
+							complete: function(){
+							},
+							error : function(e) {
+								console.log(e);
+								alert("방명록이 등록 실패!");
+							}
+						});							
+					});
+					})();
+					</script>
 				</div>
 			</div>
 			

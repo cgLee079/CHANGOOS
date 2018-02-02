@@ -26,8 +26,4 @@ public class HomeController {
 		return "main_home";
 	}
 	
-	@RequestMapping(value = "/introduce")
-	public String myinfo() {
-		return "introduce/introduce_view";
-	}
 }

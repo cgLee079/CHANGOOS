@@ -20,7 +20,6 @@ function footerRelocate(){
 		var marginTop = parseInt(footer.css("margin-top"));
 		$(".footer").css("margin-top", marginTop + (deviceHeight - top));
 	}
-	
 }
 
 $(document).ready(function(){
