@@ -187,7 +187,7 @@ $(window).resize(function(){
 <script>
 $(window).scroll(function(event){
 	var scroll = $(window).scrollTop();
-	if(scroll > deviceHeight){
+	if(scroll > (deviceHeight - 300)){
 		$(".btn-scroll-top").removeClass("off");
 	} else{
 		$(".btn-scroll-top").addClass("off");

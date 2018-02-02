@@ -6,11 +6,11 @@
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
 <script>
 var allRowCnt = '${count}';
-var perPgLine = 6;
+var perPgLine = 7;
 var searchType = "";
 var searchValue = "";
 
-var page = window.location.hash.substring(1);
+var page = parseInt(window.location.hash.substring(1));
 
 if(!page){
 	page = 1;
@@ -23,7 +23,7 @@ function boardView(seq){
 
 function search(){
 	searchType	= $(".search-type").val();
-	se`archValue = $(".search-value").val();
+	searchValue = $(".search-value").val();
 	
 	pageMove(1);
 }
@@ -96,7 +96,7 @@ function updateBoard(data){
 		$("<span>", {"class" : "board-item-overlay", text : "Show"}).appendTo(item);
 		$("<div>", {"class" : "board-item-fg"}).appendTo(item);
 		$("<div>",{"class" : 'board-item-title', text : board.title}).appendTo(item);
-		$("<div>",{ 'class' : 'board-item-desc', text : board.contents}).appendTo(item);
+		//$("<div>",{ 'class' : 'board-item-desc', text : board.contents}).appendTo(item);
 
 		itemInfo = $("<div>",{ 'class' : 'board-item-info'}).appendTo(item);
 		itemInfoL = $("<div>",{ 'class' : 'board-item-info-l row-center'}).appendTo(itemInfo);
@@ -120,21 +120,44 @@ function updateBoard(data){
 	
 }
 
+function resizedw(){
+	if(isMobile){
+		var wrapParent = $(".wrap-board");
+		var items = $(".board-list-item");
+		var pHeight = undefined;
+		var cHeight = undefined;
+		var noticeLen = undefined;
+		
+		wrapParent.css("height", deviceHeight - 50);
+		pHeight = parseInt(wrapParent.height());
+		cHeight = parseInt(items.eq(1).outerHeight());
+		perPgLine = parseInt(pHeight / cHeight) - 2;
+		
+		pageMove(page);
+	}
+}
+
+var doit;
+$(window).resize(function(){
+  clearTimeout(doit);
+  doit = setTimeout(resizedw, 100);
+});
+
+
 /* 페이지가 로드됨과 동시에 계정 리스트의 첫 번째 페이지를 출력 */
 $(document).ready(function(){
 	pageMove(page);
+	resizedw();
 	
 	$(".wrap-board").touchwipe({
 	     wipeLeft: function() {
 	    	 pageMove(page + 1);
 	     },
-	     
 	     wipeRight: function() {
 	    	 if(!(page <= 1)){
 	    		 pageMove(page - 1);
 	    	 }
 	     },
-	     
 	     min_move_x: 60,
 	     min_move_y: 20,
 	     preventDefaultEvents: true
