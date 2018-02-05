@@ -85,7 +85,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board/view")
-	public String boardView(Model model, int seq, int page) throws SQLException, JsonProcessingException{
+	public String boardView(Model model, int seq, Integer page) throws SQLException, JsonProcessingException{
 		BoardVo board = boardService.doView(seq);
 		BoardVo beforeBoard = boardService.getBefore(seq, board.getType());
 		BoardVo afterBoard = boardService.getAfter(seq, board.getType());

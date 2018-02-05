@@ -22,7 +22,7 @@ public class PComtNoticeInterceptor extends HandlerInterceptorAdapter {
 	private TelegramHandler telegramHandler;
 
 	@Autowired
-	private ProjectService itemService;
+	private ProjectService projectService;
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
@@ -33,8 +33,8 @@ public class PComtNoticeInterceptor extends HandlerInterceptorAdapter {
 		String parentSeq = request.getParameter("parentSeq");
 		
 		if (parentSeq == null) {
-			ProjectVo board = itemService.get(Integer.parseInt(boardSeq));
-			String boardTitle = board.getName();
+			ProjectVo project = projectService.get(Integer.parseInt(boardSeq));
+			String boardTitle = project.getTitle();
 
 			String msg = "#프로젝트에 댓글이 등록되었습니다.\n";
 			msg += "프로젝트 : " + boardTitle + "\n";

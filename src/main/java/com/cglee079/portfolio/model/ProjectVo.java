@@ -3,35 +3,16 @@ package com.cglee079.portfolio.model;
 public class ProjectVo {
 	private int seq;
 	private int sort;
-	private String name;
+	private String title;
 	private String sect;
 	private String desc;
-	private String content;
+	private String contents;
 	private String snapsht;
 	private String video;
 	private String date;
 	private String sourcecode;
 	private String developer;
 	private int hits;
-
-	public ProjectVo() {
-	}
-
-	public ProjectVo(int seq, int sort, String name, String sect, String desc, String content, String snapsht, String video,
-			String date, String sourcecode, String developer, int hits) {
-		this.seq = seq;
-		this.sort = sort;
-		this.name = name;
-		this.sect = sect;
-		this.desc = desc;
-		this.content = content;
-		this.snapsht = snapsht;
-		this.video = video;
-		this.date = date;
-		this.sourcecode = sourcecode;
-		this.developer = developer;
-		this.hits = hits;
-	}
 
 	public int getSeq() {
 		return seq;
@@ -49,12 +30,12 @@ public class ProjectVo {
 		this.sort = sort;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getSect() {
@@ -73,12 +54,12 @@ public class ProjectVo {
 		this.desc = desc;
 	}
 
-	public String getContent() {
-		return content;
+	public String getContents() {
+		return contents;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 
 	public String getSnapsht() {

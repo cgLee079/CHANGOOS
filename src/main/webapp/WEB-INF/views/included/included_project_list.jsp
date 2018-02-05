@@ -59,7 +59,7 @@ $(document).ready(function(){
 				<div class="project-snapsht-fg"></div>
 			</div>
 			<div class="project-info">
-				<div class="project-title">[${project.sect}] ${project.name}</div>
+				<div class="project-title">[${project.sect}] ${project.title}</div>
 				<div class="row-border"></div>
 				<div class="project-desc editor-contents">${project.desc}</div>
 				<div class="project-menu">

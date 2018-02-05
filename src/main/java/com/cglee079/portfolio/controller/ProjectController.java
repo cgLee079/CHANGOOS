@@ -146,8 +146,8 @@ public class ProjectController {
 	@RequestMapping(value = "/admin/project/upload", params = "seq")
 	public String projectModify(Model model, int seq) {
 		ProjectVo project = projectService.get(seq);
-		if(project.getContent() != null){
-			project.setContent(project.getContent().replace("&", "&amp;"));
+		if(project.getContents() != null){
+			project.setContents(project.getContents().replace("&", "&amp;"));
 		}
 		
 		model.addAttribute("project", project);
@@ -162,7 +162,7 @@ public class ProjectController {
 	public String projectDoUpload(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
-		String filename	= "snapshot_" + project.getName() + "_";
+		String filename	= "snapshot_" + project.getTitle() + "_";
 		String imgExt	= null;
 		int seq = -1;
 		
@@ -216,7 +216,7 @@ public class ProjectController {
 	public String projectDoModify(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws IllegalStateException, IOException{
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
-		String filename	= "snapshot_" + project.getName() + "_";
+		String filename	= "snapshot_" + project.getTitle() + "_";
 		String imgExt	= null;
 		int seq = project.getSeq();
 		

@@ -86,7 +86,7 @@
 				<tr>
 				<td> ${project.seq} </td>
 				<td> ${project.sort} </td>
-				<td> ${project.name} </td>
+				<td> ${project.title} </td>
 				<td> ${project.sect} </td>
 				<td> ${project.desc} </td>
 				<td> 

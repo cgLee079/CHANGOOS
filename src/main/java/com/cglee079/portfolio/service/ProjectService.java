@@ -24,7 +24,7 @@ public class ProjectService {
 	}
 	
 	public int insert(ProjectVo item) {
-		item.setContent(item.getContent());
+		item.setContents(item.getContents());
 		item.setDesc(item.getDesc());
 		
 		item.setHits(0);
@@ -66,7 +66,7 @@ public class ProjectService {
 	public List<String> getContentImgPath(int seq, String path){
 		List<String> imgPaths = new ArrayList<String>();
 		ProjectVo item = itemDao.get(seq);
-		String content = item.getContent();
+		String content = item.getContents();
 		
 		int stIndex = 0;
 		int endIndex= 0;

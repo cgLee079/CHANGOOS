@@ -7,7 +7,7 @@
 		SELECT
 		PROJ_SEQ as "seq",
 		PROJ_SORT as "sort",
-		PROJ_NAME as "name",
+		PROJ_TITLE as "title",
 		PROJ_SECT as "sect",
 		PROJ_DESC as "desc",
 		PROJ_SNAPSHT as "snapsht",
@@ -24,10 +24,10 @@
 		SELECT
 		PROJ_SEQ as "seq",
 		PROJ_SORT as "sort",
-		PROJ_NAME as "name",
+		PROJ_TITLE as "title",
 		PROJ_SECT as "sect",
 		PROJ_DESC as "desc",
-		PROJ_CONTENT as "content",
+		PROJ_CONTENTS as "contents",
 		PROJ_SNAPSHT as "snapsht",
 		PROJ_HASVIDEO as "video",
 		PROJ_DATE as "date",
@@ -42,10 +42,10 @@
 		SELECT
 		PROJ_SEQ as "seq",
 		PROJ_SORT as "sort",
-		PROJ_NAME as "name",
+		PROJ_TITLE as "title",
 		PROJ_SECT as "sect",
 		PROJ_DESC as "desc",
-		PROJ_CONTENT as "content",
+		PROJ_CONTENTS as "contents",
 		PROJ_SNAPSHT as "snapsht",
 		PROJ_HASVIDEO as "video",
 		PROJ_DATE as "date",
@@ -61,10 +61,10 @@
 		SELECT
 		PROJ_SEQ as "seq",
 		PROJ_SORT as "sort",
-		PROJ_NAME as "name",
+		PROJ_TITLE as "title",
 		PROJ_SECT as "sect",
 		PROJ_DESC as "desc",
-		PROJ_CONTENT as "content",
+		PROJ_CONTENTS as "contents",
 		PROJ_SNAPSHT as "snapsht",
 		PROJ_HASVIDEO as "video",
 		PROJ_DATE as "date",
@@ -83,18 +83,18 @@
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.portfolio.model.ProjectVo">
 		INSERT TB_PTFOLIO_PROJS 
-		(PROJ_SORT, PROJ_NAME, PROJ_SECT, PROJ_DESC, PROJ_CONTENT, PROJ_SNAPSHT, PROJ_HASVIDEO, PROJ_DATE, PROJ_SOURCECD, PROJ_DEVELOPER, PROJ_HITS)
-		VALUES (#{sort}, #{name}, #{sect}, #{desc}, #{content}, #{snapsht}, #{video}, #{date}, #{sourcecode},#{developer}, #{hits})
+		(PROJ_SORT, PROJ_TITLE, PROJ_SECT, PROJ_DESC, PROJ_CONTENTS, PROJ_SNAPSHT, PROJ_HASVIDEO, PROJ_DATE, PROJ_SOURCECD, PROJ_DEVELOPER, PROJ_HITS)
+		VALUES (#{sort}, #{title}, #{sect}, #{desc}, #{contents}, #{snapsht}, #{video}, #{date}, #{sourcecode},#{developer}, #{hits})
 	</insert>
 	
 	<update id="update">
 		UPDATE TB_PTFOLIO_PROJS
 		SET 
 		PROJ_SORT = #{sort},
-		PROJ_NAME = #{name},
+		PROJ_TITLE = #{title},
 		PROJ_SECT = #{sect},
 		PROJ_DESC = #{desc},
-		PROJ_CONTENT = #{content},
+		PROJ_CONTENTS = #{contents},
 		PROJ_SNAPSHT = #{snapsht},
 		PROJ_HASVIDEO = #{video},
 		PROJ_DATE = #{date},

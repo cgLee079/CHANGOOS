@@ -65,7 +65,7 @@ $(document).ready(function(){
 		
 		<div class="project-detail">
 			<div class="project-head">
-				<h1 class="project-name">${project.name}</h1>
+				<h1 class="project-name">${project.title}</h1>
 				<div class="project-subinfo">
 					<c:if test="${!empty project.date}"> 
 						<a class="project-date">DATE : ${project.date}</a> <br/>
@@ -94,7 +94,7 @@ $(document).ready(function(){
 				<c:if test="${project.video eq 'N'}">
 					<img class="project-snapsht" src="${pageContext.request.contextPath}${project.snapsht}" >
 				</c:if>
-				${project.content}
+				${project.contents}
 				
 				<c:if test="${!empty files}">
 					<h3>첨부파일</h3>
