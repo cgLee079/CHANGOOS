@@ -14,59 +14,59 @@ import com.cglee079.portfolio.model.ProjectVo;
 @Service
 public class ProjectService {
 	@Autowired
-	private ProjectDao itemDao;
+	private ProjectDao projectDao;
 	
 	@Autowired
-	private PorjectFileDao itemFileDao;
+	private PorjectFileDao projectFileDao;
 	
 	public List<ProjectVo> list(){
-		return itemDao.list();
+		return projectDao.list();
 	}
 	
-	public int insert(ProjectVo item) {
-		item.setContents(item.getContents());
-		item.setDesc(item.getDesc());
+	public int insert(ProjectVo project) {
+		project.setContents(project.getContents());
+		project.setDesc(project.getDesc());
 		
-		item.setHits(0);
-		return itemDao.insert(item);
+		project.setHits(0);
+		return projectDao.insert(project);
 	}
 
-	public boolean update(ProjectVo item) {
-		return itemDao.update(item);
+	public boolean update(ProjectVo project) {
+		return projectDao.update(project);
 	}
 	
 	public boolean delete(int seq) {
-		return itemDao.delete(seq);
+		return projectDao.delete(seq);
 	}
 	
 	public ProjectVo get(int seq){
-		return itemDao.get(seq);
+		return projectDao.get(seq);
 	}
 	
 	public boolean saveFile(FileVo boardFile) {
-		return itemFileDao.insert(boardFile);
+		return projectFileDao.insert(boardFile);
 	}
 
 	public List<FileVo> getFiles(int seq) {
-		return itemFileDao.getFiles(seq);
+		return projectFileDao.getFiles(seq);
 	}
 
 	public FileVo getFile(String pathNm) {
-		return itemFileDao.getFile(pathNm);
+		return projectFileDao.getFile(pathNm);
 	}
 
 	public FileVo getFile(int seq) {
-		return itemFileDao.getFile(seq);
+		return projectFileDao.getFile(seq);
 	}
 
 	public boolean deleteFile(int seq) {
-		return itemFileDao.delete(seq);
+		return projectFileDao.delete(seq);
 	}
 	
 	public List<String> getContentImgPath(int seq, String path){
 		List<String> imgPaths = new ArrayList<String>();
-		ProjectVo item = itemDao.get(seq);
-		String content = item.getContents();
+		ProjectVo project = projectDao.get(seq);
+		String content = project.getContents();
 		
 		int stIndex = 0;
 		int endIndex= 0;
@@ -87,11 +87,11 @@ public class ProjectService {
 	}
 
 	public ProjectVo getBefore(int sort) {
-		return itemDao.getBefore(sort);
+		return projectDao.getBefore(sort);
 	}
 
 	public ProjectVo getAfter(int sort) {
-		return itemDao.getAfter(sort);
+		return projectDao.getAfter(sort);
 	}
 
 }

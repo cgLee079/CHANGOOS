@@ -23,17 +23,17 @@ public class ProjectDao {
 		return sqlSession.selectOne(namespace + ".get", seq);
 	}
 	
-	public int insert(ProjectVo item) {
-		sqlSession.insert(namespace + ".insert", item);
-		return item.getSeq();
+	public int insert(ProjectVo project) {
+		sqlSession.insert(namespace + ".insert", project);
+		return project.getSeq();
 	}
 
 	public boolean delete(int seq) {
 		return sqlSession.delete(namespace + ".delete", seq) == 1;
 	}
 
-	public boolean update(ProjectVo item) {
-		return sqlSession.update(namespace + ".update", item) == 1;
+	public boolean update(ProjectVo project) {
+		return sqlSession.update(namespace + ".update", project) == 1;
 	}
 
 	public ProjectVo getBefore(int sort) {

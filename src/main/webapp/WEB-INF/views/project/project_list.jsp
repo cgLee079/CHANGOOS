@@ -10,7 +10,7 @@
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 	
 	<div class="main">
-		<div class="items-title font-lora">
+		<div class="projects-title font-lora">
 			Projects
 		</div>
 		<%@ include file="/WEB-INF/views/included/included_project_list.jsp" %>

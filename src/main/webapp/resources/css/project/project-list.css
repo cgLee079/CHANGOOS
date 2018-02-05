@@ -4,7 +4,7 @@
 	margin-top: 3rem;
 }
 
-.items-title {
+.projects-title {
 	letter-spacing: 1.5rem;
 	font-size: 3.5rem;
 	font-weight: bold;
@@ -15,6 +15,6 @@
 	cursor: default;
 }
 
-.items-title:HOVER {
+.projects-title:HOVER {
 	transform: scale(1.1);
 }
