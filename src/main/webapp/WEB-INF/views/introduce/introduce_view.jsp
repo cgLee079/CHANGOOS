@@ -129,9 +129,12 @@
 				type	: "POST",
 				url		: getContextPath() + "/introduce/remain_message.do",
 				data	: {
-					'message' : message	
+					'contents' : message	
 				},
 				dataType: 'JSON',
+				beforeSend : function(){
+					Progress.start();
+				},
 				success : function(re) {
 					if(re.result){
 						alert("방명록이 등록되었습니다");
@@ -141,10 +144,12 @@
 					}
 				},
 				complete: function(){
+					Progress.stop();
 				},
 				error : function(e) {
 					console.log(e);
-					alert("방명록이 등록 실패!");
+					alert("방명록 등록에 실패하였습니다.");
+					Progress.stop();
 				}
 			});							
 		});

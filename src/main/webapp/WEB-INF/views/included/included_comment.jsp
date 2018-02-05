@@ -307,6 +307,9 @@ function commentSubmit(){
 			'contents' 	: nl2br(contents.val())
 		},
 		dataType: 'JSON',
+		beforeSend : function(){
+			Progress.start();
+		},
 		success : function(data) {
 			if(data){
 				alert("댓글이 등록 되었습니다.");
@@ -315,8 +318,13 @@ function commentSubmit(){
 				commentPageMove(parseInt((comtCnt-1) / perPgLine)+1);
 			}
 		},
+		complete : function(){
+			Progress.stop();
+		},
 		error : function(e) {
 			console.log(e);
+			alert("댓글 등록에 실패하였습니다.");
+			Progress.stop();
 		}
 	});
 }

@@ -29,9 +29,9 @@ public class IntroduceController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/introduce/remain_message.do")
-	public String doRemainMessage(String message) {
+	public String doRemainMessage(String contents) {
 		VisitMsgVo visitMsg = new VisitMsgVo();
-		visitMsg.setContents(message);
+		visitMsg.setContents(contents);
 		visitMsg.setDate(Formatter.toDateTime(new Date()));
 		
 		boolean result = visitMsgService.insert(visitMsg);

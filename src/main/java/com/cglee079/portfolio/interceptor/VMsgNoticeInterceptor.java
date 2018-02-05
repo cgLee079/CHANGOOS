@@ -1,0 +1,32 @@
+package com.cglee079.portfolio.interceptor;
+
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.cglee079.portfolio.model.BoardVo;
+import com.cglee079.portfolio.util.Formatter;
+import com.cglee079.portfolio.util.MyTelegramHandler;
+
+public class VMsgNoticeInterceptor extends HandlerInterceptorAdapter {
+
+	@Autowired
+	private MyTelegramHandler telegramHandler;
+
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		String contents = request.getParameter("contents");
+		String msg = "#방명록이 등록되었습니다.\n";
+		msg += "시간 : " + Formatter.toDateTime(new Date()) + "\n";
+		msg += "내용 :\n";
+		msg += contents;
+		telegramHandler.sendMessage(msg);
+	}
+
+}

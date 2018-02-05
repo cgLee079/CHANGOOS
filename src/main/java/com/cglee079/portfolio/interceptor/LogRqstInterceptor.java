@@ -1,7 +1,6 @@
 package com.cglee079.portfolio.interceptor;
 
 import java.util.Date;
-import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,20 +12,21 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.cglee079.portfolio.model.LogRqstVo;
 import com.cglee079.portfolio.service.LogRqstService;
 import com.cglee079.portfolio.util.Formatter;
+import com.cglee079.portfolio.util.MyTelegramHandler;
 
-public class LogRqstInterceptor extends HandlerInterceptorAdapter{
+public class LogRqstInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
 	private LogRqstService logRqstService;
-	
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		LogRqstVo logRqst = new LogRqstVo();
 		logRqst.setIp(request.getRemoteAddr());
 		String page = request.getRequestURI().toString();
-		if (request.getQueryString() != null){
-			page = page +  "?" + request.getQueryString(); 
+		if (request.getQueryString() != null) {
+			page = page + "?" + request.getQueryString();
 		}
 		logRqst.setPage(page);
 		logRqst.setAgnt(request.getHeader("User-Agent"));
@@ -40,5 +40,5 @@ public class LogRqstInterceptor extends HandlerInterceptorAdapter{
 			ModelAndView modelAndView) throws Exception {
 
 	}
-	
+
 }

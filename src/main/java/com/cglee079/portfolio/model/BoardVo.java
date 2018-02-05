@@ -24,8 +24,6 @@ public class BoardVo {
 		this.hits = hits;
 	}
 	
-	
-
 	@Override
 	public String toString() {
 		return "BoardVo [seq=" + seq + ", type=" + type + ", sort=" + sort + ", sect=" + sect + ", title=" + title
