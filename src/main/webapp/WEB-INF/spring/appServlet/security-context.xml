@@ -19,13 +19,12 @@
 		<security:intercept-url pattern="/admin/*/*" access="hasRole('ROLE_ADMIN')" />  
 		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />
 		
-		<security:form-login
-			username-parameter="username"
-			password-parameter="password" 
-		 	login-page="/login"
+		<security:form-login username-parameter="username"
+			password-parameter="password" login-page="/login"
 			login-processing-url="/j_spring_security_check"
-			authentication-failure-url="/login?result=false" />
-			
+			authentication-failure-url="/login?result=false"
+			always-use-default-target="false" />
+
 		<!-- 로그아웃 성공시 핸들러 -->
 		<!-- <bean id="LoginSuccessHandler" class="com.cglee079.portfolio.security.LoginSuccessHandler" />  -->
 		<!-- authentication-success-handler-ref="LoginSuccessHandler"-->

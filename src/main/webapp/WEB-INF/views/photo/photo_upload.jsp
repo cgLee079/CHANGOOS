@@ -13,7 +13,10 @@
 .wrap-upload-form{
 	width : 80%;
 	margin: 0px auto;
-	margin-top : 20px;
+	margin-top : 1rem;
+	padding :1rem;
+	background: #FFF;
+	border: 1px solid #DDD;
 }
 
 .upload-item{
@@ -24,6 +27,8 @@
 
 .upload-item-name{
 	width : 7rem;
+	font-size: 0.7rem;
+	font-weight: bold;
 }
 
 .upload-item-input{
@@ -31,7 +36,7 @@
 }
 
 .upload-item-input input{
-	width : 100%;
+	width : 50%;
 }
 
 </style>
@@ -63,56 +68,56 @@
 				method="post"  enctype="multipart/form-data">
 				
 				<div class="upload-item">
-					<div class="upload-item-name">sort</div>
+					<div class="upload-item-name">SORT</div>
 					<div class="upload-item-input">
 						<input type="text" id="sort" name="sort" class="photo-sort" value="99999"/>
 					</div>
 				</div>
 				
 				<div class="upload-item">
-					<div class="upload-item-name">image</div>
+					<div class="upload-item-name">IMAGE</div>
 					<div class="upload-item-input">
 						<input type="file" id="imageFile" name="imageFile" class="photo-image" accept="image/*"/>
 					</div>
 				</div>
 				
 				<div class="upload-item">
-					<div class="upload-item-name">location</div>
+					<div class="upload-item-name">LOCATION</div>
 					<div class="upload-item-input">
 						<input type="text" id="location" name="location" class="photo-location"/>
 					</div>
 				</div>
 				
 				<div class="upload-item">
-					<div class="upload-item-name">date</div>
+					<div class="upload-item-name">DATE</div>
 					<div class="upload-item-input">
 						<input type="text" id="date" name="date" class="photo-date"/>
 					</div>
 				</div>
 				
 				<div class="upload-item">
-					<div class="upload-item-name">time</div>
+					<div class="upload-item-name">TIME</div>
 					<div class="upload-item-input">
 						<input type="text" id="time" name="time" class="photo-date"/>
 					</div>
 				</div>
 				
 				<div class="upload-item">
-					<div class="upload-item-name">tag</div>
+					<div class="upload-item-name">TAG</div>
 					<div class="upload-item-input">
 						<input type="text" id="tag" name="tag" class="photo-tag"/>
 					</div>
 				</div>
 				
 				<div class="upload-item">
-					<div class="upload-item-name">name</div>
+					<div class="upload-item-name">NAME</div>
 					<div class="upload-item-input">
 						<input type="text" id="name" name="name" class="photo-name"/>
 					</div>
 				</div>
 				
 				<div class="upload-item">
-					<div class="upload-item-name">desc</div>
+					<div class="upload-item-name">DESC</div>
 					<div class="upload-item-input">
 						<textarea id="desc" name="desc" class="photo-desc">
 							<c:if test="${!empty photo.desc}">${photo.desc}</c:if>

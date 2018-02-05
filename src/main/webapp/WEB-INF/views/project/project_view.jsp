@@ -123,7 +123,7 @@ $(document).ready(function(){
 		</c:import>
 		
 		<c:if test="${!empty beforeProject}">
-			<div class="btn btn-project-before h-reverse" title="[${beforeProject.sect}] ${beforeProject.name}" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_project_arrow.png)"></div>
+			<div class="btn btn-project-before h-reverse" title="[${beforeProject.sect}] ${beforeProject.title}" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_project_arrow.png)"></div>
 			<script>
 			(function() {
 			    $(".btn-project-before").tooltip({
@@ -136,7 +136,7 @@ $(document).ready(function(){
 		</c:if>
 		
 		<c:if test="${!empty afterProject}">
-			<div class="btn btn-project-next" title="[${afterProject.sect}] ${afterProject.name}" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_project_arrow.png)"></div>
+			<div class="btn btn-project-next" title="[${afterProject.sect}] ${afterProject.title}" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_project_arrow.png)"></div>
 				<script>
 			(function() {
 			    $(".btn-project-next").tooltip({

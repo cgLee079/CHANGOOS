@@ -3,6 +3,52 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
+<style>
+.menu-manage{
+	margin : 1rem;
+	margin-top: 30px;
+	text-align: right;
+}
+
+.wrap-project-list{
+	width : 80%;
+	margin : 0px auto;
+	margin-top : 1rem;
+	padding : 1rem;
+	background: #FFF;
+	border: 1px solid #DDD;
+}
+
+.project-list{
+	width : 100%;
+	font-size: 0.7rem;
+	
+}
+
+.list-item > div{
+	padding: 0.5rem;
+	border: 1px solid #DDD;
+}
+
+.list-item{
+	display: flex;
+	flex-flow : row nowrap;
+	justify-content : center;
+}
+
+.list-item-header{font-weight: bold; text-align: center;}
+
+.list-item .item-seq 	{width : 2rem; text-align: center;}
+.list-item .item-sort	{width : 2rem; text-align: center;}
+.list-item .item-title 	{flex : 1; min-width : 5rem; text-align: center; font-weight: bold;}
+.list-item .item-snapsht{width : 10rem;}
+.list-item .item-snapsht img{max-width:10rem; height: 1rem}
+.list-item .item-detail-view {width : 2rem; text-align: center;}
+.list-item .item-modify {width : 2rem; text-align: center;}
+.list-item .item-delete {width : 2rem; text-align: center;}
+
+</style>
+	
 <script type="text/javascript">
 	function projectView(seq){
 		window.location.href = getContextPath() + "/project/view?seq=" + seq;		
@@ -23,59 +69,9 @@
 <body>
 <div class="wrapper">
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
-	
-	<style>
-	.wrapper{
-		width : 100%;
-		margin: 0px auto;
-	}
-	
-	.menu-manage{
-		margin : 1rem;
-		margin-top: 30px;
-		text-align: right;
-	}
-	
-	.wrap-project-list{
-		width : 80%;
-		margin : 0px auto;
-		margin-top : 1rem;
-		padding : 1rem;
-		background: #FFF;
-		border: 1px solid #DDD;
-	}
-	
-	.project-list{
-		width : 100%;
-		font-size: 0.7rem;
-		
-	}
-	
-	.list-item > div{
-		padding: 0.5rem;
-		border: 1px solid #DDD;
-	}
-	
-	.list-item{
-		display: flex;
-		flex-flow : row nowrap;
-		justify-content : center;
-	}
-	
-	.list-item-header{font-weight: bold; text-align: center;}
-	
-	.list-item .item-seq 	{width : 2rem; text-align: center;}
-	.list-item .item-sort	{width : 2rem; text-align: center;}
-	.list-item .item-title 	{flex : 1; min-width : 5rem; text-align: center; font-weight: bold;}
-	.list-item .item-snapsht{width : 10rem; height: 1rem}
-	.list-item .item-snapsht img{max-width:10rem; height: 1rem}
-	.list-item .item-detail-view {width : 2rem; text-align: center;}
-	.list-item .item-modify {width : 2rem; text-align: center;}
-	.list-item .item-delete {width : 2rem; text-align: center;}
-	
-	</style>
 	<div class="wrap-project-list">
 		<div class="menu-manage">
+			<a href="${pageContext.request.contextPath}/project" class="btn">List</a>
 			<a href="${pageContext.request.contextPath}/admin/project/upload" class="btn">Upload</a>
 		</div>
 		
