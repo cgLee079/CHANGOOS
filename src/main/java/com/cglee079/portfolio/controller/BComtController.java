@@ -5,14 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cglee079.portfolio.model.ComtVo;
-import com.cglee079.portfolio.model.BoardVo;
 import com.cglee079.portfolio.service.BComtService;
-import com.cglee079.portfolio.service.BoardService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

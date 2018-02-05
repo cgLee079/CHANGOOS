@@ -3,6 +3,7 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/photo/photo-manage.css" />
 <script type="text/javascript">
 	function photoDelete(seq){
 		var question = "정말로 삭제 하시겠습니까?";
@@ -19,55 +20,6 @@
 <body>
 <div class="wrapper">
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
-	
-	<style>
-.menu-manage{
-	margin : 1rem;
-	margin-top: 30px;
-	text-align: right;
-}
-
-.wrap-photo-list{
-	width : 80%;
-	margin : 0px auto;
-	margin-top : 1rem;
-	padding : 1rem;
-	background: #FFF;
-	border: 1px solid #DDD;
-}
-
-.project-list{
-	width : 100%;
-	font-size: 0.5rem;
-}
-
-.list-photo > div{
-	padding: 0.5rem;
-	border: 1px solid #DDD;
-}
-
-.list-photo{
-	display: flex;
-	flex-flow : row nowrap;
-	justify-content : center;
-}
-
-.list-photo-header{font-weight: bold; text-align: center;}
-
-.list-photo .photo-seq 	{width : 2rem; text-align: center;}
-.list-photo .photo-sort	{width : 2rem; text-align: center;}
-.list-photo .photo-title {flex : 1; min-width : 5rem; text-align: center; font-weight: bold;}
-.list-photo .photo-img{width : 3rem; max-width: 5rem;}
-.list-photo .photo-img img{max-width:3rem; max-height: 1rem;}
-.list-photo .photo-device {width:4rem;}
-.list-photo .photo-loc {width:3rem;}
-.list-photo .photo-date {width:3rem;}
-.list-photo .photo-time {width:2rem;}
-.list-photo .photo-modify {width : 2rem; text-align: center;}
-.list-photo .photo-delete {width : 2rem; text-align: center;}
-
-</style>
-	
 	
 	<div class="wrap-photo-list">
 		<div class="menu-manage">

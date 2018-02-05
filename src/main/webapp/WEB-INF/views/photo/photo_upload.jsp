@@ -4,43 +4,7 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
-<style>
-.wrapper{
-	width: 100%;
-	margin: 0px auto;
-}
-
-.wrap-upload-form{
-	width : 80%;
-	margin: 0px auto;
-	margin-top : 1rem;
-	padding :1rem;
-	background: #FFF;
-	border: 1px solid #DDD;
-}
-
-.upload-item{
-	display : flex;
-	flex-flow : row nowrap;
-	margin: 1rem 0;
-}
-
-.upload-item-name{
-	width : 7rem;
-	font-size: 0.7rem;
-	font-weight: bold;
-}
-
-.upload-item-input{
-	flex  : 1;
-}
-
-.upload-item-input input{
-	width : 50%;
-}
-
-</style>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/photo/photo-upload.css" />
 <c:if test="${!empty photo}">
 	<script>
 		$(document).ready(function(){

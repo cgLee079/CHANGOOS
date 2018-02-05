@@ -1,0 +1,28 @@
+.wrap-upload-form{
+	width : 80%;
+	margin: 0px auto;
+	margin-top: 2rem;
+	background: #FFF;
+	border: 1px solid #DDD;
+	padding : 1rem;
+}
+
+.upload-project{
+	display : flex;
+	flex-flow : row nowrap;
+	margin: 1rem 0;
+}
+
+.upload-project-name{
+	width : 7rem;
+	font-size: 0.7rem;
+	font-weight: bold;
+}
+
+.upload-project-input{
+	flex  : 1;
+}
+
+.upload-project-input input{
+	width : 50%;
+}
