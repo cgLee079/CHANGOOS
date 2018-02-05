@@ -31,8 +31,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class PhotoController {
-	final static String IMG_PATH	 	= "/resources/image/photo/";
-	final static String SNAPSHT_PATH	= "/resources/image/photo/snapshot/";
+	final static String PHOTO_PATH	 	= "/uploaded/photos/photos/";
+	final static String SNAPSHT_PATH	= "/uploaded/photos/snapshts/";
 	
 	@Autowired
 	private PhotoService photoService;
@@ -97,7 +97,7 @@ public class PhotoController {
 			snapshtName += "." + imgExt;
 			
 			//multipartfile save;
-			File photofile = new File(rootPath + IMG_PATH, imgName);
+			File photofile = new File(rootPath + PHOTO_PATH, imgName);
 			imageFile.transferTo(photofile);
 			HashMap<String, String> metadata = ImageManager.getImageMetaData(photofile);
 			photo.setDate(Formatter.toDate(metadata.get("Date/Time Original")));
@@ -118,9 +118,9 @@ public class PhotoController {
 			ImageIO.write(shapshtImg, imgExt, snapshtfile);
 			
 			photo.setSnapsht(SNAPSHT_PATH + snapshtName);
-			photo.setImage(IMG_PATH + imgName);
+			photo.setImage(PHOTO_PATH + imgName);
 		} else{
-			photo.setImage(IMG_PATH + "default.jpg");
+			photo.setImage(PHOTO_PATH + "default.jpg");
 			photo.setSnapsht(SNAPSHT_PATH + "default.jpg");
 		}
 		

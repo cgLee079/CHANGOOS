@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cglee079.portfolio.mapper.ProjectMapper">
+	<select id="list" resultType="com.cglee079.portfolio.model.ProjectVo">
+		SELECT
+		PROJ_SEQ as "seq",
+		PROJ_SORT as "sort",
+		PROJ_NAME as "name",
+		PROJ_SECT as "sect",
+		PROJ_DESC as "desc",
+		PROJ_SNAPSHT as "snapsht",
+		PROJ_HASVIDEO as "video",
+		PROJ_DATE as "date",
+		PROJ_SOURCECD as "sourcecode",
+		PROJ_DEVELOPER as "developer",
+		PROJ_HITS as "hits"
+		FROM TB_PTFOLIO_PROJS
+		ORDER BY PROJ_SORT
+	</select>
+	
+	<select id="get" resultType="com.cglee079.portfolio.model.ProjectVo" parameterType="Integer">
+		SELECT
+		PROJ_SEQ as "seq",
+		PROJ_SORT as "sort",
+		PROJ_NAME as "name",
+		PROJ_SECT as "sect",
+		PROJ_DESC as "desc",
+		PROJ_CONTENT as "content",
+		PROJ_SNAPSHT as "snapsht",
+		PROJ_HASVIDEO as "video",
+		PROJ_DATE as "date",
+		PROJ_SOURCECD as "sourcecode",
+		PROJ_DEVELOPER as "developer",
+		PROJ_HITS as "hits"
+		FROM TB_PTFOLIO_PROJS
+		WHERE PROJ_SEQ = #{seq}
+	</select>
+	
+	<select id="getBefore" resultType="com.cglee079.portfolio.model.ProjectVo" parameterType="Integer">
+		SELECT
+		PROJ_SEQ as "seq",
+		PROJ_SORT as "sort",
+		PROJ_NAME as "name",
+		PROJ_SECT as "sect",
+		PROJ_DESC as "desc",
+		PROJ_CONTENT as "content",
+		PROJ_SNAPSHT as "snapsht",
+		PROJ_HASVIDEO as "video",
+		PROJ_DATE as "date",
+		PROJ_SOURCECD as "sourcecode",
+		PROJ_DEVELOPER as "developer",
+		PROJ_HITS as "hits"
+		FROM TB_PTFOLIO_PROJS
+		WHERE <![CDATA[PROJ_SORT < #{sort}]]> 
+		ORDER BY PROJ_SORT DESC LIMIT 1
+	</select>
+	
+	<select id="getAfter" resultType="com.cglee079.portfolio.model.ProjectVo" parameterType="Integer">
+		SELECT
+		PROJ_SEQ as "seq",
+		PROJ_SORT as "sort",
+		PROJ_NAME as "name",
+		PROJ_SECT as "sect",
+		PROJ_DESC as "desc",
+		PROJ_CONTENT as "content",
+		PROJ_SNAPSHT as "snapsht",
+		PROJ_HASVIDEO as "video",
+		PROJ_DATE as "date",
+		PROJ_SOURCECD as "sourcecode",
+		PROJ_DEVELOPER as "developer",
+		PROJ_HITS as "hits"
+		FROM TB_PTFOLIO_PROJS
+		WHERE <![CDATA[PROJ_SORT > #{sort}]]> 
+		ORDER BY PROJ_SORT ASC LIMIT 1
+	</select>
+	
+	<delete id="delete">
+		DELETE FROM TB_PTFOLIO_PROJS
+		WHERE PROJ_SEQ = #{seq}
+	</delete>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.portfolio.model.ProjectVo">
+		INSERT TB_PTFOLIO_PROJS 
+		(PROJ_SORT, PROJ_NAME, PROJ_SECT, PROJ_DESC, PROJ_CONTENT, PROJ_SNAPSHT, PROJ_HASVIDEO, PROJ_DATE, PROJ_SOURCECD, PROJ_DEVELOPER, PROJ_HITS)
+		VALUES (#{sort}, #{name}, #{sect}, #{desc}, #{content}, #{snapsht}, #{video}, #{date}, #{sourcecode},#{developer}, #{hits})
+	</insert>
+	
+	<update id="update">
+		UPDATE TB_PTFOLIO_PROJS
+		SET 
+		PROJ_SORT = #{sort},
+		PROJ_NAME = #{name},
+		PROJ_SECT = #{sect},
+		PROJ_DESC = #{desc},
+		PROJ_CONTENT = #{content},
+		PROJ_SNAPSHT = #{snapsht},
+		PROJ_HASVIDEO = #{video},
+		PROJ_DATE = #{date},
+		PROJ_SOURCECD = #{sourcecode},
+		PROJ_DEVELOPER = #{developer},
+		PROJ_HITS = #{hits}
+		WHERE PROJ_SEQ = #{seq}
+	</update>
+	
+	
+</mapper>

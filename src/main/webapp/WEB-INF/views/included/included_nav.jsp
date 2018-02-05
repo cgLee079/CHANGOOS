@@ -9,7 +9,7 @@
 <sec:authorize access="hasRole('ROLE_ADMIN')">
   	<div class="admin-menu row-center">
   		<a href="${pageContext.request.contextPath}/j_spring_security_logout" class="btn btn-admin-login">로그아웃 </a>
-  		<a href="${pageContext.request.contextPath}/admin/item/manage" class="btn btn-admin-login">프로젝트관리 </a>
+  		<a href="${pageContext.request.contextPath}/admin/project/manage" class="btn btn-admin-login">프로젝트관리 </a>
   		<a href="${pageContext.request.contextPath}/admin/photo/manage" class="btn btn-admin-login">사진관리 </a>
   		<a href="${pageContext.request.contextPath}/admin/board/upload" class="btn btn-admin-login">게시판글쓰기 </a>
   	</div>    
@@ -162,7 +162,7 @@ $(window).resize(function(){
 	</div>
 	
 	<div class="btn-slideup">
-		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/item">Projects</a>
+		<a onclick="Progress.start()" href="${pageContext.request.contextPath}/project">Projects</a>
 	</div>
 	
 	<div class="btn-slideup">

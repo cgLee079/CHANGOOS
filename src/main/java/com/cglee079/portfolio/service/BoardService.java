@@ -11,7 +11,7 @@ import com.cglee079.portfolio.dao.BoardDao;
 import com.cglee079.portfolio.dao.BoardFileDao;
 import com.cglee079.portfolio.model.FileVo;
 import com.cglee079.portfolio.model.BoardVo;
-import com.cglee079.portfolio.model.ItemVo;
+import com.cglee079.portfolio.model.ProjectVo;
 import com.cglee079.portfolio.util.Formatter;
 
 @Service

@@ -17,28 +17,27 @@ import com.cglee079.portfolio.util.Formatter;
  */
 @Controller
 public class IntroduceController {
-	
+
 	@Autowired
 	private VisitMsgService visitMsgService;
-	
-	
+
 	@RequestMapping(value = "/introduce")
 	public String introduce() {
 		return "introduce/introduce_view";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/introduce/remain_message.do")
 	public String doRemainMessage(String contents) {
 		VisitMsgVo visitMsg = new VisitMsgVo();
 		visitMsg.setContents(contents);
 		visitMsg.setDate(Formatter.toDateTime(new Date()));
-		
+
 		boolean result = visitMsgService.insert(visitMsg);
-		
+
 		JSONObject re = new JSONObject();
 		re.put("result", result);
 		return re.toString();
 	}
-	
+
 }

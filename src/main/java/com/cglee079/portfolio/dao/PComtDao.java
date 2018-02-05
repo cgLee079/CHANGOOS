@@ -11,8 +11,8 @@ import com.cglee079.portfolio.model.ComtVo;
 import com.cglee079.portfolio.model.BoardVo;
 
 @Repository
-public class IComtDao {
-	private static final String namespace = "com.cglee079.portfolio.mapper.IComtMapper";
+public class PComtDao {
+	private static final String namespace = "com.cglee079.portfolio.mapper.PComtMapper";
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;

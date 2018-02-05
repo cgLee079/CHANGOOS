@@ -1,19 +1,19 @@
-.item-detail {
+.project-detail {
 	width : 80%;
 	margin : 0px auto;
 	margin-top: 3rem;
 }
 
-.item-head {
+.project-head {
 	position: relative;
 }
 
-.item-name{
+.project-name{
 	display: inline-block;
 	margin-right: 5px;
 }
 
-.item-subinfo{
+.project-subinfo{
 	position: absolute;
 	right : 0px;
 	bottom : 0px;
@@ -23,14 +23,14 @@
 	text-align: right;
 }
 
-.item-line{
+.project-line{
 	background: #DDD;
 	height : 1px;
 	margin: 0.5rem 0;
 }
 
 
-.item-content {
+.project-content {
 	position : relative;
 	margin-top: 1.5rem;
 	padding : 1rem;
@@ -39,22 +39,22 @@
 	min-height: 100%;
 }
 
-.item-snapsht{
+.project-snapsht{
 	width : 360px;
 	margin-bottom: 1rem;
 }
 
-.item-subinfo2 {
+.project-subinfo2 {
 	display : flex;
 	justify-content: space-between;
 	font-size: 0.7rem;
 }
 
-.item-source{
+.project-source{
 	font-weight: bold;
 }
 
-.btn-item-before{
+.btn-project-before{
 	position : fixed;
 	top : 50%;
 	left : 1.5rem;
@@ -65,7 +65,7 @@
     background-size		: contain;
 }
 
-.btn-item-next{
+.btn-project-next{
 	position : fixed;
 	top : 50%;
 	right : 1.5rem;
@@ -76,7 +76,7 @@
     background-size		: contain;
 }
 
-.btn-item-tooltip{
+.btn-project-tooltip{
 	background: #222;
 	color: #FFF;
 	font-size: 0.6rem;
@@ -85,11 +85,11 @@
 	padding: 0.3rem 0.5rem;
 }
 			
-.item-files .item-file{
+.project-files .project-file{
 	margin: 0.5rem 0;
 }
 
-.item-files .item-file a{
+.project-files .project-file a{
 	cursor: pointer;
 	color: #00D;
 	text-decoration: none;
@@ -97,7 +97,7 @@
 					
 
 @media (max-width: 420px){
-	.item-detail {
+	.project-detail {
 		width : 90%;
 		margin-top: 3rem;
 	}

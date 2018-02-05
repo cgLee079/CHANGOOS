@@ -7,41 +7,41 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cglee079.portfolio.dao.IComtDao;
+import com.cglee079.portfolio.dao.PComtDao;
 import com.cglee079.portfolio.model.ComtVo;
 
 @Service
-public class IComtService{
+public class PComtService{
 	
 	@Autowired
-	IComtDao icomtDao;
+	PComtDao pcomtDao;
 
 	public List<ComtVo> paging(int boardSeq, int page, int perPgLine) {
 		int startRow = (page - 1) * perPgLine;
-		return icomtDao.list(boardSeq, startRow, perPgLine);
+		return pcomtDao.list(boardSeq, startRow, perPgLine);
 	}
 
 	public int count(int boardSeq) {
-		return icomtDao.count(boardSeq);
+		return pcomtDao.count(boardSeq);
 	}
 
 	public boolean insert(ComtVo comt) {
 		String date = new SimpleDateFormat("YYYY-MM-dd").format(new Date());
 		comt.setDate(date);
-		return icomtDao.insert(comt);
+		return pcomtDao.insert(comt);
 	}
 
 	public boolean delete(int seq, String password, boolean isAdmin) {
-		ComtVo comtVo = icomtDao.get(seq);
+		ComtVo comtVo = pcomtDao.get(seq);
 		if(comtVo.getPassword().equals(password) || isAdmin){
-			return icomtDao.delete(seq);			
+			return pcomtDao.delete(seq);			
 		} else {
 			return false;
 		}
 	}
 	
 	public boolean checkPwd(int seq, String password, boolean isAdmin) {
-		ComtVo comtVo = icomtDao.get(seq);
+		ComtVo comtVo = pcomtDao.get(seq);
 		if(comtVo.getPassword().equals(password) || isAdmin){
 			return true;			
 		} else {
@@ -50,6 +50,6 @@ public class IComtService{
 	}
 
 	public boolean update(int seq, String contents) {
-		return icomtDao.update(seq, contents);
+		return pcomtDao.update(seq, contents);
 	}
 }

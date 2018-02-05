@@ -6,25 +6,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cglee079.portfolio.dao.ItemDao;
-import com.cglee079.portfolio.dao.ItemFileDao;
+import com.cglee079.portfolio.dao.ProjectDao;
+import com.cglee079.portfolio.dao.PorjectFileDao;
 import com.cglee079.portfolio.model.FileVo;
-import com.cglee079.portfolio.model.ItemVo;
+import com.cglee079.portfolio.model.ProjectVo;
 
 @Service
-public class ItemService {
-
+public class ProjectService {
 	@Autowired
-	private ItemDao itemDao;
+	private ProjectDao itemDao;
 	
 	@Autowired
-	private ItemFileDao itemFileDao;
+	private PorjectFileDao itemFileDao;
 	
-	public List<ItemVo> list(){
+	public List<ProjectVo> list(){
 		return itemDao.list();
 	}
 	
-	public int insert(ItemVo item) {
+	public int insert(ProjectVo item) {
 		item.setContent(item.getContent());
 		item.setDesc(item.getDesc());
 		
@@ -32,7 +31,7 @@ public class ItemService {
 		return itemDao.insert(item);
 	}
 
-	public boolean update(ItemVo item) {
+	public boolean update(ProjectVo item) {
 		return itemDao.update(item);
 	}
 	
@@ -40,7 +39,7 @@ public class ItemService {
 		return itemDao.delete(seq);
 	}
 	
-	public ItemVo get(int seq){
+	public ProjectVo get(int seq){
 		return itemDao.get(seq);
 	}
 	
@@ -66,7 +65,7 @@ public class ItemService {
 	
 	public List<String> getContentImgPath(int seq, String path){
 		List<String> imgPaths = new ArrayList<String>();
-		ItemVo item = itemDao.get(seq);
+		ProjectVo item = itemDao.get(seq);
 		String content = item.getContent();
 		
 		int stIndex = 0;
@@ -87,11 +86,11 @@ public class ItemService {
 		return imgPaths;
 	}
 
-	public ItemVo getBefore(int sort) {
+	public ProjectVo getBefore(int sort) {
 		return itemDao.getBefore(sort);
 	}
 
-	public ItemVo getAfter(int sort) {
+	public ProjectVo getAfter(int sort) {
 		return itemDao.getAfter(sort);
 	}
 

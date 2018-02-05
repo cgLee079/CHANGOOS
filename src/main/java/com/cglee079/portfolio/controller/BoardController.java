@@ -36,8 +36,8 @@ import com.google.gson.Gson;
 
 @Controller
 public class BoardController {
-	final static String CONTENT_PATH	= "/resources/image/board/contents/";
-	final static String FILE_PATH 		= "/resources/file/board/";
+	final static String CONTENTS_PATH	= "/uploaded/boards/contents/";
+	final static String FILE_PATH 		= "/uploaded/boards/files/";
 	
 	@Autowired
 	private BoardService boardService;
@@ -85,7 +85,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board/view")
-	public String boardView(Model model, int seq, Integer page) throws SQLException, JsonProcessingException{
+	public String boardView(Model model, int seq, int page) throws SQLException, JsonProcessingException{
 		BoardVo board = boardService.doView(seq);
 		BoardVo beforeBoard = boardService.getBefore(seq, board.getType());
 		BoardVo afterBoard = boardService.getAfter(seq, board.getType());
@@ -110,7 +110,6 @@ public class BoardController {
 		
 		File file = new File(rootPath + FILE_PATH, boardFile.getPathNm());
 		byte fileByte[] = FileUtils.readFileToByteArray(file);
-
 		
 		if(file.exists()){
 			response.setContentType("application/octet-stream");
@@ -184,8 +183,7 @@ public class BoardController {
 		boardService.update(board);
 		
 		String rootPath = session.getServletContext().getRealPath("");
-		String filePath = "/resources/file/board/";
-		
+
 		File file = null;
 		MultipartFile multipartFile = null;
 		FileVo boardFile = null;
@@ -200,7 +198,7 @@ public class BoardController {
 			size 	= multipartFile.getSize();
 			
 			if(size > 0 ){
-				file = new File(rootPath + filePath, pathNm);
+				file = new File(rootPath + FILE_PATH, pathNm);
 				multipartFile.transferTo(file);
 				
 				boardFile = new FileVo();
@@ -221,7 +219,7 @@ public class BoardController {
 		File existFile = null;
 		
 		//Content Img 삭제
-		List<String> imgPaths = boardService.getContentImgPath(seq, CONTENT_PATH);
+		List<String> imgPaths = boardService.getContentImgPath(seq, CONTENTS_PATH);
 		int imgPathsLength = imgPaths.size();
 		for (int i = 0; i < imgPathsLength; i++){
 			existFile = new File (rootPath + imgPaths.get(i));
@@ -278,14 +276,14 @@ public class BoardController {
 		if(multiFile != null){
 			filename += multiFile.getOriginalFilename();
 			imgExt = ImageManager.getExt(filename);
-			File file = new File(rootPath + CONTENT_PATH, filename);
+			File file = new File(rootPath + CONTENTS_PATH, filename);
 			multiFile.transferTo(file);
 			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
 			ImageIO.write(image, imgExt, file);
 		}
 		
 		response.setHeader("x-frame-options", "SAMEORIGIN");
-		model.addAttribute("path", request.getContextPath() + CONTENT_PATH + filename);
+		model.addAttribute("path", request.getContextPath() + CONTENTS_PATH + filename);
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
 		
 		return "board/board_imgupload";

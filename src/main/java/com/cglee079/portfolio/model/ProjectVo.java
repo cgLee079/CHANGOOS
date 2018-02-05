@@ -1,6 +1,6 @@
 package com.cglee079.portfolio.model;
 
-public class ItemVo {
+public class ProjectVo {
 	private int seq;
 	private int sort;
 	private String name;
@@ -14,10 +14,10 @@ public class ItemVo {
 	private String developer;
 	private int hits;
 
-	public ItemVo() {
+	public ProjectVo() {
 	}
 
-	public ItemVo(int seq, int sort, String name, String sect, String desc, String content, String snapsht, String video,
+	public ProjectVo(int seq, int sort, String name, String sect, String desc, String content, String snapsht, String video,
 			String date, String sourcecode, String developer, int hits) {
 		this.seq = seq;
 		this.sort = sort;

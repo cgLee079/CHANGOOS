@@ -11,18 +11,18 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.cglee079.portfolio.model.BoardVo;
-import com.cglee079.portfolio.model.ItemVo;
-import com.cglee079.portfolio.service.ItemService;
+import com.cglee079.portfolio.model.ProjectVo;
+import com.cglee079.portfolio.service.ProjectService;
 import com.cglee079.portfolio.util.Formatter;
 import com.cglee079.portfolio.util.TelegramHandler;
 
-public class IComtNoticeInterceptor extends HandlerInterceptorAdapter {
+public class PComtNoticeInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
 	private TelegramHandler telegramHandler;
 
 	@Autowired
-	private ItemService itemService;
+	private ProjectService itemService;
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
@@ -33,7 +33,7 @@ public class IComtNoticeInterceptor extends HandlerInterceptorAdapter {
 		String parentSeq = request.getParameter("parentSeq");
 		
 		if (parentSeq == null) {
-			ItemVo board = itemService.get(Integer.parseInt(boardSeq));
+			ProjectVo board = itemService.get(Integer.parseInt(boardSeq));
 			String boardTitle = board.getName();
 
 			String msg = "#프로젝트에 댓글이 등록되었습니다.\n";

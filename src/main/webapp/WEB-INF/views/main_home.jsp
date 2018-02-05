@@ -2,7 +2,7 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-item-list.css" /> 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-project-list.css" /> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home-basic.css" />
 <script>
 	function scrollToItems(){
@@ -64,7 +64,7 @@
 				<div class="circle"></div>
 				<div class="circle"></div>
 			</div>
-			<%@ include file="included/included_item_list.jsp" %>
+			<%@ include file="included/included_project_list.jsp" %>
 		</div>
 	</div>
 	

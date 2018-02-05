@@ -4,8 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -25,66 +23,66 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.portfolio.model.FileVo;
-import com.cglee079.portfolio.model.ItemVo;
-import com.cglee079.portfolio.service.IComtService;
-import com.cglee079.portfolio.service.ItemService;
+import com.cglee079.portfolio.model.ProjectVo;
+import com.cglee079.portfolio.service.PComtService;
+import com.cglee079.portfolio.service.ProjectService;
 import com.cglee079.portfolio.util.ImageManager;
 import com.cglee079.portfolio.util.TimeStamper;
 
 @Controller
-public class ItemController {
-	final static String FILE_PATH 		= "/resources/file/item/";
-	final static String SNAPSHT_PATH	= "/resources/image/item/snapshot/";
-	final static String CONTENT_PATH	= "/resources/image/item/contents/";
+public class ProjectController {
+	final static String FILE_PATH 		= "/uploaded/projects/files/";
+	final static String SNAPSHT_PATH	= "/uploaded/projects/snapshts/";
+	final static String CONTENTS_PATH	= "/uploaded/projects/contents/";
 	
 	@Autowired
-	private ItemService itemService;
+	private ProjectService projectService;
 
 	@Autowired 
-	private IComtService icomtService;
+	private PComtService pcomtService;
 	
-	@RequestMapping(value = "item")
-	public String itemList(Model model) {
-		List<ItemVo> items = itemService.list();
-		model.addAttribute("items", items);
-		return "item/item_list";
+	@RequestMapping(value = "/project")
+	public String projectList(Model model) {
+		List<ProjectVo> projects = projectService.list();
+		model.addAttribute("projects", projects);
+		return "project/project_list";
 	}
 	
-	@RequestMapping(value = "/item/view")
-	public String itemView(Model model, int seq){
-		ItemVo item = itemService.get(seq);
-		ItemVo beforeItem = itemService.getBefore(item.getSort());
-		ItemVo afterItem = itemService.getAfter(item.getSort());
+	@RequestMapping(value = "/project/view")
+	public String projectView(Model model, int seq){
+		ProjectVo project = projectService.get(seq);
+		ProjectVo beforeProject = projectService.getBefore(project.getSort());
+		ProjectVo afterProject = projectService.getAfter(project.getSort());
 		
-		int hits = item.getHits();
-		item.setHits(hits + 1);
-		itemService.update(item);
+		int hits = project.getHits();
+		project.setHits(hits + 1);
+		projectService.update(project);
 				
-		model.addAttribute("item", item);
-		model.addAttribute("beforeItem", beforeItem);
-		model.addAttribute("afterItem", afterItem);
+		model.addAttribute("project", project);
+		model.addAttribute("beforeProject", beforeProject);
+		model.addAttribute("afterProject", afterProject);
 		
-		int comtCnt = icomtService.count(seq);
+		int comtCnt = pcomtService.count(seq);
 		model.addAttribute("comtCnt", comtCnt);
 		
-		List<FileVo> files = itemService.getFiles(seq);
+		List<FileVo> files = projectService.getFiles(seq);
 		model.addAttribute("files", files);
 		
-		return "item/item_view";
+		return "project/project_view";
 	}
 	
-	@RequestMapping("/item/download.do")
+	@RequestMapping("/project/download.do")
 	public void  download(HttpSession session, HttpServletResponse response, String filename) throws IOException{
 		String rootPath = session.getServletContext().getRealPath("");
-		FileVo itemFile = itemService.getFile(filename);
+		FileVo projectFile = projectService.getFile(filename);
 		
-		File file = new File(rootPath + FILE_PATH, itemFile.getPathNm());
+		File file = new File(rootPath + FILE_PATH, projectFile.getPathNm());
 		byte fileByte[] = FileUtils.readFileToByteArray(file);
 		
 		if(file.exists()){
 			response.setContentType("application/octet-stream");
 		    response.setContentLength(fileByte.length);
-		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(itemFile.getRealNm(),"UTF-8")+"\";");
+		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(projectFile.getRealNm(),"UTF-8")+"\";");
 		    response.setHeader("Content-Transfer-Encoding", "binary");
 		    response.getOutputStream().write(fileByte);
 		     
@@ -93,26 +91,26 @@ public class ItemController {
 		}
 	}
 	
-	@RequestMapping(value = "/admin/item/manage")
-	public String itemManage(Model model) {
-		List<ItemVo> items = itemService.list();
-		model.addAttribute("items", items);
-		return "item/item_manage";
+	@RequestMapping(value = "/admin/project/manage")
+	public String projectManage(Model model) {
+		List<ProjectVo> projects = projectService.list();
+		model.addAttribute("projects", projects);
+		return "project/project_manage";
 	}
 	
-	@RequestMapping(value = "/admin/item/delete.do")
-	public String itemDelete(HttpSession session, int seq) {
+	@RequestMapping(value = "/admin/project/delete.do")
+	public String projectDelete(HttpSession session, int seq) {
 		String rootPath = session.getServletContext().getRealPath("");
 		
-		ItemVo item = itemService.get(seq);
+		ProjectVo project = projectService.get(seq);
 		File existFile = null;
 		
-		existFile = new File (rootPath + item.getSnapsht());
+		existFile = new File (rootPath + project.getSnapsht());
 		if(existFile.exists()){
 			existFile.delete();
 		}
 		
-		List<String> imgPaths = itemService.getContentImgPath(seq, CONTENT_PATH);
+		List<String> imgPaths = projectService.getContentImgPath(seq, CONTENTS_PATH);
 		int imgPathsLength = imgPaths.size();
 		existFile = null;
 		
@@ -124,7 +122,7 @@ public class ItemController {
 		}
 		
 		//File 삭제
-		List<FileVo> files = itemService.getFiles(seq);
+		List<FileVo> files = projectService.getFiles(seq);
 		FileVo file = null;
 		int fileLength = files.size();
 		for(int i = 0 ;  i < fileLength; i++){
@@ -136,35 +134,35 @@ public class ItemController {
 		}
 				
 				
-		itemService.delete(seq);
-		return "redirect:" + "/admin/item/manage";
+		projectService.delete(seq);
+		return "redirect:" + "/admin/project/manage";
 	}
 	
-	@RequestMapping(value = "/admin/item/upload", params = "!seq")
-	public String itemUpload() {
-		return "item/item_upload";
+	@RequestMapping(value = "/admin/project/upload", params = "!seq")
+	public String projectUpload() {
+		return "project/project_upload";
 	}
 	
-	@RequestMapping(value = "/admin/item/upload", params = "seq")
-	public String itemModify(Model model, int seq) {
-		ItemVo item = itemService.get(seq);
-		if(item.getContent() != null){
-			item.setContent(item.getContent().replace("&", "&amp;"));
+	@RequestMapping(value = "/admin/project/upload", params = "seq")
+	public String projectModify(Model model, int seq) {
+		ProjectVo project = projectService.get(seq);
+		if(project.getContent() != null){
+			project.setContent(project.getContent().replace("&", "&amp;"));
 		}
 		
-		model.addAttribute("item", item);
+		model.addAttribute("project", project);
 		
-		List<FileVo> files = itemService.getFiles(seq);
+		List<FileVo> files = projectService.getFiles(seq);
 		model.addAttribute("files", files);
 		
-		return "item/item_upload";
+		return "project/project_upload";
 	}
 	
-	@RequestMapping(value = "/admin/item/upload.do", method = RequestMethod.POST, params = "!seq")
-	public String itemDoUpload(HttpServletRequest request, ItemVo item, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws IllegalStateException, IOException {
+	@RequestMapping(value = "/admin/project/upload.do", method = RequestMethod.POST, params = "!seq")
+	public String projectDoUpload(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
-		String filename	= "snapshot_" + item.getName() + "_";
+		String filename	= "snapshot_" + project.getName() + "_";
 		String imgExt	= null;
 		int seq = -1;
 		
@@ -176,17 +174,17 @@ public class ItemController {
 			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
 			ImageIO.write(image, imgExt, file);
 			
-			item.setSnapsht(SNAPSHT_PATH + filename);
+			project.setSnapsht(SNAPSHT_PATH + filename);
 		} else{
-			item.setSnapsht(SNAPSHT_PATH + "default.jpg");
+			project.setSnapsht(SNAPSHT_PATH + "default.jpg");
 		}
 		
-		seq = itemService.insert(item);
+		seq = projectService.insert(project);
 		
 		//파일 업로드
 		File file = null;
 		MultipartFile multipartFile = null;
-		FileVo itemFile = null;
+		FileVo projectFile = null;
 		String realNm = null;
 		String pathNm = null;
 		long size = -1;
@@ -195,35 +193,35 @@ public class ItemController {
 		for(int i = 0 ; i < length ; i++){
 			multipartFile = files.get(i);
 			realNm 	= multipartFile.getOriginalFilename();
-			pathNm	= "item" + seq + "_" + TimeStamper.stamp() + "_" + realNm;
+			pathNm	= "project" + seq + "_" + TimeStamper.stamp() + "_" + realNm;
 			size 	= multipartFile.getSize();
 			
 			if(size > 0 ){
 				file = new File(rootPath + FILE_PATH, pathNm);
 				multipartFile.transferTo(file);
 				
-				itemFile = new FileVo();
-				itemFile.setPathNm(pathNm);
-				itemFile.setRealNm(realNm);
-				itemFile.setSize(size);
-				itemFile.setBoardSeq(seq);
-				itemService.saveFile(itemFile);
+				projectFile = new FileVo();
+				projectFile.setPathNm(pathNm);
+				projectFile.setRealNm(realNm);
+				projectFile.setSize(size);
+				projectFile.setBoardSeq(seq);
+				projectService.saveFile(projectFile);
 			}
 		}
 		
-		return "redirect:" + "/admin/item/manage";
+		return "redirect:" + "/admin/project/manage";
 	}
 	
-	@RequestMapping(value = "/admin/item/upload.do", method = RequestMethod.POST, params = "seq")
-	public String itemDoModify(HttpServletRequest request, ItemVo item, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws IllegalStateException, IOException{
+	@RequestMapping(value = "/admin/project/upload.do", method = RequestMethod.POST, params = "seq")
+	public String projectDoModify(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws IllegalStateException, IOException{
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
-		String filename	= "snapshot_" + item.getName() + "_";
+		String filename	= "snapshot_" + project.getName() + "_";
 		String imgExt	= null;
-		int seq = item.getSeq();
+		int seq = project.getSeq();
 		
 		if(snapshtFile.getSize() != 0){
-			File existFile = new File (rootPath + item.getSnapsht());
+			File existFile = new File (rootPath + project.getSnapsht());
 			if(existFile.exists()){
 				existFile.delete();
 			}
@@ -235,14 +233,14 @@ public class ItemController {
 			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
 			ImageIO.write(image, imgExt, file);
 			
-			item.setSnapsht(SNAPSHT_PATH + filename);
+			project.setSnapsht(SNAPSHT_PATH + filename);
 		} 
 		
-		itemService.update(item);
+		projectService.update(project);
 		
 		File file = null;
 		MultipartFile multipartFile = null;
-		FileVo itemFile = null;
+		FileVo projectFile = null;
 		String realNm = null;
 		String pathNm = null;
 		long size = -1;
@@ -250,38 +248,38 @@ public class ItemController {
 		for(int i = 0 ; i < length ; i++){
 			multipartFile = files.get(i);
 			realNm 	= multipartFile.getOriginalFilename();
-			pathNm	= "item" + seq + "_" + TimeStamper.stamp() + "_" + realNm;
+			pathNm	= "project" + seq + "_" + TimeStamper.stamp() + "_" + realNm;
 			size 	= multipartFile.getSize();
 			
 			if(size > 0 ){
 				file = new File(rootPath + FILE_PATH, pathNm);
 				multipartFile.transferTo(file);
 				
-				itemFile = new FileVo();
-				itemFile.setPathNm(pathNm);
-				itemFile.setRealNm(realNm);
-				itemFile.setSize(size);
-				itemFile.setBoardSeq(seq);
-				itemService.saveFile(itemFile);
+				projectFile = new FileVo();
+				projectFile.setPathNm(pathNm);
+				projectFile.setRealNm(realNm);
+				projectFile.setSize(size);
+				projectFile.setBoardSeq(seq);
+				projectService.saveFile(projectFile);
 			}
 		}
 		
-		return "redirect:" + "/admin/item/manage";
+		return "redirect:" + "/admin/project/manage";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/admin/item/deleteFile.do")
+	@RequestMapping(value = "/admin/project/deleteFile.do")
 	public String deleteFile(HttpSession session, int seq){
 		JSONObject data = new JSONObject();
 		data.put("result", false);
 		
 		String rootPath = session.getServletContext().getRealPath("");
 		
-		FileVo itemFile = itemService.getFile(seq);
-		File file = new File(rootPath + FILE_PATH, itemFile.getPathNm());
+		FileVo projectFile = projectService.getFile(seq);
+		File file = new File(rootPath + FILE_PATH, projectFile.getPathNm());
 		if(file.exists()){
 			if(file.delete()){
-				if(itemService.deleteFile(seq)){
+				if(projectService.deleteFile(seq)){
 					data.put("result", true);
 				};
 			};
@@ -290,8 +288,8 @@ public class ItemController {
 		return data.toString();
 	}
 	
-	@RequestMapping(value = "/admin/item/imgUpload.do")
-	public String itemImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
+	@RequestMapping(value = "/admin/project/imgUpload.do")
+	public String projectImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
@@ -301,17 +299,17 @@ public class ItemController {
 		if(multiFile != null){
 			filename += multiFile.getOriginalFilename();
 			imgExt = ImageManager.getExt(filename);
-			File file = new File(rootPath + CONTENT_PATH + filename);
+			File file = new File(rootPath + CONTENTS_PATH + filename);
 			multiFile.transferTo(file);
 			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
 			ImageIO.write(image, imgExt, file);
 		}
 		
 		response.setHeader("x-frame-options", "SAMEORIGIN");
-		model.addAttribute("path", request.getContextPath() + CONTENT_PATH + filename);
+		model.addAttribute("path", request.getContextPath() + CONTENTS_PATH + filename);
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
 		
-		return "item/item_imgupload";
+		return "project/project_imgupload";
 	}
 
 }

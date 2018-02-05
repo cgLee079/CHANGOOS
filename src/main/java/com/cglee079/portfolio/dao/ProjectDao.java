@@ -6,24 +6,24 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cglee079.portfolio.model.ItemVo;
+import com.cglee079.portfolio.model.ProjectVo;
 
 @Repository
-public class ItemDao {
-	private static final String namespace ="com.cglee079.portfolio.mapper.ItemMapper";
+public class ProjectDao {
+	private static final String namespace ="com.cglee079.portfolio.mapper.ProjectMapper";
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public List<ItemVo> list(){	
+	public List<ProjectVo> list(){	
 		return sqlSession.selectList(namespace + ".list");
 	}
 	
-	public ItemVo get(int seq) {
+	public ProjectVo get(int seq) {
 		return sqlSession.selectOne(namespace + ".get", seq);
 	}
 	
-	public int insert(ItemVo item) {
+	public int insert(ProjectVo item) {
 		sqlSession.insert(namespace + ".insert", item);
 		return item.getSeq();
 	}
@@ -32,15 +32,15 @@ public class ItemDao {
 		return sqlSession.delete(namespace + ".delete", seq) == 1;
 	}
 
-	public boolean update(ItemVo item) {
+	public boolean update(ProjectVo item) {
 		return sqlSession.update(namespace + ".update", item) == 1;
 	}
 
-	public ItemVo getBefore(int sort) {
+	public ProjectVo getBefore(int sort) {
 		return sqlSession.selectOne(namespace + ".getBefore", sort);
 	}
 
-	public ItemVo getAfter(int sort) {
+	public ProjectVo getAfter(int sort) {
 		return sqlSession.selectOne(namespace + ".getAfter", sort);
 	}
 

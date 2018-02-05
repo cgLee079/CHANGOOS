@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cglee079.portfolio.model.ItemVo;
+import com.cglee079.portfolio.model.ProjectVo;
 import com.cglee079.portfolio.model.PhotoVo;
 
 @Repository

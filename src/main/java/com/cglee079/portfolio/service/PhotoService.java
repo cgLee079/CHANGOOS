@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cglee079.portfolio.dao.PhotoDao;
-import com.cglee079.portfolio.model.ItemVo;
+import com.cglee079.portfolio.model.ProjectVo;
 import com.cglee079.portfolio.model.PhotoVo;
 
 @Service

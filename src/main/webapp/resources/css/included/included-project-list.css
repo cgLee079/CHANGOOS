@@ -1,4 +1,4 @@
-.item-view{	
+.project-view{	
 	width : 80%;
 	margin : 0 auto;
 	display : flex;
@@ -8,7 +8,7 @@
 	box-shadow: 0px 10px 10px #ECF0F1; 
 }
 
-.item-snapsht{
+.project-snapsht{
 	flex : 1 50%;
 	height : 400px;
 	opacity: 0.9;
@@ -19,7 +19,7 @@
     background-size		: cover;
 }
 
-.item-snapsht .item-snapsht-overlay {
+.project-snapsht .project-snapsht-overlay {
     position: absolute;
     top: 0;
     left: 30px;
@@ -34,12 +34,12 @@
     transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-.item-snapsht:HOVER .item-snapsht-overlay {
+.project-snapsht:HOVER .project-snapsht-overlay {
 	transform:scaleY(1) translateZ(0);
 	transition:transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.item-snapsht .item-snapsht-fg{
+.project-snapsht .project-snapsht-fg{
 	position: absolute;
 	left : 0;
 	top : 0;
@@ -50,28 +50,28 @@
 	transform: scale(0);
 }
 
-.item-snapsht:hover .item-snapsht-fg{
+.project-snapsht:hover .project-snapsht-fg{
 	transform: scale(1);
 }
 
-.item-info{
+.project-info{
 	padding : 1rem;
 	flex : 1 35%;
 	position: relative;
 	background: #FFF;	
 }
 
-.item-title {
+.project-title {
 	font-size: 1.1rem;
 	font-weight: 550;
 }
 
-.item-desc {
+.project-desc {
 	font-size: 0.7rem;
 	color : #444;
 }
 
-.item-menu{
+.project-menu{
 	position : absolute;
 	bottom: 1rem;
 	right : 1rem;
@@ -80,17 +80,17 @@
 
 
 @media (max-width: 700px){
-	.item-view{
+	.project-view{
 		width : 100%;
 		flex-flow: column wrap;
 	}
 	
-	.item-snapsht{
+	.project-snapsht{
 		flex : 1 30%;
 		height : auto;
 	}
 	
-	.item-info{
+	.project-info{
 		flex : 1 20%;
 		margin: 0;
 		margin-top: 1rem;

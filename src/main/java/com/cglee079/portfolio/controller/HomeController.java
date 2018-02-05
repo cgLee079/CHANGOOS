@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cglee079.portfolio.model.ItemVo;
-import com.cglee079.portfolio.service.ItemService;
+import com.cglee079.portfolio.model.ProjectVo;
+import com.cglee079.portfolio.service.ProjectService;
 
 /**
  * Handles requests for the application home page.
@@ -17,12 +17,12 @@ import com.cglee079.portfolio.service.ItemService;
 @Controller
 public class HomeController {
 	@Autowired
-	private ItemService itemService;
+	private ProjectService projectService;
 
 	@RequestMapping(value = "/")
 	public String home(Model model) {
-		List<ItemVo> items = itemService.list();
-		model.addAttribute("items", items);
+		List<ProjectVo> projects = projectService.list();
+		model.addAttribute("projects", projects);
 		return "main_home";
 	}
 	

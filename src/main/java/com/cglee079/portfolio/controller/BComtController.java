@@ -18,7 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class BComtController {
-	
 	@Autowired
 	private BComtService bcomtService;
 	

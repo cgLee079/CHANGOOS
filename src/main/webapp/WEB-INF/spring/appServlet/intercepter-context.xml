@@ -30,8 +30,8 @@
 		</mvc:interceptor>
 		
 		<mvc:interceptor>
-			<mvc:mapping path="/item/comment/submit.do" />
-			<bean class="com.cglee079.portfolio.interceptor.IComtNoticeInterceptor"></bean>
+			<mvc:mapping path="/project/comment/submit.do" />
+			<bean class="com.cglee079.portfolio.interceptor.PComtNoticeInterceptor"></bean>
 		</mvc:interceptor>
 				
 		<mvc:interceptor>
