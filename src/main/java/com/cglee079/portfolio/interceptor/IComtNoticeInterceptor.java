@@ -14,12 +14,12 @@ import com.cglee079.portfolio.model.BoardVo;
 import com.cglee079.portfolio.model.ItemVo;
 import com.cglee079.portfolio.service.ItemService;
 import com.cglee079.portfolio.util.Formatter;
-import com.cglee079.portfolio.util.MyTelegramHandler;
+import com.cglee079.portfolio.util.TelegramHandler;
 
 public class IComtNoticeInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
-	private MyTelegramHandler telegramHandler;
+	private TelegramHandler telegramHandler;
 
 	@Autowired
 	private ItemService itemService;

@@ -12,7 +12,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.cglee079.portfolio.model.LogRqstVo;
 import com.cglee079.portfolio.service.LogRqstService;
 import com.cglee079.portfolio.util.Formatter;
-import com.cglee079.portfolio.util.MyTelegramHandler;
+import com.cglee079.portfolio.util.TelegramHandler;
 
 public class LogRqstInterceptor extends HandlerInterceptorAdapter {
 

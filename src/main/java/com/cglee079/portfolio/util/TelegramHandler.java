@@ -16,14 +16,14 @@ import org.springframework.scheduling.annotation.Async;
 import com.google.gson.JsonObject;
 import com.sun.org.apache.xerces.internal.util.URI;
 
-public class MyTelegramHandler {
+public class TelegramHandler {
 	private String defaultUrl = "https://api.telegram.org/bot";
 	private String botToken;
 	private String botUsername;
 	private String chatId;
 	// https://api.telegram.org/bot485435157:AAGKQGOxBebqXEPTt0Zovfy9S48JfSqGt0s/sendmessage?chat_id=503609560&text=dfdfdfd
 
-	public MyTelegramHandler(String botToken, String botUsername, String chatId) {
+	public TelegramHandler(String botToken, String botUsername, String chatId) {
 		this.botToken = botToken;
 		this.botUsername = botUsername;
 		this.chatId = chatId;

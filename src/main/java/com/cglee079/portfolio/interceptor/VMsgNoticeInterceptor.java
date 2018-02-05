@@ -11,12 +11,12 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.cglee079.portfolio.model.BoardVo;
 import com.cglee079.portfolio.util.Formatter;
-import com.cglee079.portfolio.util.MyTelegramHandler;
+import com.cglee079.portfolio.util.TelegramHandler;
 
 public class VMsgNoticeInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
-	private MyTelegramHandler telegramHandler;
+	private TelegramHandler telegramHandler;
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
