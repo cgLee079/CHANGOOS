@@ -27,14 +27,21 @@ function commentPageMove(pg){
 			'page'		: pg,
 			'perPgLine' : perPgLine
 		},
+		beforeSend : function(){
+			Progress.start();
+		},
 		dataType: 'JSON',
 		success : function(data) {
 			page = pg;
 			updateComment(data);
 			updatePaging("commentPageMove", page, comtCnt, perPgLine, 3);
 		},
+		complete : function(){
+			Progress.stop();
+		},
 		error : function(e) {
 			console.log(e);
+			Progress.stop();
 		}
 	});
 }

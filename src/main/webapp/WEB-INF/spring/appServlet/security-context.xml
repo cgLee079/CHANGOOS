@@ -8,6 +8,7 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 
 	<security:http pattern="/resources/**" security="none"></security:http> <!-- 리소스 파일은 Security(X) -->
+	<security:http pattern="/uploaded/**" security="none"></security:http> <!-- 리소스 파일은 Security(X) -->
 	<security:http use-expressions="true" auto-config="true">
 		
 		<!-- auto-config='true' 를 설정한것만으로 기본 로그인페이지/ HTTP 기본인증 / 로그아웃기능등을 제공 -->
