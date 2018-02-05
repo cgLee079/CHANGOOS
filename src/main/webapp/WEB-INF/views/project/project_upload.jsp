@@ -14,6 +14,10 @@
 .wrap-upload-form{
 	width : 80%;
 	margin: 0px auto;
+	margin-top: 2rem;
+	background: #FFF;
+	border: 1px solid #DDD;
+	padding : 1rem;
 }
 
 .upload-project{
@@ -24,6 +28,8 @@
 
 .upload-project-name{
 	width : 7rem;
+	font-size: 0.7rem;
+	font-weight: bold;
 }
 
 .upload-project-input{
@@ -63,56 +69,56 @@
 				method="post" enctype="multipart/form-data">
 				
 				<div class="upload-project">
-					<div class="upload-project-name">sort</div>
+					<div class="upload-project-name">SORT</div>
 					<div class="upload-project-input">
 						<input type="text" id="sort" name="sort" class="project-sort" value="99999"/>
 					</div>
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">title</div>
+					<div class="upload-project-name">TITLE</div>
 					<div class="upload-project-input">
 						<input type="text" id="title" name='title' class="project-name"/>
 					</div>
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">sect</div>
+					<div class="upload-project-name">SECT</div>
 					<div class="upload-project-input">
 						<input type="text" id="sect" name="sect" class="project-sect"/>
 					</div>
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">sourcecode</div>
+					<div class="upload-project-name">SOURCECODE</div>
 					<div class="upload-project-input">
 						<input type="text" id="sourcecode" name="sourcecode" class="project-sourcecode"/>
 					</div>
 				</div>
 				
 					<div class="upload-project">
-					<div class="upload-project-name">date</div>
+					<div class="upload-project-name">DATE</div>
 					<div class="upload-project-input">
 						<input type="text" id="date" name="date" class="project-date"/>
 					</div>
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">developer</div>
+					<div class="upload-project-name">DEVELOPER</div>
 					<div class="upload-project-input">
 						<input type="text" id="developer" name="developer" class="project-developer"/>
 					</div>
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">snapshot</div>
+					<div class="upload-project-name">SNAPSHT</div>
 					<div class="upload-project-input">
 							<input type="file" id="snapshtFile" name="snapshtFile" class="project-snapshot"/>
 					</div>
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">video</div>
+					<div class="upload-project-name">VIDEO</div>
 					<div class="upload-project-input">
 						<select id="video" name="video" class="project-video">
 							<option>Y</option>
@@ -123,7 +129,7 @@
 				
 				
 				<div class="upload-project">
-					<div class="upload-project-name">desc</div>
+					<div class="upload-project-name">DESC</div>
 					<div class="upload-project-input">
 						<textarea id="desc" name="desc" class="project-desc">
 							<c:if test="${!empty project.desc }">
@@ -160,7 +166,7 @@
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">contents</div>
+					<div class="upload-project-name">CONTENTS</div>
 					<div class="upload-project-input">
 						<textarea name="contents" id="contents">
 							<c:if test="${!empty project.contents }">
@@ -207,7 +213,7 @@
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">file</div>
+					<div class="upload-project-name">FILE</div>
 					<div class="upload-project-input">
 						<c:import url="../included/included_fileupload.jsp" charEncoding="UTF-8">
 							<c:param name="boardType" value="project"/>
