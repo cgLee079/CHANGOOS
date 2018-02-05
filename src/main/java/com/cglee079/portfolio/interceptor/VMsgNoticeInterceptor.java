@@ -19,14 +19,17 @@ public class VMsgNoticeInterceptor extends HandlerInterceptorAdapter {
 	private TelegramHandler telegramHandler;
 
 	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+			throws Exception {
+		
 		String contents = request.getParameter("contents");
 		String msg = "#방명록이 등록되었습니다.\n";
 		msg += "시간 : " + Formatter.toDateTime(new Date()) + "\n";
 		msg += "내용 :\n";
 		msg += contents;
 		telegramHandler.sendMessage(msg);
+
+		super.afterCompletion(request, response, handler, ex);
 	}
 
 }
