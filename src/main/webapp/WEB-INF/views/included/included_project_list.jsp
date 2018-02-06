@@ -23,7 +23,6 @@ $(document).ready(function(){
 		projectViews.each(function(){
 			$(this).bind("click", function(){
 				var seq = $(this).find("#project-seq").val();
-				console.log(seq);
 				projectView(seq);
 			});
 		});	

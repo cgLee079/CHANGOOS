@@ -168,7 +168,6 @@ function addReplyForm(tg){
 
 	if(tg.hasClass("open")){
 		var replyForm = item.next();
-		console.log(replyForm);
 		if(replyForm.hasClass("comment-reply")){
 			replyForm.remove();
 			tg.removeClass("open");
@@ -232,7 +231,6 @@ function commentModify(tg){
 			},
 			dataType : "JSON",
 			success : function(result) {
-				console.log(result);
 				if (result){
 					changeToForm(item);
 				} else{
