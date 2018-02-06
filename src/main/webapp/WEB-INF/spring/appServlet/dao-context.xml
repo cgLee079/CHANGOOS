@@ -8,7 +8,6 @@
 	<context:property-placeholder location="/WEB-INF/props/jdbc.props" />
 	<context:component-scan base-package="com.cglee079.portfolio.dao" />
 
-	
 	<bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />

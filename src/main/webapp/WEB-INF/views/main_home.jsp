@@ -5,29 +5,29 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-project-list.css" /> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home-basic.css" />
 <script>
-	function scrollToItems(){
-		var top = $(".wrap-items").offset().top;
-		$("html, body").animate({ scrollTop: (top - 50) });
+function scrollToItems(){
+	var top = $(".wrap-project-list").offset().top;
+	$("html, body").animate({ scrollTop: (top - 50) });
+}
+
+function relocateItemTitle(){
+	var itemTitle = $(".wrap-project-list");
+	var offset = itemTitle.offset();
+	var top = offset.top;
+	
+	if(top < deviceHeight){
+		var marginTop = parseInt(itemTitle.css("margin-top"));
+		itemTitle.css("margin-top", marginTop + (deviceHeight - top));
 	}
-	
-	function relocateItemTitle(){
-		var itemTitle = $(".wrap-items");
-		var offset = itemTitle.offset();
-		var top = offset.top;
-		
-		if(top < deviceHeight){
-			var marginTop = parseInt(itemTitle.css("margin-top"));
-			itemTitle.css("margin-top", marginTop + (deviceHeight - top));
-		}
-	}	
-	
-	$(document).ready(function(){
-		relocateItemTitle();
-		
-		$(window).resize(function(){
-			relocateItemTitle();
-		})
-	})
+}	
+
+$(document).ready(function(){
+	relocateItemTitle();
+})
+
+$(window).resize(function(){
+	relocateItemTitle();
+})
 </script>
 </head>
 <body>
@@ -58,7 +58,7 @@
 			</div>
 		</div>
 		
-		<div class="wrap-items">
+		<div class="wrap-project-list">
 			<div class="item-head row-center">
 				<div class="circle"></div>
 				<div class="circle"></div>
