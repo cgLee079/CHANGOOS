@@ -133,7 +133,6 @@ public class ProjectController {
 			}
 		}
 				
-				
 		projectService.delete(seq);
 		return "redirect:" + "/admin/project/manage";
 	}

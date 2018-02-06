@@ -44,7 +44,7 @@ public class PhotoController {
 		return "photo/photo_view";
 	}
 	
-	@RequestMapping(value = "admin/photo/manage")
+	@RequestMapping(value = "/admin/photo/manage")
 	public String photoList(Model model) {
 		List<PhotoVo> photos = photoService.list();
 		model.addAttribute("photos", photos);

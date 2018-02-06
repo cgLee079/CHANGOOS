@@ -20,7 +20,7 @@ public class PComtController {
 	private PComtService pcomtService;
 	
 	@ResponseBody
-	@RequestMapping("project/comment/paging.do")
+	@RequestMapping("/project/comment/paging.do")
 	public String doPaging(int boardSeq, int page, int perPgLine) throws SQLException, JsonProcessingException{
 		List<ComtVo> bcomts= pcomtService.paging(boardSeq, page, perPgLine);
 		ObjectMapper mapper = new ObjectMapper();
@@ -28,7 +28,7 @@ public class PComtController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("project/comment/submit.do")
+	@RequestMapping("/project/comment/submit.do")
 	public String doSubmit(ComtVo comt) throws SQLException, JsonProcessingException{
 		boolean result = pcomtService.insert(comt);
 		ObjectMapper mapper = new ObjectMapper();
@@ -36,7 +36,7 @@ public class PComtController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("project/comment/delete.do")
+	@RequestMapping("/project/comment/delete.do")
 	public String doDelete(int seq, String password, boolean isAdmin) throws SQLException, JsonProcessingException{
 		boolean result = pcomtService.delete(seq, password, isAdmin);
 		ObjectMapper mapper = new ObjectMapper();

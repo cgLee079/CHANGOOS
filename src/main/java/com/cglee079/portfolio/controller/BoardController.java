@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.WebUtils;
 
 import com.cglee079.portfolio.model.BoardVo;
 import com.cglee079.portfolio.model.FileVo;
@@ -33,6 +35,8 @@ import com.cglee079.portfolio.util.ImageManager;
 import com.cglee079.portfolio.util.TimeStamper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
+
+import sun.org.mozilla.javascript.internal.Context;
 
 @Controller
 public class BoardController {
@@ -52,12 +56,13 @@ public class BoardController {
 		model.addAttribute("count", count);
 		model.addAttribute("notices", notices);
 		return "board/board_list";
+		
 	}
 		
 	@ResponseBody
 	@RequestMapping("/board/board_paging.do")
 	public String doPaging(int page, int perPgLine, String searchType, String searchValue) throws SQLException, JsonProcessingException{
-		List<BoardVo> boards= boardService.paging(page, perPgLine, "BASIC", searchType, searchValue);
+		List<BoardVo> boards = boardService.paging(page, perPgLine, "BASIC", searchType, searchValue);
 		int count = boardService.count("BASIC", searchType, searchValue);
 		
 		JSONObject result = new JSONObject();
@@ -144,9 +149,7 @@ public class BoardController {
 	@RequestMapping(value = "/admin/board/upload.do", params = "!seq")
 	public String boardDoUpload(HttpSession session, Model model, BoardVo board, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
 		int seq = boardService.insert(board);
-		
 		String rootPath = session.getServletContext().getRealPath("");
-		String path = "/resources/file/board/";
 		
 		File file = null;
 		MultipartFile multipartFile = null;
@@ -163,7 +166,7 @@ public class BoardController {
 			size 	= multipartFile.getSize();
 			
 			if(size > 0 ){
-				file = new File(rootPath + path, pathNm);
+				file = new File(rootPath + FILE_PATH, pathNm);
 				multipartFile.transferTo(file);
 				
 				boardFile = new FileVo();
