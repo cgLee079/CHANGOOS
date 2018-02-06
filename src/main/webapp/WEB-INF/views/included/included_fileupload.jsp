@@ -96,8 +96,6 @@ function fileChange(tg){
 				fileInfo.find(".btn-file-upload").css("display", "none");
 				fileInfo.find(".file-seq").val("${file.seq}");
 				
-				console.log("${file}");
-				
 				$("<div>", {
 					"class" : "file-info-name",
 					text : "(" + ("${file.size}"/(1024 * 1024)).toFixed(2) + " MB) " + "${file.realNm}" 
