@@ -20,11 +20,11 @@ public class Formatter {
 		}
 	}
 	
-	public static String toDate(Date date) {
+	public synchronized static String toDate(Date date) {
 		return new SimpleDateFormat("yyyy-MM-dd").format(date);
 	}
 	
-	public static String toDateTime(Date date) {
+	public synchronized static String toDateTime(Date date) {
 		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
 	}
 	

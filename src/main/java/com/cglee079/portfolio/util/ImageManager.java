@@ -62,7 +62,6 @@ public class ImageManager {
 		    	key = sepeartor[0].trim();
 		    	value = sepeartor[1].trim();
 		    	map.put(key, value);
-		    	System.out.println(key+"\t"+value);
 		    }
 		}
 		return map;
