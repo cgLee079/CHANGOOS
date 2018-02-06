@@ -132,7 +132,7 @@ public class PhotoController {
 	@RequestMapping(value = "/admin/photo/upload.do", params = "seq")
 	public String photoDoModify(HttpServletRequest request, PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException{
 		HttpSession session = request.getSession();
-		String rootPath = session.getServletContext().getRealPath("");
+		String rootPath 	= session.getServletContext().getRealPath("");
 		String timeStamp	= TimeStamper.stamp();
 		String imgName		= "photo_" + timeStamp + "_" + photo.getName();
 		String snapshtName	= "photo_snapsht_" + timeStamp + "_" + photo.getName();
