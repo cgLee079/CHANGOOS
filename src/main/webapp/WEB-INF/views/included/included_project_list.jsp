@@ -29,7 +29,6 @@ $(document).ready(function(){
 		});	
 	}
 	
-	
 	$(window).scroll(function(){
 		var scrollTop = $(window).scrollTop();
 		if(tops[currentView] <= (scrollTop + 550) && pass[currentView] == false){
@@ -51,7 +50,7 @@ $(document).ready(function(){
 });
 
 </script>
-<div class="main-projects">
+<div class="project-list">
 	<c:forEach var="project" items="${projects}">
 		<div onclick="" class="project-view">
 			<div onclick="projectView(${project.seq})" class="project-snapsht" style="background-image: url('${pageContext.request.contextPath}${project.snapsht}')">

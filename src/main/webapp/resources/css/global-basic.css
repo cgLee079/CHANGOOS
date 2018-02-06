@@ -1,3 +1,4 @@
+/* basic-set*/
 * {
 	margin: 0px;
 	padding: 0px;
@@ -14,16 +15,7 @@ a, a:VISITED {
 	text-decoration: none;
 }
 
-.display-none {
-	display: none;
-}
-
-.btn { cursor: pointer; opacity: 0.5; }
-.btn.on { opacity: 1; }
-.btn:hover { opacity: 1; }
-
-.scroll-no { overflow: hidden; }
-
+/* centering */
 .col-center {
 	display: -ms-flexbox;
     display: -webkit-flex;
@@ -48,13 +40,7 @@ a, a:VISITED {
     -ms-flex-pack: center;
 }
 
-.row-border {
-	width: 1rem;
-	background: #DDD;
-	margin: 0.8rem 0 0.4rem 0;
-	height: 0.1rem;
-}
-
+/* contents, by CKEditor*/
 .editor-contents {
 	color: #333;
 	font-size: 0.6rem;
@@ -85,8 +71,16 @@ a, a:VISITED {
 	margin: 1rem 0.1rem;
 }
 
-.font-lora {
-	font-family: Lora, sans-serif;
+/* util*/
+.row-border {
+	width: 1rem;
+	background: #DDD;
+	margin: 0.8rem 0 0.4rem 0;
+	height: 0.1rem;
+}
+
+.display-none {
+	display: none;
 }
 
 .h-reverse {
@@ -97,6 +91,11 @@ a, a:VISITED {
 	filter: FlipH;
 	-ms-filter: "FlipH";
 }
+
+/* btn */
+.btn { cursor: pointer; opacity: 0.6; }
+.btn.on { opacity: 1; }
+.btn:hover { opacity: 1; }
 
 .btn-gray-text {
 	display: inline-block;

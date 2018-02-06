@@ -1,4 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
+
+<!-- footer -->
 <div class="footer col-center">
 	<div class="info-contact font-lora">
 		<h4>CHANGOO'S</h4>
@@ -10,24 +12,3 @@
 		Copyrightⓒ2018 By Changoo Lee, All rights Reserved.
 	</div>
 </div>
-<script>
-function footerRelocate(){
-	var footer = $(".footer");
-	var top = undefined;
-	footer.css("margin-top", "3rem");
-	top = footer.offset().top;
-	if(top < deviceHeight){
-		var marginTop = parseInt(footer.css("margin-top"));
-		$(".footer").css("margin-top", marginTop + (deviceHeight - top));
-	}
-}
-
-$(document).ready(function(){
-	footerRelocate();
-	$(window).resize(function(){
-		footerRelocate();
-	})
-})
-
-
-</script>

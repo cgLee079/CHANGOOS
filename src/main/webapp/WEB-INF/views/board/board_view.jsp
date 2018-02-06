@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -49,8 +50,11 @@ function downloadFile(pathNm){
 		
 		<div class="wrap-board">
 			<div class="board-submenu">
-				<a class="btn" onclick="boardModify('${board.seq}')">수정</a>
-				<a class="btn" onclick="boardDelete('${board.seq}')">삭제</a>
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<a class="btn" onclick="boardModify('${board.seq}')">수정</a>
+					<a class="btn" onclick="boardDelete('${board.seq}')">삭제</a>
+				</sec:authorize>
+				
 				<a class="btn" onclick="boardList()">목록</a>
 				<a class="btn" onclick="boardView('${afterBoard.seq}')">이전글</a>
 				<a class="btn" onclick="boardView('${beforeBoard.seq}')">다음글</a>

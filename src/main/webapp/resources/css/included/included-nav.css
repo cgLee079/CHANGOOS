@@ -1,4 +1,10 @@
-.nav-top {
+/* header */
+.header-occupy{
+	height: 50px;
+	opacity: 0; 
+}
+
+.header {
 	position: fixed;
 	top: 0px;
 	width: 100%;
@@ -8,12 +14,15 @@
 	box-shadow: 0 1px 0 rgba(12,13,14,0.1), 0 1px 3px rgba(12,13,14,0.1), 0 4px 20px rgba(12,13,14,0.035), 0 1px 1px rgba(12,13,14,0.025);
 }
 
-.nav-top .wrap-home-logo{
-	cursor : pointer;
+.header .wrap-home-logo{
 	height : 100%;
 	font-size: 10px;
 	letter-spacing: 2px;
 	color : #000;
+}
+
+.wrap-home-logo .logo{
+	cursor : pointer;
 }
 
 .wrap-home-logo .logo-line{
@@ -25,6 +34,18 @@
 	margin-bottom: -5px;
 }
 
+.header-admin-menu {
+	position: absolute;
+	z-index: 2500;
+	height: 50px;
+	right: 1rem;
+	top : 0;
+	font-size: 0.5rem;
+	color: #000;
+	font-weight: bold;
+}
+
+/* navigation */
 .wrap-nav-icon{
 	position: fixed;
 	top : 0;
@@ -127,7 +148,7 @@
 	opacity: 0;
 }
 
-.nav-menu.unvalid {
+.nav-menu.unvalid { 
 	pointer-events: none;
 }
 
@@ -135,6 +156,8 @@
 	margin: 0.5rem 0rem;
 }
 
+
+/* btn-top */
 .btn-scroll-top{
 	position: fixed;
 	right: 1.5rem;
@@ -152,7 +175,9 @@
 .btn-scroll-top.off{
 	display: none;
 }
-	
+
+
+/* progress-bar*/	
 .progress-bar{
 	position : fixed;
 	width: 100%;
@@ -160,6 +185,10 @@
 	top : 0;
 	z-index: 5000;
 	background: rgba(250, 250, 250, 0.8);
+}
+
+.progress-bar.off{
+	display: none;
 }
 
 .spinner {
@@ -189,17 +218,6 @@
 	animation-delay: -1.0s;
 }
 
-.admin-menu {
-	position: fixed;
-	z-index: 2500;
-	height: 50px;
-	right: 1rem;
-	top : 0;
-	font-size: 0.5rem;
-	color: #000;
-	font-weight: bold;
-}
-
 @-webkit-keyframes sk-bounce {
 	0%, 100% { -webkit-transform: scale(0.0) }
 	50% { -webkit-transform: scale(1.0) }
@@ -215,3 +233,5 @@
 	}
 }
 
+/**/
+.scroll-no { overflow: hidden; }
