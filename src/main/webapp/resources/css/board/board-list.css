@@ -89,7 +89,7 @@
 
 .board-list-item .board-item-info .board-item-info-l {
 	display: flex;
-	color: #1F3A93;
+	opacity: 0.7;
 }
 
 .board-list-item .board-item-info .board-item-info-r {

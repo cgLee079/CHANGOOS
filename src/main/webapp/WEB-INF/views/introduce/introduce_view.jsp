@@ -122,7 +122,7 @@
 	}
 	
 	function setSendMsg(){
-		$(".submit-message").click(function(){
+		$(".submit-btn").click(function(){
 			var message = $(".input-message").val();
 			
 			$.ajax({
@@ -235,7 +235,7 @@
 					<div class="message-form">
 						<form>
 							<textarea class="input-message"></textarea>
-							<div class="submit-message"><strong>SEND</strong></div>
+							<div class="submit-message"><a class="submit-btn">SEND</a></div>
 						</form>
 					</div>
 				</div>

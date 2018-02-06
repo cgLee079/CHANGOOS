@@ -63,7 +63,7 @@ a, a:VISITED {
 .editor-contents img {
 	height: auto;
 	border: 1px solid #AAA;
-	margin-bottom: 0.3rem;
+	margin: 0.3rem 0;
 }
 
 .editor-contents code {

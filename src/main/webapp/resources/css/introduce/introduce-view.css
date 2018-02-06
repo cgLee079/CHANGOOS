@@ -76,7 +76,11 @@
 
 .submit-message{
 	text-align: right;
+}
+
+.submit-message .submit-btn{
 	cursor : pointer;
+	font-weight: bold;
 }
 
 

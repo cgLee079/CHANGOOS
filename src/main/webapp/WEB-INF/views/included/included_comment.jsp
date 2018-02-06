@@ -6,7 +6,7 @@ var page;
 var perPgLine 	= 10;
 var boardType	= "${param.boardType}";
 var boardSeq	= "${param.boardSeq}";
-var comtCnt		= parseInt(getAttr("${param.comtCnt}"));
+var comtCnt		= parseInt("${param.comtCnt}");
 var path 		= getContextPath() + "/" + boardType;
 var comtFormTemp= $(".comment-write").clone();
 var isAdmin		= '${isAdmin}';

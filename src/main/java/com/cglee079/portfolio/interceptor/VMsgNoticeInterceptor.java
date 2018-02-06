@@ -31,5 +31,4 @@ public class VMsgNoticeInterceptor extends HandlerInterceptorAdapter {
 
 		super.afterCompletion(request, response, handler, ex);
 	}
-
 }
