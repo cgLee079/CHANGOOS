@@ -45,6 +45,7 @@ a, a:VISITED {
 	color: #333;
 	font-size: 0.6rem;
 	line-height: 1.3rem;
+	word-break: break-all;
 }
 
 .editor-contents h1, .editor-contents h2, .editor-contents h3 {
