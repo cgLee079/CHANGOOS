@@ -115,6 +115,6 @@ $(window).resize(function() {
 
 $(window).scroll(function(event) {
 	var scroll = $(window).scrollTop();
-	if (scroll > (deviceHeight - 300)) { $(".btn-scroll-top").removeClass("off"); } 
+	if (scroll > 100) { $(".btn-scroll-top").removeClass("off"); } 
 	else { $(".btn-scroll-top").addClass("off"); }
 });
