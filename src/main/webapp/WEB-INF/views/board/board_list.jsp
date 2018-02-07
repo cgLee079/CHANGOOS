@@ -6,7 +6,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
 <script>
 var allRowCnt = '${count}';
-var perPgLine = 7;
+var perPgLine = 10;
 var searchType = "";
 var searchValue = "";
 
@@ -120,6 +120,7 @@ function updateBoard(data){
 	
 }
 
+/*
 function resizedw(){
 	if(isMobile){
 		var wrapParent = $(".wrap-board");
@@ -142,12 +143,13 @@ $(window).resize(function(){
   clearTimeout(doit);
   doit = setTimeout(resizedw, 100);
 });
+*/
 
 
 /* 페이지가 로드됨과 동시에 계정 리스트의 첫 번째 페이지를 출력 */
 $(document).ready(function(){
 	pageMove(page);
-	resizedw();
+	//resizedw();
 	
 	$(".wrap-board").touchwipe({
 	     wipeLeft: function() {
