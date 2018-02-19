@@ -35,7 +35,9 @@
 	</div>
 </div>
 	
-<div class="nav-background"></div>
+<div class="nav-background-wrapper">
+	<div class="nav-background"></div>
+</div>
 <div class="nav-menu unvalid col-center">
 	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/">Home</a></div>
 	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">Introduce</a></div>

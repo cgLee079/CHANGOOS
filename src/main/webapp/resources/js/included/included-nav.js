@@ -1,20 +1,3 @@
-function navBgResize() {
-	$(".nav-background").css("width", "100%");
-	$(".nav-background").css("height", "100%");
-
-	var width = $(".nav-background").width();
-	var height = $(".nav-background").height();
-	var radius = undefined;
-
-	if (width >= height) { radius = deviceWidth; } 
-	else { radius = deviceHeight; }
-
-	$(".nav-background").css("width", radius);
-	$(".nav-background").css("height", radius);
-	$(".nav-background").css("top", -radius);
-	$(".nav-background").css("left", -radius);
-}
-
 $(document).ready(function(){
 	var drawingLine = undefined;
 	$(".wrap-home-logo .logo").hover(function() {
@@ -32,7 +15,7 @@ $(document).ready(function(){
 	$(".nav-icon").click(function() {
 		$(this).toggleClass("open");
 
-		navBgResize();
+		//navBgResize();
 
 		if ($(this).hasClass("open")) {
 			$(".nav-menu").removeClass("unvalid");
@@ -47,11 +30,10 @@ $(document).ready(function(){
 				loop : false
 			}).add({
 				targets : ".nav-background",
-				easing : "easeInQuad",
+				easing: "easeInCubic",
 				duration : 400,
-				scale : [ 1, 3.5 ],
-				borderRadius : [ "100%", 0 ],
-				background : [ "#000", "#FFF" ],
+				scale: [0.2, 3],
+				opacity: [0.2,1],
 			}).add({
 				targets : ".nav-menu",
 				opacity : [ 0, 1 ],
@@ -86,11 +68,10 @@ $(document).ready(function(){
 				easing : "easeOutExpo"
 			}).add({
 				targets : ".nav-background",
-				easing : "easeInQuad",
+				easing: "easeInCubic",
 				duration : 500,
-				scale : [ 3, 1 ],
-				borderRadius : [ 0, "100%" ],
-				background : [ "#FEFDFE", "#EDECED" ]
+				scale: [3,0],
+				opacity: [1,0],
 			})
 
 			$(".nav-menu").addClass("unvalid");
@@ -108,10 +89,6 @@ var Progress = {
 	start 	: function() { $(".progress-bar").removeClass("off"); },
 	stop 	: function() { $(".progress-bar").addClass("off"); }
 }
-
-$(window).resize(function() {
-	navBgResize();
-});
 
 $(window).scroll(function(event) {
 	var scroll = $(window).scrollTop();
