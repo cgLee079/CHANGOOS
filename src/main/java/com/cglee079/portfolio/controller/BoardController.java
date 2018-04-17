@@ -251,7 +251,6 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping(value = "/admin/board/deleteFile.do")
 	public String deleteFile(HttpSession session, int seq){
-		System.out.println("###" + seq);
 		JSONObject data = new JSONObject();
 		data.put("result", false);
 		
