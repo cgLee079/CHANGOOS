@@ -214,7 +214,8 @@ function commentModify(tg){
 		} else{
 			swal({
 				  text: '비밀번호를 입력해주세요',
-				  content: "input"
+				  content: "input",
+				  buttons : ["취소", "확인"]
 				})
 				.then((pw) => {
 					if(pw){
@@ -278,8 +279,9 @@ function commentDelete(tg){
 			});
 	} else{
 		swal({
-			  text: '비밀번호를 입력해주세요',
-			  content: "input"
+			  	text: '비밀번호를 입력해주세요',
+			  	content: "input",
+				buttons : ["취소", "확인"]
 			})
 			.then((pw) => {
 				if(pw){
