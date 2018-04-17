@@ -105,12 +105,14 @@
 			current = toIndex;
 		}
 		
+		/*
 		$(".myinfo-views").on("wheel", function(e){
 			e.preventDefault();
             var delta = e.originalEvent.deltaY;
             if(delta > 0 ) {toLeft(); }
             else  {toRight(); }
 		})
+		*/
 		
 		$(".myinfo-views").touchwipe({
 			wipeLeft	: function() { toLeft();},

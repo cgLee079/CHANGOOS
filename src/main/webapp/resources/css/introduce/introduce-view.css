@@ -35,9 +35,10 @@
 
 .content-text{
 	width : 40%;
-	margin : 1.5rem 2rem;
+	padding : 1.5rem 2rem;
 	line-height: 1.3rem;
 	font-size: 0.7rem;
+	overflow-y : auto;
 }
 
 .content-text > .content-head{
@@ -65,7 +66,7 @@
 }
 
 .message-form{
-	width : 17rem;
+	width : 70%;
 	height : 5rem;
 }
 .input-message{

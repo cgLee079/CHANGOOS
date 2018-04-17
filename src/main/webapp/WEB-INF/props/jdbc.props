@@ -1,4 +1,4 @@
 jdbc.username=cglee079
 jdbc.password=lcg050179!
 jdbc.driverClassName=net.sf.log4jdbc.DriverSpy
-jdbc.url=jdbc:log4jdbc:mysql://192.168.219.103:3307/changoos?autoReconnect=true&useSSL=false
+jdbc.url=jdbc:log4jdbc:mysql://125.186.242.83:3307/changoos?autoReconnect=true&useSSL=false
