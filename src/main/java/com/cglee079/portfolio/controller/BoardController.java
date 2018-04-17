@@ -30,6 +30,7 @@ import org.springframework.web.util.WebUtils;
 import com.cglee079.portfolio.model.BoardVo;
 import com.cglee079.portfolio.model.FileVo;
 import com.cglee079.portfolio.service.BComtService;
+import com.cglee079.portfolio.service.BoardFileService;
 import com.cglee079.portfolio.service.BoardService;
 import com.cglee079.portfolio.util.ImageManager;
 import com.cglee079.portfolio.util.TimeStamper;
@@ -40,81 +41,67 @@ import sun.org.mozilla.javascript.internal.Context;
 
 @Controller
 public class BoardController {
-	final static String CONTENTS_PATH	= "/uploaded/boards/contents/";
-	final static String FILE_PATH 		= "/uploaded/boards/files/";
+	public static final String CONTENTS_PATH	= "/uploaded/boards/contents/";
+	public static final String TYPE_NOTICE 		= "NOTICE";
+	public static final String TYPE_BASIC		= "BASIC";
 	
 	@Autowired
 	private BoardService boardService;
 	
-	@Autowired 
-	private BComtService bcomtService;
+	@Autowired
+	private BoardFileService boardFileService;
 	
+	/** 게시글 리스트로 이동 **/
 	@RequestMapping("/board")
 	public String board(Model model) throws SQLException, JsonProcessingException{
-		List<BoardVo> notices =  boardService.list("NOTICE");
-		int count = boardService.count("BASIC", null, null);
+		List<BoardVo> notices =  boardService.list(TYPE_NOTICE);
+		int count = boardService.count(TYPE_BASIC, null, null);
 		model.addAttribute("count", count);
 		model.addAttribute("notices", notices);
 		return "board/board_list";
-		
 	}
 		
+	/** 게시글 페이징 **/
 	@ResponseBody
 	@RequestMapping("/board/board_paging.do")
 	public String doPaging(int page, int perPgLine, String searchType, String searchValue) throws SQLException, JsonProcessingException{
-		List<BoardVo> boards = boardService.paging(page, perPgLine, "BASIC", searchType, searchValue);
-		int count = boardService.count("BASIC", searchType, searchValue);
+		List<BoardVo> boards = boardService.paging(page, perPgLine, TYPE_BASIC, searchType, searchValue);
+		int count = boardService.count(TYPE_BASIC, searchType, searchValue);
 		
-		JSONObject result = new JSONObject();
-		Gson gson = new Gson();
-		String data = gson.toJson(boards);
-
+		String data = new Gson().toJson(boards);
 		JSONArray dataJson = new JSONArray(data);
-		
-		
-//		String contents;
-//		Document doc;
-		JSONObject datum;
-		for(int i = 0; i < dataJson.length(); i++){
-			datum = dataJson.getJSONObject(i);
-			datum.put("comtCnt", bcomtService.count(datum.getInt("seq")));
-//			contents = datum.getString("contents");
-//			doc = Jsoup.parse(contents);
-//			contents = doc.getAllElements().text();
-//			datum.put("contents", contents.substring(0, 300));
-		}
-		
+			
+		JSONObject result = new JSONObject();
 		result.put("count", count);
 		result.put("data", dataJson);
 		
 		return result.toString();
 	}
 	
+	/** 게시글로 이동 **/
 	@RequestMapping("/board/view")
 	public String boardView(Model model, int seq, Integer page) throws SQLException, JsonProcessingException{
-		BoardVo board = boardService.doView(seq);
+		BoardVo board 		= boardService.doView(seq);
 		BoardVo beforeBoard = boardService.getBefore(seq, board.getType());
-		BoardVo afterBoard = boardService.getAfter(seq, board.getType());
+		BoardVo afterBoard 	= boardService.getAfter(seq, board.getType());
 		model.addAttribute("page", page);
 		model.addAttribute("beforeBoard", beforeBoard);
 		model.addAttribute("board", board);
 		model.addAttribute("afterBoard", afterBoard);
 		
-		int comtCnt = bcomtService.count(seq);
-		model.addAttribute("comtCnt", comtCnt);
-		
-		List<FileVo> files = boardService.getFiles(seq);
+		List<FileVo> files = boardFileService.list(seq);
 		model.addAttribute("files", files);
 		
 		return "board/board_view";
 	}
 	
+	/** 파일 다운로드 **/
 	@RequestMapping("/board/download.do")
 	public void  download(HttpSession session, HttpServletResponse response, String filename) throws IOException{
 		String rootPath = session.getServletContext().getRealPath("");
-		FileVo boardFile = boardService.getFile(filename);
+		FileVo boardFile = boardFileService.get(filename);
 		
-		File file = new File(rootPath + FILE_PATH, boardFile.getPathNm());
+		File file = new File(rootPath + BoardFileService.FILE_PATH, boardFile.getPathNm());
 		byte fileByte[] = FileUtils.readFileToByteArray(file);
 		
 		if(file.exists()){
@@ -129,94 +116,51 @@ public class BoardController {
 		}
 	}
 	
+	/** 게시글 업로드 페이지로 이동 **/
 	@RequestMapping(value = "/admin/board/upload", params = "!seq")
 	public String boardUpload(Model model)throws SQLException, JsonProcessingException{
 		return "board/board_upload";
 	}
 	
+	/** 게시글 수정 페이지로 이동 **/
 	@RequestMapping(value = "/admin/board/upload", params = "seq")
 	public String boardModify(Model model, int seq)throws SQLException, JsonProcessingException{
 		BoardVo board = boardService.get(seq);
 		board.setContents(board.getContents().replace("&", "&amp;"));
 		model.addAttribute("board", board);
 		
-		List<FileVo> files = boardService.getFiles(seq);
+		List<FileVo> files = boardFileService.list(seq);
 		model.addAttribute("files", files);
 		
 		return "board/board_upload";
 	}
 	
 	 
+	/** 게시글 업로드  **/
 	@RequestMapping(value = "/admin/board/upload.do", params = "!seq")
 	public String boardDoUpload(HttpSession session, Model model, BoardVo board, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
 		int seq = boardService.insert(board);
 		String rootPath = session.getServletContext().getRealPath("");
 		
-		File file = null;
-		MultipartFile multipartFile = null;
-		FileVo boardFile = null;
-		String realNm = null;
-		String pathNm = null;
-		long size = -1;
-		
-		int length = files.size();
-		for(int i = 0 ; i < length ; i++){
-			multipartFile = files.get(i);
-			realNm 	= multipartFile.getOriginalFilename();
-			pathNm	= "board" + seq + "_" + TimeStamper.stamp() + "_" + realNm;
-			size 	= multipartFile.getSize();
-			
-			if(size > 0 ){
-				file = new File(rootPath + FILE_PATH, pathNm);
-				multipartFile.transferTo(file);
-				
-				boardFile = new FileVo();
-				boardFile.setPathNm(pathNm);
-				boardFile.setRealNm(realNm);
-				boardFile.setSize(size);
-				boardFile.setBoardSeq(seq);
-				boardService.saveFile(boardFile);
-			}
-		}
+		//파일저장
+		boardFileService.saveFiles(rootPath, board.getSeq(), files);
 		
 		return "redirect:" + "/board/view?seq=" + seq;
 	}
 	
+	/** 게시글 수정 **/
 	@RequestMapping(value = "/admin/board/upload.do", params = "seq")
 	public String boardDoModify(HttpSession session, Model model, BoardVo board, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
 		boardService.update(board);
-		
 		String rootPath = session.getServletContext().getRealPath("");
-
-		File file = null;
-		MultipartFile multipartFile = null;
-		FileVo boardFile = null;
-		String realNm = null;
-		String pathNm = null;
-		long size = -1;
-		int length = files.size();
-		for(int i = 0 ; i < length ; i++){
-			multipartFile = files.get(i);
-			realNm 	= multipartFile.getOriginalFilename();
-			pathNm	= "board" + board.getSeq() + "_" + TimeStamper.stamp() + "_" + realNm;
-			size 	= multipartFile.getSize();
-			
-			if(size > 0 ){
-				file = new File(rootPath + FILE_PATH, pathNm);
-				multipartFile.transferTo(file);
-				
-				boardFile = new FileVo();
-				boardFile.setPathNm(pathNm);
-				boardFile.setRealNm(realNm);
-				boardFile.setSize(size);
-				boardFile.setBoardSeq(board.getSeq());
-				boardService.saveFile(boardFile);
-			}
-		}
+		
+		//파일저장
+		boardFileService.saveFiles(rootPath, board.getSeq(), files);
 		
 		return "redirect:" + "/board/view?seq=" + board.getSeq();
 	}
 	
+	/** 게시글 삭제 **/
 	@RequestMapping("/admin/board/delete.do")
 	public String boardDoDelete(HttpSession session, Model model, int seq) throws SQLException, JsonProcessingException{
 		String rootPath = session.getServletContext().getRealPath("");
@@ -232,44 +176,27 @@ public class BoardController {
 			}
 		}
 		
-		//File 삭제
-		List<FileVo> files = boardService.getFiles(seq);
-		FileVo file = null;
-		int fileLength = files.size();
-		for(int i = 0 ;  i < fileLength; i++){
-			file = files.get(i);
-			existFile = new File(rootPath + FILE_PATH, file.getPathNm());
-			if(existFile.exists()){
-				existFile.delete();
-			}
-		}
+		boardFileService.deleteFiles(rootPath, seq);
 		
 		boardService.delete(seq);
 		return "redirect:" + "/board";
 	}
 	
+	/** 게시글 파일 삭제 **/
 	@ResponseBody
 	@RequestMapping(value = "/admin/board/deleteFile.do")
 	public String deleteFile(HttpSession session, int seq){
-		JSONObject data = new JSONObject();
-		data.put("result", false);
-		
+		boolean result = false;
 		String rootPath = session.getServletContext().getRealPath("");
-		FileVo boardFile = boardService.getFile(seq);
-		File file = new File(rootPath + FILE_PATH, boardFile.getPathNm());
-		if(file.exists()){
-			if(file.delete()){
-				if(boardService.deleteFile(seq)){
-					data.put("result", true);
-				};
-			}
-		} else {
-			data.put("result", true);
-		}
+		
+		result = boardFileService.deleteFile(rootPath, seq);
+		JSONObject data = new JSONObject();
+		data.put("result", result);
 		
 		return data.toString();
 	}
 	
+	/** 게시글 CKEditor 사진 업로드  **/
 	@RequestMapping(value = "/admin/board/imgUpload.do")
 	public String boardDoImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {

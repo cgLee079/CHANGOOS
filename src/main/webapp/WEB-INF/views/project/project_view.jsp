@@ -115,7 +115,7 @@ $(document).ready(function(){
 			   <c:param name = "perPgLine" value = "10" />
 			   <c:param name = "boardType" value = "project" />
 			   <c:param name = "boardSeq" value = "${project.seq}" />
-			   <c:param name = "comtCnt" value = "${comtCnt}" />
+			   <c:param name = "comtCnt" value = "${project.comtCnt}" />
 			</c:import>
 		</div>
 		

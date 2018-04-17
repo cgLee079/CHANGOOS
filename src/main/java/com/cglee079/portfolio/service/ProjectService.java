@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cglee079.portfolio.dao.ProjectDao;
-import com.cglee079.portfolio.dao.PorjectFileDao;
+import com.cglee079.portfolio.dao.ProjectFileDao;
 import com.cglee079.portfolio.model.FileVo;
 import com.cglee079.portfolio.model.ProjectVo;
 
@@ -15,9 +15,6 @@ import com.cglee079.portfolio.model.ProjectVo;
 public class ProjectService {
 	@Autowired
 	private ProjectDao projectDao;
-	
-	@Autowired
-	private PorjectFileDao projectFileDao;
 	
 	public List<ProjectVo> list(){
 		return projectDao.list();
@@ -41,26 +38,6 @@ public class ProjectService {
 	
 	public ProjectVo get(int seq){
 		return projectDao.get(seq);
-	}
-	
-	public boolean saveFile(FileVo boardFile) {
-		return projectFileDao.insert(boardFile);
-	}
-
-	public List<FileVo> getFiles(int seq) {
-		return projectFileDao.getFiles(seq);
-	}
-
-	public FileVo getFile(String pathNm) {
-		return projectFileDao.getFile(pathNm);
-	}
-
-	public FileVo getFile(int seq) {
-		return projectFileDao.getFile(seq);
-	}
-
-	public boolean deleteFile(int seq) {
-		return projectFileDao.delete(seq);
 	}
 	
 	public List<String> getContentImgPath(int seq, String path){

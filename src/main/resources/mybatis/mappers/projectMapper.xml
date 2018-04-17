@@ -15,8 +15,10 @@
 		PROJ_DATE as "date",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
-		PROJ_HITS as "hits"
-		FROM TB_PTFOLIO_PROJS
+		PROJ_HITS as "hits",
+		count(B.PCOMT_SEQ) as 'comtCnt'
+		FROM TB_PTFOLIO_PROJS A LEFT OUTER JOIN TB_PTFOLIO_PCOMTS B ON A.PROJ_SEQ = B.PCOMT_BOARD_SEQ
+		GROUP BY A.PROJ_SEQ
 		ORDER BY PROJ_SORT
 	</select>
 	
@@ -27,15 +29,18 @@
 		PROJ_TITLE as "title",
 		PROJ_SECT as "sect",
 		PROJ_DESC as "desc",
-		PROJ_CONTENTS as "contents",
 		PROJ_SNAPSHT as "snapsht",
 		PROJ_HASVIDEO as "video",
 		PROJ_DATE as "date",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
-		PROJ_HITS as "hits"
-		FROM TB_PTFOLIO_PROJS
+		PROJ_HITS as "hits",
+		count(B.PCOMT_SEQ) as 'comtCnt'
+		FROM TB_PTFOLIO_PROJS A LEFT OUTER JOIN TB_PTFOLIO_PCOMTS B ON A.PROJ_SEQ = B.PCOMT_BOARD_SEQ
 		WHERE PROJ_SEQ = #{seq}
+		GROUP BY A.PROJ_SEQ
+		ORDER BY PROJ_SORT
+		
 	</select>
 	
 	<select id="getBefore" resultType="com.cglee079.portfolio.model.ProjectVo" parameterType="Integer">
@@ -45,16 +50,18 @@
 		PROJ_TITLE as "title",
 		PROJ_SECT as "sect",
 		PROJ_DESC as "desc",
-		PROJ_CONTENTS as "contents",
 		PROJ_SNAPSHT as "snapsht",
 		PROJ_HASVIDEO as "video",
 		PROJ_DATE as "date",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
-		PROJ_HITS as "hits"
-		FROM TB_PTFOLIO_PROJS
+		PROJ_HITS as "hits",
+		count(B.PCOMT_SEQ) as 'comtCnt'
+		FROM TB_PTFOLIO_PROJS A LEFT OUTER JOIN TB_PTFOLIO_PCOMTS B ON A.PROJ_SEQ = B.PCOMT_BOARD_SEQ
 		WHERE <![CDATA[PROJ_SORT < #{sort}]]> 
-		ORDER BY PROJ_SORT DESC LIMIT 1
+		GROUP BY A.PROJ_SEQ
+		ORDER BY PROJ_SORT DESC
+		LIMIT 1
 	</select>
 	
 	<select id="getAfter" resultType="com.cglee079.portfolio.model.ProjectVo" parameterType="Integer">
@@ -64,16 +71,18 @@
 		PROJ_TITLE as "title",
 		PROJ_SECT as "sect",
 		PROJ_DESC as "desc",
-		PROJ_CONTENTS as "contents",
 		PROJ_SNAPSHT as "snapsht",
 		PROJ_HASVIDEO as "video",
 		PROJ_DATE as "date",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
-		PROJ_HITS as "hits"
-		FROM TB_PTFOLIO_PROJS
+		PROJ_HITS as "hits",
+		count(B.PCOMT_SEQ) as 'comtCnt'
+		FROM TB_PTFOLIO_PROJS A LEFT OUTER JOIN TB_PTFOLIO_PCOMTS B ON A.PROJ_SEQ = B.PCOMT_BOARD_SEQ
 		WHERE <![CDATA[PROJ_SORT > #{sort}]]> 
-		ORDER BY PROJ_SORT ASC LIMIT 1
+		GROUP BY A.PROJ_SEQ
+		ORDER BY PROJ_SORT ASC
+		LIMIT 1
 	</select>
 	
 	<delete id="delete">

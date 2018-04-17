@@ -13,6 +13,7 @@ public class ProjectVo {
 	private String sourcecode;
 	private String developer;
 	private int hits;
+	private int comtCnt;
 
 	public int getSeq() {
 		return seq;
@@ -110,4 +111,11 @@ public class ProjectVo {
 		this.hits = hits;
 	}
 
+	public int getComtCnt() {
+		return comtCnt;
+	}
+
+	public void setComtCnt(int comtCnt) {
+		this.comtCnt = comtCnt;
+	}
 }

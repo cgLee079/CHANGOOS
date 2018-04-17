@@ -98,7 +98,7 @@ function downloadFile(pathNm){
 			   <c:param name = "perPgLine" value = "10" />
 			   <c:param name = "boardType" value = "board" />
 			   <c:param name = "boardSeq" value = "${board.seq}" />
-			   <c:param name = "comtCnt" value = "${comtCnt}" />
+			   <c:param name = "comtCnt" value = "${board.comtCnt}" />
 			</c:import>
 		</div>	
 	

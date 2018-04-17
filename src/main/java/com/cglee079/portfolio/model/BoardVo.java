@@ -9,21 +9,8 @@ public class BoardVo {
 	private String contents;
 	private String date;
 	private int hits;
+	private int comtCnt;
 
-	public BoardVo() {
-	}
-
-	public BoardVo(int seq, String type, int sort, String sect, String title, String contents, String date, int hits) {
-		this.seq = seq;
-		this.type = type;
-		this.sort = sort;
-		this.sect = sect;
-		this.title = title;
-		this.contents = contents;
-		this.date = date;
-		this.hits = hits;
-	}
-	
 	@Override
 	public String toString() {
 		return "BoardVo [seq=" + seq + ", type=" + type + ", sort=" + sort + ", sect=" + sect + ", title=" + title
@@ -92,5 +79,13 @@ public class BoardVo {
 
 	public void setHits(int hits) {
 		this.hits = hits;
+	}
+
+	public int getComtCnt() {
+		return comtCnt;
+	}
+
+	public void setComtCnt(int comtCnt) {
+		this.comtCnt = comtCnt;
 	}
 }

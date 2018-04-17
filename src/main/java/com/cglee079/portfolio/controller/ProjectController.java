@@ -25,22 +25,23 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cglee079.portfolio.model.FileVo;
 import com.cglee079.portfolio.model.ProjectVo;
 import com.cglee079.portfolio.service.PComtService;
+import com.cglee079.portfolio.service.ProjectFileService;
 import com.cglee079.portfolio.service.ProjectService;
 import com.cglee079.portfolio.util.ImageManager;
 import com.cglee079.portfolio.util.TimeStamper;
 
 @Controller
 public class ProjectController {
-	final static String FILE_PATH 		= "/uploaded/projects/files/";
 	final static String SNAPSHT_PATH	= "/uploaded/projects/snapshts/";
 	final static String CONTENTS_PATH	= "/uploaded/projects/contents/";
 	
 	@Autowired
 	private ProjectService projectService;
-
-	@Autowired 
-	private PComtService pcomtService;
 	
+	@Autowired
+	private ProjectFileService projectFileService;
+
+	/** 프로젝트 리스트 **/
 	@RequestMapping(value = "/project")
 	public String projectList(Model model) {
 		List<ProjectVo> projects = projectService.list();
@@ -48,6 +49,7 @@ public class ProjectController {
 		return "project/project_list";
 	}
 	
+	/** 프로젝트 보기 **/
 	@RequestMapping(value = "/project/view")
 	public String projectView(Model model, int seq){
 		ProjectVo project = projectService.get(seq);
@@ -62,21 +64,19 @@ public class ProjectController {
 		model.addAttribute("beforeProject", beforeProject);
 		model.addAttribute("afterProject", afterProject);
 		
-		int comtCnt = pcomtService.count(seq);
-		model.addAttribute("comtCnt", comtCnt);
-		
-		List<FileVo> files = projectService.getFiles(seq);
+		List<FileVo> files = projectFileService.list(seq);
 		model.addAttribute("files", files);
 		
 		return "project/project_view";
 	}
 	
+	/** 프로젝트 파일 다운로드 **/
 	@RequestMapping("/project/download.do")
 	public void  download(HttpSession session, HttpServletResponse response, String filename) throws IOException{
 		String rootPath = session.getServletContext().getRealPath("");
-		FileVo projectFile = projectService.getFile(filename);
+		FileVo projectFile = projectFileService.get(filename);
 		
-		File file = new File(rootPath + FILE_PATH, projectFile.getPathNm());
+		File file = new File(rootPath + ProjectFileService.FILE_PATH, projectFile.getPathNm());
 		byte fileByte[] = FileUtils.readFileToByteArray(file);
 		
 		if(file.exists()){
@@ -91,6 +91,7 @@ public class ProjectController {
 		}
 	}
 	
+	/** 프로젝트 관리자 페이지 이동 **/
 	@RequestMapping(value = "/admin/project/manage")
 	public String projectManage(Model model) {
 		List<ProjectVo> projects = projectService.list();
@@ -98,6 +99,7 @@ public class ProjectController {
 		return "project/project_manage";
 	}
 	
+	/** 프로젝트 삭제 **/
 	@RequestMapping(value = "/admin/project/delete.do")
 	public String projectDelete(HttpSession session, int seq) {
 		String rootPath = session.getServletContext().getRealPath("");
@@ -121,27 +123,20 @@ public class ProjectController {
 			}
 		}
 		
-		//File 삭제
-		List<FileVo> files = projectService.getFiles(seq);
-		FileVo file = null;
-		int fileLength = files.size();
-		for(int i = 0 ;  i < fileLength; i++){
-			file = files.get(i);
-			existFile = new File(rootPath + FILE_PATH, file.getPathNm());
-			if(existFile.exists()){
-				existFile.delete();
-			}
-		}
-				
+		//프로젝트 파일 삭제
+		projectFileService.deleteFiles(rootPath, seq);
+		
 		projectService.delete(seq);
 		return "redirect:" + "/admin/project/manage";
 	}
 	
+	/** 프로젝트 업로드 페이지로 이동 **/
 	@RequestMapping(value = "/admin/project/upload", params = "!seq")
 	public String projectUpload() {
 		return "project/project_upload";
 	}
 	
+	/** 프로젝트 수정 페이지로 이동 **/
 	@RequestMapping(value = "/admin/project/upload", params = "seq")
 	public String projectModify(Model model, int seq) {
 		ProjectVo project = projectService.get(seq);
@@ -151,12 +146,13 @@ public class ProjectController {
 		
 		model.addAttribute("project", project);
 		
-		List<FileVo> files = projectService.getFiles(seq);
+		List<FileVo> files = projectFileService.list(seq);
 		model.addAttribute("files", files);
 		
 		return "project/project_upload";
 	}
 	
+	/** 프로젝트 업로드 **/
 	@RequestMapping(value = "/admin/project/upload.do", method = RequestMethod.POST, params = "!seq")
 	public String projectDoUpload(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
@@ -180,37 +176,13 @@ public class ProjectController {
 		
 		seq = projectService.insert(project);
 		
-		//파일 업로드
-		File file = null;
-		MultipartFile multipartFile = null;
-		FileVo projectFile = null;
-		String realNm = null;
-		String pathNm = null;
-		long size = -1;
-		
-		int length = files.size();
-		for(int i = 0 ; i < length ; i++){
-			multipartFile = files.get(i);
-			realNm 	= multipartFile.getOriginalFilename();
-			pathNm	= "project" + seq + "_" + TimeStamper.stamp() + "_" + realNm;
-			size 	= multipartFile.getSize();
-			
-			if(size > 0 ){
-				file = new File(rootPath + FILE_PATH, pathNm);
-				multipartFile.transferTo(file);
-				
-				projectFile = new FileVo();
-				projectFile.setPathNm(pathNm);
-				projectFile.setRealNm(realNm);
-				projectFile.setSize(size);
-				projectFile.setBoardSeq(seq);
-				projectService.saveFile(projectFile);
-			}
-		}
+		//파일 저장
+		projectFileService.saveFiles(rootPath, seq, files);
 		
 		return "redirect:" + "/admin/project/manage";
 	}
 	
+	/** 프로젝트 수정 **/
 	@RequestMapping(value = "/admin/project/upload.do", method = RequestMethod.POST, params = "seq")
 	public String projectDoModify(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws IllegalStateException, IOException{
 		HttpSession session = request.getSession();
@@ -237,56 +209,27 @@ public class ProjectController {
 		
 		projectService.update(project);
 		
-		File file = null;
-		MultipartFile multipartFile = null;
-		FileVo projectFile = null;
-		String realNm = null;
-		String pathNm = null;
-		long size = -1;
-		int length = files.size();
-		for(int i = 0 ; i < length ; i++){
-			multipartFile = files.get(i);
-			realNm 	= multipartFile.getOriginalFilename();
-			pathNm	= "project" + seq + "_" + TimeStamper.stamp() + "_" + realNm;
-			size 	= multipartFile.getSize();
-			
-			if(size > 0 ){
-				file = new File(rootPath + FILE_PATH, pathNm);
-				multipartFile.transferTo(file);
-				
-				projectFile = new FileVo();
-				projectFile.setPathNm(pathNm);
-				projectFile.setRealNm(realNm);
-				projectFile.setSize(size);
-				projectFile.setBoardSeq(seq);
-				projectService.saveFile(projectFile);
-			}
-		}
+		//파일 저장
+		projectFileService.saveFiles(rootPath, seq, files);
 		
 		return "redirect:" + "/admin/project/manage";
 	}
 	
+	/** 프로젝트 파일 삭제 **/
 	@ResponseBody
 	@RequestMapping(value = "/admin/project/deleteFile.do")
 	public String deleteFile(HttpSession session, int seq){
-		JSONObject data = new JSONObject();
-		data.put("result", false);
-		
 		String rootPath = session.getServletContext().getRealPath("");
 		
-		FileVo projectFile = projectService.getFile(seq);
-		File file = new File(rootPath + FILE_PATH, projectFile.getPathNm());
-		if(file.exists()){
-			if(file.delete()){
-				if(projectService.deleteFile(seq)){
-					data.put("result", true);
-				};
-			};
-		}
+		boolean result = false;
+		result = projectFileService.deleteFile(rootPath, seq);	
 		
+		JSONObject data = new JSONObject();
+		data.put("result", result);
 		return data.toString();
 	}
 	
+	/** 프로젝츠 CKEditor 사진 업로드 **/
 	@RequestMapping(value = "/admin/project/imgUpload.do")
 	public String projectImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {

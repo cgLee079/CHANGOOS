@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.cglee079.portfolio.model.FileVo;
 
 @Repository
-public class PorjectFileDao {
+public class ProjectFileDao {
 	private static final String namespace = "com.cglee079.portfolio.mapper.ProjectFileMapper";
 	
 	@Autowired
@@ -20,17 +20,17 @@ public class PorjectFileDao {
 		return sqlSession.insert(namespace +".insert", boardFile) == 1;
 	}
 
-	public List<FileVo> getFiles(int boardSeq) {
+	public List<FileVo> list(int boardSeq) {
 		return sqlSession.selectList(namespace +".list", boardSeq);
 	}
 
-	public FileVo getFile(String pathNm) {
+	public FileVo get(String pathNm) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("pathNm", pathNm);
 		return  sqlSession.selectOne(namespace +".get", map);
 	}
 	
-	public FileVo getFile(int seq) {
+	public FileVo get(int seq) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("seq", seq);
 		return  sqlSession.selectOne(namespace +".get", map);

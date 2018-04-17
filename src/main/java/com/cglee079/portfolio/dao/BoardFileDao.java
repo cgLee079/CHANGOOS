@@ -20,7 +20,7 @@ public class BoardFileDao {
 		return sqlSession.insert(namespace +".insert", boardFile) == 1;
 	}
 
-	public List<FileVo> getFiles(int boardSeq) {
+	public List<FileVo> list(int boardSeq) {
 		return sqlSession.selectList(namespace +".list", boardSeq);
 	}
 

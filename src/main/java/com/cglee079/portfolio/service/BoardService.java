@@ -20,9 +20,6 @@ public class BoardService{
 	@Autowired
 	BoardDao boardDao;
 	
-	@Autowired
-	BoardFileDao boardFileDao;
-	
 	public List<BoardVo> paging(int page, int perPgLine, String type, String searchType, String searchValue){
 		int startRow = (page - 1) * perPgLine;
 		return boardDao.list(startRow, perPgLine, type, searchType, searchValue);
@@ -90,25 +87,5 @@ public class BoardService{
 
 	public List<BoardVo> list(String type) {
 		return boardDao.list(type);
-	}
-
-	public boolean saveFile(FileVo boardFile) {
-		return boardFileDao.insert(boardFile);
-	}
-
-	public List<FileVo> getFiles(int seq) {
-		return boardFileDao.getFiles(seq);
-	}
-
-	public FileVo getFile(String pathNm) {
-		return boardFileDao.getFile(pathNm);
-	}
-
-	public FileVo getFile(int seq) {
-		return boardFileDao.getFile(seq);
-	}
-
-	public boolean deleteFile(int seq) {
-		return boardFileDao.delete(seq);
 	}
 }

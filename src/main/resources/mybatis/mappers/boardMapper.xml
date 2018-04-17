@@ -29,8 +29,9 @@
 		BOARD_TITLE as "title",
 		BOARD_CONTENTS as "contents",
 		BOARD_DATE as "date",
-		BOARD_HITS as "hits"
-		FROM TB_PTFOLIO_BOARDS
+		BOARD_HITS as "hits",
+		count(B.BCOMT_SEQ) as 'comtCnt'
+		FROM TB_PTFOLIO_BOARDS A LEFT OUTER JOIN TB_PTFOLIO_BCOMTS B ON A.BOARD_SEQ = B.BCOMT_BOARD_SEQ
 		WHERE 1 = 1 
 		AND BOARD_TYPE = #{type}
 		<if test="searchType == 'SECT' and searchValue != ''">
@@ -39,6 +40,7 @@
   		<if test="searchType == 'TITLE' and searchValue != ''">
  		<![CDATA[AND UPPER(BOARD_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
   		</if>
+  		GROUP BY A.BOARD_SEQ
 		ORDER BY BOARD_SORT, BOARD_DATE DESC, BOARD_SEQ DESC
 		<if test="startRow != null and perPgLine != null">
  		LIMIT #{startRow}, #{perPgLine}
@@ -55,9 +57,11 @@
 		BOARD_TITLE as "title",
 		BOARD_CONTENTS as "contents",
 		BOARD_DATE as "date",
-		BOARD_HITS as "hits"
-		FROM TB_PTFOLIO_BOARDS
+		BOARD_HITS as "hits",
+		count(B.BCOMT_SEQ) as 'comtCnt'
+		FROM TB_PTFOLIO_BOARDS A LEFT OUTER JOIN TB_PTFOLIO_BCOMTS B ON A.BOARD_SEQ = B.BCOMT_BOARD_SEQ
 		WHERE BOARD_SEQ = #{seq}
+		GROUP BY A.BOARD_SEQ
 	</select>
 	
 	<select id="getBefore" parameterType="map" resultType="com.cglee079.portfolio.model.BoardVo">
@@ -69,10 +73,12 @@
 		BOARD_TITLE as "title",
 		BOARD_CONTENTS as "contents",
 		BOARD_DATE as "date",
-		BOARD_HITS as "hits"
-		FROM TB_PTFOLIO_BOARDS B 
+		BOARD_HITS as "hits",
+		count(B.BCOMT_SEQ) as 'comtCnt'
+		FROM TB_PTFOLIO_BOARDS A LEFT OUTER JOIN TB_PTFOLIO_BCOMTS B ON A.BOARD_SEQ = B.BCOMT_BOARD_SEQ
 		WHERE <![CDATA[BOARD_SEQ < #{seq}]]>  
 		AND BOARD_TYPE = #{type} 
+		GROUP BY A.BOARD_SEQ
 		ORDER BY BOARD_SEQ DESC LIMIT 1
 	</select>
 	
@@ -85,10 +91,12 @@
 		BOARD_TITLE as "title",
 		BOARD_CONTENTS as "contents",
 		BOARD_DATE as "date",
-		BOARD_HITS as "hits"
-		FROM TB_PTFOLIO_BOARDS
+		BOARD_HITS as "hits",
+		count(B.BCOMT_SEQ) as 'comtCnt'
+		FROM TB_PTFOLIO_BOARDS A LEFT OUTER JOIN TB_PTFOLIO_BCOMTS B ON A.BOARD_SEQ = B.BCOMT_BOARD_SEQ
 		WHERE <![CDATA[BOARD_SEQ > #{seq}]]>
 		AND BOARD_TYPE = #{type} 
+		GROUP BY A.BOARD_SEQ
 		ORDER BY BOARD_SEQ ASC LIMIT 1
 	</select>
 	
