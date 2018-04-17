@@ -95,8 +95,3 @@ $(window).scroll(function(event) {
 	if (scroll > 100) { $(".btn-scroll-top").removeClass("off"); } 
 	else { $(".btn-scroll-top").addClass("off"); }
 });
-
-
-window.onbeforeunload = function(e) {
-	 Progress.start();
-};
