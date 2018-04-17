@@ -143,7 +143,7 @@
 		    	 if(toIndex < itemLength){
 					items.eq(toIndex).trigger("click");
 		    	 } else{
-		    		alert("더 이상 사진이 없습니다.");
+		    		swal("더이상 사진이 없습니다."); 
 		    	 } 
 		     },
 		     
@@ -155,7 +155,7 @@
 		    	 if(toIndex >= 0){
 		    		 items.eq(toIndex).trigger("click");
 		    	 } else{
-		    		 alert("더 이상 사진이 없습니다.");
+		    		 swal("더이상 사진이 없습니다."); 
 		    	 }
 		     },
 		     

@@ -251,19 +251,21 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping(value = "/admin/board/deleteFile.do")
 	public String deleteFile(HttpSession session, int seq){
+		System.out.println("###" + seq);
 		JSONObject data = new JSONObject();
 		data.put("result", false);
 		
 		String rootPath = session.getServletContext().getRealPath("");
-		String filePath = "/resources/file/board/";
 		FileVo boardFile = boardService.getFile(seq);
-		File file = new File(rootPath + filePath, boardFile.getPathNm());
+		File file = new File(rootPath + FILE_PATH, boardFile.getPathNm());
 		if(file.exists()){
 			if(file.delete()){
 				if(boardService.deleteFile(seq)){
 					data.put("result", true);
 				};
-			};
+			}
+		} else {
+			data.put("result", true);
 		}
 		
 		return data.toString();

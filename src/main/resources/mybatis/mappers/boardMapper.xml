@@ -92,7 +92,7 @@
 		ORDER BY BOARD_SEQ ASC LIMIT 1
 	</select>
 	
-	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.portfolio.model.BoardVo">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
 		INSERT TB_PTFOLIO_BOARDS 
 		(BOARD_SORT, BOARD_TYPE, BOARD_SECT, BOARD_TITLE, BOARD_CONTENTS, BOARD_DATE, BOARD_HITS)
 		VALUES (#{sort}, #{type}, #{sect}, #{title}, #{contents}, #{date}, #{hits})
@@ -103,7 +103,7 @@
 		WHERE BOARD_SEQ = #{seq}
 	</delete>
 	
-	<update id="update" parameterType="com.cglee079.portfolio.model.BoardVo">
+	<update id="update">
 		UPDATE TB_PTFOLIO_BOARDS
 		SET 
 		BOARD_SORT = #{sort},

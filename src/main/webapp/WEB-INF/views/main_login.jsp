@@ -5,7 +5,9 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <c:if test="${param.result eq false}">
 	<script>
-		alert("로그인 실패!");
+		$(document).ready(function(){
+			swal({text : "로그인 실패!", icon : "error"});
+		});
 	</script>
 </c:if>
 <style>

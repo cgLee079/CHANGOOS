@@ -137,10 +137,10 @@
 				},
 				success : function(re) {
 					if(re.result){
-						alert("방명록이 등록되었습니다");
+						swal({text : "방명록이 등록되었습니다", icon : "success"});
 						$(".input-message").val("");
 					} else{
-						alert("방명록이 등록 실패!");
+						swal({text : "방명록 등록 실패하였습니다.", icon : "error"});
 					}
 				},
 				complete: function(){
@@ -148,7 +148,7 @@
 				},
 				error : function(e) {
 					console.log(e);
-					alert("방명록 등록에 실패하였습니다.");
+					swal({text : "방명록 등록 실패하였습니다.", icon : "error"});
 					Progress.stop();
 				}
 			});							

@@ -46,6 +46,7 @@ function commentPageMove(pg){
 	});
 }
 
+
 function updatePaging(callFunc, page, comtCnt, perPgLine, pgGrpCnt){
 	var boardPager	= $('.comt-pager');
 	boardPager.empty();
@@ -197,7 +198,7 @@ function doModify(tg){
 			if(result) {
 				commentPageMove(page);
 			} else{
-				alert("수정 실패하였습니다.");
+				swal({ text : "수정 실패하였습니다.", icon : "error" });
 			}
 		}
 	});
@@ -211,10 +212,15 @@ function commentModify(tg){
 		if(isAdmin === 'true'){
 			doModify("");
 		} else{
-			var person = prompt("비밀번호를 입력해주세요", "");
-			if(person){
-				doModify(person);
-			}
+			swal({
+				  text: '비밀번호를 입력해주세요',
+				  content: "input"
+				})
+				.then((pw) => {
+					if(pw){
+						doModify(pw);				  
+				  	}
+				});
 		}
 	}
 	
@@ -234,7 +240,10 @@ function commentModify(tg){
 				if (result){
 					changeToForm(item);
 				} else{
-					alert("비밀번호가 틀렸습니다.");
+					swal({
+						text : "비밀번호가 틀렸습니다.", 
+						icon : "error"
+					});
 				}
 			}
 		});
@@ -255,15 +264,28 @@ function commentModify(tg){
 		
 function commentDelete(tg){
 	if(isAdmin === 'true'){
-		var conf = confirm("정말로 삭제하시겠습니까?");
-		if(conf){
-			doDelete("");
-		}
+		swal({
+			  title: "정말로 삭제 하시겠습니까?",
+			  text: "삭제된 댓글은 복구 할 수 없습니다.",
+			  icon: "warning",
+			  buttons: ["취소", "삭제"],
+			  dangerMode: true,
+			})
+			.then(willDelete => {
+			  if (willDelete) {
+				doDelete("");
+			  } 
+			});
 	} else{
-		var person = prompt("비밀번호를 입력해주세요", "");
-		if (person){
-			doDelete(person);
-		}
+		swal({
+			  text: '비밀번호를 입력해주세요',
+			  content: "input"
+			})
+			.then((pw) => {
+				if(pw){
+					doDelete(pw);				  
+			  	}
+			});
 	}
 	
 	function doDelete(password){
@@ -280,11 +302,18 @@ function commentDelete(tg){
 			dataType: 'JSON',
 			success : function(data) {
 				if(data){
-					alert("댓글이 삭제 되었습니다.");
+					swal({
+						text : "댓글이 삭제 되었습니다.", 
+						icon : "success"
+					});
+					
 					comtCnt = comtCnt - 1;
 					commentPageMove(parseInt((comtCnt-1) / perPgLine)+1);
 				} else{
-					alert("비밀번호가 틀렸습니다.");
+					swal({
+						text : "비밀번호가 틀렸습니다.", 
+						icon : "error"
+					});
 				}
 			}
 		});
@@ -298,9 +327,9 @@ function commentSubmit(){
 	var password = $(".comment-write #password");
 	var contents  = $(".comment-write #contents");
 	
-	if(!name.val()) { alert("이름을 입력해주세요."); return ;}
-	if(!password.val()) { alert("비밀번호를 입력해주세요."); return ;}
-	if(!contents.val()) { alert("내용을 입력해주세요."); return ;}
+	if(!name.val()) { swal({text : "이름을 입력해주세요.", icon : "warning"}); return ;}
+	if(!password.val()) { swal({text : "비밀번호를 입력해주세요.", icon : "warning"}); return ;}
+	if(!contents.val()) { swal({text : "내용을 입력해주세요.", icon : "warning"}); return ;}
 	
 	$.ajax({
 		type	: "POST",
@@ -317,7 +346,10 @@ function commentSubmit(){
 		},
 		success : function(data) {
 			if(data){
-				alert("댓글이 등록 되었습니다.");
+				swal({
+					text : "댓글이 등록 되었습니다.", 
+					icon : "success"
+				});
 				contents.val('');
 				comtCnt = comtCnt + 1;
 				commentPageMove(parseInt((comtCnt-1) / perPgLine)+1);
@@ -328,7 +360,10 @@ function commentSubmit(){
 		},
 		error : function(e) {
 			console.log(e);
-			alert("댓글 등록에 실패하였습니다.");
+			swal({
+				text : "댓글 등록에 실패하였습니다.", 
+				icon : "error"
+			});
 			Progress.stop();
 		}
 	});

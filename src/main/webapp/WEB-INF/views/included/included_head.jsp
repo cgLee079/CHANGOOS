@@ -25,6 +25,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/anime-2.2.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/letter-motion.js"></script>
 <script src="${pageContext.request.contextPath}/resources/ckeditor/plugins/prism/lib/prism/prism_patched.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/sweetalert.min.js"></script>
 
 <!--  -->
 <script src="${pageContext.request.contextPath}/resources/js/included/included-nav.js"></script>
