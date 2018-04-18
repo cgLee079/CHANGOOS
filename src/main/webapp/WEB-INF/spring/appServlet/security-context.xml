@@ -26,7 +26,7 @@
 			always-use-default-target="false" />
 
 		<!-- 로그아웃 성공시 핸들러 -->
-		<!-- <bean id="LoginSuccessHandler" class="com.cglee079.portfolio.security.LoginSuccessHandler" />  -->
+		<!-- <bean id="LoginSuccessHandler" class="com.cglee079.changoos.security.LoginSuccessHandler" />  -->
 		<!-- authentication-success-handler-ref="LoginSuccessHandler"-->
 			
 		<!-- login-page: 로그인 페이지 지정 -->

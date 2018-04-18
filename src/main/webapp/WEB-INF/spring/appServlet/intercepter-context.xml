@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	<bean id="TelegramHandler" class="com.cglee079.portfolio.util.TelegramHandler">
+	<bean id="TelegramHandler" class="com.cglee079.changoos.util.TelegramHandler">
 		<constructor-arg index="0" value="509885308:AAGqgiMXRfkXWeamsta6N0nFkF0d9I_SFOI"></constructor-arg>
 		<constructor-arg index="1" value="changoos_bot"></constructor-arg>
 		<constructor-arg index="2" value="503609560"></constructor-arg>
@@ -22,22 +22,22 @@
 			<mvc:exclude-mapping path="/**/*.do" />
 			<mvc:exclude-mapping path="/**.do" />
 			<mvc:exclude-mapping path="/login" />
-			<bean class="com.cglee079.portfolio.interceptor.LogRqstInterceptor"></bean>
+			<bean class="com.cglee079.changoos.interceptor.LogRqstInterceptor"></bean>
 		</mvc:interceptor>
 		
 		<mvc:interceptor>
 			<mvc:mapping path="/board/comment/submit.do" />
-			<bean class="com.cglee079.portfolio.interceptor.BComtNoticeInterceptor"></bean>
+			<bean class="com.cglee079.changoos.interceptor.BComtNoticeInterceptor"></bean>
 		</mvc:interceptor>
 		
 		<mvc:interceptor>
 			<mvc:mapping path="/project/comment/submit.do" />
-			<bean class="com.cglee079.portfolio.interceptor.PComtNoticeInterceptor"></bean>
+			<bean class="com.cglee079.changoos.interceptor.PComtNoticeInterceptor"></bean>
 		</mvc:interceptor>
 				
 		<mvc:interceptor>
 			<mvc:mapping path="/introduce/remain_message.do" />
-			<bean class="com.cglee079.portfolio.interceptor.VMsgNoticeInterceptor"></bean>
+			<bean class="com.cglee079.changoos.interceptor.VMsgNoticeInterceptor"></bean>
 		</mvc:interceptor>
 				
 	</mvc:interceptors>

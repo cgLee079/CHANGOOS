@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cglee079.portfolio.mapper.AdminMapper">
-	<select id="get" resultType="com.cglee079.portfolio.model.AdminVo">
+<mapper namespace="com.cglee079.changoos.mapper.AdminMapper">
+	<select id="get" resultType="com.cglee079.changoos.model.AdminVo">
 		SELECT
 		ADMN_USERNAME as "username",
 		ADMN_PASSWORD as "password"
@@ -11,7 +11,7 @@
 		WHERE ADMN_USERNAME = #{username}
 	</select>
 	
-	<select id="getAuths" resultType="com.cglee079.portfolio.model.Role">
+	<select id="getAuths" resultType="com.cglee079.changoos.model.Role">
 		SELECT
 		ADMN_ROLE as "name"
 		FROM TB_PTFOLIO_ADMNAUTHS

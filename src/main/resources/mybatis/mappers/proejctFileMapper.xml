@@ -2,11 +2,11 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cglee079.portfolio.mapper.ProjectFileMapper">
+<mapper namespace="com.cglee079.changoos.mapper.ProjectFileMapper">
 	<select id="count" resultType="Integer">
 	</select>
 	
-	<select id="list" resultType="com.cglee079.portfolio.model.FileVo" parameterType="Integer">
+	<select id="list" resultType="com.cglee079.changoos.model.FileVo" parameterType="Integer">
 		SELECT 
 		FILE_SEQ as 'seq',
 		FILE_PROJ_SEQ as 'boardSeq',
@@ -18,7 +18,7 @@
 		AND FILE_PROJ_SEQ = #{boardSeq}
 	</select>
 	
-	<select id="get" resultType="com.cglee079.portfolio.model.FileVo" parameterType="map">
+	<select id="get" resultType="com.cglee079.changoos.model.FileVo" parameterType="map">
 		SELECT 
 		FILE_SEQ as 'seq',
 		FILE_PROJ_SEQ as 'boardSeq',
@@ -35,7 +35,7 @@
   		</if>
 	</select>
 	
-	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.portfolio.model.FileVo">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.FileVo">
 		INSERT TB_PTFOLIO_PROJ_FILES 
 		(FILE_PROJ_SEQ, FILE_PATH_NM, FILE_REAL_NM, FILE_SIZE)
 		VALUES (#{boardSeq}, #{pathNm}, #{realNm}, #{size})

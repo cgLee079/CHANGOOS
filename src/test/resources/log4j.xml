@@ -17,7 +17,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.cglee079.portfolio">
+	<logger name="com.cglee079.changoos">
 		<level value="info" />
 	</logger>
 	

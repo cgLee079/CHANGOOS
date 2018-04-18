@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cglee079.portfolio.mapper.BoardMapper">
+<mapper namespace="com.cglee079.changoos.mapper.BoardMapper">
 	
 	<select id="count" resultType="Integer" parameterType="map">
 		SELECT
@@ -20,7 +20,7 @@
   		</if>
 	</select>
 	
-	<select id="list" resultType="com.cglee079.portfolio.model.BoardVo" parameterType="map">
+	<select id="list" resultType="com.cglee079.changoos.model.BoardVo" parameterType="map">
 		SELECT
 		BOARD_SEQ as "seq",
 		BOARD_SORT as "sort",
@@ -48,7 +48,7 @@
 		
 	</select>
 	
-	<select id="get" resultType="com.cglee079.portfolio.model.BoardVo" parameterType="Integer">
+	<select id="get" resultType="com.cglee079.changoos.model.BoardVo" parameterType="Integer">
 		SELECT
 		BOARD_SEQ as "seq",
 		BOARD_SORT as "sort",
@@ -64,7 +64,7 @@
 		GROUP BY A.BOARD_SEQ
 	</select>
 	
-	<select id="getBefore" parameterType="map" resultType="com.cglee079.portfolio.model.BoardVo">
+	<select id="getBefore" parameterType="map" resultType="com.cglee079.changoos.model.BoardVo">
 		SELECT 
 		BOARD_SEQ as "seq",
 		BOARD_SORT as "sort",
@@ -82,7 +82,7 @@
 		ORDER BY BOARD_SEQ DESC LIMIT 1
 	</select>
 	
-	<select id="getAfter" parameterType="map" resultType="com.cglee079.portfolio.model.BoardVo">
+	<select id="getAfter" parameterType="map" resultType="com.cglee079.changoos.model.BoardVo">
 		SELECT 
 		BOARD_SEQ as "seq",
 		BOARD_SORT as "sort",

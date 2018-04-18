@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cglee079.portfolio.mapper.VisitMsgMapper">
+<mapper namespace="com.cglee079.changoos.mapper.VisitMsgMapper">
 	<insert id="insert">
 		INSERT TB_PTFOLIO_VISIT_MSG 
 		(VMSG_CONTENTS, VMSG_DATE)

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cglee079.portfolio.mapper.PhotoMapper">
+<mapper namespace="com.cglee079.changoos.mapper.PhotoMapper">
 	
-	<select id="list" resultType="com.cglee079.portfolio.model.PhotoVo">
+	<select id="list" resultType="com.cglee079.changoos.model.PhotoVo">
 		SELECT
 		PHOTO_SEQ as "seq",
 		PHOTO_SORT as "sort",
@@ -22,7 +22,7 @@
 		ORDER BY PHOTO_SORT, PHOTO_DATE DESC, PHOTO_TIME ASC
 	</select>
 	
-	<select id="get" resultType="com.cglee079.portfolio.model.PhotoVo" parameterType="Integer">
+	<select id="get" resultType="com.cglee079.changoos.model.PhotoVo" parameterType="Integer">
 		SELECT
 		PHOTO_SEQ as "seq",
 		PHOTO_SORT as "sort",
