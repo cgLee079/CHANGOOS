@@ -13,7 +13,7 @@ import com.cglee079.changoos.model.BoardVo;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.TelegramHandler;
 
-public class VMsgNoticeInterceptor extends HandlerInterceptorAdapter {
+public class VisitMsgNoticeInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
 	private TelegramHandler telegramHandler;

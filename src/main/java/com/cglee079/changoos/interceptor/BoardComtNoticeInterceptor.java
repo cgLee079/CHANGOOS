@@ -14,7 +14,7 @@ import com.cglee079.changoos.service.BoardService;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.TelegramHandler;
 
-public class BComtNoticeInterceptor extends HandlerInterceptorAdapter {
+public class BoardComtNoticeInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
 	private TelegramHandler telegramHandler;

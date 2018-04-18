@@ -1,6 +1,6 @@
 package com.cglee079.changoos.model;
 
-public class FileVo {
+public class ProjectFileVo {
 	private int seq;
 	private int boardSeq;
 	private String pathNm;

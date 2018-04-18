@@ -27,17 +27,17 @@
 		
 		<mvc:interceptor>
 			<mvc:mapping path="/board/comment/submit.do" />
-			<bean class="com.cglee079.changoos.interceptor.BComtNoticeInterceptor"></bean>
+			<bean class="com.cglee079.changoos.interceptor.BoardComtNoticeInterceptor"></bean>
 		</mvc:interceptor>
 		
 		<mvc:interceptor>
 			<mvc:mapping path="/project/comment/submit.do" />
-			<bean class="com.cglee079.changoos.interceptor.PComtNoticeInterceptor"></bean>
+			<bean class="com.cglee079.changoos.interceptor.ProjectComtNoticeInterceptor"></bean>
 		</mvc:interceptor>
 				
 		<mvc:interceptor>
 			<mvc:mapping path="/introduce/remain_message.do" />
-			<bean class="com.cglee079.changoos.interceptor.VMsgNoticeInterceptor"></bean>
+			<bean class="com.cglee079.changoos.interceptor.VisitMsgNoticeInterceptor"></bean>
 		</mvc:interceptor>
 				
 	</mvc:interceptors>

@@ -1,4 +1,4 @@
-package com.cglee079.changoos.controller;
+ package com.cglee079.changoos.controller;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -8,58 +8,57 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cglee079.changoos.model.ComtVo;
-import com.cglee079.changoos.service.PComtService;
+import com.cglee079.changoos.model.BoardComtVo;
+import com.cglee079.changoos.service.BComtService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
-public class PComtController {
-	
+public class BoardComtController {
 	@Autowired
-	private PComtService pcomtService;
+	private BComtService bcomtService;
 	
-	/** 프로젝트 댓글 페이징 **/
+	/** 게시판 댓글 페이징 **/
 	@ResponseBody
-	@RequestMapping("/project/comment/paging.do")
+	@RequestMapping("board/comment/paging.do")
 	public String doPaging(int boardSeq, int page, int perPgLine) throws SQLException, JsonProcessingException{
-		List<ComtVo> bcomts= pcomtService.paging(boardSeq, page, perPgLine);
+		List<BoardComtVo> bcomts= bcomtService.paging(boardSeq, page, perPgLine);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(bcomts);
 	}
 	
-	/** 프로젝트 댓글 삽입 **/
+	/** 게시판 댓글 등록 **/
 	@ResponseBody
-	@RequestMapping("/project/comment/submit.do")
-	public String doSubmit(ComtVo comt) throws SQLException, JsonProcessingException{
-		boolean result = pcomtService.insert(comt);
+	@RequestMapping("board/comment/submit.do")
+	public String doSubmit(BoardComtVo comt) throws SQLException, JsonProcessingException{
+		boolean result = bcomtService.insert(comt);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
 	}
 	
-	/** 프로젝트 댓글 삭제 **/
+	/** 게시판 댓글 삭제 **/
 	@ResponseBody
-	@RequestMapping("/project/comment/delete.do")
+	@RequestMapping("board/comment/delete.do")
 	public String doDelete(int seq, String password, boolean isAdmin) throws SQLException, JsonProcessingException{
-		boolean result = pcomtService.delete(seq, password, isAdmin);
+		boolean result = bcomtService.delete(seq, password, isAdmin);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
 	}
 	
-	/** 프로젝트 댓글 비빌번호 확인 **/
+	/** 게시판 비밀번호 체크 **/
 	@ResponseBody
-	@RequestMapping("project/comment/checkPwd.do")
-	public String doCheckPwd(int seq, String password, boolean isAdmin) throws SQLException, JsonProcessingException{
-		boolean result = pcomtService.checkPwd(seq, password, isAdmin);
+	@RequestMapping("board/comment/checkPwd.do")
+	public String doCheckPwd(int seq, String password) throws SQLException, JsonProcessingException{
+		boolean result = bcomtService.checkPwd(seq, password);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
 	}
 	
-	/** 프로젝트 댓글 수정 **/
+	/** 게시판 댓글 수정 **/
 	@ResponseBody
-	@RequestMapping("project/comment/update.do")
+	@RequestMapping("board/comment/update.do")
 	public String doUpdate(int seq, String contents) throws SQLException, JsonProcessingException{
-		boolean result = pcomtService.update(seq, contents);
+		boolean result = bcomtService.update(seq, contents);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
 	}

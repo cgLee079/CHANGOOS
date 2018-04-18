@@ -2,30 +2,30 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cglee079.changoos.mapper.BoardFileMapper">
+<mapper namespace="com.cglee079.changoos.mapper.ProjectFileMapper">
 	<select id="count" resultType="Integer">
 	</select>
 	
-	<select id="list" resultType="com.cglee079.changoos.model.FileVo" parameterType="Integer">
+	<select id="list" resultType="com.cglee079.changoos.model.ProjectFileVo" parameterType="Integer">
 		SELECT 
 		FILE_SEQ as 'seq',
-		FILE_BOARD_SEQ as 'boardSeq',
+		FILE_PROJ_SEQ as 'boardSeq',
 		FILE_REAL_NM as 'realNm',
 		FILE_PATH_NM as 'pathNm',
 		FILE_SIZE	 as 'size'
-		FROM TB_PTFOLIO_BOARD_FILES
+		FROM TB_PTFOLIO_PROJECT_FILES
 		WHERE 1 = 1 
-		AND FILE_BOARD_SEQ = #{boardSeq}
+		AND FILE_PROJ_SEQ = #{boardSeq}
 	</select>
 	
-	<select id="get" resultType="com.cglee079.changoos.model.FileVo" parameterType="map">
+	<select id="get" resultType="com.cglee079.changoos.model.ProjectFileVo" parameterType="map">
 		SELECT 
 		FILE_SEQ as 'seq',
-		FILE_BOARD_SEQ as 'boardSeq',
+		FILE_PROJ_SEQ as 'boardSeq',
 		FILE_REAL_NM as 'realNm',
 		FILE_PATH_NM as 'pathNm',
 		FILE_SIZE	 as 'size'
-		FROM TB_PTFOLIO_BOARD_FILES
+		FROM TB_PTFOLIO_PROJECT_FILES
 		WHERE 1 = 1
 		<if test="pathNm != null">
   		AND FILE_PATH_NM = #{pathNm} 
@@ -35,14 +35,14 @@
   		</if>
 	</select>
 	
-	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.FileVo">
-		INSERT TB_PTFOLIO_BOARD_FILES 
-		(FILE_BOARD_SEQ, FILE_PATH_NM, FILE_REAL_NM, FILE_SIZE)
+	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.ProjectFileVo">
+		INSERT TB_PTFOLIO_PROJECT_FILES 
+		(FILE_PROJ_SEQ, FILE_PATH_NM, FILE_REAL_NM, FILE_SIZE)
 		VALUES (#{boardSeq}, #{pathNm}, #{realNm}, #{size})
 	</insert>
 	
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM TB_PTFOLIO_BOARD_FILES
+		DELETE FROM TB_PTFOLIO_PROJECT_FILES
 		WHERE 1 = 1 
 		AND FILE_SEQ = #{seq}
 	</delete>	

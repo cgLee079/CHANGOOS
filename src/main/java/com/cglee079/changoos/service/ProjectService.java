@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cglee079.changoos.dao.ProjectDao;
 import com.cglee079.changoos.dao.ProjectFileDao;
-import com.cglee079.changoos.model.FileVo;
+import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.ProjectVo;
 
 @Service

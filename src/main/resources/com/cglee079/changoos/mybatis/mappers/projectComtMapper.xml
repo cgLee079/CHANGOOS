@@ -2,16 +2,16 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cglee079.changoos.mapper.PComtMapper">
+<mapper namespace="com.cglee079.changoos.mapper.ProjectComtMapper">
 	<select id="count" resultType="Integer">
 		SELECT
 			count(*)
-		FROM TB_PTFOLIO_PCOMTS
+		FROM TB_PTFOLIO_PROJECT_COMTS
 		WHERE 1=1
 		AND PCOMT_BOARD_SEQ = #{boardSeq} 
 	</select>
 	
-	<select id="list" resultType="com.cglee079.changoos.model.ComtVo" parameterType="map">
+	<select id="list" resultType="com.cglee079.changoos.model.ProjectComtVo" parameterType="map">
 		SELECT
 		PCOMT_SEQ as "seq",
 		PCOMT_BOARD_SEQ as "boardSeq",
@@ -20,14 +20,14 @@
 		PCOMT_CONTENTS as "contents",
 		PCOMT_DATE as "date",
 		PCOMT_PARENT_SEQ as "parentSeq"
-		FROM TB_PTFOLIO_PCOMTS
+		FROM TB_PTFOLIO_PROJECT_COMTS
 		WHERE 1=1
 		AND PCOMT_BOARD_SEQ = #{boardSeq}
 		ORDER BY CONCAT(IF(PCOMT_PARENT_SEQ is null, COALESCE(PCOMT_PARENT_SEQ, ''), CONCAT('_', LPAD(PCOMT_PARENT_SEQ,6,'0')) ), '_',LPAD(PCOMT_SEQ,6,'0'))
 		LIMIT #{startRow}, #{perPgLine}
 	</select>
 	
-	<select id="get" resultType="com.cglee079.changoos.model.ComtVo" parameterType="Integer">
+	<select id="get" resultType="com.cglee079.changoos.model.ProjectComtVo" parameterType="Integer">
 		SELECT
 		PCOMT_SEQ as "seq",
 		PCOMT_BOARD_SEQ as "boardSeq",
@@ -36,23 +36,23 @@
 		PCOMT_CONTENTS as "contents",
 		PCOMT_DATE as "DATE",
 		PCOMT_PARENT_SEQ as "parentSeq"
-		FROM TB_PTFOLIO_PCOMTS
+		FROM TB_PTFOLIO_PROJECT_COMTS
 		WHERE PCOMT_SEQ = #{seq}
 	</select>
 	
 	<insert id="insert">
-		INSERT TB_PTFOLIO_PCOMTS 
+		INSERT TB_PTFOLIO_PROJECT_COMTS 
 		(PCOMT_BOARD_SEQ, PCOMT_NAME, PCOMT_PWD, PCOMT_CONTENTS, PCOMT_DATE, PCOMT_PARENT_SEQ)
 		VALUES (#{boardSeq}, #{name}, #{password}, #{contents}, #{date}, #{parentSeq});
 	</insert>
 	
 	<delete id="delete">
-		DELETE FROM TB_PTFOLIO_PCOMTS
+		DELETE FROM TB_PTFOLIO_PROJECT_COMTS
 		WHERE PCOMT_SEQ = #{seq}
 	</delete>
 	
 	<update id="update" parameterType="map">
-		UPDATE TB_PTFOLIO_PCOMTS
+		UPDATE TB_PTFOLIO_PROJECT_COMTS
 		SET 
 		PCOMT_CONTENTS = #{contents}
 		WHERE PCOMT_SEQ = #{seq}

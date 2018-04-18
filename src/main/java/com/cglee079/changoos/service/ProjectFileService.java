@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.ProjectFileDao;
-import com.cglee079.changoos.model.FileVo;
+import com.cglee079.changoos.model.BoardFileVo;
+import com.cglee079.changoos.model.ProjectFileVo;
 import com.cglee079.changoos.util.TimeStamper;
 
 @Service
@@ -19,19 +20,19 @@ public class ProjectFileService {
 	@Autowired
 	ProjectFileDao projectFileDao;
 	
-	public boolean insert(FileVo boardFile) {
+	public boolean insert(BoardFileVo boardFile) {
 		return projectFileDao.insert(boardFile);
 	}
 	
-	public List<FileVo> list(int seq) {
+	public List<ProjectFileVo> list(int seq) {
 		return projectFileDao.list(seq);
 	}
 
-	public FileVo get(String pathNm) {
+	public ProjectFileVo get(String pathNm) {
 		return projectFileDao.get(pathNm);
 	}
-
-	public FileVo get(int seq) {
+	
+	public ProjectFileVo get(int seq) {
 		return projectFileDao.get(seq);
 	}
 
@@ -41,7 +42,7 @@ public class ProjectFileService {
 	
 	/** 파일 삭제 **/
 	public boolean deleteFile(String rootPath, int fileSeq) {
-		FileVo projectFile = this.get(fileSeq);
+		ProjectFileVo projectFile = this.get(fileSeq);
 		File file = new File(rootPath + FILE_PATH, projectFile.getPathNm());
 		if(file.exists()){
 			if(file.delete()){
@@ -57,8 +58,8 @@ public class ProjectFileService {
 	public void deleteFiles(String rootPath, int projectSeq) {
 		File existFile = null;
 		
-		List<FileVo> files = this.list(projectSeq);
-		FileVo file = null;
+		List<ProjectFileVo> files = this.list(projectSeq);
+		ProjectFileVo file = null;
 		int fileLength = files.size();
 		for(int i = 0 ;  i < fileLength; i++){
 			file = files.get(i);
@@ -72,7 +73,7 @@ public class ProjectFileService {
 	/** 여러 파일 저장 **/
 	public void saveFiles(String rootPath, int projectSeq, List<MultipartFile> files) throws IllegalStateException, IOException {
 		MultipartFile multipartFile = null;
-		FileVo projectFile = null;
+		BoardFileVo projectFile = null;
 		File file = null;
 		String realNm = null;
 		String pathNm = null;
@@ -89,7 +90,7 @@ public class ProjectFileService {
 				file = new File(rootPath + FILE_PATH, pathNm);
 				multipartFile.transferTo(file);
 				
-				projectFile = new FileVo();
+				projectFile = new BoardFileVo();
 				projectFile.setPathNm(pathNm);
 				projectFile.setRealNm(realNm);
 				projectFile.setSize(size);

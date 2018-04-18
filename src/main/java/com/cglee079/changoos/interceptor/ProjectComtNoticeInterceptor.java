@@ -16,7 +16,7 @@ import com.cglee079.changoos.service.ProjectService;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.TelegramHandler;
 
-public class PComtNoticeInterceptor extends HandlerInterceptorAdapter {
+public class ProjectComtNoticeInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
 	private TelegramHandler telegramHandler;

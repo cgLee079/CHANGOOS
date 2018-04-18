@@ -7,21 +7,21 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cglee079.changoos.model.BoardVo;
-import com.cglee079.changoos.model.ComtVo;
+import com.cglee079.changoos.model.BoardComtVo;
+import com.cglee079.changoos.model.ProjectComtVo;
 
 @Repository
-public class BComtDao {
-	private static final String namespace = "com.cglee079.changoos.mapper.BComtMapper";
+public class ProjectComtDao {
+	private static final String namespace = "com.cglee079.changoos.mapper.ProjectComtMapper";
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public List<BoardVo> list() {
+	public List<ProjectComtVo> list() {
 		return sqlSession.selectList(namespace +".list");
 	}
 
-	public List<ComtVo> list(int boardSeq, int startRow, int perPgLine) {
+	public List<ProjectComtVo> list(int boardSeq, int startRow, int perPgLine) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("boardSeq", boardSeq);
 		map.put("startRow", startRow);
@@ -35,7 +35,7 @@ public class BComtDao {
 		return sqlSession.selectOne(namespace +".count", map);
 	}
 
-	public boolean insert(ComtVo bcomt) {
+	public boolean insert(BoardComtVo bcomt) {
 		return sqlSession.insert(namespace + ".insert", bcomt) == 1;
 	}
 
@@ -43,7 +43,7 @@ public class BComtDao {
 		return sqlSession.delete(namespace + ".delete", seq) == 1;
 	}
 
-	public ComtVo get(int seq) {
+	public BoardComtVo get(int seq) {
 		return sqlSession.selectOne(namespace +".get", seq);
 	}
 	

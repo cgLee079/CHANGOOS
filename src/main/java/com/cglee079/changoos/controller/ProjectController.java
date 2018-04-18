@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cglee079.changoos.model.FileVo;
+import com.cglee079.changoos.model.BoardFileVo;
+import com.cglee079.changoos.model.ProjectFileVo;
 import com.cglee079.changoos.model.ProjectVo;
-import com.cglee079.changoos.service.PComtService;
 import com.cglee079.changoos.service.ProjectFileService;
 import com.cglee079.changoos.service.ProjectService;
 import com.cglee079.changoos.util.ImageManager;
@@ -64,7 +64,7 @@ public class ProjectController {
 		model.addAttribute("beforeProject", beforeProject);
 		model.addAttribute("afterProject", afterProject);
 		
-		List<FileVo> files = projectFileService.list(seq);
+		List<ProjectFileVo> files = projectFileService.list(seq);
 		model.addAttribute("files", files);
 		
 		return "project/project_view";
@@ -74,7 +74,7 @@ public class ProjectController {
 	@RequestMapping("/project/download.do")
 	public void  download(HttpSession session, HttpServletResponse response, String filename) throws IOException{
 		String rootPath = session.getServletContext().getRealPath("");
-		FileVo projectFile = projectFileService.get(filename);
+		ProjectFileVo projectFile = projectFileService.get(filename);
 		
 		File file = new File(rootPath + ProjectFileService.FILE_PATH, projectFile.getPathNm());
 		byte fileByte[] = FileUtils.readFileToByteArray(file);
@@ -146,7 +146,7 @@ public class ProjectController {
 		
 		model.addAttribute("project", project);
 		
-		List<FileVo> files = projectFileService.list(seq);
+		List<ProjectFileVo> files = projectFileService.list(seq);
 		model.addAttribute("files", files);
 		
 		return "project/project_upload";

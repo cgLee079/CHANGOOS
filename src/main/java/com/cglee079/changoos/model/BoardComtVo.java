@@ -1,6 +1,6 @@
 package com.cglee079.changoos.model;
 
-public class ComtVo {
+public class BoardComtVo {
 	private int seq;
 	private int boardSeq;
 	private String name;

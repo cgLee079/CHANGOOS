@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.cglee079.changoos.dao.BoardDao;
 import com.cglee079.changoos.dao.BoardFileDao;
 import com.cglee079.changoos.model.BoardVo;
-import com.cglee079.changoos.model.FileVo;
+import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.util.Formatter;
 

@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
 import com.cglee079.changoos.model.BoardVo;
-import com.cglee079.changoos.model.FileVo;
+import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.service.BComtService;
 import com.cglee079.changoos.service.BoardFileService;
 import com.cglee079.changoos.service.BoardService;
@@ -89,7 +89,7 @@ public class BoardController {
 		model.addAttribute("board", board);
 		model.addAttribute("afterBoard", afterBoard);
 		
-		List<FileVo> files = boardFileService.list(seq);
+		List<BoardFileVo> files = boardFileService.list(seq);
 		model.addAttribute("files", files);
 		
 		return "board/board_view";
@@ -99,7 +99,7 @@ public class BoardController {
 	@RequestMapping("/board/download.do")
 	public void  download(HttpSession session, HttpServletResponse response, String filename) throws IOException{
 		String rootPath = session.getServletContext().getRealPath("");
-		FileVo boardFile = boardFileService.get(filename);
+		BoardFileVo boardFile = boardFileService.get(filename);
 		
 		File file = new File(rootPath + BoardFileService.FILE_PATH, boardFile.getPathNm());
 		byte fileByte[] = FileUtils.readFileToByteArray(file);
@@ -129,7 +129,7 @@ public class BoardController {
 		board.setContents(board.getContents().replace("&", "&amp;"));
 		model.addAttribute("board", board);
 		
-		List<FileVo> files = boardFileService.list(seq);
+		List<BoardFileVo> files = boardFileService.list(seq);
 		model.addAttribute("files", files);
 		
 		return "board/board_upload";
