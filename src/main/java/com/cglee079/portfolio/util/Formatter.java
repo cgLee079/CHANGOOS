@@ -5,6 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Formatter {
+	public synchronized static String toDate(Date date) {
+		return new SimpleDateFormat("yyyy-MM-dd").format(date);
+	}
+	
+	public synchronized static String toDateTime(Date date) {
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+	}
+	
 	public synchronized static String toDate(String str) {
 		try {
 			if (str != null) {
@@ -18,14 +26,6 @@ public class Formatter {
 		} catch (ParseException e) {
 			return str;
 		}
-	}
-	
-	public synchronized static String toDate(Date date) {
-		return new SimpleDateFormat("yyyy-MM-dd").format(date);
-	}
-	
-	public synchronized static String toDateTime(Date date) {
-		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
 	}
 	
 	public synchronized static String toTime(String str) {

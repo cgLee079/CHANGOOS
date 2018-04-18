@@ -39,6 +39,7 @@ public class BoardFileService {
 		return boardFileDao.delete(seq);
 	}
 	
+	/** 여러 파일 저장 */
 	public void saveFiles(String rootPath, int seq, List<MultipartFile> files) throws IllegalStateException, IOException {
 		File file = null;
 		MultipartFile multipartFile = null;
@@ -67,6 +68,7 @@ public class BoardFileService {
 		}
 	}
 	
+	/** 한 게시글에 종속된 파일 삭제 **/
 	public void deleteFiles(String rootPath, int boardSeq) {
 		//File 삭제
 		File existFile = null;
@@ -82,6 +84,7 @@ public class BoardFileService {
 		}
 	}
 	
+	/** 파일 삭제 **/
 	public boolean deleteFile(String rootPath, int fileSeq) {
 		FileVo boardFile = this.get(fileSeq);
 		File file = new File(rootPath + FILE_PATH, boardFile.getPathNm());

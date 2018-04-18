@@ -26,6 +26,7 @@ public class IntroduceController {
 		return "introduce/introduce_view";
 	}
 
+	/**방명록 등록 **/
 	@ResponseBody
 	@RequestMapping(value = "/introduce/remain_message.do")
 	public String doRemainMessage(String contents) {

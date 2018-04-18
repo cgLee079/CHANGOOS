@@ -39,6 +39,7 @@ public class ProjectFileService {
 		return projectFileDao.delete(seq);
 	}
 	
+	/** 파일 삭제 **/
 	public boolean deleteFile(String rootPath, int fileSeq) {
 		FileVo projectFile = this.get(fileSeq);
 		File file = new File(rootPath + FILE_PATH, projectFile.getPathNm());
@@ -52,6 +53,7 @@ public class ProjectFileService {
 		return false;
 	}
 	
+	/** 한 프로젝트엔 종속된 파일 삭제 */
 	public void deleteFiles(String rootPath, int projectSeq) {
 		File existFile = null;
 		
@@ -67,6 +69,7 @@ public class ProjectFileService {
 		}
 	}
 	
+	/** 여러 파일 저장 **/
 	public void saveFiles(String rootPath, int projectSeq, List<MultipartFile> files) throws IllegalStateException, IOException {
 		MultipartFile multipartFile = null;
 		FileVo projectFile = null;

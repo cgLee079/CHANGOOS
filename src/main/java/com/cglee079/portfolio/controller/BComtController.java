@@ -18,6 +18,7 @@ public class BComtController {
 	@Autowired
 	private BComtService bcomtService;
 	
+	/** 게시판 댓글 페이징 **/
 	@ResponseBody
 	@RequestMapping("board/comment/paging.do")
 	public String doPaging(int boardSeq, int page, int perPgLine) throws SQLException, JsonProcessingException{
@@ -26,6 +27,7 @@ public class BComtController {
 		return mapper.writeValueAsString(bcomts);
 	}
 	
+	/** 게시판 댓글 등록 **/
 	@ResponseBody
 	@RequestMapping("board/comment/submit.do")
 	public String doSubmit(ComtVo comt) throws SQLException, JsonProcessingException{
@@ -34,6 +36,7 @@ public class BComtController {
 		return mapper.writeValueAsString(result);
 	}
 	
+	/** 게시판 댓글 삭제 **/
 	@ResponseBody
 	@RequestMapping("board/comment/delete.do")
 	public String doDelete(int seq, String password, boolean isAdmin) throws SQLException, JsonProcessingException{
@@ -42,6 +45,7 @@ public class BComtController {
 		return mapper.writeValueAsString(result);
 	}
 	
+	/** 게시판 비밀번호 체크 **/
 	@ResponseBody
 	@RequestMapping("board/comment/checkPwd.do")
 	public String doCheckPwd(int seq, String password) throws SQLException, JsonProcessingException{
@@ -50,6 +54,7 @@ public class BComtController {
 		return mapper.writeValueAsString(result);
 	}
 	
+	/** 게시판 댓글 수정 **/
 	@ResponseBody
 	@RequestMapping("board/comment/update.do")
 	public String doUpdate(int seq, String contents) throws SQLException, JsonProcessingException{

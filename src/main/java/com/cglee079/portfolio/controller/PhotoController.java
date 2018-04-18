@@ -31,12 +31,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class PhotoController {
-	final static String PHOTO_PATH	 	= "/uploaded/photos/photos/";
-	final static String SNAPSHT_PATH	= "/uploaded/photos/snapshts/";
-	
 	@Autowired
 	private PhotoService photoService;
 	
+	/** 사진 페이지로 이동 **/
 	@RequestMapping(value = "/photo")
 	public String photoHome(Model model) {
 		List<PhotoVo> photos = photoService.list();
@@ -44,6 +42,7 @@ public class PhotoController {
 		return "photo/photo_view";
 	}
 	
+	/** 사진 관리 페이지로 이동 **/
 	@RequestMapping(value = "/admin/photo/manage")
 	public String photoList(Model model) {
 		List<PhotoVo> photos = photoService.list();
@@ -51,6 +50,7 @@ public class PhotoController {
 		return "photo/photo_manage";
 	}
 	
+	/** 사진 크게 보기 **/
 	@ResponseBody
 	@RequestMapping(value = "/photo/view.do")
 	public String photoDoView(int seq) throws JsonProcessingException {
@@ -59,22 +59,25 @@ public class PhotoController {
 		return mapper.writeValueAsString(photo);
 	}
 	
+	/** 사진 삭제 **/
 	@RequestMapping(value = "admin/photo/delete.do")
 	public String photoDelete(HttpSession session, int seq) {
 		String rootPath = session.getServletContext().getRealPath("");
 		PhotoVo photo = photoService.get(seq);
-		deleteFile(rootPath, photo.getImage());
-		deleteFile(rootPath, photo.getSnapsht());
+		photoService.deleteFile(rootPath, photo.getImage());
+		photoService.deleteFile(rootPath, photo.getSnapsht());
 		
 		boolean result = photoService.delete(seq);
 		return "redirect:" + "/admin/photo/manage";
 	}
 	
+	/** 사진 업로드 페이지로 이동 **/
 	@RequestMapping(value = "admin/photo/upload", params = "!seq")
 	public String photoUpload() {
 		return "photo/photo_upload";
 	}
 	
+	/** 사진 수정 페이지로 이동 **/
 	@RequestMapping(value = "/admin/photo/upload", params = "seq")
 	public String photoModify(Model model, int seq) {
 		PhotoVo photo = photoService.get(seq);
@@ -82,93 +85,32 @@ public class PhotoController {
 		return "photo/photo_upload";
 	}
 	
+	/** 사진 업로드 **/
 	@RequestMapping(value = "admin/photo/upload.do", params = "!seq")
 	public String photoDoUpload(HttpServletRequest request, PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
 		HttpSession session = request.getSession();
 		String rootPath 	= session.getServletContext().getRealPath("");
-		String timeStamp	= TimeStamper.stamp();
-		String imgName		= "photo_" + timeStamp + "_" + photo.getName();
-		String snapshtName	= "photo_snapsht_" + timeStamp + "_" + photo.getName();
 		
 		if(imageFile.getSize() != 0){
-			//naming
-			String imgExt = ImageManager.getExt(imageFile.getOriginalFilename());
-			imgName 	+= "." + imgExt;
-			snapshtName += "." + imgExt;
-			
-			//multipartfile save;
-			File photofile = new File(rootPath + PHOTO_PATH, imgName);
-			imageFile.transferTo(photofile);
-			HashMap<String, String> metadata = ImageManager.getImageMetaData(photofile);
-			photo.setDate(Formatter.toDate(metadata.get("Date/Time Original")));
-			photo.setTime(Formatter.toTime(metadata.get("Date/Time Original")));
-			photo.setDevice(metadata.get("Model"));
-			
-			//photo resize , rotate;
-			int orientation = ImageManager.getOrientation(photofile);
-			BufferedImage photoImg = ImageManager.getLowScaledImage(photofile, 720 , imgExt); 
-			if(orientation != 1){
-				photoImg =  ImageManager.rotateImageForMobile(photoImg, orientation);
-			}
-			ImageIO.write(photoImg, imgExt, photofile);
-			
-			//make snapsht
-			BufferedImage shapshtImg = ImageManager.getLowScaledImage(photofile, 100, imgExt); 
-			File snapshtfile = new File(rootPath + SNAPSHT_PATH, snapshtName);
-			ImageIO.write(shapshtImg, imgExt, snapshtfile);
-			
-			photo.setSnapsht(SNAPSHT_PATH + snapshtName);
-			photo.setImage(PHOTO_PATH + imgName);
-		} else{
-			photo.setImage(PHOTO_PATH + "default.jpg");
-			photo.setSnapsht(SNAPSHT_PATH + "default.jpg");
+			photo = photoService.saveFile(photo, rootPath, imageFile);
 		}
-		
 		photoService.insert(photo);
 		
 		return "redirect:" + "/admin/photo/manage";
 	}
 	
+	/** 사진 수정 **/
 	@RequestMapping(value = "/admin/photo/upload.do", params = "seq")
 	public String photoDoModify(HttpServletRequest request, PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException{
 		HttpSession session = request.getSession();
 		String rootPath 	= session.getServletContext().getRealPath("");
-		String timeStamp	= TimeStamper.stamp();
-		String imgName		= "photo_" + timeStamp + "_" + photo.getName();
-		String snapshtName	= "photo_snapsht_" + timeStamp + "_" + photo.getName();
+		
 		
 		if(imageFile.getSize() != 0){
-			deleteFile(rootPath, photo.getImage());
-			deleteFile(rootPath, photo.getSnapsht());
+			photoService.deleteFile(rootPath, photo.getImage());
+			photoService.deleteFile(rootPath, photo.getSnapsht());
 			
-			//naming
-			String imgExt = ImageManager.getExt(imageFile.getOriginalFilename());
-			imgName 	+= "." + imgExt;
-			snapshtName += "." + imgExt;
-			
-			//multipartfile save;
-			File photofile = new File(rootPath + 1 + imgName);
-			imageFile.transferTo(photofile);
-			HashMap<String, String> metadata = ImageManager.getImageMetaData(photofile);
-			photo.setDate(Formatter.toDate(metadata.get("Date/Time Original")));
-			photo.setTime(Formatter.toTime(metadata.get("Date/Time Original")));
-			photo.setDevice(metadata.get("Model"));
-			
-			//photo resize , rotate;
-			int orientation = ImageManager.getOrientation(photofile);
-			BufferedImage photoImg = ImageManager.getLowScaledImage(photofile, 720 , imgExt);
-			ImageIO.write(photoImg, imgExt, photofile);
-			
-			//make snapsht
-			BufferedImage shapshtImg = ImageManager.getLowScaledImage(photofile, 100, imgExt); 
-			if(orientation != 1 ){
-				shapshtImg = ImageManager.rotateImageForMobile(shapshtImg, orientation);
-			}
-			File snapshtfile = new File(rootPath + SNAPSHT_PATH, snapshtName);
-			ImageIO.write(shapshtImg, imgExt, snapshtfile);
-			
-			photo.setSnapsht(SNAPSHT_PATH + snapshtName);
-			photo.setImage(1 + imgName);
+			photo = photoService.saveFile(photo, rootPath, imageFile);
 		} 
 		
 		photoService.update(photo);
@@ -176,10 +118,5 @@ public class PhotoController {
 		return "redirect:" + "/admin/photo/manage";
 	}
 	
-	private void deleteFile(String rootPath, String subPath){
-		File existFile = null;
-		existFile = new File (rootPath + subPath);
-		if(existFile.exists()){ existFile.delete(); }
-	}
 	
 }
