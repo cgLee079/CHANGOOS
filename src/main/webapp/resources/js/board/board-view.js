@@ -1,3 +1,11 @@
+var sect;
+var boardPage;
+
+$(document).ready(function(){
+	sect = $("#sect").val();
+	boardPage = $("#boardPage").val();
+})
+
 function boardList(){
 	if(!boardPage){
 		boardPage = 1;

@@ -1,7 +1,4 @@
 <%@ page pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE HTML>
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
@@ -10,14 +7,13 @@
 <script src="${pageContext.request.contextPath}/resources/js/board/board-view.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-comment.js"></script>
 
-<script>
-var sect	  = "${sect}";
-var boardPage = "${page}";
-</script>
 </head>
 <body>
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
+		
+		<input type="hidden" id="sect" value="<c:out value='${sect}'/>"/>
+		<input type="hidden" id="boardPage" value="<c:out value='${page}'/>"/>
 		
 		<div class="wrap-board">
 			<div class="board-submenu">
@@ -32,14 +28,13 @@ var boardPage = "${page}";
 			</div>
 			<div class="board-detail">
 				<div class="board-head">
-					
 					<div class="board-title"><c:out value="${board.title}"/></div>
 					<div class="board-info">
 						<div><c:out value="${board.sect}"/></div>
 						<div class="colum-border"></div>
 						<c:if test="${not empty board.codeLang }">
-						<div><c:out value="${board.codeLang}"/></div>
-						<div class="colum-border"></div>
+							<div><c:out value="${board.codeLang}"/></div>
+							<div class="colum-border"></div>
 						</c:if>
 						<div><c:out value="${board.date}"/></div>
 						<div class="colum-border"></div>
@@ -53,7 +48,7 @@ var boardPage = "${page}";
 							<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>
 							<div class="board-file">
 								 <a onclick="downloadFile('${file.pathNm}')">
-								 	<c:out value="${file.realNm}"/> (<c:out value="${filesize}"/> MB)
+								 	<c:out value="${file.realNm}"/>(<c:out value="${filesize}"/> MB)
 								 </a>
 							</div>												
 						</c:forEach>

@@ -11,56 +11,75 @@
 	justify-content: space-between;
 }
 
+.board-sects {
+	display: flex;
+	flex-flow: row wrap;
+	align-content: center;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.board-sects .board-sects-item {
+	padding: 0px 10px;
+	cursor: pointer;
+	color: #0008;
+}
+
+.board-sects .board-sects-item.on, .board-sects .board-sects-item:hover
+	{
+	color: #000;
+	font-weight: bold;
+}
+
 .board-list-item {
-	position : relative;
+	position: relative;
 	padding: 1.5rem 1rem 1rem 1rem;
 	margin: 1rem 0;
 	background: #FFF;
 	box-shadow: 0px 5px 5px #ECF0F1;
-	cursor : pointer;
-	width : 100%:
-	/*border-left : 3px solid rgba(25, 181, 254, 0.5);*/
+	cursor: pointer;
+	width: 100%: /*border-left : 3px solid rgba(25, 181, 254, 0.5);*/
 }
 
 .board-list-item .board-item-overlay {
-    position: absolute;
-    top: 0;
-    right: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: #34495E;
-    z-index: 2;
-    color: #fff;
-    font-size: 0.5rem;
-    transform-origin: 0 0;
-    will-change: transform, opacity;
-    transform: scaleY(0) translateZ(0);
-    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+	position: absolute;
+	top: 0;
+	right: 1rem;
+	padding: 0.5rem 1rem;
+	background-color: #34495E;
+	z-index: 2;
+	color: #fff;
+	font-size: 0.5rem;
+	transform-origin: 0 0;
+	will-change: transform, opacity;
+	transform: scaleY(0) translateZ(0);
+	transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .board-list-item:HOVER .board-item-overlay {
-	transform:scaleY(1) translateZ(0);
-	transition:transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	transform: scaleY(1) translateZ(0);
+	transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.board-list-item .board-item-fg{
+.board-list-item .board-item-fg {
 	position: absolute;
-	left : 0;
-	top : 0;
-	right : 0;
-	bottom  : 0;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
 	z-index: 1;
 	background: rgba(0, 0, 0, 0.05);
 	transform: scale(0);
 }
 
-.board-list-item:HOVER .board-item-fg{
+.board-list-item:HOVER .board-item-fg {
 	transform: scale(1);
 }
 
-.board-list-item .board-item-nosearch{
+.board-list-item .board-item-nosearch {
 	text-align: center;
 	font-size: 0.7rem;
-	color : #F33;
+	color: #F33;
 }
 
 .board-list-item .board-item-title {
@@ -68,7 +87,7 @@
 	font-weight: bold;
 	line-height: 0;
 	margin-bottom: 1.2rem;
-	font-size : 1rem;
+	font-size: 1rem;
 	cursor: pointer;
 }
 
@@ -110,7 +129,7 @@
 
 .colum-border {
 	width: 1px;
-	height : 0.7rem;
+	height: 0.7rem;
 	background: #DDD;
 	margin: auto 0.5rem;
 }

@@ -1,3 +1,24 @@
+var page;
+var perPgLine;
+var path;
+var comtFormTemp;
+var boardType;
+var boardSeq;
+var comtCnt;
+var isAdmin;
+
+$(document).ready(function(){
+	perPgLine 	= 10;
+	boardType	= $("#boardType").val();
+	boardSeq	= $("#boardSeq").val();
+	comtCnt		= parseInt($("#comtCnt").val());
+	isAdmin		= $("#isAdmin").val();
+	comtFormTemp= $(".comment-write").clone();
+	path 		= getContextPath() + "/" + boardType;
+	
+	commentPageMove(1);
+})
+
 function br2nl(text){
 	return text.replace(/(<br\s*\/?>)+/g, "\n");
 }
@@ -117,7 +138,7 @@ function updateComment(data){
 function makeReplyForm(){
 	var form = "";
 	form += '<div class="comment-reply row-center">';
-	form += '<img src="${pageContext.request.contextPath}/resources/image/icon_comment_reply.png" style="width:1rem; height:1rem; margin-right: 0.3rem">';
+	form += '<img src="' + getContextPath() + '/resources/image/icon_comment_reply.png" style="width:1rem; height:1rem; margin-right: 0.3rem">';
 	form += '<textarea class="comment-reply-content" id="contents" name="contents"/></textarea>';
 	form += '<div onclick="doReply(this)" class="comment-reply-submit col-center">답변</div>';
 	form += '</div>';

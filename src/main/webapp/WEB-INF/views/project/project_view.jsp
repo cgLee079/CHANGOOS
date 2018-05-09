@@ -7,14 +7,13 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-comment.css" />
 <script src="${pageContext.request.contextPath}/resources/js/project/project-view.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-comment.js"></script>
-<script>
-var beforeparentSeq= '${beforeProject.seq}';
-var afterparentSeq = '${afterProject.seq}';
-</script>
 </head>
 <body>
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
+	
+		<input type="hidden" id="beforeparentSeq" value="<c:out value='${beforeProject.seq}'/>"/>
+		<input type="hidden" id="afterparentSeq" value="<c:out value='${afterProject.seq}'/>"/>
 		
 		<div class="project-detail">
 			<div class="project-head">
@@ -74,28 +73,10 @@ var afterparentSeq = '${afterProject.seq}';
 		
 		<c:if test="${!empty beforeProject}">
 			<div class="btn btn-project-before h-reverse" title="[${beforeProject.sect}] ${beforeProject.title}" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_project_arrow.png)"></div>
-			<script>
-			(function() {
-			    $(".btn-project-before").tooltip({
-			    	 tooltipClass: "btn-project-tooltip",
-			    	 show : null,
-			    	 hide : null,
-			    });
-			})();
-			</script>
 		</c:if>
 		
 		<c:if test="${!empty afterProject}">
 			<div class="btn btn-project-next" title="[${afterProject.sect}] ${afterProject.title}" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn_project_arrow.png)"></div>
-			<script>
-			(function() {
-			    $(".btn-project-next").tooltip({
-			    	 tooltipClass: "btn-project-tooltip",
-			    	 show : null,
-			    	 hide : null,
-			    });
-			})();
-			</script>
 		</c:if>
 	</div>
 	

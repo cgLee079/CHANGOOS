@@ -35,15 +35,15 @@ public class ProjectComtDao {
 		return sqlSession.selectOne(namespace +".count", map);
 	}
 
-	public boolean insert(BoardComtVo bcomt) {
-		return sqlSession.insert(namespace + ".insert", bcomt) == 1;
+	public boolean insert(ProjectComtVo pcomt) {
+		return sqlSession.insert(namespace + ".insert", pcomt) == 1;
 	}
 
 	public boolean delete(int seq) {
 		return sqlSession.delete(namespace + ".delete", seq) == 1;
 	}
 
-	public BoardComtVo get(int seq) {
+	public ProjectComtVo get(int seq) {
 		return sqlSession.selectOne(namespace +".get", seq);
 	}
 	

@@ -1,22 +1,15 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"></sec:authorize>
 <script>
-var page;
-var perPgLine 	= 10;
-var boardType	= "${param.boardType}";
-var boardSeq	= "${param.boardSeq}";
-var comtCnt		= parseInt("${param.comtCnt}");
-var path 		= getContextPath() + "/" + boardType;
-var comtFormTemp= $(".comment-write").clone();
-var isAdmin		= '${isAdmin}';
-
-$(document).ready(function(){
-	commentPageMove(1);
-})
-
 </script>
 <div class="wrap-comment">
+	<input type="hidden" id="boardType" value="<c:out value='${param.boardType}'/>"/>
+	<input type="hidden" id="boardSeq" value="<c:out value='${param.boardSeq}'/>"/>
+	<input type="hidden" id="comtCnt" value="<c:out value='${param.comtCnt}'/>"/>
+	<input type="hidden" id="isAdmin" value="<c:out value='${isAdmin}'/>"/>
+	
 	<div class="comments"></div>
 	<div class="comt-pager"></div>
 	

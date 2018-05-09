@@ -26,14 +26,14 @@ public class ProjectComtService{
 		return projectcomtDao.count(boardSeq);
 	}
 
-	public boolean insert(BoardComtVo comt) {
+	public boolean insert(ProjectComtVo comt) {
 		String date = new SimpleDateFormat("YYYY-MM-dd").format(new Date());
 		comt.setDate(date);
 		return projectcomtDao.insert(comt);
 	}
 
 	public boolean delete(int seq, String password, boolean isAdmin) {
-		BoardComtVo comtVo = projectcomtDao.get(seq);
+		ProjectComtVo comtVo = projectcomtDao.get(seq);
 		if(comtVo.getPassword().equals(password) || isAdmin){
 			return projectcomtDao.delete(seq);			
 		} else {
@@ -42,7 +42,7 @@ public class ProjectComtService{
 	}
 	
 	public boolean checkPwd(int seq, String password, boolean isAdmin) {
-		BoardComtVo comtVo = projectcomtDao.get(seq);
+		ProjectComtVo comtVo = projectcomtDao.get(seq);
 		if(comtVo.getPassword().equals(password) || isAdmin){
 			return true;			
 		} else {

@@ -3,10 +3,12 @@ var searchType = "";
 var searchValue = "";
 var sect = '';
 var page = '';
+var allRowCnt = '${count}';
 
 /* 페이지가 로드됨과 동시에 계정 리스트의 첫 번째 페이지를 출력 */
 $(document).ready(function(){
 	/* Get Hash */
+	allRowCnt = $("#allRowCnt").val();
 	sect = window.location.hash.substring(1).split("&")[0];
 	page = parseInt(window.location.hash.substring(1).split("&")[1]);
 
@@ -26,7 +28,6 @@ $(document).ready(function(){
 	}
 	
 	pageMove(page);
-	//resizedw();
 	
 	$(".wrap-board").touchwipe({
 	     wipeLeft: function() {
@@ -172,30 +173,3 @@ function updateBoard(data){
 		boardList.css("height", deviceHeight);
 	} 
 }
-
-/*
-function resizedw(){
-	if(isMobile){
-		var wrapParent = $(".wrap-board");
-		var items = $(".board-list-item");
-		var pHeight = undefined;
-		var cHeight = undefined;
-		var noticeLen = undefined;
-		
-		wrapParent.css("height", deviceHeight - 50);
-		pHeight = parseInt(wrapParent.height());
-		cHeight = parseInt(items.eq(1).outerHeight());
-		perPgLine = parseInt(pHeight / cHeight) - 2;
-		
-		pageMove(page);
-	}
-}
-
-var doit;
-$(window).resize(function(){
-  clearTimeout(doit);
-  doit = setTimeout(resizedw, 100);
-});
-*/
-
-

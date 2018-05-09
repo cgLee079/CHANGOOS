@@ -5,39 +5,14 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board/board-list.css" />
 <script src="${pageContext.request.contextPath}/resources/js/board/board-list.js"></script>
-<script>
-var allRowCnt = '${count}';
-</script>
-
-
 </head>
 <body>
 <div class="wrapper">
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
-
+	
+	<input type="hidden" id="allRowCnt" value="<c:out value='${count}'/>"/>
+	
 	<div class="wrap-board">
-		<style>
-			.board-sects{
-				display: flex;
-				flex-flow : row wrap;
-				align-content: center;
-				justify-content: center;
-				margin-bottom: 20px;
-			}
-			
-			.board-sects .board-sects-item{
-				padding : 0px 10px;
-				cursor: pointer;
-				color: #0008;
-			}
-			
-			.board-sects .board-sects-item.on, .board-sects .board-sects-item:hover{
-				color : #000;
-				font-weight: bold;
-			}
-			
-		</style>
-		
 		<div class="board-sects">
 			<c:forEach var="sect" items="${sects}" varStatus="status">
 				<div class="board-sects-item" onclick="selectSect(this)"><c:out value="${sect}" /></div>

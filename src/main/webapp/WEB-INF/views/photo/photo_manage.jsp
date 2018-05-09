@@ -1,5 +1,4 @@
 <%@ page pageEncoding="UTF-8"%>
-<!DOCTYPE>
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 

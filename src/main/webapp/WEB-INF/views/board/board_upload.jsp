@@ -1,95 +1,55 @@
 <%@ page pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board/board-upload.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-fileupload.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board/board-upload.css"/>
+<script src="${pageContext.request.contextPath}/resources/js/included/included-fileupload.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/board/board-upload.js"></script>
 
-<c:if test="${!empty board}">
-	<script>
-		$(document).ready(function(){
-			$("#sort").val("${board.sort}");
-			$("#sect").val("${board.sect}");
-			$("#title").val("${board.title}");
-			$("#codeLang").val("${board.codeLang}");
-			
-			$("<input>", { type : "hidden", name : "seq", value: "${board.seq}"}).appendTo($("#uploadForm"));
-			$("<input>", { type : "hidden", name : "date", value: "${board.date}"}).appendTo($("#uploadForm"));
-			$("<input>", { type : "hidden", name : "hits", value: "${board.hits}"}).appendTo($("#uploadForm"));
-		});
-	</script>
-</c:if>
-
-</head>
 <body>
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8"/>
 		<div class="board-upload-form col-center">
 			<form id="uploadForm" action="${pageContext.request.contextPath}/admin/board/upload.do" method="post" enctype="multipart/form-data" class="upload-form">
+				<c:set var="sort" value="99999"/>
+				<c:if test="${not empty board}">
+					<input type="hidden" name="seq" value="<c:out value='${board.seq}'/>"/>
+					<input type="hidden" name="date" value="<c:out value='${board.date}'/>"/>
+					<input type="hidden" name="hits" value="<c:out value='${board.hits}'/>"/>
+					<c:set var="sort" value="${board.sort}"/>
+				</c:if>
 				
 				<div class="board-upload-item">
 					<div class="item-name">SORT</div>
-					<div class="item-input"><input type="text" id="sort" name="sort"  value="99999" class="board-sort"></div>
+					<div class="item-input">
+					<input type="text" id="sort" name="sort"  value="<c:out value='${sort}'/>" class="board-sort"/>
+					</div>
 				</div>
 				
 				<div class="board-upload-item">
 					<div class="item-name">SECT</div>
-					<div class="item-input"><input type="text" id="sect" name="sect" class="board-sect" ></div>
+					<div class="item-input"><input type="text" id="sect" name="sect"  value="<c:out value='${board.sect}'/>" class="board-sect" ></div>
 				</div>
 				
 				<div class="board-upload-item">
 					<div class="item-name">CODE LANGUAGE</div>
-					<div class="item-input"><input type="text" id="codeLang" name="codeLang" class="board-codelang" ></div>
+					<div class="item-input"><input type="text" id="codeLang" name="codeLang"  value="<c:out value='${board.codeLang}'/>" class="board-codelang"></div>
 				</div>
 				
 				<div class="board-upload-item">
 					<div class="item-name">TITLE</div>
-					<div class="item-input"><input type="text" id="title" name="title" class="board-title"> </div>
+					<div class="item-input"><input type="text" id="title" name="title"  value="<c:out value='${board.title}'/>" class="board-title"></div>
 				</div>
 				
 				<div class="board-upload-item">
 					<div class="item-name">CONTENTS</div>
 					<div class="item-input">
 						<textarea id="board-contents" name="contents" class="board-contents">
-							<c:if test="${!empty board.contents }">
-								<c:out value="${board.contents}" escapeXml="false"/>
-							</c:if>
+							<c:out value="${board.contents}" escapeXml="false"/>
 						</textarea>
 					</div>
 				</div>
-				<script>
-				var editor = CKEDITOR.replace("board-contents", {
-					filebrowserUploadUrl : getContextPath() + "/admin/board/imgUpload.do",
-					on : {
-						instanceReady : function( ev ){
-						    // Output paragraphs as <p>Text</p>.
-						    this.dataProcessor.writer.setRules( 'p', {
-						            indent : false,
-						            breakBeforeOpen : true,
-						            breakAfterOpen : false,
-						            breakBeforeClose : false,
-						            breakAfterClose : true
-						        });
-						}
-					}
-				});
-
-				CKEDITOR.on('dialogDefinition', function(ev) {
-					var dialogName = ev.data.name;
-					var dialog = ev.data.definition.dialog;
-					var dialogDefinition = ev.data.definition;
-
-					if (dialogName == 'image') {
-						dialogDefinition.removeContents('Link'); //링크 탭 제거
-						dialogDefinition.removeContents('advanced'); //상세정보 탭 제거
-					}
-				});
-				
-				CKEDITOR.on( 'instanceReady', function( ev ) {
-			        // Ends self closing tags the HTML4 way, like <br>.
-			        ev.editor.dataProcessor.writer.selfClosingEnd = '/>';
-			    });
-				</script>
 				
 				<div class="board-upload-item">
 					<div class="item-name">File</div>
