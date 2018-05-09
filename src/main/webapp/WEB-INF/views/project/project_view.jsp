@@ -7,6 +7,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-comment.css" />
 <script src="${pageContext.request.contextPath}/resources/js/project/project-view.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-comment.js"></script>
+<script>
+var beforeparentSeq= '${beforeProject.seq}';
+var afterparentSeq = '${afterProject.seq}';
+</script>
 </head>
 <body>
 	<div class="wrapper">

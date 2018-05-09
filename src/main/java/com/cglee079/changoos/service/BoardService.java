@@ -82,12 +82,12 @@ public class BoardService{
 		return boardDao.update(board);
 	}
 
-	public BoardVo getBefore(int seq) {
-		return boardDao.getBefore(seq);
+	public BoardVo getBefore(int seq, String sect) {
+		return boardDao.getBefore(seq, sect);
 	}
 
-	public BoardVo getAfter(int seq) {
-		return boardDao.getAfter(seq);
+	public BoardVo getAfter(int seq, String sect) {
+		return boardDao.getAfter(seq, sect);
 	}
 
 	public List<String> getSects() {

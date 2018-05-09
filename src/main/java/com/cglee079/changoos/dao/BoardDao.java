@@ -23,15 +23,17 @@ public class BoardDao {
 		return sqlSession.selectOne(namespace +".S01", seq);
 	}
 	
-	public BoardVo getBefore(int seq) {
+	public BoardVo getBefore(int seq, String sect) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("seq", seq);
+		map.put("sect", sect);
 		return sqlSession.selectOne(namespace +".S02", map);
 	}
 	
-	public BoardVo getAfter(int seq) {
+	public BoardVo getAfter(int seq, String sect) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("seq", seq);
+		map.put("sect", sect);
 		return sqlSession.selectOne(namespace +".S03", map);
 	}
 

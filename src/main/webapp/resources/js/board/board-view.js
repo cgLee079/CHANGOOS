@@ -2,7 +2,7 @@ function boardList(){
 	if(!boardPage){
 		boardPage = 1;
 	}
-	window.location.href = getContextPath() + "/board#" + boardPage;
+	window.location.href = getContextPath() + "/board#" + sect + "&" + boardPage;
 }
 
 function boardDelete(seq){
@@ -26,9 +26,13 @@ function boardModify(seq){
 
 function boardView(seq){
 	if (seq){
-		window.location.href = getContextPath() + "/board/view?seq=" + seq +"&page=" + boardPage;
+		window.location.href = getContextPath() + "/board/view?seq=" + seq + "&sect=" + sect + "&page=" + boardPage;
 	} else {
-		swal("글이 더 이상 없습니다.");
+		if(sect){
+			swal( sect + " 부분 글이 더 이상 없습니다.");
+		} else{
+			swal("글이 더 이상 없습니다.");
+		}
 	}
 }
 

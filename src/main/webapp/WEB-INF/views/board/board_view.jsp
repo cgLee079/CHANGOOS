@@ -11,6 +11,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/included/included-comment.js"></script>
 
 <script>
+var sect	  = "${sect}";
 var boardPage = "${page}";
 </script>
 </head>

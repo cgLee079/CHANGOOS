@@ -15,8 +15,6 @@ $(document).ready(function(){
 	}
 	
 	$(".btn-project-next").on("click", function(){
-		var afterparentSeq = '${afterProject.seq}';
-		
 		if(afterparentSeq){
 			Progress.start();
 			window.location.href = getContextPath() + "/project/view?seq=" + afterparentSeq;
@@ -24,7 +22,6 @@ $(document).ready(function(){
 	});
 	
 	$(".btn-project-before").on("click", function(){
-		var beforeparentSeq= '${beforeProject.seq}';
 		if(beforeparentSeq){
 			Progress.start();
 			window.location.href = getContextPath() + "/project/view?seq=" + beforeparentSeq;

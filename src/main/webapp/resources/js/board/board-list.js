@@ -1,17 +1,51 @@
 var perPgLine = 10;
-var sect = "";
 var searchType = "";
 var searchValue = "";
+var sect = '';
+var page = '';
 
-var page = parseInt(window.location.hash.substring(1));
+/* 페이지가 로드됨과 동시에 계정 리스트의 첫 번째 페이지를 출력 */
+$(document).ready(function(){
+	/* Get Hash */
+	sect = window.location.hash.substring(1).split("&")[0];
+	page = parseInt(window.location.hash.substring(1).split("&")[1]);
 
-if(!page){
-	page = 1;
-}
+	/* Sect Add Class 'on' */
+	if(sect){
+		var items = $(".board-sects .board-sects-item");
+		for(var i = 0; i < items.length; i++){
+			if($(items[i]).text() == sect){
+				$(items[i]).addClass("on");
+				break;
+			}
+		}
+	}
+	
+	if(!page){
+		page = 1;
+	}
+	
+	pageMove(page);
+	//resizedw();
+	
+	$(".wrap-board").touchwipe({
+	     wipeLeft: function() {
+	    	 pageMove(page + 1);
+	     },
+	     wipeRight: function() {
+	    	 if(!(page <= 1)){
+	    		 pageMove(page - 1);
+	    	 }
+	     },
+	     min_move_x: 30,
+	     min_move_y: 20,
+	     preventDefaultEvents: true
+	});
+});
 
 function boardView(seq){
 	Progress.start();
-	window.location.href = getContextPath() + "/board/view?seq=" + seq + "&page=" + page;		
+	window.location.href = getContextPath() + "/board/view?seq=" + seq + "&sect=" + sect + "&page=" + page;		
 }
 
 function search(){
@@ -59,7 +93,7 @@ function pageMove(pg){
 				pageMove(pg - 1);
 			} else{
 				page = pg;
-				window.location.hash = page;
+				window.location.hash = sect + "&" + page;
 				updateBoard(data);
 				updatePaging("pageMove", page, allRowCnt, perPgLine, 3);
 			}
@@ -133,7 +167,6 @@ function updateBoard(data){
 		item.appendTo(boardList);			
 	}
 	
-	console.log(boardList.height());
 	boardList.removeAttr("style");
 	if(boardList.height() < deviceHeight){
 		boardList.css("height", deviceHeight);
@@ -166,22 +199,3 @@ $(window).resize(function(){
 */
 
 
-/* 페이지가 로드됨과 동시에 계정 리스트의 첫 번째 페이지를 출력 */
-$(document).ready(function(){
-	pageMove(page);
-	//resizedw();
-	
-	$(".wrap-board").touchwipe({
-	     wipeLeft: function() {
-	    	 pageMove(page + 1);
-	     },
-	     wipeRight: function() {
-	    	 if(!(page <= 1)){
-	    		 pageMove(page - 1);
-	    	 }
-	     },
-	     min_move_x: 30,
-	     min_move_y: 20,
-	     preventDefaultEvents: true
-	});
-});
