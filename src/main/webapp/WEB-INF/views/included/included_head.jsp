@@ -4,12 +4,12 @@
 <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" >
 
 <!-- font -->
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font-lora.css'/>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font-nanumgothic.css'/>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-lora.css'/>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-nanumgothic.css'/>
 
 <!-- lib-css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/letter-motion.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lib/jquery-ui.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lib/letter-motion.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ckeditor/plugins/prism/lib/prism/prism_patched.min.css" />
 
 <!--  -->
@@ -19,15 +19,18 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global-responsive.css" />
 
 <!-- lib-js -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.touchwipe.1.1.1.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/anime-2.2.0.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/letter-motion.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/lib/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/lib/jquery-ui.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/lib/jquery.touchwipe.1.1.1.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/lib/anime-2.2.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/lib/letter-motion.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/lib/sweetalert.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/ckeditor/plugins/prism/lib/prism/prism_patched.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/sweetalert.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 
 <!--  -->
+<script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/editor-contents-resizer.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-nav.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-footer.js"></script>
 

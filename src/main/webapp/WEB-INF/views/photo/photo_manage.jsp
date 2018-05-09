@@ -4,26 +4,7 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/photo/photo-manage.css" />
-<script type="text/javascript">
-	function photoDelete(seq){
-		swal({
-			  title: "정말로 삭제 하시겠습니까?",
-			  text: "삭제된 사진은 복구 할 수 없습니다.",
-			  icon: "warning",
-			  buttons: ["취소", "삭제"],
-			  dangerMode: true,
-			})
-			.then(willDelete => {
-			  if (willDelete) {
-				  window.location.href = getContextPath() + "/admin/photo/delete.do?seq=" + seq;
-			  } 
-			});
-	}
-	
-	function photoModify(seq){
-		window.location.href = getContextPath() + "/admin/photo/upload?seq=" + seq;		
-	}
-</script>
+<script src="${pageContext.request.contextPath}/resources/js/photo/photo-manage.js"></script>
 </head>
 <body>
 <div class="wrapper">
@@ -50,13 +31,13 @@
 		
 			<c:forEach var="photo" items="${photos}">
 				<div class="list-photo">
-					<div class="photo-seq">${photo.seq}</div>
-					<div class="photo-title">${photo.name}</div>
+					<div class="photo-seq"><c:out value="${photo.seq}"/></div>
+					<div class="photo-title"><c:out value="${photo.name}"/></div>
 					<div class="photo-img"><img src="${pageContext.request.contextPath}${photo.snapsht}"/></div>
-					<div class="photo-device">${photo.device}</div>
-					<div class="photo-loc">${photo.location }</div>
-					<div class="photo-date">${photo.date}</div>
-					<div class="photo-time">${photo.time}</div>
+					<div class="photo-device"><c:out value="${photo.device}"/></div>
+					<div class="photo-loc"><c:out value="${photo.location}"/></div>
+					<div class="photo-date"><c:out value="${photo.date}"/></div>
+					<div class="photo-time"><c:out value="${photo.time}"/></div>
 					<div class="btn photo-modify"><a href="javascript:void(0)" onclick="photoModify('${photo.seq}')">수정</a></div>
 					<div class="btn photo-delete"><a href="javascript:void(0)" onclick="photoDelete('${photo.seq}')">삭제</a></div>
 				</div>

@@ -3,6 +3,7 @@ package com.cglee079.changoos.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,13 +21,17 @@ public class BoardService{
 	@Autowired
 	BoardDao boardDao;
 	
-	public List<BoardVo> paging(int page, int perPgLine, String type, String searchType, String searchValue){
+	public List<BoardVo> paging(Map<String, Object> params){
+		int page = Integer.parseInt((String)params.get("page"));
+		int perPgLine = Integer.parseInt((String)params.get("perPgLine"));
 		int startRow = (page - 1) * perPgLine;
-		return boardDao.list(startRow, perPgLine, type, searchType, searchValue);
+		
+		params.put("startRow", startRow);
+		return boardDao.list(params);
 	}
 
-	public int count(String type, String searchType, String searchValue) {
-		return boardDao.count(type, searchType, searchValue);
+	public int count(Map<String, Object> params) {
+		return boardDao.count(params);
 	}
 
 	public BoardVo get(int seq) {
@@ -77,15 +82,15 @@ public class BoardService{
 		return boardDao.update(board);
 	}
 
-	public BoardVo getBefore(int seq, String type) {
-		return boardDao.getBefore(seq, type);
+	public BoardVo getBefore(int seq) {
+		return boardDao.getBefore(seq);
 	}
 
-	public BoardVo getAfter(int seq, String type) {
-		return boardDao.getAfter(seq, type);
+	public BoardVo getAfter(int seq) {
+		return boardDao.getAfter(seq);
 	}
 
-	public List<BoardVo> list(String type) {
-		return boardDao.list(type);
+	public List<String> getSects() {
+		return boardDao.getSects();
 	}
 }

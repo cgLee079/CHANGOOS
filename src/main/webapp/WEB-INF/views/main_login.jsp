@@ -34,7 +34,7 @@
 	<div class="wrapper">
 		<div class="wrap-form row-center">
 			<form id="form-admin-login" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
-				<h1>ADMIN</h1>
+				<h1>CHANGOO'S</h1>
 				<table class="tb-admin-login">
 				<tr>
 				<td>USERNAME</td>
@@ -46,7 +46,7 @@
 				</tr>
 				<tr>
 				<td></td>
-				<td style="text-align: right;"  ><input type="submit" value="로그인"/></td>
+				<td style="text-align: right;"><input type="submit" value="로그인"/></td>
 				</tr>
 				</table>
 			</form>

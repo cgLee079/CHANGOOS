@@ -3,7 +3,6 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
-<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/photo/photo-upload.css" />
 <c:if test="${!empty photo}">
 	<script>
@@ -84,7 +83,9 @@
 					<div class="upload-item-name">DESC</div>
 					<div class="upload-item-input">
 						<textarea id="desc" name="desc" class="photo-desc">
-							<c:if test="${!empty photo.desc}">${photo.desc}</c:if>
+							<c:if test="${!empty photo.desc}">
+								<c:out value="${photo.desc}" escapeXml="false"/>
+							</c:if>
 						</textarea>
 						<script>
 							var editor = CKEDITOR.replace("desc", {

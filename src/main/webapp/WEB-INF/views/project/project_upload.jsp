@@ -3,7 +3,6 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
-<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/project/project-upload.css" />
 
 <c:if test="${!empty project}">
@@ -97,7 +96,7 @@
 					<div class="upload-project-input">
 						<textarea id="desc" name="desc" class="project-desc">
 							<c:if test="${!empty project.desc }">
-								${project.desc }
+								<c:out value="${project.desc}" escapeXml="false"/>
 							</c:if>
 						</textarea>
 						<script>
@@ -134,7 +133,7 @@
 					<div class="upload-project-input">
 						<textarea name="contents" id="contents">
 							<c:if test="${!empty project.contents }">
-								${project.contents}
+								<c:out value="${project.contents}" escapeXml="false"/>
 							</c:if>
 						</textarea>
 						<script>

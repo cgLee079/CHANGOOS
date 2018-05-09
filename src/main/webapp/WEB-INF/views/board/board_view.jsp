@@ -7,49 +7,11 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board/board-view.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-comment.css" />
-<script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/editor-contents-resizer.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/board/board-view.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/included/included-comment.js"></script>
 
 <script>
 var boardPage = "${page}";
-
-function boardList(){
-	if(!boardPage){
-		boardPage = 1;
-	}
-	window.location.href = getContextPath() + "/board#" + boardPage;
-}
-
-function boardDelete(seq){
-	swal({
-		  title: "정말로 삭제 하시겠습니까?",
-		  text: "한번 삭제된 글은 복구 할 수 없습니다.",
-		  icon: "warning",
-		  buttons: ["취소", "삭제"],
-		  dangerMode: true,
-		})
-		.then((willDelete) => {
-			if(willDelete) {
-				window.location.href = getContextPath() + "/admin/board/delete.do?seq=" + seq;  
-			} 
-		});
-}
-
-function boardModify(seq){
-	window.location.href = getContextPath() + "/admin/board/upload?seq=" + seq;		
-}
-
-function boardView(seq){
-	if (seq){
-		window.location.href = getContextPath() + "/board/view?seq=" + seq +"&page=" + boardPage;
-	} else {
-		swal("글이 더 이상 없습니다.");
-	}
-}
-
-function downloadFile(pathNm){
-	window.location.assign(getContextPath()	+ "/board/download.do?filename="+ pathNm);
-}
 </script>
 </head>
 <body>
@@ -69,13 +31,18 @@ function downloadFile(pathNm){
 			</div>
 			<div class="board-detail">
 				<div class="board-head">
-					<div class="board-title">${board.title}</div>
+					
+					<div class="board-title"><c:out value="${board.title}"/></div>
 					<div class="board-info">
-						<div>${board.sect}</div>
+						<div><c:out value="${board.sect}"/></div>
 						<div class="colum-border"></div>
-						<div>${board.date}</div>
+						<c:if test="${not empty board.codeLang }">
+						<div><c:out value="${board.codeLang}"/></div>
 						<div class="colum-border"></div>
-						<div>조회수 ${board.hits}</div>
+						</c:if>
+						<div><c:out value="${board.date}"/></div>
+						<div class="colum-border"></div>
+						<div>조회수 <c:out value="${board.hits}"/></div>
 					</div>
 				</div>
 
@@ -85,13 +52,15 @@ function downloadFile(pathNm){
 							<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>
 							<div class="board-file">
 								 <a onclick="downloadFile('${file.pathNm}')">
-								 	${file.realNm} (${filesize}MB)
+								 	<c:out value="${file.realNm}"/> (<c:out value="${filesize}"/> MB)
 								 </a>
 							</div>												
 						</c:forEach>
 					</div>
 				</c:if>
-				<div class="board-contents editor-contents">${board.contents}</div>
+				<div class="board-contents editor-contents">
+					<c:out value="${board.contents}" escapeXml="false"/>
+				</div>
 			</div>
 			
 			<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">

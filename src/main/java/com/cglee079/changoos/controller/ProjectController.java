@@ -247,7 +247,7 @@ public class ProjectController {
 			ImageIO.write(image, imgExt, file);
 		}
 		
-		response.setHeader("x-frame-options", "SAMEORIGIN");
+		response.setHeader("X-Frame-Options", "SAMEORIGIN");
 		model.addAttribute("path", request.getContextPath() + CONTENTS_PATH + filename);
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
 		

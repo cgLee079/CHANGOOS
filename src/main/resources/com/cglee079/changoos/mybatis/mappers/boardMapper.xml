@@ -3,57 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cglee079.changoos.mapper.BoardMapper">
-	
-	<select id="count" resultType="Integer" parameterType="map">
-		SELECT
-			count(*)
-		FROM TB_PTFOLIO_BOARDS
-		WHERE 1 = 1
-		<if test="type != null">
-		AND BOARD_TYPE = #{type}
-		</if>
-		<if test="searchType == 'SECT' and searchValue != ''">
- 		<![CDATA[AND UPPER(BOARD_SECT) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
-  		</if>
-  		<if test="searchType == 'TITLE' and searchValue != ''">
- 		<![CDATA[AND UPPER(BOARD_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
-  		</if>
-	</select>
-	
-	<select id="list" resultType="com.cglee079.changoos.model.BoardVo" parameterType="map">
+	<select id="S01" resultType="com.cglee079.changoos.model.BoardVo" parameterType="Integer">
+		/* 게시글 가져오기 */
 		SELECT
 		BOARD_SEQ as "seq",
 		BOARD_SORT as "sort",
-		BOARD_TYPE as "type",
 		BOARD_SECT as "sect",
-		BOARD_TITLE as "title",
-		BOARD_CONTENTS as "contents",
-		BOARD_DATE as "date",
-		BOARD_HITS as "hits",
-		count(B.BCOMT_SEQ) as 'comtCnt'
-		FROM TB_PTFOLIO_BOARDS A LEFT OUTER JOIN TB_PTFOLIO_BOARD_COMTS B ON A.BOARD_SEQ = B.BCOMT_BOARD_SEQ
-		WHERE 1 = 1 
-		AND BOARD_TYPE = #{type}
-		<if test="searchType == 'SECT' and searchValue != ''">
- 		<![CDATA[AND UPPER(BOARD_SECT) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
-  		</if>
-  		<if test="searchType == 'TITLE' and searchValue != ''">
- 		<![CDATA[AND UPPER(BOARD_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
-  		</if>
-  		GROUP BY A.BOARD_SEQ
-		ORDER BY BOARD_SORT, BOARD_DATE DESC, BOARD_SEQ DESC
-		<if test="startRow != null and perPgLine != null">
- 		LIMIT #{startRow}, #{perPgLine}
-  		</if>
-		
-	</select>
-	
-	<select id="get" resultType="com.cglee079.changoos.model.BoardVo" parameterType="Integer">
-		SELECT
-		BOARD_SEQ as "seq",
-		BOARD_SORT as "sort",
-		BOARD_TYPE as "type",
-		BOARD_SECT as "sect",
+		BOARD_CODE_LANG as "codeLang",
 		BOARD_TITLE as "title",
 		BOARD_CONTENTS as "contents",
 		BOARD_DATE as "date",
@@ -64,12 +20,13 @@
 		GROUP BY A.BOARD_SEQ
 	</select>
 	
-	<select id="getBefore" parameterType="map" resultType="com.cglee079.changoos.model.BoardVo">
+	<select id="S02" parameterType="map" resultType="com.cglee079.changoos.model.BoardVo">
+		/* 이전 게시글 가져오기 */
 		SELECT 
 		BOARD_SEQ as "seq",
 		BOARD_SORT as "sort",
-		BOARD_TYPE as "type",
 		BOARD_SECT as "sect",
+		BOARD_CODE_LANG as "codeLang",
 		BOARD_TITLE as "title",
 		BOARD_CONTENTS as "contents",
 		BOARD_DATE as "date",
@@ -77,17 +34,17 @@
 		count(B.BCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_BOARDS A LEFT OUTER JOIN TB_PTFOLIO_BOARD_COMTS B ON A.BOARD_SEQ = B.BCOMT_BOARD_SEQ
 		WHERE <![CDATA[BOARD_SEQ < #{seq}]]>  
-		AND BOARD_TYPE = #{type} 
 		GROUP BY A.BOARD_SEQ
 		ORDER BY BOARD_SEQ DESC LIMIT 1
 	</select>
 	
-	<select id="getAfter" parameterType="map" resultType="com.cglee079.changoos.model.BoardVo">
+	<select id="S03" parameterType="map" resultType="com.cglee079.changoos.model.BoardVo">
+		/* 다음 게시글 가져오기 */
 		SELECT 
 		BOARD_SEQ as "seq",
 		BOARD_SORT as "sort",
-		BOARD_TYPE as "type",
 		BOARD_SECT as "sect",
+		BOARD_CODE_LANG as "codeLang",
 		BOARD_TITLE as "title",
 		BOARD_CONTENTS as "contents",
 		BOARD_DATE as "date",
@@ -95,15 +52,65 @@
 		count(B.BCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_BOARDS A LEFT OUTER JOIN TB_PTFOLIO_BOARD_COMTS B ON A.BOARD_SEQ = B.BCOMT_BOARD_SEQ
 		WHERE <![CDATA[BOARD_SEQ > #{seq}]]>
-		AND BOARD_TYPE = #{type} 
 		GROUP BY A.BOARD_SEQ
 		ORDER BY BOARD_SEQ ASC LIMIT 1
 	</select>
 	
+	<select id="S04" resultType="com.cglee079.changoos.model.BoardVo" parameterType="map">
+		/* 게시글 리스트 */
+		SELECT
+		BOARD_SEQ as "seq",
+		BOARD_SORT as "sort",
+		BOARD_SECT as "sect",
+		BOARD_CODE_LANG as "codeLang",
+		BOARD_TITLE as "title",
+		BOARD_CONTENTS as "contents",
+		BOARD_DATE as "date",
+		BOARD_HITS as "hits",
+		count(B.BCOMT_SEQ) as 'comtCnt'
+		FROM TB_PTFOLIO_BOARDS A LEFT OUTER JOIN TB_PTFOLIO_BOARD_COMTS B ON A.BOARD_SEQ = B.BCOMT_BOARD_SEQ
+		WHERE 1 = 1 
+		<if test="sect != ''">
+ 		<![CDATA[AND UPPER(BOARD_SECT) = UPPER(#{sect})]]>
+  		</if>
+  		<if test="searchType == 'TITLE' and searchValue != ''">
+ 		<![CDATA[AND UPPER(BOARD_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
+  		</if>
+  		GROUP BY A.BOARD_SEQ
+		ORDER BY BOARD_SORT, BOARD_DATE DESC, BOARD_SEQ DESC
+		<if test="startRow != null and perPgLine != null">
+ 		LIMIT ${startRow}, ${perPgLine}
+  		</if>
+	</select>
+	
+	<select id="S05" resultType="Integer" parameterType="map">
+		/* 게시글 개수 */
+		SELECT
+			count(*)
+		FROM TB_PTFOLIO_BOARDS
+		WHERE 1 = 1
+		<if test="sect != ''">
+ 		<![CDATA[AND UPPER(BOARD_SECT) = UPPER(#{sect})]]>
+  		</if>
+		<if test="searchType == 'SECT' and searchValue != ''">
+ 		<![CDATA[AND UPPER(BOARD_SECT) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
+  		</if>
+  		<if test="searchType == 'TITLE' and searchValue != ''">
+ 		<![CDATA[AND UPPER(BOARD_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
+  		</if>
+	</select>
+	
+	<select id="S06" resultType="String">
+		SELECT BOARD_SECT 
+		FROM TB_PTFOLIO_BOARDS
+		GROUP BY BOARD_SECT
+		ORDER BY COUNT(*) DESC
+	</select>
+	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
 		INSERT TB_PTFOLIO_BOARDS 
-		(BOARD_SORT, BOARD_TYPE, BOARD_SECT, BOARD_TITLE, BOARD_CONTENTS, BOARD_DATE, BOARD_HITS)
-		VALUES (#{sort}, #{type}, #{sect}, #{title}, #{contents}, #{date}, #{hits})
+		(BOARD_SORT, BOARD_SECT, BOARD_CODE_LANG, BOARD_TITLE, BOARD_CONTENTS, BOARD_DATE, BOARD_HITS)
+		VALUES (#{sort}, #{sect}, #{codeLang}, #{title}, #{contents}, #{date}, #{hits})
 	</insert>
 	
 	<delete id="delete">
@@ -115,8 +122,8 @@
 		UPDATE TB_PTFOLIO_BOARDS
 		SET 
 		BOARD_SORT = #{sort},
-		BOARD_TYPE = #{type},
 		BOARD_SECT = #{sect},
+		BOARD_CODE_LANG = #{codeLang},
 		BOARD_TITLE = #{title},
 		BOARD_CONTENTS = #{contents},
 		BOARD_DATE = #{date},

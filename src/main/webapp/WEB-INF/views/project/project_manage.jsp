@@ -4,31 +4,8 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/project/project-manage.css" />
+<script src="${pageContext.request.contextPath}/resources/js/project/project-manage.js"></script>
 
-<script type="text/javascript">
-	function projectView(seq){
-		window.location.href = getContextPath() + "/project/view?seq=" + seq;		
-	}
-
-	function projectDelete(seq){
-		swal({
-			  title: "정말로 삭제 하시겠습니까?",
-			  text: "삭제된 프로젝트는 복구 할 수 없습니다.",
-			  icon: "warning",
-			  buttons: ["취소", "삭제"],
-			  dangerMode: true,
-			})
-			.then(willDelete => {
-			  if (willDelete) {
-				  window.location.href = getContextPath() + "/admin/project/delete.do?seq=" + seq;	
-			  } 
-			});
-	}
-	
-	function projectModify(seq){
-		window.location.href = getContextPath() + "/admin/project/upload?seq=" + seq;		
-	}
-</script>
 </head>
 <body>
 <div class="wrapper">
@@ -52,9 +29,9 @@
 		
 			<c:forEach var="project" items="${projects}">
 				<div class="list-item">
-					<div class="item-seq">${project.seq}</div>
-					<div class="item-sort">${project.sort}</div>
-					<div class="item-title">${project.title}</div>
+					<div class="item-seq"><c:out value="${project.seq}"/></div>
+					<div class="item-sort"><c:out value="${project.sort}"/></div>
+					<div class="item-title"><c:out value="${project.title}"/></div>
 					<div class="item-snapsht"><img src="${pageContext.request.contextPath}${project.snapsht}"/></div>
 					<div class="btn item-detail-view"><a href="javascript:void(0)" onclick="projectView('${project.seq}')">보기</a></div>
 					<div class="btn item-modify"><a href="javascript:void(0)" onclick="projectModify('${project.seq}')">수정</a></div>

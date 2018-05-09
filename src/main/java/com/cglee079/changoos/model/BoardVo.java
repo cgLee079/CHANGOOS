@@ -2,9 +2,9 @@ package com.cglee079.changoos.model;
 
 public class BoardVo {
 	private int seq;
-	private String type;
 	private int sort;
 	private String sect;
+	private String codeLang;
 	private String title;
 	private String contents;
 	private String date;
@@ -13,8 +13,16 @@ public class BoardVo {
 
 	@Override
 	public String toString() {
-		return "BoardVo [seq=" + seq + ", type=" + type + ", sort=" + sort + ", sect=" + sect + ", title=" + title
-				+ ", contents=" + contents + ", date=" + date + ", hits=" + hits + "]";
+		return "BoardVo [seq=" + seq + ", sort=" + sort + ", sect=" + sect + ", title=" + title + ", contents="
+				+ contents + ", date=" + date + ", hits=" + hits + "]";
+	}
+
+	public String getCodeLang() {
+		return codeLang;
+	}
+
+	public void setCodeLang(String codeLang) {
+		this.codeLang = codeLang;
 	}
 
 	public int getSeq() {
@@ -23,14 +31,6 @@ public class BoardVo {
 
 	public void setSeq(int seq) {
 		this.seq = seq;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	public int getSort() {

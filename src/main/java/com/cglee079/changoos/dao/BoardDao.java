@@ -2,6 +2,7 @@ package com.cglee079.changoos.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,38 +19,38 @@ public class BoardDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public List<BoardVo> list() {
-		return sqlSession.selectList(namespace +".list");
+	public BoardVo get(int seq) {
+		return sqlSession.selectOne(namespace +".S01", seq);
 	}
 	
-	public List<BoardVo> list(String type) {
+	public BoardVo getBefore(int seq) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("type", type);
-		return sqlSession.selectList(namespace +".list", map);
+		map.put("seq", seq);
+		return sqlSession.selectOne(namespace +".S02", map);
 	}
-
-	public List<BoardVo> list(int startRow, int perPgLine, String type, String searchType, String searchValue) {
+	
+	public BoardVo getAfter(int seq) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("startRow", startRow);
-		map.put("perPgLine", perPgLine);
-		map.put("type", type);
-		map.put("searchType", searchType);
-		map.put("searchValue", searchValue);
-		return sqlSession.selectList(namespace +".list", map);
+		map.put("seq", seq);
+		return sqlSession.selectOne(namespace +".S03", map);
 	}
 
-	public int count(String type, String searchType, String searchValue) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("type", type);
-		map.put("searchType", searchType);
-		map.put("searchValue", searchValue);
-		return sqlSession.selectOne(namespace +".count", map);
+	public List<BoardVo> list() {
+		return sqlSession.selectList(namespace +".S04");
+	}
+	
+	public List<BoardVo> list(Map<String, Object> params) {
+		return sqlSession.selectList(namespace +".S04", params);
+	}
+	
+	public int count(Map<String, Object> params) {
+		return sqlSession.selectOne(namespace +".S05", params);
 	}
 
-	public BoardVo get(int seq) {
-		return sqlSession.selectOne(namespace +".get", seq);
+	public List<String> getSects() {
+		return sqlSession.selectList(namespace +".S06");
 	}
-
+	
 	public int insert(BoardVo board) {
 		sqlSession.insert(namespace +".insert", board);
 		return board.getSeq();
@@ -61,19 +62,5 @@ public class BoardDao {
 
 	public boolean update(BoardVo board) {
 		return  sqlSession.update(namespace +".update", board) == 1;
-	}
-
-	public BoardVo getBefore(int seq, String type) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("seq", seq);
-		map.put("type", type);
-		return sqlSession.selectOne(namespace +".getBefore", map);
-	}
-	
-	public BoardVo getAfter(int seq, String type) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("seq", seq);
-		map.put("type", type);
-		return sqlSession.selectOne(namespace +".getAfter", map);
 	}
 }
