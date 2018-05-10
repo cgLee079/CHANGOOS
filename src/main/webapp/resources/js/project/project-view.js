@@ -50,7 +50,6 @@ function downloadFile(pathNm){
 
 function initBeforeProjectTooltip(){
     $(".btn-project-before").tooltip({
-    	 tooltipClass: "btn-project-tooltip",
     	 show : null,
     	 hide : null,
     });
@@ -58,7 +57,6 @@ function initBeforeProjectTooltip(){
 
 function initAfterProjectTooltip(){
 	$(".btn-project-next").tooltip({
-		 tooltipClass: "btn-project-tooltip",
 		 show : null,
 		 hide : null,
 	});
