@@ -5,7 +5,6 @@ $(document).ready(function(){
 function fn_onInitDataGrid(){
 	$('#dg').datagrid({
 		url: getContextPath() + '/admin/project/manageList.do',
-		title : "프로젝트 리스트",
 		method: 'post',
 		singleSelect: true,
 		remoteSort: true,

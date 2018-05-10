@@ -6,7 +6,6 @@ $(document).ready(function(){
 function fn_onInitDataGrid(){
 	$('#dg').datagrid({
 		url: getContextPath() + '/admin/photo/manageList.do',
-		title : "사진 리스트",
 		method: 'post',
 		singleSelect: true,
 		remoteSort: true,
