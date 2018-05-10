@@ -1,13 +1,13 @@
 package com.cglee079.changoos.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cglee079.changoos.model.PhotoVo;
-import com.cglee079.changoos.model.ProjectVo;
 
 @Repository
 public class PhotoDao {
@@ -16,12 +16,12 @@ public class PhotoDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public List<PhotoVo> list(){
-		return sqlSession.selectList(namespace + ".list");
-	}
-	
 	public PhotoVo get(int seq) {
 		return sqlSession.selectOne(namespace + ".get", seq);
+	}
+	
+	public List<PhotoVo> list(Map<String, Object> map){
+		return sqlSession.selectList(namespace + ".list", map);
 	}
 	
 	public boolean insert(PhotoVo photo) {

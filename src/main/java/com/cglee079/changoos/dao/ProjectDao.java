@@ -1,6 +1,7 @@
 package com.cglee079.changoos.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,12 @@ public class ProjectDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public List<ProjectVo> list(){	
-		return sqlSession.selectList(namespace + ".list");
-	}
-	
 	public ProjectVo get(int seq) {
 		return sqlSession.selectOne(namespace + ".get", seq);
+	}
+	
+	public List<ProjectVo> list(Map<String, Object> map) {
+		return sqlSession.selectList(namespace + ".list", map);
 	}
 	
 	public int insert(ProjectVo project) {
@@ -43,5 +44,4 @@ public class ProjectDao {
 	public ProjectVo getAfter(int sort) {
 		return sqlSession.selectOne(namespace + ".getAfter", sort);
 	}
-
 }

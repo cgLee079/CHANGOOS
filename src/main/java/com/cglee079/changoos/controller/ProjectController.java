@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -22,13 +23,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.ProjectFileVo;
 import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.service.ProjectFileService;
 import com.cglee079.changoos.service.ProjectService;
 import com.cglee079.changoos.util.ImageManager;
 import com.cglee079.changoos.util.TimeStamper;
+import com.google.gson.Gson;
 
 @Controller
 public class ProjectController {
@@ -44,7 +45,7 @@ public class ProjectController {
 	/** 프로젝트 리스트 **/
 	@RequestMapping(value = "/project")
 	public String projectList(Model model) {
-		List<ProjectVo> projects = projectService.list();
+		List<ProjectVo> projects = projectService.list(null);
 		model.addAttribute("projects", projects);
 		return "project/project_list";
 	}
@@ -94,9 +95,16 @@ public class ProjectController {
 	/** 프로젝트 관리자 페이지 이동 **/
 	@RequestMapping(value = "/admin/project/manage")
 	public String projectManage(Model model) {
-		List<ProjectVo> projects = projectService.list();
-		model.addAttribute("projects", projects);
 		return "project/project_manage";
+	}
+	
+	/** 프로젝트 관리자 페이디 리스트, Ajax **/
+	@ResponseBody
+	@RequestMapping(value = "/admin/project/manageList.do")
+	public String DoProjectManageList(@RequestParam Map<String,Object> map) {
+		List<ProjectVo> projects = projectService.list(map);
+		Gson gson = new Gson();
+		return gson.toJson(projects).toString();
 	}
 	
 	/** 프로젝트 삭제 **/

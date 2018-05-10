@@ -17,27 +17,7 @@
 		</div>
 		
 		<div class="project-list">
-			<div class="list-item list-item-header">
-				<div class="item-seq">SEQ</div>
-				<div class="item-sort">SORT</div>
-				<div class="item-title">TITLE</div>
-				<div class="item-snapsht">SNAPSHT</div>
-				<div class="item-detail-view">보기</div>
-				<div class="item-modify">수정</div>
-				<div class="item-delete">삭제</div>
-			</div>
-		
-			<c:forEach var="project" items="${projects}">
-				<div class="list-item">
-					<div class="item-seq"><c:out value="${project.seq}"/></div>
-					<div class="item-sort"><c:out value="${project.sort}"/></div>
-					<div class="item-title"><c:out value="${project.title}"/></div>
-					<div class="item-snapsht"><img src="${pageContext.request.contextPath}${project.snapsht}"/></div>
-					<div class="btn item-detail-view"><a href="javascript:void(0)" onclick="projectView('${project.seq}')">보기</a></div>
-					<div class="btn item-modify"><a href="javascript:void(0)" onclick="projectModify('${project.seq}')">수정</a></div>
-					<div class="btn item-delete"><a href="javascript:void(0)" onclick="projectDelete('${project.seq}')">삭제</a></div>
-				</div>
-			</c:forEach>
+			<table id="dg" style="width: 100%; height:100%;"></table>
 		</div>
 	</div>
 	

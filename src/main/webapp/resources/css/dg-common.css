@@ -1,0 +1,8 @@
+.dg-btn{
+	cursor: pointer;
+	color: #00F;
+}
+
+.dg-btn:hover{
+	font-weight: bold;
+}

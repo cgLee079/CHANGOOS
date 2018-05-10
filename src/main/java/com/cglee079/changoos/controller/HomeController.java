@@ -1,7 +1,6 @@
 package com.cglee079.changoos.controller;
 
 import java.util.List;
-import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/")
 	public String home(Model model) {
-		List<ProjectVo> projects = projectService.list();
+		List<ProjectVo> projects = projectService.list(null);
 		model.addAttribute("projects", projects);
 		return "main_home";
 	}

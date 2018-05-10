@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -33,8 +34,8 @@ public class PhotoService {
 	@Autowired
 	private PhotoDao photoDao;
 	
-	public List<PhotoVo> list(){
-		return photoDao.list();
+	public List<PhotoVo> list(Map<String, Object> map){
+		return photoDao.list(map);
 	}
 	
 	public boolean insert(PhotoVo photo){

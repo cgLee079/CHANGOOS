@@ -2,13 +2,12 @@ package com.cglee079.changoos.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cglee079.changoos.dao.ProjectDao;
-import com.cglee079.changoos.dao.ProjectFileDao;
-import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.ProjectVo;
 
 @Service
@@ -16,8 +15,8 @@ public class ProjectService {
 	@Autowired
 	private ProjectDao projectDao;
 	
-	public List<ProjectVo> list(){
-		return projectDao.list();
+	public List<ProjectVo> list(Map<String, Object> map) {
+		return projectDao.list(map);
 	}
 	
 	public int insert(ProjectVo project) {
@@ -70,5 +69,4 @@ public class ProjectService {
 	public ProjectVo getAfter(int sort) {
 		return projectDao.getAfter(sort);
 	}
-
 }
