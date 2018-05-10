@@ -1,7 +1,11 @@
+.wrap-photo-view{
+	display: flex;
+	flex-flow : column nowrap;	
+}
+
 .photo-view{
-	width: 100%;
-	flex :1;
-	padding : 20px 0px;
+	height : 80%;
+	padding : 20px;
 	margin-top: 0.5rem;
 	border: 1px solid #eee;
 	background: #FFF;
@@ -9,7 +13,6 @@
 
 .photo-view > .photo-img{
 	width : auto;
-	height: 70%;
 	background-position	: center;
     background-repeat	: no-repeat;
     background-size		: contain;
@@ -17,9 +20,7 @@
 
 .photo-view > .photo-detail{
 	padding : 0.5rem;
-	width: 60%;
 	margin: 0px auto;
-	margin-top: 1rem;
 	height : 25%;
 }
 

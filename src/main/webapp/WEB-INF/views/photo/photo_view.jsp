@@ -1,15 +1,15 @@
 <%@ page pageEncoding="UTF-8" %>
 <html>
 <head>
-<%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
+<%@ include file="/WEB-INF/views/included/included_head.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/photo/photo-view.css" />
-<script src="${pageContext.request.contextPath}/resources/js/photo/photo-view.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/photo/photo-view.js"></script> 
 </head>
 <body>
 <div class="wrapper">
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8">
 	</c:import>
-	<div class="wrap-photo-view col-center">
+	<div class="wrap-photo-view">
 		<div class="photo-view">
 			<div class="photo-img"></div>
 			<div class="photo-detail">

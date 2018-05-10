@@ -37,7 +37,7 @@ function boardView(seq){
 		window.location.href = getContextPath() + "/board/view?seq=" + seq + "&sect=" + sect + "&page=" + boardPage;
 	} else {
 		if(sect){
-			swal( sect + " 부분 글이 더 이상 없습니다.");
+			swal( sect + " 영역 글이 더 이상 없습니다.");
 		} else{
 			swal("글이 더 이상 없습니다.");
 		}
