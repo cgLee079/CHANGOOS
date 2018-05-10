@@ -49,7 +49,8 @@
 						 <strong>2012.05</strong> &nbsp&nbsp Military Service (21 Months). <br/>
 						 <strong>2017.02</strong> &nbsp&nbsp Victory Graduate Competition <br/>
 						 <strong>2017.07</strong> &nbsp&nbsp Intern at Nexgen Associate (Web, SI) <br/>
-						 <strong>2018.02</strong> &nbsp&nbsp Graduated from university <br/>
+						 <strong>2018.02</strong> &nbsp&nbsp Graduated with honor from University <br/>
+						 <strong>2018.03</strong> &nbsp&nbsp Develop CoinNoticer Service<br/>
 					 </p>
 				</div>
 				
@@ -62,11 +63,18 @@
 					<div class="row-border"></div>
 					Coumputer Enginnering 
 					Bachelor's degree at Hausng University. <br/>
-					Grade &nbsp&nbsp<strong>4.22 / 4.5</strong> <br/>
+					Grade &nbsp&nbsp<strong>4.22/4.5</strong>&nbsp&nbsp(Major <strong>4.4/4.5</strong>)<br/>
 					Toeic &nbsp&nbsp&nbsp<strong>845</strong> <br/>
-					Data Processing Engineer, <br/>
-					Craftsman Information Equipment Operation,<br/>
-					MS master, GTQ
+					<br/>
+					<strong>Certificate</strong> <br/>
+					2015.03.15 &nbsp&nbsp Craftsman Information Equipment Operation<br/>
+					2015.09.11 &nbsp&nbsp GTQ<br/>
+					2016.12.16 &nbsp&nbsp MS master<br/>
+					2017.03.16 &nbsp&nbsp Data Processing Engineer <br/>
+					<br/>
+					<strong>Current</strong><br/>
+					Master of CoinNoticer Service
+					
 				</div>
 			</div>
 			
