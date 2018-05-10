@@ -5,7 +5,7 @@
 
 .photo-view{
 	height : 80%;
-	padding : 20px;
+	width : 100%;
 	margin-top: 0.5rem;
 	border: 1px solid #eee;
 	background: #FFF;
@@ -13,15 +13,17 @@
 
 .photo-view > .photo-img{
 	width : auto;
+	margin : 0.5rem 0;
 	background-position	: center;
     background-repeat	: no-repeat;
     background-size		: contain;
 }
 
 .photo-view > .photo-detail{
-	padding : 0.5rem;
+	width : 80%;
+	padding : 0.5rem 3rem;
 	margin: 0px auto;
-	height : 25%;
+	height : 30%;
 }
 
 .photo-view > .photo-detail > .photo-info{

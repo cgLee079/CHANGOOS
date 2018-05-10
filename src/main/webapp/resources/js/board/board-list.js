@@ -1,7 +1,7 @@
 var perPgLine = 10;
 var searchType = "";
 var searchValue = "";
-var sect = '';
+var sect = 'ALL';
 var page = '';
 var allRowCnt = '${count}';
 
@@ -13,13 +13,13 @@ $(document).ready(function(){
 	page = parseInt(window.location.hash.substring(1).split("&")[1]);
 
 	/* Sect Add Class 'on' */
-	if(sect){
-		var items = $(".board-sects .board-sects-item");
-		for(var i = 0; i < items.length; i++){
-			if($(items[i]).text() == sect){
-				$(items[i]).addClass("on");
-				break;
-			}
+	if(!sect){ sect = 'ALL'; }
+	
+	var items = $(".board-sects .board-sects-item");
+	for(var i = 0; i < items.length; i++){
+		if($(items[i]).text() == sect){
+			$(items[i]).addClass("on");
+			break;
 		}
 	}
 	
@@ -59,20 +59,19 @@ function search(){
 function selectSect(tg){
 	var tg = $(tg);
 	
-	if(tg.hasClass("on")){
-		tg.removeClass("on");
-		sect = "";
-	} else{
-		var items = $(".board-sects .board-sects-item");
-		items.removeClass("on");
-		tg.addClass("on");
-		sect = tg.text();
-	}
+	var items = $(".board-sects .board-sects-item");
+	items.removeClass("on");
+	tg.addClass("on");
+	sect = tg.text();
 	
 	pageMove(1);
 }
 
 function pageMove(pg){
+	if(sect == "ALL"){
+		sect = '';
+	}
+	
 	$.ajax({
 		type	: "POST",
 		url		: getContextPath() + "/board/board_paging.do",

@@ -14,6 +14,7 @@
 	
 	<div class="wrap-board">
 		<div class="board-sects">
+			<div class="board-sects-item" onclick="selectSect(this)">ALL</div>
 			<c:forEach var="sect" items="${sects}" varStatus="status">
 				<div class="board-sects-item" onclick="selectSect(this)"><c:out value="${sect}" /></div>
 			</c:forEach>
