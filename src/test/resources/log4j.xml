@@ -38,7 +38,7 @@
 		<level value="info" />
 	</logger>
 
-	<!-- Query Loggers -->
+		<!-- Query Loggers -->
 	<logger name="jdbc.sqlonly" additivity="false">
 		<level value="INFO" />
 		<appender-ref ref="console-infolog" />
@@ -48,6 +48,27 @@
 		<level value="INFO" />
 		<appender-ref ref="console" />
 	</logger>
+	
+	<!-- only use the two logs below to trace ALL JDBC information,
+		NOTE:  This can be very voluminous!  -->
+	<!-- log all jdbc calls except ResultSet calls -->
+	<logger name="jdbc.connection" additivity="false">
+		<level value="DEBUG" />
+	</logger>
+	
+	<logger name="jdbc.sqltiming" additivity="false">
+		<level value="DEBUG" />
+	</logger>
+	
+	<logger name="jdbc.audit" additivity="false">
+		<level value="DEBUG" />
+	</logger>
+
+	<!-- log the jdbc ResultSet calls -->
+	<logger name="jdbc.resultset" additivity="false">
+		<level value="DEBUG" />
+	</logger>
+	
 	
 	<!-- Root Logger -->
 	<root>
