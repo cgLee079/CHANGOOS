@@ -69,7 +69,7 @@
 					<strong>Certificate</strong> <br/>
 					2015.03.15 &nbsp&nbsp Craftsman Information Equipment Operation<br/>
 					2015.09.11 &nbsp&nbsp GTQ<br/>
-					2016.12.16 &nbsp&nbsp MS master<br/>
+					2016.12.16 &nbsp&nbsp MOS master<br/>
 					2017.03.16 &nbsp&nbsp Data Processing Engineer <br/>
 					<br/>
 					<strong>Current</strong><br/>
