@@ -33,10 +33,12 @@
 		BOARD_HITS as "hits",
 		count(B.BCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_BOARDS A LEFT OUTER JOIN TB_PTFOLIO_BOARD_COMTS B ON A.BOARD_SEQ = B.BCOMT_BOARD_SEQ
-		WHERE <![CDATA[BOARD_SEQ < #{seq}]]>  
+		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
+		<![CDATA[BOARD_SEQ < #{seq}]]>  
 		<if test="sect != ''">
  		<![CDATA[AND UPPER(BOARD_SECT) = UPPER(#{sect})]]>
   		</if>
+  		</trim>
 		GROUP BY A.BOARD_SEQ
 		ORDER BY BOARD_SEQ DESC LIMIT 1
 	</select>
@@ -54,10 +56,12 @@
 		BOARD_HITS as "hits",
 		count(B.BCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_BOARDS A LEFT OUTER JOIN TB_PTFOLIO_BOARD_COMTS B ON A.BOARD_SEQ = B.BCOMT_BOARD_SEQ
-		WHERE <![CDATA[BOARD_SEQ > #{seq}]]>
+		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
+		<![CDATA[BOARD_SEQ > #{seq}]]>
 		<if test="sect != ''">
  		<![CDATA[AND UPPER(BOARD_SECT) = UPPER(#{sect})]]>
   		</if>
+  		</trim>
 		GROUP BY A.BOARD_SEQ
 		ORDER BY BOARD_SEQ ASC LIMIT 1
 	</select>
@@ -75,13 +79,14 @@
 		BOARD_HITS as "hits",
 		count(B.BCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_BOARDS A LEFT OUTER JOIN TB_PTFOLIO_BOARD_COMTS B ON A.BOARD_SEQ = B.BCOMT_BOARD_SEQ
-		WHERE 1 = 1 
+		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<if test="sect != ''">
  		<![CDATA[AND UPPER(BOARD_SECT) = UPPER(#{sect})]]>
   		</if>
   		<if test="searchType == 'TITLE' and searchValue != ''">
  		<![CDATA[AND UPPER(BOARD_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
   		</if>
+  		</trim>
   		GROUP BY A.BOARD_SEQ
 		ORDER BY BOARD_SORT, BOARD_DATE DESC, BOARD_SEQ DESC
 		<if test="startRow != null and perPgLine != null">
@@ -94,7 +99,7 @@
 		SELECT
 			count(*)
 		FROM TB_PTFOLIO_BOARDS
-		WHERE 1 = 1
+		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<if test="sect != ''">
  		<![CDATA[AND UPPER(BOARD_SECT) = UPPER(#{sect})]]>
   		</if>
@@ -104,6 +109,7 @@
   		<if test="searchType == 'TITLE' and searchValue != ''">
  		<![CDATA[AND UPPER(BOARD_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
   		</if>
+  		</trim>
 	</select>
 	
 	<select id="S06" resultType="String">

@@ -14,8 +14,7 @@
 		FILE_PATH_NM as 'pathNm',
 		FILE_SIZE	 as 'size'
 		FROM TB_PTFOLIO_BOARD_FILES
-		WHERE 1 = 1 
-		AND FILE_BOARD_SEQ = #{boardSeq}
+		WHERE FILE_BOARD_SEQ = #{boardSeq}
 	</select>
 	
 	<select id="get" resultType="com.cglee079.changoos.model.BoardFileVo" parameterType="map">
@@ -26,13 +25,14 @@
 		FILE_PATH_NM as 'pathNm',
 		FILE_SIZE	 as 'size'
 		FROM TB_PTFOLIO_BOARD_FILES
-		WHERE 1 = 1
+		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<if test="pathNm != null">
   		AND FILE_PATH_NM = #{pathNm} 
   		</if>
   		<if test="seq != null">
   		AND FILE_SEQ = #{seq} 
   		</if>
+  		</trim>
 	</select>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.BoardFileVo">
@@ -43,8 +43,7 @@
 	
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM TB_PTFOLIO_BOARD_FILES
-		WHERE 1 = 1 
-		AND FILE_SEQ = #{seq}
+		WHERE AND FILE_SEQ = #{seq}
 	</delete>	
 	
 	

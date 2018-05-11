@@ -8,8 +8,7 @@
 		SELECT
 			count(*)
 		FROM TB_PTFOLIO_BOARD_COMTS
-		WHERE 1=1
-		AND BCOMT_BOARD_SEQ = #{boardSeq} 
+		WHERE BCOMT_BOARD_SEQ = #{boardSeq}
 	</select>
 	
 	<select id="list" resultType="com.cglee079.changoos.model.BoardComtVo" parameterType="map">
@@ -22,8 +21,7 @@
 		BCOMT_DATE as "date",
 		BCOMT_PARENT_SEQ as "parentSeq"
 		FROM TB_PTFOLIO_BOARD_COMTS
-		WHERE 1=1
-		AND BCOMT_BOARD_SEQ = #{boardSeq}
+		WHERE BCOMT_BOARD_SEQ = #{boardSeq}
 		ORDER BY CONCAT(IF(BCOMT_PARENT_SEQ is null, COALESCE(BCOMT_PARENT_SEQ, ''), CONCAT('_', LPAD(BCOMT_PARENT_SEQ,6,'0')) ), '_',LPAD(BCOMT_SEQ,6,'0'))
 		LIMIT #{startRow}, #{perPgLine}
 	</select>
