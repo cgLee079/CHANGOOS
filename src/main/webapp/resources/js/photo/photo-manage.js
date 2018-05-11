@@ -10,7 +10,6 @@ function fn_onInitDataGrid(){
 		singleSelect: true,
 		remoteSort: true,
 		fitColumns: false,
-		pagination: true,
 		checkOnSelect: false,
 		selectOnCheck: false,
 		emptyMsg: '데이터가 없습니다.',

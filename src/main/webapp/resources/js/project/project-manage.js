@@ -9,14 +9,9 @@ function fn_onInitDataGrid(){
 		singleSelect: true,
 		remoteSort: true,
 		fitColumns: false,
-		pagination: true,
 		checkOnSelect: false,
 		selectOnCheck: false,
 		emptyMsg: '데이터가 없습니다.',
-		onLoadSuccess:function(data){
-			var option = $("#dg").datagrid("options");
-			console.log(data);
-		},
 		columns:[[
 			{field:'seq', title:'번호', width:'50px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'sort', title:'정렬', width:'50px', halign:'center', sortable : "true", styler : alignCenter},

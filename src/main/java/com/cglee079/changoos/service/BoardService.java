@@ -21,6 +21,10 @@ public class BoardService{
 	@Autowired
 	BoardDao boardDao;
 	
+	public List<BoardVo> list(Map<String, Object> map){
+		return boardDao.list(map);
+	}
+	
 	public List<BoardVo> paging(Map<String, Object> params){
 		int page = Integer.parseInt((String)params.get("page"));
 		int perPgLine = Integer.parseInt((String)params.get("perPgLine"));

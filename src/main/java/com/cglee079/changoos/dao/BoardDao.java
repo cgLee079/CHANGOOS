@@ -37,10 +37,6 @@ public class BoardDao {
 		return sqlSession.selectOne(namespace +".S03", map);
 	}
 
-	public List<BoardVo> list() {
-		return sqlSession.selectList(namespace +".S04");
-	}
-	
 	public List<BoardVo> list(Map<String, Object> params) {
 		return sqlSession.selectList(namespace +".S04", params);
 	}

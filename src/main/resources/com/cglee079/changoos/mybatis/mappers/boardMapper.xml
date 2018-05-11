@@ -80,7 +80,7 @@
 		count(B.BCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_BOARDS A LEFT OUTER JOIN TB_PTFOLIO_BOARD_COMTS B ON A.BOARD_SEQ = B.BCOMT_BOARD_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
-		<if test="sect != ''">
+		<if test="sect != '' and sect != NULL">
  		<![CDATA[AND UPPER(BOARD_SECT) = UPPER(#{sect})]]>
   		</if>
   		<if test="searchType == 'TITLE' and searchValue != ''">
@@ -88,7 +88,14 @@
   		</if>
   		</trim>
   		GROUP BY A.BOARD_SEQ
+  		<choose>
+		<when test="sort != null">
+		ORDER BY ${sort} ${order}
+		</when>
+		<otherwise>
 		ORDER BY BOARD_SORT, BOARD_DATE DESC, BOARD_SEQ DESC
+		</otherwise>
+		</choose>
 		<if test="startRow != null and perPgLine != null">
  		LIMIT ${startRow}, ${perPgLine}
   		</if>

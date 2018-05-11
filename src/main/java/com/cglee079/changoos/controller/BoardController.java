@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.BoardVo;
+import com.cglee079.changoos.model.PhotoVo;
 import com.cglee079.changoos.service.BoardFileService;
 import com.cglee079.changoos.service.BoardService;
 import com.cglee079.changoos.util.ImageManager;
@@ -108,6 +109,21 @@ public class BoardController {
 		    response.getOutputStream().flush();
 		    response.getOutputStream().close();
 		}
+	}
+	
+	/** 게시글 관리 페이지로 이동 **/
+	@RequestMapping(value = "/admin/board/manage")
+	public String photoManage(Model model) {
+		return "board/board_manage";
+	}
+	
+	/** 게시글 관리 페이지 리스트, Ajax **/
+	@ResponseBody
+	@RequestMapping(value = "/admin/board/manageList.do")
+	public String DoPhotoManageList(@RequestParam Map<String, Object> map) {
+		List<BoardVo> photos = boardService.list(map);
+		Gson gson = new Gson();
+		return gson.toJson(photos).toString();
 	}
 	
 	/** 게시글 업로드 페이지로 이동 **/

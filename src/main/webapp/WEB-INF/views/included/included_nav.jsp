@@ -20,7 +20,7 @@
 	  		<a href="${pageContext.request.contextPath}/j_spring_security_logout" class="btn btn-admin-login">로그아웃 </a>
 	  		<a href="${pageContext.request.contextPath}/admin/project/manage" class="btn btn-admin-login">프로젝트관리 </a>
 	  		<a href="${pageContext.request.contextPath}/admin/photo/manage" class="btn btn-admin-login">사진관리 </a>
-	  		<a href="${pageContext.request.contextPath}/admin/board/upload" class="btn btn-admin-login">게시판글쓰기 </a>
+	  		<a href="${pageContext.request.contextPath}/admin/board/manage" class="btn btn-admin-login">게시판관리 </a>
 	  	</div>    
 	</sec:authorize>
 </div>
