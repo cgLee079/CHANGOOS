@@ -1,13 +1,17 @@
 package com.cglee079.changoos.controller;
 
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cglee079.changoos.model.AdminVo;
 import com.cglee079.changoos.model.ProjectComtVo;
 import com.cglee079.changoos.service.ProjectComtService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -40,7 +44,21 @@ public class ProjectComtController {
 	/** 프로젝트 댓글 삭제 **/
 	@ResponseBody
 	@RequestMapping("/project/comment/delete.do")
-	public String doDelete(int seq, String password, boolean isAdmin) throws SQLException, JsonProcessingException{
+	public String doDelete(Authentication auth, int seq, String password) throws SQLException, JsonProcessingException{
+		boolean isAdmin = false;
+		
+		if(auth != null) {
+			AdminVo vo = (AdminVo) auth.getPrincipal();
+			Iterator<? extends GrantedAuthority> iter = vo.getAuthorities().iterator();
+			while(iter.hasNext()) {
+				GrantedAuthority ga = iter.next();
+				if(ga.getAuthority().equals("ROLE_ADMIN")) {
+					isAdmin = true;
+					break;
+				}
+			}
+		}
+		
 		boolean result = pcomtService.delete(seq, password, isAdmin);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
@@ -49,8 +67,8 @@ public class ProjectComtController {
 	/** 프로젝트 댓글 비빌번호 확인 **/
 	@ResponseBody
 	@RequestMapping("project/comment/checkPwd.do")
-	public String doCheckPwd(int seq, String password, boolean isAdmin) throws SQLException, JsonProcessingException{
-		boolean result = pcomtService.checkPwd(seq, password, isAdmin);
+	public String doCheckPwd(int seq, String password) throws SQLException, JsonProcessingException{
+		boolean result = pcomtService.checkPwd(seq, password);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
 	}

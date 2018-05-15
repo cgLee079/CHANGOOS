@@ -17,11 +17,15 @@ public class PhotoDao {
 	private SqlSessionTemplate sqlSession;
 	
 	public PhotoVo get(int seq) {
-		return sqlSession.selectOne(namespace + ".get", seq);
+		return sqlSession.selectOne(namespace + ".S01", seq);
 	}
 	
 	public List<PhotoVo> list(Map<String, Object> map){
-		return sqlSession.selectList(namespace + ".list", map);
+		return sqlSession.selectList(namespace + ".S02", map);
+	}
+	
+	public List<Integer> seqs() {
+		return sqlSession.selectList(namespace + ".S03");
 	}
 	
 	public boolean insert(PhotoVo photo) {
@@ -35,4 +39,5 @@ public class PhotoDao {
 	public boolean update(PhotoVo photo) {
 		return sqlSession.update(namespace + ".update", photo) == 1;
 	}
+
 }

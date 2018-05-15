@@ -11,8 +11,8 @@ $(document).ready(function(){
 	perPgLine 	= 10;
 	boardType	= $("#boardType").val();
 	boardSeq	= $("#boardSeq").val();
+	isAdmin 	= $("#isAdmin").val();
 	comtCnt		= parseInt($("#comtCnt").val());
-	isAdmin		= $("#isAdmin").val();
 	comtFormTemp= $(".comment-write").clone();
 	path 		= getContextPath() + "/" + boardType;
 	
@@ -26,6 +26,7 @@ function br2nl(text){
 function nl2br(text){
 	return text.replace(/\n/g, "<br />");
 }
+
 function commentPageMove(pg){
 	$.ajax({
 		type	: "POST",
@@ -217,23 +218,19 @@ function commentModify(tg){
 	if(tg.hasClass("open")){
 		commentPageMove(page);
 	} else {
-		if(isAdmin === 'true'){
-			doModify("");
-		} else{
-			swal({
-				  text: '비밀번호를 입력해주세요',
-				  content: "input",
-				  buttons : ["취소", "확인"]
-				})
-				.then((pw) => {
-					if(pw){
-						doModify(pw);				  
-				  	}
-				});
-		}
+		swal({
+			  text: '비밀번호를 입력해주세요',
+			  content: "input",
+			  buttons : ["취소", "확인"]
+			})
+			.then((pw) => {
+				if(pw){
+					checkPwd(pw);				  
+			  	}
+			});
 	}
 	
-	function doModify(password){
+	function checkPwd(password){
 		var item= tg.parents(".comment-item");
 		var seq	= item.find(".comment-seq").val();
 		$.ajax({	
@@ -241,8 +238,7 @@ function commentModify(tg){
 			url		: path + "/comment/checkPwd.do",
 			data	: {
 				'seq' : seq,
-				'password'	: password,
-				'isAdmin'	: isAdmin 
+				'password'	: password
 			},
 			dataType : "JSON",
 			success : function(result) {
@@ -272,32 +268,17 @@ function commentModify(tg){
 }
 		
 function commentDelete(tg){
-	if(isAdmin === 'true'){
-		swal({
-			  title: "정말로 삭제 하시겠습니까?",
-			  text: "삭제된 댓글은 복구 할 수 없습니다.",
-			  icon: "warning",
-			  buttons: ["취소", "삭제"],
-			  dangerMode: true,
-			})
-			.then(willDelete => {
-			  if (willDelete) {
-				doDelete("");
-			  } 
-			});
-	} else{
-		swal({
-			  	text: '비밀번호를 입력해주세요',
-			  	content: "input",
-				buttons : ["취소", "확인"]
-			})
-			.then((pw) => {
-				if(pw){
-					doDelete(pw);				  
-			  	}
-			});
-	}
-	
+	swal({
+		  	text: '비밀번호를 입력해주세요',
+		  	content: "input",
+			buttons : ["취소", "확인"]
+		})
+		.then((pw) => {
+			if(pw){
+				doDelete(pw);				  
+		  	}
+		});
+
 	function doDelete(password){
 		var item= $(tg).parents(".comment-item");
 		var seq	= item.find(".comment-seq").val();
@@ -306,8 +287,7 @@ function commentDelete(tg){
 			url		: path + "/comment/delete.do",
 			data	: {
 				'seq' : seq,
-				'password' 	: password,
-				'isAdmin'	: isAdmin
+				'password' 	: password
 			},
 			dataType: 'JSON',
 			success : function(data) {

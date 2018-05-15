@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cglee079.changoos.mapper.PhotoMapper">
 	
-	<select id="get" resultType="com.cglee079.changoos.model.PhotoVo" parameterType="Integer">
+	<select id="S01" resultType="com.cglee079.changoos.model.PhotoVo" parameterType="Integer">
 		SELECT
 		PHOTO_SEQ as "seq",
 		PHOTO_SORT as "sort",
@@ -22,7 +22,7 @@
 		WHERE PHOTO_SEQ = #{seq}
 	</select>
 	
-	<select id="list" resultType="com.cglee079.changoos.model.PhotoVo">
+	<select id="S02" resultType="com.cglee079.changoos.model.PhotoVo">
 		SELECT
 		PHOTO_SEQ as "seq",
 		PHOTO_SORT as "sort",
@@ -42,9 +42,16 @@
 		ORDER BY ${sort} ${order}
 		</when>
 		<otherwise>
-		ORDER BY PHOTO_SORT, PHOTO_DATE DESC, PHOTO_TIME ASC
+		ORDER BY PHOTO_SORT, PHOTO_DATE DESC, PHOTO_TIME ASC, PHOTO_SEQ DESC
 		</otherwise>
 		</choose>
+	</select>
+	
+	<select id="S03" resultType="Integer">
+		SELECT
+		PHOTO_SEQ as "seq"
+		FROM TB_PTFOLIO_PHOTOS
+		ORDER BY PHOTO_SORT, PHOTO_DATE DESC, PHOTO_TIME ASC, PHOTO_SEQ DESC
 	</select>
 	
 	<delete id="delete">

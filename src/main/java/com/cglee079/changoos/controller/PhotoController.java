@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +33,9 @@ public class PhotoController {
 	@RequestMapping(value = "/photo")
 	public String photoHome(Model model) {
 		List<PhotoVo> photos = photoService.list(null);
+		List<Integer> seqs = photoService.seqs();
 		model.addAttribute("photos", photos);
+		model.addAttribute("seqs", seqs);
 		return "photo/photo_view";
 	}
 	
@@ -60,8 +63,16 @@ public class PhotoController {
 		return mapper.writeValueAsString(photo);
 	}
 	
+	/** 사진 좋아요 **/
+	@ResponseBody
+	@RequestMapping(value = "/photo/increaseLike.do")
+	public String increaseLike(int seq) throws JsonProcessingException {
+		int like = photoService.increaseLike(seq);
+		return new JSONObject().put("like", like).toString();
+	}
+	
 	/** 사진 삭제 **/
-	@RequestMapping(value = "admin/photo/delete.do")
+	@RequestMapping(value = "/admin/photo/delete.do")
 	public String photoDelete(HttpSession session, int seq) {
 		String rootPath = session.getServletContext().getRealPath("");
 		PhotoVo photo = photoService.get(seq);
@@ -73,7 +84,7 @@ public class PhotoController {
 	}
 	
 	/** 사진 업로드 페이지로 이동 **/
-	@RequestMapping(value = "admin/photo/upload", params = "!seq")
+	@RequestMapping(value = "/admin/photo/upload", params = "!seq")
 	public String photoUpload() {
 		return "photo/photo_upload";
 	}
@@ -87,7 +98,7 @@ public class PhotoController {
 	}
 	
 	/** 사진 업로드 **/
-	@RequestMapping(value = "admin/photo/upload.do", params = "!seq")
+	@RequestMapping(value = "/admin/photo/upload.do", params = "!seq")
 	public String photoDoUpload(HttpServletRequest request, PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
 		HttpSession session = request.getSession();
 		String rootPath 	= session.getServletContext().getRealPath("");

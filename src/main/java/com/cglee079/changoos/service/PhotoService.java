@@ -102,4 +102,17 @@ public class PhotoService {
 		existFile = new File (rootPath + subPath);
 		if(existFile.exists()){ existFile.delete(); }
 	}
+
+	public List<Integer> seqs() {
+		return photoDao.seqs();
+	}
+	
+	public int increaseLike(int seq) {
+		PhotoVo photo = photoDao.get(seq);
+		int like = photo.getLike() + 1;
+		photo.setLike(like);
+
+		photoDao.update(photo);
+		return like;
+	}
 }
