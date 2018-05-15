@@ -139,7 +139,7 @@ function updateComment(data){
 function makeReplyForm(){
 	var form = "";
 	form += '<div class="comment-reply row-center">';
-	form += '<img src="' + getContextPath() + '/resources/image/icon_comment_reply.png" style="width:1rem; height:1rem; margin-right: 0.3rem">';
+	form += '<img src="' + getContextPath() + '/resources/image/icon_comment_reply.svg" style="width:1rem; height:1rem; margin-right: 0.3rem">';
 	form += '<textarea class="comment-reply-content" id="contents" name="contents"/></textarea>';
 	form += '<div onclick="doReply(this)" class="comment-reply-submit col-center">답변</div>';
 	form += '</div>';

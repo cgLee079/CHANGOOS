@@ -11,44 +11,64 @@
 	</script>
 </c:if>
 <style>
-	html, body, .wrapper{
-		height : 100%;
-	}
-	
 	.wrap-form{
-		height : 100%;
+		position: absolute;
+		left : 0;
+		right : 0;
+		top 	: 0;
+		bottom : 0;
+		
+		display:  flex;
+		align-items: center;
+		justify-content: center;
+		
+	}
+	.input-head{
+		font-weight: bold;
+		font-size: 2rem;
 		text-align: center;
+		margin-bottom: 1rem;
 	}
 	
-	.tb-admin-login{
-		margin : 0.2rem;
-	}
+	.input-id, .input-pwd{
+		border: 1px solid #AAA;
+		border-radius: 2px;
+		width : 100%;
+		height : 1rem;
+		margin-bottom: 0.5rem;
+	}	
 	
-	.tb-admin-login tr td{
-		padding : 0.3rem;
+	.btn-submit{
+		border-radius: 2px;
+		width : 100%;
+		background: #666;
+		color : #FFF;
+		text-align: center;
+		padding : 0.2rem 0.1rem;
+		cursor: pointer;
 	}
 </style>
 </head>
 
 <body>
 	<div class="wrapper">
-		<div class="wrap-form row-center">
+		<c:import url="included/included_nav.jsp" charEncoding="UTF-8" />
+	
+		<div class="wrap-form">
 			<form id="form-admin-login" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
-				<h1>CHANGOO'S</h1>
-				<table class="tb-admin-login">
-				<tr>
-				<td>USERNAME</td>
-				<td><input type="text" name="username" /></td>
-				</tr>
-				<tr>
-				<td>PASSWORD</td>
-				<td><input type="password" name="password"/></td>
-				</tr>
-				<tr>
-				<td></td>
-				<td style="text-align: right;"><input type="submit" value="로그인"/></td>
-				</tr>
-				</table>
+				<div class="input-head">
+					CHANGOO'S
+				</div>
+				
+				<div>
+				<input type="text" name="username" placeholder="ID" onkeydown="javascript:if(event.keyCode==13){$('.input-pwd').focus();}" class="input-id"/>
+				</div>
+				
+				<div>
+				<input type="password" name="password" placeholder="PASSWORD" onkeydown="javascript:if(event.keyCode==13){$('#form-admin-login').submit()}" class="input-pwd"/>
+				</div>
+				
+				<div class="btn-submit" onclick="$('#form-admin-login').submit()"> 로그인 </div>
 			</form>
 		</div>
 	</div>

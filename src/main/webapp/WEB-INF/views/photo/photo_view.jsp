@@ -21,8 +21,8 @@
 					<div class="photo-img"></div>
 					<div class="photo-sub">
 						<div class="photo-menu">
-							<div class="btn btn-photo-like" onclick="increaseLike(this)" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn-photo-like.png);"></div>
-							<div class="btn btn-photo-comment" onclick="showWriteComment(this)" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn-photo-comment.png);"></div>
+							<div class="btn btn-photo-like" onclick="increaseLike(this)" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn-photo-like.svg);"></div>
+							<div class="btn btn-photo-comment" onclick="showWriteComment(this)" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn-photo-comment.svg);"></div>
 						</div>
 						
 						<div class="photo-detail">
