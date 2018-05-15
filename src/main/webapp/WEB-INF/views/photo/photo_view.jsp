@@ -59,11 +59,13 @@
 		
 		<div class="snapsht-list">
 			<div class="snapsht-list-scroll">
+				<div class="snapsht-list-cut"></div>
 				<c:forEach items="${photos}" var="photo" varStatus="status" >
 					<div class="btn snapsht-list-item" onclick="showPhoto('${status.index}')"  
 						style="background-image: url('${pageContext.request.contextPath}${photo.snapsht}')">
 					</div>
 				</c:forEach>
+				<div class="snapsht-list-cut"></div>
 			</div>
 		</div>
 	</div>

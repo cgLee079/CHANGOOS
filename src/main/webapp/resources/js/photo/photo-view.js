@@ -158,18 +158,22 @@ function increaseLike(tg){
 	var item 	= tg.parents(".photo-list-item");
 	var seq 	= item.find("#photo-seq").val();
 	
-	$.ajax({	
-		type	: "POST",
-		url		:  getContextPath() + "/photo/increaseLike.do",
-		data	: {
-			'seq' : seq
-		},
-		dataType: 'JSON',
-		asyncl 	: false,
-		success : function(data) {
-			item.find(".photo-like").text("♡" + data.like);
-		}
-	});
+	if(!tg.hasClass("on")) {
+		$.ajax({	
+			type	: "POST",
+			url		:  getContextPath() + "/photo/increaseLike.do",
+			data	: {
+				'seq' : seq
+			},
+			dataType: 'JSON',
+			asyncl 	: false,
+			success : function(data) {
+				item.find(".photo-like").text("♡" + data.like);
+				tg.addClass("on");
+				tg.css("background-image", "url('" + getContextPath() + "/resources/image/btn-photo-like-on.svg')");
+			}
+		});
+	}
 }
 
 /* About Comment */

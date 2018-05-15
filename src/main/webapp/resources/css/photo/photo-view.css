@@ -58,7 +58,7 @@
 }
 
 .photo-sub>.photo-detail {
-	min-height: 8rem;
+	min-height: 5rem;
 	margin-bottom: 1rem;
 }
 
@@ -182,6 +182,13 @@
 	flex-flow: row wrap;
 	justify-content: center;
 	overflow-y: scroll;
+}
+
+.snapsht-list-cut {
+	height: 0.7rem;
+	width: 150px;
+	margin: 1px;
+	background: #333;
 }
 
 .snapsht-list-item {
