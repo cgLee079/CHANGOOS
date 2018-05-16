@@ -127,6 +127,15 @@
 
 .photo-comments .comment .comment-contents {
 	flex: 1;
+	max-width : calc(100% - 12rem);
+	white-space: normal ;
+	word-break : break-all;
+}
+
+.photo-comments .comment .comment-date {
+	width: 5rem;
+	text-align: right;
+	color : #888;
 }
 
 .photo-comments .comment .btn-comment-delete {
