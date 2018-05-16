@@ -30,5 +30,14 @@
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
+	<!-- Error Handle -->
+	<beans:bean id="exceptionMapping" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<beans:property name="exceptionMappings">
+			<beans:props>
+				<beans:prop key="Exception">error/default</beans:prop>
+			</beans:props>
+		</beans:property>
+		<beans:property name="defaultErrorView" value="error/default" />
+	</beans:bean>
 
 </beans:beans>

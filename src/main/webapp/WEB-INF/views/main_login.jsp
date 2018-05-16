@@ -42,7 +42,7 @@
 	.btn-submit{
 		border-radius: 2px;
 		width : 100%;
-		background: #666;
+		background: #989;
 		color : #FFF;
 		text-align: center;
 		padding : 0.2rem 0.1rem;
