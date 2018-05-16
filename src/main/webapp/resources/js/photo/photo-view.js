@@ -17,7 +17,7 @@ $(document).ready(function(){
 			}
 		});
 	} else{
-		photoWrapper = $(".photo-list-scroll");
+		photoWrapper = $(".photo-list");
 		photoWrapper.scroll(function(){
 			var scrollPosition = $(this).scrollTop() + $(this).outerHeight();
 			var docHeight = $(this)[0].scrollHeight ;
@@ -179,8 +179,7 @@ function deleteComment(tg){
 		  	text: '비밀번호를 입력해주세요',
 		  	content: "input",
 			buttons : ["취소", "확인"]
-		})
-		.then((pw) => {
+		}).then((pw) => {
 			if(pw){
 				doDelete(pw);				  
 		  	}
