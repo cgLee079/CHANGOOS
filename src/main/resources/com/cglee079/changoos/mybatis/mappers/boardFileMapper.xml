@@ -43,7 +43,7 @@
 	
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM TB_PTFOLIO_BOARD_FILES
-		WHERE AND FILE_SEQ = #{seq}
+		WHERE FILE_SEQ = #{seq}
 	</delete>	
 	
 	

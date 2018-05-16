@@ -1,5 +1,5 @@
 var page;
-var perPgLine;
+var perPgLine; 
 var path;
 var comtFormTemp;
 var boardType;
@@ -16,7 +16,7 @@ $(document).ready(function(){
 	comtFormTemp= $(".comment-write").clone();
 	path 		= getContextPath() + "/" + boardType;
 	
-	commentPageMove(1);
+	commentPageMove(1); // Paging
 })
 
 function br2nl(text){
@@ -27,6 +27,7 @@ function nl2br(text){
 	return text.replace(/\n/g, "<br />");
 }
 
+/* Paging */
 function commentPageMove(pg){
 	$.ajax({
 		type	: "POST",
@@ -55,7 +56,7 @@ function commentPageMove(pg){
 	});
 }
 
-
+/* draw Page number */
 function updatePaging(callFunc, page, comtCnt, perPgLine, pgGrpCnt){
 	var boardPager	= $('.comt-pager');
 	boardPager.empty();
@@ -66,47 +67,7 @@ function updatePaging(callFunc, page, comtCnt, perPgLine, pgGrpCnt){
 	}
 }
 
-function makeComment(){
-	var comment = "";
-	comment += '<div class="comment-item">';
-	comment += '<input type="hidden" class="comment-seq">';
-	comment += '<input type="hidden" class="comment-boardSeq">';
-	comment += '<div class="comment">';
-	comment += '<a class="comment-writer"></a> <a class="comment-date"></a>'
-	comment += '<div class="comment-contents editor-contents"></div>';
-	comment += '</div>';
-	comment += '<div class="comment-menu">';
-	if(isAdmin === 'true'){
-		comment += '<a onclick="addReplyForm(this)" class="btn btn-reply">답변</a>';	
-	}
-	if(!(isAdmin === 'true')){
-		comment += '<a onclick="commentModify(this)" class="btn btn-modify">수정</a>';
-	}
-	comment += '<a onclick="commentDelete(this)" class="btn">삭제</a>';
-	comment += '</div>';
-	comment += '</div>';
-	return $(comment);
-}
-
-function makeReplyComment(){
-	var comment = "";
-	comment += '<div class="comment-item reply">';
-	comment += '<input type="hidden" class="comment-seq">';
-	comment += '<input type="hidden" class="comment-boardSeq">';
-	comment += '<div class="comment">';
-	comment += '<a class="comment-writer"></a> <a class="comment-date"></a>'
-	comment += '<div class="comment-contents editor-contents"></div>';
-	comment += '</div>';
-	comment += '<div class="comment-menu">';
-	if(isAdmin === 'true'){
-		comment += '<a onclick="commentModify(this)" class="btn btn-modify">수정</a>';
-		comment += '<a onclick="commentDelete(this)" class="btn">삭제</a>';
-	}
-	comment += '</div>';
-	comment += '</div>';
-	return $(comment);
-}
-
+/* draw comment */
 function updateComment(data){
 	var container = $(".comments");
 	var length = data.length;
@@ -134,18 +95,83 @@ function updateComment(data){
 			item.appendTo(container);	
 		}
 	}
+	
+	/* Make comment element */
+	function makeComment(){
+		var comment = "";
+		comment += '<div class="comment-item">';
+		comment += '<input type="hidden" class="comment-seq">';
+		comment += '<input type="hidden" class="comment-boardSeq">';
+		comment += '<div class="comment">';
+		comment += '<a class="comment-writer"></a> <a class="comment-date"></a>'
+		comment += '<div class="comment-contents editor-contents"></div>';
+		comment += '</div>';
+		comment += '<div class="comment-menu">';
+		if(isAdmin === 'true'){
+			comment += '<a onclick="addReplyForm(this)" class="btn btn-reply">답변</a>';	
+		}
+		if(!(isAdmin === 'true')){
+			comment += '<a onclick="commentModify(this)" class="btn btn-modify">수정</a>';
+		}
+		comment += '<a onclick="commentDelete(this)" class="btn">삭제</a>';
+		comment += '</div>';
+		comment += '</div>';
+		return $(comment);
+	}
+	
+	/* Make reply comment element */
+	function makeReplyComment(){
+		var comment = "";
+		comment += '<div class="comment-item reply">';
+		comment += '<input type="hidden" class="comment-seq">';
+		comment += '<input type="hidden" class="comment-boardSeq">';
+		comment += '<div class="comment">';
+		comment += '<a class="comment-writer"></a> <a class="comment-date"></a>'
+		comment += '<div class="comment-contents editor-contents"></div>';
+		comment += '</div>';
+		comment += '<div class="comment-menu">';
+		if(isAdmin === 'true'){
+			comment += '<a onclick="commentModify(this)" class="btn btn-modify">수정</a>';
+			comment += '<a onclick="commentDelete(this)" class="btn">삭제</a>';
+		}
+		comment += '</div>';
+		comment += '</div>';
+		return $(comment);
+	}
 }
 
-function makeReplyForm(){
-	var form = "";
-	form += '<div class="comment-reply row-center">';
-	form += '<img src="' + getContextPath() + '/resources/image/icon_comment_reply.svg" style="width:1rem; height:1rem; margin-right: 0.3rem">';
-	form += '<textarea class="comment-reply-content" id="contents" name="contents"/></textarea>';
-	form += '<div onclick="doReply(this)" class="comment-reply-submit col-center">답변</div>';
-	form += '</div>';
-	return $(form);
+/* draw reply form element */
+function addReplyForm(tg){
+	var tg 			= $(tg);
+	var item		= $(tg).parents(".comment-item");
+	var parentSeq	= item.find(".comment-seq").val();
+	var form 		= makeReplyForm();
+
+	if(tg.hasClass("open")){
+		var replyForm = item.next();
+		if(replyForm.hasClass("comment-reply")){
+			replyForm.remove();
+			tg.removeClass("open");
+		}
+	} else{
+		$("<div>", {"class" : "parentSeq display-none", text : parentSeq}).appendTo(form);
+		form.insertAfter(item);	
+		tg.addClass("open");
+	}
+	
+	/* Make reply comment form */
+	function makeReplyForm(){
+		var form = "";
+		form += '<div class="comment-reply row-center">';
+		form += '<img src="' + getContextPath() + '/resources/image/icon_comment_reply.svg" style="width:1rem; height:1rem; margin-right: 0.3rem">';
+		form += '<textarea class="comment-reply-content" id="contents" name="contents"/></textarea>';
+		form += '<div onclick="doReply(this)" class="comment-reply-submit col-center">답변</div>';
+		form += '</div>';
+		return $(form);
+	}
 }
 
+/* Do comment reply */
 function doReply(tg){
 	var reply		= $(tg).parents(".comment-reply");
 	var parentSeq	= reply.find(".parentSeq").text();
@@ -170,26 +196,8 @@ function doReply(tg){
 	});
 }
 
-function addReplyForm(tg){
-	var tg 			= $(tg);
-	var item		= $(tg).parents(".comment-item");
-	var parentSeq	= item.find(".comment-seq").val();
-	var form 		= makeReplyForm();
-
-	if(tg.hasClass("open")){
-		var replyForm = item.next();
-		if(replyForm.hasClass("comment-reply")){
-			replyForm.remove();
-			tg.removeClass("open");
-		}
-	} else{
-		$("<div>", {"class" : "parentSeq display-none", text : parentSeq}).appendTo(form);
-		form.insertAfter(item);	
-		tg.addClass("open");
-	}
-}
-
-function doModify(tg){
+/* Do comment modify */
+function doCommentModify(tg){
 	var item	= $(tg).parents(".comment-item");
 	var seq 	= item.find(".comment-seq").val();
 	var contents = item.find(".comment-modify #contents").val();
@@ -216,7 +224,7 @@ function doModify(tg){
 function commentModify(tg){
 	var tg = $(tg);
 	if(tg.hasClass("open")){
-		commentPageMove(page);
+		tg.remove();
 	} else {
 		swal({
 			  text: '비밀번호를 입력해주세요',
@@ -230,6 +238,7 @@ function commentModify(tg){
 			});
 	}
 	
+	/* Check Comment Password */
 	function checkPwd(password){
 		var item= tg.parents(".comment-item");
 		var seq	= item.find(".comment-seq").val();
@@ -254,6 +263,7 @@ function commentModify(tg){
 		});
 	}
 	
+	/* change comment - > comment form */
 	function changeToForm(item){
 		var contentsDiv = item.find(".comment-contents");
 		var contents = br2nl(contentsDiv.html());
@@ -261,12 +271,13 @@ function commentModify(tg){
 		
 		var commentModify = $("<div>" , {"class" : "comment-modify"});
 		$("<textarea>", {text : contents, id : "contents", "class" : "comment-write-contents"}).appendTo(commentModify);
-		$("<div>", {text : "등록", onclick:  "doModify(this)", "class" : "col-center comment-write-submit"}).appendTo(commentModify);
+		$("<div>", {text : "수정", onclick:  "doCommentModify(this)", "class" : "col-center comment-write-submit"}).appendTo(commentModify);
 		contentsDiv.empty();
 		contentsDiv.append(commentModify);
 	}
 }
 		
+/* comment Delete */
 function commentDelete(tg){
 	swal({
 		  	text: '비밀번호를 입력해주세요',
@@ -275,11 +286,11 @@ function commentDelete(tg){
 		})
 		.then((pw) => {
 			if(pw){
-				doDelete(pw);				  
+				doCommentDelete(pw);				  
 		  	}
 		});
 
-	function doDelete(password){
+	function doCommentDelete(password){
 		var item= $(tg).parents(".comment-item");
 		var seq	= item.find(".comment-seq").val();
 		$.ajax({	
@@ -308,11 +319,10 @@ function commentDelete(tg){
 			}
 		});
 	}	
-	
-	
 }
 
-function commentSubmit(){
+/* comment Submit*/
+function doCommentSubmit(){
 	var name = $(".comment-write #name");
 	var password = $(".comment-write #password");
 	var contents  = $(".comment-write #contents");

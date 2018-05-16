@@ -1,7 +1,5 @@
 $(document).ready(function(){
-	initBeforeProjectTooltip();
-	initAfterProjectTooltip();
-	
+	/* draw line animation */
 	var lineDrawing = anime({
 		targets: ".project-line",
 		easing: "easeInQuad",
@@ -9,25 +7,48 @@ $(document).ready(function(){
 		duration: 400,
 	});
 	
-	if(isMobile){
-		$(".btn-project-before, .btn-project-next").addClass("display-none");
+	/* before, next Project button initialize */
+	initBeforeProjectBtn();
+	initNextProjectBtn();
+	
+	function initBeforeProjectBtn(){
+	    $(".btn-project-before").tooltip({
+	    	 show : null,
+	    	 hide : null,
+	    });
+	    
+		if(isMobile){
+			$(".btn-project-before").addClass("display-none");
+		}
+		
+		$(".btn-project-next").on("click", function(){
+			var afterparentSeq = $("#afterparentSeq").val();
+			if(afterparentSeq){
+				Progress.start();
+				window.location.href = getContextPath() + "/project/view?seq=" + afterparentSeq;
+			} 
+		});
 	}
-	
-	$(".btn-project-next").on("click", function(){
-		var afterparentSeq = $("#afterparentSeq").val();
-		if(afterparentSeq){
-			Progress.start();
-			window.location.href = getContextPath() + "/project/view?seq=" + afterparentSeq;
-		} 
-	});
-	
-	$(".btn-project-before").on("click", function(){
-		var beforeparentSeq= $("#beforeparentSeq").val();
-		if(beforeparentSeq){
-			Progress.start();
-			window.location.href = getContextPath() + "/project/view?seq=" + beforeparentSeq;
-		} 
-	});
+
+	function initNextProjectBtn(){
+		$(".btn-project-next").tooltip({
+			 show : null,
+			 hide : null,
+		});
+		
+		if(isMobile){
+			$(".btn-project-next").addClass("display-none");
+		}
+		
+		$(".btn-project-before").on("click", function(){
+			var beforeparentSeq= $("#beforeparentSeq").val();
+			if(beforeparentSeq){
+				Progress.start();
+				window.location.href = getContextPath() + "/project/view?seq=" + beforeparentSeq;
+			} 
+		});
+	}
+
 	
 	/*
 	$(".wrapper").touchwipe({
@@ -44,20 +65,7 @@ $(document).ready(function(){
 	*/
 });
 
+/* download file */
 function downloadFile(pathNm){
 	window.location.assign(getContextPath()	+ "/project/download.do?filename="+ pathNm);
-}
-
-function initBeforeProjectTooltip(){
-    $(".btn-project-before").tooltip({
-    	 show : null,
-    	 hide : null,
-    });
-}
-
-function initAfterProjectTooltip(){
-	$(".btn-project-next").tooltip({
-		 show : null,
-		 hide : null,
-	});
 }

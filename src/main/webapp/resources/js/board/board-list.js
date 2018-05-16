@@ -1,20 +1,18 @@
-var perPgLine = 10;
-var searchType = "";
+const perPgLine = 10;
+var searchType 	= "";
 var searchValue = "";
-var sect = 'ALL';
-var page = '';
-var allRowCnt = '${count}';
+var page 		= '';
+var sect 		= 'ALL';
+var allRowCnt	= undefined;
 
-/* 페이지가 로드됨과 동시에 계정 리스트의 첫 번째 페이지를 출력 */
 $(document).ready(function(){
 	/* Get Hash */
 	allRowCnt = $("#allRowCnt").val();
 	sect = window.location.hash.substring(1).split("&")[0];
 	page = parseInt(window.location.hash.substring(1).split("&")[1]);
 
-	/* Sect Add Class 'on' */
+	/* Add Class 'on' to Sect*/
 	if(!sect){ sect = 'ALL'; }
-	
 	var items = $(".board-sects .board-sects-item");
 	for(var i = 0; i < items.length; i++){
 		if($(items[i]).text() == sect){
@@ -22,13 +20,14 @@ $(document).ready(function(){
 			break;
 		}
 	}
-	
+
+	/* Page to 1 */
 	if(!page){
 		page = 1;
 	}
-	
 	pageMove(page);
 	
+	/* touch wipe event - Paging */
 	$(".wrap-board").touchwipe({
 	     wipeLeft: function() {
 	    	 pageMove(page + 1);
@@ -44,11 +43,13 @@ $(document).ready(function(){
 	});
 });
 
+/* when board click */
 function boardView(seq){
 	Progress.start();
 	window.location.href = getContextPath() + "/board/view?seq=" + seq + "&sect=" + sect + "&page=" + page;		
 }
 
+/* when Search button click */
 function search(){
 	searchType	= $(".search-type").val();
 	searchValue = $(".search-value").val();
@@ -56,6 +57,7 @@ function search(){
 	pageMove(1);
 }
 
+/* when Sect click */
 function selectSect(tg){
 	var tg = $(tg);
 	
@@ -67,6 +69,7 @@ function selectSect(tg){
 	pageMove(1);
 }
 
+/* Paging */
 function pageMove(pg){
 	if(sect == "ALL"){
 		sect = '';
@@ -107,6 +110,7 @@ function pageMove(pg){
 	});
 }
 
+/* draw Page number */
 function updatePaging(callFunc, page, allRowCnt, perPgLine, pgGrpCnt){
 	var boardPager	= $('.board-pager');
 	var	pager		= drawPager(callFunc, page, allRowCnt, perPgLine, pgGrpCnt);
@@ -115,6 +119,7 @@ function updatePaging(callFunc, page, allRowCnt, perPgLine, pgGrpCnt){
 	boardPager.append(pager);
 }
 
+/* draw Board list */
 function updateBoard(data){
 	var boardList 	= $(".board-list");
 	var length		= data.length;

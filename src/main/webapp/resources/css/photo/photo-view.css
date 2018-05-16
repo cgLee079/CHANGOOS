@@ -104,6 +104,11 @@
 	word-break: break-all;
 }
 
+.photo-loading{
+	height: 5rem;
+	color : #666;
+}
+
 .photo-comments {
 	margin-bottom: 1rem;
 }

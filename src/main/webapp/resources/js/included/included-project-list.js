@@ -2,20 +2,21 @@ var currentView = 0;
 var tops 	= [];
 var pass 	= [];
 
-var projectViews;
-
+/* when project click */
 function projectView(seq){
 	Progress.start();
 	window.location.href = getContextPath() + "/project/view?seq=" + seq;		
 }
 
 $(document).ready(function(){
-	projectViews = $(".project-view");
+	/* save each top position */ 
+	var projectViews = $(".project-view");
 	projectViews.each(function(){
 		tops.push($(this).offset().top);
 		pass.push(false);
 	});
 	
+	/* mobile, add click event */
 	if(isMobile){
 		projectViews.each(function(){
 			$(this).bind("click", function(){
@@ -25,6 +26,7 @@ $(document).ready(function(){
 		});	
 	}
 	
+	/* when scroll, Show project */
 	$(window).scroll(function(){
 		var scrollTop = $(window).scrollTop();
 		if(tops[currentView] <= (scrollTop + 550) && pass[currentView] == false){
@@ -39,7 +41,6 @@ $(document).ready(function(){
 				});
 			currentView += 1;
 		}
-		
 	});
 	
 	$(window).trigger("scroll");

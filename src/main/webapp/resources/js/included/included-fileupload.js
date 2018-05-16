@@ -1,16 +1,19 @@
-var form; 
+var fileInfoTemp; 
 var boardType;
 var path;
 	
 $(document).ready(function(){
-	boardType = $("#boardType").val();
-	form = $(".file-info").clone(true);
-	path = getContextPath() + "/admin" + "/" + boardType;	
+	boardType 	= $("#boardType").val();
+	fileInfoTemp= $(".file-info.temp").clone(true);
+	path 		= getContextPath() + "/admin" + "/" + boardType;
+	
+	$(".file-info.temp").remove();
 });
 
-function fileRemove(tg){
+function doFileRemove(tg){
 	var fileInfo = $(tg).parents(".file-info");
 	var seq = fileInfo.find(".file-seq").val();
+	
 	if(seq){
 		swal({
 			  title: "정말로 삭제 하시겠습니까?",
@@ -44,20 +47,13 @@ function fileRemove(tg){
 	}
 }
 
-function fileChange(tg){
+function onFileChange(tg){
 	var file = tg.files[0];
-	var fileInfo = $(tg).parents(".file-info");
-	var fileInfos= fileInfo.parents(".file-infos");
+	var fileInfos= $(".file-infos");
 	
 	if($(tg).val()){
-		fileInfo.find(".btn-file-remove").css("display", "");
-		fileInfo.find(".btn-file-upload").css("display", "none");
-		
-		$("<div>", {
-			"class" : "file-info-name",
-			text : "(" + (file.size/(1024 * 1024)).toFixed(2) + " MB) " + file.name 
-		}).prependTo(fileInfo);
-		
-		fileInfos.append(form.clone(true));
+		var fileInfo = fileInfoTemp.clone();
+		fileInfo.find(".file-info-name").text("(" + (file.size/(1024 * 1024)).toFixed(2) + " MB) " + file.name);
+		fileInfo.insertBefore($(".file-update"));
 	} 
 }

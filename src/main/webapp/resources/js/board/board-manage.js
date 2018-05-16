@@ -2,6 +2,7 @@ $(document).ready(function(){
 	fn_onInitDataGrid();
 });
 
+/* Datagrid Initialize */
 function fn_onInitDataGrid(){
 	$('#dg').datagrid({
 		url: getContextPath() + '/admin/board/manageList.do',
@@ -34,10 +35,12 @@ function fn_onInitDataGrid(){
 	});
 }
 
+/* when '보기' click */
 function boardView(seq){
 	window.location.href = getContextPath() + "/board/view?seq=" + seq;		
 }
 
+/* when '삭제' click */
 function boardDelete(seq){
 	swal({
 		  title: "정말로 삭제 하시겠습니까?",
@@ -53,6 +56,7 @@ function boardDelete(seq){
 		});
 }
 
+/* when '수정' click */
 function boardModify(seq){
 	window.location.href = getContextPath() + "/admin/board/upload?seq=" + seq;		
 }

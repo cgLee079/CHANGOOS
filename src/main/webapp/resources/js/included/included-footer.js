@@ -12,10 +12,6 @@ function footerRelocate() {
 	}
 }
 
-$(window).on("load", function() {
-	footerRelocate();
-})
-
-$(window).resize(function() {
+$(window).on("load resize", function() {
 	footerRelocate();
 })

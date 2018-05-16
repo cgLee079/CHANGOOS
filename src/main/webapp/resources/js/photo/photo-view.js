@@ -41,6 +41,7 @@ $(document).ready(function(){
 
 function loadPhoto(currentView){
 	var seq = seqs[currentView];
+	var photoLoading = $("<div>", {"class" : "photo-loading col-center", "text" : "Loading..."});
 	
 	$.ajax({
 		type	: "POST",
@@ -51,8 +52,8 @@ function loadPhoto(currentView){
 		dataType: 'JSON',
 		async	: false,
 		beforeSend : function(){
+			photoLoading.appendTo(photoWrapper);
 			loading  = true;
-			Progress.start();
 		},
 		success : function(data) {
 			var item = templeate.clone();
@@ -71,17 +72,16 @@ function loadPhoto(currentView){
 				item.find(".photo-tag").text(data.tag);
 			}
 			
+			photoLoading.remove();
 			item.appendTo(photoWrapper);
 			
 			loadComment(item.find(".photo-comments"), seq);
 		},
 		complete : function(){
 			loading  = false;
-			Progress.stop();
 		},
 		error : function(e) {
 			console.log(e);
-			Progress.stop();
 		}
 	});
 }

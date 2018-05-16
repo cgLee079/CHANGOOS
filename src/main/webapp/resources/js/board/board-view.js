@@ -6,6 +6,7 @@ $(document).ready(function(){
 	boardPage = $("#boardPage").val();
 })
 
+/* when '목록' click */
 function boardList(){
 	if(!boardPage){
 		boardPage = 1;
@@ -13,6 +14,7 @@ function boardList(){
 	window.location.href = getContextPath() + "/board#" + sect + "&" + boardPage;
 }
 
+/* when '삭제' click, only for Admin */
 function boardDelete(seq){
 	swal({
 		  title: "정말로 삭제 하시겠습니까?",
@@ -28,10 +30,12 @@ function boardDelete(seq){
 		});
 }
 
+/* when '수정' click, only for Admin */
 function boardModify(seq){
 	window.location.href = getContextPath() + "/admin/board/upload?seq=" + seq;		
 }
 
+/* when '이전글', '다음글' click */
 function boardView(seq){
 	if (seq){
 		window.location.href = getContextPath() + "/board/view?seq=" + seq + "&sect=" + sect + "&page=" + boardPage;
@@ -44,6 +48,7 @@ function boardView(seq){
 	}
 }
 
+/* Download File */
 function downloadFile(pathNm){
 	window.location.assign(getContextPath()	+ "/board/download.do?filename="+ pathNm);
 }

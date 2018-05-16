@@ -20,7 +20,7 @@
 		</div>
 
 		<textarea class="comment-write-contents" id="contents" name="contents"></textarea>
-		<div onclick="commentSubmit()" class="comment-write-submit col-center">등록</div>
+		<div onclick="doCommentSubmit()" class="comment-write-submit col-center">등록</div>
 	</div>
 	
 </div>

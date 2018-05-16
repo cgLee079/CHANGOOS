@@ -1,20 +1,19 @@
-.file-infos .file-info {
+.file-infos .file-info, .file-infos .file-update {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	border: 1px solid #CCC;
 	border-radius: 5px;
-	padding: 0.5rem;
+	padding: 0.45rem;
+	margin-bottom : 0.2rem;
+	font-size: 0.7rem;
 }
 
-.file-infos .file-info:NOT (:FIRST-CHILD ){
-	margin-top: 0.5rem;
+.file-real{
+	display : none;
 }
 
 .file-info-name {
 	flex: 1;
 }
 
-.btn-file-upload, .btn-file-remove {
-	max-width: 100px;
-}

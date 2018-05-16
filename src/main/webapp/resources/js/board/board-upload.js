@@ -2,6 +2,7 @@ $(document).ready(function(){
 	initContentCKEditor();
 });
 
+/* CKEditor Initialize */
 function initContentCKEditor(){
 	var editor = CKEDITOR.replace("board-contents", {
 		filebrowserUploadUrl : getContextPath() + "/admin/board/imgUpload.do",
