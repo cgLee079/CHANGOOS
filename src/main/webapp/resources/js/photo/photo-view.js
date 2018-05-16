@@ -7,7 +7,6 @@ var templeate		= undefined;
 $(document).ready(function(){
 	if(isMobile){
 		$(".wrap-photo-list").css("display", "none");
-		
 		photoWrapper = $(".wrapper");
 		$(window).scroll(function(){
 			var scrollPosition = $(this).scrollTop() + $(this).outerHeight();
@@ -39,6 +38,7 @@ $(document).ready(function(){
 	currentView++;
 });
 
+/* Ajax, when scroll close bottom */
 function loadPhoto(currentView){
 	var seq = seqs[currentView];
 	var photoLoading = $("<div>", {"class" : "photo-loading col-center", "text" : "Loading..."});
@@ -86,7 +86,7 @@ function loadPhoto(currentView){
 	});
 }
 
-
+/* Ajax, when photo loaded. */
 function loadComment(parent, seq){
 	parent.empty();
 	
@@ -117,6 +117,7 @@ function loadComment(parent, seq){
 	});
 }
 
+/* when snapshot click */
 function showPhoto(index){
 	var scroll = $(".photo-list .photo-list-scroll");
 	scroll.scrollTop(0);
@@ -135,24 +136,7 @@ function showPhoto(index){
 	scroll.scrollTop(tgTop - 80);
 }
 
-function photoSnapshtResize(){
-	var photoItems = $(".photo-item");
-	var length = photoItems.length;
-	
-	photoItems.each(function(){
-		var tg = $(this);
-		var height 	= parseInt(tg.css("height"));
-		var width	= height * (4/3);
-		tg.css("width", width);
-	});
-	
-	for(var i = 0; i < length; i++){
-		var tg = photoItems.eq(i);
-		var width = parseInt(tg.css("width"));
-		tg.stop().css("left", (width * i) + (5 * i));
-	}
-}
-
+/* Ajax, when love icon click. */
 function increaseLike(tg){
 	var tg		= $(tg);
 	var item 	= tg.parents(".photo-list-item");
@@ -176,13 +160,19 @@ function increaseLike(tg){
 	}
 }
 
-/* About Comment */
+
+/*******************
+ ** About Comment **
+ *******************/
+
+/* draw comment form */
 function showWriteComment(tg){
 	var tg = $(tg);
 	var writeComment = tg.parents(".photo-sub").find(".photo-write-comment");
 	writeComment.toggleClass("none");
 }
 
+/* when '삭제' click */
 function deleteComment(tg){
 	swal({
 		  	text: '비밀번호를 입력해주세요',
@@ -195,6 +185,7 @@ function deleteComment(tg){
 		  	}
 		});
 	
+	/* Ajax */
 	function doDelete(password){
 		var item= $(tg).parents(".comment");
 		var seq	= item.find("#comment-seq").val();
@@ -229,6 +220,7 @@ function deleteComment(tg){
 	}
 }
 
+/* Ajax, write comment */
 function doWriteComment(tg){
 	var tg		= $(tg);
 	var item 	= tg.parents(".photo-list-item");

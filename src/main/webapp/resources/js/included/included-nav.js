@@ -94,6 +94,7 @@ $(window).scroll(function(event) {
 	else { $(".btn-scroll-top").addClass("off"); }
 });
 
+/* Progress bar */
 var Progress = {
 	start 	: function() { $(".progress-bar").removeClass("off"); },
 	stop 	: function() { $(".progress-bar").addClass("off"); }

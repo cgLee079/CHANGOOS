@@ -1,8 +1,8 @@
-
 $(document).ready(function(){
 	fn_onInitDataGrid();
 });
 
+/* datagrid initialize */
 function fn_onInitDataGrid(){
 	$('#dg').datagrid({
 		url: getContextPath() + '/admin/photo/manageList.do',

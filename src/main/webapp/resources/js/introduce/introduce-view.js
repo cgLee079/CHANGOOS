@@ -1,9 +1,4 @@
 $(document).ready(function(){
-	setSlideMyInfo();
-	setSendMsg();
-});
-
-function setSlideMyInfo(){
 	var wrap	= $(".myinfo-views");
 	var views	= $(".myinfo-views > .myinfo-view");
 	var btns 	= $(".btn-views > .btn-view");
@@ -114,38 +109,36 @@ function setSlideMyInfo(){
 		min_move_y	: 20,
 		preventDefaultEvents: true
 	});
-}
+});
 
-function setSendMsg(){
-	$(".submit-btn").click(function(){
-		var message = $(".input-message").val();
-		
-		$.ajax({
-			type	: "POST",
-			url		: getContextPath() + "/introduce/remain_message.do",
-			data	: {
-				'contents' : message	
-			},
-			dataType: 'JSON',
-			beforeSend : function(){
-				Progress.start();
-			},
-			success : function(re) {
-				if(re.result){
-					swal({text : "방명록이 등록되었습니다", icon : "success"});
-					$(".input-message").val("");
-				} else{
-					swal({text : "방명록 등록 실패하였습니다.", icon : "error"});
-				}
-			},
-			complete: function(){
-				Progress.stop();
-			},
-			error : function(e) {
-				console.log(e);
+function doSendMessage(){
+	var message = $(".input-message").val();
+	
+	$.ajax({
+		type	: "POST",
+		url		: getContextPath() + "/introduce/remain_message.do",
+		data	: {
+			'contents' : message	
+		},
+		dataType: 'JSON',
+		beforeSend : function(){
+			Progress.start();
+		},
+		success : function(re) {
+			if(re.result){
+				swal({text : "방명록이 등록되었습니다", icon : "success"});
+				$(".input-message").val("");
+			} else{
 				swal({text : "방명록 등록 실패하였습니다.", icon : "error"});
-				Progress.stop();
 			}
-		});							
-	});
+		},
+		complete: function(){
+			Progress.stop();
+		},
+		error : function(e) {
+			console.log(e);
+			swal({text : "방명록 등록 실패하였습니다.", icon : "error"});
+			Progress.stop();
+		}
+	});							
 }

@@ -91,7 +91,7 @@
 					<div class="message-form">
 						<form>
 							<textarea class="input-message"></textarea>
-							<div class="submit-message"><a class="submit-btn">SEND</a></div>
+							<div class="submit-message"><a class="submit-btn" onclick="doSendMessage()">SEND</a></div>
 						</form>
 					</div>
 				</div>

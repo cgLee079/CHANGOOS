@@ -9,7 +9,7 @@ function projectView(seq){
 }
 
 $(document).ready(function(){
-	/* save each top position */ 
+	/* save each project top position */ 
 	var projectViews = $(".project-view");
 	projectViews.each(function(){
 		tops.push($(this).offset().top);

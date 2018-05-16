@@ -2,6 +2,7 @@ $(document).ready(function(){
 	fn_onInitDataGrid();
 });
 
+/* datagrid initialize */
 function fn_onInitDataGrid(){
 	$('#dg').datagrid({
 		url: getContextPath() + '/admin/project/manageList.do',
