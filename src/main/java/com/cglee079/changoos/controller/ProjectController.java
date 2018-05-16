@@ -108,7 +108,7 @@ public class ProjectController {
 	}
 	
 	
-	/** 프로젝트 삭제, Ajax**/
+	/** 프로젝트 삭제 **/
 	@ResponseBody
 	@RequestMapping(value = "/admin/project/delete.do")
 	public String projectDelete(HttpSession session, int seq) {
@@ -234,9 +234,7 @@ public class ProjectController {
 		boolean result = false;
 		result = projectFileService.deleteFile(rootPath, seq);	
 		
-		JSONObject data = new JSONObject();
-		data.put("result", result);
-		return data.toString();
+		return new JSONObject().put("result", result).toString();
 	}
 	
 	/** 프로젝츠 CKEditor 사진 업로드 **/
