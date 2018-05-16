@@ -22,8 +22,8 @@ function fn_onInitDataGrid(){
 			{field:'modify', title:'수정', width:'70px', halign:'center', styler : alignCenter, formatter : function(value, row){
 				return "<a onclick='projectModify(" + row.seq + ")' class='dg-btn'> 수정 </a>" 
 			}},
-			{field:'delete', title:'삭제', width:'70px', halign:'center', styler : alignCenter, formatter : function(value, row){
-				return "<a onclick='projectDelete(" + row.seq + ")' class='dg-btn'> 삭제 </a>" 
+			{field:'delete', title:'삭제', width:'70px', halign:'center', styler : alignCenter, formatter : function(value, row, index){
+				return "<a onclick='projectDelete(" + row.seq + "," + index + ")' class='dg-btn'> 삭제 </a>" 
 			}},
 			{field:'snapsht', title:'스냅샷', width:'100px', halign:'center', styler : alignCenter, formatter: function(value){
 				return "<img src='" + getContextPath() + value + "' height='50px' style='padding : 2px'/>"
@@ -38,11 +38,13 @@ function fn_onInitDataGrid(){
 	});
 }
 
+/* when '보기' click */
 function projectView(seq){
 	window.location.href = getContextPath() + "/project/view?seq=" + seq;		
 }
 
-function projectDelete(seq){
+/* Ajax, when '삭제' click */
+function projectDelete(seq, index){
 	swal({
 		  title: "정말로 삭제 하시겠습니까?",
 		  text: "삭제된 프로젝트는 복구 할 수 없습니다.",
@@ -52,11 +54,31 @@ function projectDelete(seq){
 		})
 		.then(willDelete => {
 		  if (willDelete) {
-			  window.location.href = getContextPath() + "/admin/project/delete.do?seq=" + seq;	
+			  doDelete(seq, index);
 		  } 
 		});
+	
+	function doDelete(seq, index){
+		$.ajax({
+			type	: "POST",
+			url		: getContextPath() + "/admin/project/delete.do?",
+			data	: { 'seq' : seq },
+			dataType: 'JSON',
+			async	: false,
+			success : function(data) {
+				if(data.result){
+					$('#dg').datagrid('deleteRow', index);
+					swal({ title: "삭제 완료하였습니다.", icon: "info"});
+				}
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		});
+	}
 }
 
+/* Ajax, when '수정' click */
 function projectModify(seq){
 	window.location.href = getContextPath() + "/admin/project/upload?seq=" + seq;		
 }

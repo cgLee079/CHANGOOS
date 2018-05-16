@@ -98,7 +98,7 @@ public class ProjectController {
 		return "project/project_manage";
 	}
 	
-	/** 프로젝트 관리자 페이디 리스트, Ajax **/
+	/** 프로젝트 관리자 페이지 리스트, Ajax **/
 	@ResponseBody
 	@RequestMapping(value = "/admin/project/manageList.do")
 	public String DoProjectManageList(@RequestParam Map<String,Object> map) {
@@ -107,7 +107,9 @@ public class ProjectController {
 		return gson.toJson(projects).toString();
 	}
 	
-	/** 프로젝트 삭제 **/
+	
+	/** 프로젝트 삭제, Ajax**/
+	@ResponseBody
 	@RequestMapping(value = "/admin/project/delete.do")
 	public String projectDelete(HttpSession session, int seq) {
 		String rootPath = session.getServletContext().getRealPath("");
@@ -134,8 +136,8 @@ public class ProjectController {
 		//프로젝트 파일 삭제
 		projectFileService.deleteFiles(rootPath, seq);
 		
-		projectService.delete(seq);
-		return "redirect:" + "/admin/project/manage";
+		boolean result = projectService.delete(seq);
+		return new JSONObject().put("result", result).toString();
 	}
 	
 	/** 프로젝트 업로드 페이지로 이동 **/

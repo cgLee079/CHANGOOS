@@ -54,7 +54,7 @@ public class PhotoController {
 		return gson.toJson(photos).toString();
 	}
 	
-	/** 사진 크게 보기 **/
+	/** 사진 크게 보기, Ajax **/
 	@ResponseBody
 	@RequestMapping(value = "/photo/view.do")
 	public String photoDoView(int seq) throws JsonProcessingException {
@@ -63,7 +63,7 @@ public class PhotoController {
 		return mapper.writeValueAsString(photo);
 	}
 	
-	/** 사진 좋아요 **/
+	/** 사진 좋아요, Ajax **/
 	@ResponseBody
 	@RequestMapping(value = "/photo/increaseLike.do")
 	public String increaseLike(int seq) throws JsonProcessingException {
@@ -71,7 +71,8 @@ public class PhotoController {
 		return new JSONObject().put("like", like).toString();
 	}
 	
-	/** 사진 삭제 **/
+	/** 사진 삭제 , Ajax **/
+	@ResponseBody
 	@RequestMapping(value = "/admin/photo/delete.do")
 	public String photoDelete(HttpSession session, int seq) {
 		String rootPath = session.getServletContext().getRealPath("");
@@ -80,7 +81,7 @@ public class PhotoController {
 		photoService.deleteFile(rootPath, photo.getSnapsht());
 		
 		boolean result = photoService.delete(seq);
-		return "redirect:" + "/admin/photo/manage";
+		return new JSONObject().put("result", result).toString();
 	}
 	
 	/** 사진 업로드 페이지로 이동 **/

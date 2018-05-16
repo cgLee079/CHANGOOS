@@ -36,6 +36,7 @@
 		width : 100%;
 		height : 1rem;
 		margin-bottom: 0.5rem;
+		padding-left : 0.2rem;
 	}	
 	
 	.btn-submit{

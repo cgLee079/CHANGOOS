@@ -27,7 +27,7 @@ function nl2br(text){
 	return text.replace(/\n/g, "<br />");
 }
 
-/* Paging */
+/* Ajax, Paging */
 function commentPageMove(pg){
 	$.ajax({
 		type	: "POST",
