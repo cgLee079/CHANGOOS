@@ -49,7 +49,8 @@
 						<div class="write-comment">
 							<div><textarea class="contents" style="font-size: 0.6rem"></textarea></div>
 						</div>
-							<div class="btn btn-write col-center" onclick="doWriteComment(this)">등록</div>
+						
+						<div class="btn btn-write col-center" onclick="doWriteComment(this)">등록</div>
 					</div>
 				</div>
 			</div>

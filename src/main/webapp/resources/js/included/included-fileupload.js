@@ -1,13 +1,11 @@
-var fileInfoTemp; 
 var boardType;
 var path;
+var fileInfoUpload;
 	
 $(document).ready(function(){
 	boardType 	= $("#boardType").val();
-	fileInfoTemp= $(".file-info.temp").clone(true);
 	path 		= getContextPath() + "/admin" + "/" + boardType;
-	
-	$(".file-info.temp").remove();
+	fileInfoUpload = $(".file-info.upload").clone(true);
 });
 
 function doFileRemove(tg){
@@ -52,8 +50,10 @@ function onFileChange(tg){
 	var fileInfos= $(".file-infos");
 	
 	if($(tg).val()){
-		var fileInfo = fileInfoTemp.clone();
+		var fileInfo = $(tg).parents(".file-info");
+		fileInfo.removeClass("upload");		
 		fileInfo.find(".file-info-name").text("(" + (file.size/(1024 * 1024)).toFixed(2) + " MB) " + file.name);
-		fileInfo.insertBefore($(".file-update"));
+		
+		fileInfos.append(fileInfoUpload.clone(true));
 	} 
 }

@@ -1,4 +1,4 @@
-.file-infos .file-info, .file-infos .file-update {
+.file-infos .file-info{
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -9,7 +9,20 @@
 	font-size: 0.7rem;
 }
 
-.file-real{
+.file-info .btn-file-upload{
+	display: none;
+}
+
+.file-info.upload .file-name, 
+.file-info.upload .btn-file-remove{
+	display : none ;
+}
+
+.file-info.upload .btn-file-upload{
+	display : inherit;
+}
+
+.file-info .real-file{
 	display : none;
 }
 

@@ -15,15 +15,11 @@
 		</c:forEach>
 	</c:if>
 
-	<div class="file-info temp">
+	<div class="file-info upload">
 		<input type="hidden" class="file-seq"/>
+		<input type="file" class="real-file" name="file" onchange="onFileChange(this)"/>
 		<div class="file-info-name"></div>
 		<div class="btn-file-remove btn-red-text" onclick="doFileRemove(this)">REMOVE</div>
-	</div>
-		
-	<div class="file-update">
-		<input type="file" id="itemFile" class="file-real" name="file" onchange="onFileChange(this)" style="display: none;"/>
-		<div style="flex: 1"></div>
-		<div class="btn-file-upload btn-gray-text" onclick="$(this).siblings('.file-real').click();">UPLOAD</div>
+		<div class="btn-file-upload btn-gray-text" onclick="$(this).siblings('.real-file').click();">UPLOAD</div>
 	</div>
 </div>

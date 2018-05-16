@@ -120,7 +120,7 @@ function loadComment(parent, seq){
 
 /* when snapshot click */
 function showPhoto(index){
-	var scroll = $(".photo-list .photo-list-scroll");
+	var scroll = $(".photo-list");
 	scroll.scrollTop(0);
 	
 	if(index >= currentView){
