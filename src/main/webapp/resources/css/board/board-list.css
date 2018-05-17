@@ -33,12 +33,13 @@
 
 .board-list-item {
 	position: relative;
-	padding: 1.5rem 1rem 1rem 1rem;
-	margin: 1rem 0;
-	background: #FFF;
-	box-shadow: 0px 5px 5px #ECF0F1;
+	padding: 2rem 1rem 1.5rem 1rem;
 	cursor: pointer;
-	width: 100%: /*border-left : 3px solid rgba(25, 181, 254, 0.5);*/
+	border-bottom : 1px solid #EEE;
+}
+
+.board-list-item:first-child{
+	margin-top: 1.5rem;
 }
 
 .board-list-item .board-item-overlay {
@@ -46,7 +47,7 @@
 	top: 0;
 	right: 1rem;
 	padding: 0.5rem 1rem;
-	background-color: #34495E;
+	background-color: #000;
 	z-index: 2;
 	color: #fff;
 	font-size: 0.5rem;
@@ -115,8 +116,12 @@
 	color: #F00;
 }
 
-.board-search * {
+.board-search {
 	height: 1rem;
+}
+
+.board-search * {
+	height: 100%;
 }
 
 .board-search .search-submit {
@@ -125,6 +130,11 @@
 	background: #111;
 	cursor: pointer;
 	font-size: 0.5rem;
+}
+
+.board-pager{
+	margin-top: 2rem;
+	text-align: center;
 }
 
 .colum-border {

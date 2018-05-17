@@ -42,10 +42,13 @@ public class BoardService{
 		return boardDao.get(seq);
 	}
 	
-	public BoardVo doView(int seq) {
+	public BoardVo doView(List<Integer> isVisitBoard, int seq) {
 		BoardVo board = boardDao.get(seq);
-		board.setHits(board.getHits() + 1);
-		boardDao.update(board);
+		if(!isVisitBoard.contains(seq)) {
+			isVisitBoard.add(seq);
+			board.setHits(board.getHits() + 1);
+			boardDao.update(board);
+		}
 		return board;
 	}
 

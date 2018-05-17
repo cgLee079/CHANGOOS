@@ -8,16 +8,16 @@ const	ONE_PG_GRP		= 0,
 /***** ^^^^^^^^^ ****/
 
 /************* Set Custom **************/
-const	FIRST_MOVE_TAG		= '[처음]',	// first move
-		LAST_MOVE_TAG		= '[마지막]',	// last move
-		PREV_MOVE_TAG		= '[이전] ',	// prev move
-		NEXT_MOVE_TAG		= ' [다음]',	// next move
+const	FIRST_MOVE_TAG		= '<<',	// first move
+		LAST_MOVE_TAG		= '>>',	// last move
+		PREV_MOVE_TAG		= '<',	// prev move
+		NEXT_MOVE_TAG		= '>',	// next move
 		MOVE_TAG_FONT_SIZE	= '0.5rem',	// move tag text size
 		PAGER_FONT_SIZE		= '1rem',	// pager font size
 		PAGER_CUR_FONT_SIZE	= '1rem',	// current page font size
-		PAGER_CUR_COLOR		= '#009',	// current page font color
+		PAGER_CUR_COLOR		= '#000',	// current page font color
 		PAGER_CUR_FONT_WEIG	= '700',	// current page font bold
-		LR_MARGIN			= '0.1rem',	// All tag left, right padding
+		LR_MARGIN			= '0.5rem',	// All tag left, right padding
 		TAG_OUT_COLOR		= '#888', 	// All tag hover out
 		TAG_IN_COLOR		= '#000';	// All tag hover in 
 /***** ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ****/
@@ -32,22 +32,25 @@ const	FIRST_MOVE_TAG		= '[처음]',	// first move
  * 									EX. when pgGrpCnt == 3,	{1 2 3} {4 5 6} {7 8 9}
  */
 function drawPager(callFunc, curPg, allRowCnt, perPgLin, pgGrpCnt){
-	var	div			= $('<div>'),	// container
-		totalPager	= undefined, 	// total Page 
-		cPageGrp	= undefined,	// current Page Grp
-		tPageGrp	= undefined, 	// total Page Grp 
-		sPageGrp	= 0,			// strat Page Grp
-		lPageGrp	= undefined,	// last Page Grp
-		caseID		= undefined,	// 0,1,2,3
-		hTag		= undefined,	// first move tag, prev move tag
-		tTag		= undefined,	// next move tag, last move tag
-		pager		= undefined;	// pager
+	var	div			= $('<div>');	// container
+	var	totalPager	= undefined;	// total Page 
+	var	cPageGrp	= undefined;	// current Page Grp
+	var	tPageGrp	= undefined; 	// total Page Grp 
+	var	sPageGrp	= 0;			// strat Page Grp
+	var	lPageGrp	= undefined;	// last Page Grp
+	var	caseID		= undefined;	// 0,1,2,3
+	var	hTag		= undefined;	// first move tag, prev move tag
+	var	tTag		= undefined;	// next move tag, last move tag
+	var	pager		= undefined;	// pager
+	
+	if(allRowCnt <= perPgLin){
+		return div;
+	}
 	
 	totalPager = parseInt(allRowCnt / perPgLin);
 	if (allRowCnt % perPgLin > 0 || totalPager == 0) {
 		totalPager++;
 	}
-	
 	cPageGrp	= parseInt((curPg - 1) / pgGrpCnt); // 
 	tPageGrp	= parseInt((totalPager - 1) / pgGrpCnt);	
 	lPageGrp	= tPageGrp;
@@ -87,40 +90,68 @@ function getBasicTag(fontSize){
 	return tag;
 }
 
+function getMoveTag(fontSize){
+	var tag	= $('<a>',{ // Default Style
+		style	: 'font-size	: ' + fontSize + '; '
+				+ 'margin		: 0px 0.3rem; '
+				+ 'color		: ' + TAG_OUT_COLOR + '; '
+				+ 'cursor		: pointer; '
+	});
+	
+	tag.hover(function(){ // Add Hover Event
+		$(this).css('color', TAG_IN_COLOR);
+	},function(){
+		$(this).css('color', TAG_OUT_COLOR);
+	});
+	
+	return tag;
+}
+
 function getHeaderTag(caseID, callFunc, curPg, totalPager, cPageGrp, pgGrpCnt){
 	var tag = new Array();
 		
+	var firstMoveTag	= getMoveTag(MOVE_TAG_FONT_SIZE).text(FIRST_MOVE_TAG);
+	var prevMoveTag		= getMoveTag(MOVE_TAG_FONT_SIZE).text(PREV_MOVE_TAG);
+	var sPager			= 1;
+	var prevLPager		= (cPageGrp) * pgGrpCnt;
+
 	if(caseID == CENTER_PG_GRP || caseID == LAST_PG_GRP){
-		var firstMoveTag	= getBasicTag(MOVE_TAG_FONT_SIZE).text(FIRST_MOVE_TAG),
-			prevMoveTag		= getBasicTag(MOVE_TAG_FONT_SIZE).text(PREV_MOVE_TAG),
-			sPager			= 1,
-			prevLPager		= (cPageGrp) * pgGrpCnt;
-		
 		firstMoveTag.attr('onclick', callFunc + '(' + sPager + ')');
 		prevMoveTag.attr('onclick', callFunc + '(' + prevLPager + ')');
+	} else{
+		firstMoveTag.css("opacity", '0');
+		prevMoveTag.css("opacity", '0');
 		
-		tag.push(firstMoveTag);
-		tag.push(prevMoveTag);
+		firstMoveTag.css("cursor", 'default');
+		prevMoveTag.css("cursor", 'default');
 	}
+	
+	tag.push(firstMoveTag);
+	tag.push(prevMoveTag);
 	
 	return tag;
 }
 
 function getTailTag(caseID, callFunc, curPg, totalPager, cPageGrp, pgGrpCnt){
 	var tag = new Array();
-		
-	if(caseID == START_PG_GRP || caseID == CENTER_PG_GRP){
-		var nextMoveTag	= getBasicTag(MOVE_TAG_FONT_SIZE).text(NEXT_MOVE_TAG),
-			lastMoveTag	= getBasicTag(MOVE_TAG_FONT_SIZE).text(LAST_MOVE_TAG),
-			nxtSPager 	= ((cPageGrp+1)* pgGrpCnt) + 1,
-			lPager		= totalPager;
+	var nextMoveTag	= getMoveTag(MOVE_TAG_FONT_SIZE).text(NEXT_MOVE_TAG);
+	var lastMoveTag	= getMoveTag(MOVE_TAG_FONT_SIZE).text(LAST_MOVE_TAG);
+	var nxtSPager 	= ((cPageGrp+1)* pgGrpCnt) + 1;
+	var lPager		= totalPager;
 	
-		nextMoveTag.attr('onclick', callFunc + '(' + nxtSPager + ')');
-		lastMoveTag.attr('onclick', callFunc + '(' + lPager + ')');
+	if(caseID == START_PG_GRP || caseID == CENTER_PG_GRP){
+		nextMoveTag.attr('onclick', callFunc + '(' + lPager + ')');
+		lastMoveTag.attr('onclick', callFunc + '(' + nxtSPager + ')');
+	} else{
+		nextMoveTag.css("opacity", '0');
+		lastMoveTag.css("opacity", '0');
 		
-		tag.push(nextMoveTag);
-		tag.push(lastMoveTag);
+		nextMoveTag.css("cursor", 'default');
+		lastMoveTag.css("cursor", 'default');
 	}
+	
+	tag.push(nextMoveTag);
+	tag.push(lastMoveTag);
 
 	return tag;
 }

@@ -1,11 +1,10 @@
 package com.cglee079.changoos.model;
 
-public class LogRqstVo {
+public class SessionLogVo {
 	private int seq;
 	private String ip;
-	private String page;
 	private String agnt;
-	private String date;
+	private String createDate;
 
 	public int getSeq() {
 		return seq;
@@ -23,14 +22,6 @@ public class LogRqstVo {
 		this.ip = ip;
 	}
 
-	public String getPage() {
-		return page;
-	}
-
-	public void setPage(String page) {
-		this.page = page;
-	}
-
 	public String getAgnt() {
 		return agnt;
 	}
@@ -39,13 +30,12 @@ public class LogRqstVo {
 		this.agnt = agnt;
 	}
 
-	public String getDate() {
-		return date;
+	public String getCreateDate() {
+		return createDate;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
-
 
 }

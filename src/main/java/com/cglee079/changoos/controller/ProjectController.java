@@ -52,15 +52,11 @@ public class ProjectController {
 	
 	/** 프로젝트 보기 **/
 	@RequestMapping(value = "/project/view")
-	public String projectView(Model model, int seq){
-		ProjectVo project = projectService.get(seq);
+	public String projectView(HttpSession session, Model model, int seq){
+		ProjectVo project = projectService.doView((List<Integer>)session.getAttribute("visitProjects"), seq);
 		ProjectVo beforeProject = projectService.getBefore(project.getSort());
 		ProjectVo afterProject = projectService.getAfter(project.getSort());
 		
-		int hits = project.getHits();
-		project.setHits(hits + 1);
-		projectService.update(project);
-				
 		model.addAttribute("project", project);
 		model.addAttribute("beforeProject", beforeProject);
 		model.addAttribute("afterProject", afterProject);

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cglee079.changoos.dao.ProjectDao;
+import com.cglee079.changoos.model.BoardVo;
 import com.cglee079.changoos.model.ProjectVo;
 
 @Service
@@ -37,6 +38,16 @@ public class ProjectService {
 	
 	public ProjectVo get(int seq){
 		return projectDao.get(seq);
+	}
+	
+	public ProjectVo doView(List<Integer> isVisitBoard, int seq) {
+		ProjectVo project = projectDao.get(seq);
+		if(!isVisitBoard.contains(seq)) {
+			isVisitBoard.add(seq);
+			project.setHits(project.getHits() + 1);
+			projectDao.update(project);
+		}
+		return project;
 	}
 	
 	public List<String> getContentImgPath(int seq, String path){

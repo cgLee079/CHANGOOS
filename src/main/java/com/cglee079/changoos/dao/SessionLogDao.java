@@ -4,16 +4,16 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cglee079.changoos.model.LogRqstVo;
+import com.cglee079.changoos.model.SessionLogVo;
 
 @Repository
-public class LogRqstDao {
-	private static final String namespace = "com.cglee079.changoos.mapper.LogRqstMapper";
+public class SessionLogDao {
+	private static final String namespace = "com.cglee079.changoos.mapper.SessionLogMapper";
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public boolean insert(LogRqstVo logRqst) {
+	public boolean insert(SessionLogVo logRqst) {
 		return sqlSession.insert(namespace + ".insert", logRqst) == 1;
 	}
 }

@@ -1,4 +1,4 @@
-const perPgLine = 10;
+var perPgLine 	= 7;
 var searchType 	= "";
 var searchValue = "";
 var page 		= '';
@@ -6,6 +6,10 @@ var sect 		= 'ALL';
 var allRowCnt	= undefined;
 
 $(document).ready(function(){
+	if(isMobile){
+		perPgLine = 100000;
+	}
+	
 	/* Get Hash */
 	allRowCnt = $("#allRowCnt").val();
 	sect = window.location.hash.substring(1).split("&")[0];
@@ -28,6 +32,7 @@ $(document).ready(function(){
 	pageMove(page);
 	
 	/* touch wipe event - Paging */
+	/*
 	$(".wrap-board").touchwipe({
 	     wipeLeft: function() {
 	    	 pageMove(page + 1);
@@ -41,6 +46,7 @@ $(document).ready(function(){
 	     min_move_y: 20,
 	     preventDefaultEvents: true
 	});
+	*/
 });
 
 /* when board click */
@@ -142,7 +148,7 @@ function updateBoard(data){
 	for (var i = 0; i < length; i++){
 		board = data[i];
 		item = $("<div>", {'class' : 'board-list-item', onclick : "boardView(" + board.seq + ")"});
-		$("<span>", {"class" : "board-item-overlay", text : "SHOW"}).appendTo(item);
+		$("<span>", {"class" : "board-item-overlay", text : board.sect}).appendTo(item);
 		$("<div>", {"class" : "board-item-fg"}).appendTo(item);
 		$("<div>",{"class" : 'board-item-title', text : board.title}).appendTo(item);
 

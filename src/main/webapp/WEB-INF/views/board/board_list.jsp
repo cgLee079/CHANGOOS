@@ -21,7 +21,7 @@
 		</div>
 		
 		<div class="board-menu">
-			<div class="board-pager"></div>
+			<div></div>
 			<div class="board-search row-center">
 				<select class="search-type" style="font-size: 0.5rem">
 					<option>TITLE</option>
@@ -31,6 +31,8 @@
 			</div>
 		</div>
 		<div class="board-list"></div>
+		
+		<div class="board-pager"></div>
 	</div>
 	
 	<c:import url="../included/included_footer.jsp" charEncoding="UTF-8" />

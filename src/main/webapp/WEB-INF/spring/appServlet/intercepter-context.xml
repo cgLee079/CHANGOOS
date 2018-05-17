@@ -22,7 +22,7 @@
 			<mvc:exclude-mapping path="/**/*.do" />
 			<mvc:exclude-mapping path="/**.do" />
 			<mvc:exclude-mapping path="/login" />
-			<bean class="com.cglee079.changoos.interceptor.LogRqstInterceptor"></bean>
+			<bean class="com.cglee079.changoos.interceptor.SessionInterceptor"></bean>
 		</mvc:interceptor>
 		
 		<mvc:interceptor>

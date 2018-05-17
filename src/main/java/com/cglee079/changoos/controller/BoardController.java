@@ -26,7 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.BoardVo;
-import com.cglee079.changoos.model.PhotoVo;
 import com.cglee079.changoos.service.BoardFileService;
 import com.cglee079.changoos.service.BoardService;
 import com.cglee079.changoos.util.ImageManager;
@@ -74,8 +73,8 @@ public class BoardController {
 	
 	/** 게시글로 이동 **/
 	@RequestMapping("/board/view")
-	public String boardView(Model model, int seq, String sect, Integer page) throws SQLException, JsonProcessingException{
-		BoardVo board 		= boardService.doView(seq);
+	public String boardView(HttpSession session, Model model, int seq, String sect, Integer page) throws SQLException, JsonProcessingException{
+		BoardVo board 		= boardService.doView((List<Integer>)session.getAttribute("visitBoards"), seq);
 		BoardVo beforeBoard = boardService.getBefore(seq, sect);
 		BoardVo afterBoard 	= boardService.getAfter(seq, sect);
 		model.addAttribute("sect", sect);
