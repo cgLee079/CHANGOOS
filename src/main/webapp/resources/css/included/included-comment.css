@@ -1,10 +1,13 @@
 .wrap-comment {
-	border: 1px solid #DDD;
-	background: #FFF;
-	margin-top: 1rem;
-	padding: 1rem;
+	padding-top: 3rem;
 }
 
+.comt-pager {
+	margin: 1rem;
+	text-align: center;
+}
+
+/* Comment item */
 .comment-item {
 	display: flex;
 	flex-flow: row nowrap;
@@ -14,28 +17,31 @@
 	border-bottom: 1px solid #F0F0F0;
 }
 
-.comment-item.reply {
-	margin-left: 1rem;
-	border-left: 2px double #D2D7D3;	
-}
-
-.comment {
+.comment-item .comment {
 	flex: 1;
 }
 
-.comment .comment-writer {
+.comment-item .comment .comment-head{
+	display: flex;
+	justify-content: space-between;
+}
+
+.comment-head .comment-head-info .comment-writer {
 	color: #00D;
 	font-size: 0.7rem;
 }
 
-.comment-item.reply .comment .comment-writer {
-	color: #1c1c24;
-}
-
-.comment .comment-date {
+.comment-head .comment-head-info .comment-date {
 	color: #777;
 	font-size: 0.5rem;
 }
+
+.comment-head .comment-menu {
+	font-size: 0.6rem;
+	color: #444;
+	text-align: right;
+}
+
 
 .comment .comment-contents {
 	color: #444;
@@ -45,84 +51,108 @@
 	word-wrap: break-word;
 }
 
-.comment-menu {
-	font-size: 0.6rem;
-	width: 7rem;
-	color: #444;
-	text-align: center;
-}
-
 .comment-menu a {
 	margin-left: 0.5rem;
 }
 
-.comt-pager {
-	margin: 1rem;
-	text-align: center;
+
+
+/* Comment Item.reply */
+.comment-item.reply {
+	margin-left: 1rem;
+	border-left: 2px double #D2D7D3;	
 }
 
+.comment-item.reply .comment-head-info .comment-writer {
+	color: #1c1c24;
+}
+
+
+/*** Comment Write ****/
 .comment-write {
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: space-between;
-	margin: 1rem 0.5rem;
 	margin-top: 2rem;
-	height: 3rem;
+}
+
+.comment-write .comment-write-contents {
+	width : 100%;
+	height : 4rem;
+	resize: none;
+	overflow: hidden;
+	border: 1px solid #CCC;
+	border-radius : 3px;
 }
 
 .comment-write-pinfo {
 	display: flex;
-	flex-flow: column nowrap;
-	width: 5rem;
-	height: 100%;
-	margin-right: 0.5rem;
+	justify-content : space-between;
+	margin-top : 0.5rem;
+	height: 1.5rem;
 }
+
+.comment-write-pinfo .write-name, 
+.comment-write-pinfo .write-password {
+	margin-right : 0.3rem;	
+} 
 
 .comment-write-pinfo input {
-	width: 100%;
-	height: 1rem;
+	width : 7rem;
+	height: 100%;
 	font-size: 0.5rem;
-	margin-bottom: 0.2rem;
 	padding-left: 0.2rem;
 	border: 1px solid #CCC;
+	border-radius : 3px;
 }
 
-.comment-write-contents {
-	flex: 1;
-	resize: none;
-	overflow: hidden;
-	border: 1px solid #CCC;
-}
-
-.comment-write-submit {
+.comment-write .comment-write-submit {
 	color: #FFF;
-	width: 5rem;
-	background: #666;
+	height:100%;
+	padding : 0 1rem;
+	border-radius : 3px;
+	background: #222;
 	cursor: pointer;
 	font-size: 0.7rem;
 }
 
+
+/** Comment Modify ***/
 .comment-modify {
 	display: flex;
 	flex-flow: row wrap;
 	height: 50px;
 }
 
-.btn-reply.open{
-		opacity: 1;
-	}
-	
+.comment-modify .comment-write-contents {
+	flex : 1;
+	height : 100%;
+	resize: none;
+	overflow: hidden;
+	border: 1px solid #CCC;
+}
+
+.comment-modify .comment-write-submit {
+	color: #FFF;
+	height:100%;
+	padding : 0 1rem;
+	background: #222;
+	cursor: pointer;
+	font-size: 0.5rem;
+}
+
 .btn-modify.open{
 	opacity: 1;
 }
 
+
+/* Comment Reply */
 .comment-reply{
+	display : flex;
 	margin: 0.5rem 0rem;
 	height: 1.5rem;
 	font-size: 0.7rem;
 }
 
 .comment-reply-content{
+	flex : 1;
 	height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -134,7 +164,11 @@
 	color: #FFF;
 	width: 3rem;
 	height: 100%;
-	background: #666;
+	background: #222;
 	cursor: pointer;
 	font-size: 0.5rem;
+}
+
+.btn-reply.open{
+	opacity: 1;
 }

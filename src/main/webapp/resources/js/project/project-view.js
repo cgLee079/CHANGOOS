@@ -1,71 +1,35 @@
 $(document).ready(function(){
-	/* draw line animation */
+	/* draw line animation 
 	var lineDrawing = anime({
 		targets: ".project-line",
-		easing: "easeInQuad",
-		width : [0, "100%"],
-		duration: 400,
-	});
+		scale : [ 0, 1 ],
+		easing : "easeInQuad",
+		duration : 400
+	});*/
 	
 	/* before, next Project button initialize */
-	initBeforeProjectBtn();
-	initNextProjectBtn();
-	
-	function initBeforeProjectBtn(){
-	    $(".btn-project-before").tooltip({
-	    	position: 'right',
-	    	show : null,
-	    	hide : null,
-	    });
-	    
-		if(isMobile){
-			$(".btn-project-before").addClass("display-none");
-		}
-		
-		$(".btn-project-next").on("click", function(){
-			var afterparentSeq = $("#afterparentSeq").val();
-			if(afterparentSeq){
-				Progress.start();
-				window.location.href = getContextPath() + "/project/view?seq=" + afterparentSeq;
-			} 
-		});
-	}
+	$(".btn-project-before, .btn-project-next").tooltip({
+    	position: 'top',
+    	show : null,
+    	hide : null,
+    });
 
-	function initNextProjectBtn(){
-		$(".btn-project-next").tooltip({
-			position: 'left',
-			show : null,
-			hide : null,
-		});
-		
-		if(isMobile){
-			$(".btn-project-next").addClass("display-none");
-		}
-		
-		$(".btn-project-before").on("click", function(){
-			var beforeparentSeq= $("#beforeparentSeq").val();
-			if(beforeparentSeq){
-				Progress.start();
-				window.location.href = getContextPath() + "/project/view?seq=" + beforeparentSeq;
-			} 
-		});
-	}
-
-	
-	/*
-	$(".wrapper").touchwipe({
-	     wipeLeft: function() {
-	    	 $(".btn-project-next").trigger("click");
-	     },		     
-	     wipeRight: function() {
-	    	 $(".btn-project-before").trigger("click");
-	     },		     
-	     min_move_x: 30,
-	     min_move_y: 20,
-	     preventDefaultEvents: true
-	});
-	*/
 });
+
+/* when '목록' click */
+function projectList(){
+	window.location.href = getContextPath() + "/project";
+}
+
+/* when '이전글', '다음글' click */
+function projectView(seq){
+	if (seq){
+		window.location.href = getContextPath() + "/project/view?seq=" + seq;
+	} else {
+		swal("글이 더 이상 없습니다.");
+	}
+}
+
 
 /* download file */
 function downloadFile(pathNm){

@@ -4,35 +4,35 @@
 	margin-top: 3rem;
 }
 
+.board-submenu {
+	text-align: right;
+	font-size: 0.6rem;
+	margin-bottom: 0.2rem;
+}
+
+.board-submenu .btn {
+	padding-left: 1rem;
+}
+
 .board-detail {
+	border: 1px solid #DDD;
+	background: #FFF;
 	padding: 1rem;
-}
-
-.board-detail .board-head{
-	border-bottom: 1px solid #DDD;
-	padding-bottom : 1.5rem;
-	margin-bottom: 1.5rem;
-}
-
-.board-detail .board-head .board-sect {
-	margin-bottom: 0.5rem;
-	color : #F67;
-	text-align: center;
 }
 
 .board-detail .board-head .board-title {
 	font-size: 2rem;
 	font-weight: bold;
 	margin-bottom: 0.8rem;
-	text-align: center;
 }
 
 .board-detail .board-head .board-info {
 	display : flex;
 	flex-flow : row nowrap;
-	justify-content : center;
+	justify-content : flex-start;
 	font-size: 0.5rem;
 	padding: 0 0.1rem;
+	opacity: 0.7;
 }
 
 .board-detail .board-info div{
@@ -41,7 +41,6 @@
 
 .board-detail .board-contents {
 	margin-top: 1.5rem;
-	margin-bottom : 4rem;
 }
 
 .board-files {
@@ -57,17 +56,6 @@
 	cursor: pointer;
 	font-size: 0.6rem;
     color: #44F;
-}
-
-.board-submenu {
-	text-align: right;
-	font-size: 0.7rem;
-	padding-bottom : 1rem;
-	border-bottom: 1px solid #DDD;
-}
-
-.board-submenu .btn {
-	padding-left: 1rem;
 }
 
 .colum-border{

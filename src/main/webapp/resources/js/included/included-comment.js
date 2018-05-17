@@ -103,9 +103,8 @@ function updateComment(data){
 		comment += '<input type="hidden" class="comment-seq">';
 		comment += '<input type="hidden" class="comment-boardSeq">';
 		comment += '<div class="comment">';
-		comment += '<a class="comment-writer"></a> <a class="comment-date"></a>'
-		comment += '<div class="comment-contents editor-contents"></div>';
-		comment += '</div>';
+		comment += '<div class="comment-head">';
+		comment += '<div class="comment-head-info"><a class="comment-writer"></a> <a class="comment-date"></a></div>'
 		comment += '<div class="comment-menu">';
 		if(isAdmin === 'true'){
 			comment += '<a onclick="addReplyForm(this)" class="btn btn-reply">답변</a>';	
@@ -115,6 +114,10 @@ function updateComment(data){
 		}
 		comment += '<a onclick="commentDelete(this)" class="btn">삭제</a>';
 		comment += '</div>';
+		comment += '</div>';
+		comment += '<div class="comment-contents editor-contents"></div>';
+		comment += '</div>';
+		
 		comment += '</div>';
 		return $(comment);
 	}
@@ -126,14 +129,16 @@ function updateComment(data){
 		comment += '<input type="hidden" class="comment-seq">';
 		comment += '<input type="hidden" class="comment-boardSeq">';
 		comment += '<div class="comment">';
-		comment += '<a class="comment-writer"></a> <a class="comment-date"></a>'
-		comment += '<div class="comment-contents editor-contents"></div>';
-		comment += '</div>';
+		comment += '<div class="comment-head">';
+		comment += '<div class="comment-head-info"><a class="comment-writer"></a> <a class="comment-date"></a></div>'
 		comment += '<div class="comment-menu">';
 		if(isAdmin === 'true'){
 			comment += '<a onclick="commentModify(this)" class="btn btn-modify">수정</a>';
 			comment += '<a onclick="commentDelete(this)" class="btn">삭제</a>';
 		}
+		comment += '</div>';
+		comment += '</div>';
+		comment += '<div class="comment-contents editor-contents"></div>';
 		comment += '</div>';
 		comment += '</div>';
 		return $(comment);
@@ -224,7 +229,7 @@ function doCommentModify(tg){
 function commentModify(tg){
 	var tg = $(tg);
 	if(tg.hasClass("open")){
-		tg.remove();
+		commentPageMove(page);
 	} else {
 		swal({
 			  text: '비밀번호를 입력해주세요',

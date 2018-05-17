@@ -42,11 +42,12 @@
 	.btn-submit{
 		border-radius: 2px;
 		width : 100%;
-		background: #989;
+		background: #222;
 		color : #FFF;
 		text-align: center;
-		padding : 0.2rem 0.1rem;
+		padding : 0.3rem 0.1rem;
 		cursor: pointer;
+		font-size: 0.6rem;
 	}
 </style>
 </head>

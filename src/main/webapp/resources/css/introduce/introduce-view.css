@@ -39,6 +39,11 @@
 	line-height: 1.3rem;
 	font-size: 0.7rem;
 	overflow-y : auto;
+	-ms-overflow-style : none;
+}
+
+.content-text::-webkit-scrollbar{
+	display: none;
 }
 
 .content-text > .content-head{

@@ -16,6 +16,7 @@ $(document).ready(function(){
 		pass.push(false);
 	});
 	
+	
 	/* mobile, add click event */
 	if(isMobile){
 		projectViews.each(function(){
@@ -26,10 +27,21 @@ $(document).ready(function(){
 		});	
 	}
 	
-	/* when scroll, Show project */
-	$(window).scroll(function(){
+	/* when scroll, show project */
+	$(window).scroll(onScroll);
+	
+	var index = 0;
+	var scrollTop = $(window).scrollTop();
+	while(tops[index] <= scrollTop){
+		onScroll();
+		index++;
+	}
+	
+	function onScroll(){
 		var scrollTop = $(window).scrollTop();
+		console.log("##");
 		if(tops[currentView] <= (scrollTop + 550) && pass[currentView] == false){
+			console.log("dddd");
 			pass[currentView] = true;
 			var target = document.querySelector(".project-view:nth-child(" + (currentView + 1)+ ")");
 			anime.timeline()
@@ -41,7 +53,6 @@ $(document).ready(function(){
 				});
 			currentView += 1;
 		}
-	});
+	}
 	
-	$(window).trigger("scroll");
 });

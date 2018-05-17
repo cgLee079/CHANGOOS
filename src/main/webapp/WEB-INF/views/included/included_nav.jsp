@@ -9,12 +9,6 @@
 		<div class="logo-line"></div>
 	</div>
 	
-	<sec:authorize access="isAnonymous()">
-		<div class="header-admin-menu row-center">
-			<a href="${pageContext.request.contextPath}/login" class="btn btn-admin-login">관리자</a>
-		</div>
-	</sec:authorize>
-	 
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 	  	<div class="header-admin-menu row-center">
 	  		<a href="${pageContext.request.contextPath}/j_spring_security_logout" class="btn btn-admin-login">로그아웃 </a>
