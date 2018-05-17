@@ -13,8 +13,9 @@ $(document).ready(function(){
 	
 	function initBeforeProjectBtn(){
 	    $(".btn-project-before").tooltip({
-	    	 show : null,
-	    	 hide : null,
+	    	position: 'right',
+	    	show : null,
+	    	hide : null,
 	    });
 	    
 		if(isMobile){
@@ -32,8 +33,9 @@ $(document).ready(function(){
 
 	function initNextProjectBtn(){
 		$(".btn-project-next").tooltip({
-			 show : null,
-			 hide : null,
+			position: 'left',
+			show : null,
+			hide : null,
 		});
 		
 		if(isMobile){

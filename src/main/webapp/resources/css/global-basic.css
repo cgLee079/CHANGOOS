@@ -125,3 +125,12 @@ a, a:VISITED {
 	color: #FFF;
 	background: #888;
 }
+
+/* easyui tooltip override */
+.tooltip{
+	padding : 0.3rem 0.4rem !important;
+	background: #000 !important;
+	color: #FFF !important;	
+    box-shadow: 0px 5px 5px #ECF0F1;
+}
+

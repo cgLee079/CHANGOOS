@@ -21,7 +21,6 @@ import com.cglee079.changoos.service.PhotoService;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.MetadataException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 @Controller
@@ -57,18 +56,26 @@ public class PhotoController {
 	/** 사진 크게 보기, Ajax **/
 	@ResponseBody
 	@RequestMapping(value = "/photo/view.do")
-	public String photoDoView(int seq) throws JsonProcessingException {
+	public String photoDoView(HttpSession session, int seq) throws JsonProcessingException {
 		PhotoVo photo = photoService.get(seq);
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(photo);
+		JSONObject photoJSON = new JSONObject(new Gson().toJson(photo));
+		
+		Map<Integer, Boolean> likePhotos = (Map<Integer, Boolean>)session.getAttribute("likePhotos");
+		photoJSON.put("like", likePhotos.get(seq));
+		
+		return photoJSON.toString();
 	}
 	
 	/** 사진 좋아요, Ajax **/
 	@ResponseBody
-	@RequestMapping(value = "/photo/increaseLike.do")
-	public String increaseLike(int seq) throws JsonProcessingException {
-		int like = photoService.increaseLike(seq);
-		return new JSONObject().put("like", like).toString();
+	@RequestMapping(value = "/photo/doLike.do")
+	public String doLike(HttpSession session, int seq, boolean like) throws JsonProcessingException {
+		int likeCnt = photoService.doLike((Map<Integer, Boolean>)session.getAttribute("likePhotos"), seq, like);
+		
+		JSONObject result = new JSONObject();
+		result.put("likeCnt", likeCnt);
+		result.put("like", like);
+		return result.toString();
 	}
 	
 	/** 사진 삭제 , Ajax **/

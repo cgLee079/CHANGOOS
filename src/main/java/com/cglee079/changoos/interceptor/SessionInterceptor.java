@@ -2,6 +2,7 @@ package com.cglee079.changoos.interceptor;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +35,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 			
 			session.setAttribute("visitBoards", new ArrayList<Integer>());
 			session.setAttribute("visitProjects", new ArrayList<Integer>());
+			session.setAttribute("likePhotos", new HashMap<Integer, Boolean>());
 		} 
 		return true;
 	}

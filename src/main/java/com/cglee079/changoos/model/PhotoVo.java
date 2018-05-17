@@ -12,7 +12,7 @@ public class PhotoVo {
 	private String time;
 	private String tag;
 	private String device;
-	private int like;
+	private int likeCnt;
 
 	public int getSeq() {
 		return seq;
@@ -102,12 +102,12 @@ public class PhotoVo {
 		this.device = device;
 	}
 
-	public int getLike() {
-		return like;
+	public int getLikeCnt() {
+		return likeCnt;
 	}
 
-	public void setLike(int like) {
-		this.like = like;
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
 	}
 
 }

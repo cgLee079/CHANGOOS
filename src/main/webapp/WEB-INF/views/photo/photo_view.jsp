@@ -20,7 +20,7 @@
 				<div class="photo-img"></div>
 				<div class="photo-sub">
 					<div class="photo-menu">
-						<div class="btn btn-photo-like" onclick="increaseLike(this)" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn-photo-like.svg);"></div>
+						<div class="btn btn-photo-like" onclick="doLike(this)" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn-photo-like.svg);"></div>
 						<div class="btn btn-photo-comment" onclick="showWriteComment(this)" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn-photo-comment.svg);"></div>
 					</div>
 					

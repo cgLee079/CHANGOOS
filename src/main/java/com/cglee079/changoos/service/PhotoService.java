@@ -39,7 +39,7 @@ public class PhotoService {
 	}
 	
 	public boolean insert(PhotoVo photo){
-		photo.setLike(0);
+		photo.setLikeCnt(0);
 		return photoDao.insert(photo);
 	}
 
@@ -107,12 +107,21 @@ public class PhotoService {
 		return photoDao.seqs();
 	}
 	
-	public int increaseLike(int seq) {
+	public int doLike(Map<Integer, Boolean> likePhotos, int seq, boolean like) {
 		PhotoVo photo = photoDao.get(seq);
-		int like = photo.getLike() + 1;
-		photo.setLike(like);
-
+		
+		int likeCnt = -1;
+		if(like) { 
+			likePhotos.put(seq, true);
+			likeCnt = photo.getLikeCnt() + 1; 
+		}else {
+			likePhotos.put(seq, false);
+			likeCnt = photo.getLikeCnt() -1; 
+		}
+		
+		photo.setLikeCnt(likeCnt);
 		photoDao.update(photo);
-		return like;
+		
+		return likeCnt;
 	}
 }

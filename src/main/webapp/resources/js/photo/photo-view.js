@@ -62,8 +62,14 @@ function loadPhoto(currentView){
 			item.find(".photo-name").text(data.name);
 			item.find(".photo-date-loc").text(data.date + " " + data.location);
 			item.find(".photo-desc").html(data.desc);
-			if(data.like != 0){
-				item.find(".photo-like").text("♡" + data.like);
+			
+			if(data.likeCnt != 0){
+				item.find(".photo-like").text("♡" + data.likeCnt);
+			}
+			
+			if(data.like){
+				item.find(".btn-photo-like").addClass("on");
+				item.find(".btn-photo-like").css("background-image", "url('" + getContextPath() + "/resources/image/btn-photo-like-on.svg')");
 			}
 			
 			if(data.device){
@@ -138,27 +144,36 @@ function showPhoto(index){
 }
 
 /* Ajax, when love icon click. */
-function increaseLike(tg){
+function doLike(tg){
 	var tg		= $(tg);
 	var item 	= tg.parents(".photo-list-item");
 	var seq 	= item.find("#photo-seq").val();
+	var isUnlike= tg.hasClass("on");
 	
-	if(!tg.hasClass("on")) {
-		$.ajax({	
-			type	: "POST",
-			url		:  getContextPath() + "/photo/increaseLike.do",
-			data	: {
-				'seq' : seq
-			},
-			dataType: 'JSON',
-			asyncl 	: false,
-			success : function(data) {
-				item.find(".photo-like").text("♡" + data.like);
+	$.ajax({	
+		type	: "POST",
+		url		:  getContextPath() + "/photo/doLike.do",
+		data	: {
+			'seq' 	: seq,
+			'like'	: !isUnlike
+		},
+		dataType: 'JSON',
+		asyncl 	: false,
+		success : function(data) {
+			item.find(".photo-like").text("♡" + data.likeCnt);
+			console.log(data);
+			if(data.like){
 				tg.addClass("on");
 				tg.css("background-image", "url('" + getContextPath() + "/resources/image/btn-photo-like-on.svg')");
+			} else{
+				tg.removeClass("on");
+				tg.css("background-image", "url('" + getContextPath() + "/resources/image/btn-photo-like.svg')");
 			}
-		});
-	}
+		},
+		error : function(e){
+			console.log(e);
+		}
+	});
 }
 
 

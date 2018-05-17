@@ -23,8 +23,18 @@
 				</sec:authorize>
 				
 				<a class="btn" onclick="boardList()">목록</a>
-				<a class="btn" onclick="boardView('${afterBoard.seq}')">이전글</a>
-				<a class="btn" onclick="boardView('${beforeBoard.seq}')">다음글</a>
+				
+				<c:choose>
+					<c:when test='${not empty afterBoard}'><c:set value="${afterBoard.title}" var="afterBoardTooltip" /></c:when>
+					<c:otherwise><c:set value="더 이상 글이 없습니다." var="afterBoardTooltip" /></c:otherwise>
+				</c:choose>
+				<a class="btn btn-board-before" title="<c:out value='${afterBoardTooltip}'/>" onclick="boardView('${afterBoard.seq}')">이전글</a>
+				
+				<c:choose>
+					<c:when test='${not empty beforeBoard}'><c:set value="${beforeBoard.title}" var="boforeBoardTooltip" /></c:when>
+					<c:otherwise><c:set value="더 이상 글이 없습니다." var="afterBoardTooltip" /></c:otherwise>
+				</c:choose>
+				<a class="btn btn-board-next" title="<c:out value='${boforeBoardTooltip}'/>"onclick="boardView('${beforeBoard.seq}')">다음글</a>
 			</div>
 			<div class="board-detail">
 				<div class="board-head">

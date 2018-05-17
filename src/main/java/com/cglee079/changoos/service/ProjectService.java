@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cglee079.changoos.dao.ProjectDao;
-import com.cglee079.changoos.model.BoardVo;
 import com.cglee079.changoos.model.ProjectVo;
 
 @Service

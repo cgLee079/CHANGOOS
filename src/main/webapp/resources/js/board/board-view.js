@@ -4,6 +4,12 @@ var boardPage;
 $(document).ready(function(){
 	sect = $("#sect").val();
 	boardPage = $("#boardPage").val();
+	
+	$(".btn-board-before, .btn-board-next").tooltip({
+    	position: 'top',
+    	show : null,
+    	hide : null,
+    });
 })
 
 /* when '목록' click */

@@ -77,6 +77,7 @@ public class BoardController {
 		BoardVo board 		= boardService.doView((List<Integer>)session.getAttribute("visitBoards"), seq);
 		BoardVo beforeBoard = boardService.getBefore(seq, sect);
 		BoardVo afterBoard 	= boardService.getAfter(seq, sect);
+		
 		model.addAttribute("sect", sect);
 		model.addAttribute("page", page);
 		model.addAttribute("beforeBoard", beforeBoard);
