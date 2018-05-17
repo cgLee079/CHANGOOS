@@ -10,7 +10,6 @@
 
 .board-detail .board-head{
 	border-bottom: 1px solid #DDD;
-	padding-bottom : 1.5rem;
 	margin-bottom: 1.5rem;
 }
 
@@ -35,8 +34,19 @@
 	padding: 0 0.1rem;
 }
 
-.board-detail .board-info div{
+.board-detail .board-head .board-info div{
 	margin-right: 0.5rem;
+}
+
+.board-detail .board-head .board-submenu {
+	text-align: right;
+	font-size: 0.6rem;
+	margin-bottom: 0.5rem;
+	margin-top: 1rem;
+}
+
+.board-detail .board-head .board-submenu .btn {
+	padding-left: 1rem;
 }
 
 .board-detail .board-contents {
@@ -57,17 +67,6 @@
 	cursor: pointer;
 	font-size: 0.6rem;
     color: #44F;
-}
-
-.board-submenu {
-	text-align: right;
-	font-size: 0.7rem;
-	padding-bottom : 1rem;
-	border-bottom: 1px solid #DDD;
-}
-
-.board-submenu .btn {
-	padding-left: 1rem;
 }
 
 .colum-border{

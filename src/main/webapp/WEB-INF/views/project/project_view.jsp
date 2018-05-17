@@ -37,7 +37,21 @@
 						</div>
 					</c:if>
 					
-					
+				</div>
+				
+				<div class="project-submenu">
+					<a class="btn" onclick="projectList()">목록</a>
+					<c:choose>
+						<c:when test='${not empty beforeProject}'><c:set value="[${beforeProject.sect}] ${beforeProject.title}" var="beforeProejctTooltip" /></c:when>
+						<c:otherwise><c:set value="더 이상 글이 없습니다." var="beforeProejctTooltip" /></c:otherwise>
+					</c:choose>
+					<a class="btn btn-project-before" title="<c:out value='${beforeProejctTooltip}'/>" onclick="projectView('${beforeProject.seq}')">이전글</a>
+
+					<c:choose>
+						<c:when test='${not empty afterProject}'><c:set value="[${afterProject.sect}] ${afterProject.title}" var="afterProjectTooltip" /></c:when>
+						<c:otherwise><c:set value="더 이상 글이 없습니다." var="afterProjectTooltip" /></c:otherwise>
+					</c:choose>
+					<a class="btn btn-project-next" title="<c:out value='${afterProjectTooltip}'/>"onclick="projectView('${afterProject.seq}')">다음글</a>
 				</div>
 			</div>
 
@@ -62,21 +76,6 @@
 				</c:if>
 			</div>
 		
-			<div class="project-submenu">
-				<a class="btn" onclick="projectList()">목록</a>
-				<c:choose>
-					<c:when test='${not empty beforeProject}'><c:set value="[${beforeProject.sect}] ${beforeProject.title}" var="beforeProejctTooltip" /></c:when>
-					<c:otherwise><c:set value="더 이상 글이 없습니다." var="beforeProejctTooltip" /></c:otherwise>
-				</c:choose>
-				<a class="btn btn-project-before" title="<c:out value='${beforeProejctTooltip}'/>" onclick="projectView('${beforeProject.seq}')">이전글</a>
-				
-				<c:choose>
-					<c:when test='${not empty afterProject}'><c:set value="[${afterProject.sect}] ${afterProject.title}" var="afterProjectTooltip" /></c:when>
-					<c:otherwise><c:set value="더 이상 글이 없습니다." var="afterProjectTooltip" /></c:otherwise>
-				</c:choose>
-				<a class="btn btn-project-next" title="<c:out value='${afterProjectTooltip}'/>"onclick="projectView('${afterProject.seq}')">다음글</a>
-			</div>
-			
 			<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">
 			   <c:param name = "perPgLine" value = "10" />
 			   <c:param name = "boardType" value = "project" />

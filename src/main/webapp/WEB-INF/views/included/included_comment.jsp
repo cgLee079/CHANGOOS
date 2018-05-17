@@ -10,6 +10,7 @@
 	<input type="hidden" id="comtCnt" value="<c:out value='${param.comtCnt}'/>"/>
 	<input type="hidden" id="isAdmin" value="<c:out value='${isAdmin}'/>"/>
 	
+	<div class="comment-header font-lora">Comment</div>
 	<div class="comments"></div>
 	<div class="comt-pager"></div>
 	

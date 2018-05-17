@@ -29,6 +29,27 @@
 						<div class="colum-border"></div>
 						<div>조회수 <c:out value="${board.hits}"/></div>
 					</div>
+					
+					<div class="board-submenu">
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<a class="btn" onclick="boardModify('${board.seq}')">수정</a>
+							<a class="btn" onclick="boardDelete('${board.seq}')">삭제</a>
+						</sec:authorize>
+						
+						<a class="btn" onclick="boardList()">목록</a>
+						
+						<c:choose>
+							<c:when test='${not empty afterBoard}'><c:set value="${afterBoard.title}" var="afterBoardTooltip" /></c:when>
+							<c:otherwise><c:set value="더 이상 글이 없습니다." var="afterBoardTooltip" /></c:otherwise>
+						</c:choose>
+						<a class="btn btn-board-before" title="<c:out value='${afterBoardTooltip}'/>" onclick="boardView('${afterBoard.seq}')">이전글</a>
+						
+						<c:choose>
+							<c:when test='${not empty beforeBoard}'><c:set value="${beforeBoard.title}" var="boforeBoardTooltip" /></c:when>
+							<c:otherwise><c:set value="더 이상 글이 없습니다." var="boforeBoardTooltip" /></c:otherwise>
+						</c:choose>
+						<a class="btn btn-board-next" title="<c:out value='${boforeBoardTooltip}'/>"onclick="boardView('${beforeBoard.seq}')">다음글</a>
+					</div>
 				</div>
 
 				<c:if test="${!empty files}">
@@ -46,27 +67,6 @@
 				<div class="board-contents editor-contents">
 					<c:out value="${board.contents}" escapeXml="false"/>
 				</div>
-			</div>
-			
-			<div class="board-submenu">
-				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<a class="btn" onclick="boardModify('${board.seq}')">수정</a>
-					<a class="btn" onclick="boardDelete('${board.seq}')">삭제</a>
-				</sec:authorize>
-				
-				<a class="btn" onclick="boardList()">목록</a>
-				
-				<c:choose>
-					<c:when test='${not empty afterBoard}'><c:set value="${afterBoard.title}" var="afterBoardTooltip" /></c:when>
-					<c:otherwise><c:set value="더 이상 글이 없습니다." var="afterBoardTooltip" /></c:otherwise>
-				</c:choose>
-				<a class="btn btn-board-before" title="<c:out value='${afterBoardTooltip}'/>" onclick="boardView('${afterBoard.seq}')">이전글</a>
-				
-				<c:choose>
-					<c:when test='${not empty beforeBoard}'><c:set value="${beforeBoard.title}" var="boforeBoardTooltip" /></c:when>
-					<c:otherwise><c:set value="더 이상 글이 없습니다." var="boforeBoardTooltip" /></c:otherwise>
-				</c:choose>
-				<a class="btn btn-board-next" title="<c:out value='${boforeBoardTooltip}'/>"onclick="boardView('${beforeBoard.seq}')">다음글</a>
 			</div>
 			
 			<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">
