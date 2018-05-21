@@ -87,20 +87,21 @@
 	font-size: 0.7rem;
 }
 
-.photo-detail>.photo-info2 {
-	display: flex;
-	margin-top: 10px;
-	font-size: 0.7rem;
-	color: #33F;
-}
-
 .photo-detail>.photo-desc {
-	margin-top: 5px;
 	width: 100%;
 	overflow: hidden;
 	color: #555;
 	font-size: 0.8rem;
 	word-break: break-all;
+	margin-top : 0.5rem;
+	min-height : 3rem;
+}
+
+.photo-detail>.photo-tag {
+	display: flex;
+	margin-top: 1rem;
+	font-size: 0.7rem;
+	color: #33F;
 }
 
 .photo-loading{

@@ -1,6 +1,7 @@
 .wrap-board {
 	width: 60%;
 	margin: 0 auto;
+	margin-bottom : 10%;
 	padding: 2rem 0;
 	min-height: calc(100% - 50px);
 }

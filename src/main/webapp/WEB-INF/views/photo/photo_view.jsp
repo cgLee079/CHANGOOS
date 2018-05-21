@@ -31,11 +31,10 @@
 							<div style="flex : 1"></div>
 							<div class="photo-date-loc"></div>
 						</div>
-						<div class="photo-info2">
-							<div class="photo-tag"></div>
-						</div>
-						
 						<div class="photo-desc editor-contents"></div>
+						
+						<div class="photo-tag"></div>
+						
 					</div>
 					
 					<div class="photo-comments">			
