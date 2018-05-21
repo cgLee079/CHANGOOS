@@ -76,10 +76,13 @@
 	width : 70%;
 	height : 5rem;
 }
+
 .input-message{
 	width : 100%;
 	height: 100%;
 	resize: none;
+	border: 1px solid #CCC;
+	border-radius : 3px;
 }
 
 .submit-message{

@@ -64,7 +64,7 @@ function loadPhoto(currentView){
 			item.find(".photo-desc").html(data.desc);
 			
 			if(data.likeCnt != 0){
-				item.find(".photo-like").text("♡" + data.likeCnt);
+				item.find(".photo-like").text("♥" + data.likeCnt);
 			}
 			
 			if(data.like){
@@ -160,7 +160,7 @@ function doLike(tg){
 		dataType: 'JSON',
 		asyncl 	: false,
 		success : function(data) {
-			item.find(".photo-like").text("♡" + data.likeCnt);
+			item.find(".photo-like").text("♥" + data.likeCnt);
 			console.log(data);
 			if(data.like){
 				tg.addClass("on");

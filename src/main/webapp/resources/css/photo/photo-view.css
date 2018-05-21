@@ -100,7 +100,7 @@
 .photo-detail>.photo-tag {
 	display: flex;
 	margin-top: 1rem;
-	font-size: 0.7rem;
+	font-size: 0.8rem;
 	color: #33F;
 }
 
@@ -122,7 +122,7 @@
 .photo-comments .comment .comment-userinfo {
 	width: 7rem;
 	font-weight: bold;
-	font-size: 0.8rem;
+	font-size: 0.7rem;
 	
 	display: flex;
 	align-items: center;
@@ -156,7 +156,6 @@
 	display: flex;
 	justify-content : flex-end;
 	align-items: center;
-	
 }
 
 .photo-write-comment {

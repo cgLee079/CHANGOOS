@@ -8,6 +8,9 @@
 <!-- font -->
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-lora.css'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-nanumgothic.css'/>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-misaeng.css'/>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-bm.css'/>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-kcc.css'/>
 
 <!-- lib-css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lib/letter-motion.css" />
@@ -43,7 +46,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/editor-contents-resizer.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-nav.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/included/included-footer.js"></script>
 
 <script>
 
