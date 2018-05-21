@@ -11,7 +11,7 @@ $(document).ready(function(){
 		$(window).scroll(function(){
 			var scrollPosition = $(this).scrollTop() + $(this).outerHeight();
 			var docHeight = $(this).height();
-			if(scrollPosition >= docHeight - 10 && !loading && currentView < seqs.length){
+			if(scrollPosition >= (docHeight/2) - 10 && !loading && currentView < seqs.length){
 				loadPhoto(currentView);
 				currentView++;
 			}
@@ -21,7 +21,7 @@ $(document).ready(function(){
 		photoWrapper.scroll(function(){
 			var scrollPosition = $(this).scrollTop() + $(this).outerHeight();
 			var docHeight = $(this)[0].scrollHeight ;
-			if(scrollPosition >= docHeight - 10 && !loading && currentView < seqs.length){
+			if(scrollPosition >= (docHeight/2) - 10 && !loading && currentView < seqs.length){
 				loadPhoto(currentView);
 				currentView++;
 			}

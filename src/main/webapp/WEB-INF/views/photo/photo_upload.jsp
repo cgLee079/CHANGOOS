@@ -65,6 +65,13 @@
 				</div>
 				
 				<div class="upload-item">
+					<div class="upload-item-name">DEVICE</div>
+					<div class="upload-item-input">
+						<input type="text" id="device" name="device" class="photo-device" value="<c:out value='${photo.device}'/>"/>
+					</div>
+				</div>
+				
+				<div class="upload-item">
 					<div class="upload-item-name">NAME</div>
 					<div class="upload-item-input">
 						<input type="text" id="name" name="name" class="photo-name" value="<c:out value='${photo.name}'/>"/>

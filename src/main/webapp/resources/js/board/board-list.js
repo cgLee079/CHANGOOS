@@ -178,8 +178,4 @@ function updateBoard(data){
 		item.appendTo(boardList);			
 	}
 	
-	boardList.removeAttr("style");
-	if(boardList.height() < deviceHeight){
-		boardList.css("height", deviceHeight);
-	} 
 }

@@ -238,6 +238,10 @@
 		margin-top: 0;
 	}
 	
+	.photo-sub {
+		width: 90%;
+	}
+
 	.snapsht-list {
 		display: none;
 	}
