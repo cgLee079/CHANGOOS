@@ -16,7 +16,7 @@
 		<input type="hidden" id="boardPage" value="<c:out value='${page}'/>"/>
 		
 		<div class="wrap-board">
-			<div class="board-detail">
+			<div class="board">
 				<div class="board-head">
 					<div class="board-sect font-lora"><c:out value="${board.sect}"/></div>
 					<div class="board-title"><c:out value="${board.title}"/></div>

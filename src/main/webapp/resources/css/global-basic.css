@@ -43,17 +43,13 @@ a, a:VISITED {
 /* contents, by CKEditor*/
 .editor-contents {
 	color: #333;
-	font-size: 0.6rem;
-	line-height: 1.3rem;
+	font-size: 0.9rem;
+	line-height: 1.8rem;
 	word-break: break-all;
 }
 
 .editor-contents h1, .editor-contents h2, .editor-contents h3 {
 	margin: 0.5rem 0px;
-}
-
-.editor-contents p {
-	line-height: 1.3rem;
 }
 
 .editor-contents a, .editor-contents a:VISITED {
