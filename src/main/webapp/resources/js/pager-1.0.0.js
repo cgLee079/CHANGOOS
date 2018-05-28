@@ -8,10 +8,10 @@ const	ONE_PG_GRP		= 0,
 /***** ^^^^^^^^^ ****/
 
 /************* Set Custom **************/
-const	FIRST_MOVE_TAG		= '<<',	// first move
-		LAST_MOVE_TAG		= '>>',	// last move
-		PREV_MOVE_TAG		= '<',	// prev move
-		NEXT_MOVE_TAG		= '>',	// next move
+const	FIRST_MOVE_TAG		= '[처음]',	// first move
+		LAST_MOVE_TAG		= '[마지막]',	// last move
+		PREV_MOVE_TAG		= '[이전]',	// prev move
+		NEXT_MOVE_TAG		= '[다음]',	// next move
 		MOVE_TAG_FONT_SIZE	= '0.5rem',	// move tag text size
 		PAGER_FONT_SIZE		= '1rem',	// pager font size
 		PAGER_CUR_FONT_SIZE	= '1rem',	// current page font size
@@ -93,7 +93,7 @@ function getBasicTag(fontSize){
 function getMoveTag(fontSize){
 	var tag	= $('<a>',{ // Default Style
 		style	: 'font-size	: ' + fontSize + '; '
-				+ 'margin		: 0px 0.3rem; '
+				+ 'margin		: 0px 0.15rem; '
 				+ 'color		: ' + TAG_OUT_COLOR + '; '
 				+ 'cursor		: pointer; '
 	});
