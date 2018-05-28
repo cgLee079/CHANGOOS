@@ -4,25 +4,35 @@
 }
 
 .wrap-introduce{
-	height: 100%;
-	margin-top: -2rem;
+	height: calc(100% - 50px);
+	margin-bottom : 20px;
+	
+	display : flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column nowrap;
 } 
 
-.introduce-name{
+.me-icon{
+	height: 30%;
+}
+
+.introduce {
+}
+
+.introduce .introduce-name{
 	font-size: 0.9rem;
 	margin-bottom: 1rem;
 }
 
-.introduce-desc{
-	max-width: 70%;
+.introduce .introduce-desc{
 	font-size: 0.7rem;
 	line-height: 1rem;
 	text-align: center;
 }
 
 .me-icon{
-	width : 200px;
-	height: 200px;
+	width : 50%;
 	margin: 1rem auto;
 	
 	background-position	: center;

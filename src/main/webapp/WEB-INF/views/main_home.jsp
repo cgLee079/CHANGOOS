@@ -37,25 +37,27 @@ $(window).resize(function(){
 	<c:import url="included/included_nav.jsp" charEncoding="UTF-8" />
 	
 	<div class="main">
-		<div class="col-center wrap-introduce">
+		<div class="wrap-introduce">
 			<div class="me-icon" style="background-image : url(resources/image/home_icon_me.png);">
 			</div>
 			
-			<div class="introduce-name">
-				<h1 class="ml9 font-lora">
-				  <span class="text-wrapper">
-				    <span class="letters">Changoo Lee</span>
-				  </span>
-				</h1>
-			</div>
-			
-			<div class="introduce-desc font-lora">
-				Hello! Thank you for visiting my site. <br/>
-				I specialized Computer Engineering at Hansung University.<br/>
-				and interested in <strong>Android, Web development.</strong><br/>
-				If you want to see my projects, show below.<br/>
-				<br/>
-				<a href="javascript:void(0)" onclick="scrollToItems()" class ="btn btn-show-items" >going on</a>
+			<div class="introduce">
+				<div class="introduce-name">
+					<h1 class="ml9 font-lora">
+					  <span class="text-wrapper">
+					    <span class="letters">Changoo Lee</span>
+					  </span>
+					</h1>
+				</div>
+				
+				<div class="introduce-desc font-lora">
+					Hello! Thank you for visiting my site. <br/>
+					I specialized Computer Engineering at Hansung University.<br/>
+					and interested in <strong>Android, Web development.</strong><br/>
+					If you want to see my projects, show below.<br/>
+					<br/>
+					<a href="javascript:void(0)" onclick="scrollToItems()" class ="btn btn-show-items" >going on</a>
+				</div>
 			</div>
 		</div>
 		

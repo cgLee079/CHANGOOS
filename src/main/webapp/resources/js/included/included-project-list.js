@@ -16,7 +16,6 @@ $(document).ready(function(){
 		pass.push(false);
 	});
 	
-	
 	/* mobile, add click event */
 	if(isMobile){
 		projectViews.each(function(){
@@ -39,9 +38,7 @@ $(document).ready(function(){
 	
 	function onScroll(){
 		var scrollTop = $(window).scrollTop();
-		console.log("##");
 		if(tops[currentView] <= (scrollTop + 550) && pass[currentView] == false){
-			console.log("dddd");
 			pass[currentView] = true;
 			var target = document.querySelector(".project-view:nth-child(" + (currentView + 1)+ ")");
 			anime.timeline()
