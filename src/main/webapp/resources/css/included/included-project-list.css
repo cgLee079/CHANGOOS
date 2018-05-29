@@ -6,6 +6,8 @@
 	margin-bottom: 2.5rem;
 	opacity: 0;
 	box-shadow: 0px 10px 10px #ECF0F1; 
+	overflow: hidden;
+	border-radius: 5px;
 }
 
 .project-snapsht{
@@ -14,9 +16,20 @@
 	opacity: 0.9;
 	cursor : pointer;
 	position : relative;
+}
+
+.project-snapsht .project-snapsht-img{
+	width : 100%;
+	height : 100%;
 	background-position	: center;
     background-repeat	: no-repeat;
     background-size		: cover;
+    
+    transition: all 0.3s ease-in-out;
+}
+
+.project-snapsht .project-snapsht-img:hover{
+	/* transform: scale(1.05); */ 
 }
 
 .project-snapsht .project-snapsht-overlay {
@@ -46,8 +59,9 @@
 	right : 0;
 	bottom  : 0;
 	z-index: 1;
-	background: rgba(0, 0, 0, 0.2);
+	background: rgba(0, 0, 0, 0.5);
 	transform: scale(0);
+	pointer-events: none;
 }
 
 .project-snapsht:hover .project-snapsht-fg{

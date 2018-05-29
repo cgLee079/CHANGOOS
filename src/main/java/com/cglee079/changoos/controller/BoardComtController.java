@@ -66,8 +66,22 @@ public class BoardComtController {
 	/** 게시판 비밀번호 체크 **/
 	@ResponseBody
 	@RequestMapping("board/comment/checkPwd.do")
-	public String doCheckPwd(int seq, String password) throws SQLException, JsonProcessingException{
-		boolean result = bcomtService.checkPwd(seq, password);
+	public String doCheckPwd(Authentication auth, int seq, String password) throws SQLException, JsonProcessingException{
+		boolean isAdmin = false;
+		
+		if(auth != null) {
+			AdminVo vo = (AdminVo) auth.getPrincipal();
+			Iterator<? extends GrantedAuthority> iter = vo.getAuthorities().iterator();
+			while(iter.hasNext()) {
+				GrantedAuthority ga = iter.next();
+				if(ga.getAuthority().equals("ROLE_ADMIN")) {
+					isAdmin = true;
+					break;
+				}
+			}
+		}
+		
+		boolean result = bcomtService.checkPwd(seq, password, isAdmin);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
 	}
@@ -75,7 +89,7 @@ public class BoardComtController {
 	/** 게시판 댓글 수정 **/
 	@ResponseBody
 	@RequestMapping("board/comment/update.do")
-	public String doUpdate(int seq, String contents) throws SQLException, JsonProcessingException{
+	public String doUpdate(Authentication auth, int seq, String contents) throws SQLException, JsonProcessingException{
 		boolean result = bcomtService.update(seq, contents);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);

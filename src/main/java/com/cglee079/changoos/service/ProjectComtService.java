@@ -41,9 +41,9 @@ public class ProjectComtService{
 		}
 	}
 	
-	public boolean checkPwd(int seq, String password) {
+	public boolean checkPwd(int seq, String password, boolean isAdmin) {
 		ProjectComtVo comtVo = projectcomtDao.get(seq);
-		if(comtVo.getPassword().equals(password)){
+		if(comtVo.getPassword().equals(password) || isAdmin){
 			return true;			
 		} else {
 			return false;

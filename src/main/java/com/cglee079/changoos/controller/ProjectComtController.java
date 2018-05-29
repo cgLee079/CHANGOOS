@@ -67,8 +67,21 @@ public class ProjectComtController {
 	/** 프로젝트 댓글 비빌번호 확인 **/
 	@ResponseBody
 	@RequestMapping("project/comment/checkPwd.do")
-	public String doCheckPwd(int seq, String password) throws SQLException, JsonProcessingException{
-		boolean result = pcomtService.checkPwd(seq, password);
+	public String doCheckPwd(Authentication auth,  int seq, String password) throws SQLException, JsonProcessingException{
+		boolean isAdmin = false;
+		
+		if(auth != null) {
+			AdminVo vo = (AdminVo) auth.getPrincipal();
+			Iterator<? extends GrantedAuthority> iter = vo.getAuthorities().iterator();
+			while(iter.hasNext()) {
+				GrantedAuthority ga = iter.next();
+				if(ga.getAuthority().equals("ROLE_ADMIN")) {
+					isAdmin = true;
+					break;
+				}
+			}
+		}
+		boolean result = pcomtService.checkPwd(seq, password, isAdmin);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
 	}
