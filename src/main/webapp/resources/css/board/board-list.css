@@ -1,8 +1,7 @@
 .wrap-board {
 	width: 70%;
 	margin: 0 auto;
-	margin-bottom : 10%;
-	padding: 2rem 0;
+	margin-top: 2rem;
 	min-height: calc(100% - 50px);
 }
 
@@ -17,6 +16,7 @@
 	flex-flow: row wrap;
 	align-content: center;
 	justify-content: center;
+	
 	margin-bottom: 1.5rem;
 }
 
@@ -85,15 +85,16 @@
 
 .board-list-item .board-item-title {
 	color: #333;
-	font-weight: bold;
-	line-height: 0;
-	margin-bottom: 1.2rem;
-	font-size: 1rem;
+	margin-bottom: 1.75rem;
 	cursor: pointer;
+	
+	font-size 	: 1.25rem;
+	font-weight	: bold;
+	line-height	: 0;
 }
 
 .board-list-item .board-item-desc {
-	font-size: 0.7rem;
+	font-size: 0.75rem;
 	color: #888;
 	margin-bottom: 0.5rem;
 	max-height: 150px;
@@ -104,7 +105,7 @@
 	display: flex;
 	item-aligns: center;
 	justify-content: space-between;
-	font-size: 0.6rem;
+	font-size: .75rem;
 }
 
 .board-list-item .board-item-info .board-item-info-l {
@@ -144,7 +145,7 @@
 	margin: auto 0.5rem;
 }
 
-@media ( max-width : 420px) {
+@media ( max-width : 720px) {
 	.wrap-board {
 		width: 80%;
 	}

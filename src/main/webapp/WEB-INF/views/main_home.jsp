@@ -43,11 +43,11 @@ $(window).resize(function(){
 			
 			<div class="introduce">
 				<div class="introduce-name">
-					<h1 class="ml9 font-lora">
+					<div class="ml9 font-lora">
 					  <span class="text-wrapper">
 					    <span class="letters">Changoo Lee</span>
 					  </span>
-					</h1>
+					</div>
 				</div>
 				
 				<div class="introduce-desc font-lora">

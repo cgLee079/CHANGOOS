@@ -14,17 +14,17 @@
 }
 
 .project-head .project-title {
-	font-size: 2rem;
-	font-weight: bold;
+	font-size	: 2rem;
+	font-weight	: bold;
+	text-align	: center;
 	margin-bottom: 0.8rem;
-	text-align: center;
 }
 
 .project-head .project-subinfo {
 	display : flex;
 	flex-flow : row nowrap;
 	justify-content : center;
-	font-size: 0.6rem;
+	font-size: 0.75rem;
 }
 
 .project-head .project-subinfo > div{
@@ -37,8 +37,8 @@
 }
 
 .project-head .project-subinfo .project-source .git-logo{
-	width : 0.6rem;
-	height : 0.6rem;
+	width : 0.75rem;
+	height : 0.75rem;
 	margin-right : 0.2rem;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -48,7 +48,7 @@
 /* Project Submenu */
 .project-head .project-submenu {
 	text-align: right;
-	font-size: 0.6rem;
+	font-size: 0.75rem;
 	margin-bottom: 0.5rem;
 	margin-top: 1rem;
 }
@@ -93,7 +93,7 @@
 }
 		
 		
-@media (max-width: 420px){
+@media (max-width: 720px){
 	.project{
 		width : 90%;
 	}

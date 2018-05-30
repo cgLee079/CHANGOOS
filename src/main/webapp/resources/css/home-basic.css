@@ -1,5 +1,4 @@
 .main{
-	width : 90%;
 	margin: 0px auto;
 }
 
@@ -13,27 +12,22 @@
 	flex-flow: column nowrap;
 } 
 
-.me-icon{
-	height: 30%;
-}
-
-.introduce {
-}
-
 .introduce .introduce-name{
-	font-size: 0.9rem;
+	text-align : center;
+	font-size : 4rem;
 	margin-bottom: 1rem;
 }
 
 .introduce .introduce-desc{
-	font-size: 0.7rem;
+	font-size: 0.75rem;
 	line-height: 1rem;
 	text-align: center;
 }
 
 .me-icon{
-	width : 50%;
-	margin: 1rem auto;
+	height 	: 30%;
+	width	: 30%;
+	margin: 0.5rem auto;
 	
 	background-position	: center;
     background-repeat	: no-repeat;
@@ -53,4 +47,14 @@
 	color : #00F;
 	font-weight: bold;
 }
+
+@media (max-width: 720px){
+	.me-icon{
+		height 	: 40%;
+		width	: 50%;
+	}
+
+}
+
+
 

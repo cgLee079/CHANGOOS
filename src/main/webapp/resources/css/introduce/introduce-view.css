@@ -1,45 +1,50 @@
 .wrap-myinfo{
-	height : calc(100% - 50px);
-	
 	display: flex;
 	align-items: center;
 }
 
-.myinfo-views{
-	position : relative;
-	width: 100%;
-	height: 70%;
-	overflow: hidden;
-}
-
 .myinfo-view {
-	position: absolute;
 	width : 100%;
-	height: 100%;
+	margin : 0px auto;
+	height : calc(100% - 150px);
+	
 	display : flex;
-	flex-flow : row wrap;
+	flex-flow : row nowrap;
 	background: #FFF;
+	
 	border-top : 1px solid #EEE;
 	border-bottom : 1px solid #EEE;
 }
 
-.myinfo-view00 {left: 0%;}
-.myinfo-view01 {left: 100%; }
-.myinfo-view02 {left: 100%; }
-.myinfo-view03 {left: 100%; }
+.myinfo-view:first-child{
+	margin-top: 1rem;
+}
+
+.circle-border {
+	margin : 3rem 0;
+}
+
+.circle-border .circle{
+	width : 0.5rem;
+	height : 0.5rem;
+	border-radius: 0.5rem;
+	margin : 0 0.5rem;
+	background: #CCC;
+}
+	
 
 .content-picture{
-	flex : 1;
+	width : 55%;
 	background-position	: center;
     background-repeat	: no-repeat;
     background-size		: cover;
 }
 
 .content-text{
-	width : 40%;
+	flex : 1;
 	padding : 1.5rem 2rem;
 	line-height: 1.3rem;
-	font-size: 0.7rem;
+	font-size: 0.75rem;
 	overflow-y : auto;
 	-ms-overflow-style : none;
 }
@@ -73,16 +78,18 @@
 }
 
 .message-form{
-	width : 70%;
-	height : 5rem;
+	width : 90%;
 }
 
 .input-message{
 	width : 100%;
-	height: 100%;
+	height: 20%;
 	resize: none;
 	border: 1px solid #CCC;
 	border-radius : 3px;
+	
+	margin-top: 0.2rem;
+	background: #FEFEFE;
 }
 
 .submit-message{
@@ -95,15 +102,19 @@
 }
 
 
-@media (max-width: 700px){
+@media (max-width: 720px){
 	.myinfo-view{
-		flex-flow : column wrap;
-		height: 100%;
+		flex-flow : column nowrap;
+		height : calc(100% - 50px);
+	}
+	
+	.content-picture{
+		width : 100%;
+		height: 50%;
 	}
 	
 	.content-text{
-		width: auto;
-		height: 40%;
+		width : auto;
 	}
 	
 	.btn-view{

@@ -7,7 +7,7 @@
 
 body {
 	overflow-x: hidden;
-	background: #FEFDFE;
+	background: #FEFDFE; 
 }
 
 a, a:VISITED {
@@ -43,7 +43,7 @@ a, a:VISITED {
 /* contents, by CKEditor*/
 .editor-contents {
 	color: #333;
-	font-size: 0.9rem;
+	font-size: 1rem;
 	line-height: 1.8rem;
 	word-break: break-all;
 }
@@ -69,13 +69,6 @@ a, a:VISITED {
 }
 
 /* util*/
-.row-border {
-	width: 1rem;
-	background: #DDD;
-	margin: 0.8rem 0 0.4rem 0;
-	height: 0.1rem;
-}
-
 .display-none {
 	display: none;
 }
@@ -128,5 +121,6 @@ a, a:VISITED {
 	background: #000 !important;
 	color: #FFF !important;	
     box-shadow: 0px 5px 5px #ECF0F1;
+    border: none;
 }
 

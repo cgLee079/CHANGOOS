@@ -61,7 +61,7 @@ var deviceHeight = undefined;
 function checkDevice(){
 	deviceWidth 	= Math.min(window.innerWidth || Infinity, screen.width);
 	deviceHeight	= Math.min(window.innerHeight || Infinity, screen.height);
-	if(deviceWidth <= 440){
+	if(deviceWidth <= 720){
 		isMobile = true;
 	}
 }

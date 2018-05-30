@@ -1,18 +1,46 @@
 .footer {
 	width : 100%;
-	padding : 1rem 0 1rem 0;
-	color : #FFF;
-	margin-top: 3rem;
-	padding : 20px 0;
-	background: #19191B;
+	margin-top: 10rem;
 	line-height: 0.7rem;
 }
 
 .info-contact {
-	text-align: left;
-	font-size: 0.5rem;
+	width : 100%;
+	
+	display: flex;
+	flex-flw : row nowrap;
+	justify-content: center;
+	align-items : center;
+	
+	font-size : 0.6rem;
+	padding : 2rem 0;
+	background : #FFF;
+	border-top: 1px dotted #DDD;
 }
 
-.info-contact a{
-	text-decoration: underline;
+.info-contact .btn-contact{
+	margin: 0 1rem;
+	cursor: pointer;
 }
+
+
+.info-contact .border-circle{
+	width : 0.2rem;
+	height : 0.2rem;
+	border-radius: 0.2rem;
+	background: #777;
+}
+
+.info-copyright{
+	padding: 1.5rem;
+	text-align: center;
+	font-size: 0.5rem;
+	background: #333;
+	color : #FFF;
+	
+	display: flex;
+	flex-flw : row nowrap;
+	justify-content: space-between;
+	align-items : center;
+}
+

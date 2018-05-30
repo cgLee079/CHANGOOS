@@ -1,4 +1,4 @@
-var perPgLine 	= 7;
+var perPgLine 	= 100000;
 var searchType 	= "";
 var searchValue = "";
 var page 		= '';

@@ -9,12 +9,13 @@ function projectView(seq){
 }
 
 $(document).ready(function(){
-	/* save each project top position */ 
 	var projectViews = $(".project-view");
 	projectViews.each(function(){
-		tops.push($(this).offset().top);
-		pass.push(false);
-	});
+		$(this).bind("click", function(){
+			var seq = $(this).find("#project-seq").val();
+			projectView(seq);
+		});
+	});	
 	
 	/* mobile, add click event */
 	if(isMobile){
@@ -24,32 +25,41 @@ $(document).ready(function(){
 				projectView(seq);
 			});
 		});	
-	}
-	
-	/* when scroll, show project */
-	$(window).scroll(onScroll);
-	
-	var index = 0;
-	var scrollTop = $(window).scrollTop();
-	while(tops[index] <= scrollTop){
-		onScroll();
-		index++;
-	}
-	
-	function onScroll(){
+		
+		/* save each project top position */ 
+		var projectViews = $(".project-view");
+		projectViews.each(function(){
+			tops.push($(this).offset().top);
+			pass.push(false);
+		});
+		
+		/* when scroll, show project */
+		$(window).scroll(onScroll);
+		
+		var index = 0;
 		var scrollTop = $(window).scrollTop();
-		if(tops[currentView] <= (scrollTop + 550) && pass[currentView] == false){
-			pass[currentView] = true;
-			var target = document.querySelector(".project-view:nth-child(" + (currentView + 1)+ ")");
-			anime.timeline()
-				.add({
-					targets: target,
-					opacity : [0, 1],
-					duration: 650,
-					easing : "easeInQuad"
-				});
-			currentView += 1;
+		while(tops[index] <= scrollTop){
+			onScroll();
+			index++;
+		}
+		
+		function onScroll(){
+			var scrollTop = $(window).scrollTop();
+			if(tops[currentView] <= (scrollTop + 550) && pass[currentView] == false){
+				pass[currentView] = true;
+				var target = document.querySelector(".project-view:nth-child(" + (currentView + 1)+ ")");
+				anime.timeline()
+					.add({
+						targets: target,
+						opacity : [0, 1],
+						duration: 650,
+						easing : "easeInQuad"
+					});
+				currentView += 1;
+			}
 		}
 	}
+	
+	
 	
 });
