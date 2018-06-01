@@ -39,7 +39,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 		} else {
 			if(session.getAttribute("visitBoards") == null) { session.setAttribute("visitBoards", new ArrayList<Integer>());}
 			if(session.getAttribute("visitProjects") == null) { session.setAttribute("visitProjects", new ArrayList<Integer>());}
-			if(session.getAttribute("visitProjects") == null) { session.setAttribute("likePhotos", new HashMap<Integer, Boolean>());}
+			if(session.getAttribute("likePhotos") == null) { session.setAttribute("likePhotos", new HashMap<Integer, Boolean>());}
 		}
 		return true;
 	}
