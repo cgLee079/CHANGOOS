@@ -33,13 +33,13 @@
 	<div class="nav-background"></div>
 </div>
 <div class="nav-menu unvalid col-center">
-	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/">Home</a></div>
-	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">Introduce</a></div>
-	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/project">Projects</a></div>
-	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/board">Board</a></div>
-	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">Photo</a></div>
-	<div class="btn-slideup"><a target="_blank" href="https://github.com/cglee079">Github</a></div>
-	<div class="btn-slideup"><a target="_blank" href="https://www.instagram.com/cglee079">Instagram</a></div>
+	<div class="btn-slideup font-lora"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/">HOME</a></div>
+	<div class="btn-slideup font-lora"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">INTRODUCE</a></div>
+	<div class="btn-slideup font-lora"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/project">PROJECT</a></div>
+	<div class="btn-slideup font-lora"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/board">BOARD</a></div>
+	<div class="btn-slideup font-lora"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">PHOTO</a></div>
+	<!-- <div class="btn-slideup"><a target="_blank" href="https://github.com/cglee079">Github</a></div>
+	<div class="btn-slideup"><a target="_blank" href="https://www.instagram.com/cglee079">Instagram</a></div> -->
 </div>
 
 <!--  Top btn. -->

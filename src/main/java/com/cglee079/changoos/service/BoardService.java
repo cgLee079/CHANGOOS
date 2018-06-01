@@ -44,6 +44,7 @@ public class BoardService{
 	
 	public BoardVo doView(List<Integer> isVisitBoard, int seq) {
 		BoardVo board = boardDao.get(seq);
+		
 		if(!isVisitBoard.contains(seq)) {
 			isVisitBoard.add(seq);
 			board.setHits(board.getHits() + 1);

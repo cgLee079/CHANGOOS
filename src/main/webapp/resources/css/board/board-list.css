@@ -50,7 +50,7 @@
 	background-color: #000;
 	z-index: 2;
 	color: #fff;
-	font-size: 0.5rem;
+	font-size: 0.75rem;
 	transform-origin: 0 0;
 	will-change: transform, opacity;
 	transform: scaleY(0) translateZ(0);

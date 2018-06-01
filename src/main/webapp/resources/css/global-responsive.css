@@ -17,6 +17,7 @@
 @media (min-width:660px) and (max-width:680px){html{font-size:15px;}}
 @media (min-width:680px) and (max-width:700px){html{font-size:15.25px;}}
 @media (min-width:700px) and (max-width:720px){html{font-size:15.5px;}}
+@media (min-width:740px) {html{font-size:16px;}}
 
 /* @media (min-width:740px) and (max-width:760px){html{font-size:20.5px;}}
 @media (min-width:760px) and (max-width:780px){html{font-size:21px;}}

@@ -33,5 +33,11 @@ function projectView(seq){
 
 /* download file */
 function downloadFile(pathNm){
-	window.location.assign(getContextPath()	+ "/project/download.do?filename="+ pathNm);
+	var form = $("<form>");
+	form.attr("method", "post");
+	form.attr("action", getContextPath() + "/project/download.do?");
+	form.appendTo($("body"));
+	form.append($("<input>", {"type": "hidden", "name" : "filename" , "value" : pathNm}));
+	form.submit();
+	form.remove();
 }

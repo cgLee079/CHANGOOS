@@ -7,7 +7,7 @@ $(document).ready(function(){
 			targets : ".wrap-home-logo .logo-line",
 			scale : [ 0, 1 ],
 			easing : "easeInQuad",
-			duration : 300
+			duration : 200
 		})
 	}, function() {
 		drawingLine.play();
