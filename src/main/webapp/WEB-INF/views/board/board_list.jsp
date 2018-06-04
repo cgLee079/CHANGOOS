@@ -20,16 +20,14 @@
 			</c:forEach>
 		</div>
 		
-		<div class="board-menu">
-			<div></div>
-			<div class="board-search row-center">
-				<select class="search-type" style="font-size: 0.5rem">
-					<option>TITLE</option>
-				</select>
-				<input type="text"onkeydown="javascript:if(event.keyCode==13){search();}" style="font-size: 0.5rem" class="search-value" />
-				<div class="search-submit col-center" onclick="search()">검색</div>
-			</div>
+		<div class="board-search">
+			<select class="search-type" style="font-size: 0.75rem">
+				<option>TITLE</option>
+			</select>
+			<input type="text"onkeydown="javascript:if(event.keyCode==13){search();}" style="font-size: 0.75rem" class="search-value" />
+			<div class="search-submit " style="background-image: url('${pageContext.request.contextPath}/resources/image/btn-board-search.svg')" onclick="search()"></div>
 		</div>
+		
 		<div class="board-list"></div>
 		
 		<div class="board-pager"></div>
