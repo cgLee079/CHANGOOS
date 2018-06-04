@@ -45,7 +45,7 @@ function photoDelete(seq, index){
 		  buttons: ["취소", "삭제"],
 		  dangerMode: true,
 		})
-		.then(willDelete => {
+		.then(function(willDelete) {
 		  if (willDelete) {
 			  doDelete(seq, index);
 		  } 

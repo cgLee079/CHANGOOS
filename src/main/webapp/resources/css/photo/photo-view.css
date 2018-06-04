@@ -69,6 +69,7 @@
 
 .photo-detail>.photo-info>.photo-name {
 	color: #000;
+	font-size : 1.1rem;
 	font-weight: bold;
 }
 
@@ -91,7 +92,6 @@
 	width: 100%;
 	overflow: hidden;
 	color: #555;
-	font-size: 0.8rem;
 	word-break: break-all;
 	margin-top : 0.5rem;
 	min-height : 3rem;
@@ -100,7 +100,6 @@
 .photo-detail>.photo-tag {
 	display: flex;
 	margin-top: 1rem;
-	font-size: 0.8rem;
 	color: #33F;
 }
 

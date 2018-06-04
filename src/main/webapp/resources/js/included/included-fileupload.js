@@ -20,7 +20,7 @@ function doFileRemove(tg){
 			  buttons: ["취소", "삭제"],
 			  dangerMode: true,
 			})
-			.then((willDelete) => {
+			.then(function(willDelete) {
 				if(willDelete) {
 					$.ajax({
 						type	: "POST",

@@ -1,14 +1,14 @@
 /* Call drawPager(), if you want get Pager */
 
 /*****  CASE ID  ******/
-const	ONE_PG_GRP		= 0,
-		START_PG_GRP	= 1,
-		CENTER_PG_GRP	= 2,
-		LAST_PG_GRP		= 3;
+var	ONE_PG_GRP		= 0;
+var	START_PG_GRP	= 1;
+var	CENTER_PG_GRP	= 2;
+var	LAST_PG_GRP		= 3;
 /***** ^^^^^^^^^ ****/
 
 /************* Set Custom **************/
-const	FIRST_MOVE_TAG		= '[처음]',	// first move
+var		FIRST_MOVE_TAG		= '[처음]',	// first move
 		LAST_MOVE_TAG		= '[마지막]',	// last move
 		PREV_MOVE_TAG		= '[이전]',	// prev move
 		NEXT_MOVE_TAG		= '[다음]',	// next move

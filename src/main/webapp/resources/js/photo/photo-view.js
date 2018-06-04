@@ -194,7 +194,7 @@ function deleteComment(tg){
 		  	text: '비밀번호를 입력해주세요',
 		  	content: "input",
 			buttons : ["취소", "확인"]
-		}).then((pw) => {
+		}).then(function(pw) {
 			if(pw){
 				doDelete(pw);				  
 		  	}

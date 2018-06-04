@@ -8,19 +8,15 @@
 }
 
 .project-view{	
-	display 	: flex;
-	flex-flow	: column nowrap;
-	
-	width 	: calc(100%/3 - 2rem);
+	width 	: calc(100%/3 - 2.1rem);
 	margin 	: 1.5rem 1rem;
 	cursor 	: pointer;
 	opacity	: 1;
 	overflow: hidden;
-	/* box-shadow: 0 1px 0 rgba(12,13,14,0.1), 0 1px 3px rgba(12,13,14,0.1), 0 4px 20px rgba(12,13,14,0.035), 0 1px 1px rgba(12,13,14,0.025); */
 }
 
 .project-snapsht{
-	height : 30%;
+	height : 210px;
 	width : 100%;
 	opacity: 0.9;
 	position : relative;
@@ -157,7 +153,7 @@
 
 @media (min-width: 720px) and (max-width: 1080px){
 	.project-view{
-		width : calc(100%/2 - 2rem);
+		width : calc(100%/2 - 2.1rem);
 	}
 }
 

@@ -236,7 +236,7 @@ function commentModify(tg){
 			  content: "input",
 			  buttons : ["취소", "확인"]
 			})
-			.then((pw) => {
+			.then(function(pw) {
 				if(pw){
 					checkPwd(pw);				  
 			  	}
@@ -289,7 +289,7 @@ function commentDelete(tg){
 		  	content: "input",
 			buttons : ["취소", "확인"]
 		})
-		.then((pw) => {
+		.then(function(pw) {
 			if(pw){
 				doCommentDelete(pw);				  
 		  	}

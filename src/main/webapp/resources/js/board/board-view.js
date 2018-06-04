@@ -29,7 +29,7 @@ function boardDelete(seq){
 		  buttons: ["취소", "삭제"],
 		  dangerMode: true,
 		})
-		.then((willDelete) => {
+		.then(function(willDelete) {
 			if(willDelete) {
 				window.location.href = getContextPath() + "/admin/board/delete.do?seq=" + seq;  
 			} 

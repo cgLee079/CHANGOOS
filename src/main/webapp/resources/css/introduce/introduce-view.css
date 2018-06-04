@@ -1,12 +1,10 @@
 .wrap-myinfo{
-	display: flex;
-	align-items: center;
 }
 
 .myinfo-view {
 	width : 100%;
 	margin : 0px auto;
-	height : calc(100% - 150px);
+	
 	
 	display : flex;
 	flex-flow : row nowrap;
@@ -50,6 +48,7 @@
 .content-text{
 	flex : 1;
 	padding : 1.5rem 2rem;
+	
 	line-height: 1.3rem;
 	font-size: 0.75rem;
 	overflow-y : auto;
