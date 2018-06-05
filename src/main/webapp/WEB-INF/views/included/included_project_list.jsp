@@ -5,7 +5,7 @@
 		<div onclick="" class="project-view">
 			<div onclick="projectView(${project.seq})" class="project-snapsht">
 				<div class="project-snapsht-img" style="background-image: url('${pageContext.request.contextPath}${project.snapsht}')"></div>
-				<span class="project-snapsht-overlay font-lora"><c:out value="${project.sect}"/></span>
+				<span class="project-snapsht-overlay"><c:out value="${project.sect}"/></span>
 				<div class="project-snapsht-fg"></div>
 			</div>
 			<div class="project-info">

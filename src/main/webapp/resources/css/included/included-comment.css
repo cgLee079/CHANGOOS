@@ -8,6 +8,7 @@
 	color : #F67;
 	margin-bottom: 0.5rem;
 	font-size: 1.25rem;
+	font-weight: bold;
 }
 
 .comt-pager {
@@ -61,7 +62,7 @@
 .comment-menu a {
 	margin-left: 0.5rem;
 }
-c
+
 
 /* Comment Item.reply */
 .comment-item.reply {

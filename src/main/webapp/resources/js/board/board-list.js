@@ -52,7 +52,7 @@ $(document).ready(function(){
 /* when board click */
 function boardView(seq){
 	Progress.start();
-	window.location.href = getContextPath() + "/board/view?seq=" + seq + "&sect=" + sect + "&page=" + page;		
+	window.location.href = getContextPath() + "/board/view?seq=" + seq + "&section=" + sect + "&page=" + page;		
 }
 
 /* when Search button click */
@@ -148,7 +148,7 @@ function updateBoard(data){
 	for (var i = 0; i < length; i++){
 		board = data[i];
 		item = $("<div>", {'class' : 'board-list-item', onclick : "boardView(" + board.seq + ")"});
-		$("<span>", {"class" : "board-item-overlay", text : board.sect}).appendTo(item);
+		$("<span>", {"class" : "board-item-overlay", text : "SHOW"}).appendTo(item);
 		$("<div>", {"class" : "board-item-fg"}).appendTo(item);
 		$("<div>",{"class" : 'board-item-title', text : board.title}).appendTo(item);
 

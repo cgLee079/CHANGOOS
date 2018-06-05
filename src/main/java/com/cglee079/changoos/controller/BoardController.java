@@ -73,12 +73,12 @@ public class BoardController {
 	
 	/** 게시글로 이동 **/
 	@RequestMapping("/board/view")
-	public String boardView(HttpSession session, Model model, int seq, String sect, Integer page) throws SQLException, JsonProcessingException{
+	public String boardView(HttpSession session, Model model, int seq, String section, Integer page) throws SQLException, JsonProcessingException{
 		BoardVo board 		= boardService.doView((List<Integer>)session.getAttribute("visitBoards"), seq);
-		BoardVo beforeBoard = boardService.getBefore(seq, sect);
-		BoardVo afterBoard 	= boardService.getAfter(seq, sect);
+		BoardVo beforeBoard = boardService.getBefore(seq, section);
+		BoardVo afterBoard 	= boardService.getAfter(seq, section);
 		
-		model.addAttribute("sect", sect);
+		model.addAttribute("section", section);
 		model.addAttribute("page", page);
 		model.addAttribute("beforeBoard", beforeBoard);
 		model.addAttribute("board", board);

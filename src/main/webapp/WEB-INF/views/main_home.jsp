@@ -43,14 +43,14 @@ $(window).resize(function(){
 			
 			<div class="introduce">
 				<div class="introduce-name">
-					<div class="ml9 font-lora">
+					<div class="ml9">
 					  <span class="text-wrapper">
 					    <span class="letters">Changoo Lee</span>
 					  </span>
 					</div>
 				</div>
 				
-				<div class="introduce-desc font-lora">
+				<div class="introduce-desc">
 					Hello! Thank you for visiting my site. <br/>
 					I specialized Computer Engineering at Hansung University.<br/>
 					and interested in <strong>Android, Web development.</strong><br/>

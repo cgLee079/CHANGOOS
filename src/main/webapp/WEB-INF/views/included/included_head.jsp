@@ -73,6 +73,8 @@ $(window).resize(function(){
 
 if(!isMobile){
 	$("*").css("font-family", "Nanum Gothic");
+	//$("*").css("font-family", "MBKCorporateACon");
+	
 }
 
 </script>

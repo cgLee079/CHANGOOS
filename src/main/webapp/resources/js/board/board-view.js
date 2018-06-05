@@ -1,8 +1,8 @@
-var sect;
+var section;
 var boardPage;
 
 $(document).ready(function(){
-	sect = $("#sect").val();
+	section = $("#section").val();
 	boardPage = $("#boardPage").val();
 	
 	$(".btn-board-before, .btn-board-next").tooltip({
@@ -17,7 +17,7 @@ function boardList(){
 	if(!boardPage){
 		boardPage = 1;
 	}
-	window.location.href = getContextPath() + "/board#" + sect + "&" + boardPage;
+	window.location.href = getContextPath() + "/board#" + section + "&" + boardPage;
 }
 
 /* when '삭제' click, only for Admin */
@@ -44,10 +44,10 @@ function boardModify(seq){
 /* when '이전글', '다음글' click */
 function boardView(seq){
 	if (seq){
-		window.location.href = getContextPath() + "/board/view?seq=" + seq + "&sect=" + sect + "&page=" + boardPage;
+		window.location.href = getContextPath() + "/board/view?seq=" + seq + "&section=" + section + "&page=" + boardPage;
 	} else {
-		if(sect){
-			swal( sect + " 영역에 글이 더 이상 없습니다.");
+		if(section){
+			swal( section + " 영역에 글이 더 이상 없습니다.");
 		} else{
 			swal("글이 더 이상 없습니다.");
 		}

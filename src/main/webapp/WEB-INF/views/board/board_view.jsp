@@ -12,13 +12,13 @@
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 		
-		<input type="hidden" id="sect" value="<c:out value='${sect}'/>"/>
+		<input type="hidden" id="section" value="<c:out value='${section}'/>"/>
 		<input type="hidden" id="boardPage" value="<c:out value='${page}'/>"/>
 		
 		<div class="wrap-board">
 			<div class="board">
 				<div class="board-head">
-					<div class="board-sect font-lora"><c:out value="${board.sect}"/></div>
+					<div class="board-sect"><c:out value="${board.sect}"/></div>
 					<div class="board-title"><c:out value="${board.title}"/></div>
 					<div class="board-info">
 						<c:if test="${not empty board.codeLang }">

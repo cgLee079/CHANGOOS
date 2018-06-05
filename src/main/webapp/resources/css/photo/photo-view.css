@@ -121,7 +121,7 @@
 .photo-comments .comment .comment-userinfo {
 	width: 7rem;
 	font-weight: bold;
-	font-size: 0.7rem;
+	font-size: 0.75rem;
 	
 	display: flex;
 	align-items: center;
@@ -132,7 +132,7 @@
 	max-width : calc(100% - 12rem);
 	white-space: normal ;
 	word-break : break-all;
-	font-size: 0.7rem;
+	font-size: 0.75rem;
 	
 	display: flex;
 	align-items: center;
@@ -229,6 +229,11 @@
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;
+	transition: transform .3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.snapsht-list-item:hover {
+	transform : scale(1.05);
 }
 
 @media ( max-width : 720px) {

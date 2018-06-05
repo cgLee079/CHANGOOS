@@ -130,7 +130,7 @@ function updateComment(data){
 		comment += '<input type="hidden" class="comment-boardSeq">';
 		comment += '<div class="comment">';
 		comment += '<div class="comment-head">';
-		comment += '<div class="comment-head-info"><a class="comment-writer font-lora"></a> <a class="comment-date"></a></div>'
+		comment += '<div class="comment-head-info"><a class="comment-writer"></a> <a class="comment-date"></a></div>'
 		comment += '<div class="comment-menu">';
 		if(isAdmin === 'true'){
 			comment += '<a onclick="commentModify(this)" class="btn btn-modify">수정</a>';

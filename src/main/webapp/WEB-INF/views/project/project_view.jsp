@@ -14,7 +14,7 @@
 	
 		<div class="project">
 			<div class="project-head">
-				<div class="project-sect font-lora"><c:out value="${project.sect}"/></div>
+				<div class="project-sect"><c:out value="${project.sect}"/></div>
 				<div class="project-title"><c:out value="${project.title}"/></div>
 				<div class="project-subinfo">
 					<c:if test="${!empty project.date}">

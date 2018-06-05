@@ -5,12 +5,6 @@
 }
 
 @font-face {
-  font-family: 'MBK_CoproA';
-  font-style: normal;
-  src:    url(../../font/MBK/MBKCorpoA.woff) format('woff')
-}
-
-@font-face {
   font-family: 'MBKCorporateACon';
   font-style: normal;
   src:    url(../../font/MBK/MBKCorporateACon.woff) format('woff')

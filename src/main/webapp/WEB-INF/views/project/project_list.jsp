@@ -11,7 +11,7 @@
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 
 	<div class="wrap-project-list">
-		<div class="projects-title font-lora">Projects</div>
+		<div class="projects-title">Projects</div>
 		<%@ include file="/WEB-INF/views/included/included_project_list.jsp" %>
 	</div>
 	
