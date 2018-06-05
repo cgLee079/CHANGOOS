@@ -60,14 +60,13 @@
 }
 
 .content-text .content-head{
-	margin-bottom: 1rem;
+	margin-bottom: 0.9rem;
 	font-size: 1.5rem;
 	font-weight: bold;
-	font-stretch: wider;
 }
 
 .content-text .row-border {
-	width	: 1rem;
+	width	: 0.5rem;
 	height	: 0.1rem;
 	margin	: 0.5rem 0;
 	background: #F67;

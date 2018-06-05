@@ -64,6 +64,7 @@ function checkDevice(){
 	if(deviceWidth <= 720){
 		isMobile = true;
 	}
+	
 }
 
 checkDevice();
