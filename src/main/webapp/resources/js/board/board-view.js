@@ -56,11 +56,5 @@ function boardView(seq){
 
 /* Download File */
 function downloadFile(pathNm){
-	var form = $("<form>");
-	form.attr("method", "post");
-	form.attr("action", getContextPath() + "/board/download.do");
-	form.appendTo($("body"));
-	form.append($("<input>", {"type": "hidden", "name" : "filename" , "value" : pathNm}));
-	form.submit();
-	form.remove();
+	window.location.href = getContextPath() + "/board/download.do?filename=" + pathNm;
 }

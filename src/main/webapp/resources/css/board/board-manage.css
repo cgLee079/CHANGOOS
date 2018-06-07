@@ -1,16 +1,17 @@
-.menu-manage{
-	margin : 1rem;
-	margin-top: 30px;
-	text-align: right;
-}
-
 .wrap-board-list{
 	width : 80%;
 	margin : 0px auto;
 	margin-top : 1rem;
+	margin-bottom: 10rem;
 	padding : 0.5rem;
 	background: #FFF;
 	border: 1px solid #DDD;
+}
+
+.menu-manage{
+	margin : 1rem;
+	margin-top: 30px;
+	text-align: right;
 }
 
 .board-list{

@@ -10,15 +10,12 @@
 <div class="wrapper">
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 	
-	<div class="wrap-myinfo col-center">
-		<div class="myinfo-view myinfo-view00">
-			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view00.jpg)">
-				<div class="content-picture-fg"></div>
-			</div>
-			<div class="content-text">
-				<div class="content-head">Developer CHANGOO LEE</div>
-				<div class="row-border"></div>
-				<div class="content-desc">
+	<div class="wrap-myinfo">
+		<div class="introduce">
+			<div class="introduce-bg" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view00.jpg)"></div>
+			<div class="introduce-text">
+				<div class="introduce-head">CHANGOO LEE</div>
+				<div class="introduce-desc">
 					Hi. My name is <strong>Changoo Lee</strong>.<br/> 
 					I am
 						<jsp:useBean id="date" class="java.util.Date" />
@@ -38,101 +35,60 @@
 			</div>
 		</div>
 		
-			<div class="circle-border row-center">
-			<div class="circle"></div>
-			<div class="circle"></div>
-			<div class="circle"></div>
-		</div>
-		
-		<div class="myinfo-view myinfo-view02">
-			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view02.jpg)">
-				<div class="content-picture-fg"></div>
-			</div>
-			<div class="content-text">
-				<div class="content-head">Resume.</div>
-				<div class="row-border"></div>
-				<div class="content-desc">
-					Coumputer Enginnering 
+		<div class="spec">
+			<div class="spec-text">
+				<div class="spec-head">Spec.</div>
+				<div class="spec-desc">
+					<strong>Coumputer Enginnering.</strong><br/>
 					Bachelor's degree at Hausng University. <br/>
 					Grade &nbsp&nbsp<strong>4.22/4.5</strong>&nbsp&nbsp(Major <strong>4.4/4.5</strong>)<br/>
 					Toeic &nbsp&nbsp&nbsp<strong>845</strong> <br/>
 					<br/>
-					<strong>Certificate</strong> <br/>
+					<strong>Certificate.</strong> <br/>
 					2015.03.15 &nbsp&nbsp Craftsman Information Equipment Operation<br/>
 					2015.09.11 &nbsp&nbsp GTQ<br/>
 					2016.12.16 &nbsp&nbsp MOS master<br/>
 					2017.03.16 &nbsp&nbsp Data Processing Engineer <br/>
 					<br/>
-					<strong>Current</strong><br/>
-					Master of CoinNoticer Service
+					
 				</div>
-				
+				<div style="display: flex; justify-content: space-between;">
+					<div style="flex:1;"></div>
+					<div class="download-resume black-button" onclick="doDownloadResume()">RESUME</div>
+				</div>
 			</div>
+			<div class="spec-image" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view01.jpg)"></div>
+			
 		</div>
 		
-		<div class="circle-border row-center">
-			<div class="circle"></div>
-			<div class="circle"></div>
-			<div class="circle"></div>
-		</div>
-		
-		<div class="myinfo-view myinfo-view01">
-			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view01.jpg)">
-				<div class="content-picture-fg"></div>
-			</div>
-			<div class="content-text">
-				 <div class="content-head">My Biography.</div>
-				 <div class="row-border"></div>
-				 <div class="content-desc">
+		<div class="biography">
+			<div class="biography-image" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view02.jpg)"></div>
+			<div class="biography-text">
+				<div class="biography-head">Biography.</div>
+				<div class="biography-desc">
 					 <strong>2011.03</strong> &nbsp&nbsp Admissions C.E at Hansug University. <br/>
 					 <strong>2012.05</strong> &nbsp&nbsp Military Service (21 Months). <br/>
 					 <strong>2017.02</strong> &nbsp&nbsp Victory Graduate Competition <br/>
 					 <strong>2017.07</strong> &nbsp&nbsp Intern at Nexgen Associate (Web, SI) <br/>
 					 <strong>2018.02</strong> &nbsp&nbsp Graduated with honor from University <br/>
 					 <strong>2018.03</strong> &nbsp&nbsp Develop CoinNoticer Service<br/>
-				 </div>
-			</div>
-			
-		</div>
-		
-		<div class="circle-border row-center">
-			<div class="circle"></div>
-			<div class="circle"></div>
-			<div class="circle"></div>
-		</div>
-		
-		<div class="myinfo-view myinfo-view03">
-			<div class="content-picture" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view03.jpg)">
-				<div class="content-picture-fg"></div>
-			</div>
-			<div class="content-text">
-				<div class="content-head">Contact Me.</div>
-				<div class="row-border"></div>
-				<div class="content-desc">
-					<strong>Name.</strong> 이찬구(Changoo Lee) <br/>
-					<strong>Email.</strong> cgLee079@gmail.com <br/>
-					<strong>Tel.</strong> 010 - 2062 - 2979 <br/>
-					<br/>
-					<h3>Please leave a guestbook.</h3>
-					<div class="message-form">
-						<form>
-							<textarea class="input-message"></textarea>
-							<div class="submit-message"><a class="submit-btn" onclick="doSendMessage()">SEND</a></div>
-						</form>
-					</div>
 				</div>
 			</div>
 		</div>
 		
+		<div class="contact">
+			<div class="contact-head">Leave Message</div>
+			<div class="contact-input-message">
+				<form>
+					<textarea class="input-message"></textarea>
+					<div style="display: flex; justify-content: space-between;">
+						<div style="flex:1;"></div>
+						<div class="submit-message black-button" onclick="doSendMessage()">SEND</div>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
-	
-	<div class="btn-views display-none">
-		<div class="btn-view btn-view00 on"></div>
-		<div class="btn-view btn-view01"></div>
-		<div class="btn-view btn-view02"></div>
-		<div class="btn-view btn-view03"></div>
-	</div>
-	
 	<c:import url="../included/included_footer.jsp" charEncoding="UTF-8" />
 </div>
 </body>

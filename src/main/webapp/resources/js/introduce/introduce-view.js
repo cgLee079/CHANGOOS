@@ -1,6 +1,6 @@
 $(document).ready(function(){
-	var views 	= $(".myinfo-view");
-	views.css("height", deviceHeight - 150);
+//	var views 	= $(".myinfo-view");
+//	views.css("height", deviceHeight - 150);
 	
 //	var wrap	= $(".myinfo-views");
 //	var views	= $(".myinfo-views > .myinfo-view");
@@ -113,6 +113,10 @@ $(document).ready(function(){
 //		preventDefaultEvents: true
 //	});
 });
+
+function doDownloadResume(){
+	window.location.href = getContextPath() + "/introduce/downloadResume.do";
+}
 
 function doSendMessage(){
 	var message = $(".input-message").val();

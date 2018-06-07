@@ -1,152 +1,243 @@
-.myinfo-view {
-	width : 100%;
-	margin : 0px auto;
-	display : flex;
-	flex-flow : row nowrap;
-	background: #FFF;
-	border-top : 1px solid #EEE;
-	border-bottom : 1px solid #EEE;
+.wrap-myinfo{
+	background: #222;
+	padding-bottom: 10rem;
 }
 
-.myinfo-view:first-child{
-	margin-top: 2rem;
+.introduce{
+	width	: 100%;
+	height	: calc(100% - 50px);
+	position: relative;
 }
 
-.circle-border {
-	margin : 3rem 0;
+.introduce::after{ 
+    content: '&nbsp;';
+	display : block; 
 }
 
-.circle-border .circle{
-	width : 0.5rem;
-	height : 0.5rem;
-	border-radius: 0.5rem;
-	margin : 0 0.5rem;
-	background: #CCC;
-}
-
-.content-picture{
-	width : 55%;
-	background-position	: center;
-    background-repeat	: no-repeat;
-    background-size		: cover;
-    position: relative;
-}
-
-.content-picture-fg{
+.introduce-bg{
 	position: absolute;
-	left 	: 0;
+	left	: 0;
+	top		: 0;
 	right	: 0;
-	top	 	: 0;
-	bottom 	: 0;
-	background: rgba(0, 0, 0, 0.15);
-	transition: background .3s cubic-bezier(0.215, 0.61, 0.355, 1);
+	bottom	: 0;		
+	
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: left;
 }
 
-.content-picture:hover .content-picture-fg{
-	background: rgba(0,0,0,0);
+.introduce-text{
+	position: absolute;
+	right : 10%;
+	bottom : 5%;
+	max-width: 40%;
+	cursor: default;
 }
 
-.content-text{
+.introduce-text .introduce-head {
+	color: #FFF;
+	font-size : 3rem;
+	font-weight: bold;
+	transition: margin .3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.introduce-text .introduce-desc{
+	color: #FFF;
+	line-height : 1.7rem;
+	font-size: 0.9rem;
+}
+
+.introduce-text:hover .introduce-head{
+	margin-bottom: 1rem;
+}
+
+
+/**************/
+/**** Spec ****/
+/**************/
+.spec{
+	display : flex;
+	margin-top : 5rem;
+	margin-left: 5rem;
+	background: #000;
+	cursor : default;
+}
+
+.spec-image{
+	width : 40%;
+	background : #FFF;
+	
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	
+	transition: width .3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.spec .spec-image:hover{
+	width : 50%;
+}
+
+.spec-text{
 	flex : 1;
-	padding : 1.5rem 2rem;
+	margin-left : 1rem;
+	padding : 2rem;
+}
+
+.spec-text .spec-head{
+	color : #FFF;
+	font-size: 3rem;
+	margin-bottom: 1rem;
+	transition: margin .3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.spec-text:hover .spec-head{
+	margin-left: 2rem;
+}
+
+.spec-text .spec-desc{
+	color : #FFF;
+	line-height : 1.7rem;
+	font-size: 0.9rem;
+}
+
+/***************/
+/** BioGraphy **/
+/***************/
+.biography{
+	display : flex;
+	margin-top	: 5rem;
+	margin-right: 5rem;
+	background: #000;
 	cursor : default;
 	
-	overflow-y : auto;
+	height	: 60%;
+}
+
+.biography-image{
+	width : 40%;
+	background : #FFF;
+	
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	
+	transition: width .3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.biography .biography-image:hover{
+	width : 50%;
+}
+
+.biography-text{
+	flex : 1;
+	margin-left : 1rem;
+	padding : 2rem;
+}
+
+.biography-text .biography-head{
+	color : #FFF;
+	font-size: 3rem;
+	margin-bottom: 1rem;
+	transition: margin .3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.biography-text:hover .biography-head{
+	margin-left: 2rem;
+}
+
+.biography-text .biography-desc{
+	color : #FFF;
+	line-height : 1.7rem;
+	font-size: 0.9rem;
+}
+
+.contact{
+	width: 80%;
+	margin : 0 auto;
+	margin-top: 5rem;
+}
+
+.contact-head{
+	font-size: 5rem;
+	font-weight: bold;
+	color : #FFF;
+}
+
+.contact-input-message {
+	width : 100%;
+}
+
+.contact-input-message .input-message{
+	background: #FFF;
+	border: none;
+	height: 40%;
+	width : 100%;
+	padding :1rem;
+	margin-bottom: 1rem;
+	resize: none;
+	overflow: none;
 	-ms-overflow-style : none;
 }
 
-.content-text::-webkit-scrollbar{
+.contact-input-message .input-message::-webkit-scrollbar{
 	display: none;
 }
 
-.content-text .content-head{
-	margin-bottom: 0.9rem;
-	font-size: 1.5rem;
-	font-weight: bold;
-}
-
-.content-text .row-border {
-	width	: 0.5rem;
-	height	: 0.1rem;
-	margin	: 0.5rem 0;
-	background: #F67;
-	transition: width 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-}
-.content-text:hover .row-border{
-	width : 70%;
-}
-
-.content-text .content-desc{
-	font-size: 0.85rem;
-	line-height: 1.7rem;
-}
-
-.btn-views{
-	width : 100%;
-	text-align: center;
-	margin-top : 2rem;
-}
-
-.btn-views .btn-view{
-	display : inline-block;
-	width : 20px;
-	height: 20px;
-	border-radius : 10px;
-	background : #CCC;
-	margin : 20px 10px 0px 10px;
-	cursor : pointer;
-}
-
-.btn-view.on{
+.black-button{
+	border: 1px solid #FFF;
 	background : #000;
+	color : #FFF;
+	padding : 1rem 2rem;	
+	font-weight : bold;
+	cursor: pointer;
 }
 
-.message-form{
-	width : 90%;
+.black-button:hover{
+	background: #FFF;
+	color : #000;
 }
-
-.input-message{
-	width : 100%;
-	height: 15%;
-	resize: none;
-	border: 1px solid #CCC;
-	border-radius : 3px;
-	
-	margin-top: 0.2rem;
-	background: #FEFEFE;
-}
-
-.submit-message{
-	text-align: right;
-}
-
-.submit-message .submit-btn{
-	cursor : pointer;
-	font-weight: bold;
-}
-
 
 @media (max-width: 720px){
-	.myinfo-view{
-		flex-flow : column nowrap;
-		height : calc(100% - 50px);
+	.introduce-text{
+		right: 1rem;
+		left : 1rem;
+		max-width: none;
 	}
 	
-	.content-picture{
+	.introduce-text .introduce-head{
+		margin-bottom: 1rem;
+	}
+	
+	.spec{
+		display: flex;
+		flex-flow: column-reverse nowrap;
+	}
+	
+	.spec-image{
+		width: 100%;
+		height: 30%;
+	}
+	
+	.spec .spec-image:hover{
 		width : 100%;
-		height: 50%;
 	}
 	
-	.content-picture .content-picture-fg{
-		background: rgba(0,0,0,0);
+	.biography{
+		display: flex;
+		flex-flow: column nowrap;
 	}
 	
-	.content-text{
-		width : auto;
+	.biography-image{
+		width: 100%;
+		height: 40%;
 	}
 	
-	.btn-view{
-		width : 10px;
-		height: 10px;
+	.biography .biography-image:hover{
+		width: 100%;
+	}
+	
+	.contact{
+		width : 90%;
 	}
 }

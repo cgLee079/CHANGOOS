@@ -3,6 +3,7 @@
 	min-height : calc(100% - 50px);
 	margin: 0 auto;
 	margin-top: 2rem;
+	margin-bottom: 10rem;
 	
 	display: flex;
 	flex-flow: row nowrap;

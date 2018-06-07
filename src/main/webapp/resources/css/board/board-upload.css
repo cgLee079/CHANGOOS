@@ -1,13 +1,15 @@
-.upload-form {
-	width : 100%;
-}
 
 .board-upload-form{
 	margin-top : 30px;
+	margin-bottom: 10rem;
 	background: #FFF;
 	border: 1px solid #DDD;
 	padding : 1rem 5rem;
 	font-size: 0.7rem;
+}
+
+.upload-form {
+	width : 100%;
 }
 
 .board-upload-item{

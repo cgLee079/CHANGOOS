@@ -31,7 +31,7 @@
 	}
 	
 	.input-id, .input-pwd{
-		border: 1px solid #AAA;
+		border: 1px solid #DDD;
 		border-radius: 2px;
 		width : 100%;
 		height : 1rem;
