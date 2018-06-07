@@ -8,7 +8,7 @@ var comtCnt;
 var isAdmin;
 
 $(document).ready(function(){
-	perPgLine 	= 10;
+	perPgLine 	= 1000000;
 	boardType	= $("#boardType").val();
 	boardSeq	= $("#boardSeq").val();
 	isAdmin 	= $("#isAdmin").val();

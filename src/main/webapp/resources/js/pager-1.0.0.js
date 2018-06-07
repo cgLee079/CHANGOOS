@@ -13,6 +13,7 @@ var		FIRST_MOVE_TAG		= '[처음]',	// first move
 		PREV_MOVE_TAG		= '[이전]',	// prev move
 		NEXT_MOVE_TAG		= '[다음]',	// next move
 		MOVE_TAG_FONT_SIZE	= '0.5rem',	// move tag text size
+		PAGER_WIDTH_SIZE	= '2rem',	
 		PAGER_FONT_SIZE		= '1rem',	// pager font size
 		PAGER_CUR_FONT_SIZE	= '1rem',	// current page font size
 		PAGER_CUR_COLOR		= '#000',	// current page font color
@@ -140,8 +141,8 @@ function getTailTag(caseID, callFunc, curPg, totalPager, cPageGrp, pgGrpCnt){
 	var lPager		= totalPager;
 	
 	if(caseID == START_PG_GRP || caseID == CENTER_PG_GRP){
-		nextMoveTag.attr('onclick', callFunc + '(' + lPager + ')');
-		lastMoveTag.attr('onclick', callFunc + '(' + nxtSPager + ')');
+		nextMoveTag.attr('onclick', callFunc + '(' + nxtSPager + ')');
+		lastMoveTag.attr('onclick', callFunc + '(' + lPager + ')');
 	} else{
 		nextMoveTag.css("opacity", '0');
 		lastMoveTag.css("opacity", '0');
@@ -168,7 +169,6 @@ function getPager(caseID, callFunc, curPg, totalPager, cPageGrp, pgGrpCnt){
 
 	for (var i = sPager; i <= lPager; i++){
 		tag	= getBasicTag(PAGER_FONT_SIZE).text(i);
-		
 		
 		if(tag.text() == curPg){ // Current Page
 			tag.unbind('mouseenter mouseleave');	//Remove Hover Event
