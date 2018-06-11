@@ -26,8 +26,9 @@ public class ProjectComtController {
 	/** 프로젝트 댓글 페이징 **/
 	@ResponseBody
 	@RequestMapping("/project/comment/paging.do")
-	public String doPaging(int boardSeq, int page, int perPgLine) throws SQLException, JsonProcessingException{
-		List<ProjectComtVo> bcomts= pcomtService.paging(boardSeq, page, perPgLine);
+	public String doPaging(int projectSeq, int page, int perPgLine) throws SQLException, JsonProcessingException{
+		System.out.println(projectSeq);
+		List<ProjectComtVo> bcomts= pcomtService.paging(projectSeq, page, perPgLine);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(bcomts);
 	}

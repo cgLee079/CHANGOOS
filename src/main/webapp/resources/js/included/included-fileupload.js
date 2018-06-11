@@ -4,7 +4,7 @@ var fileInfoUpload;
 	
 $(document).ready(function(){
 	boardType 	= $("#boardType").val();
-	path 		= getContextPath() + "/admin" + "/" + boardType;
+	path 		= getContextPath() + "/mgnt/" + boardType;
 	fileInfoUpload = $(".file-info.upload").clone(true);
 });
 

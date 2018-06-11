@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cglee079.changoos.model.BoardComtVo;
+import com.cglee079.changoos.model.StudyComtVo;
 import com.cglee079.changoos.model.PhotoComtVo;
 
 @Repository
@@ -27,9 +27,9 @@ public class PhotoComtDao {
 		return sqlSession.selectList(namespace +".list", map);
 	}
 	
-	public int count(int boardSeq) {
+	public int count(int photoSeq) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("boardSeq", boardSeq);
+		map.put("photoSeq", photoSeq);
 		return sqlSession.selectOne(namespace +".count", map);
 	}
 

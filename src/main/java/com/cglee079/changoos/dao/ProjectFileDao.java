@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cglee079.changoos.model.BoardFileVo;
+import com.cglee079.changoos.model.StudyFileVo;
 import com.cglee079.changoos.model.ProjectFileVo;
 
 @Repository
@@ -17,12 +17,12 @@ public class ProjectFileDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public boolean insert(BoardFileVo boardFile) {
-		return sqlSession.insert(namespace +".insert", boardFile) == 1;
+	public boolean insert(ProjectFileVo projectFile) {
+		return sqlSession.insert(namespace +".insert", projectFile) == 1;
 	}
 
-	public List<ProjectFileVo> list(int boardSeq) {
-		return sqlSession.selectList(namespace +".list", boardSeq);
+	public List<ProjectFileVo> list(int projectSeq) {
+		return sqlSession.selectList(namespace +".list", projectSeq);
 	}
 
 	public ProjectFileVo get(String pathNm) {

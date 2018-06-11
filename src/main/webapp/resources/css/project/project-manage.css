@@ -1,11 +1,7 @@
 .wrap-project-list{
-	width : 80%;
+	width : 90%;
 	margin : 0 auto;
-	margin-top : 1rem;
 	margin-bottom : 10rem;
-	padding : 0.5rem;
-	background: #FFF;
-	border: 1px solid #DDD;
 }
 
 .menu-manage{
@@ -16,6 +12,5 @@
 
 .project-list{
 	width : 100%;
-	height: 70%;
-	font-size: 0.5rem;
+	height: 75%;
 }

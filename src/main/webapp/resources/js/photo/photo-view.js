@@ -5,6 +5,8 @@ var seqs 			= undefined;
 var templeate		= undefined;
 
 $(document).ready(function(){
+	doMenuOn(".menu-photo");
+	
 	if(isMobile){
 		$(".wrap-photo-list").css("display", "none");
 		photoWrapper = $(".wrapper");

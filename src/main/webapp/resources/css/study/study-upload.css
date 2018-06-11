@@ -1,0 +1,50 @@
+.wrap-upload-form{
+	width :	90%;
+	margin : 0 auto;
+	margin-top : 2rem;
+	margin-bottom: 10rem;
+}
+
+.upload-title{
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin-bottom : 2rem;
+	margin-left	: 0.5rem;	
+}
+
+.upload-form {
+	width : 100%;
+}
+
+.study-upload-item{
+	display: flex;
+	flex-flow : row nowrap;
+	margin-bottom : 0.5rem;
+}
+
+.study-upload-item .item-name{
+	width : 10rem;
+	font-size: 0.75rem;
+	font-weight: bold;
+}
+
+.study-upload-item .item-input{
+	flex : 1;
+}
+
+.study-upload-item .item-input input[type='text']{
+	padding : 0.1rem;
+	width : 50%;
+}
+
+.study-type {
+	padding: 0.1rem;
+}
+
+.study-contents{
+	height: 450px;
+}
+
+.study-submit{
+	text-align: right;
+}

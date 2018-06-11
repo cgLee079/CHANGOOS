@@ -5,7 +5,7 @@ $(document).ready(function(){
 /* datagrid initialize */
 function fn_onInitDataGrid(){
 	$('#dg').datagrid({
-		url: getContextPath() + '/admin/photo/manageList.do',
+		url: getContextPath() + '/mgnt/photo/list.do',
 		method: 'post',
 		singleSelect: true,
 		remoteSort: true,
@@ -55,7 +55,7 @@ function photoDelete(seq, index){
 	function doDelete(seq, index){
 		$.ajax({
 			type	: "POST",
-			url		:  getContextPath() + "/admin/photo/delete.do",
+			url		:  getContextPath() + "/mgnt/photo/delete.do",
 			data	: { 'seq' : seq },
 			dataType: 'JSON',
 			async	: false,
@@ -74,6 +74,6 @@ function photoDelete(seq, index){
 
 /* when '수정' click' */
 function photoModify(seq){
-	window.location.href = getContextPath() + "/admin/photo/upload?seq=" + seq;		
+	window.location.href = getContextPath() + "/mgnt/photo/upload?seq=" + seq;		
 }
 

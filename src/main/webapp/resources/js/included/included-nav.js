@@ -87,6 +87,13 @@ $(document).ready(function(){
 	})
 });
 
+
+function doMenuOn(menu){
+	var menus = $(".web-menus");
+	menus.find(".btn-web-menu").removeClass("on");
+	menus.find(menu).addClass("on");
+}
+
 /* when window scroll, draw 'top' button */
 $(window).scroll(function(event) {
 	var scroll = $(window).scrollTop();

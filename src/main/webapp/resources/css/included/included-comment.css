@@ -36,8 +36,8 @@
 }
 
 .comment-head .comment-head-info .comment-writer {
-	color: #00D;
-	font-size: 1rem;
+	color: #53F;
+	font-weight: bold;	
 }
 
 .comment-head .comment-head-info .comment-date {
@@ -54,7 +54,7 @@
 
 .comment .comment-contents {
 	color: #444;
-	font-size: 0.75rem;
+	font-size: 0.9rem;
 	padding-top: 0.2rem;
 	word-break: break-all;
 	word-wrap: break-word;

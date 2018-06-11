@@ -1,0 +1,17 @@
+.wrap-study-list{
+	width : 90%;
+	margin : 0px auto;
+	margin-bottom: 10rem;
+}
+
+.menu-manage{
+	margin : 1rem;
+	margin-top: 30px;
+	text-align: right;
+}
+
+.study-list{
+	width : 100%;
+	height : 75%;
+}
+

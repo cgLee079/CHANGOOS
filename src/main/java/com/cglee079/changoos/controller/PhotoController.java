@@ -39,14 +39,14 @@ public class PhotoController {
 	}
 	
 	/** 사진 관리 페이지로 이동 **/
-	@RequestMapping(value = "/admin/photo/manage")
+	@RequestMapping(value = "/mgnt/photo")
 	public String photoManage(Model model) {
 		return "photo/photo_manage";
 	}
 	
 	/** 사진 관리 페이지 리스트, Ajax **/
 	@ResponseBody
-	@RequestMapping(value = "/admin/photo/manageList.do")
+	@RequestMapping(value = "/mgnt/photo/list.do")
 	public String DoPhotoManageList(@RequestParam Map<String, Object> map) {
 		List<PhotoVo> photos = photoService.list(map);
 		Gson gson = new Gson();
@@ -80,7 +80,7 @@ public class PhotoController {
 	
 	/** 사진 삭제 , Ajax **/
 	@ResponseBody
-	@RequestMapping(value = "/admin/photo/delete.do")
+	@RequestMapping(value = "/mgnt/photo/delete.do")
 	public String photoDelete(HttpSession session, int seq) {
 		String rootPath = session.getServletContext().getRealPath("");
 		PhotoVo photo = photoService.get(seq);
@@ -92,13 +92,13 @@ public class PhotoController {
 	}
 	
 	/** 사진 업로드 페이지로 이동 **/
-	@RequestMapping(value = "/admin/photo/upload", params = "!seq")
+	@RequestMapping(value = "/mgnt/photo/upload", params = "!seq")
 	public String photoUpload() {
 		return "photo/photo_upload";
 	}
 	
 	/** 사진 수정 페이지로 이동 **/
-	@RequestMapping(value = "/admin/photo/upload", params = "seq")
+	@RequestMapping(value = "/mgnt/photo/upload", params = "seq")
 	public String photoModify(Model model, int seq) {
 		PhotoVo photo = photoService.get(seq);
 		model.addAttribute("photo", photo);
@@ -106,7 +106,7 @@ public class PhotoController {
 	}
 	
 	/** 사진 업로드 **/
-	@RequestMapping(value = "/admin/photo/upload.do", params = "!seq")
+	@RequestMapping(value = "/mgnt/photo/upload.do", params = "!seq")
 	public String photoDoUpload(HttpServletRequest request, PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
 		HttpSession session = request.getSession();
 		String rootPath 	= session.getServletContext().getRealPath("");
@@ -116,11 +116,11 @@ public class PhotoController {
 		}
 		photoService.insert(photo);
 		
-		return "redirect:" + "/admin/photo/manage";
+		return "redirect:" + "/mgnt/photo";
 	}
 	
 	/** 사진 수정 **/
-	@RequestMapping(value = "/admin/photo/upload.do", params = "seq")
+	@RequestMapping(value = "/mgnt/photo/upload.do", params = "seq")
 	public String photoDoModify(HttpServletRequest request, PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException{
 		HttpSession session = request.getSession();
 		String rootPath 	= session.getServletContext().getRealPath("");
@@ -135,7 +135,7 @@ public class PhotoController {
 		
 		photoService.update(photo);
 		
-		return "redirect:" + "/admin/photo/manage";
+		return "redirect:" + "/mgnt/photo";
 	}
 	
 	

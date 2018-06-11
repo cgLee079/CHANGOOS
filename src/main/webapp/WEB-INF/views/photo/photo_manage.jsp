@@ -12,7 +12,7 @@
 	<div class="wrap-photo-list">
 		<div class="menu-manage">
 			<a href="${pageContext.request.contextPath}/photo" class="btn">List</a>
-			<a href="${pageContext.request.contextPath}/admin/photo/upload" class="btn">Upload</a>
+			<a href="${pageContext.request.contextPath}/mgnt/photo/upload" class="btn">Upload</a>
 		</div>
 		
 		<div class="photo-list">

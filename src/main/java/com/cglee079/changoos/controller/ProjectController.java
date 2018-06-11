@@ -89,14 +89,14 @@ public class ProjectController {
 	}
 	
 	/** 프로젝트 관리자 페이지 이동 **/
-	@RequestMapping(value = "/admin/project/manage")
+	@RequestMapping(value = "/mgnt/project")
 	public String projectManage(Model model) {
 		return "project/project_manage";
 	}
 	
 	/** 프로젝트 관리자 페이지 리스트, Ajax **/
 	@ResponseBody
-	@RequestMapping(value = "/admin/project/manageList.do")
+	@RequestMapping(value = "/mgnt/project/list.do")
 	public String DoProjectManageList(@RequestParam Map<String,Object> map) {
 		List<ProjectVo> projects = projectService.list(map);
 		Gson gson = new Gson();
@@ -106,7 +106,7 @@ public class ProjectController {
 	
 	/** 프로젝트 삭제 **/
 	@ResponseBody
-	@RequestMapping(value = "/admin/project/delete.do")
+	@RequestMapping(value = "/mgnt/project/delete.do")
 	public String projectDelete(HttpSession session, int seq) {
 		String rootPath = session.getServletContext().getRealPath("");
 		
@@ -137,13 +137,13 @@ public class ProjectController {
 	}
 	
 	/** 프로젝트 업로드 페이지로 이동 **/
-	@RequestMapping(value = "/admin/project/upload", params = "!seq")
+	@RequestMapping(value = "/mgnt/project/upload", params = "!seq")
 	public String projectUpload() {
 		return "project/project_upload";
 	}
 	
 	/** 프로젝트 수정 페이지로 이동 **/
-	@RequestMapping(value = "/admin/project/upload", params = "seq")
+	@RequestMapping(value = "/mgnt/project/upload", params = "seq")
 	public String projectModify(Model model, int seq) {
 		ProjectVo project = projectService.get(seq);
 		if(project.getContents() != null){
@@ -159,7 +159,7 @@ public class ProjectController {
 	}
 	
 	/** 프로젝트 업로드 **/
-	@RequestMapping(value = "/admin/project/upload.do", method = RequestMethod.POST, params = "!seq")
+	@RequestMapping(value = "/mgnt/project/upload.do", method = RequestMethod.POST, params = "!seq")
 	public String projectDoUpload(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
@@ -185,11 +185,11 @@ public class ProjectController {
 		//파일 저장
 		projectFileService.saveFiles(rootPath, seq, files);
 		
-		return "redirect:" + "/admin/project/manage";
+		return "redirect:" + "/mgnt/project";
 	}
 	
 	/** 프로젝트 수정 **/
-	@RequestMapping(value = "/admin/project/upload.do", method = RequestMethod.POST, params = "seq")
+	@RequestMapping(value = "/mgnt/project/upload.do", method = RequestMethod.POST, params = "seq")
 	public String projectDoModify(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws IllegalStateException, IOException{
 		HttpSession session = request.getSession();
 		String rootPath = session.getServletContext().getRealPath("");
@@ -218,12 +218,12 @@ public class ProjectController {
 		//파일 저장
 		projectFileService.saveFiles(rootPath, seq, files);
 		
-		return "redirect:" + "/admin/project/manage";
+		return "redirect:" + "/mgnt/project";
 	}
 	
 	/** 프로젝트 파일 삭제 **/
 	@ResponseBody
-	@RequestMapping(value = "/admin/project/deleteFile.do")
+	@RequestMapping(value = "/mgnt/project/deleteFile.do")
 	public String deleteFile(HttpSession session, int seq){
 		String rootPath = session.getServletContext().getRealPath("");
 		
@@ -234,7 +234,7 @@ public class ProjectController {
 	}
 	
 	/** 프로젝츠 CKEditor 사진 업로드 **/
-	@RequestMapping(value = "/admin/project/imgUpload.do")
+	@RequestMapping(value = "/mgnt/project/imgUpload.do")
 	public String projectImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();

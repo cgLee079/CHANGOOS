@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cglee079.changoos.mapper.StudyMapper">
+	<select id="S01" resultType="com.cglee079.changoos.model.StudyVo" parameterType="Integer">
+		/* 게시글 가져오기 */
+		SELECT
+		STUDY_SEQ as "seq",
+		STUDY_SORT as "sort",
+		STUDY_SECT as "sect",
+		STUDY_CODE_LANG as "codeLang",
+		STUDY_TITLE as "title",
+		STUDY_CONTENTS as "contents",
+		STUDY_DATE as "date",
+		STUDY_HITS as "hits",
+		count(B.SCOMT_SEQ) as 'comtCnt'
+		FROM TB_PTFOLIO_STUDY A LEFT OUTER JOIN TB_PTFOLIO_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
+		WHERE STUDY_SEQ = #{seq}
+		GROUP BY A.STUDY_SEQ
+	</select>
+	
+	<select id="S02" parameterType="map" resultType="com.cglee079.changoos.model.StudyVo">
+		/* 이전 게시글 가져오기 */
+		SELECT 
+		STUDY_SEQ as "seq",
+		STUDY_SORT as "sort",
+		STUDY_SECT as "sect",
+		STUDY_CODE_LANG as "codeLang",
+		STUDY_TITLE as "title",
+		STUDY_CONTENTS as "contents",
+		STUDY_DATE as "date",
+		STUDY_HITS as "hits",
+		count(B.SCOMT_SEQ) as 'comtCnt'
+		FROM TB_PTFOLIO_STUDY A LEFT OUTER JOIN TB_PTFOLIO_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
+		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
+		<![CDATA[STUDY_SEQ < #{seq}]]>  
+		<if test="sect != ''">
+ 		<![CDATA[AND UPPER(STUDY_SECT) = UPPER(#{sect})]]>
+  		</if>
+  		</trim>
+		GROUP BY A.STUDY_SEQ
+		ORDER BY STUDY_SEQ DESC LIMIT 1
+	</select>
+	
+	<select id="S03" parameterType="map" resultType="com.cglee079.changoos.model.StudyVo">
+		/* 다음 게시글 가져오기 */
+		SELECT 
+		STUDY_SEQ as "seq",
+		STUDY_SORT as "sort",
+		STUDY_SECT as "sect",
+		STUDY_CODE_LANG as "codeLang",
+		STUDY_TITLE as "title",
+		STUDY_CONTENTS as "contents",
+		STUDY_DATE as "date",
+		STUDY_HITS as "hits",
+		count(B.SCOMT_SEQ) as 'comtCnt'
+		FROM TB_PTFOLIO_STUDY A LEFT OUTER JOIN TB_PTFOLIO_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
+		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
+		<![CDATA[STUDY_SEQ > #{seq}]]>
+		<if test="sect != ''">
+ 		<![CDATA[AND UPPER(STUDY_SECT) = UPPER(#{sect})]]>
+  		</if>
+  		</trim>
+		GROUP BY A.STUDY_SEQ
+		ORDER BY STUDY_SEQ ASC LIMIT 1
+	</select>
+	
+	<select id="S04" resultType="com.cglee079.changoos.model.StudyVo" parameterType="map">
+		/* 게시글 리스트 */
+		SELECT
+		STUDY_SEQ as "seq",
+		STUDY_SORT as "sort",
+		STUDY_SECT as "sect",
+		STUDY_CODE_LANG as "codeLang",
+		STUDY_TITLE as "title",
+		STUDY_CONTENTS as "contents",
+		STUDY_DATE as "date",
+		STUDY_HITS as "hits",
+		count(B.SCOMT_SEQ) as 'comtCnt'
+		FROM TB_PTFOLIO_STUDY A LEFT OUTER JOIN TB_PTFOLIO_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
+		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
+		<if test="sect != '' and sect != NULL">
+ 		<![CDATA[AND UPPER(STUDY_SECT) = UPPER(#{sect})]]>
+  		</if>
+  		<if test="searchType == 'TITLE' and searchValue != ''">
+ 		<![CDATA[AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
+  		</if>
+  		</trim>
+  		GROUP BY A.STUDY_SEQ
+  		<choose>
+		<when test="sort != null">
+		ORDER BY ${sort} ${order}
+		</when>
+		<otherwise>
+		ORDER BY STUDY_SORT, STUDY_DATE DESC, STUDY_SEQ DESC
+		</otherwise>
+		</choose>
+		<if test="startRow != null and perPgLine != null">
+ 		LIMIT ${startRow}, ${perPgLine}
+  		</if>
+	</select>
+	
+	<select id="S05" resultType="Integer" parameterType="map">
+		/* 게시글 개수 */
+		SELECT
+			count(*)
+		FROM TB_PTFOLIO_STUDY
+		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
+		<if test="sect != ''">
+ 		<![CDATA[AND UPPER(STUDY_SECT) = UPPER(#{sect})]]>
+  		</if>
+		<if test="searchType == 'SECT' and searchValue != ''">
+ 		<![CDATA[AND UPPER(STUDY_SECT) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
+  		</if>
+  		<if test="searchType == 'TITLE' and searchValue != ''">
+ 		<![CDATA[AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
+  		</if>
+  		</trim>
+	</select>
+	
+	<select id="S06" resultType="String">
+		SELECT STUDY_SECT 
+		FROM TB_PTFOLIO_STUDY
+		GROUP BY STUDY_SECT
+		ORDER BY COUNT(*) DESC
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
+		INSERT TB_PTFOLIO_STUDY 
+		(STUDY_SORT, STUDY_SECT, STUDY_CODE_LANG, STUDY_TITLE, STUDY_CONTENTS, STUDY_DATE, STUDY_HITS)
+		VALUES (#{sort}, #{sect}, #{codeLang}, #{title}, #{contents}, #{date}, #{hits})
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM TB_PTFOLIO_STUDY
+		WHERE STUDY_SEQ = #{seq}
+	</delete>
+	
+	<update id="update">
+		UPDATE TB_PTFOLIO_STUDY
+		SET 
+		STUDY_SORT = #{sort},
+		STUDY_SECT = #{sect},
+		STUDY_CODE_LANG = #{codeLang},
+		STUDY_TITLE = #{title},
+		STUDY_CONTENTS = #{contents},
+		STUDY_DATE = #{date},
+		STUDY_HITS = #{hits}
+		WHERE STUDY_SEQ = #{seq}
+	</update>
+	
+</mapper>

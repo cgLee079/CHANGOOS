@@ -1,14 +1,14 @@
 .wrap-photo-list {
 	display: flex;
-	height: calc(100% - 130px);
-	width: 80%;
+	height: calc(100% - 50px);
+	width: 90%;
 	margin: 0px auto;
-	margin-top: 30px;
+	align-items: center;
 }
 
 .photo-list {
 	flex: 1;
-	height: 100%;
+	height: 95%;
 	justify-content: center;
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -197,8 +197,8 @@
 }
 
 .snapsht-list {
-	width: 10rem;
-	height: 100%;
+	width: 150px;
+	height: 95%;
 	overflow: hidden;
 	margin-left: 1rem;
 	
@@ -222,7 +222,7 @@
 }
 
 .snapsht-list-item {
-	height: calc(100px * 3/ 4);
+	height: calc(100px * 2 / 3);
 	width: 150px;
 	margin: 1px;
 	background: #000;

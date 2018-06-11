@@ -33,11 +33,13 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 			sessionLog.setCreateDate(Formatter.toDateTime(new Date()));
 			sessionLogService.insert(sessionLog);
 			
-			session.setAttribute("visitBoards", new ArrayList<Integer>());
+			session.setAttribute("visitStudies", new ArrayList<Integer>());
+			session.setAttribute("visitBlogs", new ArrayList<Integer>());
 			session.setAttribute("visitProjects", new ArrayList<Integer>());
 			session.setAttribute("likePhotos", new HashMap<Integer, Boolean>());
 		} else {
-			if(session.getAttribute("visitBoards") == null) { session.setAttribute("visitBoards", new ArrayList<Integer>());}
+			if(session.getAttribute("visitStudies") == null) { session.setAttribute("visitStudies", new ArrayList<Integer>());}
+			if(session.getAttribute("visitBlogs") == null) { session.setAttribute("visitBlogs", new ArrayList<Integer>());}
 			if(session.getAttribute("visitProjects") == null) { session.setAttribute("visitProjects", new ArrayList<Integer>());}
 			if(session.getAttribute("likePhotos") == null) { session.setAttribute("likePhotos", new HashMap<Integer, Boolean>());}
 		}

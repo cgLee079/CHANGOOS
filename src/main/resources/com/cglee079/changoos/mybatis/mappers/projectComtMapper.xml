@@ -6,21 +6,21 @@
 	<select id="count" resultType="Integer">
 		SELECT
 			count(*)
-		FROM TB_PTFOLIO_PROJECT_COMTS
-		WHERE PCOMT_BOARD_SEQ = #{boardSeq} 
+		FROM TB_PTFOLIO_PROJECT_COMT
+		WHERE PCOMT_PROJ_SEQ = #{projectSeq} 
 	</select>
 	
 	<select id="list" resultType="com.cglee079.changoos.model.ProjectComtVo" parameterType="map">
 		SELECT
 		PCOMT_SEQ as "seq",
-		PCOMT_BOARD_SEQ as "boardSeq",
+		PCOMT_PROJ_SEQ as "projectSeq",
 		PCOMT_NAME as "name",
 		PCOMT_PWD as "password",
 		PCOMT_CONTENTS as "contents",
 		PCOMT_DATE as "date",
 		PCOMT_PARENT_SEQ as "parentSeq"
-		FROM TB_PTFOLIO_PROJECT_COMTS
-		WHERE PCOMT_BOARD_SEQ = #{boardSeq}
+		FROM TB_PTFOLIO_PROJECT_COMT
+		WHERE PCOMT_PROJ_SEQ = #{projectSeq}
 		ORDER BY CONCAT(IF(PCOMT_PARENT_SEQ is null, COALESCE(PCOMT_PARENT_SEQ, ''), CONCAT('_', LPAD(PCOMT_PARENT_SEQ,6,'0')) ), '_',LPAD(PCOMT_SEQ,6,'0'))
 		LIMIT #{startRow}, #{perPgLine}
 	</select>
@@ -28,29 +28,29 @@
 	<select id="get" resultType="com.cglee079.changoos.model.ProjectComtVo" parameterType="Integer">
 		SELECT
 		PCOMT_SEQ as "seq",
-		PCOMT_BOARD_SEQ as "boardSeq",
+		PCOMT_PROJ_SEQ as "projectSeq",
 		PCOMT_NAME as "name",
 		PCOMT_PWD as "password",
 		PCOMT_CONTENTS as "contents",
 		PCOMT_DATE as "DATE",
 		PCOMT_PARENT_SEQ as "parentSeq"
-		FROM TB_PTFOLIO_PROJECT_COMTS
+		FROM TB_PTFOLIO_PROJECT_COMT
 		WHERE PCOMT_SEQ = #{seq}
 	</select>
 	
 	<insert id="insert">
-		INSERT TB_PTFOLIO_PROJECT_COMTS 
-		(PCOMT_BOARD_SEQ, PCOMT_NAME, PCOMT_PWD, PCOMT_CONTENTS, PCOMT_DATE, PCOMT_PARENT_SEQ)
-		VALUES (#{boardSeq}, #{name}, #{password}, #{contents}, #{date}, #{parentSeq});
+		INSERT TB_PTFOLIO_PROJECT_COMT 
+		(PCOMT_PROJ_SEQ, PCOMT_NAME, PCOMT_PWD, PCOMT_CONTENTS, PCOMT_DATE, PCOMT_PARENT_SEQ)
+		VALUES (#{projectSeq}, #{name}, #{password}, #{contents}, #{date}, #{parentSeq});
 	</insert>
 	
 	<delete id="delete">
-		DELETE FROM TB_PTFOLIO_PROJECT_COMTS
+		DELETE FROM TB_PTFOLIO_PROJECT_COMT
 		WHERE PCOMT_SEQ = #{seq}
 	</delete>
 	
 	<update id="update" parameterType="map">
-		UPDATE TB_PTFOLIO_PROJECT_COMTS
+		UPDATE TB_PTFOLIO_PROJECT_COMT
 		SET 
 		PCOMT_CONTENTS = #{contents}
 		WHERE PCOMT_SEQ = #{seq}

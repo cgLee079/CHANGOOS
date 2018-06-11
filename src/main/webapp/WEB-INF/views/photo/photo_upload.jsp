@@ -10,7 +10,9 @@
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 		
 		<div class="wrap-upload-form">
-			<form id="upload-form" action="${pageContext.request.contextPath}/admin/photo/upload.do" 
+			<div class="upload-title">사진 업로드</div>
+			
+			<form id="upload-form" action="${pageContext.request.contextPath}/mgnt/photo/upload.do" 
 				method="post" enctype="multipart/form-data">
 				
 				<c:set var="sort" value="99999"/>

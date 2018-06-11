@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cglee079.changoos.dao.ProjectComtDao;
-import com.cglee079.changoos.model.BoardComtVo;
+import com.cglee079.changoos.model.StudyComtVo;
 import com.cglee079.changoos.model.ProjectComtVo;
 
 @Service
@@ -17,13 +17,13 @@ public class ProjectComtService{
 	@Autowired
 	ProjectComtDao projectcomtDao;
 
-	public List<ProjectComtVo> paging(int boardSeq, int page, int perPgLine) {
+	public List<ProjectComtVo> paging(int projectSeq, int page, int perPgLine) {
 		int startRow = (page - 1) * perPgLine;
-		return projectcomtDao.list(boardSeq, startRow, perPgLine);
+		return projectcomtDao.list(projectSeq, startRow, perPgLine);
 	}
 
-	public int count(int boardSeq) {
-		return projectcomtDao.count(boardSeq);
+	public int count(int projectSeq) {
+		return projectcomtDao.count(projectSeq);
 	}
 
 	public boolean insert(ProjectComtVo comt) {

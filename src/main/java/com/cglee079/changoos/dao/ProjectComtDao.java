@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cglee079.changoos.model.BoardComtVo;
+import com.cglee079.changoos.model.StudyComtVo;
 import com.cglee079.changoos.model.ProjectComtVo;
 
 @Repository
@@ -21,17 +21,17 @@ public class ProjectComtDao {
 		return sqlSession.selectList(namespace +".list");
 	}
 
-	public List<ProjectComtVo> list(int boardSeq, int startRow, int perPgLine) {
+	public List<ProjectComtVo> list(int projectSeq, int startRow, int perPgLine) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("boardSeq", boardSeq);
+		map.put("projectSeq", projectSeq);
 		map.put("startRow", startRow);
 		map.put("perPgLine", perPgLine);
 		return sqlSession.selectList(namespace +".list", map);
 	}
 
-	public int count(int boardSeq) {
+	public int count(int projectSeq) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("boardSeq", boardSeq);
+		map.put("projectSeq", projectSeq);
 		return sqlSession.selectOne(namespace +".count", map);
 	}
 

@@ -1,11 +1,14 @@
 .wrap-upload-form{
-	width : 80%;
+	width : 90%;
 	margin: 0px auto;
 	margin-top: 2rem;
 	margin-bottom: 10rem;
-	background: #FFF;
-	border: 1px solid #DDD;
-	padding : 1rem;
+}
+.upload-title{
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin-bottom : 2rem;
+	margin-left	: 0.5rem;	
 }
 
 .upload-project{

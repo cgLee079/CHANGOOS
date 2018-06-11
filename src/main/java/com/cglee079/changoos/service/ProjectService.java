@@ -39,10 +39,10 @@ public class ProjectService {
 		return projectDao.get(seq);
 	}
 	
-	public ProjectVo doView(List<Integer> isVisitBoard, int seq) {
+	public ProjectVo doView(List<Integer> isVisitProject, int seq) {
 		ProjectVo project = projectDao.get(seq);
-		if(!isVisitBoard.contains(seq)) {
-			isVisitBoard.add(seq);
+		if(!isVisitProject.contains(seq)) {
+			isVisitProject.add(seq);
 			project.setHits(project.getHits() + 1);
 			projectDao.update(project);
 		}

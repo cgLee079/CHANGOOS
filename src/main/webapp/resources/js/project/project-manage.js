@@ -5,7 +5,7 @@ $(document).ready(function(){
 /* datagrid initialize */
 function fn_onInitDataGrid(){
 	$('#dg').datagrid({
-		url: getContextPath() + '/admin/project/manageList.do',
+		url: getContextPath() + '/mgnt/project/list.do',
 		method: 'post',
 		singleSelect: true,
 		remoteSort: true,
@@ -61,7 +61,7 @@ function projectDelete(seq, index){
 	function doDelete(seq, index){
 		$.ajax({
 			type	: "POST",
-			url		: getContextPath() + "/admin/project/delete.do?",
+			url		: getContextPath() + "/mgnt/project/delete.do?",
 			data	: { 'seq' : seq },
 			dataType: 'JSON',
 			async	: false,
@@ -80,5 +80,5 @@ function projectDelete(seq, index){
 
 /* Ajax, when '수정' click */
 function projectModify(seq){
-	window.location.href = getContextPath() + "/admin/project/upload?seq=" + seq;		
+	window.location.href = getContextPath() + "/mgnt/project/upload?seq=" + seq;		
 }

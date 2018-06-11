@@ -3,6 +3,7 @@ var perPgLine;
 var path;
 var comtFormTemp;
 var boardType;
+var boardSeqName;
 var boardSeq;
 var comtCnt;
 var isAdmin;
@@ -15,6 +16,11 @@ $(document).ready(function(){
 	comtCnt		= parseInt($("#comtCnt").val());
 	comtFormTemp= $(".comment-write").clone();
 	path 		= getContextPath() + "/" + boardType;
+	
+	switch(boardType){
+	case 'study' 	: boardSeqName = 'studySeq'; break;
+	case 'project' 	: boardSeqName = 'projectSeq'; break;
+	}
 	
 	commentPageMove(1); // Paging
 })
@@ -29,14 +35,15 @@ function nl2br(text){
 
 /* Ajax, Paging */
 function commentPageMove(pg){
+	var param = { };
+	param[boardSeqName] = boardSeq;
+	param['page'] 		= pg;
+	param['perPgLine'] 	= perPgLine;
+	
 	$.ajax({
 		type	: "POST",
 		url		: path + "/comment/paging.do",
-		data	: {
-			'boardSeq'	: boardSeq,					
-			'page'		: pg,
-			'perPgLine' : perPgLine
-		},
+		data	: param,
 		beforeSend : function(){
 			Progress.start();
 		},
@@ -183,17 +190,17 @@ function doReply(tg){
 	var name		= "CHANGOO";
 	var password	= "I_AM_ADMIN";
 	var contents	= reply.find(".comment-reply-content").val();
+	var param = { };
+	param[boardSeqName] = boardSeq;
+	param['name'] 		= name;
+	param['password'] 	= password;
+	param['contents'] 	= nl2br(contents);
+	param['parentSeq']	= parentSeq;
 	
 	$.ajax({	
 		type	: "POST",
 		url		: path + "/comment/submit.do",
-		data	: {
-			'boardSeq'	: boardSeq,				
-			'name'		: name,					
-			'password'	: password,
-			'contents' 	: nl2br(contents),
-			'parentSeq' : parentSeq
-		},
+		data	: param,
 		dataType : "JSON",
 		success : function(result) {
 			commentPageMove(page);
@@ -331,6 +338,11 @@ function doCommentSubmit(){
 	var name = $(".comment-write #name");
 	var password = $(".comment-write #password");
 	var contents  = $(".comment-write #contents");
+	var param = { };
+	param[boardSeqName] = boardSeq;
+	param['name'] 		=  name.val();
+	param['password'] 	= password.val();
+	param['contents'] 	= nl2br(contents.val());
 	
 	if(!name.val()) { swal({text : "이름을 입력해주세요.", icon : "warning"}); return ;}
 	if(!password.val()) { swal({text : "비밀번호를 입력해주세요.", icon : "warning"}); return ;}
@@ -339,12 +351,7 @@ function doCommentSubmit(){
 	$.ajax({
 		type	: "POST",
 		url		: path + "/comment/submit.do",
-		data	: {
-			'boardSeq'	: boardSeq,				
-			'name'		: name.val(),					
-			'password'	: password.val(),
-			'contents' 	: nl2br(contents.val())
-		},
+		data	: param,
 		dataType: 'JSON',
 		beforeSend : function(){
 			Progress.start();

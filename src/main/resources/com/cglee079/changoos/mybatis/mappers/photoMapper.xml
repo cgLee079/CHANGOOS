@@ -18,7 +18,7 @@
 		PHOTO_TAG as "tag",
 		PHOTO_DEVICE as "device",
 		PHOTO_LIKECNT as "likeCnt"
-		FROM TB_PTFOLIO_PHOTOS
+		FROM TB_PTFOLIO_PHOTO
 		WHERE PHOTO_SEQ = #{seq}
 	</select>
 	
@@ -36,7 +36,7 @@
 		PHOTO_TAG as "tag",
 		PHOTO_DEVICE as "device",
 		PHOTO_LIKECNT as "likeCnt"
-		FROM TB_PTFOLIO_PHOTOS
+		FROM TB_PTFOLIO_PHOTO
 		<choose>
 		<when test="sort != null">
 		ORDER BY ${sort} ${order}
@@ -50,22 +50,22 @@
 	<select id="S03" resultType="Integer">
 		SELECT
 		PHOTO_SEQ as "seq"
-		FROM TB_PTFOLIO_PHOTOS
+		FROM TB_PTFOLIO_PHOTO
 		ORDER BY PHOTO_SORT, PHOTO_DATE DESC, PHOTO_TIME DESC, PHOTO_SEQ DESC
 	</select>
 	
 	<delete id="delete">
-		DELETE FROM TB_PTFOLIO_PHOTOS
+		DELETE FROM TB_PTFOLIO_PHOTO
 		WHERE PHOTO_SEQ = #{seq}
 	</delete>
 	
 	<insert id="insert">
-		INSERT TB_PTFOLIO_PHOTOS (PHOTO_SORT, PHOTO_IMAGE, PHOTO_SNAPSHT, PHOTO_NAME, PHOTO_DESC, PHOTO_LOC, PHOTO_DATE, PHOTO_TIME, PHOTO_TAG, PHOTO_DEVICE, PHOTO_LIKECNT)
+		INSERT TB_PTFOLIO_PHOTO (PHOTO_SORT, PHOTO_IMAGE, PHOTO_SNAPSHT, PHOTO_NAME, PHOTO_DESC, PHOTO_LOC, PHOTO_DATE, PHOTO_TIME, PHOTO_TAG, PHOTO_DEVICE, PHOTO_LIKECNT)
 		VALUES (#{sort}, #{image}, #{snapsht}, #{name}, #{desc}, #{location}, #{date}, #{time}, #{tag}, #{device}, #{likeCnt})
 	</insert>
 	
 	<update id="update">
-		UPDATE TB_PTFOLIO_PHOTOS
+		UPDATE TB_PTFOLIO_PHOTO
 		SET
 		PHOTO_SORT = #{sort}, 
 		PHOTO_IMAGE = #{image},

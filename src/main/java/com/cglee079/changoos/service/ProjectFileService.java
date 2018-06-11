@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.ProjectFileDao;
-import com.cglee079.changoos.model.BoardFileVo;
+import com.cglee079.changoos.model.StudyFileVo;
 import com.cglee079.changoos.model.ProjectFileVo;
 import com.cglee079.changoos.util.TimeStamper;
 
@@ -20,8 +20,8 @@ public class ProjectFileService {
 	@Autowired
 	ProjectFileDao projectFileDao;
 	
-	public boolean insert(BoardFileVo boardFile) {
-		return projectFileDao.insert(boardFile);
+	public boolean insert(ProjectFileVo projectFile) {
+		return projectFileDao.insert(projectFile);
 	}
 	
 	public List<ProjectFileVo> list(int seq) {
@@ -73,7 +73,7 @@ public class ProjectFileService {
 	/** 여러 파일 저장 **/
 	public void saveFiles(String rootPath, int projectSeq, List<MultipartFile> files) throws IllegalStateException, IOException {
 		MultipartFile multipartFile = null;
-		BoardFileVo projectFile = null;
+		ProjectFileVo projectFile = null;
 		File file = null;
 		String realNm = null;
 		String pathNm = null;
@@ -90,11 +90,11 @@ public class ProjectFileService {
 				file = new File(rootPath + FILE_PATH, pathNm);
 				multipartFile.transferTo(file);
 				
-				projectFile = new BoardFileVo();
+				projectFile = new ProjectFileVo();
 				projectFile.setPathNm(pathNm);
 				projectFile.setRealNm(realNm);
 				projectFile.setSize(size);
-				projectFile.setBoardSeq(projectSeq);
+				projectFile.setProjectSeq(projectSeq);
 				this.insert(projectFile);
 			}
 		}

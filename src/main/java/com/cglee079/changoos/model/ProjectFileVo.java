@@ -2,7 +2,7 @@ package com.cglee079.changoos.model;
 
 public class ProjectFileVo {
 	private int seq;
-	private int boardSeq;
+	private int projectSeq;
 	private String pathNm;
 	private String realNm;
 	private long size;
@@ -15,12 +15,12 @@ public class ProjectFileVo {
 		this.seq = seq;
 	}
 
-	public int getBoardSeq() {
-		return boardSeq;
+	public int getProjectSeq() {
+		return projectSeq;
 	}
 
-	public void setBoardSeq(int boardSeq) {
-		this.boardSeq = boardSeq;
+	public void setProjectSeq(int projectSeq) {
+		this.projectSeq = projectSeq;
 	}
 
 	public String getPathNm() {

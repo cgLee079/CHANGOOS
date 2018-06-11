@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.cglee079.changoos.model.BoardVo;
+import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.service.ProjectService;
 import com.cglee079.changoos.util.Formatter;
@@ -29,15 +29,15 @@ public class ProjectComtNoticeInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		String name = request.getParameter("name");
 		String contents = request.getParameter("contents").replaceAll("<br />", "\n");
-		String boardSeq = request.getParameter("boardSeq");
+		String projectSeq = request.getParameter("projectSeq");
 		String parentSeq = request.getParameter("parentSeq");
 		
 		if (parentSeq == null) {
-			ProjectVo project = projectService.get(Integer.parseInt(boardSeq));
-			String boardTitle = project.getTitle();
+			ProjectVo project = projectService.get(Integer.parseInt(projectSeq));
+			String projectTitle = project.getTitle();
 
 			String msg = "#프로젝트에 댓글이 등록되었습니다.\n";
-			msg += "프로젝트 : " + boardTitle + "\n";
+			msg += "프로젝트 : " + projectTitle + "\n";
 			msg += "이름 : " + name + "\n";
 			msg += "시간 : " + Formatter.toDateTime(new Date()) + "\n";
 			msg += "내용 :\n";

@@ -20,8 +20,8 @@ public class PhotoComtService{
 		return photocomtDao.list(photoSeq);
 	}
 	
-	public int count(int boardSeq) {
-		return photocomtDao.count(boardSeq);
+	public int count(int photoSeq) {
+		return photocomtDao.count(photoSeq);
 	}
 
 	public boolean insert(PhotoComtVo comt) {

@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	doMenuOn(".menu-about");
+	
 //	var views 	= $(".myinfo-view");
 //	views.css("height", deviceHeight - 150);
 	

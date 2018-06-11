@@ -1,13 +1,6 @@
 $(document).ready(function(){
-	/* draw line animation 
-	var lineDrawing = anime({
-		targets: ".project-line",
-		scale : [ 0, 1 ],
-		easing : "easeInQuad",
-		duration : 400
-	});*/
+	doMenuOn(".menu-project");
 	
-	/* before, next Project button initialize */
 	$(".btn-project-before, .btn-project-next").tooltip({
     	position: 'top',
     	show : null,

@@ -33,8 +33,7 @@ function initDescCKEditor() {
 
 function initContentCKEditor() {
 	var editor = CKEDITOR.replace("contents", {
-		filebrowserUploadUrl : '<%=request.getContextPath()%>'
-				+ "/admin/project/imgUpload.do",
+		filebrowserUploadUrl : getContextPath() + "/mgnt/project/imgUpload.do",
 		codeSnippet_theme : 'github',
 		on : {
 			instanceReady : function(ev) {
