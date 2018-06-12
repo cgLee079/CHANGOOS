@@ -166,6 +166,10 @@
 }
 
 @media (max-width: 720px){
+	.project-list{
+		width : 95%;
+	}
+	
 	.project-view{
 		width : 100%;
 		opacity	: 1;
