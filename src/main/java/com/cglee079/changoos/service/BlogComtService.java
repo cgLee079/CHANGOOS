@@ -7,34 +7,34 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cglee079.changoos.dao.StudyComtDao;
-import com.cglee079.changoos.model.StudyComtVo;
+import com.cglee079.changoos.dao.BlogComtDao;
+import com.cglee079.changoos.model.BlogComtVo;
 
 @Service
-public class StudyComtService{
+public class BlogComtService{
 	
 	@Autowired
-	StudyComtDao scomtDao;
+	BlogComtDao bcomtDao;
 
-	public List<StudyComtVo> paging(int studySeq, int page, int perPgLine) {
+	public List<BlogComtVo> paging(int blogSeq, int page, int perPgLine) {
 		int startRow = (page - 1) * perPgLine;
-		return scomtDao.list(studySeq, startRow, perPgLine);
+		return bcomtDao.list(blogSeq, startRow, perPgLine);
 	}
 
-	public int count(int studySeq) {
-		return scomtDao.count(studySeq);
+	public int count(int blogSeq) {
+		return bcomtDao.count(blogSeq);
 	}
 
-	public boolean insert(StudyComtVo comt) {
+	public boolean insert(BlogComtVo comt) {
 		String date = new SimpleDateFormat("YYYY-MM-dd").format(new Date());
 		comt.setDate(date);
-		return scomtDao.insert(comt);
+		return bcomtDao.insert(comt);
 	}
 
 	public boolean delete(int seq, String password, boolean isAdmin) {
-		StudyComtVo comtVo = scomtDao.get(seq);
+		BlogComtVo comtVo = bcomtDao.get(seq);
 		if(comtVo.getPassword().equals(password) || isAdmin){
-			return scomtDao.delete(seq);			
+			return bcomtDao.delete(seq);			
 		} else {
 			return false;
 		}
@@ -42,7 +42,7 @@ public class StudyComtService{
 	
 
 	public boolean checkPwd(int seq, String password, boolean isAdmin) {
-		StudyComtVo comtVo = scomtDao.get(seq);
+		BlogComtVo comtVo = bcomtDao.get(seq);
 		if(comtVo.getPassword().equals(password) || isAdmin){
 			return true;			
 		} else {
@@ -51,6 +51,6 @@ public class StudyComtService{
 	}
 
 	public boolean update(int seq, String contents) {
-		return scomtDao.update(seq, contents);
+		return bcomtDao.update(seq, contents);
 	}
 }

@@ -16,11 +16,7 @@ $(document).ready(function(){
 	comtCnt		= parseInt($("#comtCnt").val());
 	comtFormTemp= $(".comment-write").clone();
 	path 		= getContextPath() + "/" + boardType;
-	
-	switch(boardType){
-	case 'study' 	: boardSeqName = 'studySeq'; break;
-	case 'project' 	: boardSeqName = 'projectSeq'; break;
-	}
+	boardSeqName= boardType + "Seq";
 	
 	commentPageMove(1); // Paging
 })
@@ -340,7 +336,7 @@ function doCommentSubmit(){
 	var contents  = $(".comment-write #contents");
 	var param = { };
 	param[boardSeqName] = boardSeq;
-	param['name'] 		=  name.val();
+	param['name'] 		= name.val();
 	param['password'] 	= password.val();
 	param['contents'] 	= nl2br(contents.val());
 	

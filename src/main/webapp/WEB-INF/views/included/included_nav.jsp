@@ -44,8 +44,8 @@
 	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">ABOUT</a></div>
 	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/project">PROJECT</a></div>
 	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/study">STUDY</a></div>
-	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/blog">PHOTO</a></div>
-	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">BLOG</a></div>
+	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/blog">BLOG</a></div>
+	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">PHOTO</a></div>
 </div>
 
 <!--  Top btn. -->

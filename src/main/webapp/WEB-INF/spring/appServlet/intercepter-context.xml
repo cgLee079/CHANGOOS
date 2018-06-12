@@ -34,6 +34,11 @@
 			<mvc:mapping path="/project/comment/submit.do" />
 			<bean class="com.cglee079.changoos.interceptor.ProjectComtNoticeInterceptor"></bean>
 		</mvc:interceptor>
+		
+			<mvc:interceptor>
+			<mvc:mapping path="/blog/comment/submit.do" />
+			<bean class="com.cglee079.changoos.interceptor.BlogComtNoticeInterceptor"></bean>
+		</mvc:interceptor>
 				
 		<mvc:interceptor>
 			<mvc:mapping path="/introduce/remain_message.do" />

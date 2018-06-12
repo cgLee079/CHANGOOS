@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cglee079.changoos.mapper.BlogComtMapper">
+	
+	<select id="count" resultType="Integer">
+		SELECT
+			count(*)
+		FROM TB_PTFOLIO_BLOG_COMT
+		WHERE BCOMT_BLOG_SEQ = #{blogSeq}
+	</select>
+	
+	<select id="list" resultType="com.cglee079.changoos.model.BlogComtVo" parameterType="map">
+		SELECT
+		BCOMT_SEQ as "seq",
+		BCOMT_BLOG_SEQ as "blogSeq",
+		BCOMT_NAME as "name",
+		BCOMT_PWD as "password",
+		BCOMT_CONTENTS as "contents",
+		BCOMT_DATE as "date",
+		BCOMT_PARENT_SEQ as "parentSeq"
+		FROM TB_PTFOLIO_BLOG_COMT
+		WHERE BCOMT_BLOG_SEQ = #{blogSeq}
+		ORDER BY CONCAT(IF(BCOMT_PARENT_SEQ is null, COALESCE(BCOMT_PARENT_SEQ, ''), CONCAT('_', LPAD(BCOMT_PARENT_SEQ,6,'0')) ), '_',LPAD(BCOMT_SEQ,6,'0'))
+		LIMIT #{startRow}, #{perPgLine}
+	</select>
+	
+	<select id="get" resultType="com.cglee079.changoos.model.BlogComtVo" parameterType="Integer">
+		SELECT
+		BCOMT_SEQ as "seq",
+		BCOMT_BLOG_SEQ as "blogSeq",
+		BCOMT_NAME as "name",
+		BCOMT_PWD as "password",
+		BCOMT_CONTENTS as "contents",
+		BCOMT_DATE as "DATE",
+		BCOMT_PARENT_SEQ as "parentSeq"
+		FROM TB_PTFOLIO_BLOG_COMT
+		WHERE BCOMT_SEQ = #{seq}
+	</select>
+	
+	<insert id="insert">
+		INSERT TB_PTFOLIO_BLOG_COMT 
+		(BCOMT_BLOG_SEQ, BCOMT_NAME, BCOMT_PWD, BCOMT_CONTENTS, BCOMT_DATE, BCOMT_PARENT_SEQ)
+		VALUES (#{blogSeq}, #{name}, #{password}, #{contents}, #{date}, #{parentSeq});
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM TB_PTFOLIO_BLOG_COMT
+		WHERE BCOMT_SEQ = #{seq}
+	</delete>
+	
+	<update id="update" parameterType="map">
+		UPDATE TB_PTFOLIO_BLOG_COMT
+		SET 
+		BCOMT_CONTENTS = #{contents}
+		WHERE BCOMT_SEQ = #{seq}
+	</update>
+	
+</mapper>
