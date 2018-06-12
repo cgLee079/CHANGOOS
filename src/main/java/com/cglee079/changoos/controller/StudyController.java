@@ -43,7 +43,7 @@ public class StudyController {
 	@Autowired
 	private StudyFileService studyFileService;
 	
-	/** 게시글 리스트로 이동 **/
+	/** 공부 리스트로 이동 **/
 	@RequestMapping("/study")
 	public String studyList(Model model, @RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException{
 		List<String> sects = studyService.getSects();
@@ -54,7 +54,7 @@ public class StudyController {
 		return "study/study_list";
 	}
 		
-	/** 게시글 페이징 **/
+	/** 공부 페이징 **/
 	@ResponseBody
 	@RequestMapping("/study/study_paging.do")
 	public String doPaging(@RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException{
@@ -111,13 +111,13 @@ public class StudyController {
 		}
 	}
 	
-	/** 게시글 관리 페이지로 이동 **/
+	/** 공부 관리 페이지로 이동 **/
 	@RequestMapping(value = "/mgnt/study")
 	public String photoManage(Model model) {
 		return "study/study_manage";
 	}
 	
-	/** 게시글 관리 페이지 리스트, Ajax **/
+	/** 공부 관리 페이지 리스트, Ajax **/
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/study/list.do")
 	public String DoPhotoManageList(@RequestParam Map<String, Object> map) {
@@ -126,13 +126,13 @@ public class StudyController {
 		return gson.toJson(photos).toString();
 	}
 	
-	/** 게시글 업로드 페이지로 이동 **/
+	/** 공부 업로드 페이지로 이동 **/
 	@RequestMapping(value = "/mgnt/study/upload", params = "!seq")
 	public String studyUpload(Model model)throws SQLException, JsonProcessingException{
 		return "study/study_upload";
 	}
 	
-	/** 게시글 수정 페이지로 이동 **/
+	/** 공부 수정 페이지로 이동 **/
 	@RequestMapping(value = "/mgnt/study/upload", params = "seq")
 	public String studyModify(Model model, int seq)throws SQLException, JsonProcessingException{
 		StudyVo study = studyService.get(seq);
@@ -146,7 +146,7 @@ public class StudyController {
 	}
 	
 	 
-	/** 게시글 업로드  **/
+	/** 공부 업로드  **/
 	@RequestMapping(value = "/mgnt/study/upload.do", params = "!seq")
 	public String studyDoUpload(HttpSession session, Model model, StudyVo study, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
 		int seq = studyService.insert(study);
@@ -158,7 +158,7 @@ public class StudyController {
 		return "redirect:" + "/study/view?seq=" + seq;
 	}
 	
-	/** 게시글 수정 **/
+	/** 공부 수정 **/
 	@RequestMapping(value = "/mgnt/study/upload.do", params = "seq")
 	public String studyDoModify(HttpSession session, Model model, StudyVo study, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
 		studyService.update(study);
@@ -170,7 +170,8 @@ public class StudyController {
 		return "redirect:" + "/study/view?seq=" + study.getSeq();
 	}
 	
-	/** 게시글 삭제 **/
+	/** 공부 삭제 **/
+	@ResponseBody
 	@RequestMapping("/mgnt/study/delete.do")
 	public String studyDoDelete(HttpSession session, Model model, int seq) throws SQLException, JsonProcessingException{
 		String rootPath = session.getServletContext().getRealPath("");
@@ -188,11 +189,11 @@ public class StudyController {
 		
 		studyFileService.deleteFiles(rootPath, seq);
 		
-		studyService.delete(seq);
-		return "redirect:" + "/study";
+		boolean result = studyService.delete(seq);
+		return new JSONObject().put("result", result).toString();
 	}
 	
-	/** 게시글 파일 삭제 **/
+	/** 공부 파일 삭제 **/
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/study/deleteFile.do")
 	public String deleteFile(HttpSession session, int seq){
@@ -206,7 +207,7 @@ public class StudyController {
 		return data.toString();
 	}
 	
-	/** 게시글 CKEditor 사진 업로드  **/
+	/** 공부 CKEditor 사진 업로드  **/
 	@RequestMapping(value = "/mgnt/study/imgUpload.do")
 	public String studyDoImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {

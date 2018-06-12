@@ -40,6 +40,12 @@ a, a:VISITED {
     -ms-flex-pack: center;
 }
 
+/* common border */
+.colum-border{
+	width : 1px;
+   	background : #DDD;
+}
+
 /* contents, by CKEditor*/
 .editor-contents {
 	color: #333;

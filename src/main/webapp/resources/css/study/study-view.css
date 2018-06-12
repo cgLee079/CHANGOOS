@@ -92,11 +92,6 @@
 	cursor: pointer;
 }
 
-.colum-border{
-	width : 1px;
-   	background : #DDD;
-}
-
 @media ( max-width : 720px) {
 	.wrap-study {
 		width: 90%;

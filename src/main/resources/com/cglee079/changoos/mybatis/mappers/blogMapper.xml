@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cglee079.changoos.mapper.BlogMapper">
+	<select id="S01" resultType="com.cglee079.changoos.model.BlogVo" parameterType="Integer">
+		/* 블로그 가져오기 */
+		SELECT
+		BLOG_SEQ as "seq",
+		BLOG_SORT as "sort",
+		BLOG_SNAPSHT as "snapSht",
+		BLOG_TITLE as "title",
+		BLOG_CONTENTS as "contents",
+		BLOG_TAG as "tag",
+		BLOG_DATE as "date",
+		BLOG_HITS as "hits",
+		count(B.BCOMT_SEQ) as 'comtCnt'
+		FROM TB_PTFOLIO_BLOG A LEFT OUTER JOIN TB_PTFOLIO_BLOG_COMT B ON A.BLOG_SEQ = B.BCOMT_BLOG_SEQ
+		WHERE BLOG_SEQ = #{seq}
+		GROUP BY A.BLOG_SEQ
+	</select>
+	
+	
+	<select id="S03" resultType="com.cglee079.changoos.model.BlogVo" parameterType="map">
+		/* 블로그 페이징 */
+		SELECT X.* 
+      	FROM (
+      		<foreach collection="tags" index="index" item="item" separator="UNION DISTINCT">
+			SELECT
+			BLOG_SEQ as "seq",
+			BLOG_SORT as "sort",
+			BLOG_SNAPSHT as "snapSht",
+			BLOG_TITLE as "title",
+			BLOG_CONTENTS as "contents",
+			BLOG_TAG as "tag",
+			BLOG_DATE as "date",
+			BLOG_HITS as "hits",
+			count(B.BCOMT_SEQ) as 'comtCnt'
+			FROM TB_PTFOLIO_BLOG A LEFT OUTER JOIN TB_PTFOLIO_BLOG_COMT B ON A.BLOG_SEQ = B.BCOMT_BLOG_SEQ
+			WHERE BLOG_TAG like '%${item}%'
+			GROUP BY A.BLOG_SEQ
+			</foreach>
+		) X
+		
+		ORDER BY sort, date DESC, seq DESC
+		<if test="startRow != null and perPgLine != null">
+ 		LIMIT ${startRow}, ${perPgLine}
+  		</if>
+	</select>
+	
+	<select id="S04" resultType="com.cglee079.changoos.model.BlogVo" parameterType="map">
+		/* 블로그 리스트 */
+		SELECT
+		BLOG_SEQ as "seq",
+		BLOG_SORT as "sort",
+		BLOG_SNAPSHT as "snapSht",
+		BLOG_TITLE as "title",
+		BLOG_CONTENTS as "contents",
+		BLOG_TAG as "tag",
+		BLOG_DATE as "date",
+		BLOG_HITS as "hits",
+		count(B.BCOMT_SEQ) as 'comtCnt'
+		FROM TB_PTFOLIO_BLOG A LEFT OUTER JOIN TB_PTFOLIO_BLOG_COMT B ON A.BLOG_SEQ = B.BCOMT_BLOG_SEQ
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+  		</trim>
+		GROUP BY A.BLOG_SEQ
+		
+		<choose>
+		<when test="sort != null">
+		ORDER BY ${sort} ${order}
+		</when>
+		<otherwise>
+		ORDER BY BLOG_SORT, BLOG_DATE DESC, BLOG_SEQ DESC
+		</otherwise>
+		</choose>
+		<if test="startRow != null and perPgLine != null">
+ 		LIMIT ${startRow}, ${perPgLine}
+  		</if>
+	</select>
+	
+	<select id="S05" resultType="Integer" parameterType="map">
+		/* 블로그 개수 */
+		SELECT
+			count(*)
+		FROM TB_PTFOLIO_BLOG
+		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
+  		</trim>
+	</select>
+	
+	<select id="S06" resultType="String">
+		SELECT BLOG_TAG
+		FROM TB_PTFOLIO_BLOG
+	</select>
+	
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
+		INSERT TB_PTFOLIO_BLOG 
+		(BLOG_SORT, BLOG_SNAPSHT, BLOG_TITLE, BLOG_CONTENTS, BLOG_TAG, BLOG_DATE, BLOG_HITS)
+		VALUES (#{sort}, #{snapsht}, #{title}, #{contents}, #{tag}, #{date}, #{hits})
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM TB_PTFOLIO_BLOG
+		WHERE BLOG_SEQ = #{seq}
+	</delete>
+	
+	<update id="update">
+		UPDATE TB_PTFOLIO_BLOG
+		SET 
+		BLOG_SORT 		= #{sort},
+		BLOG_SNAPSHT 	= #{snapsht},
+		BLOG_TITLE 		= #{title},
+		BLOG_CONTENTS 	= #{contents},
+		BLOG_TAG 		= #{tag},
+		BLOG_DATE 		= #{date},
+		BLOG_HITS 		= #{hits}
+		WHERE BLOG_SEQ = #{seq}
+	</update>
+	
+</mapper>

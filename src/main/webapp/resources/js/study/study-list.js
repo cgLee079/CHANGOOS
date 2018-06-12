@@ -8,10 +8,6 @@ var allRowCnt	= undefined;
 $(document).ready(function(){
 	doMenuOn(".menu-study");
 	
-	if(isMobile){
-		perPgLine = 100000;
-	}
-	
 	/* Get Hash */
 	allRowCnt = $("#allRowCnt").val();
 	sect = window.location.hash.substring(1).split("&")[0];
@@ -131,7 +127,6 @@ function updatePaging(callFunc, page, allRowCnt, perPgLine, pgGrpCnt){
 function updateStudy(data){
 	var studyList 	= $(".study-list");
 	var length		= data.length;
-	var noticeLen	= studyList.find(".study-list-item.study-notice").length;
 	
 	studyList.find(".study-list-item").remove();
 	

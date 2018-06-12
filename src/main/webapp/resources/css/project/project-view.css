@@ -58,17 +58,11 @@
 	padding-left: 1rem;
 }
 
-.colum-border{
-	width : 1px;
-   	background : #DDD;
-}
-
 .project-line{
 	background: #DDD;
 	height : 1px;
 	margin: 0.5rem 0;
 }
-
 
 /* Project Content */
 .project-content {

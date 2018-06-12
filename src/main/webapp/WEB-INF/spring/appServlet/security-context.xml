@@ -16,8 +16,8 @@
 		<!-- access ='permitAll, denyAll, hasRole(), hasAnyRole, hasIpAddress(ip)-->
 		<!-- ex. access="hasIpAddress('162.79.8.30')" 또는  access="hasIpAddress('162.0.0.0/224')"-->
 		
-		<security:intercept-url pattern="/admin/*/*" access="hasRole('ROLE_ADMIN')" />  
-		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/mgnt/*/*" access="hasRole('ROLE_ADMIN')" />  
+		<security:intercept-url pattern="/mgnt/*" access="hasRole('ROLE_ADMIN')" />
 		
 		<security:form-login username-parameter="username"
 			password-parameter="password" login-page="/login"
@@ -38,8 +38,7 @@
 		<!-- always-use-default-target : 항상 로그인 성공 시 default-target-url로 이동하는지 설정 (false: 기존에 이동하려던 페이지로) -->
 		<!-- authentication-success-handler-ref : 로그인 성공시 핸들러 (bean) -->
 		
-		<security:logout invalidate-session="true"
-			logout-success-url="/" logout-url="/j_spring_security_logout" />
+		<security:logout invalidate-session="true" logout-success-url="/" logout-url="/j_spring_security_logout" />
 		<!-- invalidate-session : 로그아웃시 세션 초기화 설정 -->
 		<!-- logout-success-url : 로그아웃시 이동할 페이지 -->
 		<!-- logout-url : j_spring_security_logout(default) -->
