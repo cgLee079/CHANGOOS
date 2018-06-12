@@ -6,7 +6,7 @@
 }
 
 .blog-first-item::after{ 
-    content: ' ';
+    content: '&nbsp;';
 	display : block; 
 }
 

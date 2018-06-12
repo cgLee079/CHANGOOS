@@ -11,7 +11,7 @@
 }
 
 .blog-head::after{ 
-    content: ' ';
+    content: '&nbsp;';
 	display : block; 
 }
 
