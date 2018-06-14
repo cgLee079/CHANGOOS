@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +21,9 @@ public class BlogFileService {
 	
 	@Autowired
 	BlogFileDao blogFileDao;
+	
+	@Value("#{servletContext.getRealPath('/')}")
+    private String realPath;
 	
 	public boolean insert(BlogFileVo studyFile) {
 		return blogFileDao.insert(studyFile);
@@ -40,7 +46,7 @@ public class BlogFileService {
 	}
 	
 	/** 여러 파일 저장 */
-	public void saveFiles(String rootPath, int seq, List<MultipartFile> files) throws IllegalStateException, IOException {
+	public void saveFiles(int seq, List<MultipartFile> files) throws IllegalStateException, IOException {
 		File file = null;
 		MultipartFile multipartFile = null;
 		BlogFileVo blogFile = null;
@@ -56,7 +62,7 @@ public class BlogFileService {
 			size 	= multipartFile.getSize();
 			
 			if(size > 0 ){
-				file = new File(rootPath + FILE_PATH, pathNm);
+				file = new File(realPath + FILE_PATH, pathNm);
 				multipartFile.transferTo(file);
 				
 				blogFile = new BlogFileVo();
@@ -70,7 +76,7 @@ public class BlogFileService {
 	}
 	
 	/** 한 게시글에 종속된 파일 삭제 **/
-	public void deleteFiles(String rootPath, int studySeq) {
+	public void deleteFiles(int studySeq) {
 		//File 삭제
 		File existFile = null;
 		List<BlogFileVo> files = this.list(studySeq);
@@ -78,7 +84,7 @@ public class BlogFileService {
 		int fileLength = files.size();
 		for(int i = 0 ;  i < fileLength; i++){
 			file = files.get(i);
-			existFile = new File(rootPath + FILE_PATH, file.getPathNm());
+			existFile = new File(realPath + FILE_PATH, file.getPathNm());
 			if(existFile.exists()){
 				existFile.delete();
 			}
@@ -86,9 +92,9 @@ public class BlogFileService {
 	}
 	
 	/** 파일 삭제 **/
-	public boolean deleteFile(String rootPath, int fileSeq) {
+	public boolean deleteFile(int fileSeq) {
 		BlogFileVo studyFile = this.get(fileSeq);
-		File file = new File(rootPath + FILE_PATH, studyFile.getPathNm());
+		File file = new File(realPath + FILE_PATH, studyFile.getPathNm());
 		if(file.exists()){
 			if(file.delete()){
 				if(this.delete(fileSeq)){

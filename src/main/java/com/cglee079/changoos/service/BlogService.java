@@ -1,5 +1,8 @@
 package com.cglee079.changoos.service;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -8,22 +11,39 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpSession;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.BlogDao;
 import com.cglee079.changoos.model.BlogVo;
 import com.cglee079.changoos.util.Formatter;
+import com.cglee079.changoos.util.ImageManager;
+import com.cglee079.changoos.util.TimeStamper;
 import com.google.gson.Gson;
 
 @Service
 public class BlogService{
+	public static final String SNAPSHT_PATH		= "/uploaded/blogs/snapshts/";
+	public static final String CONTENTS_PATH	= "/uploaded/blogs/contents/";
 	
 	@Autowired
 	BlogDao blogDao;
+	
+	@Value("#{servletContext.contextPath}")
+    private String contextPath;
+	
+	@Value("#{servletContext.getRealPath('/')}")
+    private String realPath;
 	
 	public List<BlogVo> list(Map<String, Object> map){
 		return blogDao.list(map);
@@ -45,7 +65,6 @@ public class BlogService{
 		String newContents 	= null;
 		Document doc 		= null;
 		Elements els		= null;
-		List<String> eachText = null;
 		for(int i = 0; i < blogs.size(); i++) {
 			blog 		= blogs.get(i);
 			
@@ -54,11 +73,7 @@ public class BlogService{
 			newContents = "";
 			doc 		= Jsoup.parse(contents);
 			els 		= doc.select("*");
-			eachText 	= els.eachText();
-			
-			for(int j = 0; j < eachText.size(); j++) {
-				newContents += eachText.get(j) + " ";
-			}
+			newContents = els.eachText().get(0);
 			
 			newContents.replace("\n", " ");
 			blog.setContents(newContents);
@@ -69,6 +84,8 @@ public class BlogService{
 				if(els.size() > 0) {
 					blog.setSnapsht(els.get(0).attr("src"));
 				}
+			} else {
+				blog.setSnapsht(contextPath + blog.getSnapsht());
 			}
 		}
 		
@@ -88,6 +105,8 @@ public class BlogService{
 			
 			if(els.size() > 0) {
 				blog.setSnapsht(els.get(0).attr("src"));
+			} else {
+				blog.setSnapsht(contextPath + blog.getSnapsht());
 			}
 		}
 		
@@ -95,13 +114,26 @@ public class BlogService{
 	}
 	
 	public BlogVo doView(List<Integer> isVisitBlogs, int seq) {
-		BlogVo blog = this.get(seq);
+		BlogVo blog = blogDao.get(seq);
 		
 		if(!isVisitBlogs.contains(seq)) {
 			isVisitBlogs.add(seq);
 			blog.setHits(blog.getHits() + 1);
 			blogDao.update(blog);
 		}
+		
+		if(blog.getSnapsht() == null) {
+			String contents = blog.getContents();
+			Document doc 	= Jsoup.parse(contents);
+			Elements els 	= doc.select("img");
+			
+			if(els.size() > 0) {
+				blog.setSnapsht(els.get(0).attr("src"));
+			} else {
+				blog.setSnapsht(contextPath + blog.getSnapsht());
+			}
+		}
+		
 		return blog;
 	}
 
@@ -113,29 +145,6 @@ public class BlogService{
 
 	public boolean delete(int seq) {
 		return blogDao.delete(seq);
-	}
-	
-	public List<String> getContentImgPath(int seq, String path){
-		List<String> imgPaths = new ArrayList<String>();
-		BlogVo blog = blogDao.get(seq);
-		String content = blog.getContents();
-		
-		int stIndex = 0;
-		int endIndex= 0;
-		
-		if(content != null){
-			while(true){
-				stIndex = content.indexOf(path, endIndex);
-				endIndex = content.indexOf("\"", stIndex);
-				
-				if(stIndex == -1){ break;}
-				if(endIndex == -1){ break;}
-				
-				imgPaths.add(content.substring(stIndex, endIndex));
-			}
-		}
-		
-		return imgPaths;
 	}
 	
 	public boolean update(BlogVo blog) {
@@ -165,5 +174,74 @@ public class BlogService{
 		
 		return tags;
 	}
+
+	public String saveSnapsht(BlogVo blog, MultipartFile snapshtFile) throws IllegalStateException, IOException {
+		String filename	= "snapshot_" + blog.getTitle() + "_";
+		String imgExt	= null;
+		String path = blog.getSnapsht();
+		if(snapshtFile.getSize() > 0){
+			File existFile = new File (realPath + blog.getSnapsht());
+			if(existFile.exists()){
+				existFile.delete();
+			}
+			
+			filename += snapshtFile.getOriginalFilename();
+			imgExt = ImageManager.getExt(filename);
+			File file = new File(realPath + SNAPSHT_PATH, filename);
+			snapshtFile.transferTo(file);
+			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
+			ImageIO.write(image, imgExt, file);
+			path = SNAPSHT_PATH + filename;
+		} 
+		
+		return path;
+	}
+
+	public void removeSnapshtFile(BlogVo blog) {
+		File existFile = null;
+		existFile = new File (realPath + blog.getSnapsht());
+		if(existFile.exists()){
+			existFile.delete();
+		}
+	}
 	
+	public String saveContentImage(MultipartFile multiFile) throws IllegalStateException, IOException {
+		String filename	= "content_" + TimeStamper.stamp() + "_";
+		String imgExt 	= null;
+		
+		if(multiFile != null){
+			filename += multiFile.getOriginalFilename();
+			imgExt = ImageManager.getExt(filename);
+			File file = new File(realPath + CONTENTS_PATH, filename);
+			multiFile.transferTo(file);
+			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
+			ImageIO.write(image, imgExt, file);
+		}
+		
+		return CONTENTS_PATH + filename;
+	}
+	
+	public void removeContentImageFile(BlogVo blog){
+		List<String> imgPaths = new ArrayList<String>();
+		String content = blog.getContents();
+		
+		Document doc = Jsoup.parse(content);
+		Elements els = doc.select("img");
+		Element el = null;
+		
+		for(int i = 0; i < els.size(); i++) {
+			el = els.get(i);
+			imgPaths.add(el.attr("src"));
+		}
+		
+		File existFile;
+		int imgPathsLength = imgPaths.size();
+		for (int i = 0; i < imgPathsLength; i++){
+			existFile = new File (realPath + imgPaths.get(i));
+			if(existFile.exists()){
+				existFile.delete();
+			}
+		}
+	}
+
 }

@@ -1,6 +1,5 @@
 package com.cglee079.changoos.controller;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -8,7 +7,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,15 +26,11 @@ import com.cglee079.changoos.model.StudyFileVo;
 import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.service.StudyFileService;
 import com.cglee079.changoos.service.StudyService;
-import com.cglee079.changoos.util.ImageManager;
-import com.cglee079.changoos.util.TimeStamper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 
 @Controller
 public class StudyController {
-	public static final String CONTENTS_PATH	= "/uploaded/studies/contents/";
-	
 	@Autowired
 	private StudyService studyService;
 	
@@ -150,10 +144,9 @@ public class StudyController {
 	@RequestMapping(value = "/mgnt/study/upload.do", params = "!seq")
 	public String studyDoUpload(HttpSession session, Model model, StudyVo study, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
 		int seq = studyService.insert(study);
-		String rootPath = session.getServletContext().getRealPath("");
 		
 		//파일저장
-		studyFileService.saveFiles(rootPath, study.getSeq(), files);
+		studyFileService.saveFiles(study.getSeq(), files);
 		
 		return "redirect:" + "/study/view?seq=" + seq;
 	}
@@ -162,10 +155,9 @@ public class StudyController {
 	@RequestMapping(value = "/mgnt/study/upload.do", params = "seq")
 	public String studyDoModify(HttpSession session, Model model, StudyVo study, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
 		studyService.update(study);
-		String rootPath = session.getServletContext().getRealPath("");
 		
 		//파일저장
-		studyFileService.saveFiles(rootPath, study.getSeq(), files);
+		studyFileService.saveFiles(study.getSeq(), files);
 		
 		return "redirect:" + "/study/view?seq=" + study.getSeq();
 	}
@@ -174,20 +166,9 @@ public class StudyController {
 	@ResponseBody
 	@RequestMapping("/mgnt/study/delete.do")
 	public String studyDoDelete(HttpSession session, Model model, int seq) throws SQLException, JsonProcessingException{
-		String rootPath = session.getServletContext().getRealPath("");
-		File existFile = null;
-		
 		//Content Img 삭제
-		List<String> imgPaths = studyService.getContentImgPath(seq, CONTENTS_PATH);
-		int imgPathsLength = imgPaths.size();
-		for (int i = 0; i < imgPathsLength; i++){
-			existFile = new File (rootPath + imgPaths.get(i));
-			if(existFile.exists()){
-				existFile.delete();
-			}
-		}
-		
-		studyFileService.deleteFiles(rootPath, seq);
+		studyService.removeContentImageFile(seq);
+		studyFileService.deleteFiles(seq);
 		
 		boolean result = studyService.delete(seq);
 		return new JSONObject().put("result", result).toString();
@@ -196,37 +177,22 @@ public class StudyController {
 	/** 공부 파일 삭제 **/
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/study/deleteFile.do")
-	public String deleteFile(HttpSession session, int seq){
+	public String deleteFile(int seq){
 		boolean result = false;
-		String rootPath = session.getServletContext().getRealPath("");
+		result = studyFileService.deleteFile(seq);
 		
-		result = studyFileService.deleteFile(rootPath, seq);
-		JSONObject data = new JSONObject();
-		data.put("result", result);
-		
-		return data.toString();
+		return new JSONObject().put("result", result).toString();
 	}
 	
 	/** 공부 CKEditor 사진 업로드  **/
 	@RequestMapping(value = "/mgnt/study/imgUpload.do")
 	public String studyDoImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
-		HttpSession session = request.getSession();
-		String rootPath = session.getServletContext().getRealPath("");
-		String filename	= "content_" + TimeStamper.stamp() + "_";
-		String imgExt 	= null;
 		
-		if(multiFile != null){
-			filename += multiFile.getOriginalFilename();
-			imgExt = ImageManager.getExt(filename);
-			File file = new File(rootPath + CONTENTS_PATH, filename);
-			multiFile.transferTo(file);
-			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
-			ImageIO.write(image, imgExt, file);
-		}
+		String path = studyService.saveContentImageFile(multiFile);
 		
 		response.setHeader("X-Frame-Options", "SAMEORIGIN");
-		model.addAttribute("path", request.getContextPath() + CONTENTS_PATH + filename);
+		model.addAttribute("path", request.getContextPath() + path);
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
 		
 		return "study/study_imgupload";

@@ -1,12 +1,10 @@
 .wrap-comment {
-	border-top : 1px solid #EEE;
-	padding-top: 1rem;
+	padding-top: 3rem;
 	margin-bottom: 7rem;
 }
 
 .comment-header{
 	color : #F67;
-	margin-bottom: 1rem;
 	font-size: 1.25rem;
 	font-weight: bold;
 }
@@ -23,7 +21,8 @@
 	flex-flow: row nowrap;
 	justify-content: space-between;
 	align-items : center;
-	padding: 0.5rem 0;
+	padding: 0.75rem 0;
+	border-bottom: 1px solid #F1F1F1;
 }
 
 .comment-item .comment {
@@ -36,8 +35,9 @@
 }
 
 .comment-head .comment-head-info .comment-writer {
-	color: #53F;
-	font-weight: bold;	
+	color: #311f1f;
+	font-weight: bold;
+	margin-right: 0.5rem;	
 }
 
 .comment-head .comment-head-info .comment-date {
@@ -68,8 +68,6 @@
 /* Comment Item.reply */
 .comment-item.reply {
 	margin-left: 1rem;
-	padding-left: 0.5rem;
-	border-left: 1px solid #EEE;	
 }
 
 .comment-item.reply .comment-head-info .comment-writer {

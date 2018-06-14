@@ -5,6 +5,7 @@ $(document).ready(function(){
 /* CKEditor Initialize */
 function initContentCKEditor(){
 	var editor = CKEDITOR.replace("study-contents", {
+		height : '400px',
 		filebrowserUploadUrl : getContextPath() + "/mgnt/study/imgUpload.do",
 		on : {
 			instanceReady : function( ev ){

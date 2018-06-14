@@ -35,13 +35,6 @@
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">TITLE</div>
-					<div class="upload-project-input">
-						<input type="text" id="title" name='title' class="project-name" value="<c:out value='${project.title}'/>"/>
-					</div>
-				</div>
-				
-				<div class="upload-project">
 					<div class="upload-project-name">SECT</div>
 					<div class="upload-project-input">
 						<input type="text" id="sect" name="sect" class="project-sect" value="<c:out value='${project.sect}'/>"/>
@@ -86,6 +79,12 @@
 					</div>
 				</div>
 				
+				<div class="upload-project">
+					<div class="upload-project-name">TITLE</div>
+					<div class="upload-project-input">
+						<input type="text" id="title" name='title' class="project-name" value="<c:out value='${project.title}'/>"/>
+					</div>
+				</div>
 				
 				<div class="upload-project">
 					<div class="upload-project-name">DESC</div>

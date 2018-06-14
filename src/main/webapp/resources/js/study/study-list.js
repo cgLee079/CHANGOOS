@@ -29,22 +29,6 @@ $(document).ready(function(){
 	}
 	pageMove(page);
 	
-	/* touch wipe event - Paging */
-	/*
-	$(".wrap-study").touchwipe({
-	     wipeLeft: function() {
-	    	 pageMove(page + 1);
-	     },
-	     wipeRight: function() {
-	    	 if(!(page <= 1)){
-	    		 pageMove(page - 1);
-	    	 }
-	     },
-	     min_move_x: 30,
-	     min_move_y: 20,
-	     preventDefaultEvents: true
-	});
-	*/
 });
 
 /* when study click */

@@ -81,11 +81,10 @@ public class PhotoController {
 	/** 사진 삭제 , Ajax **/
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/photo/delete.do")
-	public String photoDelete(HttpSession session, int seq) {
-		String rootPath = session.getServletContext().getRealPath("");
+	public String photoDelete(int seq) {
 		PhotoVo photo = photoService.get(seq);
-		photoService.deleteFile(rootPath, photo.getImage());
-		photoService.deleteFile(rootPath, photo.getSnapsht());
+		photoService.deleteFile(photo.getImage());
+		photoService.deleteFile(photo.getSnapsht());
 		
 		boolean result = photoService.delete(seq);
 		return new JSONObject().put("result", result).toString();
@@ -107,12 +106,9 @@ public class PhotoController {
 	
 	/** 사진 업로드 **/
 	@RequestMapping(value = "/mgnt/photo/upload.do", params = "!seq")
-	public String photoDoUpload(HttpServletRequest request, PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
-		HttpSession session = request.getSession();
-		String rootPath 	= session.getServletContext().getRealPath("");
-		
+	public String photoDoUpload(PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
 		if(imageFile.getSize() != 0){
-			photo = photoService.saveFile(photo, rootPath, imageFile);
+			photo = photoService.saveFile(photo, imageFile);
 		}
 		photoService.insert(photo);
 		
@@ -121,16 +117,13 @@ public class PhotoController {
 	
 	/** 사진 수정 **/
 	@RequestMapping(value = "/mgnt/photo/upload.do", params = "seq")
-	public String photoDoModify(HttpServletRequest request, PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException{
-		HttpSession session = request.getSession();
-		String rootPath 	= session.getServletContext().getRealPath("");
-		
+	public String photoDoModify(PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException{
 		
 		if(imageFile.getSize() != 0){
-			photoService.deleteFile(rootPath, photo.getImage());
-			photoService.deleteFile(rootPath, photo.getSnapsht());
+			photoService.deleteFile(photo.getImage());
+			photoService.deleteFile(photo.getSnapsht());
 			
-			photo = photoService.saveFile(photo, rootPath, imageFile);
+			photo = photoService.saveFile(photo, imageFile);
 		} 
 		
 		photoService.update(photo);

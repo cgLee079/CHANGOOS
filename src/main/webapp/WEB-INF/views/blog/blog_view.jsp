@@ -16,7 +16,7 @@
 			<div class="blog-head">
 				<c:choose>
 					<c:when test="${not empty blog.snapsht}" >
-					<div class="blog-head-bg" style="background-image: url('${pageContext.request.contextPath}${blog.snapsht}')"></div>
+					<div class="blog-head-bg" style="background-image: url('${blog.snapsht}')"></div>
 					</c:when>
 					<c:otherwise>
 					<div class="blog-head-bg" style="background: #000"></div>

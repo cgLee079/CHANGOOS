@@ -1,6 +1,5 @@
 package com.cglee079.changoos.controller;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -8,7 +7,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,19 +24,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.model.BlogFileVo;
 import com.cglee079.changoos.model.BlogVo;
-import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.service.BlogFileService;
 import com.cglee079.changoos.service.BlogService;
-import com.cglee079.changoos.util.ImageManager;
-import com.cglee079.changoos.util.TimeStamper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 
 @Controller
 public class BlogController {
-	public static final String SNAPSHT_PATH		= "/uploaded/blogs/snapshts/";
-	public static final String CONTENTS_PATH	= "/uploaded/blogs/contents/";
-	
 	@Autowired
 	private BlogService blogService;
 	
@@ -80,10 +72,10 @@ public class BlogController {
 	/** 파일 다운로드 **/
 	@RequestMapping("/blog/download.do")
 	public void  download(HttpSession session, HttpServletResponse response, String filename) throws IOException{
-		String rootPath = session.getServletContext().getRealPath("");
+		String realPath = session.getServletContext().getRealPath("");
 		BlogFileVo blogFile = blogFileService.get(filename);
 		
-		File file = new File(rootPath + BlogFileService.FILE_PATH, blogFile.getPathNm());
+		File file = new File(realPath + BlogFileService.FILE_PATH, blogFile.getPathNm());
 		byte fileByte[] = FileUtils.readFileToByteArray(file);
 		
 		if(file.exists()){
@@ -123,7 +115,10 @@ public class BlogController {
 	@RequestMapping(value = "/mgnt/blog/upload", params = "seq")
 	public String blogModify(Model model, int seq)throws SQLException, JsonProcessingException{
 		BlogVo blog = blogService.get(seq);
-		blog.setContents(blog.getContents().replace("&", "&amp;"));
+		if(blog.getContents() != null){
+			blog.setContents(blog.getContents().replace("&", "&amp;"));
+		}
+		
 		model.addAttribute("blog", blog);
 		
 		List<BlogFileVo> files = blogFileService.list(seq);
@@ -136,56 +131,25 @@ public class BlogController {
 	/** 블로그 업로드  **/
 	@RequestMapping(value = "/mgnt/blog/upload.do", params = "!seq")
 	public String blogDoUpload(HttpSession session, Model model, BlogVo blog, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
-		String rootPath = session.getServletContext().getRealPath("");
-		String filename	= "snapshot_" + blog.getTitle() + "_";
-		String imgExt	= "";
-		
-		if(snapshtFile.getSize() != 0){
-			filename += snapshtFile.getOriginalFilename();
-			imgExt = ImageManager.getExt(filename);
-			File file = new File(rootPath + SNAPSHT_PATH, filename);
-			snapshtFile.transferTo(file);
-			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
-			ImageIO.write(image, imgExt, file);
-			
-			blog.setSnapsht(SNAPSHT_PATH + filename);
-		} 
-		
+		String snapshtPath = blogService.saveSnapsht(blog, snapshtFile);
+		blog.setSnapsht(snapshtPath);
 		int seq = blogService.insert(blog);
 		
 		//파일저장
-		blogFileService.saveFiles(rootPath, blog.getSeq(), files);
+		blogFileService.saveFiles(blog.getSeq(), files);
 		
 		return "redirect:" + "/blog/view?seq=" + seq;
 	}
 	
 	/** 블로그 수정 **/
 	@RequestMapping(value = "/mgnt/blog/upload.do", params = "seq")
-	public String blogDoModify(HttpSession session, Model model, BlogVo blog, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
-		String rootPath = session.getServletContext().getRealPath("");
-		String filename	= "snapshot_" + blog.getTitle() + "_";
-		String imgExt	= null;
-		
-		if(snapshtFile.getSize() > 0){
-			File existFile = new File (rootPath + blog.getSnapsht());
-			if(existFile.exists()){
-				existFile.delete();
-			}
-			
-			filename += snapshtFile.getOriginalFilename();
-			imgExt = ImageManager.getExt(filename);
-			File file = new File(rootPath + SNAPSHT_PATH, filename);
-			snapshtFile.transferTo(file);
-			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
-			ImageIO.write(image, imgExt, file);
-			
-			blog.setSnapsht(SNAPSHT_PATH + filename);
-		} 
-		
+	public String blogDoModify(Model model, BlogVo blog, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
+		String snapshtPath = blogService.saveSnapsht(blog, snapshtFile);
+		blog.setSnapsht(snapshtPath);
 		blogService.update(blog);
 		
 		//파일저장
-		blogFileService.saveFiles(rootPath, blog.getSeq(), files);
+		blogFileService.saveFiles(blog.getSeq(), files);
 		
 		return "redirect:" + "/blog/view?seq=" + blog.getSeq();
 	}
@@ -194,20 +158,13 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping("/mgnt/blog/delete.do")
 	public String blogDoDelete(HttpSession session, Model model, int seq) throws SQLException, JsonProcessingException{
-		String rootPath = session.getServletContext().getRealPath("");
-		File existFile = null;
+		
+		BlogVo blog = blogService.get(seq);
 		
 		//Content Img 삭제
-		List<String> imgPaths = blogService.getContentImgPath(seq, CONTENTS_PATH);
-		int imgPathsLength = imgPaths.size();
-		for (int i = 0; i < imgPathsLength; i++){
-			existFile = new File (rootPath + imgPaths.get(i));
-			if(existFile.exists()){
-				existFile.delete();
-			}
-		}
-		
-		blogFileService.deleteFiles(rootPath, seq);
+		blogService.removeSnapshtFile(blog);
+		blogService.removeContentImageFile(blog);
+		blogFileService.deleteFiles(seq);
 		
 		boolean result = blogService.delete(seq);
 		return new JSONObject().put("result", result).toString();
@@ -216,15 +173,12 @@ public class BlogController {
 	/** 블로그 파일 삭제 **/
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/blog/deleteFile.do")
-	public String deleteFile(HttpSession session, int seq){
+	public String deleteFile(int seq){
 		boolean result = false;
-		String rootPath = session.getServletContext().getRealPath("");
 		
-		result = blogFileService.deleteFile(rootPath, seq);
-		JSONObject data = new JSONObject();
-		data.put("result", result);
+		result = blogFileService.deleteFile(seq);
 		
-		return data.toString();
+		return new JSONObject().put("result", result).toString();
 	}
 	
 	
@@ -232,22 +186,10 @@ public class BlogController {
 	@RequestMapping(value = "/mgnt/blog/imgUpload.do")
 	public String blogDoImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
-		HttpSession session = request.getSession();
-		String rootPath = session.getServletContext().getRealPath("");
-		String filename	= "content_" + TimeStamper.stamp() + "_";
-		String imgExt 	= null;
-		
-		if(multiFile != null){
-			filename += multiFile.getOriginalFilename();
-			imgExt = ImageManager.getExt(filename);
-			File file = new File(rootPath + CONTENTS_PATH, filename);
-			multiFile.transferTo(file);
-			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
-			ImageIO.write(image, imgExt, file);
-		}
-		
+	
+		String path = blogService.saveContentImage(multiFile);
 		response.setHeader("X-Frame-Options", "SAMEORIGIN");
-		model.addAttribute("path", request.getContextPath() + CONTENTS_PATH + filename);
+		model.addAttribute("path", request.getContextPath() + path);
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
 		
 		return "blog/blog_imgupload";

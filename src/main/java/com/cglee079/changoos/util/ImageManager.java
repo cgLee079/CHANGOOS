@@ -119,7 +119,6 @@ public class ImageManager {
     public synchronized static String getExt(String filename){
     	int pos = filename.lastIndexOf( "." );
     	String ext = filename.substring( pos + 1 );
-    	System.out.println("##" + ext);
     	if(ext.equalsIgnoreCase(ImageManager.EXT_JPG)) { return ImageManager.EXT_JPG; };
     	if(ext.equalsIgnoreCase(ImageManager.EXT_PNG)) { return ImageManager.EXT_PNG; };
     	return ImageManager.EXT_JPG;

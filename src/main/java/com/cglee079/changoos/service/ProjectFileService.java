@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +20,9 @@ public class ProjectFileService {
 	
 	@Autowired
 	ProjectFileDao projectFileDao;
+	
+	@Value("#{servletContext.getRealPath('/')}")
+    private String realPath;
 	
 	public boolean insert(ProjectFileVo projectFile) {
 		return projectFileDao.insert(projectFile);
@@ -41,9 +45,9 @@ public class ProjectFileService {
 	}
 	
 	/** 파일 삭제 **/
-	public boolean deleteFile(String rootPath, int fileSeq) {
+	public boolean deleteFile(int fileSeq) {
 		ProjectFileVo projectFile = this.get(fileSeq);
-		File file = new File(rootPath + FILE_PATH, projectFile.getPathNm());
+		File file = new File(realPath + FILE_PATH, projectFile.getPathNm());
 		if(file.exists()){
 			if(file.delete()){
 				if(this.delete(fileSeq)){
@@ -55,7 +59,7 @@ public class ProjectFileService {
 	}
 	
 	/** 한 프로젝트엔 종속된 파일 삭제 */
-	public void deleteFiles(String rootPath, int projectSeq) {
+	public void deleteFiles(int projectSeq) {
 		File existFile = null;
 		
 		List<ProjectFileVo> files = this.list(projectSeq);
@@ -63,7 +67,7 @@ public class ProjectFileService {
 		int fileLength = files.size();
 		for(int i = 0 ;  i < fileLength; i++){
 			file = files.get(i);
-			existFile = new File(rootPath + FILE_PATH, file.getPathNm());
+			existFile = new File(realPath + FILE_PATH, file.getPathNm());
 			if(existFile.exists()){
 				existFile.delete();
 			}
@@ -71,7 +75,7 @@ public class ProjectFileService {
 	}
 	
 	/** 여러 파일 저장 **/
-	public void saveFiles(String rootPath, int projectSeq, List<MultipartFile> files) throws IllegalStateException, IOException {
+	public void saveFiles(int projectSeq, List<MultipartFile> files) throws IllegalStateException, IOException {
 		MultipartFile multipartFile = null;
 		ProjectFileVo projectFile = null;
 		File file = null;
@@ -87,7 +91,7 @@ public class ProjectFileService {
 			size 	= multipartFile.getSize();
 			
 			if(size > 0 ){
-				file = new File(rootPath + FILE_PATH, pathNm);
+				file = new File(realPath + FILE_PATH, pathNm);
 				multipartFile.transferTo(file);
 				
 				projectFile = new ProjectFileVo();

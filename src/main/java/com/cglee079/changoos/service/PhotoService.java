@@ -3,9 +3,6 @@ package com.cglee079.changoos.service;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,23 +10,25 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.drew.imaging.ImageProcessingException;
-import com.drew.metadata.MetadataException;
 import com.cglee079.changoos.dao.PhotoDao;
 import com.cglee079.changoos.model.PhotoVo;
-import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageManager;
 import com.cglee079.changoos.util.TimeStamper;
+import com.drew.imaging.ImageProcessingException;
+import com.drew.metadata.MetadataException;
 
 @Service
 public class PhotoService {
 	public static final String PHOTO_PATH	 	= "/uploaded/photos/photos/";
 	public static final String SNAPSHT_PATH		= "/uploaded/photos/snapshts/";
 	
+	@Value("#{servletContext.getRealPath('/')}")
+    private String realPath;
 	
 	@Autowired
 	private PhotoDao photoDao;
@@ -55,7 +54,7 @@ public class PhotoService {
 		return photoDao.get(seq);
 	}
 	
-	public PhotoVo saveFile(PhotoVo photo, String rootPath, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
+	public PhotoVo saveFile(PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
 		String timeStamp	= TimeStamper.stamp();
 		String imgName		= "photo_" + timeStamp + "_" + photo.getName();
 		String snapshtName	= "photo_snapsht_" + timeStamp + "_" + photo.getName();
@@ -66,7 +65,7 @@ public class PhotoService {
 		snapshtName += "." + imgExt;
 		
 		//multipartfile save;
-		File photofile = new File(rootPath + PHOTO_PATH, imgName);
+		File photofile = new File(realPath + PHOTO_PATH, imgName);
 		imageFile.transferTo(photofile);
 		HashMap<String, String> metadata = ImageManager.getImageMetaData(photofile);
 		photo.setDate(Formatter.toDate(metadata.get("Date/Time Original")));
@@ -88,7 +87,7 @@ public class PhotoService {
 			shapshtImg = ImageManager.rotateImageForMobile(shapshtImg, orientation);
 		}
 		*/
-		File snapshtfile = new File(rootPath + SNAPSHT_PATH, snapshtName);
+		File snapshtfile = new File(realPath + SNAPSHT_PATH, snapshtName);
 		ImageIO.write(shapshtImg, imgExt, snapshtfile);
 		
 		photo.setSnapsht(SNAPSHT_PATH + snapshtName);
@@ -97,9 +96,9 @@ public class PhotoService {
 		return photo;
 	}
 	
-	public void deleteFile(String rootPath, String subPath){
+	public void deleteFile(String subPath){
 		File existFile = null;
-		existFile = new File (rootPath + subPath);
+		existFile = new File (realPath + subPath);
 		if(existFile.exists()){ existFile.delete(); }
 	}
 

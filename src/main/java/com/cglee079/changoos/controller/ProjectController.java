@@ -1,13 +1,11 @@
 package com.cglee079.changoos.controller;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,15 +25,10 @@ import com.cglee079.changoos.model.ProjectFileVo;
 import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.service.ProjectFileService;
 import com.cglee079.changoos.service.ProjectService;
-import com.cglee079.changoos.util.ImageManager;
-import com.cglee079.changoos.util.TimeStamper;
 import com.google.gson.Gson;
 
 @Controller
 public class ProjectController {
-	final static String SNAPSHT_PATH	= "/uploaded/projects/snapshts/";
-	final static String CONTENTS_PATH	= "/uploaded/projects/contents/";
-	
 	@Autowired
 	private ProjectService projectService;
 	
@@ -70,10 +63,10 @@ public class ProjectController {
 	/** 프로젝트 파일 다운로드 **/
 	@RequestMapping("/project/download.do")
 	public void  download(HttpSession session, HttpServletResponse response, String filename) throws IOException{
-		String rootPath = session.getServletContext().getRealPath("");
+		String realPath = session.getServletContext().getRealPath("");
 		ProjectFileVo projectFile = projectFileService.get(filename);
 		
-		File file = new File(rootPath + ProjectFileService.FILE_PATH, projectFile.getPathNm());
+		File file = new File(realPath + ProjectFileService.FILE_PATH, projectFile.getPathNm());
 		byte fileByte[] = FileUtils.readFileToByteArray(file);
 		
 		if(file.exists()){
@@ -108,29 +101,11 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/project/delete.do")
 	public String projectDelete(HttpSession session, int seq) {
-		String rootPath = session.getServletContext().getRealPath("");
-		
 		ProjectVo project = projectService.get(seq);
-		File existFile = null;
 		
-		existFile = new File (rootPath + project.getSnapsht());
-		if(existFile.exists()){
-			existFile.delete();
-		}
-		
-		List<String> imgPaths = projectService.getContentImgPath(seq, CONTENTS_PATH);
-		int imgPathsLength = imgPaths.size();
-		existFile = null;
-		
-		for (int i = 0; i < imgPathsLength; i++){
-			existFile = new File (rootPath + imgPaths.get(i));
-			if(existFile.exists()){
-				existFile.delete();
-			}
-		}
-		
-		//프로젝트 파일 삭제
-		projectFileService.deleteFiles(rootPath, seq);
+		projectService.removeSnapshtFile(project);
+		projectService.removeContentImageFile(project);
+		projectFileService.deleteFiles(seq);
 		
 		boolean result = projectService.delete(seq);
 		return new JSONObject().put("result", result).toString();
@@ -161,29 +136,12 @@ public class ProjectController {
 	/** 프로젝트 업로드 **/
 	@RequestMapping(value = "/mgnt/project/upload.do", method = RequestMethod.POST, params = "!seq")
 	public String projectDoUpload(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws IllegalStateException, IOException {
-		HttpSession session = request.getSession();
-		String rootPath = session.getServletContext().getRealPath("");
-		String filename	= "snapshot_" + project.getTitle() + "_";
-		String imgExt	= null;
-		int seq = -1;
-		
-		if(snapshtFile.getSize() != 0){
-			filename += snapshtFile.getOriginalFilename();
-			imgExt = ImageManager.getExt(filename);
-			File file = new File(rootPath + SNAPSHT_PATH + filename);
-			snapshtFile.transferTo(file);
-			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
-			ImageIO.write(image, imgExt, file);
-			
-			project.setSnapsht(SNAPSHT_PATH + filename);
-		} else{
-			project.setSnapsht(SNAPSHT_PATH + "default.jpg");
-		}
-		
-		seq = projectService.insert(project);
+		String snapshtPath = projectService.saveSnapsht(project, snapshtFile);
+		project.setSnapsht(snapshtPath);
+		int seq = projectService.insert(project);
 		
 		//파일 저장
-		projectFileService.saveFiles(rootPath, seq, files);
+		projectFileService.saveFiles(seq, files);
 		
 		return "redirect:" + "/mgnt/project";
 	}
@@ -191,32 +149,12 @@ public class ProjectController {
 	/** 프로젝트 수정 **/
 	@RequestMapping(value = "/mgnt/project/upload.do", method = RequestMethod.POST, params = "seq")
 	public String projectDoModify(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws IllegalStateException, IOException{
-		HttpSession session = request.getSession();
-		String rootPath = session.getServletContext().getRealPath("");
-		String filename	= "snapshot_" + project.getTitle() + "_";
-		String imgExt	= null;
-		int seq = project.getSeq();
-		
-		if(snapshtFile.getSize() != 0){
-			File existFile = new File (rootPath + project.getSnapsht());
-			if(existFile.exists()){
-				existFile.delete();
-			}
-			
-			filename += snapshtFile.getOriginalFilename();
-			imgExt = ImageManager.getExt(filename);
-			File file = new File(rootPath + SNAPSHT_PATH, filename);
-			snapshtFile.transferTo(file);
-			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
-			ImageIO.write(image, imgExt, file);
-			
-			project.setSnapsht(SNAPSHT_PATH + filename);
-		} 
-		
+		String snapshtPath = projectService.saveSnapsht(project, snapshtFile);
+		project.setSnapsht(snapshtPath);
 		projectService.update(project);
 		
 		//파일 저장
-		projectFileService.saveFiles(rootPath, seq, files);
+		projectFileService.saveFiles(project.getSeq(), files);
 		
 		return "redirect:" + "/mgnt/project";
 	}
@@ -225,10 +163,8 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/project/deleteFile.do")
 	public String deleteFile(HttpSession session, int seq){
-		String rootPath = session.getServletContext().getRealPath("");
-		
 		boolean result = false;
-		result = projectFileService.deleteFile(rootPath, seq);	
+		result = projectFileService.deleteFile(seq);	
 		
 		return new JSONObject().put("result", result).toString();
 	}
@@ -237,22 +173,10 @@ public class ProjectController {
 	@RequestMapping(value = "/mgnt/project/imgUpload.do")
 	public String projectImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
-		HttpSession session = request.getSession();
-		String rootPath = session.getServletContext().getRealPath("");
-		String filename	= "content_" + TimeStamper.stamp() + "_";
-		String imgExt 	= null;
 		
-		if(multiFile != null){
-			filename += multiFile.getOriginalFilename();
-			imgExt = ImageManager.getExt(filename);
-			File file = new File(rootPath + CONTENTS_PATH + filename);
-			multiFile.transferTo(file);
-			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
-			ImageIO.write(image, imgExt, file);
-		}
-		
+		String path = projectService.saveContentImage(multiFile);
 		response.setHeader("X-Frame-Options", "SAMEORIGIN");
-		model.addAttribute("path", request.getContextPath() + CONTENTS_PATH + filename);
+		model.addAttribute("path", request.getContextPath() + path);
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
 		
 		return "project/project_imgupload";

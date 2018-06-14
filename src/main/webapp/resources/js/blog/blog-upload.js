@@ -4,6 +4,7 @@ $(document).ready(function() {
 
 function initContentCKEditor() {
 	var editor = CKEDITOR.replace("contents", {
+		height : '400px',
 		filebrowserUploadUrl : getContextPath() + "/mgnt/blog/imgUpload.do",
 		codeSnippet_theme : 'github',
 		on : {
