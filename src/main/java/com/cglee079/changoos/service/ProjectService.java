@@ -68,12 +68,12 @@ public class ProjectService {
 		return project;
 	}
 	
-	public ProjectVo getBefore(int sort) {
-		return projectDao.getBefore(sort);
+	public ProjectVo getBefore(int seq) {
+		return projectDao.getBefore(seq);
 	}
 
-	public ProjectVo getAfter(int sort) {
-		return projectDao.getAfter(sort);
+	public ProjectVo getAfter(int seq) {
+		return projectDao.getAfter(seq);
 	}
 	
 	
@@ -91,7 +91,7 @@ public class ProjectService {
 			imgExt = ImageManager.getExt(filename);
 			File file = new File(realPath + SNAPSHT_PATH + filename);
 			snapshtFile.transferTo(file);
-			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
+			BufferedImage image = ImageManager.getLowScaledImage(file, 1080, imgExt);
 			ImageIO.write(image, imgExt, file);
 			
 			path = SNAPSHT_PATH + filename;

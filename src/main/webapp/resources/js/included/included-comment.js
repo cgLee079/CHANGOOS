@@ -18,6 +18,7 @@ $(document).ready(function(){
 	path 		= getContextPath() + "/" + boardType;
 	boardSeqName= boardType + "Seq";
 	
+	drawCommentCnt();
 	commentPageMove(1); // Paging
 })
 
@@ -27,6 +28,10 @@ function br2nl(text){
 
 function nl2br(text){
 	return text.replace(/\n/g, "<br />");
+}
+
+function drawCommentCnt(){
+	$(".comment-cnt").text(comtCnt);
 }
 
 /* Ajax, Paging */
@@ -317,6 +322,7 @@ function commentDelete(tg){
 					});
 					
 					comtCnt = comtCnt - 1;
+					drawCommentCnt();
 					commentPageMove(parseInt((comtCnt-1) / perPgLine)+1);
 				} else{
 					swal({
@@ -360,6 +366,7 @@ function doCommentSubmit(){
 				});
 				contents.val('');
 				comtCnt = comtCnt + 1;
+				drawCommentCnt();
 				commentPageMove(parseInt((comtCnt-1) / perPgLine)+1);
 			}
 		},

@@ -7,7 +7,6 @@
 	<select id="S01" resultType="com.cglee079.changoos.model.PhotoVo" parameterType="Integer">
 		SELECT
 		PHOTO_SEQ as "seq",
-		PHOTO_SORT as "sort",
 		PHOTO_IMAGE as "image",
 		PHOTO_SNAPSHT as "snapsht",
 		PHOTO_NAME as "name",
@@ -25,7 +24,6 @@
 	<select id="S02" resultType="com.cglee079.changoos.model.PhotoVo">
 		SELECT
 		PHOTO_SEQ as "seq",
-		PHOTO_SORT as "sort",
 		PHOTO_IMAGE as "image",
 		PHOTO_SNAPSHT as "snapsht",
 		PHOTO_NAME as "name",
@@ -42,7 +40,7 @@
 		ORDER BY ${sort} ${order}
 		</when>
 		<otherwise>
-		ORDER BY PHOTO_SORT, PHOTO_DATE DESC, PHOTO_TIME DESC, PHOTO_SEQ DESC
+		ORDER BY PHOTO_DATE DESC, PHOTO_TIME DESC, PHOTO_SEQ DESC
 		</otherwise>
 		</choose>
 	</select>
@@ -51,7 +49,7 @@
 		SELECT
 		PHOTO_SEQ as "seq"
 		FROM TB_PTFOLIO_PHOTO
-		ORDER BY PHOTO_SORT, PHOTO_DATE DESC, PHOTO_TIME DESC, PHOTO_SEQ DESC
+		ORDER BY PHOTO_DATE DESC, PHOTO_TIME DESC, PHOTO_SEQ DESC
 	</select>
 	
 	<delete id="delete">
@@ -60,14 +58,13 @@
 	</delete>
 	
 	<insert id="insert">
-		INSERT TB_PTFOLIO_PHOTO (PHOTO_SORT, PHOTO_IMAGE, PHOTO_SNAPSHT, PHOTO_NAME, PHOTO_DESC, PHOTO_LOC, PHOTO_DATE, PHOTO_TIME, PHOTO_TAG, PHOTO_DEVICE, PHOTO_LIKECNT)
-		VALUES (#{sort}, #{image}, #{snapsht}, #{name}, #{desc}, #{location}, #{date}, #{time}, #{tag}, #{device}, #{likeCnt})
+		INSERT TB_PTFOLIO_PHOTO (PHOTO_IMAGE, PHOTO_SNAPSHT, PHOTO_NAME, PHOTO_DESC, PHOTO_LOC, PHOTO_DATE, PHOTO_TIME, PHOTO_TAG, PHOTO_DEVICE, PHOTO_LIKECNT)
+		VALUES (#{image}, #{snapsht}, #{name}, #{desc}, #{location}, #{date}, #{time}, #{tag}, #{device}, #{likeCnt})
 	</insert>
 	
 	<update id="update">
 		UPDATE TB_PTFOLIO_PHOTO
 		SET
-		PHOTO_SORT = #{sort}, 
 		PHOTO_IMAGE = #{image},
 		PHOTO_SNAPSHT = #{snapsht},
 		PHOTO_NAME = #{name},

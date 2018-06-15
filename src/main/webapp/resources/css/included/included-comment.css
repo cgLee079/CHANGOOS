@@ -1,12 +1,12 @@
 .wrap-comment {
-	padding-top: 3rem;
+	margin-top: 10rem;
 	margin-bottom: 7rem;
 }
 
 .comment-header{
-	color : #F67;
 	font-size: 1.25rem;
 	font-weight: bold;
+	margin-bottom: 0.5rem
 }
 
 .comt-pager {
@@ -35,7 +35,7 @@
 }
 
 .comment-head .comment-head-info .comment-writer {
-	color: #311f1f;
+	color: #4c2b2b;
 	font-weight: bold;
 	margin-right: 0.5rem;	
 }

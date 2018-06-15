@@ -8,7 +8,7 @@
 
 .photo-list {
 	flex: 1;
-	height: 95%;
+	height: 90%;
 	justify-content: center;
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -198,7 +198,7 @@
 
 .snapsht-list {
 	width: 150px;
-	height: 95%;
+	height: 90%;
 	overflow: hidden;
 	margin-left: 1rem;
 	

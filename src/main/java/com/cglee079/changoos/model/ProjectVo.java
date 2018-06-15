@@ -2,13 +2,11 @@ package com.cglee079.changoos.model;
 
 public class ProjectVo {
 	private int seq;
-	private int sort;
 	private String title;
 	private String sect;
 	private String desc;
 	private String contents;
 	private String snapsht;
-	private String video;
 	private String date;
 	private String sourcecode;
 	private String developer;
@@ -21,14 +19,6 @@ public class ProjectVo {
 
 	public void setSeq(int seq) {
 		this.seq = seq;
-	}
-
-	public int getSort() {
-		return sort;
-	}
-
-	public void setSort(int sort) {
-		this.sort = sort;
 	}
 
 	public String getTitle() {
@@ -69,14 +59,6 @@ public class ProjectVo {
 
 	public void setSnapsht(String snapsht) {
 		this.snapsht = snapsht;
-	}
-
-	public String getVideo() {
-		return video;
-	}
-
-	public void setVideo(String video) {
-		this.video = video;
 	}
 
 	public String getDate() {

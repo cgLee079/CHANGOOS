@@ -14,20 +14,11 @@
 			<div class="upload-title">스터디 업로드</div>
 		
 			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/study/upload.do" method="post" enctype="multipart/form-data" class="upload-form">
-				<c:set var="sort" value="99999"/>
 				<c:if test="${not empty study}">
 					<input type="hidden" name="seq" value="<c:out value='${study.seq}'/>"/>
 					<input type="hidden" name="date" value="<c:out value='${study.date}'/>"/>
 					<input type="hidden" name="hits" value="<c:out value='${study.hits}'/>"/>
-					<c:set var="sort" value="${study.sort}"/>
 				</c:if>
-				
-				<div class="study-upload-item">
-					<div class="item-name">SORT</div>
-					<div class="item-input">
-					<input type="text" id="sort" name="sort"  value="<c:out value='${sort}'/>" class="study-sort"/>
-					</div>
-				</div>
 				
 				<div class="study-upload-item">
 					<div class="item-name">SECT</div>

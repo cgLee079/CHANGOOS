@@ -20,10 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.StudyDao;
-import com.cglee079.changoos.dao.StudyFileDao;
 import com.cglee079.changoos.model.StudyVo;
-import com.cglee079.changoos.model.StudyFileVo;
-import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageManager;
 import com.cglee079.changoos.util.TimeStamper;
@@ -46,9 +43,29 @@ public class StudyService{
 		int page = Integer.parseInt((String)params.get("page"));
 		int perPgLine = Integer.parseInt((String)params.get("perPgLine"));
 		int startRow = (page - 1) * perPgLine;
-		
 		params.put("startRow", startRow);
-		return studyDao.list(params);
+		
+		List<StudyVo> studies = studyDao.list(params);
+		StudyVo study 		= null;
+		String contents 	= null;
+		String newContents 	= null;
+		Document doc 		= null;
+		Elements els		= null;
+		for(int i = 0; i < studies.size(); i++) {
+			study 		= studies.get(i);
+			
+			//내용중 텍스트만 뽑기
+			contents 	= study.getContents();
+			newContents = "";
+			doc 		= Jsoup.parse(contents);
+			els 		= doc.select("*");
+			newContents = els.eachText().get(0);
+			
+			newContents.replace("\n", " ");
+			study.setContents(newContents);
+		}
+		
+		return studies;
 	}
 
 	public int count(Map<String, Object> params) {

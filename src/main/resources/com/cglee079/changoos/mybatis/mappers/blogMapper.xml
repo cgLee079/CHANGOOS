@@ -7,7 +7,6 @@
 		/* 블로그 가져오기 */
 		SELECT
 		BLOG_SEQ as "seq",
-		BLOG_SORT as "sort",
 		BLOG_SNAPSHT as "snapSht",
 		BLOG_TITLE as "title",
 		BLOG_CONTENTS as "contents",
@@ -28,7 +27,6 @@
       		<foreach collection="tags" index="index" item="item" separator="UNION DISTINCT">
 			SELECT
 			BLOG_SEQ as "seq",
-			BLOG_SORT as "sort",
 			BLOG_SNAPSHT as "snapSht",
 			BLOG_TITLE as "title",
 			BLOG_CONTENTS as "contents",
@@ -42,7 +40,7 @@
 			</foreach>
 		) X
 		
-		ORDER BY sort, date DESC, seq DESC
+		ORDER BY date DESC, seq DESC
 		<if test="startRow != null and perPgLine != null">
  		LIMIT ${startRow}, ${perPgLine}
   		</if>
@@ -52,7 +50,6 @@
 		/* 블로그 리스트 */
 		SELECT
 		BLOG_SEQ as "seq",
-		BLOG_SORT as "sort",
 		BLOG_SNAPSHT as "snapSht",
 		BLOG_TITLE as "title",
 		BLOG_CONTENTS as "contents",
@@ -70,7 +67,7 @@
 		ORDER BY ${sort} ${order}
 		</when>
 		<otherwise>
-		ORDER BY BLOG_SORT, BLOG_DATE DESC, BLOG_SEQ DESC
+		ORDER BY BLOG_DATE DESC, BLOG_SEQ DESC
 		</otherwise>
 		</choose>
 		<if test="startRow != null and perPgLine != null">
@@ -95,8 +92,8 @@
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
 		INSERT TB_PTFOLIO_BLOG 
-		(BLOG_SORT, BLOG_SNAPSHT, BLOG_TITLE, BLOG_CONTENTS, BLOG_TAG, BLOG_DATE, BLOG_HITS)
-		VALUES (#{sort}, #{snapsht}, #{title}, #{contents}, #{tag}, #{date}, #{hits})
+		(BLOG_SNAPSHT, BLOG_TITLE, BLOG_CONTENTS, BLOG_TAG, BLOG_DATE, BLOG_HITS)
+		VALUES (#{snapsht}, #{title}, #{contents}, #{tag}, #{date}, #{hits})
 	</insert>
 	
 	<delete id="delete">
@@ -107,7 +104,6 @@
 	<update id="update">
 		UPDATE TB_PTFOLIO_BLOG
 		SET 
-		BLOG_SORT 		= #{sort},
 		BLOG_SNAPSHT 	= #{snapsht},
 		BLOG_TITLE 		= #{title},
 		BLOG_CONTENTS 	= #{contents},

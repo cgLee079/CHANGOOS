@@ -2,7 +2,6 @@ package com.cglee079.changoos.model;
 
 public class StudyVo {
 	private int seq;
-	private int sort;
 	private String sect;
 	private String codeLang;
 	private String title;
@@ -25,14 +24,6 @@ public class StudyVo {
 
 	public void setSeq(int seq) {
 		this.seq = seq;
-	}
-
-	public int getSort() {
-		return sort;
-	}
-
-	public void setSort(int sort) {
-		this.sort = sort;
 	}
 
 	public String getSect() {

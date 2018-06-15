@@ -39,7 +39,7 @@ public class BlogController {
 	
 	/** 블로그 리스트로 이동 **/
 	@RequestMapping("/blog")
-	public String blogList(Model model, @RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException{
+	public String blogList(Model model) throws SQLException, JsonProcessingException{
 		List<String> tags = blogService.getTags();
 		model.addAttribute("tags", tags);
 		return "blog/blog_list";
@@ -99,8 +99,8 @@ public class BlogController {
 	/** 블로그 관리 페이지 리스트, Ajax **/
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/blog/list.do")
-	public String DoPhotoManageList(@RequestParam Map<String, Object> map) {
-		List<BlogVo> photos = blogService.list(map);
+	public String DoBlogManageList(@RequestParam Map<String, Object> params) {
+		List<BlogVo> photos = blogService.list(params);
 		Gson gson = new Gson();
 		return gson.toJson(photos).toString();
 	}
@@ -130,7 +130,7 @@ public class BlogController {
 	 
 	/** 블로그 업로드  **/
 	@RequestMapping(value = "/mgnt/blog/upload.do", params = "!seq")
-	public String blogDoUpload(HttpSession session, Model model, BlogVo blog, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
+	public String blogDoUpload(Model model, BlogVo blog, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
 		String snapshtPath = blogService.saveSnapsht(blog, snapshtFile);
 		blog.setSnapsht(snapshtPath);
 		int seq = blogService.insert(blog);
@@ -157,7 +157,7 @@ public class BlogController {
 	/** 블로그 삭제 **/
 	@ResponseBody
 	@RequestMapping("/mgnt/blog/delete.do")
-	public String blogDoDelete(HttpSession session, Model model, int seq) throws SQLException, JsonProcessingException{
+	public String blogDoDelete(Model model, int seq) throws SQLException, JsonProcessingException{
 		
 		BlogVo blog = blogService.get(seq);
 		

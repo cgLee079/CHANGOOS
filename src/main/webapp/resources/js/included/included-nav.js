@@ -101,6 +101,13 @@ $(window).scroll(function(event) {
 	else { $(".btn-scroll-top").addClass("off"); }
 });
 
+
+$(window).scroll(function(event) {
+	var scroll = $(window).scrollTop();
+	if (scroll > 50) { $(".header").addClass("down");}
+	else {$(".header").removeClass("down");}
+});
+
 /* Progress bar */
 var Progress = {
 	start 	: function() { $(".progress-bar").removeClass("off"); },

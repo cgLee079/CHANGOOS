@@ -13,8 +13,24 @@
 	<input type="hidden" id="allRowCnt" value="<c:out value='${count}'/>"/>
 	
 	<div class="wrap-study">
-		<!-- <div class="study-pager"></div> -->
-		<div class="study-list"></div>
+		<div class="study-list">
+			<div class="study-list-item">
+				<span class="study-item-overlay">SHOW</span>
+				<div class="study-item-fg"></div>
+				<div class="study-item-title"></div>
+				<div class="study-item-content"></div>
+				<div class="study-item-info">
+					<div class="study-item-info-l">
+						<div class="study-item-sect"></div>
+						<div class="study-item-lang"></div>
+						<div class="study-item-date"></div>
+					</div>
+					<div class="study-item-info-r">
+						<div class="study-item-comtcnt"></div>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 		<div class="study-submenu">
 			<div class="study-search">

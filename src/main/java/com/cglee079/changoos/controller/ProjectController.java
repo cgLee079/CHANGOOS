@@ -47,8 +47,8 @@ public class ProjectController {
 	@RequestMapping(value = "/project/view")
 	public String projectView(HttpSession session, Model model, int seq){
 		ProjectVo project = projectService.doView((List<Integer>)session.getAttribute("visitProjects"), seq);
-		ProjectVo beforeProject = projectService.getBefore(project.getSort());
-		ProjectVo afterProject = projectService.getAfter(project.getSort());
+		ProjectVo beforeProject = projectService.getBefore(project.getSeq());
+		ProjectVo afterProject = projectService.getAfter(project.getSeq());
 		
 		model.addAttribute("project", project);
 		model.addAttribute("beforeProject", beforeProject);

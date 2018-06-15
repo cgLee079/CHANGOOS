@@ -1,96 +1,92 @@
 .wrap-study {
 	width: 80%;
 	margin: 0px auto;
-	margin-top: 3rem;
 	margin-bottom: 10rem;
 	
 	min-height : calc(100% - 50px);
 }
 
-.study .study-head{
-	border-bottom: 1px solid #DDD;
-	margin-bottom: 1.5rem;
+.study-head{
+	margin: 5rem 0;
 }
 
-.study .study-head .study-sect {
-	margin-bottom: 0.5rem;
-	color : #F67;
+.study-head .study-sect {
+	margin-bottom: 1rem;
 	text-align: center;
 	font-weight: bold;
+	color : #ec5621;
 }
 
-.study .study-head .study-title {
-	font-size: 2rem;
-	font-weight: bold;
-	margin-bottom: 0.8rem;
+.study-head .study-title {
+	font-size: 2.25rem;
+	margin-bottom: 1rem;
 	text-align: center;
+	
+	word-break: keep-all;
+	word-wrap: break-word;
 }
 
-.study .study-head .study-info {
+.study-head .study-info {
 	display : flex;
 	flex-flow : row nowrap;
 	justify-content : center;
 	font-size: .75rem;
 	padding: 0 0.1rem;
+	color : #9199A4;
 }
 
-.study .study-head .study-info div{
+.study-head .study-info div{
 	margin-right: 0.5rem;
 }
 
-.study .study-head .study-submenu {
-	text-align: right;
-	font-size: .75rem;
-	margin-bottom: 0.5rem;
-	margin-top: 1rem;
-}
-
-.study .study-head .study-submenu .btn {
-	padding-left: 1rem;
-}
-
-.study .study-contents {
-	margin-top: 1.5rem;
-	margin-bottom : 4rem;
+.study-sub{
+    border-top: 1px solid #9199a4;
+    border-bottom: 1px solid #ecf0f5;
+    padding : 0.75rem 0;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .study-files {
-	margin-top: 1rem;
-}
-
-.study-file-button{
+	flex : 1;
 	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	
-	color: #F67;
-	margin-bottom		: 0.5rem;
-	font-weight: bold;
-}
-
-.study-file-button .icon{
-	background-position : center;
-	background-repeat: no-repeat;
-	background-size: contain;
-
-	height 	: 0.75rem;
-	width	: 0.75rem;
-	margin-right: 0.3rem;	
-}
-
-.file-list{
-	font-size: 0.8rem;
+	flex-flow : row wrap;
 }
 
 .file-item {
-    margin: 0.2rem 0rem;
-    text-align: right;
-   	color: #34F;
+   	cursor: pointer;
+   	display: flex;
+   	
+  	padding : 2px 3px;
+  	margin-right: 2px;
+  	color : #142fff;
+  	font-size: 0.75rem;
 }
 
-.file-item a{
-	cursor: pointer;
+.file-item .name{
+	width : 7rem;
+	text-overflow: ellipsis;
+   	overflow: hidden;
+   	white-space: nowrap;
 }
+
+.study-sub .study-submenu {
+	display : flex;
+	flex-flow : row nowrap;
+	font-size: 0.75rem;
+}
+
+.study-sub .study-submenu .btn {
+	padding-left: 1rem;
+}
+
+.study-contents {
+	margin-top: 5rem;
+	margin-bottom : 4rem;
+}
+
 
 @media ( max-width : 720px) {
 	.wrap-study {

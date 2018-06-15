@@ -2,7 +2,6 @@ package com.cglee079.changoos.model;
 
 public class PhotoVo {
 	private int seq;
-	private int sort;
 	private String image;
 	private String snapsht;
 	private String name;
@@ -20,14 +19,6 @@ public class PhotoVo {
 
 	public void setSeq(int seq) {
 		this.seq = seq;
-	}
-
-	public int getSort() {
-		return sort;
-	}
-
-	public void setSort(int sort) {
-		this.sort = sort;
 	}
 
 	public String getImage() {

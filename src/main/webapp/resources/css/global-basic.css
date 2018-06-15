@@ -7,7 +7,7 @@
 
 body {
 	overflow-x: hidden;
-	background: #FEFDFE; 
+	background: #FFF; 
 }
 
 a, a:VISITED {
@@ -66,6 +66,7 @@ a, a:VISITED {
 .editor-contents img {
 	height: auto;
 	margin: 0.3rem 0;
+	border-color : #DDD;
 	/* box-shadow : 0 1px 0 rgba(12,13,14,0.1), 0 1px 3px rgba(12,13,14,0.1), 0 4px 20px rgba(12,13,14,0.035), 0 1px 1px rgba(12,13,14,0.025); */
 }
 
@@ -123,7 +124,7 @@ a, a:VISITED {
 
 /* easyui tooltip override */
 .tooltip{
-	padding : 0.3rem 0.4rem !important;
+	padding : 0.3rem 0.5rem !important;
 	background: #000 !important;
 	color: #FFF !important;	
     box-shadow: 0px 5px 5px #ECF0F1;

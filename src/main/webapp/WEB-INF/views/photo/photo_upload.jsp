@@ -15,21 +15,11 @@
 			<form id="upload-form" action="${pageContext.request.contextPath}/mgnt/photo/upload.do" 
 				method="post" enctype="multipart/form-data">
 				
-				<c:set var="sort" value="99999"/>
 				<c:if test="${not empty photo}">
 					<input type="hidden" name="seq" value="<c:out value='${photo.seq}'/>"/>
 					<input type="hidden" name="image" value="<c:out value='${photo.image}'/>"/>
 					<input type="hidden" name="snapsht" value="<c:out value='${photo.snapsht}'/>"/>
-					<c:set var="sort" value="${photo.sort}"/>
 				</c:if>
-				
-				
-				<div class="upload-item">
-					<div class="upload-item-name">SORT</div>
-					<div class="upload-item-input">
-						<input type="text" id="sort" name="sort" class="photo-sort" value="<c:out value='${sort}'/>"/>
-					</div>
-				</div>
 				
 				<div class="upload-item">
 					<div class="upload-item-name">IMAGE</div>

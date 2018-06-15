@@ -1,11 +1,11 @@
 $(document).ready(function(){
 	doMenuOn(".menu-project");
 	
-	$(".btn-project-before, .btn-project-next").tooltip({
-    	position: 'top',
-    	show : null,
-    	hide : null,
-    });
+//	$(".btn-project-before, .btn-project-next").tooltip({
+//    	position: 'top',
+//    	show : null,
+//    	hide : null,
+//    });
 
 });
 

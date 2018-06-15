@@ -11,6 +11,7 @@
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-misaeng.css'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-bm.css'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-kcc.css'/>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-apple-sd.css'/>
 
 <!-- lib-css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lib/letter-motion.css" />

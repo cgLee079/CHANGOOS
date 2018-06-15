@@ -6,13 +6,11 @@
 	<select id="get" resultType="com.cglee079.changoos.model.ProjectVo" parameterType="Integer">
 		SELECT
 		PROJ_SEQ as "seq",
-		PROJ_SORT as "sort",
 		PROJ_TITLE as "title",
 		PROJ_SECT as "sect",
 		PROJ_DESC as "desc",
 		PROJ_CONTENTS as "contents",
 		PROJ_SNAPSHT as "snapsht",
-		PROJ_HASVIDEO as "video",
 		PROJ_DATE as "date",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
@@ -26,12 +24,10 @@
 	<select id="list" resultType="com.cglee079.changoos.model.ProjectVo">
 		SELECT
 		PROJ_SEQ as "seq",
-		PROJ_SORT as "sort",
 		PROJ_TITLE as "title",
 		PROJ_SECT as "sect",
 		PROJ_DESC as "desc",
 		PROJ_SNAPSHT as "snapsht",
-		PROJ_HASVIDEO as "video",
 		PROJ_DATE as "date",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
@@ -44,7 +40,7 @@
 		ORDER BY ${sort} ${order}
 		</when>
 		<otherwise>
-		ORDER BY PROJ_SORT
+		ORDER BY PROJ_SEQ DESC
 		</otherwise>
 		</choose>
 	</select>
@@ -52,44 +48,40 @@
 	<select id="getBefore" resultType="com.cglee079.changoos.model.ProjectVo" parameterType="Integer">
 		SELECT
 		PROJ_SEQ as "seq",
-		PROJ_SORT as "sort",
 		PROJ_TITLE as "title",
 		PROJ_SECT as "sect",
 		PROJ_DESC as "desc",
 		PROJ_CONTENTS as "contents",
 		PROJ_SNAPSHT as "snapsht",
-		PROJ_HASVIDEO as "video",
 		PROJ_DATE as "date",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
 		PROJ_HITS as "hits",
 		count(B.PCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_PROJECT A LEFT OUTER JOIN TB_PTFOLIO_PROJECT_COMT B ON A.PROJ_SEQ = B.PCOMT_PROJ_SEQ
-		WHERE <![CDATA[PROJ_SORT < #{sort}]]> 
+		WHERE <![CDATA[PROJ_SEQ > #{seq}]]> 
 		GROUP BY A.PROJ_SEQ
-		ORDER BY PROJ_SORT DESC
+		ORDER BY PROJ_SEQ ASC
 		LIMIT 1
 	</select>
 	
 	<select id="getAfter" resultType="com.cglee079.changoos.model.ProjectVo" parameterType="Integer">
 		SELECT
 		PROJ_SEQ as "seq",
-		PROJ_SORT as "sort",
 		PROJ_TITLE as "title",
 		PROJ_SECT as "sect",
 		PROJ_DESC as "desc",
 		PROJ_CONTENTS as "contents",
 		PROJ_SNAPSHT as "snapsht",
-		PROJ_HASVIDEO as "video",
 		PROJ_DATE as "date",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
 		PROJ_HITS as "hits",
 		count(B.PCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_PROJECT A LEFT OUTER JOIN TB_PTFOLIO_PROJECT_COMT B ON A.PROJ_SEQ = B.PCOMT_PROJ_SEQ
-		WHERE <![CDATA[PROJ_SORT > #{sort}]]> 
+		WHERE <![CDATA[PROJ_SEQ < #{seq}]]> 
 		GROUP BY A.PROJ_SEQ
-		ORDER BY PROJ_SORT ASC
+		ORDER BY PROJ_SEQ DESC
 		LIMIT 1
 	</select>
 	
@@ -100,20 +92,18 @@
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.ProjectVo">
 		INSERT TB_PTFOLIO_PROJECT 
-		(PROJ_SORT, PROJ_TITLE, PROJ_SECT, PROJ_DESC, PROJ_CONTENTS, PROJ_SNAPSHT, PROJ_HASVIDEO, PROJ_DATE, PROJ_SOURCECD, PROJ_DEVELOPER, PROJ_HITS)
-		VALUES (#{sort}, #{title}, #{sect}, #{desc}, #{contents}, #{snapsht}, #{video}, #{date}, #{sourcecode},#{developer}, #{hits})
+		(PROJ_TITLE, PROJ_SECT, PROJ_DESC, PROJ_CONTENTS, PROJ_SNAPSHT, PROJ_DATE, PROJ_SOURCECD, PROJ_DEVELOPER, PROJ_HITS)
+		VALUES (#{title}, #{sect}, #{desc}, #{contents}, #{snapsht}, #{date}, #{sourcecode},#{developer}, #{hits})
 	</insert>
 	
 	<update id="update">
 		UPDATE TB_PTFOLIO_PROJECT
 		SET 
-		PROJ_SORT = #{sort},
 		PROJ_TITLE = #{title},
 		PROJ_SECT = #{sect},
 		PROJ_DESC = #{desc},
 		PROJ_CONTENTS = #{contents},
 		PROJ_SNAPSHT = #{snapsht},
-		PROJ_HASVIDEO = #{video},
 		PROJ_DATE = #{date},
 		PROJ_SOURCECD = #{sourcecode},
 		PROJ_DEVELOPER = #{developer},

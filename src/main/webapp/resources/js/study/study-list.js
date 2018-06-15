@@ -1,17 +1,30 @@
-var perPgLine 	= 100000;
+var perPgLine 	= 10;
 var searchType 	= "";
 var searchValue = "";
-var page 		= '';
+var page 		= 1;
 var sect 		= 'ALL';
 var allRowCnt	= undefined;
+var studyTemp	= undefined;
 
 $(document).ready(function(){
 	doMenuOn(".menu-study");
 	
+	studyTemp = $(".study-list-item").clone();
+	$(".study-list-item").remove();
+	
+	/* Add Scroll Page event */
+	$(window).scroll(function(){
+		var scrollPosition = $(this).scrollTop() + $(this).outerHeight();
+		var docHeight = $(this).height();
+		if(scrollPosition >= (docHeight/2) - 10){
+			page = page + 1;
+			pageMove(page);
+		}
+	});
+	
 	/* Get Hash */
 	allRowCnt = $("#allRowCnt").val();
-	sect = window.location.hash.substring(1).split("&")[0];
-	page = parseInt(window.location.hash.substring(1).split("&")[1]);
+	sect = window.location.hash.substring(1);
 
 	/* Add Class 'on' to Sect*/
 	if(!sect){ sect = 'ALL'; }
@@ -23,18 +36,19 @@ $(document).ready(function(){
 		}
 	}
 
-	/* Page to 1 */
-	if(!page){
-		page = 1;
-	}
+	clearStudyItems();
 	pageMove(page);
-	
 });
+
+function clearStudyItems(){
+	$(".study-list-item").remove();
+	$("html, body").scrollTop(0);
+}
 
 /* when study click */
 function studyView(seq){
 	Progress.start();
-	window.location.href = getContextPath() + "/study/view?seq=" + seq + "&section=" + sect + "&page=" + page;		
+	window.location.href = getContextPath() + "/study/view?seq=" + seq + "&section=" + sect;
 }
 
 /* when Search button click */
@@ -42,6 +56,7 @@ function search(){
 	searchType	= $(".search-type").val();
 	searchValue = $(".search-value").val();
 	
+	clearStudyItems();
 	pageMove(1);
 }
 
@@ -53,7 +68,9 @@ function selectSect(tg){
 	items.removeClass("on");
 	tg.addClass("on");
 	sect = tg.text();
+	window.location.hash = sect;
 	
+	clearStudyItems();
 	pageMove(1);
 }
 
@@ -80,17 +97,13 @@ function pageMove(pg){
 			var data = result['data'];
 			allRowCnt = count;
 			
-			if(!data.length && pg != 1){
-				pageMove(pg - 1);
-			} else{
+			if(data.length){
 				page = pg;
-				window.location.hash = sect + "&" + page;
-				updateStudy(data);
+				drawStudy(data);
 				updatePaging("pageMove", page, allRowCnt, perPgLine, 3);
 			}
 		},
 		complete: function(){
-			$("html, body").scrollTop(0);
 		},
 		error : function(e) {
 			console.log(e);
@@ -108,11 +121,10 @@ function updatePaging(callFunc, page, allRowCnt, perPgLine, pgGrpCnt){
 }
 
 /* draw Study list */
-function updateStudy(data){
+function drawStudy(data){
 	var studyList 	= $(".study-list");
 	var length		= data.length;
-	
-	studyList.find(".study-list-item").remove();
+	var item		= undefined;
 	
 	if(!data.length){
 		study = data[i];
@@ -121,41 +133,23 @@ function updateStudy(data){
 		item.appendTo(studyList);
 	}
 	
-	var study 		= undefined;
-	var item 		= undefined;
-	var itemInfo	= undefined;
-	var itemInfoL 	= undefined;
-	var itemInfoR 	= undefined;
 	for (var i = 0; i < length; i++){
 		study = data[i];
-		item = $("<div>", {'class' : 'study-list-item', onclick : "studyView(" + study.seq + ")"});
-		$("<span>", {"class" : "study-item-overlay", text : "SHOW"}).appendTo(item);
-		$("<div>", {"class" : "study-item-fg"}).appendTo(item);
-		$("<div>",{"class" : 'study-item-title', text : study.title}).appendTo(item);
-
-		itemInfo = $("<div>",{ 'class' : 'study-item-info'}).appendTo(item);
-		itemInfoL = $("<div>",{ 'class' : 'study-item-info-l row-center'}).appendTo(itemInfo);
-		itemInfoR = $("<div>",{ 'class' : 'study-item-info-r'}).appendTo(itemInfo);
+		item = studyTemp.clone();
 		
-		$("<div>",{ 'class' : 'study-item-sect', text : study.sect}).appendTo(itemInfoL);
-		$("<div>",{ 'class' : 'colum-border'}).appendTo(itemInfoL);
+		item.attr("onclick", "studyView(" + study.seq + ")");
+		item.find('.study-item-title').text(study.title);
+		item.find('.study-item-content').text(study.contents);
+		item.find('.study-item-sect').text(study.sect);
+		item.find('.study-item-lang').text(study.codeLang);
+		item.find('.study-item-date').text(study.date);
+		item.find('.study-item-hits').text("조회수 " + study.hits);
+		item.find('.study-item-comtcnt').text("댓글 " + study.comtCnt);
 		
-		if(study.codeLang){
-			$("<div>",{ 'class' : 'study-item-codeLang', text : study.codeLang}).appendTo(itemInfoL);
-			$("<div>",{ 'class' : 'colum-border'}).appendTo(itemInfoL);
+		if(!study.codeLang){
+			item.find('.study-item-lang').css("display", "none");
 		}
 		
-		$("<div>",{ 'class' : 'study-item-date', text : study.date}).appendTo(itemInfoL);
-		$("<div>",{ 'class' : 'colum-border'}).appendTo(itemInfoL);
-		$("<div>",{ 'class' : 'study-item-hits', text : "조회수 " + study.hits}).appendTo(itemInfoL);
-		
-		$("<div>",{ 'class' : 'study-item-comtcnt', text : "댓글 " + study.comtCnt}).appendTo(itemInfoR);
-		
-		if(isMobile){
-			item.click(function(){
-				$(this).find(".study-item-title").trigger("click");
-			});
-		} 		
 		item.appendTo(studyList);			
 	}
 	

@@ -46,7 +46,16 @@ public class BlogService{
     private String realPath;
 	
 	public List<BlogVo> list(Map<String, Object> map){
-		return blogDao.list(map);
+		List<BlogVo> blogs 	= blogDao.list(map);
+		BlogVo blog = null;
+		for(int i = 0; i < blogs.size(); i++) {
+			blog 		= blogs.get(i);
+			
+			//스냅샷 없을 경우, 설정하기
+			blog.setSnapsht(extractSnapsht(blog));
+		}
+		
+		return blogs;
 	}
 	
 	public List<BlogVo> paging(Map<String, Object> params){
@@ -68,6 +77,9 @@ public class BlogService{
 		for(int i = 0; i < blogs.size(); i++) {
 			blog 		= blogs.get(i);
 			
+			//스냅샷 없을 경우, 설정하기
+			blog.setSnapsht(extractSnapsht(blog));
+			
 			//내용중 텍스트만 뽑기
 			contents 	= blog.getContents();
 			newContents = "";
@@ -78,15 +90,6 @@ public class BlogService{
 			newContents.replace("\n", " ");
 			blog.setContents(newContents);
 			
-			//스냅샷 없을 경우, 설정하기
-			if(blog.getSnapsht() == null) {
-				els 	= doc.select("img");
-				if(els.size() > 0) {
-					blog.setSnapsht(els.get(0).attr("src"));
-				}
-			} else {
-				blog.setSnapsht(contextPath + blog.getSnapsht());
-			}
 		}
 		
 		return blogs;
@@ -96,21 +99,9 @@ public class BlogService{
 		return blogDao.count(params);
 	}
 
+	//No Extract Snapshot
 	public BlogVo get(int seq) {
-		BlogVo blog = blogDao.get(seq);
-		if(blog.getSnapsht() == null) {
-			String contents = blog.getContents();
-			Document doc 	= Jsoup.parse(contents);
-			Elements els 	= doc.select("img");
-			
-			if(els.size() > 0) {
-				blog.setSnapsht(els.get(0).attr("src"));
-			} else {
-				blog.setSnapsht(contextPath + blog.getSnapsht());
-			}
-		}
-		
-		return blog;
+		return blogDao.get(seq);
 	}
 	
 	public BlogVo doView(List<Integer> isVisitBlogs, int seq) {
@@ -122,17 +113,7 @@ public class BlogService{
 			blogDao.update(blog);
 		}
 		
-		if(blog.getSnapsht() == null) {
-			String contents = blog.getContents();
-			Document doc 	= Jsoup.parse(contents);
-			Elements els 	= doc.select("img");
-			
-			if(els.size() > 0) {
-				blog.setSnapsht(els.get(0).attr("src"));
-			} else {
-				blog.setSnapsht(contextPath + blog.getSnapsht());
-			}
-		}
+		blog.setSnapsht(extractSnapsht(blog));
 		
 		return blog;
 	}
@@ -174,13 +155,33 @@ public class BlogService{
 		
 		return tags;
 	}
+	
+	public String extractSnapsht(BlogVo blog) {
+		Document doc 		= null;
+		Elements els		= null;
+		String contents 	= blog.getContents();
+		String snapsht 		= blog.getSnapsht();
+			
+		//스냅샷 없을 경우, 설정하기
+		if(blog.getSnapsht() == null) {
+			doc	= Jsoup.parse(contents);
+			els = doc.select("img");
+			if(els.size() > 0) {
+				snapsht = els.get(0).attr("src");
+			}
+		} else {
+			snapsht = contextPath + blog.getSnapsht();
+		}
+		
+		return snapsht; 
+	}
 
 	public String saveSnapsht(BlogVo blog, MultipartFile snapshtFile) throws IllegalStateException, IOException {
 		String filename	= "snapshot_" + blog.getTitle() + "_";
 		String imgExt	= null;
-		String path = blog.getSnapsht();
+		String path 	= blog.getSnapsht();
 		if(snapshtFile.getSize() > 0){
-			File existFile = new File (realPath + blog.getSnapsht());
+			File existFile = new File (realPath + this.get(blog.getSeq()).getSnapsht());
 			if(existFile.exists()){
 				existFile.delete();
 			}

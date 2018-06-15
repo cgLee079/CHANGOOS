@@ -7,7 +7,6 @@
 		/* 게시글 가져오기 */
 		SELECT
 		STUDY_SEQ as "seq",
-		STUDY_SORT as "sort",
 		STUDY_SECT as "sect",
 		STUDY_CODE_LANG as "codeLang",
 		STUDY_TITLE as "title",
@@ -24,7 +23,6 @@
 		/* 이전 게시글 가져오기 */
 		SELECT 
 		STUDY_SEQ as "seq",
-		STUDY_SORT as "sort",
 		STUDY_SECT as "sect",
 		STUDY_CODE_LANG as "codeLang",
 		STUDY_TITLE as "title",
@@ -47,7 +45,6 @@
 		/* 다음 게시글 가져오기 */
 		SELECT 
 		STUDY_SEQ as "seq",
-		STUDY_SORT as "sort",
 		STUDY_SECT as "sect",
 		STUDY_CODE_LANG as "codeLang",
 		STUDY_TITLE as "title",
@@ -70,7 +67,6 @@
 		/* 게시글 리스트 */
 		SELECT
 		STUDY_SEQ as "seq",
-		STUDY_SORT as "sort",
 		STUDY_SECT as "sect",
 		STUDY_CODE_LANG as "codeLang",
 		STUDY_TITLE as "title",
@@ -93,7 +89,7 @@
 		ORDER BY ${sort} ${order}
 		</when>
 		<otherwise>
-		ORDER BY STUDY_SORT, STUDY_DATE DESC, STUDY_SEQ DESC
+		ORDER BY STUDY_DATE DESC, STUDY_SEQ DESC
 		</otherwise>
 		</choose>
 		<if test="startRow != null and perPgLine != null">
@@ -128,8 +124,8 @@
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
 		INSERT TB_PTFOLIO_STUDY 
-		(STUDY_SORT, STUDY_SECT, STUDY_CODE_LANG, STUDY_TITLE, STUDY_CONTENTS, STUDY_DATE, STUDY_HITS)
-		VALUES (#{sort}, #{sect}, #{codeLang}, #{title}, #{contents}, #{date}, #{hits})
+		(STUDY_SECT, STUDY_CODE_LANG, STUDY_TITLE, STUDY_CONTENTS, STUDY_DATE, STUDY_HITS)
+		VALUES (#{sect}, #{codeLang}, #{title}, #{contents}, #{date}, #{hits})
 	</insert>
 	
 	<delete id="delete">
@@ -140,7 +136,6 @@
 	<update id="update">
 		UPDATE TB_PTFOLIO_STUDY
 		SET 
-		STUDY_SORT = #{sort},
 		STUDY_SECT = #{sect},
 		STUDY_CODE_LANG = #{codeLang},
 		STUDY_TITLE = #{title},

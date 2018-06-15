@@ -63,6 +63,9 @@
 	margin-bottom: 1rem;
 	text-align: center;
 	font-weight: bold;
+	
+	word-break: keep-all;
+	word-wrap: break-word;
 }
 .blog-head .blog-head-desc .subinfo{
 	display : flex;

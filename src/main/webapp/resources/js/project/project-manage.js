@@ -15,7 +15,6 @@ function fn_onInitDataGrid(){
 		emptyMsg: '데이터가 없습니다.',
 		columns:[[
 			{field:'seq', title:'번호', width:'50px', halign:'center', sortable : "true", styler : alignCenter},
-			{field:'sort', title:'정렬', width:'50px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'view', title:'보기', width:'70px', halign:'center', styler : alignCenter, formatter : function(value, row){
 				return "<a onclick='projectView(" + row.seq + ")' class='dg-btn'> 보기 </a>" 
 			}},

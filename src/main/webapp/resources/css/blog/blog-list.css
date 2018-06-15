@@ -134,8 +134,17 @@
 	flex: 1;
 	margin-bottom : 1rem;
 	color: rgba(0,0,0, 0.6);
-	word-break: break-all;
-	overflow: hidden;
+	
+ 	display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    -webkit-line-clamp: 2;
+    padding-top: 7px;
+    line-height: 1.2;
+    word-break: break-word;
+    max-height: 35px;
+    margin-bottom: 1rem;
 }
 
 .blog-item .blog-item-desc .blog-item-sub {

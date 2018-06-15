@@ -18,21 +18,11 @@
 			<form id="upload-form" action="${pageContext.request.contextPath}/mgnt/project/upload.do" 
 				method="post" enctype="multipart/form-data">
 				
-				<c:set var="sort" value="99999"/>
 				<c:if test="${not empty project}">
 					<input type="hidden" name="seq" value="<c:out value='${project.seq}'/>"/>
 					<input type="hidden" name="snapsht" value="<c:out value='${project.snapsht}'/>"/>
 					<input type="hidden" name="hits" value="<c:out value='${project.hits}'/>"/>
-					<input type="hidden" id="videoVal" value="<c:out value='${project.video}'/>"/>
-					<c:set var="sort" value="${project.sort}"/>
 				</c:if>
-				
-				<div class="upload-project">
-					<div class="upload-project-name">SORT</div>
-					<div class="upload-project-input">
-						<input type="text" id="sort" name="sort" class="project-sort" value="<c:out value='${sort}'/>"/>
-					</div>
-				</div>
 				
 				<div class="upload-project">
 					<div class="upload-project-name">SECT</div>
@@ -66,16 +56,6 @@
 					<div class="upload-project-name">SNAPSHT</div>
 					<div class="upload-project-input">
 						<input type="file" id="snapshtFile" name="snapshtFile" class="project-snapshot"/>
-					</div>
-				</div>
-				
-				<div class="upload-project">
-					<div class="upload-project-name">VIDEO</div>
-					<div class="upload-project-input">
-						<select id="video" name="video" class="project-video">
-							<option>Y</option>
-							<option selected="selected">N</option>
-						</select>
 					</div>
 				</div>
 				

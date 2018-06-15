@@ -1,11 +1,9 @@
 var section;
-var studyPage;
 
 $(document).ready(function(){
 	doMenuOn(".menu-study");
 	
 	section = $("#section").val();
-	studyPage = $("#studyPage").val();
 	
 	$(".btn-study-before, .btn-study-next").tooltip({
     	position: 'top',
@@ -16,10 +14,7 @@ $(document).ready(function(){
 
 /* when '목록' click */
 function studyList(){
-	if(!studyPage){
-		studyPage = 1;
-	}
-	window.location.href = getContextPath() + "/study#" + section + "&" + studyPage;
+	window.location.href = getContextPath() + "/study#" + section;
 }
 
 /* when '삭제' click, only for Admin */
@@ -46,7 +41,7 @@ function studyModify(seq){
 /* when '이전글', '다음글' click */
 function studyView(seq){
 	if (seq){
-		window.location.href = getContextPath() + "/study/view?seq=" + seq + "&section=" + section + "&page=" + studyPage;
+		window.location.href = getContextPath() + "/study/view?seq=" + seq + "&section=" + section;
 	} else {
 		if(section){
 			swal( section + " 영역에 글이 더 이상 없습니다.");

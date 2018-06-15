@@ -13,13 +13,11 @@
 			<div class="upload-title">블로그 업로드</div>
 		
 			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/blog/upload.do" method="post" enctype="multipart/form-data" class="upload-form">
-				<c:set var="sort" value="99999"/>
 				<c:if test="${not empty blog}">
 					<input type="hidden" name="seq" value="<c:out value='${blog.seq}'/>"/>
 					<input type="hidden" name="snapsht" value="<c:out value='${blog.snapsht}'/>"/>
 					<input type="hidden" name="date" value="<c:out value='${blog.date}'/>"/>
 					<input type="hidden" name="hits" value="<c:out value='${blog.hits}'/>"/>
-					<c:set var="sort" value="${blog.sort}"/>
 				</c:if>
 				
 				<div class="blog-upload-item">
@@ -33,13 +31,6 @@
 					<div class="item-name">TAGS</div>
 					<div class="item-input">
 						<input type="text" id="tag" name="tag"  value="<c:out value='${blog.tag}'/>" class="blog-tag"/>
-					</div>
-				</div>
-				
-				<div class="blog-upload-item">
-					<div class="item-name">SORT</div>
-					<div class="item-input">
-						<input type="text" id="sort" name="sort"  value="<c:out value='${sort}'/>" class="blog-sort"/>
 					</div>
 				</div>
 				

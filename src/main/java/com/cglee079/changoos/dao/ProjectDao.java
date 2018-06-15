@@ -37,11 +37,11 @@ public class ProjectDao {
 		return sqlSession.update(namespace + ".update", project) == 1;
 	}
 
-	public ProjectVo getBefore(int sort) {
-		return sqlSession.selectOne(namespace + ".getBefore", sort);
+	public ProjectVo getBefore(int seq) {
+		return sqlSession.selectOne(namespace + ".getBefore", seq);
 	}
 
-	public ProjectVo getAfter(int sort) {
-		return sqlSession.selectOne(namespace + ".getAfter", sort);
+	public ProjectVo getAfter(int seq) {
+		return sqlSession.selectOne(namespace + ".getAfter", seq);
 	}
 }

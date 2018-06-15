@@ -28,7 +28,6 @@ function fn_onInitDataGrid(){
 			{field:'desc', title:'설명', width:'200px', halign:'center', styler : alignLeft},
 			{field:'date', title:'날짜', width:'100px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'time', title:'시간', width:'100px', halign:'center', sortable : "true", styler : alignCenter},
-			{field:'sort', title:'정렬', width:'100px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'location', title:'위치', width:'150px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'tag', title:'태그', width:'200px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'device', title:'촬영기기', width:'150px', halign:'center', sortable : "true", styler : alignCenter},

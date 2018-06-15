@@ -2,7 +2,6 @@ package com.cglee079.changoos.model;
 
 public class BlogVo {
 	private int seq;
-	private int sort;
 	private String snapsht;
 	private String title;
 	private String contents;
@@ -17,14 +16,6 @@ public class BlogVo {
 
 	public void setSeq(int seq) {
 		this.seq = seq;
-	}
-
-	public int getSort() {
-		return sort;
-	}
-
-	public void setSort(int sort) {
-		this.sort = sort;
 	}
 
 	public String getSnapsht() {
