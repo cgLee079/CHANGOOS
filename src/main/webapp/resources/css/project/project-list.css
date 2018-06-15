@@ -166,6 +166,10 @@
 }
 
 @media (max-width: 720px){
+	.wrap-project-list {
+		margin-top: 0;
+	}
+
 	.project-list{
 		width : 95%;
 	}

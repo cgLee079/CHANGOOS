@@ -191,6 +191,8 @@
 	.wrap-study {
 		display: flex;
 		flex-flow: column-reverse nowrap;
+		
+		margin-top: 0;
 	}
 	
 	.study-search{
