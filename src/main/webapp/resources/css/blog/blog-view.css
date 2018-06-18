@@ -71,11 +71,19 @@
 	display : flex;
 	flex-flow : row nowrap;
 	justify-content : center;
+	align-items : center;
 	font-size: 0.75rem;
 }
 
+
 .blog-head .blog-head-desc .subinfo > *{
 	margin-right: 0.5rem
+}
+
+.colum-border{
+	width : 1px;
+	height: 0.5rem;
+   	background : #DDD;
 }
 
 .blog-head  .blog-head-submenu{

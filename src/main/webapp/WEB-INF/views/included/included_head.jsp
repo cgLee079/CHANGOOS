@@ -8,6 +8,7 @@
 <!-- font -->
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-lora.css'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-nanumgothic.css'/>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-nanumsquare.css'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-misaeng.css'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-bm.css'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-kcc.css'/>
@@ -25,6 +26,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-footer.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global-basic.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global-responsive.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/editor-contents.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/dg-common.css" />
 
 <!-- lib-js -->
@@ -73,10 +75,12 @@ $(window).resize(function(){
 	checkDevice();
 })
 
-if(!isMobile){
-	$("*").css("font-family", "Nanum Gothic");
+$(document).ready(function(){
+	//$("*").css("font-family", "Nanum Gothic");
+	$("html, body").css("font-family", "Nanum Square, Nanum Gothic");
 	//$("*").css("font-family", "MBKCorporateACon");
-	
-}
+
+})
+
 
 </script>

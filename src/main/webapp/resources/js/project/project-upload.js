@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	doMenuOn(".menu-mgnt-project");
+	
 	var videoVal = $("#videoVal").val();
 	if(videoVal){
 		$("#video").val(videoVal);

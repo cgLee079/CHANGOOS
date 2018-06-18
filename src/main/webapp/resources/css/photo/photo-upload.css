@@ -19,8 +19,7 @@
 }
 
 .upload-item-name{
-	width : 7rem;
-	font-size: 0.7rem;
+	width : 10rem;
 	font-weight: bold;
 }
 
@@ -30,4 +29,8 @@
 
 .upload-item-input input{
 	width : 50%;
+}
+
+.photo-submit{
+	text-align: right;
 }

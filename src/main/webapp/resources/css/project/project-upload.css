@@ -18,8 +18,7 @@
 }
 
 .upload-project-name{
-	width : 7rem;
-	font-size: 0.7rem;
+	width : 10rem;
 	font-weight: bold;
 }
 
@@ -29,4 +28,8 @@
 
 .upload-project-input input{
 	width : 50%;
+}
+
+.project-submit{
+	text-align: right;
 }

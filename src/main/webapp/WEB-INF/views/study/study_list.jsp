@@ -15,7 +15,6 @@
 	<div class="wrap-study">
 		<div class="study-list">
 			<div class="study-list-item">
-				<span class="study-item-overlay">SHOW</span>
 				<div class="study-item-fg"></div>
 				<div class="study-item-title"></div>
 				<div class="study-item-content"></div>

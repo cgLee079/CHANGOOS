@@ -104,7 +104,15 @@
 	<update id="update">
 		UPDATE TB_PTFOLIO_BLOG
 		SET 
+		<choose>
+		<when test=" snapsht == '' ">
+		BLOG_SNAPSHT 	= null,
+		</when>
+		<otherwise>
 		BLOG_SNAPSHT 	= #{snapsht},
+		</otherwise>
+		</choose>
+		
 		BLOG_TITLE 		= #{title},
 		BLOG_CONTENTS 	= #{contents},
 		BLOG_TAG 		= #{tag},

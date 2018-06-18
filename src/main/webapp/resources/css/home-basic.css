@@ -45,14 +45,3 @@
 	color : #00F;
 	font-weight: bold;
 }
-
-@media (max-width: 720px){
-	.me-icon{
-		height 	: 40%;
-		width	: 50%;
-	}
-
-}
-
-
-

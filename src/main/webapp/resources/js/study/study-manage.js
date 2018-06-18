@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	doMenuOn(".menu-mgnt-study");
+	
 	fn_onInitDataGrid();
 });
 

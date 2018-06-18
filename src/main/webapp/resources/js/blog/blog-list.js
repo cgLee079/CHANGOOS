@@ -1,4 +1,4 @@
-var perPgLine 	= 100000;
+var perPgLine 	= 10;
 var searchType 	= "";
 var searchValue = "";
 var page 		= "";
@@ -16,6 +16,18 @@ $(document).ready(function(){
 	if(!page){
 		page = 1;
 	}
+	
+	/* Add Scroll Page event */
+	$(window).scroll(function(){
+		var scrollPosition = $(this).scrollTop() + $(this).outerHeight();
+		var docHeight = $(this).height();
+		if(scrollPosition >= (docHeight/2) - 10 && page * perPgLine < allRowCnt){
+			page = page + 1;
+			pageMove(page);
+		}
+	});
+	
+	clearBlogItems();
 	pageMove(page);
 	
 });
@@ -48,13 +60,13 @@ function pageMove(pg){
 			
 			allRowCnt = count;
 			
-			if(!data.length && pg != 1){
-				pageMove(pg - 1);
-			} else{
+			if(data.length){
 				page = pg;
-				updateBlog(data);
-				updateTags(tags);
+				drawBlog(data);
+				drawTags(tags);
 			}
+			
+
 		},
 		error : function(e) {
 			console.log(e);
@@ -62,13 +74,16 @@ function pageMove(pg){
 	});
 }
 
+function clearBlogItems(){
+	$(".blog-item-list").empty();
+}
+
 /* draw Study list */
-function updateBlog(data){
+function drawBlog(data){
 	var blogList 	= $(".blog-item-list");
 	var length		= data.length;
 	var blog		= undefined;
 	
-	blogList.empty();
 	
 	for (var i = 0; i < length; i++){
 		blog = data[i];
@@ -109,7 +124,7 @@ function updateBlog(data){
 	}
 }
 
-function updateTags(tags){
+function drawTags(tags){
 	var allTag = $(".tag");
 	allTag.removeClass("on");
 	for(var i = 0; i < tags.length; i++){
@@ -130,11 +145,12 @@ function doSearchTag(tg){
 		tags.push(tag);		
 	} else{
 		var index = tags.indexOf(tag);
-		if(index!=-1){
+		if(index != -1){
 			tags.splice(index, 1);
 		}
 	}
 	
+	clearBlogItems();
 	pageMove(1);
 }
 

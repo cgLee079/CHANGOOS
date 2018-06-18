@@ -12,7 +12,7 @@
 		<div class="wrap-upload-form">
 			<div class="upload-title">사진 업로드</div>
 			
-			<form id="upload-form" action="${pageContext.request.contextPath}/mgnt/photo/upload.do" 
+			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/photo/upload.do" 
 				method="post" enctype="multipart/form-data">
 				
 				<c:if test="${not empty photo}">
@@ -81,10 +81,12 @@
 				
 				<div class="upload-item">
 					<div class="upload-item-name"></div>
-					<div class="upload-item-input">
-						<input type="submit" class="photo-submit">
+					<div class="upload-item-input photo-submit">
+						<a class="btn" onclick="Progress.start(); history.back();">취소</a>
+						<a class="btn" onclick="Progress.start(); $('#uploadForm').submit()">저장</a>
 					</div>
-				</div>
+				</div>	
+				
 			</form>
 		</div>
 		

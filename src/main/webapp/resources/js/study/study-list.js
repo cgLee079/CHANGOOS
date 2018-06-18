@@ -16,7 +16,7 @@ $(document).ready(function(){
 	$(window).scroll(function(){
 		var scrollPosition = $(this).scrollTop() + $(this).outerHeight();
 		var docHeight = $(this).height();
-		if(scrollPosition >= (docHeight/2) - 10){
+		if(scrollPosition >= (docHeight/2) - 10 && page * perPgLine < allRowCnt){
 			page = page + 1;
 			pageMove(page);
 		}
@@ -100,7 +100,6 @@ function pageMove(pg){
 			if(data.length){
 				page = pg;
 				drawStudy(data);
-				updatePaging("pageMove", page, allRowCnt, perPgLine, 3);
 			}
 		},
 		complete: function(){
@@ -109,15 +108,6 @@ function pageMove(pg){
 			console.log(e);
 		}
 	});
-}
-
-/* draw Page number */
-function updatePaging(callFunc, page, allRowCnt, perPgLine, pgGrpCnt){
-	var studyPager	= $('.study-pager');
-	var	pager		= drawPager(callFunc, page, allRowCnt, perPgLine, pgGrpCnt);
-		
-	studyPager.empty();
-	studyPager.append(pager);
 }
 
 /* draw Study list */

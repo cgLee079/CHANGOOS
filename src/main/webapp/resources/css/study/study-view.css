@@ -30,9 +30,16 @@
 	display : flex;
 	flex-flow : row nowrap;
 	justify-content : center;
+	align-items : center;
 	font-size: .75rem;
 	padding: 0 0.1rem;
 	color : #9199A4;
+}
+
+.colum-border{
+	width : 1px;
+	height: 0.5rem;
+   	background : #DDD;
 }
 
 .study-head .study-info div{
@@ -66,7 +73,7 @@
 }
 
 .file-item .name{
-	width : 7rem;
+	max-width : 7rem;
 	text-overflow: ellipsis;
    	overflow: hidden;
    	white-space: nowrap;

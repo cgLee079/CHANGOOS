@@ -106,9 +106,6 @@
 		<if test="sect != ''">
  		<![CDATA[AND UPPER(STUDY_SECT) = UPPER(#{sect})]]>
   		</if>
-		<if test="searchType == 'SECT' and searchValue != ''">
- 		<![CDATA[AND UPPER(STUDY_SECT) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
-  		</if>
   		<if test="searchType == 'TITLE' and searchValue != ''">
  		<![CDATA[AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
   		</if>

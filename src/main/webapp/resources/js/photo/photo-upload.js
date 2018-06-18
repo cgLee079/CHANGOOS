@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	doMenuOn(".menu-mgnt-photo");
+	
 	initDescCKEditor();
 	
 	/* CKEditor initialize */

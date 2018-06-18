@@ -85,7 +85,7 @@
 
 .photo-detail>.photo-info>.photo-date-loc {
 	color: #555;
-	font-size: 0.7rem;
+	font-size: 0.9rem;
 }
 
 .photo-detail>.photo-desc {
@@ -116,12 +116,12 @@
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 0.7rem;
+	font-size: 0.75rem;
 }
 
 .photo-comments .comment .comment-userinfo {
 	width: 7rem;
 	font-weight: bold;
-	font-size: 0.75rem;
 	
 	display: flex;
 	align-items: center;
@@ -132,7 +132,6 @@
 	max-width : calc(100% - 12rem);
 	white-space: normal ;
 	word-break : break-all;
-	font-size: 0.75rem;
 	
 	display: flex;
 	align-items: center;
@@ -141,7 +140,6 @@
 .photo-comments .comment .comment-date {
 	width: 5rem;
 	color : #888;
-	font-size: 0.6rem;
 	
 	display: flex;
 	justify-content : flex-end;
@@ -150,7 +148,6 @@
 
 .photo-comments .comment .btn-comment-delete {
 	width: 2rem;
-	font-size: 0.6rem;
 	
 	display: flex;
 	justify-content : flex-end;

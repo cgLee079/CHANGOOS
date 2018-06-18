@@ -15,7 +15,7 @@
 		<div class="wrap-upload-form">
 			<div class="upload-title">프로젝트 업로드</div>
 			
-			<form id="upload-form" action="${pageContext.request.contextPath}/mgnt/project/upload.do" 
+			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/project/upload.do" 
 				method="post" enctype="multipart/form-data">
 				
 				<c:if test="${not empty project}">
@@ -93,12 +93,15 @@
 					</div>
 				</div>
 				
+				
 				<div class="upload-project">
 					<div class="upload-project-name"></div>
-					<div class="upload-project-input">
-						<input type="submit" class="project-submit" onclick="Progress.start()">
+					<div class="upload-project-input project-submit">
+						<a class="btn" onclick="Progress.start(); history.back();">취소</a>
+						<a class="btn" onclick="Progress.start(); $('#uploadForm').submit()">저장</a>
 					</div>
-				</div>
+				</div>	
+				
 			</form>
 			
 		</div>

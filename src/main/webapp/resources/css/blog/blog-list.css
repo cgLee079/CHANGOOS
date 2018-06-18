@@ -191,14 +191,16 @@
 
 .tag:hover{
 	opacity: 1;
-	background: #444;
 	color: #FFF;
+	background: #333;
+	border-color : #333;
 }
 
 .tag.on{
 	opacity: 1;
-	background: #000;
 	color: #FFF;
+	background: #000;
+	border-color : #000;
 }
 
 @media (max-width: 720px){
