@@ -49,7 +49,7 @@
 				</div>
 				
 				<div class="blog-upload-item">
-					<div class="item-name">File</div>
+					<div class="item-name">FILE</div>
 					<div class="item-input">
 						<c:import url="../included/included_fileupload.jsp" charEncoding="UTF-8">
 							<c:param name="boardType" value="blog"/>

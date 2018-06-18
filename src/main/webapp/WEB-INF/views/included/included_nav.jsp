@@ -46,7 +46,6 @@
 	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/study">STUDY</a></div>
 	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/blog">BLOG</a></div>
 	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">PHOTO</a></div>
-	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">ABOUT</a></div>
 	
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
  		<div class="btn-slideup"><a href="${pageContext.request.contextPath}/mgnt/project">프로젝트관리 </a></div>

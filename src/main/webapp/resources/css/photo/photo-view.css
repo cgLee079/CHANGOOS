@@ -79,13 +79,14 @@
 	align-items: center;
 	
 	margin-left : 0.3rem;
-	font-size: 0.8rem;
 	color : #F33;
 }
 
 .photo-detail>.photo-info>.photo-date-loc {
 	color: #555;
-	font-size: 0.9rem;
+	font-size: 0.75rem;
+	display: flex;
+	align-items: flex-end;
 }
 
 .photo-detail>.photo-desc {

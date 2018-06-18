@@ -181,9 +181,11 @@ public class BlogService{
 		String imgExt	= null;
 		String path 	= blog.getSnapsht();
 		if(snapshtFile.getSize() > 0){
-			File existFile = new File (realPath + this.get(blog.getSeq()).getSnapsht());
-			if(existFile.exists()){
-				existFile.delete();
+			if(blog.getSeq() != 0) {
+				File existFile =  new File (realPath + this.get(blog.getSeq()).getSnapsht());
+				if(existFile.exists()){
+					existFile.delete();
+				}
 			}
 			
 			filename += snapshtFile.getOriginalFilename();

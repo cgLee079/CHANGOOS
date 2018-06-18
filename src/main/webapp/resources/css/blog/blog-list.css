@@ -87,8 +87,8 @@
 	height: 20vmin;
 	display: flex;
 	justify-content: flex-start;
-	margin: 0rem 3rem 3rem 2rem;
-	padding-bottom: 1rem;
+	margin: 0rem 3rem;
+	padding : 1.5rem;
 	border-bottom: 1px solid #F3F3F3;
 }
 
@@ -124,8 +124,6 @@
 	font-size: 1.25rem;
 	font-weight: bold;
 	max-height : 1.5rem;
-	margin-bottom: 0.5rem;
-	
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -139,11 +137,10 @@
     overflow: hidden;
     -webkit-box-orient: vertical;
     white-space: normal;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     padding-top: 7px;
     line-height: 1.2;
     word-break: break-word;
-    max-height: 35px;
     margin-bottom: 1rem;
 }
 
@@ -206,6 +203,10 @@
 @media (max-width: 720px){
 	.wrap-blog-list{
 		width : 100%;
+	}
+	
+	.blog-item{
+		margin: 0;
 	}
 	
 	.blog-tags{
