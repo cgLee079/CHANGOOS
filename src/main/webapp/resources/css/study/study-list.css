@@ -63,12 +63,12 @@
 }
 
 .study-list-item .study-item-content {
-	color: #606060;
     display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
     white-space: normal;
     -webkit-line-clamp: 2;
+    max-height : 3.3rem;
     line-height: 1.5;
     color: #606060;
     word-break: break-all;

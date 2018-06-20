@@ -69,13 +69,12 @@
 }
 
 .blog-first-item .blog-first-item-desc .content {
-	line-height: 1.5;
-	
 	display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
     white-space: normal;
     -webkit-line-clamp: 3;
+    max-height : 3.3rem;
     line-height: 1.5;
     word-break: break-word;
 }
@@ -145,6 +144,7 @@
     white-space: normal;
     -webkit-line-clamp: 2;
     line-height: 1.5;
+    max-height : 3.3rem;
     word-break: break-word;
 }
 
