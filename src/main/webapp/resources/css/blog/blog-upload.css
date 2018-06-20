@@ -23,7 +23,7 @@
 }
 
 .blog-upload-item .item-name{
-	width : 150px;
+	width : 100px;
 	font-weight: bold;
 }
 
@@ -32,12 +32,9 @@
 }
 
 .blog-upload-item .item-input input[type='text']{
-	padding : 0.1rem;
 	width : 50%;
-}
-
-.blog-type {
-	padding: 0.1rem;
+	padding : 1px 3px;
+	border: 1px solid #CCC;
 }
 
 .blog-contents{

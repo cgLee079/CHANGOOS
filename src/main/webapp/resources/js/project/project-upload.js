@@ -49,7 +49,8 @@ function initContentCKEditor() {
 					breakAfterClose : true
 				});
 			}
-		}
+		},
+		toolbar : 'Full'
 	});
 
 	CKEDITOR.on('dialogDefinition', function(ev) {

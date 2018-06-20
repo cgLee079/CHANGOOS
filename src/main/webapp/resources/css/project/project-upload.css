@@ -18,7 +18,7 @@
 }
 
 .upload-project-name{
-	width : 150px;
+	width : 100px;
 	font-weight: bold;
 }
 
@@ -26,8 +26,10 @@
 	flex  : 1;
 }
 
-.upload-project-input input{
+.upload-project-input input[type='text']{
 	width : 50%;
+	padding: 1px 3px;
+	border : 1px solid #CCC;
 }
 
 .project-submit{

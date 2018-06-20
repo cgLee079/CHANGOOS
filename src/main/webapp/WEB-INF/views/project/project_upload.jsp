@@ -32,7 +32,7 @@
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">SOURCECODE</div>
+					<div class="upload-project-name">SOURCE</div>
 					<div class="upload-project-input">
 						<input type="text" id="sourcecode" name="sourcecode" class="project-sourcecode" value="<c:out value='${project.sourcecode}'/>"/>
 					</div>
