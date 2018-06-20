@@ -44,7 +44,7 @@ function studyView(seq){
 		window.location.href = getContextPath() + "/study/view?seq=" + seq + "&section=" + section;
 	} else {
 		if(section){
-			swal( section + " 영역에 글이 더 이상 없습니다.");
+			swal( section + " 카테고리에 글이 더 이상 없습니다.");
 		} else{
 			swal("글이 더 이상 없습니다.");
 		}

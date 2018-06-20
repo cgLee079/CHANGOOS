@@ -32,6 +32,7 @@
 					<div class="blog-item-desc">
 						<div class="blog-item-title"></div>
 						<div class="blog-item-content"></div>
+						<div class="blog-item-empty"></div>
 						<div class="blog-item-sub">
 							<div class="blog-item-tag"></div>
 							<div class="blog-item-comt">

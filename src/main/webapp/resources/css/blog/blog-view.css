@@ -1,7 +1,5 @@
 .wrap-blog {
-	margin: 0px auto;
-	margin-bottom: 10rem;
-	
+	margin-bottom: 150px;
 	min-height : calc(100% - 50px);
 }
 
@@ -55,12 +53,12 @@
 }
 
 .blog-head .blog-head-desc .tag{
-	margin-bottom: 1rem;
+	margin-bottom: 10px;
 }
 
 .blog-head .blog-head-desc .title{ 
 	font-size: 3rem;
-	margin-bottom: 1rem;
+	margin-bottom: 10px;
 	text-align: center;
 	font-weight: bold;
 	
@@ -77,7 +75,7 @@
 
 
 .blog-head .blog-head-desc .subinfo > *{
-	margin-right: 0.5rem
+	margin-right: 7px;
 }
 
 .colum-border{
@@ -102,19 +100,15 @@
 .blog-main{
 	width: 80%;
 	margin : 0 auto;
-	margin-top : 5rem;
+	margin-top : 50px;
 }
 
 .blog-main .blog-contents{
 	text-align: center;
-	margin-bottom: 4rem;
 }
 
-@media (max-width: 720px){
+@media (max-width: 800px){
 	.blog-main{
 		width: 90%;
 	}
 }
-
-
-

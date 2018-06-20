@@ -21,13 +21,7 @@
 					</div>
 					<div class="project-info">
 						<div class="project-title"><c:out value="${project.title}"/></div>
-						
 						<div class="project-desc editor-contents"><c:out value="${project.desc}" escapeXml="false"/></div>
-						<div class="project-menu">
-							<div class="btn-slideup btn-project-show">
-								<a onclick="projectView(${project.seq})">SHOW</a>	
-							</div>
-						</div>
 					</div>
 					
 					<div class="project-subinfo">

@@ -15,7 +15,6 @@
 	<div class="wrap-study">
 		<div class="study-list">
 			<div class="study-list-item">
-				<div class="study-item-fg"></div>
 				<div class="study-item-title"></div>
 				<div class="study-item-content"></div>
 				<div class="study-item-info">

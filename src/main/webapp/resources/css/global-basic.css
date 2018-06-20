@@ -90,7 +90,7 @@ a, a:VISITED {
 
 /* easyui tooltip override */
 .tooltip{
-	padding : 0.3rem 0.5rem !important;
+	padding : 3px 7px !important;
 	background: #000 !important;
 	color: #FFF !important;	
     box-shadow: 0px 5px 5px #ECF0F1;

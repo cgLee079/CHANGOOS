@@ -104,7 +104,7 @@ $(window).scroll(function(event) {
 
 $(window).scroll(function(event) {
 	var scroll = $(window).scrollTop();
-	if (scroll > 50) { $(".header").addClass("down");}
+	if (scroll > 30) { $(".header").addClass("down");}
 	else {$(".header").removeClass("down");}
 });
 

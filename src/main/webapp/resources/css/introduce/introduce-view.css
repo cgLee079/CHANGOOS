@@ -1,12 +1,13 @@
 .wrap-myinfo{
 	background: #222;
-	padding-bottom: 10rem;
+	padding-bottom: 100px;
 }
 
 .introduce{
 	width	: 100%;
 	height	: calc(100% - 50px);
 	position: relative;
+	margin-bottom: 80px;
 }
 
 .introduce::after{ 
@@ -38,7 +39,7 @@
 	color: #FFF;
 	font-size : 3rem;
 	font-weight: bold;
-	margin-bottom : 0.5rem;
+	margin-bottom : 5px;
 	transition: margin .3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
@@ -49,7 +50,7 @@
 }
 
 .introduce-text:hover .introduce-head{
-	margin-bottom: 1rem;
+	margin-bottom: 15px;
 }
 
 
@@ -58,20 +59,17 @@
 /**************/
 .spec{
 	display : flex;
-	margin-top : 5rem;
-	margin-left: 5rem;
+	margin-bottom: 80px;
+	margin-left: 50px;
 	background: #000;
 	cursor : default;
 }
 
 .spec-image{
 	width : 40%;
-	background : #FFF;
-	
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
-	
 	transition: width .3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
@@ -81,25 +79,27 @@
 
 .spec-text{
 	flex : 1;
-	margin-left : 1rem;
+	margin-left : 10px;
 	padding : 2rem;
 }
 
 .spec-text .spec-head{
 	color : #FFF;
 	font-size: 3rem;
-	margin-bottom: 1rem;
+	margin-bottom: 10px;
 	transition: margin .3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .spec-text:hover .spec-head{
-	margin-left: 2rem;
+	margin-left: 20px;
 }
 
 .spec-text .spec-desc{
 	color : #FFF;
-	line-height : 1.7rem;
+	line-height : 1.5;
 	font-size: 0.9rem;
+	overflow-x : auto;
+	white-space: nowrap;
 }
 
 /***************/
@@ -107,22 +107,18 @@
 /***************/
 .biography{
 	display : flex;
-	margin-top	: 5rem;
-	margin-right: 5rem;
+	margin-bottom: 80px;
+	margin-right: 50px;
 	background: #000;
 	cursor : default;
-	
-	height	: 60%;
 }
 
 .biography-image{
 	width : 40%;
-	background : #FFF;
-	
+	height : 50%;
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
-	
 	transition: width .3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
@@ -132,31 +128,32 @@
 
 .biography-text{
 	flex : 1;
-	margin-left : 1rem;
-	padding : 2rem;
+	margin-left : 10px;
+	padding : 20px;
 }
 
 .biography-text .biography-head{
 	color : #FFF;
 	font-size: 3rem;
-	margin-bottom: 1rem;
+	margin-bottom: 10px;
 	transition: margin .3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .biography-text:hover .biography-head{
-	margin-left: 2rem;
+	margin-left: 20px;
 }
 
 .biography-text .biography-desc{
 	color : #FFF;
-	line-height : 1.7rem;
+	line-height : 1.5;
 	font-size: 0.9rem;
+	overflow-x : auto;
+	white-space: nowrap;
 }
 
 .contact{
 	width: 80%;
 	margin : 0 auto;
-	margin-top: 5rem;
 }
 
 .contact-head{
@@ -174,8 +171,8 @@
 	border: none;
 	height: 40%;
 	width : 100%;
-	padding :1rem;
-	margin-bottom: 1rem;
+	padding : 10px;
+	margin-bottom: 10px;
 	resize: none;
 	overflow: none;
 	-ms-overflow-style : none;
@@ -189,7 +186,7 @@
 	border: 1px solid #FFF;
 	background : #000;
 	color : #FFF;
-	padding : 1rem 2rem;	
+	padding : 10px 20px;	
 	font-weight : bold;
 	cursor: pointer;
 }
@@ -199,15 +196,15 @@
 	color : #000;
 }
 
-@media (max-width: 720px){
+@media (max-width: 800px){
 	.introduce-text{
-		right: 1rem;
-		left : 1rem;
+		right: 10px;
+		left : 10px;
 		max-width: none;
 	}
 	
 	.introduce-text .introduce-head{
-		margin-bottom: 1rem;
+		margin-bottom: 10px;
 	}
 	
 	.spec{
@@ -217,7 +214,7 @@
 	
 	.spec-image{
 		width: 100%;
-		height: 30%;
+		height: 230px;
 	}
 	
 	.spec .spec-image:hover{
@@ -231,7 +228,7 @@
 	
 	.biography-image{
 		width: 100%;
-		height: 40%;
+		height: 230px;
 	}
 	
 	.biography .biography-image:hover{

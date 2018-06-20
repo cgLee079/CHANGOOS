@@ -1,16 +1,13 @@
 .footer {
 	width : 100%;
-	line-height: 0.7rem;
 }
 
 .info-contact {
 	width : 100%;
-	
 	display: flex;
 	flex-flw : row nowrap;
 	justify-content: center;
 	align-items : center;
-	
 	font-size : 0.6rem;
 	padding : 2rem 0;
 	background : #FFF;
@@ -18,15 +15,15 @@
 }
 
 .info-contact .btn-contact{
-	margin: 0 1rem;
+	margin: 0 10px;
 	cursor: pointer;
 }
 
 
 .info-contact .border-circle{
-	width : 0.2rem;
-	height : 0.2rem;
-	border-radius: 0.2rem;
+	width : 3px;
+	height : 3px;
+	border-radius: 3px;
 	background: #777;
 }
 

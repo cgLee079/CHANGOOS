@@ -1,12 +1,11 @@
 .wrap-comment {
-	margin-top: 10rem;
-	margin-bottom: 7rem;
+	margin-top: 100px;
 }
 
 .comment-header{
 	font-size: 1.25rem;
 	font-weight: bold;
-	margin-bottom: 0.5rem
+	margin-bottom: 5px;
 }
 
 .comt-pager {
@@ -21,7 +20,7 @@
 	flex-flow: row nowrap;
 	justify-content: space-between;
 	align-items : center;
-	padding: 1.5rem 0 1rem 0;
+	padding: 15px 0 10px 0;
 	border-bottom: 1px solid #F1F1F1;
 }
 
@@ -32,13 +31,13 @@
 .comment-item .comment .comment-head{
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 0.5rem;
+	margin-bottom: 5px;
 }
 
 .comment-head .comment-head-info .comment-writer {
 	color: #4c2b2b;
 	font-weight: bold;
-	margin-right: 0.5rem;	
+	margin-right: 5px;	
 }
 
 .comment-head .comment-head-info .comment-date {
@@ -60,13 +59,13 @@
 }
 
 .comment-menu a {
-	margin-left: 0.5rem;
+	margin-left: 7px;
 }
 
 
 /* Comment Item.reply */
 .comment-item.reply {
-	margin-left: 1rem;
+	margin-left: 10px;
 }
 
 .comment-item.reply .comment-head-info .comment-writer {
@@ -76,7 +75,7 @@
 
 /*** Comment Write ****/
 .comment-write {
-	margin-top: 2rem;
+	margin-top: 20px;
 }
 
 .comment-write .comment-write-contents {
@@ -91,20 +90,20 @@
 .comment-write-pinfo {
 	display: flex;
 	justify-content : space-between;
-	margin-top : 0.5rem;
+	margin-top : 5px;
 	height: 1.5rem;
 }
 
 .comment-write-pinfo .write-name, 
 .comment-write-pinfo .write-password {
-	margin-right : 0.3rem;	
+	margin-right : 3px;	
 } 
 
 .comment-write-pinfo input {
 	width : 7rem;
 	height: 100%;
-	font-size: 0.5rem;
-	padding-left: 0.2rem;
+	font-size: 0.75rem;
+	padding-left: 2px;
 	border: 1px solid #DDD;
 	border-radius : 3px;
 }
@@ -112,11 +111,11 @@
 .comment-write .comment-write-submit {
 	color: #FFF;
 	height:100%;
-	padding : 0 1rem;
+	padding : 0 10px;
 	border-radius : 3px;
 	background: #222;
 	cursor: pointer;
-	font-size: 0.7rem;
+	font-size: 0.75rem;
 }
 
 
@@ -132,16 +131,16 @@
 	height : 100%;
 	resize: none;
 	overflow: hidden;
-	border: 1px solid #CCC;
+	border: 1px solid #DDD;
 }
 
 .comment-modify .comment-write-submit {
 	color: #FFF;
 	height:100%;
-	padding : 0 1rem;
+	padding : 0 10px;
 	background: #222;
 	cursor: pointer;
-	font-size: 0.5rem;
+	font-size: 0.75rem;
 }
 
 .btn-modify.open{
@@ -152,9 +151,10 @@
 /* Comment Reply */
 .comment-reply{
 	display : flex;
-	margin: 0.5rem 0rem;
-	height: 1.5rem;
-	font-size: 0.8rem;
+	width : 80%;
+	margin: 5px auto;
+	height: 20px;
+	font-size: 0.75rem;
 }
 
 .comment-reply-content{
@@ -162,17 +162,16 @@
 	height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
-	width : 20rem;
 	resize: none;
 }
 
 .comment-reply-submit{
 	color: #FFF;
-	width: 3rem;
+	padding : 0 10px;
 	height: 100%;
 	background: #222;
 	cursor: pointer;
-	font-size: 0.6rem;
+	font-size: 0.75rem;
 }
 
 .btn-reply.open{

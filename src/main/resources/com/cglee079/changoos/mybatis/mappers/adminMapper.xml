@@ -13,9 +13,9 @@
 	
 	<select id="getAuths" resultType="com.cglee079.changoos.model.Role">
 		SELECT
-		ADMN_ROLE as "name"
-		FROM TB_PTFOLIO_ADMNAUTH
-		WHERE ADMN_USERNAME = #{username}
+		ADMIN_ROLE as "name"
+		FROM TB_PTFOLIO_ADMINAUTH
+		WHERE ADMIN_USERNAME = #{username}
 	</select>
 	
 </mapper>

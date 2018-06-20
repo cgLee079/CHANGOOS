@@ -2,12 +2,12 @@
 .editor-contents {
 	color: #333;
 	font-size: 1rem;
-	line-height: 1.8rem;
+	line-height: 1.6;
 	word-break: break-all;
 }
 
 .editor-contents h1, .editor-contents h2, .editor-contents h3 {
-	margin: 0.5rem 0px;
+	margin: 7px 0px;
 }
 
 .editor-contents a, .editor-contents a:VISITED {
@@ -17,12 +17,12 @@
 
 .editor-contents img{
 	height: auto;
-	margin: 0.3rem 0;
+	margin: 5px 0;
 	border-color : #DDD;
 	/* box-shadow : 0 1px 0 rgba(12,13,14,0.1), 0 1px 3px rgba(12,13,14,0.1), 0 4px 20px rgba(12,13,14,0.035), 0 1px 1px rgba(12,13,14,0.025); */
 }
 
 .editor-contents code {
 	overflow-x: auto;
-	margin: 1rem 0.1rem;
+	margin: 10px 1px;
 }
