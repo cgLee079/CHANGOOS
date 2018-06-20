@@ -26,7 +26,7 @@
 				</div>
 				
 				<div class="study-upload-item">
-					<div class="item-name">CODE</div>
+					<div class="item-name">CODE LANGUAGE</div>
 					<div class="item-input"><input type="text" id="codeLang" name="codeLang"  value="<c:out value='${study.codeLang}'/>" class="study-codelang"></div>
 				</div>
 				

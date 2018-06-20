@@ -1,37 +1,53 @@
-.wrap-upload-form{
-	width : 90%;
+.wrap-upload-form {
+	width: 90%;
 	margin: 0px auto;
 	margin-top: 20px;
 	margin-bottom: 15px;
 }
-.upload-title{
+
+.upload-title {
 	font-size: 1.5rem;
 	font-weight: bold;
-	margin-bottom : 30px;
-	margin-left	: 10px;	
+	margin-bottom: 30px;
+	margin-left: 10px;
 }
 
-.upload-project{
-	display : flex;
-	flex-flow : row nowrap;
-	margin-bottom: 10px;
+.upload-project {
+	display: flex;
+	flex-flow: row nowrap;
+	margin-bottom: 15px;
 }
 
-.upload-project-name{
-	width : 100px;
+.upload-project-name {
+	width: 150px;
 	font-weight: bold;
+	padding-top : 2px;
 }
 
-.upload-project-input{
-	flex  : 1;
+.upload-project-input {
+	flex: 1;
 }
 
-.upload-project-input input[type='text']{
-	width : 50%;
+.upload-project-input input[type='text'] {
+	width: 50%;
 	padding: 1px 3px;
-	border : 1px solid #CCC;
 }
 
-.project-submit{
+.project-submit {
 	text-align: right;
+}
+
+@media ( max-width : 800px) {
+	.upload-project {
+		flex-flow: column nowrap;
+	}
+	
+	.upload-project-name {
+		margin-bottom: 3px;
+	}
+	
+	.upload-project-input input[type='text'] {
+		width: 100%;
+		border: 1px solid #CCC;
+	}
 }

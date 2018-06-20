@@ -25,6 +25,13 @@
 				</c:if>
 				
 				<div class="upload-project">
+					<div class="upload-project-name">SNAPSHT</div>
+					<div class="upload-project-input">
+						<input type="file" id="snapshtFile" name="snapshtFile" class="project-snapshot"/>
+					</div>
+				</div>
+				
+				<div class="upload-project">
 					<div class="upload-project-name">SECT</div>
 					<div class="upload-project-input">
 						<input type="text" id="sect" name="sect" class="project-sect" value="<c:out value='${project.sect}'/>"/>
@@ -49,13 +56,6 @@
 					<div class="upload-project-name">DEVELOPER</div>
 					<div class="upload-project-input">
 						<input type="text" id="developer" name="developer" class="project-developer" value="<c:out value='${project.developer}'/>"/>
-					</div>
-				</div>
-				
-				<div class="upload-project">
-					<div class="upload-project-name">SNAPSHT</div>
-					<div class="upload-project-input">
-						<input type="file" id="snapshtFile" name="snapshtFile" class="project-snapshot"/>
 					</div>
 				</div>
 				
