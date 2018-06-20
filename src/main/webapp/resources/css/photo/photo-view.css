@@ -108,22 +108,20 @@
 }
 
 .photo-comments {
-	margin-bottom: 1rem;
+	margin-bottom: 10px;
 }
 
 .photo-comments .comment {
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 0.7rem;
-	font-size: 0.75rem;
+	font-size: 0.9rem;
 }
 
 .photo-comments .comment .comment-userinfo {
 	width: 7rem;
 	font-weight: bold;
 	
-	display: flex;
-	align-items: center;
 }
 
 .photo-comments .comment .comment-contents {
@@ -131,26 +129,16 @@
 	max-width : calc(100% - 12rem);
 	white-space: normal ;
 	word-break : break-all;
-	
-	display: flex;
-	align-items: center;
+	margin-right : 10px;
 }
 
 .photo-comments .comment .comment-date {
-	width: 5rem;
+	margin-right : 10px;
 	color : #888;
 	
-	display: flex;
-	justify-content : flex-end;
-	align-items: center;
 }
 
 .photo-comments .comment .btn-comment-delete {
-	width: 2rem;
-	
-	display: flex;
-	justify-content : flex-end;
-	align-items: center;
 }
 
 .photo-write-comment {
