@@ -87,7 +87,6 @@
 }
 
 .blog-item {
-	height: 20vmin;
 	display: flex;
 	justify-content: flex-start;
 	margin: 0 10px;
@@ -97,8 +96,8 @@
 
 .blog-item .blog-item-snapsht {
 	position: relative;
-	width: 30%;
-	height: 100%;
+	width: 30vmin;
+	height: 20vmin;
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;

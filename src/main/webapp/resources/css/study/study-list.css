@@ -77,14 +77,14 @@
 
 .study-list-item .study-item-info {
 	display: flex;
-	align-items: center;
+	align-items: flex-end;
 	justify-content: space-between;
-	font-size: 0.9rem;
 	color : #9199a4;
 }
 
 .study-list-item .study-item-info .study-item-info-l {
 	display: flex;
+	font-size: 0.9rem;
 }
 
 .study-list-item .study-item-info .study-item-info-l *{
@@ -93,6 +93,7 @@
 
 .study-list-item .study-item-info .study-item-info-r {
 	display: flex;
+	font-size: 0.8rem;
 }
 
 .study-list-item .study-item-info .study-item-category {
