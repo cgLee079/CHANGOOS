@@ -12,12 +12,12 @@
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 		
-		<input type="hidden" id="section" value="<c:out value='${section}'/>"/>
+		<input type="hidden" id="category" value="<c:out value='${category}'/>"/>
 		
 		<div class="wrap-study">
 			<div class="study">
 				<div class="study-head">
-					<div class="study-sect"><c:out value="${study.sect}"/></div>
+					<div class="study-category"><c:out value="${study.category}"/></div>
 					<div class="study-title"><c:out value="${study.title}"/></div>
 					<div class="study-info">
 						<c:if test="${not empty study.codeLang }">

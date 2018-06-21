@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.BlogDao;
 import com.cglee079.changoos.model.BlogVo;
+import com.cglee079.changoos.util.FileUtils;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageManager;
 import com.cglee079.changoos.util.TimeStamper;
@@ -188,7 +189,7 @@ public class BlogService{
 				}
 			}
 			
-			filename += snapshtFile.getOriginalFilename();
+			filename += FileUtils.sanitizeFilename(snapshtFile.getOriginalFilename());
 			imgExt = ImageManager.getExt(filename);
 			File file = new File(realPath + SNAPSHT_PATH, filename);
 			snapshtFile.transferTo(file);
@@ -213,7 +214,7 @@ public class BlogService{
 		String imgExt 	= null;
 		
 		if(multiFile != null){
-			filename += multiFile.getOriginalFilename();
+			filename += FileUtils.sanitizeFilename(multiFile.getOriginalFilename());
 			imgExt = ImageManager.getExt(filename);
 			File file = new File(realPath + CONTENTS_PATH, filename);
 			multiFile.transferTo(file);

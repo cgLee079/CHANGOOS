@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.PhotoDao;
 import com.cglee079.changoos.model.PhotoVo;
+import com.cglee079.changoos.util.FileUtils;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageManager;
 import com.cglee079.changoos.util.TimeStamper;
@@ -56,8 +57,8 @@ public class PhotoService {
 	
 	public PhotoVo saveFile(PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
 		String timeStamp	= TimeStamper.stamp();
-		String imgName		= "photo_" + timeStamp + "_" + photo.getName();
-		String snapshtName	= "photo_snapsht_" + timeStamp + "_" + photo.getName();
+		String imgName		= "photo_" + timeStamp + "_" + FileUtils.sanitizeFilename(photo.getName());
+		String snapshtName	= "photo_snapsht_" + timeStamp + "_" + FileUtils.sanitizeFilename(photo.getName());
 		
 		//naming
 		String imgExt = ImageManager.getExt(imageFile.getOriginalFilename());

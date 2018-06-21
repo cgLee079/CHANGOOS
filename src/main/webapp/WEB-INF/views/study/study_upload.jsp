@@ -21,22 +21,22 @@
 				</c:if>
 				
 				<div class="study-upload-item">
-					<div class="item-name">SECT</div>
-					<div class="item-input"><input type="text" id="sect" name="sect"  value="<c:out value='${study.sect}'/>" class="study-sect" ></div>
+					<div class="item-name">카테고리</div>
+					<div class="item-input"><input type="text" id="category" name="category"  value="<c:out value='${study.category}'/>" class="study-category" ></div>
 				</div>
 				
 				<div class="study-upload-item">
-					<div class="item-name">CODE LANGUAGE</div>
+					<div class="item-name">개발언어</div>
 					<div class="item-input"><input type="text" id="codeLang" name="codeLang"  value="<c:out value='${study.codeLang}'/>" class="study-codelang"></div>
 				</div>
 				
 				<div class="study-upload-item">
-					<div class="item-name">TITLE</div>
+					<div class="item-name">제목</div>
 					<div class="item-input"><input type="text" id="title" name="title"  value="<c:out value='${study.title}'/>" class="study-title"></div>
 				</div>
 				
 				<div class="study-upload-item">
-					<div class="item-name">CONTENTS</div>
+					<div class="item-name">내용</div>
 					<div class="item-input">
 						<textarea id="study-contents" name="contents" class="study-contents">
 							<c:out value="${study.contents}" escapeXml="false"/>
@@ -45,7 +45,7 @@
 				</div>
 				
 				<div class="study-upload-item">
-					<div class="item-name">FILE</div>
+					<div class="item-name">첨부파일</div>
 					<div class="item-input">
 						<c:import url="../included/included_fileupload.jsp" charEncoding="UTF-8">
 							<c:param name="studyType" value="study"/>

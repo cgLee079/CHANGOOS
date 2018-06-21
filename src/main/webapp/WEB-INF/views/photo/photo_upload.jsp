@@ -22,56 +22,56 @@
 				</c:if>
 				
 				<div class="upload-item">
-					<div class="upload-item-name">IMAGE</div>
+					<div class="upload-item-name">사진</div>
 					<div class="upload-item-input">
 						<input type="file" id="imageFile" name="imageFile" class="photo-image" accept="image/*"/>
 					</div>
 				</div>
 				
 				<div class="upload-item">
-					<div class="upload-item-name">LOCATION</div>
-					<div class="upload-item-input">
-						<input type="text" id="location" name="location" class="photo-location" value="<c:out value='${photo.location}'/>"/>
-					</div>
-				</div>
-				
-				<div class="upload-item">
-					<div class="upload-item-name">DATE</div>
-					<div class="upload-item-input">
-						<input type="text" id="date" name="date" class="photo-date" value="<c:out value='${photo.date}'/>"/>
-					</div>
-				</div>
-				
-				<div class="upload-item">
-					<div class="upload-item-name">TIME</div>
-					<div class="upload-item-input">
-						<input type="text" id="time" name="time" class="photo-date" value="<c:out value='${photo.time}'/>"/>
-					</div>
-				</div>
-				
-				<div class="upload-item">
-					<div class="upload-item-name">TAG</div>
-					<div class="upload-item-input">
-						<input type="text" id="tag" name="tag" class="photo-tag" value="<c:out value='${photo.tag}'/>"/>
-					</div>
-				</div>
-				
-				<div class="upload-item">
-					<div class="upload-item-name">DEVICE</div>
+					<div class="upload-item-name">촬영기기</div>
 					<div class="upload-item-input">
 						<input type="text" id="device" name="device" class="photo-device" value="<c:out value='${photo.device}'/>"/>
 					</div>
 				</div>
 				
 				<div class="upload-item">
-					<div class="upload-item-name">NAME</div>
+					<div class="upload-item-name">촬영일</div>
+					<div class="upload-item-input">
+						<input type="text" id="date" name="date" class="photo-date" value="<c:out value='${photo.date}'/>"/>
+					</div>
+				</div>
+				
+				<div class="upload-item">
+					<div class="upload-item-name">촬영시간</div>
+					<div class="upload-item-input">
+						<input type="text" id="time" name="time" class="photo-date" value="<c:out value='${photo.time}'/>"/>
+					</div>
+				</div>
+				
+				<div class="upload-item">
+					<div class="upload-item-name">촬영위치</div>
+					<div class="upload-item-input">
+						<input type="text" id="location" name="location" class="photo-location" value="<c:out value='${photo.location}'/>"/>
+					</div>
+				</div>
+				
+				<div class="upload-item">
+					<div class="upload-item-name">태그</div>
+					<div class="upload-item-input">
+						<input type="text" id="tag" name="tag" class="photo-tag" value="<c:out value='${photo.tag}'/>"/>
+					</div>
+				</div>
+				
+				<div class="upload-item">
+					<div class="upload-item-name">제목</div>
 					<div class="upload-item-input">
 						<input type="text" id="name" name="name" class="photo-name" value="<c:out value='${photo.name}'/>"/>
 					</div>
 				</div>
 				
 				<div class="upload-item">
-					<div class="upload-item-name">DESC</div>
+					<div class="upload-item-name">설명</div>
 					<div class="upload-item-input">
 						<textarea id="desc" name="desc" class="photo-desc">
 							<c:out value="${photo.desc}" escapeXml="false"/>

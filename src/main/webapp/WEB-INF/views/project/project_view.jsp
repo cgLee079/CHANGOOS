@@ -17,13 +17,9 @@
 				<div class="project-head-bg" style="background-image: url('${pageContext.request.contextPath}${project.snapsht}"></div>
 				<div class="project-head-fg"></div>
 				<div class="project-detail">
-					<div class="project-sect"><c:out value="${project.sect}"/></div>
+					<div class="project-category"><c:out value="${project.category}"/></div>
 					<div class="project-title"><c:out value="${project.title}"/></div>
 					<div class="project-subinfo">
-						<c:if test="${!empty project.date}">
-							<a class="project-date">DATE : <c:out value="${project.date}"/></a> <br/>
-							<div class="colum-border"></div>
-						</c:if>
 						<c:if test="${!empty project.developer}"> 
 							<div class="project-developer">by ${project.developer}</div>
 							<div class="colum-border"></div>

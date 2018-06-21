@@ -29,6 +29,7 @@ function fn_onInitDataGrid(){
 			{field:'snapsht', title:'스냅샷', width:'100px', halign:'center', styler : alignCenter, formatter: function(value){
 				return "<img src='" + getContextPath() + value + "' height='50px' style='padding : 2px'/>"
 			}},
+			{field:'category', title:'카테고리', width:'150px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'title', title:'이름', width:'200px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'desc', title:'설명', width:'200px', halign:'center', styler : alignLeft},
 			{field:'developer', title:'개발자', width:'200px', halign:'center', sortable : "true", styler : alignLeft},

@@ -25,49 +25,42 @@
 				</c:if>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">SNAPSHT</div>
+					<div class="upload-project-name">스냅샷</div>
 					<div class="upload-project-input">
 						<input type="file" id="snapshtFile" name="snapshtFile" class="project-snapshot"/>
 					</div>
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">SECT</div>
+					<div class="upload-project-name">카테고리</div>
 					<div class="upload-project-input">
-						<input type="text" id="sect" name="sect" class="project-sect" value="<c:out value='${project.sect}'/>"/>
+						<input type="text" id="category" name="category" class="project-category" value="<c:out value='${project.category}'/>"/>
 					</div>
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">SOURCE</div>
+					<div class="upload-project-name">소스코드</div>
 					<div class="upload-project-input">
 						<input type="text" id="sourcecode" name="sourcecode" class="project-sourcecode" value="<c:out value='${project.sourcecode}'/>"/>
 					</div>
 				</div>
 				
-					<div class="upload-project">
-					<div class="upload-project-name">DATE</div>
-					<div class="upload-project-input">
-						<input type="text" id="date" name="date" class="project-date" value="<c:out value='${project.date}'/>"/>
-					</div>
-				</div>
-				
 				<div class="upload-project">
-					<div class="upload-project-name">DEVELOPER</div>
+					<div class="upload-project-name">개발자</div>
 					<div class="upload-project-input">
 						<input type="text" id="developer" name="developer" class="project-developer" value="<c:out value='${project.developer}'/>"/>
 					</div>
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">TITLE</div>
+					<div class="upload-project-name">제목</div>
 					<div class="upload-project-input">
 						<input type="text" id="title" name='title' class="project-name" value="<c:out value='${project.title}'/>"/>
 					</div>
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">DESC</div>
+					<div class="upload-project-name">개요</div>
 					<div class="upload-project-input">
 						<textarea id="desc" name="desc" class="project-desc">
 							<c:out value="${project.desc}" escapeXml="false"/>
@@ -76,7 +69,7 @@
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">CONTENTS</div>
+					<div class="upload-project-name">내용</div>
 					<div class="upload-project-input">
 						<textarea name="contents" id="contents">
 							<c:out value="${project.contents}" escapeXml="false"/>
@@ -85,7 +78,7 @@
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">FILE</div>
+					<div class="upload-project-name">첨부파일</div>
 					<div class="upload-project-input">
 						<c:import url="../included/included_fileupload.jsp" charEncoding="UTF-8">
 							<c:param name="boardType" value="project"/>

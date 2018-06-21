@@ -2,7 +2,7 @@ var perPgLine 	= 10;
 var searchType 	= "";
 var searchValue = "";
 var page 		= 1;
-var sect 		= 'ALL';
+var category 	= 'ALL';
 var allRowCnt	= undefined;
 var studyTemp	= undefined;
 
@@ -24,13 +24,13 @@ $(document).ready(function(){
 	
 	/* Get Hash */
 	allRowCnt = $("#allRowCnt").val();
-	sect = window.location.hash.substring(1);
+	category = window.location.hash.substring(1);
 
-	/* Add Class 'on' to Sect*/
-	if(!sect){ sect = 'ALL'; }
-	var items = $(".study-sects .study-sects-item");
+	/* Add Class 'on' to Category*/
+	if(!category){ category = 'ALL'; }
+	var items = $(".study-categories .study-categories-item");
 	for(var i = 0; i < items.length; i++){
-		if($(items[i]).text() == sect){
+		if($(items[i]).text() == category){
 			$(items[i]).addClass("on");
 			break;
 		}
@@ -48,7 +48,7 @@ function clearStudyItems(){
 /* when study click */
 function studyView(seq){
 	Progress.start();
-	window.location.href = getContextPath() + "/study/view?seq=" + seq + "&section=" + sect;
+	window.location.href = getContextPath() + "/study/view?seq=" + seq + "&category=" + category;
 }
 
 /* when Search button click */
@@ -60,15 +60,15 @@ function search(){
 	pageMove(1);
 }
 
-/* when Sect click */
-function selectSect(tg){
+/* when Category click */
+function selectCategory(tg){
 	var tg = $(tg);
 	
-	var items = $(".study-sects .study-sects-item");
+	var items = $(".study-categories .study-categories-item");
 	items.removeClass("on");
 	tg.addClass("on");
-	sect = tg.text();
-	window.location.hash = sect;
+	category = tg.text();
+	window.location.hash = category;
 	
 	clearStudyItems();
 	pageMove(1);
@@ -76,8 +76,8 @@ function selectSect(tg){
 
 /* Paging */
 function pageMove(pg){
-	if(sect == "ALL"){
-		sect = '';
+	if(category == "ALL"){
+		category = '';
 	}
 	
 	$.ajax({
@@ -86,7 +86,7 @@ function pageMove(pg){
 		data	: {
 			'page'			: pg,
 			'perPgLine' 	: perPgLine,
-			'sect' 			: sect,
+			'category' 		: category,
 			'searchType'	: searchType,
 			'searchValue'	: searchValue
 		},
@@ -130,7 +130,7 @@ function drawStudy(data){
 		item.attr("onclick", "studyView(" + study.seq + ")");
 		item.find('.study-item-title').text(study.title);
 		item.find('.study-item-content').text(study.contents);
-		item.find('.study-item-sect').text(study.sect);
+		item.find('.study-item-category').text(study.category);
 		item.find('.study-item-lang').text(study.codeLang);
 		item.find('.study-item-date').text(study.date);
 		item.find('.study-item-hits').text("조회수 " + study.hits);

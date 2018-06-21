@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cglee079.changoos.dao.ProjectFileDao;
 import com.cglee079.changoos.model.StudyFileVo;
 import com.cglee079.changoos.model.ProjectFileVo;
+import com.cglee079.changoos.util.FileUtils;
 import com.cglee079.changoos.util.TimeStamper;
 
 @Service
@@ -86,7 +87,7 @@ public class ProjectFileService {
 		
 		for(int i = 0 ; i < length ; i++){
 			multipartFile = files.get(i);
-			realNm 	= multipartFile.getOriginalFilename();
+			realNm 	= FileUtils.sanitizeFilename(multipartFile.getOriginalFilename());
 			pathNm	= "project" + projectSeq + "_" + TimeStamper.stamp() + "_" + realNm;
 			size 	= multipartFile.getSize();
 			

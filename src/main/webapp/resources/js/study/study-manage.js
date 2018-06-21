@@ -26,7 +26,7 @@ function fn_onInitDataGrid(){
 			{field:'delete', title:'삭제', width:'70px', halign:'center', styler : alignCenter, formatter : function(value, row, index){
 				return "<a onclick='studyDelete(" + row.seq + "," + index + ")' class='dg-btn'> 삭제 </a>" 
 			}},
-			{field:'sect', title:'영역', width:'150px', halign:'center', sortable : "true", styler : alignLeft},
+			{field:'category', title:'카테고리', width:'150px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'codeLang', title:'소스언어', width:'150px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'title', title:'이름', width:'300px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'comtCnt', title:'댓글수', width:'70px', halign:'center', sortable : "true", styler : alignCenter},

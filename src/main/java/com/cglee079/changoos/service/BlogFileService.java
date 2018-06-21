@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.BlogFileDao;
 import com.cglee079.changoos.model.BlogFileVo;
+import com.cglee079.changoos.util.FileUtils;
 import com.cglee079.changoos.util.TimeStamper;
 
 @Service
@@ -57,7 +58,7 @@ public class BlogFileService {
 		
 		for(int i = 0 ; i < length ; i++){
 			multipartFile = files.get(i);
-			realNm 	= multipartFile.getOriginalFilename();
+			realNm 	= FileUtils.sanitizeFilename(multipartFile.getOriginalFilename());
 			pathNm	= "blog" + seq + "_" + TimeStamper.stamp() + "_" + realNm;
 			size 	= multipartFile.getSize();
 			

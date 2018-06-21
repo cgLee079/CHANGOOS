@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.StudyDao;
 import com.cglee079.changoos.model.StudyVo;
+import com.cglee079.changoos.util.FileUtils;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageManager;
 import com.cglee079.changoos.util.TimeStamper;
@@ -48,7 +49,7 @@ public class StudyService{
 		List<StudyVo> studies = studyDao.list(params);
 		StudyVo study 		= null;
 		String contents 	= null;
-		String newContents 	= null;
+		String newContents 	= "";
 		Document doc 		= null;
 		Elements els		= null;
 		for(int i = 0; i < studies.size(); i++) {
@@ -59,7 +60,9 @@ public class StudyService{
 			newContents = "";
 			doc 		= Jsoup.parse(contents);
 			els 		= doc.select("*");
-			newContents = els.eachText().get(0);
+			if(els.eachText().size() > 0) {
+				newContents = els.eachText().get(0);
+			}
 			
 			newContents.replace("\n", " ");
 			study.setContents(newContents);
@@ -101,16 +104,16 @@ public class StudyService{
 		return studyDao.update(study);
 	}
 
-	public StudyVo getBefore(int seq, String sect) {
-		return studyDao.getBefore(seq, sect);
+	public StudyVo getBefore(int seq, String category) {
+		return studyDao.getBefore(seq, category);
 	}
 
-	public StudyVo getAfter(int seq, String sect) {
-		return studyDao.getAfter(seq, sect);
+	public StudyVo getAfter(int seq, String category) {
+		return studyDao.getAfter(seq, category);
 	}
 
-	public List<String> getSects() {
-		return studyDao.getSects();
+	public List<String> getCategories() {
+		return studyDao.getCategories();
 	}
 
 	public void removeContentImageFile(int seq) {
@@ -143,7 +146,7 @@ public class StudyService{
 		String imgExt 	= null;
 		
 		if(multiFile != null){
-			filename += multiFile.getOriginalFilename();
+			filename += FileUtils.sanitizeFilename(multiFile.getOriginalFilename());
 			imgExt = ImageManager.getExt(filename);
 			File file = new File(realPath + CONTENTS_PATH, filename);
 			multiFile.transferTo(file);

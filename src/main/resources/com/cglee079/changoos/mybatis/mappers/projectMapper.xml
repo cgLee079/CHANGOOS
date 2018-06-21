@@ -7,11 +7,10 @@
 		SELECT
 		PROJ_SEQ as "seq",
 		PROJ_TITLE as "title",
-		PROJ_SECT as "sect",
+		PROJ_CATEGORY as "category",
 		PROJ_DESC as "desc",
 		PROJ_CONTENTS as "contents",
 		PROJ_SNAPSHT as "snapsht",
-		PROJ_DATE as "date",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
 		PROJ_HITS as "hits",
@@ -25,10 +24,9 @@
 		SELECT
 		PROJ_SEQ as "seq",
 		PROJ_TITLE as "title",
-		PROJ_SECT as "sect",
+		PROJ_CATEGORY as "category",
 		PROJ_DESC as "desc",
 		PROJ_SNAPSHT as "snapsht",
-		PROJ_DATE as "date",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
 		PROJ_HITS as "hits",
@@ -49,11 +47,10 @@
 		SELECT
 		PROJ_SEQ as "seq",
 		PROJ_TITLE as "title",
-		PROJ_SECT as "sect",
+		PROJ_CATEGORY as "category",
 		PROJ_DESC as "desc",
 		PROJ_CONTENTS as "contents",
 		PROJ_SNAPSHT as "snapsht",
-		PROJ_DATE as "date",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
 		PROJ_HITS as "hits",
@@ -69,11 +66,10 @@
 		SELECT
 		PROJ_SEQ as "seq",
 		PROJ_TITLE as "title",
-		PROJ_SECT as "sect",
+		PROJ_CATEGORY as "category",
 		PROJ_DESC as "desc",
 		PROJ_CONTENTS as "contents",
 		PROJ_SNAPSHT as "snapsht",
-		PROJ_DATE as "date",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
 		PROJ_HITS as "hits",
@@ -92,19 +88,18 @@
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.ProjectVo">
 		INSERT TB_PTFOLIO_PROJECT 
-		(PROJ_TITLE, PROJ_SECT, PROJ_DESC, PROJ_CONTENTS, PROJ_SNAPSHT, PROJ_DATE, PROJ_SOURCECD, PROJ_DEVELOPER, PROJ_HITS)
-		VALUES (#{title}, #{sect}, #{desc}, #{contents}, #{snapsht}, #{date}, #{sourcecode},#{developer}, #{hits})
+		(PROJ_TITLE, PROJ_CATEGORY, PROJ_DESC, PROJ_CONTENTS, PROJ_SNAPSHT, PROJ_SOURCECD, PROJ_DEVELOPER, PROJ_HITS)
+		VALUES (#{title}, #{category}, #{desc}, #{contents}, #{snapsht}, #{sourcecode},#{developer}, #{hits})
 	</insert>
 	
 	<update id="update">
 		UPDATE TB_PTFOLIO_PROJECT
 		SET 
 		PROJ_TITLE = #{title},
-		PROJ_SECT = #{sect},
+		PROJ_CATEGORY = #{category},
 		PROJ_DESC = #{desc},
 		PROJ_CONTENTS = #{contents},
 		PROJ_SNAPSHT = #{snapsht},
-		PROJ_DATE = #{date},
 		PROJ_SOURCECD = #{sourcecode},
 		PROJ_DEVELOPER = #{developer},
 		PROJ_HITS = #{hits}

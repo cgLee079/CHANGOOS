@@ -11,11 +11,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.StudyFileDao;
 import com.cglee079.changoos.model.StudyFileVo;
+import com.cglee079.changoos.util.FileUtils;
 import com.cglee079.changoos.util.TimeStamper;
 
 @Service
 public class StudyFileService {
-	public static final String FILE_PATH 		= "/uploaded/studies/files/";
+	public static final String FILE_PATH 	= "/uploaded/studies/files/";
 	
 	@Autowired
 	StudyFileDao studyFileDao;
@@ -54,7 +55,7 @@ public class StudyFileService {
 		int length = files.size();
 		for(int i = 0 ; i < length ; i++){
 			multipartFile = files.get(i);
-			realNm 	= multipartFile.getOriginalFilename();
+			realNm 	= FileUtils.sanitizeFilename(multipartFile.getOriginalFilename());
 			pathNm	= "study" + seq + "_" + TimeStamper.stamp() + "_" + realNm;
 			size 	= multipartFile.getSize();
 			

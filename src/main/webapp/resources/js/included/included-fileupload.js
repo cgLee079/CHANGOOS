@@ -52,7 +52,7 @@ function onFileChange(tg){
 	if($(tg).val()){
 		var fileInfo = $(tg).parents(".file-info");
 		fileInfo.removeClass("upload");		
-		fileInfo.find(".file-info-name").text("(" + (file.size/(1024 * 1024)).toFixed(2) + " MB) " + file.name);
+		fileInfo.find(".file-info-name").text("[" + (file.size/(1024 * 1024)).toFixed(2) + " MB] " + file.name);
 		
 		fileInfos.append(fileInfoUpload.clone(true));
 	} 

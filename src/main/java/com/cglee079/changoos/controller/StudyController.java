@@ -40,11 +40,11 @@ public class StudyController {
 	/** 공부 리스트로 이동 **/
 	@RequestMapping("/study")
 	public String studyList(Model model, @RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException{
-		List<String> sects = studyService.getSects();
+		List<String> categories = studyService.getCategories();
 		int count = studyService.count(params);
 		
 		model.addAttribute("count", count);
-		model.addAttribute("sects", sects);
+		model.addAttribute("categories", categories);
 		return "study/study_list";
 	}
 		
@@ -67,12 +67,12 @@ public class StudyController {
 	
 	/** 게시글로 이동 **/
 	@RequestMapping("/study/view")
-	public String studyView(HttpSession session, Model model, int seq, String section, Integer page) throws SQLException, JsonProcessingException{
+	public String studyView(HttpSession session, Model model, int seq, String category, Integer page) throws SQLException, JsonProcessingException{
 		StudyVo study 		= studyService.doView((List<Integer>)session.getAttribute("visitStudies"), seq);
-		StudyVo beforeStudy = studyService.getBefore(seq, section);
-		StudyVo afterStudy 	= studyService.getAfter(seq, section);
+		StudyVo beforeStudy = studyService.getBefore(seq, category);
+		StudyVo afterStudy 	= studyService.getAfter(seq, category);
 		
-		model.addAttribute("section", section);
+		model.addAttribute("category", category);
 		model.addAttribute("page", page);
 		model.addAttribute("beforeStudy", beforeStudy);
 		model.addAttribute("study", study);

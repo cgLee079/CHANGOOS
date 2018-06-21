@@ -9,7 +9,7 @@
 		<c:forEach var="file" items="${files}">
 			<div class="file-info">
 				<input type="hidden" class="file-seq" value="<c:out value='${file.seq}'/>"/>
-				<div class="file-info-name">( <fmt:formatNumber maxFractionDigits="2" value="${file.size/(1024 * 1024)}" /> MB) <c:out value='${file.realNm}'/></div>
+				<div class="file-info-name">[<fmt:formatNumber maxFractionDigits="2" value="${file.size/(1024 * 1024)}" /> MB]&nbsp;<c:out value='${file.realNm}'/></div>
 				<div class="btn-file-remove btn-red-text" onclick="doFileRemove(this)">REMOVE(SERVER)</div>
 			</div>
 		</c:forEach>

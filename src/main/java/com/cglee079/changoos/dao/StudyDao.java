@@ -23,17 +23,17 @@ public class StudyDao {
 		return sqlSession.selectOne(namespace +".S01", seq);
 	}
 	
-	public StudyVo getBefore(int seq, String sect) {
+	public StudyVo getBefore(int seq, String category) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("seq", seq);
-		map.put("sect", sect);
+		map.put("category", category);
 		return sqlSession.selectOne(namespace +".S02", map);
 	}
 	
-	public StudyVo getAfter(int seq, String sect) {
+	public StudyVo getAfter(int seq, String category) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("seq", seq);
-		map.put("sect", sect);
+		map.put("category", category);
 		return sqlSession.selectOne(namespace +".S03", map);
 	}
 
@@ -45,7 +45,7 @@ public class StudyDao {
 		return sqlSession.selectOne(namespace +".S05", params);
 	}
 
-	public List<String> getSects() {
+	public List<String> getCategories() {
 		return sqlSession.selectList(namespace +".S06");
 	}
 	

@@ -7,7 +7,7 @@
 		/* 게시글 가져오기 */
 		SELECT
 		STUDY_SEQ as "seq",
-		STUDY_SECT as "sect",
+		STUDY_CATEGORY as "category",
 		STUDY_CODE_LANG as "codeLang",
 		STUDY_TITLE as "title",
 		STUDY_CONTENTS as "contents",
@@ -23,7 +23,7 @@
 		/* 이전 게시글 가져오기 */
 		SELECT 
 		STUDY_SEQ as "seq",
-		STUDY_SECT as "sect",
+		STUDY_CATEGORY as "category",
 		STUDY_CODE_LANG as "codeLang",
 		STUDY_TITLE as "title",
 		STUDY_CONTENTS as "contents",
@@ -33,8 +33,8 @@
 		FROM TB_PTFOLIO_STUDY A LEFT OUTER JOIN TB_PTFOLIO_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<![CDATA[STUDY_SEQ < #{seq}]]>  
-		<if test="sect != ''">
- 		<![CDATA[AND UPPER(STUDY_SECT) = UPPER(#{sect})]]>
+		<if test="category != ''">
+ 		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
   		</if>
   		</trim>
 		GROUP BY A.STUDY_SEQ
@@ -45,7 +45,7 @@
 		/* 다음 게시글 가져오기 */
 		SELECT 
 		STUDY_SEQ as "seq",
-		STUDY_SECT as "sect",
+		STUDY_CATEGORY as "category",
 		STUDY_CODE_LANG as "codeLang",
 		STUDY_TITLE as "title",
 		STUDY_CONTENTS as "contents",
@@ -55,8 +55,8 @@
 		FROM TB_PTFOLIO_STUDY A LEFT OUTER JOIN TB_PTFOLIO_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<![CDATA[STUDY_SEQ > #{seq}]]>
-		<if test="sect != ''">
- 		<![CDATA[AND UPPER(STUDY_SECT) = UPPER(#{sect})]]>
+		<if test="category != ''">
+ 		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
   		</if>
   		</trim>
 		GROUP BY A.STUDY_SEQ
@@ -67,7 +67,7 @@
 		/* 게시글 리스트 */
 		SELECT
 		STUDY_SEQ as "seq",
-		STUDY_SECT as "sect",
+		STUDY_CATEGORY as "category",
 		STUDY_CODE_LANG as "codeLang",
 		STUDY_TITLE as "title",
 		STUDY_CONTENTS as "contents",
@@ -76,8 +76,8 @@
 		count(B.SCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_STUDY A LEFT OUTER JOIN TB_PTFOLIO_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
-		<if test="sect != '' and sect != NULL">
- 		<![CDATA[AND UPPER(STUDY_SECT) = UPPER(#{sect})]]>
+		<if test="category != '' and category != NULL">
+ 		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
   		</if>
   		<if test="searchType == 'TITLE' and searchValue != ''">
  		<![CDATA[AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
@@ -103,8 +103,8 @@
 			count(*)
 		FROM TB_PTFOLIO_STUDY
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
-		<if test="sect != ''">
- 		<![CDATA[AND UPPER(STUDY_SECT) = UPPER(#{sect})]]>
+		<if test="category != ''">
+ 		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
   		</if>
   		<if test="searchType == 'TITLE' and searchValue != ''">
  		<![CDATA[AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
@@ -113,16 +113,16 @@
 	</select>
 	
 	<select id="S06" resultType="String">
-		SELECT STUDY_SECT 
+		SELECT STUDY_CATEGORY 
 		FROM TB_PTFOLIO_STUDY
-		GROUP BY STUDY_SECT
-		ORDER BY COUNT(*) DESC
+		GROUP BY STUDY_CATEGORY
+		ORDER BY STUDY_CATEGORY ASC
 	</select>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
 		INSERT TB_PTFOLIO_STUDY 
-		(STUDY_SECT, STUDY_CODE_LANG, STUDY_TITLE, STUDY_CONTENTS, STUDY_DATE, STUDY_HITS)
-		VALUES (#{sect}, #{codeLang}, #{title}, #{contents}, #{date}, #{hits})
+		(STUDY_CATEGORY, STUDY_CODE_LANG, STUDY_TITLE, STUDY_CONTENTS, STUDY_DATE, STUDY_HITS)
+		VALUES (#{category}, #{codeLang}, #{title}, #{contents}, #{date}, #{hits})
 	</insert>
 	
 	<delete id="delete">
@@ -133,7 +133,7 @@
 	<update id="update">
 		UPDATE TB_PTFOLIO_STUDY
 		SET 
-		STUDY_SECT = #{sect},
+		STUDY_CATEGORY = #{category},
 		STUDY_CODE_LANG = #{codeLang},
 		STUDY_TITLE = #{title},
 		STUDY_CONTENTS = #{contents},

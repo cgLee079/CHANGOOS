@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.ProjectDao;
 import com.cglee079.changoos.model.ProjectVo;
+import com.cglee079.changoos.util.FileUtils;
 import com.cglee079.changoos.util.ImageManager;
 import com.cglee079.changoos.util.TimeStamper;
 
@@ -87,7 +88,7 @@ public class ProjectService {
 				existFile.delete();
 			}
 		
-			filename += snapshtFile.getOriginalFilename();
+			filename += FileUtils.sanitizeFilename(snapshtFile.getOriginalFilename());
 			imgExt = ImageManager.getExt(filename);
 			File file = new File(realPath + SNAPSHT_PATH + filename);
 			snapshtFile.transferTo(file);
@@ -114,7 +115,7 @@ public class ProjectService {
 		String imgExt 	= null;
 		
 		if(multiFile != null){
-			filename += multiFile.getOriginalFilename();
+			filename += FileUtils.sanitizeFilename(multiFile.getOriginalFilename());
 			imgExt = ImageManager.getExt(filename);
 			File file = new File(realPath + CONTENTS_PATH + filename);
 			multiFile.transferTo(file);

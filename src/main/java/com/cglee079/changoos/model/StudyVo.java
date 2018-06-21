@@ -2,7 +2,7 @@ package com.cglee079.changoos.model;
 
 public class StudyVo {
 	private int seq;
-	private String sect;
+	private String category;
 	private String codeLang;
 	private String title;
 	private String contents;
@@ -26,12 +26,12 @@ public class StudyVo {
 		this.seq = seq;
 	}
 
-	public String getSect() {
-		return sect;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setSect(String sect) {
-		this.sect = sect;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getTitle() {

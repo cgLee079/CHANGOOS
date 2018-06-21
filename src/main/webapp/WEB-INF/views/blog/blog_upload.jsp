@@ -21,26 +21,26 @@
 				</c:if>
 				
 				<div class="blog-upload-item">
-					<div class="item-name">SNAPSHT</div>
+					<div class="item-name">스냅샷</div>
 					<div class="item-input">
 						<input type="file" id="snapshtFile" name="snapshtFile" class="blog-snapshot"/>
 					</div>
 				</div>
 				
 				<div class="blog-upload-item">
-					<div class="item-name">TAGS</div>
+					<div class="item-name">태그</div>
 					<div class="item-input">
 						<input type="text" id="tag" name="tag"  value="<c:out value='${blog.tag}'/>" class="blog-tag"/>
 					</div>
 				</div>
 				
 				<div class="blog-upload-item">
-					<div class="item-name">TITLE</div>
+					<div class="item-name">제목</div>
 					<div class="item-input"><input type="text" id="title" name="title"  value="<c:out value='${blog.title}'/>" class="blog-title"></div>
 				</div>
 				
 				<div class="blog-upload-item">
-					<div class="item-name">CONTENTS</div>
+					<div class="item-name">내용</div>
 					<div class="item-input">
 						<textarea id="blog-contents" name="contents" class="blog-contents">
 							<c:out value="${blog.contents}" escapeXml="false"/>
@@ -49,7 +49,7 @@
 				</div>
 				
 				<div class="blog-upload-item">
-					<div class="item-name">FILE</div>
+					<div class="item-name">첨부파일</div>
 					<div class="item-input">
 						<c:import url="../included/included_fileupload.jsp" charEncoding="UTF-8">
 							<c:param name="boardType" value="blog"/>

@@ -19,7 +19,7 @@
 				<div class="study-item-content"></div>
 				<div class="study-item-info">
 					<div class="study-item-info-l">
-						<div class="study-item-sect"></div>
+						<div class="study-item-category"></div>
 						<div class="study-item-lang"></div>
 						<div class="study-item-date"></div>
 					</div>
@@ -39,10 +39,10 @@
 				<div class="search-submit " style="background-image: url('${pageContext.request.contextPath}/resources/image/btn-study-search.svg')" onclick="search()"></div>
 			</div>
 			
-			<div class="study-sects">
-				<div class="study-sects-item" onclick="selectSect(this)">ALL</div>
-				<c:forEach var="sect" items="${sects}" varStatus="status">
-					<div class="study-sects-item" onclick="selectSect(this)"><c:out value="${sect}" /></div>
+			<div class="study-categories">
+				<div class="study-categories-item" onclick="selectCategory(this)">ALL</div>
+				<c:forEach var="category" items="${categories}" varStatus="status">
+					<div class="study-categories-item" onclick="selectCategory(this)"><c:out value="${category}" /></div>
 				</c:forEach>
 			</div>
 			

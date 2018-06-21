@@ -2,8 +2,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	border: 1px solid #DDD;
-	border-radius: 5px;
+	border: 0.5px solid #CCC;
 	padding: 7px;
 	margin-bottom : 5px;
 	font-size: 0.75rem;
@@ -28,5 +27,31 @@
 
 .file-info-name {
 	flex: 1;
+}
+
+.btn-gray-text {
+	display: inline-block;
+	padding: 5px 10px 5px 10px;
+	background: #CFCFCF;
+	text-align: center;
+	cursor: pointer;
+}
+
+.btn-gray-text:hover, .btn-gray-text1.on {
+	color: #FFF;
+	background: #888;
+}
+
+.btn-red-text {
+	display: inline-block;
+	padding: 5px 10px 5px 10px;
+	background: #FCC;
+	text-align: center;
+	cursor: pointer;
+}
+
+.btn-red-text:hover, .btn-gray-text1.on {
+	color: #FFF;
+	background: #888;
 }
 
