@@ -1,8 +1,7 @@
 /* contents, by CKEditor*/
 .editor-contents {
 	color: #333;
-	font-size: 1rem;
-	line-height: 1.7;
+	line-height: 1.8;
 	word-break: break-all;
 }
 
@@ -13,6 +12,10 @@
 .editor-contents a, .editor-contents a:VISITED {
 	text-decoration: underline;
 	color: #00F;
+}
+
+.editor-contents ul, .editor-contents ol{
+	padding : 10px 40px;
 }
 
 .editor-contents img{
