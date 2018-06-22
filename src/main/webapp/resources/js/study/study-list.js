@@ -24,8 +24,8 @@ $(document).ready(function(){
 	
 	/* Get Hash */
 	allRowCnt = $("#allRowCnt").val();
-	category = window.location.hash.substring(1);
-
+	category = decodeURI(window.location.hash.substring(1));
+	
 	/* Add Class 'on' to Category*/
 	if(!category){ category = 'ALL'; }
 	var items = $(".study-categories .study-categories-item");

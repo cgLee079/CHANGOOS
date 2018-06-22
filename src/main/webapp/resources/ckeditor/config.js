@@ -13,6 +13,7 @@ CKEDITOR.editorConfig = function( config ) {
             { name: 'document', items : [ 'Source', 'Maximize', 'ShowBlocks']},
             { name: 'links', items : [ 'Link','Unlink',] },
             { name: 'insert', items : [ 'Image','Youtube','CodeSnippet','Table', 'SpecialChar'] },
+            { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent'] },
             '/',
             { name: 'styles', items : [ 'Format','FontSize' ] },
             { name: 'colors', items : [ 'TextColor','BGColor' ] },
