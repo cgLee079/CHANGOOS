@@ -107,6 +107,16 @@
 	text-align: center;
 }
 
+.blog-files .blog-file{
+	margin: 5px 0;
+}
+
+.blog-files .blog-file a{
+	cursor: pointer;
+	color: #00D;
+	text-decoration: none;
+}
+
 @media (max-width: 800px){
 	.blog-main{
 		width: 90%;

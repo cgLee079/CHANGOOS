@@ -18,7 +18,7 @@ import com.cglee079.changoos.util.TimeStamper;
 
 @Service
 public class BlogFileService {
-	public static final String FILE_PATH 		= "/uploaded/blogs/files/";
+	public static final String FILE_PATH = "/uploaded/blogs/files/";
 	
 	@Autowired
 	BlogFileDao blogFileDao;

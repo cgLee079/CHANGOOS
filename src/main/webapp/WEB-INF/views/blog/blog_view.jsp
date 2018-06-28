@@ -40,6 +40,18 @@
 			<div class="blog-main">
 				<div class="blog-contents editor-contents">
 					<c:out value="${blog.contents}" escapeXml="false"/>
+					
+					<c:if test="${!empty files}">
+						<h3>첨부파일</h3>
+						<div class="blog-files">
+							<c:forEach var="file" items="${files}">
+								<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>
+								<div class="blog-file">
+									 <a onclick="downloadFile('${file.pathNm}')"> <c:out value="${file.realNm}"/> (<c:out value="${filesize}"/> MB)</a>
+								</div>												
+							</c:forEach>
+						</div>
+					</c:if>
 				</div>
 				
 				<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">

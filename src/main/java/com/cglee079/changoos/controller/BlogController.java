@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.model.BlogFileVo;
 import com.cglee079.changoos.model.BlogVo;
+import com.cglee079.changoos.model.ProjectFileVo;
 import com.cglee079.changoos.service.BlogFileService;
 import com.cglee079.changoos.service.BlogService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -66,6 +67,9 @@ public class BlogController {
 	public String blogView(HttpSession session, Model model, int seq) throws SQLException, JsonProcessingException{
 		BlogVo blog	= blogService.doView((List<Integer>)session.getAttribute("visitBlogs"), seq);
 		model.addAttribute("blog", blog);
+		
+		List<BlogFileVo> files = blogFileService.list(seq);
+		model.addAttribute("files", files);
 		return "blog/blog_view";
 	}
 	

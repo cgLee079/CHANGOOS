@@ -6,14 +6,15 @@
 <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" >
 
 <!-- font -->
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-lora.css'/>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-nanumgothic.css'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-nanumsquare.css'/>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-nanumgothic.css'/>
+<%-- <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-lora.css'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-misaeng.css'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-bm.css'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-kcc.css'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-apple-sd.css'/>
-
+ --%>
+ 
 <!-- lib-css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lib/letter-motion.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ckeditor/plugins/prism/lib/prism/prism_patched.min.css" />
@@ -36,7 +37,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/lib/anime-2.2.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/lib/letter-motion.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/lib/sweetalert.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/lib/vue.js"></script>
 <script src="${pageContext.request.contextPath}/resources/ckeditor/plugins/prism/lib/prism/prism_patched.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 <script src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.5/jquery.easyui.min.js"></script>
