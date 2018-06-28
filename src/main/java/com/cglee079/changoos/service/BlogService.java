@@ -71,8 +71,8 @@ public class BlogService{
 		
 		List<BlogVo> blogs 	= blogDao.paging(params);
 		BlogVo blog 		= null;
-		String contents 	= null;
-		String newContents 	= null;
+		String contents 	= "";
+		String newContents 	= "";
 		Document doc 		= null;
 		Elements els		= null;
 		for(int i = 0; i < blogs.size(); i++) {
@@ -86,7 +86,9 @@ public class BlogService{
 			newContents = "";
 			doc 		= Jsoup.parse(contents);
 			els 		= doc.select("*");
-			newContents = els.eachText().get(0);
+			if(els.eachText().size() > 0) {
+				newContents = els.eachText().get(0);
+			}
 			
 			newContents.replace("\n", " ");
 			blog.setContents(newContents);
