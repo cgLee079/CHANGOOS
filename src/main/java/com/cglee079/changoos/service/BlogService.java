@@ -11,9 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpSession;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -40,8 +38,8 @@ public class BlogService{
 	@Autowired
 	BlogDao blogDao;
 	
-	@Value("#{servletContext.contextPath}")
-    private String contextPath;
+//	@Value("#{servletContext.contextPath}")
+//    private String contextPath;
 	
 	@Value("#{servletContext.getRealPath('/')}")
     private String realPath;
@@ -172,8 +170,6 @@ public class BlogService{
 			if(els.size() > 0) {
 				snapsht = els.get(0).attr("src");
 			}
-		} else {
-			snapsht = contextPath + blog.getSnapsht();
 		}
 		
 		return snapsht; 
