@@ -112,7 +112,9 @@ function drawBlog(data){
 		blogItem.find(".blog-item-snapsht").attr("onclick", "doBlogView('" + blog.seq + "')");
 		blogItem.find(".blog-item-title").attr("onclick", "doBlogView('" + blog.seq + "')");
 		blogItem.find(".blog-item-content").attr("onclick", "doBlogView('" + blog.seq + "')");
+		blogItem.find(".blog-item-empty").attr("onclick", "doBlogView('" + blog.seq + "')");
 		
+	
 		var tags = blog.tag.split(" ");
 		for(var j = 0; j < tags.length; j++){
 			$("<a>", {"class" : "tag", text : tags[j], onclick : "doSearchTag(this)" }).appendTo(blogItem.find(".blog-item-tag"));
