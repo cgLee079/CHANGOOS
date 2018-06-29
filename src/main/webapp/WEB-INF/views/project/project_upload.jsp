@@ -71,7 +71,7 @@
 				<div class="upload-project">
 					<div class="upload-project-name">내용</div>
 					<div class="upload-project-input">
-						<textarea name="contents" id="contents">
+						<textarea name="contents" id="ckeditor-autosave contents">
 							<c:out value="${project.contents}" escapeXml="false"/>
 						</textarea>
 					</div>

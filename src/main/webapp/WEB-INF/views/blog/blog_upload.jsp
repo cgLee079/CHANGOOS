@@ -42,7 +42,7 @@
 				<div class="blog-upload-item">
 					<div class="item-name">내용</div>
 					<div class="item-input">
-						<textarea id="blog-contents" name="contents" class="blog-contents">
+						<textarea id="blog-contents" name="contents" class="ckeditor-autosave blog-contents">
 							<c:out value="${blog.contents}" escapeXml="false"/>
 						</textarea>
 					</div>

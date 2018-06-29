@@ -71,9 +71,9 @@
 				</div>
 				
 				<div class="upload-item">
-					<div class="upload-item-name">설명</div>
+					<div class="upload-item-name">내용</div>
 					<div class="upload-item-input">
-						<textarea id="desc" name="desc" class="photo-desc">
+						<textarea id="desc" name="desc" class="ckeditor-autosave photo-desc">
 							<c:out value="${photo.desc}" escapeXml="false"/>
 						</textarea>
 					</div>
