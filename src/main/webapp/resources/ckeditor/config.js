@@ -72,7 +72,7 @@ CKEDITOR.editorConfig = function(config) {
 		delay : 25,
 
 		// The Default Diff Type for the Compare Dialog, you can choose between "sideBySide" or "inline". Default is "sideBySide"
-		diffType : "sideBySide",
+		diffType : "inline",
 
 		// autoLoad when enabled it directly loads the saved content
 		autoLoad : false
