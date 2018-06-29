@@ -16,7 +16,7 @@ CKEDITOR.editorConfig = function( config ) {
             { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent'] },
             '/',
             { name: 'styles', items : [ 'Format','FontSize' ] },
-            { name: 'colors', items : [ 'TextColor','BGColor' ] },
+            { name: 'colors', items : [ 'TextColor','BGColor', 'Emojione' ] },
             { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','-','RemoveFormat' ] },
             
         ];
@@ -26,5 +26,5 @@ CKEDITOR.editorConfig = function( config ) {
         	[ 'Bold','Italic','Underline','Strike','-','RemoveFormat' ]
         ];
     
-    config.extraPlugins = 'youtube,prism';
+    config.extraPlugins = 'youtube,prism,emojione';
 };
