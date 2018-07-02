@@ -48,7 +48,7 @@
 					<div class="item-name">첨부파일</div>
 					<div class="item-input">
 						<c:import url="../included/included_fileupload.jsp" charEncoding="UTF-8">
-							<c:param name="studyType" value="study"/>
+							<c:param name="boardType" value="study"/>
 						</c:import>
 					</div>
 				</div>

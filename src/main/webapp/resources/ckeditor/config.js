@@ -70,7 +70,7 @@ CKEDITOR.editorConfig = function(config) {
 		//messageType : "no",
 
 		// Delay
-		delay : 1,
+		delay : 25,
 
 		// The Default Diff Type for the Compare Dialog, you can choose between "sideBySide" or "inline". Default is "sideBySide"
 		diffType : "inline",
