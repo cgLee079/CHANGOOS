@@ -92,8 +92,10 @@ public class ProjectService {
 			imgExt = ImageManager.getExt(filename);
 			File file = new File(realPath + SNAPSHT_PATH + filename);
 			snapshtFile.transferTo(file);
-			BufferedImage image = ImageManager.getLowScaledImage(file, 1080, imgExt);
-			ImageIO.write(image, imgExt, file);
+			if(!imgExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
+				BufferedImage image = ImageManager.getLowScaledImage(file, 1080, imgExt);
+				ImageIO.write(image, imgExt, file);
+			}
 			
 			path = SNAPSHT_PATH + filename;
 		}
@@ -119,8 +121,10 @@ public class ProjectService {
 			imgExt = ImageManager.getExt(filename);
 			File file = new File(realPath + CONTENTS_PATH + filename);
 			multiFile.transferTo(file);
-			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
-			ImageIO.write(image, imgExt, file);
+			if(!imgExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
+				BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
+				ImageIO.write(image, imgExt, file);
+			}
 		}
 		
 		return CONTENTS_PATH + filename;

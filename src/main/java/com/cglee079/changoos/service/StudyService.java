@@ -150,8 +150,10 @@ public class StudyService{
 			imgExt = ImageManager.getExt(filename);
 			File file = new File(realPath + CONTENTS_PATH, filename);
 			multiFile.transferTo(file);
-			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
-			ImageIO.write(image, imgExt, file);
+			if(!imgExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
+				BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
+				ImageIO.write(image, imgExt, file);
+			}
 		}
 		
 		return CONTENTS_PATH + filename;

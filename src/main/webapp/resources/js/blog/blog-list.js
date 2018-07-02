@@ -90,7 +90,7 @@ function drawBlog(data){
 		if(i == 0){
 			var blogFirstItem = $(".blog-first-item");
 			if(blog.snapsht){
-				blogFirstItem.find(".blog-first-item-snapsht").css("background-image", "url('" + blog.snapsht + "')");
+				blogFirstItem.find(".blog-first-item-snapsht").css("background-image", "url('" + getContextPath() + blog.snapsht + "')");
 			} else{
 				blogFirstItem.find(".blog-item-snapsht").css("background", "#000");
 			}

@@ -20,21 +20,22 @@ import com.drew.metadata.exif.ExifIFD0Directory;
 public class ImageManager {
 	public static final String EXT_JPG = "jpg";
 	public static final String EXT_PNG = "png";
+	public static final String EXT_GIF = "gif";
 	
 	public synchronized static Image fileToImage(File file) throws IOException{
 		Image image = ImageIO.read(file);
 		return image;
 	}
 	
-	public synchronized static BufferedImage getLowScaledImage(File file, int h , String imgExt) throws IOException {
+	public synchronized static BufferedImage getLowScaledImage(File file, int w , String imgExt) throws IOException {
 		BufferedImage srcImg = ImageIO.read(file);
 		int width = srcImg.getWidth();
 		int height = srcImg.getHeight();
 		
-		if(height < h) { return srcImg; }
+		if(width < w) { return srcImg; }
 		
-		double ratio = (double)h / (double)height;
-		int w = (int)(width * ratio);
+		double ratio = (double)w / (double)width;
+		int h = (int)(height * ratio);
 		
 		BufferedImage destImg =  null;
 		if(imgExt.equalsIgnoreCase(ImageManager.EXT_PNG)) { destImg = new BufferedImage( w, h, BufferedImage.TYPE_4BYTE_ABGR); }
@@ -121,6 +122,8 @@ public class ImageManager {
     	String ext = filename.substring( pos + 1 );
     	if(ext.equalsIgnoreCase(ImageManager.EXT_JPG)) { return ImageManager.EXT_JPG; };
     	if(ext.equalsIgnoreCase(ImageManager.EXT_PNG)) { return ImageManager.EXT_PNG; };
+    	if(ext.equalsIgnoreCase(ImageManager.EXT_GIF)) { return ImageManager.EXT_GIF; };
     	return ImageManager.EXT_JPG;
     }
+    
 }
