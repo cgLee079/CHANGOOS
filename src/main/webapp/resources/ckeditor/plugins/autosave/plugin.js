@@ -69,7 +69,6 @@
         var saveOnDestroy = config.saveOnDestroy != null ? config.saveOnDestroy : false;
         var saveDetectionSelectors =
             config.saveDetectionSelectors != null ? config.saveDetectionSelectors : "a[href^='javascript:__doPostBack'][id*='Save'],a[id*='Cancel']";
-
         CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('autosave') + 'js/extensions.min.js'), function() {
             GenerateAutoSaveDialog(editorInstance, config, autoSaveKey);
 
@@ -316,7 +315,7 @@
             newTextLines: newtxt,
             opcodes: opcodes,
             baseTextName: editorInstance.lang.autosave.loadedContent,
-            newTextName: editorInstance.lang.autosave.autoSavedContent + (moment(jsonSavedContent.saveTime).locale(editorInstance.config.language).format(editorInstance.lang.autosave.dateFormat)) + '\'',
+            newTextName: editorInstance.lang.autosave.autoSavedContent + (moment(jsonSavedContent.saveTime).locale(editorInstance.config.language).format(editorInstance.lang.autosave.dateFormat)),
             contextSize: 3,
             viewType: dialog.getContentElement('general', 'diffType').getValue() == "inline" ? 1 : 0
         }).outerHTML + '</div>');

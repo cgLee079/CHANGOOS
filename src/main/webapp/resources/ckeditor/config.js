@@ -8,6 +8,7 @@ CKEDITOR.editorConfig = function(config) {
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
 
+	config.language = 'ko';
 	config.toolbar_Full = [
 			{
 				name : 'document',
@@ -69,7 +70,7 @@ CKEDITOR.editorConfig = function(config) {
 		//messageType : "no",
 
 		// Delay
-		delay : 25,
+		delay : 1,
 
 		// The Default Diff Type for the Compare Dialog, you can choose between "sideBySide" or "inline". Default is "sideBySide"
 		diffType : "inline",

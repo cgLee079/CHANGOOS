@@ -9,10 +9,10 @@ CKEDITOR.plugins.setLang('autosave', 'ko', {
     title: '임시 저장된 내용과 현재내용 비교',
     loadedContent: '현재 내용', 
     localStorageFull: '브라우저 로컬 저장소가 꽉 찼거나 저장소를 비우거나 데이터베이스 크기를 늘립니다.',
-    autoSavedContent: '임시 저장된 내용',
+    autoSavedContent: '임시 저장된 내용 ',
   ok: '임시저장된 내용을 불러옵니다.',
   no: '취소',
   diffType: '타입을 선택합니다:',
-  sideBySide: 'Side by side view',
-  inline: 'Inline view'
+  sideBySide: '소스',
+  inline: '미리보기'
 });
