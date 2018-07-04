@@ -187,6 +187,20 @@ public class BlogController {
 	
 	
 	/** 블로그 CKEditor 사진 업로드  **/
+	@ResponseBody
+	@RequestMapping(value = "/mgnt/blog/imgBase64Upload.do")
+	public String blogDoImgUpload(HttpServletRequest request, Model model, String base64) throws IllegalStateException, IOException {
+		
+		String path = blogService.saveContentImage(base64);
+		model.addAttribute("path", request.getContextPath() + path);
+		
+		JSONObject result = new JSONObject();
+		result.put("path",request.getContextPath() + path);
+		
+		return result.toString();
+	}
+	
+	/** 블로그 CKEditor 사진 업로드  **/
 	@RequestMapping(value = "/mgnt/blog/imgUpload.do")
 	public String blogDoImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {

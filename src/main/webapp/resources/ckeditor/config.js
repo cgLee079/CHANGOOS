@@ -44,7 +44,7 @@ CKEDITOR.editorConfig = function(config) {
 
 	config.toolbar_Basic = [ [ 'Bold', 'Italic', 'Underline', 'Strike', '-','RemoveFormat' ] ];
 
-	config.extraPlugins = 'youtube,prism,emojione,autosave';
+	config.extraPlugins = 'youtube,prism,emojione,autosave,pastebase64';
 
 	config.autosave = {
 		// Auto save Key - The Default autosavekey can be overridden from the config ...
