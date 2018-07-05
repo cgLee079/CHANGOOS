@@ -186,11 +186,10 @@ public class BlogController {
 	}
 	
 	
-	/** 블로그 CKEditor 사진 업로드  **/
+	/** 블로그 CKEditor 사진 업로드(클립보드로 붙여넣기)  **/
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/blog/imgBase64Upload.do")
 	public String blogDoImgUpload(HttpServletRequest request, Model model, String base64) throws IllegalStateException, IOException {
-		
 		String path = blogService.saveContentImage(base64);
 		model.addAttribute("path", request.getContextPath() + path);
 		

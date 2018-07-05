@@ -9,6 +9,7 @@ function initContentCKEditor(){
 	var editor = CKEDITOR.replace("study-contents", {
 		height : '400px',
 		filebrowserUploadUrl : getContextPath() + "/mgnt/study/imgUpload.do",
+		pasteImageUrl : getContextPath() + "/mgnt/blog/imgBase64Upload.do",
 		on : {
 			instanceReady : function( ev ){
 			    // Output paragraphs as <p>Text</p>.

@@ -1,6 +1,7 @@
 package com.cglee079.changoos.service;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.xml.bind.DatatypeConverter;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -139,6 +141,24 @@ public class StudyService{
 			}
 		}
 		
+	}
+	
+	public String saveContentImage(String base64) throws IOException {
+		String filename	= "content_" + TimeStamper.stamp() + "_pasteImage.png";
+		String imgExt = "png";
+		
+		base64 = base64.split(",")[1];
+		byte[] imageBytes = DatatypeConverter.parseBase64Binary(base64);
+		BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
+		File file =  new File(realPath + CONTENTS_PATH, filename);
+		ImageIO.write(bufImg, "png", file);
+		
+		if(!imgExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
+			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
+			ImageIO.write(image, imgExt, file);
+		}
+		
+		return CONTENTS_PATH + filename;
 	}
 
 	public String saveContentImageFile(MultipartFile multiFile) throws IllegalStateException, IOException {

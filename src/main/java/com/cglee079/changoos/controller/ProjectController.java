@@ -169,7 +169,21 @@ public class ProjectController {
 		return new JSONObject().put("result", result).toString();
 	}
 	
-	/** 프로젝츠 CKEditor 사진 업로드 **/
+	/** 프로젝트 CKEditor 사진 업로드(클립보드로 붙여넣기)  **/
+	@ResponseBody
+	@RequestMapping(value = "/mgnt/project/imgBase64Upload.do")
+	public String blogDoImgUpload(HttpServletRequest request, Model model, String base64) throws IllegalStateException, IOException {
+		String path = projectService.saveContentImage(base64);
+		model.addAttribute("path", request.getContextPath() + path);
+		
+		JSONObject result = new JSONObject();
+		result.put("path",request.getContextPath() + path);
+		
+		return result.toString();
+	}
+	
+	
+	/** 프로젝트 CKEditor 사진 업로드 **/
 	@RequestMapping(value = "/mgnt/project/imgUpload.do")
 	public String projectImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
