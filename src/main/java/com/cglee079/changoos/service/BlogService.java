@@ -239,7 +239,7 @@ public class BlogService{
 		byte[] imageBytes = DatatypeConverter.parseBase64Binary(base64);
 		BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
 		File file =  new File(realPath + CONTENTS_PATH, filename);
-		ImageIO.write(bufImg, "png", file);
+		ImageIO.write(bufImg, imgExt, file);
 		
 		if(!imgExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
 			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
