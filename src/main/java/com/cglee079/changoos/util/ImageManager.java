@@ -9,6 +9,8 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
+import org.imgscalr.Scalr;
+
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
@@ -37,14 +39,17 @@ public class ImageManager {
 		double ratio = (double)w / (double)width;
 		int h = (int)(height * ratio);
 		
-		BufferedImage destImg =  null;
-		if(imgExt.equalsIgnoreCase(ImageManager.EXT_PNG)) { destImg = new BufferedImage( w, h, BufferedImage.TYPE_4BYTE_ABGR); }
-		if(imgExt.equalsIgnoreCase(ImageManager.EXT_JPG)) { destImg = new BufferedImage( w, h, BufferedImage.TYPE_3BYTE_BGR); }
-
-    	Graphics2D g = destImg.createGraphics();
-    	g.drawImage(srcImg, 0, 0, w, h, null);
-	    
-	    return destImg;
+		BufferedImage scaledImage = null;
+        if (srcImg != null) {
+            scaledImage = Scalr.resize(srcImg, Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_EXACT, w, h, null);
+//            BufferedImage convertedImg =  null;
+//            if(imgExt.equalsIgnoreCase(ImageManager.EXT_PNG)) { convertedImg = new BufferedImage( w, h, BufferedImage.TYPE_4BYTE_ABGR); }
+//    		if(imgExt.equalsIgnoreCase(ImageManager.EXT_JPG)) { convertedImg = new BufferedImage( w, h, BufferedImage.TYPE_3BYTE_BGR); }
+//            convertedImg.getGraphics().drawImage(scaledImage, 0, 0, w, h, null);
+//            scaledImage = convertedImg;
+        }
+        
+        return scaledImage;
 	}    
 	
 	public synchronized static HashMap<String, String> getImageMetaData(File file) throws ImageProcessingException, IOException{
