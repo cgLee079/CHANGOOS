@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.dao.StudyFileDao;
 import com.cglee079.changoos.model.StudyFileVo;
 import com.cglee079.changoos.util.FileUtils;
@@ -16,8 +17,6 @@ import com.cglee079.changoos.util.TimeStamper;
 
 @Service
 public class StudyFileService {
-	public static final String FILE_PATH 	= "/uploaded/studies/files/";
-	
 	@Autowired
 	StudyFileDao studyFileDao;
 	
@@ -60,7 +59,7 @@ public class StudyFileService {
 			size 	= multipartFile.getSize();
 			
 			if(size > 0 ){
-				file = new File(realPath + FILE_PATH, pathNm);
+				file = new File(realPath + Path.STUDY_FILE_PATH, pathNm);
 				multipartFile.transferTo(file);
 				
 				studyFile = new StudyFileVo();
@@ -82,7 +81,7 @@ public class StudyFileService {
 		int fileLength = files.size();
 		for(int i = 0 ;  i < fileLength; i++){
 			file = files.get(i);
-			existFile = new File(realPath + FILE_PATH, file.getPathNm());
+			existFile = new File(realPath + Path.STUDY_FILE_PATH, file.getPathNm());
 			if(existFile.exists()){
 				existFile.delete();
 			}
@@ -92,7 +91,7 @@ public class StudyFileService {
 	/** 파일 삭제 **/
 	public boolean deleteFile(int fileSeq) {
 		StudyFileVo studyFile = this.get(fileSeq);
-		File file = new File(realPath + FILE_PATH, studyFile.getPathNm());
+		File file = new File(realPath + Path.STUDY_FILE_PATH, studyFile.getPathNm());
 		if(file.exists()){
 			if(file.delete()){
 				if(this.delete(fileSeq)){

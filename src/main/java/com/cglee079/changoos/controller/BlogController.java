@@ -22,11 +22,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.model.BlogFileVo;
 import com.cglee079.changoos.model.BlogVo;
 import com.cglee079.changoos.model.ProjectFileVo;
 import com.cglee079.changoos.service.BlogFileService;
 import com.cglee079.changoos.service.BlogService;
+import com.cglee079.changoos.service.CommonService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 
@@ -34,6 +36,9 @@ import com.google.gson.Gson;
 public class BlogController {
 	@Autowired
 	private BlogService blogService;
+	
+	@Autowired
+	private CommonService commonService;
 	
 	@Autowired
 	private BlogFileService blogFileService;
@@ -79,7 +84,7 @@ public class BlogController {
 		String realPath = session.getServletContext().getRealPath("");
 		BlogFileVo blogFile = blogFileService.get(filename);
 		
-		File file = new File(realPath + BlogFileService.FILE_PATH, blogFile.getPathNm());
+		File file = new File(realPath + Path.BLOG_FILE_PATH, blogFile.getPathNm());
 		byte fileByte[] = FileUtils.readFileToByteArray(file);
 		
 		if(file.exists()){
@@ -120,7 +125,8 @@ public class BlogController {
 	public String blogModify(Model model, int seq)throws SQLException, JsonProcessingException{
 		BlogVo blog = blogService.get(seq);
 		if(blog.getContents() != null){
-			blog.setContents(blog.getContents().replace("&", "&amp;"));
+			String contents = commonService.copyToTempPath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
+			blog.setContents(contents.replace("&", "&amp;"));
 		}
 		
 		model.addAttribute("blog", blog);
@@ -137,6 +143,10 @@ public class BlogController {
 	public String blogDoUpload(Model model, BlogVo blog, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
 		String snapshtPath = blogService.saveSnapsht(blog, snapshtFile);
 		blog.setSnapsht(snapshtPath);
+		
+		String contents = commonService.moveToSavePath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
+		blog.setContents(contents);
+		
 		int seq = blogService.insert(blog);
 		
 		//파일저장
@@ -150,6 +160,10 @@ public class BlogController {
 	public String blogDoModify(Model model, BlogVo blog, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
 		String snapshtPath = blogService.saveSnapsht(blog, snapshtFile);
 		blog.setSnapsht(snapshtPath);
+		
+		String contents = commonService.moveToSavePath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
+		blog.setContents(contents);
+		
 		blogService.update(blog);
 		
 		//파일저장
@@ -184,32 +198,4 @@ public class BlogController {
 		
 		return new JSONObject().put("result", result).toString();
 	}
-	
-	
-	/** 블로그 CKEditor 사진 업로드(클립보드로 붙여넣기)  **/
-	@ResponseBody
-	@RequestMapping(value = "/mgnt/blog/imgBase64Upload.do")
-	public String blogDoImgUpload(HttpServletRequest request, Model model, String base64) throws IllegalStateException, IOException {
-		String path = blogService.saveContentImage(base64);
-		
-		
-		JSONObject result = new JSONObject();
-		result.put("path", path);
-		request.setAttribute("path", path);
-		return result.toString();
-	}
-	
-	/** 블로그 CKEditor 사진 업로드  **/
-	@RequestMapping(value = "/mgnt/blog/imgUpload.do")
-	public String blogDoImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
-			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
-	
-		String path = blogService.saveContentImage(multiFile);
-		response.setHeader("X-Frame-Options", "SAMEORIGIN");
-		model.addAttribute("path", path);
-		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
-		
-		return "blog/blog_imgupload";
-	}
-	
 }

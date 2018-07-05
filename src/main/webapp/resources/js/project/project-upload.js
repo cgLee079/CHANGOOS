@@ -36,8 +36,8 @@ function initDescCKEditor() {
 function initContentCKEditor() {
 	var editor = CKEDITOR.replace("contents", {
 		height : '400px',
-		filebrowserUploadUrl : getContextPath() + "/mgnt/project/imgUpload.do",
-		pasteImageUrl : getContextPath() + "/mgnt/project/imgBase64Upload.do",
+		filebrowserUploadUrl : getContextPath() + "/mgnt/imgUpload.do",
+		pasteImageUrl : getContextPath() + "/mgnt/imgBase64Upload.do",
 		codeSnippet_theme : 'github',
 		on : {
 			instanceReady : function(ev) {

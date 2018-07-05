@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.model.StudyFileVo;
 import com.cglee079.changoos.model.StudyVo;
+import com.cglee079.changoos.service.CommonService;
 import com.cglee079.changoos.service.StudyFileService;
 import com.cglee079.changoos.service.StudyService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -33,6 +35,9 @@ import com.google.gson.Gson;
 public class StudyController {
 	@Autowired
 	private StudyService studyService;
+	
+	@Autowired
+	private CommonService commonService;
 	
 	@Autowired
 	private StudyFileService studyFileService;
@@ -90,7 +95,7 @@ public class StudyController {
 		String rootPath = session.getServletContext().getRealPath("");
 		StudyFileVo studyFile = studyFileService.get(filename);
 		
-		File file = new File(rootPath + StudyFileService.FILE_PATH, studyFile.getPathNm());
+		File file = new File(rootPath + Path.STUDY_FILE_PATH, studyFile.getPathNm());
 		byte fileByte[] = FileUtils.readFileToByteArray(file);
 		
 		if(file.exists()){
@@ -130,7 +135,12 @@ public class StudyController {
 	@RequestMapping(value = "/mgnt/study/upload", params = "seq")
 	public String studyModify(Model model, int seq)throws SQLException, JsonProcessingException{
 		StudyVo study = studyService.get(seq);
-		study.setContents(study.getContents().replace("&", "&amp;"));
+		
+		if(study.getContents() != null) {
+			String contents = commonService.copyToTempPath(study.getContents(), Path.STUDY_CONTENTS_PATH);
+			study.setContents(contents.replace("&", "&amp;"));
+		}
+		
 		model.addAttribute("study", study);
 		
 		List<StudyFileVo> files = studyFileService.list(seq);
@@ -143,6 +153,9 @@ public class StudyController {
 	/** 공부 업로드  **/
 	@RequestMapping(value = "/mgnt/study/upload.do", params = "!seq")
 	public String studyDoUpload(HttpSession session, Model model, StudyVo study, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
+		String contents = commonService.moveToSavePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
+		study.setContents(contents);
+		
 		int seq = studyService.insert(study);
 		
 		//파일저장
@@ -154,6 +167,9 @@ public class StudyController {
 	/** 공부 수정 **/
 	@RequestMapping(value = "/mgnt/study/upload.do", params = "seq")
 	public String studyDoModify(HttpSession session, Model model, StudyVo study, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
+		String contents = commonService.moveToSavePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
+		study.setContents(contents);
+		
 		studyService.update(study);
 		
 		//파일저장
@@ -182,33 +198,6 @@ public class StudyController {
 		result = studyFileService.deleteFile(seq);
 		
 		return new JSONObject().put("result", result).toString();
-	}
-	
-	/** 공부 CKEditor 사진 업로드(클립보드로 붙여넣기)  **/
-	@ResponseBody
-	@RequestMapping(value = "/mgnt/study/imgBase64Upload.do")
-	public String blogDoImgUpload(HttpServletRequest request, Model model, String base64) throws IllegalStateException, IOException {
-		String path = studyService.saveContentImage(base64);
-		
-		JSONObject result = new JSONObject();
-		result.put("path", path);
-		request.setAttribute("path", path);
-		return result.toString();
-	}
-	
-	
-	/** 공부 CKEditor 사진 업로드  **/
-	@RequestMapping(value = "/mgnt/study/imgUpload.do")
-	public String studyDoImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
-			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
-		
-		String path = studyService.saveContentImageFile(multiFile);
-		
-		response.setHeader("X-Frame-Options", "SAMEORIGIN");
-		model.addAttribute("path", path);
-		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
-		
-		return "study/study_imgupload";
 	}
 	
 }

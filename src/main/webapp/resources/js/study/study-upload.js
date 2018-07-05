@@ -8,8 +8,8 @@ $(document).ready(function(){
 function initContentCKEditor(){
 	var editor = CKEDITOR.replace("study-contents", {
 		height : '400px',
-		filebrowserUploadUrl : getContextPath() + "/mgnt/study/imgUpload.do",
-		pasteImageUrl : getContextPath() + "/mgnt/study/imgBase64Upload.do",
+		filebrowserUploadUrl : getContextPath() + "/mgnt/imgUpload.do",
+		pasteImageUrl : getContextPath() + "/mgnt/imgBase64Upload.do",
 		on : {
 			instanceReady : function( ev ){
 			    // Output paragraphs as <p>Text</p>.

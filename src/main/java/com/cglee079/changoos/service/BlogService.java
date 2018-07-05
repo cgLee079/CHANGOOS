@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.dao.BlogDao;
 import com.cglee079.changoos.model.BlogVo;
 import com.cglee079.changoos.util.FileUtils;
@@ -36,14 +37,8 @@ import com.google.gson.Gson;
 
 @Service
 public class BlogService{
-	public static final String SNAPSHT_PATH		= "/uploaded/blogs/snapshts/";
-	public static final String CONTENTS_PATH	= "/uploaded/blogs/contents/";
-	
 	@Autowired
 	BlogDao blogDao;
-	
-//	@Value("#{servletContext.contextPath}")
-//    private String contextPath;
 	
 	@Value("#{servletContext.getRealPath('/')}")
     private String realPath;
@@ -193,13 +188,13 @@ public class BlogService{
 			
 			filename += FileUtils.sanitizeFilename(snapshtFile.getOriginalFilename());
 			imgExt = ImageManager.getExt(filename);
-			File file = new File(realPath + SNAPSHT_PATH, filename);
+			File file = new File(realPath + Path.BLOG_SNAPSHT_PATH, filename);
 			snapshtFile.transferTo(file);
 			if(!imgExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
 				BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
 				ImageIO.write(image, imgExt, file);
 			}
-			path = SNAPSHT_PATH + filename;
+			path = Path.BLOG_SNAPSHT_PATH + filename;
 		} 
 		
 		return path;
@@ -212,44 +207,6 @@ public class BlogService{
 			existFile.delete();
 		}
 	}
-	
-	public String saveContentImage(MultipartFile multiFile) throws IllegalStateException, IOException {
-		String filename	= "content_" + TimeStamper.stamp() + "_";
-		String imgExt 	= null;
-		
-		if(multiFile != null){
-			filename += FileUtils.sanitizeFilename(multiFile.getOriginalFilename());
-			imgExt = ImageManager.getExt(filename);
-			File file = new File(realPath + CONTENTS_PATH, filename);
-			multiFile.transferTo(file);
-			if(!imgExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
-				BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
-				ImageIO.write(image, imgExt, file);
-			}
-		}
-		
-		
-		return CONTENTS_PATH + filename;
-	}
-	
-	public String saveContentImage(String base64) throws IOException {
-		String filename	= "content_" + TimeStamper.stamp() + "_pasteImage.png";
-		String imgExt = "png";
-		
-		base64 = base64.split(",")[1];
-		byte[] imageBytes = DatatypeConverter.parseBase64Binary(base64);
-		BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
-		File file =  new File(realPath + CONTENTS_PATH, filename);
-		ImageIO.write(bufImg, imgExt, file);
-		
-		if(!imgExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
-			BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
-			ImageIO.write(image, imgExt, file);
-		}
-		
-		return CONTENTS_PATH + filename;
-	}
-	
 	
 	public void removeContentImageFile(BlogVo blog){
 		List<String> imgPaths = new ArrayList<String>();

@@ -19,11 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.model.ProjectFileVo;
 import com.cglee079.changoos.model.ProjectVo;
+import com.cglee079.changoos.service.CommonService;
 import com.cglee079.changoos.service.ProjectFileService;
 import com.cglee079.changoos.service.ProjectService;
 import com.google.gson.Gson;
@@ -32,6 +33,9 @@ import com.google.gson.Gson;
 public class ProjectController {
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private CommonService commonService;
 	
 	@Autowired
 	private ProjectFileService projectFileService;
@@ -67,7 +71,7 @@ public class ProjectController {
 		String realPath = session.getServletContext().getRealPath("");
 		ProjectFileVo projectFile = projectFileService.get(filename);
 		
-		File file = new File(realPath + ProjectFileService.FILE_PATH, projectFile.getPathNm());
+		File file = new File(realPath + Path.PROJECT_FILE_PATH, projectFile.getPathNm());
 		byte fileByte[] = FileUtils.readFileToByteArray(file);
 		
 		if(file.exists()){
@@ -122,8 +126,10 @@ public class ProjectController {
 	@RequestMapping(value = "/mgnt/project/upload", params = "seq")
 	public String projectModify(Model model, int seq) {
 		ProjectVo project = projectService.get(seq);
+		
 		if(project.getContents() != null){
-			project.setContents(project.getContents().replace("&", "&amp;"));
+			String contents = commonService.copyToTempPath(project.getContents(), Path.PROJECT_CONTENTS_PATH);
+			project.setContents(contents.replace("&", "&amp;"));
 		}
 		
 		model.addAttribute("project", project);
@@ -139,6 +145,10 @@ public class ProjectController {
 	public String projectDoUpload(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws IllegalStateException, IOException {
 		String snapshtPath = projectService.saveSnapsht(project, snapshtFile);
 		project.setSnapsht(snapshtPath);
+		
+		String contents = commonService.moveToSavePath(project.getContents(), Path.PROJECT_CONTENTS_PATH);
+		project.setContents(contents);
+		
 		int seq = projectService.insert(project);
 		
 		//파일 저장
@@ -152,6 +162,10 @@ public class ProjectController {
 	public String projectDoModify(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws IllegalStateException, IOException{
 		String snapshtPath = projectService.saveSnapsht(project, snapshtFile);
 		project.setSnapsht(snapshtPath);
+		
+		String contents = commonService.moveToSavePath(project.getContents(), Path.PROJECT_CONTENTS_PATH);
+		project.setContents(contents);
+		
 		projectService.update(project);
 		
 		//파일 저장
@@ -169,31 +183,4 @@ public class ProjectController {
 		
 		return new JSONObject().put("result", result).toString();
 	}
-	
-	/** 프로젝트 CKEditor 사진 업로드(클립보드로 붙여넣기)  **/
-	@ResponseBody
-	@RequestMapping(value = "/mgnt/project/imgBase64Upload.do")
-	public String blogDoImgUpload(HttpServletRequest request, String base64) throws IllegalStateException, IOException {
-		String path = projectService.saveContentImage(base64);
-		
-		JSONObject result = new JSONObject();
-		result.put("path", path);
-		request.setAttribute("path", path);
-		return result.toString();
-	}
-	
-	
-	/** 프로젝트 CKEditor 사진 업로드 **/
-	@RequestMapping(value = "/mgnt/project/imgUpload.do")
-	public String projectImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
-			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
-		
-		String path = projectService.saveContentImage(multiFile);
-		response.setHeader("X-Frame-Options", "SAMEORIGIN");
-		model.addAttribute("path", path);
-		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
-		
-		return "project/project_imgupload";
-	}
-
 }

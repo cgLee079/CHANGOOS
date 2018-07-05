@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.dao.PhotoDao;
 import com.cglee079.changoos.model.PhotoVo;
 import com.cglee079.changoos.util.FileUtils;
@@ -25,9 +26,6 @@ import com.drew.metadata.MetadataException;
 
 @Service
 public class PhotoService {
-	public static final String PHOTO_PATH	 	= "/uploaded/photos/photos/";
-	public static final String SNAPSHT_PATH		= "/uploaded/photos/snapshts/";
-	
 	@Value("#{servletContext.getRealPath('/')}")
     private String realPath;
 	
@@ -66,7 +64,7 @@ public class PhotoService {
 		snapshtName += "." + imgExt;
 		
 		//multipartfile save;
-		File photofile = new File(realPath + PHOTO_PATH, imgName);
+		File photofile = new File(realPath + Path.PHOTO_PHOTO_PATH, imgName);
 		imageFile.transferTo(photofile);
 		HashMap<String, String> metadata = ImageManager.getImageMetaData(photofile);
 		photo.setDate(Formatter.toDate(metadata.get("Date/Time Original")));
@@ -88,11 +86,11 @@ public class PhotoService {
 			shapshtImg = ImageManager.rotateImageForMobile(shapshtImg, orientation);
 		}
 		*/
-		File snapshtfile = new File(realPath + SNAPSHT_PATH, snapshtName);
+		File snapshtfile = new File(realPath + Path.PHOTO_SNAPSHT_PATH, snapshtName);
 		ImageIO.write(shapshtImg, imgExt, snapshtfile);
 		
-		photo.setSnapsht(SNAPSHT_PATH + snapshtName);
-		photo.setImage(PHOTO_PATH + imgName);
+		photo.setSnapsht(Path.PHOTO_SNAPSHT_PATH + snapshtName);
+		photo.setImage(Path.PHOTO_SNAPSHT_PATH + imgName);
 		
 		return photo;
 	}

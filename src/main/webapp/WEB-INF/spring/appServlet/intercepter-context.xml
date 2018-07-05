@@ -26,28 +26,6 @@
 		</mvc:interceptor>
 		
 		<mvc:interceptor>
-			<mvc:mapping path="/" />
-			<mvc:mapping path="/*" />
-			<mvc:mapping path="/**/*" />
-			<mvc:exclude-mapping path="/resources/**" />
-			<mvc:exclude-mapping path="/uploaded/**" />
-			<mvc:exclude-mapping path="/mgnt/**" />
-			<mvc:exclude-mapping path="/**/*.do" />
-			<mvc:exclude-mapping path="/**.do" />
-			<bean class="com.cglee079.changoos.interceptor.ClearContentsImageInterceptor"></bean>
-		</mvc:interceptor>
-		
-		<mvc:interceptor>
-			<mvc:mapping path="/mgnt/project/imgBase64Upload.do" />
-			<mvc:mapping path="/mgnt/study/imgBase64Upload.do" />
-			<mvc:mapping path="/mgnt/blog/imgBase64Upload.do" />
-			<mvc:mapping path="/mgnt/project/imgUpload.do" />
-			<mvc:mapping path="/mgnt/study/imgUpload.do" />
-			<mvc:mapping path="/mgnt/blog/imgUpload.do" />
-			<bean class="com.cglee079.changoos.interceptor.CatchContentsImageInterceptor"></bean>
-		</mvc:interceptor>
-		
-		<mvc:interceptor>
 			<mvc:mapping path="/study/comment/submit.do" />
 			<bean class="com.cglee079.changoos.interceptor.StudyComtNoticeInterceptor"></bean>
 		</mvc:interceptor>
