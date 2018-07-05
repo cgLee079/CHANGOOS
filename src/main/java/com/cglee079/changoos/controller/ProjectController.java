@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.model.ProjectFileVo;
@@ -172,13 +173,12 @@ public class ProjectController {
 	/** 프로젝트 CKEditor 사진 업로드(클립보드로 붙여넣기)  **/
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/project/imgBase64Upload.do")
-	public String blogDoImgUpload(HttpServletRequest request, Model model, String base64) throws IllegalStateException, IOException {
+	public String blogDoImgUpload(HttpServletRequest request, String base64) throws IllegalStateException, IOException {
 		String path = projectService.saveContentImage(base64);
-		model.addAttribute("path", request.getContextPath() + path);
 		
 		JSONObject result = new JSONObject();
-		result.put("path",request.getContextPath() + path);
-		
+		result.put("path", path);
+		request.setAttribute("path", path);
 		return result.toString();
 	}
 	
@@ -190,7 +190,7 @@ public class ProjectController {
 		
 		String path = projectService.saveContentImage(multiFile);
 		response.setHeader("X-Frame-Options", "SAMEORIGIN");
-		model.addAttribute("path", request.getContextPath() + path);
+		model.addAttribute("path", path);
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
 		
 		return "project/project_imgupload";

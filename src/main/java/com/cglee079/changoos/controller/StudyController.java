@@ -189,11 +189,10 @@ public class StudyController {
 	@RequestMapping(value = "/mgnt/study/imgBase64Upload.do")
 	public String blogDoImgUpload(HttpServletRequest request, Model model, String base64) throws IllegalStateException, IOException {
 		String path = studyService.saveContentImage(base64);
-		model.addAttribute("path", request.getContextPath() + path);
 		
 		JSONObject result = new JSONObject();
-		result.put("path",request.getContextPath() + path);
-		
+		result.put("path", path);
+		request.setAttribute("path", path);
 		return result.toString();
 	}
 	
@@ -206,7 +205,7 @@ public class StudyController {
 		String path = studyService.saveContentImageFile(multiFile);
 		
 		response.setHeader("X-Frame-Options", "SAMEORIGIN");
-		model.addAttribute("path", request.getContextPath() + path);
+		model.addAttribute("path", path);
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
 		
 		return "study/study_imgupload";

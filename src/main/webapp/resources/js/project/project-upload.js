@@ -49,11 +49,16 @@ function initContentCKEditor() {
 					breakBeforeClose : false,
 					breakAfterClose : true
 				});
+			},
+			
+			keydown : function(ev){
+				console.log(ev);
 			}
 		},
 		toolbar : 'Full'
 	});
 
+	
 	CKEDITOR.on('dialogDefinition', function(ev) {
 		var dialogName = ev.data.name;
 		var dialog = ev.data.definition.dialog;
