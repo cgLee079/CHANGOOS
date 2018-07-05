@@ -37,7 +37,7 @@ function initContentCKEditor() {
 	var editor = CKEDITOR.replace("contents", {
 		height : '400px',
 		filebrowserUploadUrl : getContextPath() + "/mgnt/project/imgUpload.do",
-		pasteImageUrl : getContextPath() + "/mgnt/blog/imgBase64Upload.do",
+		pasteImageUrl : getContextPath() + "/mgnt/project/imgBase64Upload.do",
 		codeSnippet_theme : 'github',
 		on : {
 			instanceReady : function(ev) {
