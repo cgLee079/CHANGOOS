@@ -107,13 +107,13 @@ public class ProjectController {
 	@RequestMapping(value = "/mgnt/project/delete.do")
 	public String projectDelete(HttpSession session, int seq) {
 		ProjectVo project = projectService.get(seq);
-		
+		List<ProjectFileVo> files = projectFileService.list(seq);
 		
 		boolean result = projectService.delete(seq);
 		if(result) {
 			projectService.removeSnapshtFile(project);
 			commonService.removeContentImage(project.getContents());
-			projectFileService.deleteFiles(seq);
+			projectFileService.deleteFiles(files);
 		}
 		return new JSONObject().put("result", result).toString();
 	}

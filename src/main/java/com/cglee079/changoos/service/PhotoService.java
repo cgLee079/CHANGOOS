@@ -90,7 +90,7 @@ public class PhotoService {
 		ImageIO.write(shapshtImg, imgExt, snapshtfile);
 		
 		photo.setSnapsht(Path.PHOTO_SNAPSHT_PATH + snapshtName);
-		photo.setImage(Path.PHOTO_SNAPSHT_PATH + imgName);
+		photo.setImage(Path.PHOTO_PHOTO_PATH + imgName);
 		
 		return photo;
 	}

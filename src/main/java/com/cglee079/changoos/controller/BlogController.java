@@ -176,14 +176,14 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping("/mgnt/blog/delete.do")
 	public String blogDoDelete(Model model, int seq) throws SQLException, JsonProcessingException{
-		
 		BlogVo blog = blogService.get(seq);
+		List<BlogFileVo> files = blogFileService.list(seq);
 		
 		boolean result = blogService.delete(seq);
 		if(result) {
 			blogService.removeSnapshtFile(blog);
 			commonService.removeContentImage(blog.getContents()); 	//Content Img 삭제
-			blogFileService.deleteFiles(seq);
+			blogFileService.deleteFiles(files);
 		}
 		return new JSONObject().put("result", result).toString();
 	}

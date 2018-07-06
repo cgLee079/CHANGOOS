@@ -55,8 +55,7 @@ public class ProjectFileService {
 	}
 	
 	/** 한 프로젝트엔 종속된 파일 삭제 */
-	public void deleteFiles(int projectSeq) {
-		List<ProjectFileVo> files = this.list(projectSeq);
+	public void deleteFiles(List<ProjectFileVo> files) {
 		ProjectFileVo file = null;
 		int fileLength = files.size();
 		for(int i = 0 ;  i < fileLength; i++){

@@ -83,10 +83,11 @@ public class PhotoController {
 	@RequestMapping(value = "/mgnt/photo/delete.do")
 	public String photoDelete(int seq) {
 		PhotoVo photo = photoService.get(seq);
-		photoService.deleteFile(photo.getImage());
-		photoService.deleteFile(photo.getSnapsht());
-		
 		boolean result = photoService.delete(seq);
+		if(result) {
+			photoService.deleteFile(photo.getImage());
+			photoService.deleteFile(photo.getSnapsht());
+		}
 		return new JSONObject().put("result", result).toString();
 	}
 	

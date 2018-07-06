@@ -73,9 +73,8 @@ public class StudyFileService {
 	}
 	
 	/** 한 게시글에 종속된 파일 삭제 **/
-	public void deleteFiles(int studySeq) {
+	public void deleteFiles(List<StudyFileVo> files) {
 		//File 삭제
-		List<StudyFileVo> files = this.list(studySeq);
 		StudyFileVo file = null;
 		int fileLength = files.size();
 		for(int i = 0 ;  i < fileLength; i++){
@@ -87,7 +86,7 @@ public class StudyFileService {
 	/** 파일 삭제 **/
 	public boolean deleteFile(int fileSeq) {
 		StudyFileVo studyFile = this.get(fileSeq);
-		if(FileUtils.delete(realPath + Path.STUDY_FILE_PATH ,studyFile.getPathNm())) {
+		if(FileUtils.delete(realPath + Path.STUDY_FILE_PATH, studyFile.getPathNm())) {
 			if(this.delete(fileSeq)){
 				return true;
 			};

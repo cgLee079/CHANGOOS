@@ -74,9 +74,8 @@ public class BlogFileService {
 	}
 
 	/** 한 게시글에 종속된 파일 삭제 **/
-	public void deleteFiles(int studySeq) {
+	public void deleteFiles(List<BlogFileVo> files) {
 		// File 삭제
-		List<BlogFileVo> files = this.list(studySeq);
 		BlogFileVo file = null;
 		int fileLength = files.size();
 		for (int i = 0; i < fileLength; i++) {
