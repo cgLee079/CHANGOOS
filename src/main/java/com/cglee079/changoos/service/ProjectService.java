@@ -79,10 +79,7 @@ public class ProjectService {
 		String imgExt = null;
 		String path = project.getSnapsht();
 		if (snapshtFile.getSize() != 0) {
-			File existFile = new File(realPath + project.getSnapsht());
-			if (existFile.exists()) {
-				existFile.delete();
-			}
+			FileUtils.delete(realPath + project.getSnapsht());
 
 			filename += FileUtils.sanitizeFilename(snapshtFile.getOriginalFilename());
 			imgExt = ImageManager.getExt(filename);
@@ -100,33 +97,7 @@ public class ProjectService {
 	}
 
 	public void removeSnapshtFile(ProjectVo project) {
-		File existFile = null;
-		existFile = new File(realPath + project.getSnapsht());
-		if (existFile.exists()) {
-			existFile.delete();
-		}
+		FileUtils.delete(realPath + project.getSnapsht());
 	}
 
-	public void removeContentImageFile(ProjectVo project) {
-		List<String> imgPaths = new ArrayList<String>();
-		String content = project.getContents();
-
-		Document doc = Jsoup.parse(content);
-		Elements els = doc.select("img");
-		Element el = null;
-
-		for (int i = 0; i < els.size(); i++) {
-			el = els.get(i);
-			imgPaths.add(el.attr("src"));
-		}
-
-		File existFile = null;
-		int imgPathsLength = imgPaths.size();
-		for (int i = 0; i < imgPathsLength; i++) {
-			existFile = new File(realPath + imgPaths.get(i));
-			if (existFile.exists()) {
-				existFile.delete();
-			}
-		}
-	}
 }

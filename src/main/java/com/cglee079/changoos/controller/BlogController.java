@@ -179,12 +179,12 @@ public class BlogController {
 		
 		BlogVo blog = blogService.get(seq);
 		
-		//Content Img 삭제
-		blogService.removeSnapshtFile(blog);
-		blogService.removeContentImageFile(blog);
-		blogFileService.deleteFiles(seq);
-		
 		boolean result = blogService.delete(seq);
+		if(result) {
+			blogService.removeSnapshtFile(blog);
+			commonService.removeContentImage(blog.getContents()); 	//Content Img 삭제
+			blogFileService.deleteFiles(seq);
+		}
 		return new JSONObject().put("result", result).toString();
 	}
 	

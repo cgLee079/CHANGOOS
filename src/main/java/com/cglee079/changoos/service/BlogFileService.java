@@ -19,10 +19,10 @@ import com.cglee079.changoos.util.TimeStamper;
 public class BlogFileService {
 	@Autowired
 	BlogFileDao blogFileDao;
-	
+
 	@Value("#{servletContext.getRealPath('/')}")
-    private String realPath;
-	
+	private String realPath;
+
 	public boolean insert(BlogFileVo studyFile) {
 		return blogFileDao.insert(studyFile);
 	}
@@ -42,7 +42,7 @@ public class BlogFileService {
 	public boolean delete(int seq) {
 		return blogFileDao.delete(seq);
 	}
-	
+
 	/** 여러 파일 저장 */
 	public void saveFiles(int seq, List<MultipartFile> files) throws IllegalStateException, IOException {
 		File file = null;
@@ -52,17 +52,17 @@ public class BlogFileService {
 		String pathNm = null;
 		long size = -1;
 		int length = files.size();
-		
-		for(int i = 0 ; i < length ; i++){
+
+		for (int i = 0; i < length; i++) {
 			multipartFile = files.get(i);
-			realNm 	= FileUtils.sanitizeFilename(multipartFile.getOriginalFilename());
-			pathNm	= "blog" + seq + "_" + TimeStamper.stamp() + "_" + realNm;
-			size 	= multipartFile.getSize();
-			
-			if(size > 0 ){
+			realNm = FileUtils.sanitizeFilename(multipartFile.getOriginalFilename());
+			pathNm = "blog" + seq + "_" + TimeStamper.stamp() + "_" + realNm;
+			size = multipartFile.getSize();
+
+			if (size > 0) {
 				file = new File(realPath + Path.BLOG_FILE_PATH, pathNm);
 				multipartFile.transferTo(file);
-				
+
 				blogFile = new BlogFileVo();
 				blogFile.setPathNm(pathNm);
 				blogFile.setRealNm(realNm);
@@ -72,36 +72,28 @@ public class BlogFileService {
 			}
 		}
 	}
-	
+
 	/** 한 게시글에 종속된 파일 삭제 **/
 	public void deleteFiles(int studySeq) {
-		//File 삭제
-		File existFile = null;
+		// File 삭제
 		List<BlogFileVo> files = this.list(studySeq);
 		BlogFileVo file = null;
 		int fileLength = files.size();
-		for(int i = 0 ;  i < fileLength; i++){
+		for (int i = 0; i < fileLength; i++) {
 			file = files.get(i);
-			existFile = new File(realPath + Path.BLOG_FILE_PATH, file.getPathNm());
-			if(existFile.exists()){
-				existFile.delete();
-			}
+			FileUtils.delete(realPath + Path.BLOG_FILE_PATH, file.getPathNm());
 		}
 	}
-	
+
 	/** 파일 삭제 **/
 	public boolean deleteFile(int fileSeq) {
 		BlogFileVo studyFile = this.get(fileSeq);
-		File file = new File(realPath + Path.BLOG_FILE_PATH, studyFile.getPathNm());
-		if(file.exists()){
-			if(file.delete()){
-				if(this.delete(fileSeq)){
-					return true;
-				};
+		if (FileUtils.delete(realPath + Path.BLOG_FILE_PATH, studyFile.getPathNm())) {
+			if (this.delete(fileSeq)) {
+				return true;
 			}
-		} 
+		}
 		return false;
 	}
-	
 
 }

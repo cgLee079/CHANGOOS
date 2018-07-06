@@ -180,10 +180,7 @@ public class BlogService{
 		String path 	= blog.getSnapsht();
 		if(snapshtFile.getSize() > 0){
 			if(blog.getSeq() != 0) {
-				File existFile =  new File (realPath + this.get(blog.getSeq()).getSnapsht());
-				if(existFile.exists()){
-					existFile.delete();
-				}
+				FileUtils.delete(realPath + this.get(blog.getSeq()).getSnapsht());
 			}
 			
 			filename += FileUtils.sanitizeFilename(snapshtFile.getOriginalFilename());
@@ -201,34 +198,7 @@ public class BlogService{
 	}
 
 	public void removeSnapshtFile(BlogVo blog) {
-		File existFile = null;
-		existFile = new File (realPath + blog.getSnapsht());
-		if(existFile.exists()){
-			existFile.delete();
-		}
+		FileUtils.delete(realPath + blog.getSnapsht());
 	}
 	
-	public void removeContentImageFile(BlogVo blog){
-		List<String> imgPaths = new ArrayList<String>();
-		String content = blog.getContents();
-		
-		Document doc = Jsoup.parse(content);
-		Elements els = doc.select("img");
-		Element el = null;
-		
-		for(int i = 0; i < els.size(); i++) {
-			el = els.get(i);
-			imgPaths.add(el.attr("src"));
-		}
-		
-		File existFile;
-		int imgPathsLength = imgPaths.size();
-		for (int i = 0; i < imgPathsLength; i++){
-			existFile = new File (realPath + imgPaths.get(i));
-			if(existFile.exists()){
-				existFile.delete();
-			}
-		}
-	}
-
 }

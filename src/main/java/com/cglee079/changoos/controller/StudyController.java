@@ -182,11 +182,12 @@ public class StudyController {
 	@ResponseBody
 	@RequestMapping("/mgnt/study/delete.do")
 	public String studyDoDelete(HttpSession session, Model model, int seq) throws SQLException, JsonProcessingException{
-		//Content Img 삭제
-		studyService.removeContentImageFile(seq);
-		studyFileService.deleteFiles(seq);
-		
 		boolean result = studyService.delete(seq);
+		if(result) {
+			StudyVo study = studyService.get(seq);
+			commonService.removeContentImage(study.getContents()); //Content Img 삭제
+			studyFileService.deleteFiles(seq);
+		}
 		return new JSONObject().put("result", result).toString();
 	}
 	

@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
@@ -123,21 +125,36 @@ public class CommonService{
 		File tempDir = new File(realPath + Path.TEMP_CONTENTS_PATH);
 		File[] tempFiles = tempDir.listFiles();
 		File tempFile = null;
-		File saveFile = null;
 		String tempFilePath = null;
 		String filename = null;
 		for(int i = 0; i < tempFiles.length; i++) {
 			tempFile = tempFiles[i];
 			tempFilePath = tempFile.getPath();
 			filename = tempFilePath.substring(tempFilePath.indexOf(realPath + Path.TEMP_CONTENTS_PATH) + (realPath + Path.TEMP_CONTENTS_PATH).length(), tempFilePath.length());
-			saveFile = new File(realPath + toPath, filename);
-			if(saveFile.exists()) {
-				saveFile.delete();
-			}
-			tempFile.delete();
+			FileUtils.delete(realPath + toPath, filename);
+			FileUtils.delete(tempFile);
 		}
 		
 		return doc.select("body").html();
+	}
+	
+	public void removeContentImage(String content) {
+		List<String> imgPaths = new ArrayList<String>();
+
+		Document doc = Jsoup.parse(content);
+		Elements els = doc.select("img");
+		Element el = null;
+
+		for (int i = 0; i < els.size(); i++) {
+			el = els.get(i);
+			imgPaths.add(el.attr("src"));
+		}
+
+		int imgPathsLength = imgPaths.size();
+		for (int i = 0; i < imgPathsLength; i++) {
+			FileUtils.delete(realPath + imgPaths.get(i));
+		}
+
 	}
 
 }

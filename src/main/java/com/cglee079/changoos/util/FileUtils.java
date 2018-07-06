@@ -18,6 +18,24 @@ public class FileUtils {
 	public static String sanitizeFilename(String name) {
 		return name.replaceAll("[:\\\\/*?|<>#]", "_");
 	}
+	
+	public static boolean delete(File file) {
+		if (file.exists()) {
+			return file.delete();
+		} else {
+			return true;
+		}
+	}
+	
+	public static boolean delete(String path) {
+		File file = new File(path);
+		return delete(file);
+	}
+	
+	public static boolean delete(String path, String filename) {
+		File file = new File(path, filename);
+		return delete(file);
+	}
 
 	public static void copy(File existFile, File newFile) {
 		try {
@@ -45,4 +63,5 @@ public class FileUtils {
 		copy(existFile, newFile);
 		existFile.delete();
 	}
+
 }

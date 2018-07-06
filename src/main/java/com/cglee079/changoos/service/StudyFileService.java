@@ -75,30 +75,23 @@ public class StudyFileService {
 	/** 한 게시글에 종속된 파일 삭제 **/
 	public void deleteFiles(int studySeq) {
 		//File 삭제
-		File existFile = null;
 		List<StudyFileVo> files = this.list(studySeq);
 		StudyFileVo file = null;
 		int fileLength = files.size();
 		for(int i = 0 ;  i < fileLength; i++){
 			file = files.get(i);
-			existFile = new File(realPath + Path.STUDY_FILE_PATH, file.getPathNm());
-			if(existFile.exists()){
-				existFile.delete();
-			}
+			FileUtils.delete(realPath + Path.STUDY_FILE_PATH, file.getPathNm());
 		}
 	}
 	
 	/** 파일 삭제 **/
 	public boolean deleteFile(int fileSeq) {
 		StudyFileVo studyFile = this.get(fileSeq);
-		File file = new File(realPath + Path.STUDY_FILE_PATH, studyFile.getPathNm());
-		if(file.exists()){
-			if(file.delete()){
-				if(this.delete(fileSeq)){
-					return true;
-				};
-			}
-		} 
+		if(FileUtils.delete(realPath + Path.STUDY_FILE_PATH ,studyFile.getPathNm())) {
+			if(this.delete(fileSeq)){
+				return true;
+			};
+		}
 		return false;
 	}
 	

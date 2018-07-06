@@ -46,12 +46,9 @@ public class ProjectFileService {
 	/** 파일 삭제 **/
 	public boolean deleteFile(int fileSeq) {
 		ProjectFileVo projectFile = this.get(fileSeq);
-		File file = new File(realPath + Path.PROJECT_FILE_PATH, projectFile.getPathNm());
-		if(file.exists()){
-			if(file.delete()){
-				if(this.delete(fileSeq)){
-					return true;
-				};
+		if(FileUtils.delete(realPath + Path.PROJECT_FILE_PATH, projectFile.getPathNm())){
+			if(this.delete(fileSeq)){
+				return true;
 			};
 		}
 		return false;
@@ -59,17 +56,12 @@ public class ProjectFileService {
 	
 	/** 한 프로젝트엔 종속된 파일 삭제 */
 	public void deleteFiles(int projectSeq) {
-		File existFile = null;
-		
 		List<ProjectFileVo> files = this.list(projectSeq);
 		ProjectFileVo file = null;
 		int fileLength = files.size();
 		for(int i = 0 ;  i < fileLength; i++){
 			file = files.get(i);
-			existFile = new File(realPath + Path.PROJECT_FILE_PATH, file.getPathNm());
-			if(existFile.exists()){
-				existFile.delete();
-			}
+			FileUtils.delete(realPath + Path.PROJECT_FILE_PATH, file.getPathNm());
 		}
 	}
 	

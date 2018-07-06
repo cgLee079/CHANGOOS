@@ -96,9 +96,7 @@ public class PhotoService {
 	}
 	
 	public void deleteFile(String subPath){
-		File existFile = null;
-		existFile = new File (realPath + subPath);
-		if(existFile.exists()){ existFile.delete(); }
+		FileUtils.delete(realPath + subPath);
 	}
 
 	public List<Integer> seqs() {

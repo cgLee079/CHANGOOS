@@ -108,11 +108,13 @@ public class ProjectController {
 	public String projectDelete(HttpSession session, int seq) {
 		ProjectVo project = projectService.get(seq);
 		
-		projectService.removeSnapshtFile(project);
-		projectService.removeContentImageFile(project);
-		projectFileService.deleteFiles(seq);
 		
 		boolean result = projectService.delete(seq);
+		if(result) {
+			projectService.removeSnapshtFile(project);
+			commonService.removeContentImage(project.getContents());
+			projectFileService.deleteFiles(seq);
+		}
 		return new JSONObject().put("result", result).toString();
 	}
 	

@@ -105,29 +105,4 @@ public class StudyService {
 	public List<String> getCategories() {
 		return studyDao.getCategories();
 	}
-
-	public void removeContentImageFile(int seq) {
-		List<String> imgPaths = new ArrayList<String>();
-		StudyVo study = studyDao.get(seq);
-		String content = study.getContents();
-
-		Document doc = Jsoup.parse(content);
-		Elements els = doc.select("img");
-		Element el = null;
-
-		for (int i = 0; i < els.size(); i++) {
-			el = els.get(i);
-			imgPaths.add(el.attr("src"));
-		}
-
-		File existFile = null;
-		int imgPathsLength = imgPaths.size();
-		for (int i = 0; i < imgPathsLength; i++) {
-			existFile = new File(realPath + imgPaths.get(i));
-			if (existFile.exists()) {
-				existFile.delete();
-			}
-		}
-
-	}
 }
