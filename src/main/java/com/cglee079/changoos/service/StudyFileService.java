@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.dao.StudyFileDao;
 import com.cglee079.changoos.model.StudyFileVo;
-import com.cglee079.changoos.util.FileUtils;
+import com.cglee079.changoos.util.MyFileUtils;
 import com.cglee079.changoos.util.TimeStamper;
 
 @Service
@@ -54,8 +54,8 @@ public class StudyFileService {
 		int length = files.size();
 		for(int i = 0 ; i < length ; i++){
 			multipartFile = files.get(i);
-			realNm 	= FileUtils.sanitizeFilename(multipartFile.getOriginalFilename());
-			pathNm	= "study" + seq + "_" + TimeStamper.stamp() + "_" + realNm;
+			realNm 	= MyFileUtils.sanitizeRealFilename(multipartFile.getOriginalFilename());
+			pathNm	= MyFileUtils.getRandomFilename(MyFileUtils.getExt(realNm));
 			size 	= multipartFile.getSize();
 			
 			if(size > 0 ){
@@ -79,14 +79,14 @@ public class StudyFileService {
 		int fileLength = files.size();
 		for(int i = 0 ;  i < fileLength; i++){
 			file = files.get(i);
-			FileUtils.delete(realPath + Path.STUDY_FILE_PATH, file.getPathNm());
+			MyFileUtils.delete(realPath + Path.STUDY_FILE_PATH, file.getPathNm());
 		}
 	}
 	
 	/** 파일 삭제 **/
 	public boolean deleteFile(int fileSeq) {
 		StudyFileVo studyFile = this.get(fileSeq);
-		if(FileUtils.delete(realPath + Path.STUDY_FILE_PATH, studyFile.getPathNm())) {
+		if(MyFileUtils.delete(realPath + Path.STUDY_FILE_PATH, studyFile.getPathNm())) {
 			if(this.delete(fileSeq)){
 				return true;
 			};

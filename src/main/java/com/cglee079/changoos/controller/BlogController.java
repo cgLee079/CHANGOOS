@@ -25,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.model.BlogFileVo;
 import com.cglee079.changoos.model.BlogVo;
-import com.cglee079.changoos.model.ProjectFileVo;
 import com.cglee079.changoos.service.BlogFileService;
 import com.cglee079.changoos.service.BlogService;
 import com.cglee079.changoos.service.CommonService;
@@ -80,7 +79,7 @@ public class BlogController {
 	
 	/** 파일 다운로드 **/
 	@RequestMapping("/blog/download.do")
-	public void  download(HttpSession session, HttpServletResponse response, String filename) throws IOException{
+	public void  download(HttpSession session, HttpServletRequest request, HttpServletResponse response, String filename) throws IOException{
 		String realPath = session.getServletContext().getRealPath("");
 		BlogFileVo blogFile = blogFileService.get(filename);
 		
@@ -90,7 +89,7 @@ public class BlogController {
 		if(file.exists()){
 			response.setContentType("application/octet-stream");
 		    response.setContentLength(fileByte.length);
-		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(blogFile.getRealNm(),"UTF-8")+"\";");
+		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(blogFile.getRealNm(),"UTF-8").replace("+", "%20")+"\";");
 		    response.setHeader("Content-Transfer-Encoding", "binary");
 		    response.getOutputStream().write(fileByte);
 		     

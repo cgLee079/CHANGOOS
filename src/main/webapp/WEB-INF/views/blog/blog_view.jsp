@@ -47,7 +47,7 @@
 							<c:forEach var="file" items="${files}">
 								<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>
 								<div class="blog-file">
-									 <a onclick="downloadFile('${file.pathNm}')"> <c:out value="${file.realNm}"/> (<c:out value="${filesize}"/> MB)</a>
+									 <a onclick='downloadFile("${file.pathNm}")'> <c:out value="${file.realNm}"/> (<c:out value="${filesize}"/> MB)</a>
 								</div>												
 							</c:forEach>
 						</div>

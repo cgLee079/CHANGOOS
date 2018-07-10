@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.constants.Path;
-import com.cglee079.changoos.util.FileUtils;
+import com.cglee079.changoos.util.MyFileUtils;
 import com.cglee079.changoos.util.ImageManager;
 import com.cglee079.changoos.util.TimeStamper;
 
@@ -34,7 +34,7 @@ public class CommonService{
 		String imgExt 	= null;
 		
 		if(multiFile != null){
-			filename += FileUtils.sanitizeFilename(multiFile.getOriginalFilename());
+			filename += MyFileUtils.sanitizeRealFilename(multiFile.getOriginalFilename());
 			imgExt = ImageManager.getExt(filename);
 			File file = new File(realPath + Path.TEMP_CONTENTS_PATH , filename);
 			multiFile.transferTo(file);
@@ -89,7 +89,7 @@ public class CommonService{
 			//파일 이동
 			File existFile  = new File(realPath + src);
 			File newFile	= new File(realPath + newSrc);
-			FileUtils.copy(existFile, newFile);
+			MyFileUtils.copy(existFile, newFile);
 		}
 		
 		return doc.select("body").html();
@@ -119,7 +119,7 @@ public class CommonService{
 			//파일 이동
 			File existFile  = new File(realPath + src);
 			File newFile	= new File(realPath + newSrc);
-			FileUtils.move(existFile, newFile);
+			MyFileUtils.move(existFile, newFile);
 		}
 		
 		File tempDir = new File(realPath + Path.TEMP_CONTENTS_PATH);
@@ -131,8 +131,8 @@ public class CommonService{
 			tempFile = tempFiles[i];
 			tempFilePath = tempFile.getPath();
 			filename = tempFilePath.substring(tempFilePath.indexOf(realPath + Path.TEMP_CONTENTS_PATH) + (realPath + Path.TEMP_CONTENTS_PATH).length(), tempFilePath.length());
-			FileUtils.delete(realPath + toPath, filename);
-			FileUtils.delete(tempFile);
+			MyFileUtils.delete(realPath + toPath, filename);
+			MyFileUtils.delete(tempFile);
 		}
 		
 		return doc.select("body").html();
@@ -152,7 +152,7 @@ public class CommonService{
 
 		int imgPathsLength = imgPaths.size();
 		for (int i = 0; i < imgPathsLength; i++) {
-			FileUtils.delete(realPath + imgPaths.get(i));
+			MyFileUtils.delete(realPath + imgPaths.get(i));
 		}
 
 	}

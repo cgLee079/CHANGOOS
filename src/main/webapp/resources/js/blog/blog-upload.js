@@ -3,6 +3,9 @@ $(document).ready(function() {
 	initContentCKEditor();
 });
 
+function submit(){
+}
+
 function initContentCKEditor() {
 	var editor = CKEDITOR.replace("contents", {
 		height : '400px',

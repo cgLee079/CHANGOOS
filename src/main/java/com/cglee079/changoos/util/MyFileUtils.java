@@ -5,19 +5,41 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
-public class FileUtils {
+import javax.servlet.http.HttpServletRequest;
 
-	/**
-	 * replace illegal characters in a filename with "_" illegal characters : : \ /
-	 * * ? | < >
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public static String sanitizeFilename(String name) {
-		return name.replaceAll("[:\\\\/*?|<>#]", "_");
+import org.apache.commons.lang3.RandomStringUtils;
+
+public class MyFileUtils {
+	public static String getExt(String filename) {
+		String extension = "";
+		int i = filename.lastIndexOf('.');
+		if (i > 0) {
+			extension = filename.substring(i + 1);
+		}
+		return extension;
 	}
+
+	public static String getRandomFilename(String ext) {
+		String filename = "";
+		filename += RandomStringUtils.randomAlphanumeric(6) + "_";
+		filename += RandomStringUtils.randomAlphanumeric(6) + "_";
+		filename += RandomStringUtils.randomAlphanumeric(6) + "_";
+		filename += TimeStamper.stamp();
+		filename += "." + ext;
+		return filename.toUpperCase();
+	}
+
+	public static String sanitizeRealFilename(String name) {
+		return name.replaceAll("[:\\\\/*?|<>\"]", "_");
+	}
+
+	
+	/** -------------------------------------------- **/
+	
 	
 	public static boolean delete(File file) {
 		if (file.exists()) {
@@ -26,12 +48,12 @@ public class FileUtils {
 			return true;
 		}
 	}
-	
+
 	public static boolean delete(String path) {
 		File file = new File(path);
 		return delete(file);
 	}
-	
+
 	public static boolean delete(String path, String filename) {
 		File file = new File(path, filename);
 		return delete(file);
@@ -53,12 +75,12 @@ public class FileUtils {
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			return ;
+			return;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void move(File existFile, File newFile) {
 		copy(existFile, newFile);
 		existFile.delete();

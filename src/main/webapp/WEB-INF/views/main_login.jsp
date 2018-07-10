@@ -31,17 +31,13 @@
 	}
 	
 	.input-id, .input-pwd{
-		border: 1px solid #DDD;
-		border-radius: 2px;
-		width : 100%;
+		border: 0.5px solid #DDD;
 		height : 1rem;
 		margin-bottom: 0.5rem;
 		padding: 0.2rem 0.2rem;
 	}	
 	
 	.btn-submit{
-		border-radius: 2px;
-		width : 100%;
 		background: #222;
 		color : #FFF;
 		text-align: center;
