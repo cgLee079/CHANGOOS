@@ -27,6 +27,7 @@ import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.service.CommonService;
 import com.cglee079.changoos.service.ProjectFileService;
 import com.cglee079.changoos.service.ProjectService;
+import com.cglee079.changoos.util.MyFileUtils;
 import com.google.gson.Gson;
 
 @Controller
@@ -67,7 +68,7 @@ public class ProjectController {
 	
 	/** 프로젝트 파일 다운로드 **/
 	@RequestMapping("/project/download.do")
-	public void  download(HttpSession session, HttpServletResponse response, String filename) throws IOException{
+	public void  download(HttpSession session, HttpServletRequest request, HttpServletResponse response, String filename) throws IOException{
 		String realPath = session.getServletContext().getRealPath("");
 		ProjectFileVo projectFile = projectFileService.get(filename);
 		
@@ -77,7 +78,7 @@ public class ProjectController {
 		if(file.exists()){
 			response.setContentType("application/octet-stream");
 		    response.setContentLength(fileByte.length);
-		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(projectFile.getRealNm(),"UTF-8")+"\";");
+		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + MyFileUtils.encodeFilename(request, projectFile.getRealNm()) + "\";");
 		    response.setHeader("Content-Transfer-Encoding", "binary");
 		    response.getOutputStream().write(fileByte);
 		     

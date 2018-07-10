@@ -28,6 +28,7 @@ import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.service.CommonService;
 import com.cglee079.changoos.service.StudyFileService;
 import com.cglee079.changoos.service.StudyService;
+import com.cglee079.changoos.util.MyFileUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 
@@ -91,7 +92,7 @@ public class StudyController {
 	
 	/** 파일 다운로드 **/
 	@RequestMapping("/study/download.do")
-	public void  download(HttpSession session, HttpServletResponse response, String filename) throws IOException{
+	public void  download(HttpSession session, HttpServletRequest request, HttpServletResponse response, String filename) throws IOException{
 		String rootPath = session.getServletContext().getRealPath("");
 		StudyFileVo studyFile = studyFileService.get(filename);
 		
@@ -101,7 +102,7 @@ public class StudyController {
 		if(file.exists()){
 			response.setContentType("application/octet-stream");
 		    response.setContentLength(fileByte.length);
-		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(studyFile.getRealNm(),"UTF-8")+"\";");
+		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + MyFileUtils.encodeFilename(request, studyFile.getRealNm()) + "\";");
 		    response.setHeader("Content-Transfer-Encoding", "binary");
 		    response.getOutputStream().write(fileByte);
 		     
