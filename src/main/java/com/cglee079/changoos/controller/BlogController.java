@@ -28,6 +28,7 @@ import com.cglee079.changoos.model.BlogVo;
 import com.cglee079.changoos.service.BlogFileService;
 import com.cglee079.changoos.service.BlogService;
 import com.cglee079.changoos.service.CommonService;
+import com.cglee079.changoos.util.MyFileUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 
@@ -89,7 +90,7 @@ public class BlogController {
 		if(file.exists()){
 			response.setContentType("application/octet-stream");
 		    response.setContentLength(fileByte.length);
-		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(blogFile.getRealNm(),"UTF-8").replace("+", "%20")+"\";");
+		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + MyFileUtils.encodeFilename(request, blogFile.getRealNm()) + "\";");
 		    response.setHeader("Content-Transfer-Encoding", "binary");
 		    response.getOutputStream().write(fileByte);
 		     

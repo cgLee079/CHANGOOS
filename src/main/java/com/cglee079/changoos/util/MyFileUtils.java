@@ -12,6 +12,7 @@ import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.json.HTTP;
 
 public class MyFileUtils {
 	public static String getExt(String filename) {
@@ -37,10 +38,44 @@ public class MyFileUtils {
 		return name.replaceAll("[:\\\\/*?|<>\"]", "_");
 	}
 
-	
+	public static String encodeFilename(HttpServletRequest request, String filename) {
+		String header = request.getHeader("User-Agent");
+		String encodedFilename = "";
+		String browser = "";
+
+		if (header.indexOf("MSIE") > -1) {
+			browser = "MSIE";
+		} else if (header.indexOf("Chrome") > -1) {
+			browser = "Chrome";
+		} else if (header.indexOf("Opera") > -1) {
+			browser = "Opera";
+		} else if (header.indexOf("Trident/7.0") > -1) {
+			browser = "Firefox";
+		}
+
+		try {
+			if (browser.equals("Opera")) {
+				encodedFilename = "\"" + new String(filename.getBytes("UTF-8"), "8859_1");
+			} else if (browser.equals("Chrome")) {
+				StringBuffer sb = new StringBuffer();
+				for (int i = 0; i < filename.length(); i++) {
+					char c = filename.charAt(i);
+					if (c > '~') { sb.append(URLEncoder.encode("" + c, "UTF-8")); } 
+					else { sb.append(c); }
+				}
+				encodedFilename = sb.toString();
+			} else {
+				encodedFilename = URLEncoder.encode(filename,"UTF-8").replace("+", "%20");
+			}
+		} catch (UnsupportedEncodingException e) {
+			encodedFilename = filename;
+		}
+		
+		return encodedFilename;
+	}
+
 	/** -------------------------------------------- **/
-	
-	
+
 	public static boolean delete(File file) {
 		if (file.exists()) {
 			return file.delete();
