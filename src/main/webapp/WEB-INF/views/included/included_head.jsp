@@ -49,7 +49,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/lib/jquery-3.2.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/lib/jquery-ui.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/lib/jquery.touchwipe.1.1.1.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/lib/anime-2.1.0.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/lib/anime-2.2.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/lib/letter-motion.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/lib/sweetalert.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/ckeditor/plugins/prism/lib/prism/prism_patched.min.js"></script>
