@@ -30,9 +30,9 @@ $(document).ready(function(){
 				</div>
 				
 				<div class="introduce-desc">
-					Hello! Thank you for visiting my site. <br/>
-					I specialized Computer Engineering at Hansung University.<br/>
-					and interested in <strong>Android, Web development.</strong><br/>
+					안녕하세요! 방문해주셔서 감사합니다.<br/>
+					개발자 이찬구의 포토폴리오 홈페이지 입니다.<br/>
+					Spring / Web / Android
 				</div>
 			</div>
 		</div>

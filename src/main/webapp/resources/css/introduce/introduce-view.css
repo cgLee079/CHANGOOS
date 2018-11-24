@@ -46,7 +46,6 @@
 .introduce-text .introduce-desc{
 	color: #FFF;
 	line-height : 1.5;
-	font-size: 0.9rem;
 }
 
 .introduce-text:hover .introduce-head{
@@ -86,7 +85,7 @@
 .spec-text .spec-head{
 	color : #FFF;
 	font-size: 3rem;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 	transition: margin .3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
@@ -97,7 +96,6 @@
 .spec-text .spec-desc{
 	color : #FFF;
 	line-height : 1.5;
-	font-size: 0.9rem;
 	overflow-x : auto;
 	white-space: nowrap;
 }
@@ -135,7 +133,7 @@
 .biography-text .biography-head{
 	color : #FFF;
 	font-size: 3rem;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 	transition: margin .3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
@@ -146,7 +144,6 @@
 .biography-text .biography-desc{
 	color : #FFF;
 	line-height : 1.5;
-	font-size: 0.9rem;
 	overflow-x : auto;
 	white-space: nowrap;
 }

@@ -129,9 +129,9 @@ public class CommonService{
 		String filename = null;
 		for(int i = 0; i < tempFiles.length; i++) {
 			tempFile = tempFiles[i];
-			tempFilePath = tempFile.getPath();
-			filename = tempFilePath.substring(tempFilePath.indexOf(realPath + Path.TEMP_CONTENTS_PATH) + (realPath + Path.TEMP_CONTENTS_PATH).length(), tempFilePath.length());
-			MyFileUtils.delete(realPath + toPath, filename);
+//			tempFilePath = tempFile.getPath();
+//			filename = tempFilePath.substring(tempFilePath.indexOf(realPath + Path.TEMP_CONTENTS_PATH) + (realPath + Path.TEMP_CONTENTS_PATH).length(), tempFilePath.length());
+//			MyFileUtils.delete(realPath + toPath, filename);
 			MyFileUtils.delete(tempFile);
 		}
 		

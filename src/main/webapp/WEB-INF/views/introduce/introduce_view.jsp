@@ -16,21 +16,14 @@
 			<div class="introduce-text">
 				<div class="introduce-head">CHANGOO LEE</div>
 				<div class="introduce-desc">
-					Hi. My name is <strong>Changoo Lee</strong>.<br/> 
-					I am
-						<jsp:useBean id="date" class="java.util.Date" />
-						<fmt:formatDate value="${date}" pattern="yyyy" var="currentYear" />
-						<c:out value="${currentYear - 1992 + 1}" />
-					old and specialized Computer Engineering at Hansung University.<br/>
-					When i'm 9 old, i got my first computer as present. 
-					after that so many time in my life were spended to control computer.
-					as a result, I love and very well use computer than other people.<br/>
-					In 19 old i had to decide my major in university. but I didn't have to think about what major.
-					Naturally, choiced Computer Enginnering.<br/>
-					Of course, I know that many people very well use computer.
-					i am not arrogant. so now i study, study, study to become one of best people my area.<br/>
-					<br/>
-					Thank you for reading. 
+					안녕하십니까? 개발자  <strong>이찬구</strong>입니다.<br/>
+					개발자로서의 저의 목표는 누군가에 편리함을 제공해주는 것입니다. <br/>
+					이런 목표는 웹, 모바일 등 다양한 플랫폼에서 가능하다고 생각합니다. <br/>
+					한 예로 가상화폐 가격 정보 알림 서비스의 필요성을 느꼈습니다. <br/>
+					어떠한 이득이 있지는 않지만, 누군가에게 편리함을 제공해주겠다는 기쁨으로 서비스를 개발하였습니다.<br/>
+					현재는 누적 사용자 수는 2000명 정도이며, 일별 약 1000개의 메시지를 받고 있습니다.<br/>
+					그 결과 수많은 사용자에게 감사 인사를 받았고, 비록 소액이지만 후원금을 보내주신 사용자도 있었습니다.<br/>
+					이제 저는 개인적 목표에 한발을 디뎠습니다. 앞으로의 기나긴 여정 또한 목표를 향해 달려갈 것입니다<br/>
 				</div>
 			</div>
 		</div>
@@ -39,22 +32,21 @@
 			<div class="spec-text">
 				<div class="spec-head">Spec.</div>
 				<div class="spec-desc">
-					<strong>Coumputer Enginnering.</strong><br/>
-					Bachelor's degree at Hausng University. <br/>
-					Grade &nbsp&nbsp<strong>4.22/4.5</strong>&nbsp&nbsp(Major <strong>4.4/4.5</strong>)<br/>
-					Toeic &nbsp&nbsp&nbsp<strong>845</strong> <br/>
+					<strong>한성대학교 컴퓨터공학부 학사</strong><br/>
+					학점 &nbsp&nbsp<strong>4.22/4.5</strong>&nbsp&nbsp(전공학점 <strong>4.39/4.5</strong>)<br/>
+					토익 &nbsp&nbsp<strong>845</strong> <br/>
 					<br/>
-					<strong>Certificate.</strong> <br/>
-					2015.03.15 &nbsp&nbsp Craftsman Information Equipment Operation<br/>
-					2015.09.11 &nbsp&nbsp GTQ<br/>
-					2016.12.16 &nbsp&nbsp MOS master<br/>
-					2017.03.16 &nbsp&nbsp Data Processing Engineer <br/>
+					<strong>자격증.</strong> <br/>
+					2015.03.15 &nbsp&nbsp 정보기기운용기능사<br/>
+					2015.09.11 &nbsp&nbsp 국가정보기술자격증 GTQ 1급<br/>
+					2016.12.16 &nbsp&nbsp MOS 마스터<br/>
+					2017.03.16 &nbsp&nbsp 정보처리기사 <br/>
 					<br/>
 					
 				</div>
 				<div style="display: flex; justify-content: space-between;">
 					<div style="flex:1;"></div>
-					<div class="download-resume black-button" onclick="doDownloadResume()">RESUME</div>
+					<!-- <div class="download-resume black-button" onclick="doDownloadResume()">RESUME</div> -->
 				</div>
 			</div>
 			<div class="spec-image" style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view01.jpg)"></div>
@@ -66,12 +58,12 @@
 			<div class="biography-text">
 				<div class="biography-head">Biography.</div>
 				<div class="biography-desc">
-					 <strong>2011.03</strong> &nbsp&nbsp Admissions C.E at Hansug University. <br/>
-					 <strong>2012.05</strong> &nbsp&nbsp Military Service (21 Months). <br/>
-					 <strong>2017.02</strong> &nbsp&nbsp Victory Graduate Competition <br/>
-					 <strong>2017.07</strong> &nbsp&nbsp Intern at Nexgen Associate (Web, SI) <br/>
-					 <strong>2018.02</strong> &nbsp&nbsp Graduated with honor from University <br/>
-					 <strong>2018.03</strong> &nbsp&nbsp Develop CoinNoticer Service<br/>
+					 <strong>2011.03</strong> &nbsp&nbsp 한성대학교 컴퓨터공학부 입학 <br/>
+					 <strong>2012.05</strong> &nbsp&nbsp 병역 <br/>
+					 <strong>2017.02</strong> &nbsp&nbsp 졸업프로젝트 대상 <br/>
+					 <strong>2017.07</strong> &nbsp&nbsp (주)넥스젠어쏘시에이트 인턴 (Web, SI) <br/>
+					 <strong>2018.02</strong> &nbsp&nbsp 한성대학교 컴퓨터공학부 수석 졸업 <br/>
+					 <strong>2018.03</strong> &nbsp&nbsp 가상화폐 알리미 개발 및 릴리즈<br/>
 				</div>
 			</div>
 		</div>

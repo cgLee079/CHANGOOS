@@ -84,21 +84,23 @@ function drawBlog(data){
 	var length		= data.length;
 	var blog		= undefined;
 	
+	if(page == 1){
+		blog = data[0];
+		
+		var blogFirstItem = $(".blog-first-item");
+		if(blog.snapsht){
+			blogFirstItem.find(".blog-first-item-snapsht").css("background-image", "url('" + getContextPath() + blog.snapsht + "')");
+		} else{
+			blogFirstItem.find(".blog-item-snapsht").css("background", "#000");
+		}
+		
+		blogFirstItem.find(".blog-first-item-desc").attr("onclick", "doBlogView('" + blog.seq + "')");
+		blogFirstItem.find(".blog-first-item-desc .title").html(blog.title);
+		blogFirstItem.find(".blog-first-item-desc .content").html(blog.contents);
+	} 
 	
 	for (var i = 0; i < length; i++){
 		blog = data[i];
-		if(i == 0){
-			var blogFirstItem = $(".blog-first-item");
-			if(blog.snapsht){
-				blogFirstItem.find(".blog-first-item-snapsht").css("background-image", "url('" + getContextPath() + blog.snapsht + "')");
-			} else{
-				blogFirstItem.find(".blog-item-snapsht").css("background", "#000");
-			}
-			
-			blogFirstItem.find(".blog-first-item-desc").attr("onclick", "doBlogView('" + blog.seq + "')");
-			blogFirstItem.find(".blog-first-item-desc .title").html(blog.title);
-			blogFirstItem.find(".blog-first-item-desc .content").html(blog.contents);
-		} 
 		
 		var blogItem = blogItemTemp.clone();
 		if(blog.snapsht){

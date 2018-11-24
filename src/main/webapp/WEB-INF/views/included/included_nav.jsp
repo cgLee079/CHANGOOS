@@ -5,7 +5,7 @@
 <div class="header-occupy"></div>
 <div class="header">
 	<div class="wrap-home-logo col-center">
-		<div class="logo" onclick="window.location.href = '${pageContext.request.contextPath}/'">CHANGOO'S</div>
+		<img src="${pageContext.request.contextPath}/resources/image/icon-logo.svg"  class="logo" onclick="window.location.href = '${pageContext.request.contextPath}/'" ></img>
 	</div>
 	<div class="web-menus">
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -16,11 +16,11 @@
 	  		<div class="btn-web-menu menu-mgnt-photo"><a class="btn" href="${pageContext.request.contextPath}/mgnt/photo">사진관리 </a></div>
 		</sec:authorize>
 	
-		<div class="btn-web-menu menu-about"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">ABOUT</a></div>
-		<div class="btn-web-menu menu-project"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/project">PROJECT</a></div>
-		<div class="btn-web-menu menu-study"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/study">STUDY</a></div>
-		<div class="btn-web-menu menu-blog"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/blog">BLOG</a></div>
-		<div class="btn-web-menu menu-photo"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">PHOTO</a></div>
+		<div class="btn-web-menu menu-about"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">자기소개</a></div>
+		<div class="btn-web-menu menu-project"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/project">프로젝트</a></div>
+		<div class="btn-web-menu menu-study"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/study">스터디</a></div>
+		<div class="btn-web-menu menu-blog"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/blog">블로그</a></div>
+		<div class="btn-web-menu menu-photo"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">사진</a></div>
 		
 	</div>
 	
@@ -41,11 +41,11 @@
 	<div class="nav-background"></div>
 </div>
 <div class="nav-menu unvalid col-center">
-	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">ABOUT</a></div>
-	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/project">PROJECT</a></div>
-	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/study">STUDY</a></div>
-	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/blog">BLOG</a></div>
-	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">PHOTO</a></div>
+	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">자기소개</a></div>
+	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/project">프로젝트</a></div>
+	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/study">스터디</a></div>
+	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/blog">블로그</a></div>
+	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photo">사진</a></div>
 	
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
  		<div class="btn-slideup"><a href="${pageContext.request.contextPath}/mgnt/project">프로젝트관리 </a></div>
