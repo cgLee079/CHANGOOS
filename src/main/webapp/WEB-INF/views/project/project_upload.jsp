@@ -32,13 +32,6 @@
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">카테고리</div>
-					<div class="upload-project-input">
-						<input type="text" id="category" name="category" class="project-category" value="<c:out value='${project.category}'/>"/>
-					</div>
-				</div>
-				
-				<div class="upload-project">
 					<div class="upload-project-name">소스코드</div>
 					<div class="upload-project-input">
 						<input type="text" id="sourcecode" name="sourcecode" class="project-sourcecode" value="<c:out value='${project.sourcecode}'/>"/>
@@ -49,6 +42,13 @@
 					<div class="upload-project-name">개발자</div>
 					<div class="upload-project-input">
 						<input type="text" id="developer" name="developer" class="project-developer" value="<c:out value='${project.developer}'/>"/>
+					</div>
+				</div>
+				
+				<div class="upload-project">
+					<div class="upload-project-name">부제목</div>
+					<div class="upload-project-input">
+						<input type="text" id="subtitle" name="subtitle" class="project-subtitle" value="<c:out value='${project.subtitle}'/>"/>
 					</div>
 				</div>
 				

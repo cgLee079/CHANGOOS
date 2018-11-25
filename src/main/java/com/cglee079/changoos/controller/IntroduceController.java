@@ -2,7 +2,6 @@ package com.cglee079.changoos.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletResponse;
@@ -12,12 +11,12 @@ import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cglee079.changoos.model.ProjectFileVo;
 import com.cglee079.changoos.model.VisitMsgVo;
-import com.cglee079.changoos.service.ProjectFileService;
+import com.cglee079.changoos.service.CommonCodeService;
 import com.cglee079.changoos.service.VisitMsgService;
 import com.cglee079.changoos.util.Formatter;
 
@@ -29,9 +28,21 @@ public class IntroduceController {
 
 	@Autowired
 	private VisitMsgService visitMsgService;
+	
+	@Autowired
+	private CommonCodeService commonCodeService;
+	
 
 	@RequestMapping(value = "/introduce")
-	public String introduce() {
+	public String introduce(Model model) {
+		String intro001 = commonCodeService.get("INTRO", "001"); // 1분 자기소개
+		String intro002 = commonCodeService.get("INTRO", "002"); // 스펙
+		String intro003 = commonCodeService.get("INTRO", "003"); // 이력
+		
+		model.addAttribute("intro001", intro001);
+		model.addAttribute("intro002", intro002);
+		model.addAttribute("intro003", intro003);
+		
 		return "introduce/introduce_view";
 	}
 

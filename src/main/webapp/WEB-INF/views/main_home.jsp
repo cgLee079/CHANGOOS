@@ -30,9 +30,7 @@ $(document).ready(function(){
 				</div>
 				
 				<div class="introduce-desc">
-					안녕하세요! 방문해주셔서 감사합니다.<br/>
-					개발자 이찬구의 포토폴리오 홈페이지 입니다.<br/>
-					Spring / Web / Android
+					<c:out value="${home001}" escapeXml="false"></c:out>
 				</div>
 			</div>
 		</div>

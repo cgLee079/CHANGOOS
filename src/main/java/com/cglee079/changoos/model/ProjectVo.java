@@ -2,7 +2,7 @@ package com.cglee079.changoos.model;
 
 public class ProjectVo {
 	private int seq;
-	private String category;
+	private String subtitle;
 	private String title;
 	private String desc;
 	private String contents;
@@ -28,12 +28,12 @@ public class ProjectVo {
 		this.title = title;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getSubtitle() {
+		return subtitle;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
 	}
 
 	public String getDesc() {

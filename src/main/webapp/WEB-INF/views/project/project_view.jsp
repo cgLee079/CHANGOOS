@@ -17,7 +17,7 @@
 				<div class="project-head-bg" style="background-image: url('${pageContext.request.contextPath}${project.snapsht}"></div>
 				<div class="project-head-fg"></div>
 				<div class="project-detail">
-					<div class="project-category"><c:out value="${project.category}"/></div>
+					<div class="project-subtitle"><c:out value="${project.subtitle}"/></div>
 					<div class="project-title"><c:out value="${project.title}"/></div>
 					<div class="project-subinfo">
 						<c:if test="${!empty project.developer}"> 
