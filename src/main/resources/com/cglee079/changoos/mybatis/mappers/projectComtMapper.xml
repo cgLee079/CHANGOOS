@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cglee079.changoos.mapper.ProjectComtMapper">
 	<select id="count" resultType="Integer">
+		/* 프로젝트 댓글 수 가져오기 */
 		SELECT
 			count(*)
 		FROM TB_PTFOLIO_PROJECT_COMT
@@ -11,6 +12,7 @@
 	</select>
 	
 	<select id="list" resultType="com.cglee079.changoos.model.ProjectComtVo" parameterType="map">
+		/* 프로젝트 댓글 리스트 */
 		SELECT
 		PCOMT_SEQ as "seq",
 		PCOMT_PROJ_SEQ as "projectSeq",
@@ -26,6 +28,7 @@
 	</select>
 	
 	<select id="get" resultType="com.cglee079.changoos.model.ProjectComtVo" parameterType="Integer">
+		/* 프로젝트 댓글 가져오기 */
 		SELECT
 		PCOMT_SEQ as "seq",
 		PCOMT_PROJ_SEQ as "projectSeq",
@@ -39,17 +42,20 @@
 	</select>
 	
 	<insert id="insert">
+		/* 프로젝트 댓글 추가하기 */
 		INSERT TB_PTFOLIO_PROJECT_COMT 
 		(PCOMT_PROJ_SEQ, PCOMT_NAME, PCOMT_PWD, PCOMT_CONTENTS, PCOMT_DATE, PCOMT_PARENT_SEQ)
 		VALUES (#{projectSeq}, #{name}, #{password}, #{contents}, #{date}, #{parentSeq});
 	</insert>
 	
 	<delete id="delete">
+		/* 프로젝트 댓글 삭제하기 */
 		DELETE FROM TB_PTFOLIO_PROJECT_COMT
 		WHERE PCOMT_SEQ = #{seq}
 	</delete>
 	
 	<update id="update" parameterType="map">
+		/* 프로젝트 댓글 수정하기 */
 		UPDATE TB_PTFOLIO_PROJECT_COMT
 		SET 
 		PCOMT_CONTENTS = #{contents}

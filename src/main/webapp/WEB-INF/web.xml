@@ -56,6 +56,10 @@
 	</error-page>
 
 
+	<session-config>
+		<session-timeout>-1</session-timeout>
+	</session-config>
+
 	<filter>
 		<filter-name>httpHeaderSecurity</filter-name>
 		<filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>

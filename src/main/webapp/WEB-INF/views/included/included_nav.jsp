@@ -16,7 +16,7 @@
 	  		<div class="btn-web-menu menu-mgnt-photo"><a class="btn" href="${pageContext.request.contextPath}/mgnt/photo">사진관리 </a></div>
 		</sec:authorize>
 	
-		<div class="btn-web-menu menu-about"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">자기소개</a></div>
+		<div class="btn-web-menu menu-about"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">이력</a></div>
 		<div class="btn-web-menu menu-project"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/project">프로젝트</a></div>
 		<div class="btn-web-menu menu-study"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/study">스터디</a></div>
 		<div class="btn-web-menu menu-blog"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/blog">블로그</a></div>
@@ -41,7 +41,7 @@
 	<div class="nav-background"></div>
 </div>
 <div class="nav-menu unvalid col-center">
-	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">자기소개</a></div>
+	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">이력</a></div>
 	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/project">프로젝트</a></div>
 	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/study">스터디</a></div>
 	<div class="btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/blog">블로그</a></div>

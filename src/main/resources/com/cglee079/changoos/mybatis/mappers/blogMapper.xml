@@ -91,17 +91,20 @@
 	
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
+		/* 블로그 추가하기 */
 		INSERT TB_PTFOLIO_BLOG 
 		(BLOG_SNAPSHT, BLOG_TITLE, BLOG_CONTENTS, BLOG_TAG, BLOG_DATE, BLOG_HITS)
 		VALUES (#{snapsht}, #{title}, #{contents}, #{tag}, #{date}, #{hits})
 	</insert>
 	
 	<delete id="delete">
+		/* 블로그 삭제하기 */
 		DELETE FROM TB_PTFOLIO_BLOG
 		WHERE BLOG_SEQ = #{seq}
 	</delete>
 	
 	<update id="update">
+		/* 블로그 수정하기 */
 		UPDATE TB_PTFOLIO_BLOG
 		SET 
 		<choose>

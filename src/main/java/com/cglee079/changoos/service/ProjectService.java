@@ -22,6 +22,7 @@ import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.dao.ProjectDao;
 import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.util.MyFileUtils;
+import com.cglee079.changoos.util.AuthManager;
 import com.cglee079.changoos.util.ImageManager;
 
 @Service
@@ -58,7 +59,7 @@ public class ProjectService {
 
 	public ProjectVo doView(List<Integer> isVisitProject, int seq) {
 		ProjectVo project = projectDao.get(seq);
-		if (!isVisitProject.contains(seq)) {
+		if (!isVisitProject.contains(seq) && !AuthManager.isAdmin()) {
 			isVisitProject.add(seq);
 			project.setHits(project.getHits() + 1);
 			projectDao.update(project);

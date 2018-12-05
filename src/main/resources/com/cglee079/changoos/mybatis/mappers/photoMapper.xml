@@ -53,16 +53,19 @@
 	</select>
 	
 	<delete id="delete">
+		/* 사진 삭제하기*/
 		DELETE FROM TB_PTFOLIO_PHOTO
 		WHERE PHOTO_SEQ = #{seq}
 	</delete>
 	
 	<insert id="insert">
+		/* 사진 추가하기*/
 		INSERT TB_PTFOLIO_PHOTO (PHOTO_IMAGE, PHOTO_SNAPSHT, PHOTO_NAME, PHOTO_DESC, PHOTO_LOC, PHOTO_DATE, PHOTO_TIME, PHOTO_TAG, PHOTO_DEVICE, PHOTO_LIKECNT)
 		VALUES (#{image}, #{snapsht}, #{name}, #{desc}, #{location}, #{date}, #{time}, #{tag}, #{device}, #{likeCnt})
 	</insert>
 	
 	<update id="update">
+		/* 사진 수정하기*/
 		UPDATE TB_PTFOLIO_PHOTO
 		SET
 		PHOTO_IMAGE = #{image},

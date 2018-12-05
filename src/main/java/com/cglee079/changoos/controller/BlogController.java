@@ -2,7 +2,6 @@ package com.cglee079.changoos.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -36,75 +35,77 @@ import com.google.gson.Gson;
 public class BlogController {
 	@Autowired
 	private BlogService blogService;
-	
+
 	@Autowired
 	private CommonService commonService;
-	
+
 	@Autowired
 	private BlogFileService blogFileService;
-	
+
 	/** 블로그 리스트로 이동 **/
 	@RequestMapping("/blog")
-	public String blogList(Model model) throws SQLException, JsonProcessingException{
+	public String blogList(Model model) throws SQLException, JsonProcessingException {
 		List<String> tags = blogService.getTags();
 		model.addAttribute("tags", tags);
 		return "blog/blog_list";
 	}
-		
+
 	/** 블로그 페이징 **/
 	@ResponseBody
 	@RequestMapping("/blog/blog_paging.do")
-	public String doPaging(@RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException{
+	public String doPaging(@RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException {
 		List<BlogVo> blogs = blogService.paging(params);
 		int count = blogService.count(params);
-		
+
 		String data = new Gson().toJson(blogs);
 		JSONArray dataJson = new JSONArray(data);
-			
+
 		JSONObject result = new JSONObject();
 		result.put("count", count);
 		result.put("data", dataJson);
 		return result.toString();
 	}
-	
+
 	/** 블로그로 이동 **/
 	@RequestMapping("/blog/view")
-	public String blogView(HttpSession session, Model model, int seq) throws SQLException, JsonProcessingException{
-		BlogVo blog	= blogService.doView((List<Integer>)session.getAttribute("visitBlogs"), seq);
+	public String blogView(HttpSession session, Model model, int seq) throws SQLException, JsonProcessingException {
+		BlogVo blog = blogService.doView((List<Integer>) session.getAttribute("visitBlogs"), seq);
 		model.addAttribute("blog", blog);
-		
+
 		List<BlogFileVo> files = blogFileService.list(seq);
 		model.addAttribute("files", files);
 		return "blog/blog_view";
 	}
-	
+
 	/** 파일 다운로드 **/
 	@RequestMapping("/blog/download.do")
-	public void  download(HttpSession session, HttpServletRequest request, HttpServletResponse response, String filename) throws IOException{
+	public void download(HttpSession session, HttpServletRequest request, HttpServletResponse response, String filename)
+			throws IOException {
 		String realPath = session.getServletContext().getRealPath("");
 		BlogFileVo blogFile = blogFileService.get(filename);
-		
+
 		File file = new File(realPath + Path.BLOG_FILE_PATH, blogFile.getPathNm());
 		byte fileByte[] = FileUtils.readFileToByteArray(file);
-		
-		if(file.exists()){
+
+		if (file.exists()) {
 			response.setContentType("application/octet-stream");
-		    response.setContentLength(fileByte.length);
-		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + MyFileUtils.encodeFilename(request, blogFile.getRealNm()) + "\";");
-		    response.setHeader("Content-Transfer-Encoding", "binary");
-		    response.getOutputStream().write(fileByte);
-		     
-		    response.getOutputStream().flush();
-		    response.getOutputStream().close();
+			response.setContentLength(fileByte.length);
+			response.setHeader("Content-Disposition",
+					"attachment; fileName=\"" + MyFileUtils.encodeFilename(request, blogFile.getRealNm()) + "\";");
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			response.getOutputStream().write(fileByte);
+
+			response.getOutputStream().flush();
+			response.getOutputStream().close();
 		}
 	}
-	
+
 	/** 블로그 관리 페이지로 이동 **/
 	@RequestMapping(value = "/mgnt/blog")
 	public String photoManage(Model model) {
 		return "blog/blog_manage";
 	}
-	
+
 	/** 블로그 관리 페이지 리스트, Ajax **/
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/blog/list.do")
@@ -113,89 +114,90 @@ public class BlogController {
 		Gson gson = new Gson();
 		return gson.toJson(photos).toString();
 	}
-	
+
 	/** 블로그 업로드 페이지로 이동 **/
 	@RequestMapping(value = "/mgnt/blog/upload", params = "!seq")
-	public String blogUpload(Model model)throws SQLException, JsonProcessingException{
+	public String blogUpload(Model model) throws SQLException, JsonProcessingException {
 		return "blog/blog_upload";
 	}
-	
+
 	/** 블로그 수정 페이지로 이동 **/
 	@RequestMapping(value = "/mgnt/blog/upload", params = "seq")
-	public String blogModify(Model model, int seq)throws SQLException, JsonProcessingException{
+	public String blogModify(Model model, int seq) throws SQLException, JsonProcessingException {
 		BlogVo blog = blogService.get(seq);
-		if(blog.getContents() != null){
+		if (blog.getContents() != null) {
 			String contents = commonService.copyToTempPath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
 			blog.setContents(contents.replace("&", "&amp;"));
 		}
-		
+
 		model.addAttribute("blog", blog);
-		
+
 		List<BlogFileVo> files = blogFileService.list(seq);
 		model.addAttribute("files", files);
-		
+
 		return "blog/blog_upload";
 	}
-	
-	 
-	/** 블로그 업로드  **/
+
+	/** 블로그 업로드 **/
 	@RequestMapping(value = "/mgnt/blog/upload.do", params = "!seq")
-	public String blogDoUpload(Model model, BlogVo blog, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
+	public String blogDoUpload(Model model, BlogVo blog, MultipartFile snapshtFile,
+			@RequestParam("file") List<MultipartFile> files) throws SQLException, IllegalStateException, IOException {
 		String snapshtPath = blogService.saveSnapsht(blog, snapshtFile);
 		blog.setSnapsht(snapshtPath);
-		
+
 		String contents = commonService.moveToSavePath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
 		blog.setContents(contents);
-		
+
 		int seq = blogService.insert(blog);
-		
-		//파일저장
+
+		// 파일저장
 		blogFileService.saveFiles(blog.getSeq(), files);
-		
+
 		return "redirect:" + "/blog/view?seq=" + seq;
 	}
-	
+
 	/** 블로그 수정 **/
 	@RequestMapping(value = "/mgnt/blog/upload.do", params = "seq")
-	public String blogDoModify(Model model, BlogVo blog, MultipartFile snapshtFile, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
+	public String blogDoModify(Model model, BlogVo blog, MultipartFile snapshtFile,
+			@RequestParam("file") List<MultipartFile> files) throws SQLException, IllegalStateException, IOException {
 		String snapshtPath = blogService.saveSnapsht(blog, snapshtFile);
 		blog.setSnapsht(snapshtPath);
-		
+
 		String contents = commonService.moveToSavePath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
 		blog.setContents(contents);
-		
+
 		blogService.update(blog);
-		
-		//파일저장
+
+		// 파일저장
 		blogFileService.saveFiles(blog.getSeq(), files);
-		
+
 		return "redirect:" + "/blog/view?seq=" + blog.getSeq();
 	}
-	
+
 	/** 블로그 삭제 **/
 	@ResponseBody
 	@RequestMapping("/mgnt/blog/delete.do")
-	public String blogDoDelete(Model model, int seq) throws SQLException, JsonProcessingException{
+	public String blogDoDelete(Model model, int seq) throws SQLException, JsonProcessingException {
 		BlogVo blog = blogService.get(seq);
 		List<BlogFileVo> files = blogFileService.list(seq);
-		
+
 		boolean result = blogService.delete(seq);
-		if(result) {
+		if (result) {
 			blogService.removeSnapshtFile(blog);
-			commonService.removeContentImage(blog.getContents()); 	//Content Img 삭제
+			commonService.removeContentImage(blog.getContents()); // Content Img 삭제
 			blogFileService.deleteFiles(files);
 		}
 		return new JSONObject().put("result", result).toString();
 	}
-	
+
 	/** 블로그 파일 삭제 **/
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/blog/deleteFile.do")
-	public String deleteFile(int seq){
+	public String deleteFile(int seq) {
 		boolean result = false;
-		
+
 		result = blogFileService.deleteFile(seq);
-		
+
 		return new JSONObject().put("result", result).toString();
 	}
 }

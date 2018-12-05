@@ -7,6 +7,7 @@
 	</select>
 	
 	<select id="list" resultType="com.cglee079.changoos.model.BlogFileVo" parameterType="Integer">
+		/* 블로그 파일 리스트 */
 		SELECT 
 		FILE_SEQ as 'seq',
 		FILE_BLOG_SEQ as 'blogSeq',
@@ -18,6 +19,7 @@
 	</select>
 	
 	<select id="get" resultType="com.cglee079.changoos.model.BlogFileVo" parameterType="map">
+		/* 블로그 파일 가져오기 */
 		SELECT 
 		FILE_SEQ as 'seq',
 		FILE_BLOG_SEQ as 'blogSeq',
@@ -36,12 +38,14 @@
 	</select>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.BlogFileVo">
+		/* 블로그 파일 추가 */
 		INSERT TB_PTFOLIO_BLOG_FILE 
 		(FILE_BLOG_SEQ, FILE_PATH_NM, FILE_REAL_NM, FILE_SIZE)
 		VALUES (#{blogSeq}, #{pathNm}, #{realNm}, #{size})
 	</insert>
 	
 	<delete id="delete" parameterType="Integer">
+		/* 블로그 파일 삭제 */
 		DELETE FROM TB_PTFOLIO_BLOG_FILE
 		WHERE FILE_SEQ = #{seq}
 	</delete>	

@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cglee079.changoos.mapper.PhotoComtMapper">
 	<select id="count" resultType="Integer">
+		/* 사진 댓글 수 가져오기 */
 		SELECT
 			count(*)
 		FROM TB_PTFOLIO_PHOTO_COMT
@@ -11,6 +12,7 @@
 	</select>
 	
 	<select id="list" resultType="com.cglee079.changoos.model.PhotoComtVo" parameterType="map">
+		/* 사진 댓글 리스트 */
 		SELECT
 		PCOMT_SEQ as "seq",
 		PCOMT_PHOTO_SEQ as "photoSeq",
@@ -25,6 +27,7 @@
 	</select>
 	
 	<select id="get" resultType="com.cglee079.changoos.model.PhotoComtVo" parameterType="Integer">
+		/* 사진 댓글 가져오기 */
 		SELECT
 		PCOMT_SEQ as "seq",
 		PCOMT_PHOTO_SEQ as "photoSeq",
@@ -38,17 +41,20 @@
 	</select>
 	
 	<insert id="insert">
+		/* 사진 댓글 추가하기 */
 		INSERT TB_PTFOLIO_PHOTO_COMT 
 		(PCOMT_PHOTO_SEQ, PCOMT_NAME, PCOMT_PWD, PCOMT_CONTENTS, PCOMT_DATE, PCOMT_PARENT_SEQ)
 		VALUES (#{photoSeq}, #{name}, #{password}, #{contents}, #{date}, #{parentSeq});
 	</insert>
 	
 	<delete id="delete">
+		/* 사진 댓글 삭제하기*/
 		DELETE FROM TB_PTFOLIO_PHOTO_COMT
 		WHERE PCOMT_SEQ = #{seq}
 	</delete>
 	
 	<update id="update" parameterType="map">
+		/* 사진 댓글 수정하기 */
 		UPDATE TB_PTFOLIO_PHOTO_COMT
 		SET 
 		PCOMT_CONTENTS = #{contents}

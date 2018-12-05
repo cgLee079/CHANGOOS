@@ -1,9 +1,7 @@
 package com.cglee079.changoos.service;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,12 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-import javax.xml.bind.DatatypeConverter;
+import javax.servlet.http.HttpSession;
 
-import org.apache.commons.codec.binary.Base64;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,10 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.dao.BlogDao;
 import com.cglee079.changoos.model.BlogVo;
-import com.cglee079.changoos.util.MyFileUtils;
+import com.cglee079.changoos.util.AuthManager;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageManager;
-import com.cglee079.changoos.util.TimeStamper;
+import com.cglee079.changoos.util.MyFileUtils;
 import com.google.gson.Gson;
 
 @Service
@@ -107,7 +103,7 @@ public class BlogService{
 	public BlogVo doView(List<Integer> isVisitBlogs, int seq) {
 		BlogVo blog = blogDao.get(seq);
 		
-		if(!isVisitBlogs.contains(seq)) {
+		if(!isVisitBlogs.contains(seq) && !AuthManager.isAdmin() ) {
 			isVisitBlogs.add(seq);
 			blog.setHits(blog.getHits() + 1);
 			blogDao.update(blog);

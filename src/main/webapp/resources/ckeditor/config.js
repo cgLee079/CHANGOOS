@@ -42,7 +42,7 @@ CKEDITOR.editorConfig = function(config) {
 
 	];
 
-	config.toolbar_Basic = [ [ 'Bold', 'Italic', 'Underline', 'Strike', '-','RemoveFormat' ] ];
+	config.toolbar_Basic = [ [ 'Bold', 'Italic', 'Underline', 'Strike', '-','RemoveFormat', 'Emojione' ] ];
 
 	config.extraPlugins = 'youtube,prism,emojione,autosave,pastebase64toserver';
 

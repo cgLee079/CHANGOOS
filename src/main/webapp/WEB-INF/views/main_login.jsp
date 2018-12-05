@@ -11,22 +11,25 @@
 	</script>
 </c:if>
 <style>
-	.wrap-form{
-		position: absolute;
+	.wrap-body{
+		position : absolute;
 		left : 0;
-		right : 0;
-		top 	: 0;
+		right
+		 : 0;
 		bottom : 0;
-		
+		top : 0;
 		display:  flex;
 		align-items: center;
 		justify-content: center;
 		
 	}
+	
+	.wrap-form{
+		width : 11rem;
+	}
+	
 	.input-head{
-		font-weight: bold;
-		font-size: 2rem;
-		text-align: center;
+		width : 100%;
 		margin-bottom: 1rem;
 	}
 	
@@ -34,14 +37,16 @@
 		border: 0.5px solid #DDD;
 		height : 1rem;
 		margin-bottom: 0.5rem;
-		padding: 0.2rem 0.2rem;
+		padding : 0.2rem 0.2rem;
+		width : 100%;
 	}	
 	
 	.btn-submit{
+		width : 100%;
 		background: #222;
 		color : #FFF;
 		text-align: center;
-		padding : 0.3rem 0.1rem;
+		padding : 0.3rem 0.2rem;
 		cursor: pointer;
 		font-size: 0.6rem;
 	}
@@ -52,22 +57,22 @@
 	<div class="wrapper">
 		<c:import url="included/included_nav.jsp" charEncoding="UTF-8" />
 	
-		<div class="wrap-form">
-			<form id="form-admin-login" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
-				<div class="input-head">
-					CHANGOO'S
-				</div>
-				
-				<div>
-				<input type="text" name="username" placeholder="ID" onkeydown="javascript:if(event.keyCode==13){$('.input-pwd').focus();}" class="input-id"/>
-				</div>
-				
-				<div>
-				<input type="password" name="password" placeholder="PASSWORD" onkeydown="javascript:if(event.keyCode==13){$('#form-admin-login').submit()}" class="input-pwd"/>
-				</div>
-				
-				<div class="btn-submit" onclick="$('#form-admin-login').submit()"> 로그인 </div>
-			</form>
+		<div class="wrap-body">
+			<div class="wrap-form">
+				<form id="form-admin-login" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
+					<img class="input-head" src="${pageContext.request.contextPath}/resources/image/icon-logo.svg"  class="logo" onclick="window.location.href = '${pageContext.request.contextPath}/'" ></img>
+					
+					<div>
+					<input type="text" name="username" placeholder="ID" onkeydown="javascript:if(event.keyCode==13){$('.input-pwd').focus();}" class="input-id"/>
+					</div>
+					
+					<div>
+					<input type="password" name="password" placeholder="PASSWORD" onkeydown="javascript:if(event.keyCode==13){$('#form-admin-login').submit()}" class="input-pwd"/>
+					</div>
+					
+					<div class="btn-submit" onclick="$('#form-admin-login').submit()"> 로그인 </div>
+				</form>
+			</div>
 		</div>
 	</div>
 </body>

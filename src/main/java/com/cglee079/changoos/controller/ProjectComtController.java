@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cglee079.changoos.model.AdminVo;
 import com.cglee079.changoos.model.ProjectComtVo;
 import com.cglee079.changoos.service.ProjectComtService;
+import com.cglee079.changoos.util.AuthManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -27,7 +28,6 @@ public class ProjectComtController {
 	@ResponseBody
 	@RequestMapping("/project/comment/paging.do")
 	public String doPaging(int projectSeq, int page, int perPgLine) throws SQLException, JsonProcessingException{
-		System.out.println(projectSeq);
 		List<ProjectComtVo> bcomts= pcomtService.paging(projectSeq, page, perPgLine);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(bcomts);
@@ -46,21 +46,7 @@ public class ProjectComtController {
 	@ResponseBody
 	@RequestMapping("/project/comment/delete.do")
 	public String doDelete(Authentication auth, int seq, String password) throws SQLException, JsonProcessingException{
-		boolean isAdmin = false;
-		
-		if(auth != null) {
-			AdminVo vo = (AdminVo) auth.getPrincipal();
-			Iterator<? extends GrantedAuthority> iter = vo.getAuthorities().iterator();
-			while(iter.hasNext()) {
-				GrantedAuthority ga = iter.next();
-				if(ga.getAuthority().equals("ROLE_ADMIN")) {
-					isAdmin = true;
-					break;
-				}
-			}
-		}
-		
-		boolean result = pcomtService.delete(seq, password, isAdmin);
+		boolean result = pcomtService.delete(seq, password, AuthManager.isAdmin());
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
 	}
@@ -69,20 +55,7 @@ public class ProjectComtController {
 	@ResponseBody
 	@RequestMapping("project/comment/checkPwd.do")
 	public String doCheckPwd(Authentication auth,  int seq, String password) throws SQLException, JsonProcessingException{
-		boolean isAdmin = false;
-		
-		if(auth != null) {
-			AdminVo vo = (AdminVo) auth.getPrincipal();
-			Iterator<? extends GrantedAuthority> iter = vo.getAuthorities().iterator();
-			while(iter.hasNext()) {
-				GrantedAuthority ga = iter.next();
-				if(ga.getAuthority().equals("ROLE_ADMIN")) {
-					isAdmin = true;
-					break;
-				}
-			}
-		}
-		boolean result = pcomtService.checkPwd(seq, password, isAdmin);
+		boolean result = pcomtService.checkPwd(seq, password, AuthManager.isAdmin());
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
 	}
