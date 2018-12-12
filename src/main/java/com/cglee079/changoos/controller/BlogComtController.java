@@ -52,7 +52,7 @@ public class BlogComtController {
 	
 	/** 게시판 비밀번호 체크 **/
 	@ResponseBody
-	@RequestMapping("blog/comment/checkPwd.do")
+	@RequestMapping("blog/comment/check-pwd.do")
 	public String doCheckPwd(Authentication auth, int seq, String password) throws SQLException, JsonProcessingException{
 		boolean result = bcomtService.checkPwd(seq, password, AuthManager.isAdmin());
 		ObjectMapper mapper = new ObjectMapper();

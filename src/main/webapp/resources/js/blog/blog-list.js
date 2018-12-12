@@ -46,7 +46,7 @@ function pageMove(pg){
 	
 	$.ajax({
 		type	: "POST",
-		url		: getContextPath() + "/blog/blog_paging.do",
+		url		: getContextPath() + "/blog/paging.do",
 		data	: {
 			'page'			: pg,
 			'perPgLine' 	: perPgLine,

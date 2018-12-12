@@ -53,7 +53,7 @@ public class ProjectComtController {
 	
 	/** 프로젝트 댓글 비빌번호 확인 **/
 	@ResponseBody
-	@RequestMapping("project/comment/checkPwd.do")
+	@RequestMapping("project/comment/check-pwd.do")
 	public String doCheckPwd(Authentication auth,  int seq, String password) throws SQLException, JsonProcessingException{
 		boolean result = pcomtService.checkPwd(seq, password, AuthManager.isAdmin());
 		ObjectMapper mapper = new ObjectMapper();

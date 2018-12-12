@@ -257,7 +257,7 @@ function commentModify(tg){
 		var seq	= item.find(".comment-seq").val();
 		$.ajax({	
 			type	: "POST",
-			url		: path + "/comment/checkPwd.do",
+			url		: path + "/comment/check-pwd.do",
 			data	: {
 				'seq' : seq,
 				'password'	: password

@@ -179,7 +179,7 @@ public class ProjectController {
 	
 	/** 프로젝트 파일 삭제 **/
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/project/deleteFile.do")
+	@RequestMapping(value = "/mgnt/project/delete-file.do")
 	public String deleteFile(HttpSession session, int seq){
 		boolean result = false;
 		result = projectFileService.deleteFile(seq);	

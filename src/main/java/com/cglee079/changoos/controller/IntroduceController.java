@@ -47,7 +47,7 @@ public class IntroduceController {
 	}
 
 
-	@RequestMapping(value = "/introduce/downloadResume.do")
+	@RequestMapping(value = "/introduce/download-resume.do")
 	public void doDownloadResume(HttpSession session, HttpServletResponse response) throws IOException {
 		String rootPath = session.getServletContext().getRealPath("");
 		
@@ -68,7 +68,7 @@ public class IntroduceController {
 	
 	/**방명록 등록 **/
 	@ResponseBody
-	@RequestMapping(value = "/introduce/remain_message.do")
+	@RequestMapping(value = "/introduce/remain-message.do")
 	public String doRemainMessage(String contents) {
 		VisitMsgVo visitMsg = new VisitMsgVo();
 		visitMsg.setContents(contents);

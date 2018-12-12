@@ -24,7 +24,7 @@ function doFileRemove(tg){
 				if(willDelete) {
 					$.ajax({
 						type	: "POST",
-						url 	: path + "/deleteFile.do",
+						url 	: path + "/delete-file.do",
 						dataType: "JSON",
 						data 	: {
 							"seq" : seq

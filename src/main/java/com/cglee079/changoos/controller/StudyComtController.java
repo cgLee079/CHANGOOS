@@ -52,7 +52,7 @@ public class StudyComtController {
 	
 	/** 게시판 비밀번호 체크 **/
 	@ResponseBody
-	@RequestMapping("study/comment/checkPwd.do")
+	@RequestMapping("study/comment/check-pwd.do")
 	public String doCheckPwd(Authentication auth, int seq, String password) throws SQLException, JsonProcessingException{
 		boolean result = scomtService.checkPwd(seq, password, AuthManager.isAdmin());
 		ObjectMapper mapper = new ObjectMapper();

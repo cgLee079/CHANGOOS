@@ -39,7 +39,7 @@
 		</mvc:interceptor>
 				
 		<mvc:interceptor>
-			<mvc:mapping path="/introduce/remain_message.do" />
+			<mvc:mapping path="/introduce/remain-message.do" />
 			<bean class="com.cglee079.changoos.interceptor.VisitMsgNoticeInterceptor"></bean>
 		</mvc:interceptor>
 				

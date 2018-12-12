@@ -56,7 +56,7 @@ public class StudyController {
 		
 	/** 공부 페이징 **/
 	@ResponseBody
-	@RequestMapping("/study/study_paging.do")
+	@RequestMapping("/study/paging.do")
 	public String doPaging(@RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException{
 		List<StudyVo> studys = studyService.paging(params);
 		int count = studyService.count(params);
@@ -197,7 +197,7 @@ public class StudyController {
 	
 	/** 공부 파일 삭제 **/
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/study/deleteFile.do")
+	@RequestMapping(value = "/mgnt/study/delete-file.do")
 	public String deleteFile(int seq){
 		boolean result = false;
 		result = studyFileService.deleteFile(seq);

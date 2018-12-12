@@ -21,7 +21,7 @@ public class CommonController {
 	
 	@Autowired CommonService commonService;
 	
-	@RequestMapping("/mgnt/imgUpload.do")
+	@RequestMapping("/mgnt/img-upload.do")
 	public String projectImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
 		
@@ -34,7 +34,7 @@ public class CommonController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/imgBase64Upload.do")
+	@RequestMapping(value = "/mgnt/img-upload-base64.do")
 	public String blogDoImgUpload(HttpServletRequest request, String base64) throws IllegalStateException, IOException {
 		String path = commonService.saveContentImage(base64);
 		

@@ -49,7 +49,7 @@ public class PhotoComtController {
 
 	/** 사진 댓글 비밀번호 확인 **/
 	@ResponseBody
-	@RequestMapping("/photo/comment/checkPwd.do")
+	@RequestMapping("/photo/comment/check-pwd.do")
 	public String doCheckPwd(int seq, String password, boolean isAdmin) throws SQLException, JsonProcessingException {
 		boolean result = photoComtService.checkPwd(seq, password, isAdmin);
 		ObjectMapper mapper = new ObjectMapper();

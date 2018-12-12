@@ -117,7 +117,7 @@ $(document).ready(function(){
 });
 
 function doDownloadResume(){
-	window.location.href = getContextPath() + "/introduce/downloadResume.do";
+	window.location.href = getContextPath() + "/introduce/download-resume.do";
 }
 
 function doSendMessage(){
@@ -125,7 +125,7 @@ function doSendMessage(){
 	
 	$.ajax({
 		type	: "POST",
-		url		: getContextPath() + "/introduce/remain_message.do",
+		url		: getContextPath() + "/introduce/remain-message.do",
 		data	: {
 			'contents' : message	
 		},

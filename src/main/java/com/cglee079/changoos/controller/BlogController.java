@@ -52,7 +52,7 @@ public class BlogController {
 
 	/** 블로그 페이징 **/
 	@ResponseBody
-	@RequestMapping("/blog/blog_paging.do")
+	@RequestMapping("/blog/paging.do")
 	public String doPaging(@RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException {
 		List<BlogVo> blogs = blogService.paging(params);
 		int count = blogService.count(params);
@@ -192,7 +192,7 @@ public class BlogController {
 
 	/** 블로그 파일 삭제 **/
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/blog/deleteFile.do")
+	@RequestMapping(value = "/mgnt/blog/delete-file.do")
 	public String deleteFile(int seq) {
 		boolean result = false;
 
