@@ -11,6 +11,7 @@
 	display : flex;
 	flex-flow : row wrap;
 	justify-content: flex-start;
+	max-width: 1300px;
 }
 
 .project-view{	

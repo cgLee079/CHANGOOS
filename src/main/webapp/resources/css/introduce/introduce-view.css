@@ -1,238 +1,126 @@
-.wrap-myinfo{
-	background: #222;
+.wrap-myinfo {
 	padding-bottom: 100px;
 }
 
-.introduce{
-	width	: 100%;
-	height	: calc(100% - 50px);
+.introduce {
+	width: 100%;
+	height: calc(100% - 50px);
 	position: relative;
-	margin-bottom: 80px;
 }
 
-.introduce::after{ 
-    content: '&nbsp;';
-	display : block; 
-}
-
-.introduce-bg{
+.introduce-bg {
 	position: absolute;
-	left	: 0;
-	top		: 0;
-	right	: 0;
-	bottom	: 0;		
-	
+	left: 20%;
+	top: 15%;
+	right: 20%;
+	bottom: 20%;
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-position: left;
+	background-position: center;
 }
 
-.introduce-text{
+.introduce-text {
 	position: absolute;
-	right : 10%;
-	bottom : 5%;
+	right: 25%;
+	bottom: 25%;
 	max-width: 40%;
 	cursor: default;
 }
 
 .introduce-text .introduce-head {
 	color: #FFF;
-	font-size : 3rem;
+	font-size: 2.5rem;
 	font-weight: bold;
-	margin-bottom : 5px;
+	margin-bottom: 10px;
 	transition: margin .3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-.introduce-text .introduce-desc{
+.introduce-text .introduce-desc {
 	color: #FFF;
-	line-height : 1.5;
+	line-height: 1.5;
+	text-align: right;
 }
 
-.introduce-text:hover .introduce-head{
+.introduce-text:hover .introduce-head {
 	margin-bottom: 15px;
 }
 
-
-/**************/
-/**** Spec ****/
-/**************/
-.spec{
-	display : flex;
-	margin-bottom: 80px;
-	margin-left: 50px;
-	background: #000;
-	cursor : default;
+.detail {
+	width: 60%;
+	margin: 0 auto;
+	margin-bottom: 100px;
 }
 
-.spec-image{
-	width : 40%;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
-	transition: width .3s cubic-bezier(0.215, 0.61, 0.355, 1);
+.contact {
+	width: 60%;
+	margin: 0 auto;
 }
 
-.spec .spec-image:hover{
-	width : 50%;
-}
-
-.spec-text{
-	flex : 1;
-	margin-left : 10px;
-	padding : 2rem;
-}
-
-.spec-text .spec-head{
-	color : #FFF;
-	font-size: 3rem;
-	margin-bottom: 15px;
-	transition: margin .3s cubic-bezier(0.215, 0.61, 0.355, 1);
-}
-
-.spec-text:hover .spec-head{
-	margin-left: 20px;
-}
-
-.spec-text .spec-desc{
-	color : #FFF;
-	line-height : 1.5;
-	overflow-x : auto;
-	white-space: nowrap;
-}
-
-/***************/
-/** BioGraphy **/
-/***************/
-.biography{
-	display : flex;
-	margin-bottom: 80px;
-	margin-right: 50px;
-	background: #000;
-	cursor : default;
-}
-
-.biography-image{
-	width : 40%;
-	height : 50%;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
-	transition: width .3s cubic-bezier(0.215, 0.61, 0.355, 1);
-}
-
-.biography .biography-image:hover{
-	width : 50%;
-}
-
-.biography-text{
-	flex : 1;
-	margin-left : 10px;
-	padding : 20px;
-}
-
-.biography-text .biography-head{
-	color : #FFF;
-	font-size: 3rem;
-	margin-bottom: 15px;
-	transition: margin .3s cubic-bezier(0.215, 0.61, 0.355, 1);
-}
-
-.biography-text:hover .biography-head{
-	margin-left: 20px;
-}
-
-.biography-text .biography-desc{
-	color : #FFF;
-	line-height : 1.5;
-	overflow-x : auto;
-	white-space: nowrap;
-}
-
-.contact{
-	width: 80%;
-	margin : 0 auto;
-}
-
-.contact-head{
-	font-size: 5rem;
+.contact-head {
+	font-size: 1.5rem;
+	margin-bottom: 3px; font-weight : bold;
+	color: #333;
 	font-weight: bold;
-	color : #FFF;
 }
 
 .contact-input-message {
-	width : 100%;
+	width: 100%;
 }
 
-.contact-input-message .input-message{
+.contact-input-message .input-message {
 	background: #FFF;
-	border: none;
-	height: 40%;
-	width : 100%;
-	padding : 10px;
+	border: 1px solid #DDD;
+	height: 20%;
+	width: 100%;
+	padding: 10px;
 	margin-bottom: 10px;
 	resize: none;
 	overflow: none;
-	-ms-overflow-style : none;
+	-ms-overflow-style: none;
 }
 
-.contact-input-message .input-message::-webkit-scrollbar{
+.contact-input-message .input-message::-webkit-scrollbar {
 	display: none;
 }
 
-.black-button{
+.black-button {
 	border: 1px solid #FFF;
-	background : #000;
-	color : #FFF;
-	padding : 10px 20px;	
-	font-weight : bold;
+	background: #000;
+	color: #FFF;
+	padding: 10px 20px;
+	font-weight: bold;
 	cursor: pointer;
 }
 
-.black-button:hover{
+.black-button:hover {
 	background: #FFF;
-	color : #000;
+	color: #000;
 }
 
-@media (max-width: 800px){
-	.introduce-text{
-		right: 10px;
-		left : 10px;
+@media ( max-width : 800px) {
+	.introduce{
+		margin-bottom: 50px;
+	}
+	
+	.introduce-bg {
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+	}
+	
+	.introduce-text {
+		right: 20px;
+		bottom : 20px;
 		max-width: none;
 	}
 	
-	.introduce-text .introduce-head{
+	.introduce-text .introduce-head {
 		margin-bottom: 10px;
 	}
 	
-	.spec{
-		display: flex;
-		flex-flow: column-reverse nowrap;
+	.detail {
+		width: 80%;
 	}
 	
-	.spec-image{
-		width: 100%;
-		height: 230px;
-	}
-	
-	.spec .spec-image:hover{
-		width : 100%;
-	}
-	
-	.biography{
-		display: flex;
-		flex-flow: column nowrap;
-	}
-	
-	.biography-image{
-		width: 100%;
-		height: 230px;
-	}
-	
-	.biography .biography-image:hover{
-		width: 100%;
-	}
-	
-	.contact{
-		width : 90%;
-	}
 }
