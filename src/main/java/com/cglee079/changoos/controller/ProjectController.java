@@ -95,29 +95,13 @@ public class ProjectController {
 	
 	/** 프로젝트 관리자 페이지 리스트, Ajax **/
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/project/list.do")
-	public String DoProjectManageList(@RequestParam Map<String,Object> map) {
+	@RequestMapping(value = "/mgnt/project/list")
+	public String projectManageList(@RequestParam Map<String,Object> map, Model model) {
 		List<ProjectVo> projects = projectService.list(map);
 		Gson gson = new Gson();
 		return gson.toJson(projects).toString();
 	}
 	
-	
-	/** 프로젝트 삭제 **/
-	@ResponseBody
-	@RequestMapping(value = "/mgnt/project/delete.do")
-	public String projectDelete(HttpSession session, int seq) {
-		ProjectVo project = projectService.get(seq);
-		List<ProjectFileVo> files = projectFileService.list(seq);
-		
-		boolean result = projectService.delete(seq);
-		if(result) {
-			projectService.removeSnapshtFile(project);
-			commonService.removeContentImage(project.getContents());
-			projectFileService.deleteFiles(files);
-		}
-		return new JSONObject().put("result", result).toString();
-	}
 	
 	/** 프로젝트 업로드 페이지로 이동 **/
 	@RequestMapping(value = "/mgnt/project/upload", params = "!seq")
@@ -175,6 +159,22 @@ public class ProjectController {
 		projectFileService.saveFiles(project.getSeq(), files);
 		
 		return "redirect:" + "/mgnt/project";
+	}
+	
+	/** 프로젝트 삭제 **/
+	@ResponseBody
+	@RequestMapping(value = "/mgnt/project/delete.do", method = RequestMethod.POST)
+	public String doProjectDelete(HttpSession session, int seq) {
+		ProjectVo project = projectService.get(seq);
+		List<ProjectFileVo> files = projectFileService.list(seq);
+		
+		boolean result = projectService.delete(seq);
+		if(result) {
+			projectService.removeSnapshtFile(project);
+			commonService.removeContentImage(project.getContents());
+			projectFileService.deleteFiles(files);
+		}
+		return new JSONObject().put("result", result).toString();
 	}
 	
 	/** 프로젝트 파일 삭제 **/

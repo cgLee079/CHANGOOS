@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.cglee079.changoos.model.BlogVo;
 
 @Repository
-public class CommonCodeDao {
-	private static final String namespace = "com.cglee079.changoos.mapper.CommonCodeMapper";
+public class CommonStringDao {
+	private static final String namespace = "com.cglee079.changoos.mapper.CommonStringMapper";
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
