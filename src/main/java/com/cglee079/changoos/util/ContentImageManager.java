@@ -64,6 +64,32 @@ public class ContentImageManager{
 		return Path.TEMP_CONTENTS_PATH + filename;
 	}
 	
+	/** 내용에 포함된 이미지파일을, 업로드 폴더에서 삭제 **/
+	public static void removeContentImage(String content) {
+		List<String> imgPaths = new ArrayList<String>();
+
+		Document doc = Jsoup.parse(content);
+		Elements els = doc.select("img");
+		Element el = null;
+
+		for (int i = 0; i < els.size(); i++) {
+			el = els.get(i);
+			imgPaths.add(el.attr("src"));
+		}
+
+		int imgPathsLength = imgPaths.size();
+		for (int i = 0; i < imgPathsLength; i++) {
+			MyFileUtils.delete(getRealPath() + imgPaths.get(i));
+		}
+
+	}
+	
+	
+	/**
+	 * 글 수정시 동작
+	 * 업로드 폴더 이미지 파일을 TEMP 폴더에 복사.
+	 * 업로드 폴더 URL을, TEMP폴더 URL로 변경.
+	 **/
 	public static String copyToTempPath(String contents, String fromPath) {
 		Document doc = Jsoup.parseBodyFragment(contents);
         doc.outputSettings().prettyPrint(false);
@@ -85,7 +111,7 @@ public class ContentImageManager{
 				el.attr("src", newSrc);
 			}
 			
-			//파일 이동
+			//파일 복사
 			File existFile  = new File(getRealPath() + src);
 			File newFile	= new File(getRealPath() + newSrc);
 			MyFileUtils.copy(existFile, newFile);
@@ -94,6 +120,11 @@ public class ContentImageManager{
 		return doc.select("body").html();
 	}
 	
+	/**
+	 * 글 작성완료시 동작
+	 * TEMP 폴더에 저장된 이미지 파일을, 업로드 폴더로 파일 이동
+	 * TEMP 폴더에 저장된 이미지 파일의 URL을, 업로드 폴더 URL로 변경
+	 **/
 	public static String moveToSavePath(String contents, String toPath) {
 		Document doc = Jsoup.parseBodyFragment(contents);
         doc.outputSettings().prettyPrint(false);
@@ -124,36 +155,15 @@ public class ContentImageManager{
 		File tempDir = new File(getRealPath() + Path.TEMP_CONTENTS_PATH);
 		File[] tempFiles = tempDir.listFiles();
 		File tempFile = null;
-		String tempFilePath = null;
-		String filename = null;
+		
+		//업로드 파일로 이동했음에도 불구하고, 남아있는 TEMP 폴더의 이미지 파일을 삭제.
 		for(int i = 0; i < tempFiles.length; i++) {
 			tempFile = tempFiles[i];
-//			tempFilePath = tempFile.getPath();
-//			filename = tempFilePath.substring(tempFilePath.indexOf(getRealPath() + Path.TEMP_CONTENTS_PATH) + (getRealPath() + Path.TEMP_CONTENTS_PATH).length(), tempFilePath.length());
-//			MyFileUtils.delete(getRealPath() + toPath, filename);
 			MyFileUtils.delete(tempFile);
 		}
 		
 		return doc.select("body").html();
 	}
 	
-	public static void removeContentImage(String content) {
-		List<String> imgPaths = new ArrayList<String>();
-
-		Document doc = Jsoup.parse(content);
-		Elements els = doc.select("img");
-		Element el = null;
-
-		for (int i = 0; i < els.size(); i++) {
-			el = els.get(i);
-			imgPaths.add(el.attr("src"));
-		}
-
-		int imgPathsLength = imgPaths.size();
-		for (int i = 0; i < imgPathsLength; i++) {
-			MyFileUtils.delete(getRealPath() + imgPaths.get(i));
-		}
-
-	}
 
 }
