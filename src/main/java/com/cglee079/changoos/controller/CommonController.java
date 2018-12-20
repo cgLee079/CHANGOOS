@@ -14,18 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cglee079.changoos.service.CommonService;
+import com.cglee079.changoos.util.ContentImageManager;
 
 @Controller
 public class CommonController {
-	
-	@Autowired CommonService commonService;
 	
 	@RequestMapping("/mgnt/img-upload.do")
 	public String projectImgUpload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("upload")MultipartFile multiFile, String CKEditorFuncNum) throws IllegalStateException, IOException {
 		
-		String path = commonService.saveContentImage(multiFile);
+		String path = ContentImageManager.saveContentImage(multiFile);
 		response.setHeader("X-Frame-Options", "SAMEORIGIN");
 		model.addAttribute("path", path);
 		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
@@ -36,7 +34,7 @@ public class CommonController {
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/img-upload-base64.do")
 	public String blogDoImgUpload(HttpServletRequest request, String base64) throws IllegalStateException, IOException {
-		String path = commonService.saveContentImage(base64);
+		String path = ContentImageManager.saveContentImage(base64);
 		
 		JSONObject result = new JSONObject();
 		result.put("path", path);

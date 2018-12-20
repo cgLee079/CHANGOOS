@@ -26,7 +26,7 @@ import com.cglee079.changoos.model.BlogFileVo;
 import com.cglee079.changoos.model.BlogVo;
 import com.cglee079.changoos.service.BlogFileService;
 import com.cglee079.changoos.service.BlogService;
-import com.cglee079.changoos.service.CommonService;
+import com.cglee079.changoos.util.ContentImageManager;
 import com.cglee079.changoos.util.MyFileUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
@@ -35,9 +35,6 @@ import com.google.gson.Gson;
 public class BlogController {
 	@Autowired
 	private BlogService blogService;
-
-	@Autowired
-	private CommonService commonService;
 
 	@Autowired
 	private BlogFileService blogFileService;
@@ -126,7 +123,7 @@ public class BlogController {
 	public String blogModify(Model model, int seq) throws SQLException, JsonProcessingException {
 		BlogVo blog = blogService.get(seq);
 		if (blog.getContents() != null) {
-			String contents = commonService.copyToTempPath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
+			String contents = ContentImageManager.copyToTempPath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
 			blog.setContents(contents.replace("&", "&amp;"));
 		}
 
@@ -145,7 +142,7 @@ public class BlogController {
 		String snapshtPath = blogService.saveSnapsht(blog, snapshtFile);
 		blog.setSnapsht(snapshtPath);
 
-		String contents = commonService.moveToSavePath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
+		String contents = ContentImageManager.moveToSavePath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
 		blog.setContents(contents);
 
 		int seq = blogService.insert(blog);
@@ -163,7 +160,7 @@ public class BlogController {
 		String snapshtPath = blogService.saveSnapsht(blog, snapshtFile);
 		blog.setSnapsht(snapshtPath);
 
-		String contents = commonService.moveToSavePath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
+		String contents = ContentImageManager.moveToSavePath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
 		blog.setContents(contents);
 
 		blogService.update(blog);
@@ -184,7 +181,7 @@ public class BlogController {
 		boolean result = blogService.delete(seq);
 		if (result) {
 			blogService.removeSnapshtFile(blog);
-			commonService.removeContentImage(blog.getContents()); // Content Img 삭제
+			ContentImageManager.removeContentImage(blog.getContents()); // Content Img 삭제
 			blogFileService.deleteFiles(files);
 		}
 		return new JSONObject().put("result", result).toString();

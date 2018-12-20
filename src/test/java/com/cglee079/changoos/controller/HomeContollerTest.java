@@ -32,7 +32,7 @@ public class HomeContollerTest {
 	private MockMvc mockMvc;
 	
 	@Before
-	public void init() throws Exception {
+	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		mockMvc = MockMvcBuilders.standaloneSetup(homeController).build();
 	}

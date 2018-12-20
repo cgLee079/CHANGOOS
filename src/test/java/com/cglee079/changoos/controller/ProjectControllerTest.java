@@ -1,25 +1,29 @@
 package com.cglee079.changoos.controller;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -28,34 +32,36 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.api.mockito.internal.PowerMockitoCore;
+import org.powermock.core.PowerMockUtils;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.model.ProjectFileVo;
 import com.cglee079.changoos.model.ProjectVo;
-import com.cglee079.changoos.service.CommonService;
 import com.cglee079.changoos.service.ProjectFileService;
 import com.cglee079.changoos.service.ProjectService;
+import com.cglee079.changoos.util.ContentImageManager;
+import com.cglee079.changoos.util.MyFileUtils;
 import com.google.gson.Gson;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({FileUtils.class, MyFileUtils.class, ContentImageManager.class})
 @WebAppConfiguration
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/appServlet/**-context.xml")
 public class ProjectControllerTest {
-	@Mock
-	private CommonService commonService;
-	
 	@Mock
 	private ProjectService projectService;
 	
@@ -68,9 +74,11 @@ public class ProjectControllerTest {
 	private MockMvc mockMvc;
 	
 	@Before
-	public void init() {
+	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		mockMvc = MockMvcBuilders.standaloneSetup(projectController).build();
+		
+		PowerMockito.mockStatic(ContentImageManager.class);
 	}
 	
 	@Test
@@ -106,7 +114,9 @@ public class ProjectControllerTest {
 		when(projectFileService.list(seq)).thenReturn(files);
 
 		
-		mockMvc.perform(get("/project/view").session(session).param("seq", String.valueOf(seq)))
+		mockMvc.perform(get("/project/view")
+				.session(session)
+				.param("seq", String.valueOf(seq)))
 				.andExpect(status().isOk())
 				.andExpect(view().name("project/project_view"))
 				.andExpect(model().attribute("project", cProject))
@@ -125,7 +135,7 @@ public class ProjectControllerTest {
 	}
 	
 	@Test
-	public void testprojectManageList() throws Exception {
+	public void testprojectManagePaging() throws Exception {
 		Map<String,Object> map = new HashMap<>();
 		
 		List<ProjectVo> projects = new ArrayList<>();
@@ -143,7 +153,6 @@ public class ProjectControllerTest {
 		
 		mockMvc.perform(get("/mgnt/project/list.do"))
 		.andExpect(status().isOk())
-		.andDo(print())
 		.andExpect(content().json(new Gson().toJson(projects).toString()));
 	}
 	
@@ -158,14 +167,16 @@ public class ProjectControllerTest {
 	public void testProjectModify() throws Exception {
 		List<ProjectFileVo> files = new ArrayList<>();
 		int seq = 3;
+		String contents = "contents_sample";
+		String newContents = "newContents_sample";
 		
 		ProjectVo cProject = new ProjectVo();
 		cProject.setSeq(seq);
-		cProject.setContents("contents");
+		cProject.setContents(contents);
 		
 		when(projectService.get(seq)).thenReturn(cProject);
 		when(projectFileService.list(seq)).thenReturn(files);
-		when(commonService.copyToTempPath(cProject.getContents(), Path.PROJECT_CONTENTS_PATH)).thenReturn("modify cotents");
+		when(ContentImageManager.copyToTempPath(cProject.getContents(), Path.PROJECT_CONTENTS_PATH)).thenReturn(newContents);
 		
 		mockMvc.perform(get("/mgnt/project/upload").param("seq", String.valueOf(seq)))
 		.andExpect(status().isOk())
@@ -193,26 +204,22 @@ public class ProjectControllerTest {
 	@Test
 	public void testProjectDoUpload() throws JSONException, Exception {
 		int seq = 3;
-		String snaphtPath = "Snapshot Path";
-		String content = "content";
-		String modifyContent = "modifyContent";
-		
-		ProjectVo project = new ProjectVo();
-		project.setContents(content);
-		project.setSnapsht(snaphtPath);
+		String snaphtPath = "snapsht_sample";
+		String contents = "contents_sample";
+		String newContents = "newContents_sample";
 		
 		MockMultipartFile snapshtFile = new MockMultipartFile("snapshot", new byte[1]);
 		
-		when(projectService.saveSnapsht(project, snapshtFile)).thenReturn(snaphtPath);
-		when(projectService.insert(project)).thenReturn(seq);
-		when(commonService.moveToSavePath(project.getContents(), Path.PROJECT_CONTENTS_PATH)).thenReturn(modifyContent);
+		when(projectService.saveSnapsht(any(ProjectVo.class), eq(snapshtFile))).thenReturn(snaphtPath);
+		when(projectService.insert(any(ProjectVo.class))).thenReturn(seq);
+		when(ContentImageManager.moveToSavePath(contents, Path.PROJECT_CONTENTS_PATH)).thenReturn(newContents);
 		
 		mockMvc.perform(fileUpload("/mgnt/project/upload.do")
 			.file(snapshtFile)
 			.file("file01", new byte[1])
 			.file("file02", new byte[1])
 			.file("file03", new byte[1])
-			.param("content", content))
+			.param("contents", contents))
 			.andExpect(redirectedUrl("/mgnt/project"))
 			.andExpect(status().isFound());
 		
@@ -221,29 +228,70 @@ public class ProjectControllerTest {
 	@Test
 	public void testProjectDoModify() throws JSONException, Exception {
 		int seq = 3;
-		String snaphtPath = "Snapshot Path";
-		String content = "content";
-		String modifyContent = "modifyContent";
-		
-		ProjectVo project = new ProjectVo();
-		project.setContents(content);
-		project.setSnapsht(snaphtPath);
+		String snaphtPath = "snapsht_sample";
+		String contents = "content_sample";
+		String newContents = "newContent_sample";
 		
 		MockMultipartFile snapshtFile = new MockMultipartFile("snapshot", new byte[1]);
 		
-		when(projectService.saveSnapsht(project, snapshtFile)).thenReturn(snaphtPath);
-		when(projectService.insert(project)).thenReturn(seq);
-		when(commonService.moveToSavePath(project.getContents(), Path.PROJECT_CONTENTS_PATH)).thenReturn(modifyContent);
+		when(projectService.saveSnapsht(any(ProjectVo.class), eq(snapshtFile))).thenReturn(snaphtPath);
+		when(projectService.insert(any(ProjectVo.class))).thenReturn(seq);
+		when(ContentImageManager.moveToSavePath(contents, Path.PROJECT_CONTENTS_PATH)).thenReturn(newContents);
 		
 		mockMvc.perform(fileUpload("/mgnt/project/upload.do")
 			.file(snapshtFile)
 			.file("file01", new byte[1])
 			.file("file02", new byte[1])
 			.file("file03", new byte[1])
-			.param("content", content)
+			.param("content", contents)
 			.param("seq", String.valueOf(seq)))
 			.andExpect(redirectedUrl("/mgnt/project"))
 			.andExpect(status().isFound());
 	}
 	
+	/*  파일 다운로드 어떻게 처리해야하나...*/
+//	@Test
+//	public void testProjectDoFiledownload() throws Exception {
+//		String filename = "경로_파일명";
+//		String realNm = "파일명";
+//		
+//		ProjectFileVo projectFile = new ProjectFileVo();
+//		projectFile.setPathNm(filename);
+//		projectFile.setRealNm(realNm);
+//		
+//		File file = mock(File.class);
+//		when(file.exists()).thenReturn(true);
+//		when(file.getName()).thenReturn("MockingFile");
+//		
+//		System.out.println(file.getName());
+//		byte[] fileByte = new byte[1];
+//		
+//		PowerMockito.mockStatic(FileUtils.class);
+//		PowerMockito.mockStatic(MyFileUtils.class);
+//		PowerMockito.whenNew(File.class).withArguments(any()).thenReturn(file);
+//
+//
+//		MockHttpSession session = new MockHttpSession();
+//		when(projectFileService.get(filename)).thenReturn(projectFile);
+//		when(FileUtils.readFileToByteArray(file)).thenReturn(fileByte);
+//		when(MyFileUtils.encodeFilename(anyObject(), eq(projectFile.getRealNm()))).thenReturn("S");
+//	
+//		
+//		mockMvc.perform(get("/project/download.do")
+//				.session(session)
+//				.param("filename", filename))
+//				.andExpect(status().isOk())
+//				.andReturn();
+//	}
+	
+	@Test
+	public void testProjectDoDeleteFile() throws Exception {
+		int fileSeq = 3;
+		when(projectFileService.deleteFile(fileSeq)).thenReturn(true);
+		
+		mockMvc.perform(post("/mgnt/project/delete-file.do")
+				.param("seq", String.valueOf(fileSeq)))
+				.andExpect(status().isOk())
+				.andExpect(content().json(new JSONObject().put("result", true).toString()));
+	}
 }

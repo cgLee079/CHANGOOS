@@ -27,7 +27,7 @@ public class AdminCotrollerTest {
 	private MockMvc mockMvc;
 
 	@Before
-	public void init() {
+	public void setUp() {
 		mockMvc = MockMvcBuilders.standaloneSetup(adminController).build();
 	}
 

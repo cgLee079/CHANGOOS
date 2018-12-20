@@ -33,20 +33,20 @@ public class IntroduceControllerTest {
 	private MockMvc mockMvc;
 	
 	@Before
-	public void init() {
+	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		mockMvc = MockMvcBuilders.standaloneSetup(introduceController).build();
 	}
 	
 	@Test
-	public void showIntroduce() throws Exception {
-		when(commonStringService.get("INTRO", "001")).thenReturn("이력 자기소개");
-		when(commonStringService.get("INTRO", "002")).thenReturn("이력서");
+	public void testIntroduce() throws Exception {
+		when(commonStringService.get("INTRO", "001")).thenReturn("자기소개");
+		when(commonStringService.get("INTRO", "002")).thenReturn("이력내용");
 		
 		mockMvc.perform(get("/introduce"))
 		.andExpect(status().isOk())
 		.andExpect(view().name("introduce/introduce_view"))
-		.andExpect(model().attribute("intro001", "이력 자기소개"))
-		.andExpect(model().attribute("intro002", "이력서"));
+		.andExpect(model().attribute("intro001", "자기소개"))
+		.andExpect(model().attribute("intro002", "이력내용"));
 	}
 }

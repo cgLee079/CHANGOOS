@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,9 +26,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.model.StudyFileVo;
 import com.cglee079.changoos.model.StudyVo;
-import com.cglee079.changoos.service.CommonService;
 import com.cglee079.changoos.service.StudyFileService;
 import com.cglee079.changoos.service.StudyService;
+import com.cglee079.changoos.util.ContentImageManager;
 import com.cglee079.changoos.util.MyFileUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
@@ -36,9 +37,6 @@ import com.google.gson.Gson;
 public class StudyController {
 	@Autowired
 	private StudyService studyService;
-	
-	@Autowired
-	private CommonService commonService;
 	
 	@Autowired
 	private StudyFileService studyFileService;
@@ -56,8 +54,8 @@ public class StudyController {
 		
 	/** 공부 페이징 **/
 	@ResponseBody
-	@RequestMapping("/study/paging.do")
-	public String doPaging(@RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException{
+	@RequestMapping("/study/paging")
+	public String studyListPaging(@RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException{
 		List<StudyVo> studys = studyService.paging(params);
 		int count = studyService.count(params);
 		
@@ -113,17 +111,17 @@ public class StudyController {
 	
 	/** 공부 관리 페이지로 이동 **/
 	@RequestMapping(value = "/mgnt/study")
-	public String photoManage(Model model) {
+	public String studyManage(Model model) {
 		return "study/study_manage";
 	}
 	
 	/** 공부 관리 페이지 리스트, Ajax **/
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/study/list.do")
-	public String DoPhotoManageList(@RequestParam Map<String, Object> map) {
-		List<StudyVo> photos = studyService.list(map);
+	@RequestMapping(value = "/mgnt/study/paging")
+	public String studyMangePaging(@RequestParam Map<String, Object> map) {
+		List<StudyVo> studies = studyService.list(map);
 		Gson gson = new Gson();
-		return gson.toJson(photos).toString();
+		return gson.toJson(studies).toString();
 	}
 	
 	/** 공부 업로드 페이지로 이동 **/
@@ -138,7 +136,7 @@ public class StudyController {
 		StudyVo study = studyService.get(seq);
 		
 		if(study.getContents() != null) {
-			String contents = commonService.copyToTempPath(study.getContents(), Path.STUDY_CONTENTS_PATH);
+			String contents = ContentImageManager.copyToTempPath(study.getContents(), Path.STUDY_CONTENTS_PATH);
 			study.setContents(contents.replace("&", "&amp;"));
 		}
 		
@@ -152,9 +150,9 @@ public class StudyController {
 	
 	 
 	/** 공부 업로드  **/
-	@RequestMapping(value = "/mgnt/study/upload.do", params = "!seq")
+	@RequestMapping(value = "/mgnt/study/upload.do", method = RequestMethod.POST, params = "!seq")
 	public String studyDoUpload(HttpSession session, Model model, StudyVo study, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
-		String contents = commonService.moveToSavePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
+		String contents = ContentImageManager.moveToSavePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
 		study.setContents(contents);
 		
 		int seq = studyService.insert(study);
@@ -166,9 +164,9 @@ public class StudyController {
 	}
 	
 	/** 공부 수정 **/
-	@RequestMapping(value = "/mgnt/study/upload.do", params = "seq")
+	@RequestMapping(value = "/mgnt/study/upload.do", method = RequestMethod.POST, params = "seq")
 	public String studyDoModify(HttpSession session, Model model, StudyVo study, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
-		String contents = commonService.moveToSavePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
+		String contents = ContentImageManager.moveToSavePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
 		study.setContents(contents);
 		
 		studyService.update(study);
@@ -181,14 +179,14 @@ public class StudyController {
 	
 	/** 공부 삭제 **/
 	@ResponseBody
-	@RequestMapping("/mgnt/study/delete.do")
+	@RequestMapping(value = "/mgnt/study/delete.do", method = RequestMethod.POST)
 	public String studyDoDelete(HttpSession session, Model model, int seq) throws SQLException, JsonProcessingException{
 		StudyVo study = studyService.get(seq);
 		List<StudyFileVo> files = studyFileService.list(seq);
 		
 		boolean result = studyService.delete(seq);
 		if(result) {
-			commonService.removeContentImage(study.getContents()); //Content Img 삭제
+			ContentImageManager.removeContentImage(study.getContents()); //Content Img 삭제
 			studyFileService.deleteFiles(files);
 		}
 		
@@ -197,7 +195,7 @@ public class StudyController {
 	
 	/** 공부 파일 삭제 **/
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/study/delete-file.do")
+	@RequestMapping(value = "/mgnt/study/delete-file.do", method = RequestMethod.POST)
 	public String deleteFile(int seq){
 		boolean result = false;
 		result = studyFileService.deleteFile(seq);

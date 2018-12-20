@@ -1,4 +1,4 @@
-package com.cglee079.changoos.service;
+package com.cglee079.changoos.util;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -8,35 +8,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.DatatypeConverter;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.constants.Path;
-import com.cglee079.changoos.util.MyFileUtils;
-import com.cglee079.changoos.util.ImageManager;
-import com.cglee079.changoos.util.TimeStamper;
 
-@Service
-public class CommonService{
+public class ContentImageManager{
 	
-	@Value("#{servletContext.getRealPath('/')}")
-    private String realPath;
-	
-	public String saveContentImage(MultipartFile multiFile) throws IllegalStateException, IOException {
+	public static String getRealPath() {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		return request.getSession().getServletContext().getRealPath("/");
+	}
+
+	public static String saveContentImage(MultipartFile multiFile) throws IllegalStateException, IOException {
 		String filename	= "content_" + TimeStamper.stamp() + "_";
 		String imgExt 	= null;
 		
 		if(multiFile != null){
 			filename += MyFileUtils.sanitizeRealFilename(multiFile.getOriginalFilename());
 			imgExt = ImageManager.getExt(filename);
-			File file = new File(realPath + Path.TEMP_CONTENTS_PATH , filename);
+			File file = new File(getRealPath() + Path.TEMP_CONTENTS_PATH , filename);
 			multiFile.transferTo(file);
 			if(!imgExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
 				BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
@@ -47,14 +46,14 @@ public class CommonService{
 		return Path.TEMP_CONTENTS_PATH + filename;
 	}
 	
-	public String saveContentImage(String base64) throws IOException {
+	public static String saveContentImage(String base64) throws IOException {
 		String filename	= "content_" + TimeStamper.stamp() + "_pasteImage.png";
 		String imgExt = "png";
 		
 		base64 = base64.split(",")[1];
 		byte[] imageBytes = DatatypeConverter.parseBase64Binary(base64);
 		BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
-		File file =  new File(realPath + Path.TEMP_CONTENTS_PATH, filename);
+		File file =  new File(getRealPath() + Path.TEMP_CONTENTS_PATH, filename);
 		ImageIO.write(bufImg, imgExt, file);
 		
 		if(!imgExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
@@ -65,7 +64,7 @@ public class CommonService{
 		return Path.TEMP_CONTENTS_PATH + filename;
 	}
 	
-	public String copyToTempPath(String contents, String fromPath) {
+	public static String copyToTempPath(String contents, String fromPath) {
 		Document doc = Jsoup.parseBodyFragment(contents);
         doc.outputSettings().prettyPrint(false);
 		
@@ -87,15 +86,15 @@ public class CommonService{
 			}
 			
 			//파일 이동
-			File existFile  = new File(realPath + src);
-			File newFile	= new File(realPath + newSrc);
+			File existFile  = new File(getRealPath() + src);
+			File newFile	= new File(getRealPath() + newSrc);
 			MyFileUtils.copy(existFile, newFile);
 		}
 		
 		return doc.select("body").html();
 	}
 	
-	public String moveToSavePath(String contents, String toPath) {
+	public static String moveToSavePath(String contents, String toPath) {
 		Document doc = Jsoup.parseBodyFragment(contents);
         doc.outputSettings().prettyPrint(false);
 		
@@ -117,12 +116,12 @@ public class CommonService{
 			}
 			
 			//파일 이동
-			File existFile  = new File(realPath + src);
-			File newFile	= new File(realPath + newSrc);
+			File existFile  = new File(getRealPath() + src);
+			File newFile	= new File(getRealPath() + newSrc);
 			MyFileUtils.move(existFile, newFile);
 		}
 		
-		File tempDir = new File(realPath + Path.TEMP_CONTENTS_PATH);
+		File tempDir = new File(getRealPath() + Path.TEMP_CONTENTS_PATH);
 		File[] tempFiles = tempDir.listFiles();
 		File tempFile = null;
 		String tempFilePath = null;
@@ -130,15 +129,15 @@ public class CommonService{
 		for(int i = 0; i < tempFiles.length; i++) {
 			tempFile = tempFiles[i];
 //			tempFilePath = tempFile.getPath();
-//			filename = tempFilePath.substring(tempFilePath.indexOf(realPath + Path.TEMP_CONTENTS_PATH) + (realPath + Path.TEMP_CONTENTS_PATH).length(), tempFilePath.length());
-//			MyFileUtils.delete(realPath + toPath, filename);
+//			filename = tempFilePath.substring(tempFilePath.indexOf(getRealPath() + Path.TEMP_CONTENTS_PATH) + (getRealPath() + Path.TEMP_CONTENTS_PATH).length(), tempFilePath.length());
+//			MyFileUtils.delete(getRealPath() + toPath, filename);
 			MyFileUtils.delete(tempFile);
 		}
 		
 		return doc.select("body").html();
 	}
 	
-	public void removeContentImage(String content) {
+	public static void removeContentImage(String content) {
 		List<String> imgPaths = new ArrayList<String>();
 
 		Document doc = Jsoup.parse(content);
@@ -152,7 +151,7 @@ public class CommonService{
 
 		int imgPathsLength = imgPaths.size();
 		for (int i = 0; i < imgPathsLength; i++) {
-			MyFileUtils.delete(realPath + imgPaths.get(i));
+			MyFileUtils.delete(getRealPath() + imgPaths.get(i));
 		}
 
 	}
