@@ -5,7 +5,7 @@
 <div class="file-infos">
 	<input type="hidden" id="boardType" value="<c:out value='${param.boardType}'/>"/>
 	
-	<c:if test="${!empty files}">
+ 	<c:if test="${!empty files}">
 		<c:forEach var="file" items="${files}">
 			<div class="file-info">
 				<input type="hidden" class="file-seq" value="<c:out value='${file.seq}'/>"/>

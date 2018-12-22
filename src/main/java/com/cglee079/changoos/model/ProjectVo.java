@@ -1,5 +1,7 @@
 package com.cglee079.changoos.model;
 
+import java.util.List;
+
 public class ProjectVo {
 	private int seq;
 	private String subtitle;
@@ -11,6 +13,7 @@ public class ProjectVo {
 	private String developer;
 	private int hits;
 	private int comtCnt;
+	private List<ProjectFileVo> files;
 
 	public int getSeq() {
 		return seq;
@@ -90,5 +93,13 @@ public class ProjectVo {
 
 	public void setComtCnt(int comtCnt) {
 		this.comtCnt = comtCnt;
+	}
+
+	public List<ProjectFileVo> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<ProjectFileVo> files) {
+		this.files = files;
 	}
 }

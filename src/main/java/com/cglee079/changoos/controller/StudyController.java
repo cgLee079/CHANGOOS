@@ -2,7 +2,6 @@ package com.cglee079.changoos.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -26,20 +25,16 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.model.StudyFileVo;
 import com.cglee079.changoos.model.StudyVo;
-import com.cglee079.changoos.service.StudyFileService;
 import com.cglee079.changoos.service.StudyService;
-import com.cglee079.changoos.util.ContentImageManager;
 import com.cglee079.changoos.util.MyFileUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 
 @Controller
 public class StudyController {
-	@Autowired
-	private StudyService studyService;
 	
 	@Autowired
-	private StudyFileService studyFileService;
+	private StudyService studyService;
 	
 	/** 공부 리스트로 이동 **/
 	@RequestMapping("/study")
@@ -78,12 +73,10 @@ public class StudyController {
 		
 		model.addAttribute("category", category);
 		model.addAttribute("page", page);
-		model.addAttribute("beforeStudy", beforeStudy);
 		model.addAttribute("study", study);
 		model.addAttribute("afterStudy", afterStudy);
-		
-		List<StudyFileVo> files = studyFileService.list(seq);
-		model.addAttribute("files", files);
+		model.addAttribute("beforeStudy", beforeStudy);
+		model.addAttribute("files", study.getFiles());
 		
 		return "study/study_view";
 	}
@@ -92,7 +85,7 @@ public class StudyController {
 	@RequestMapping("/study/download.do")
 	public void  download(HttpSession session, HttpServletRequest request, HttpServletResponse response, String filename) throws IOException{
 		String rootPath = session.getServletContext().getRealPath("");
-		StudyFileVo studyFile = studyFileService.get(filename);
+		StudyFileVo studyFile = studyService.getFile(filename);
 		
 		File file = new File(rootPath + Path.STUDY_FILE_PATH, studyFile.getPathNm());
 		byte fileByte[] = FileUtils.readFileToByteArray(file);
@@ -134,17 +127,8 @@ public class StudyController {
 	@RequestMapping(value = "/mgnt/study/upload", params = "seq")
 	public String studyModify(Model model, int seq)throws SQLException, JsonProcessingException{
 		StudyVo study = studyService.get(seq);
-		
-		if(study.getContents() != null) {
-			String contents = ContentImageManager.copyToTempPath(study.getContents(), Path.STUDY_CONTENTS_PATH);
-			study.setContents(contents.replace("&", "&amp;"));
-		}
-		
 		model.addAttribute("study", study);
-		
-		List<StudyFileVo> files = studyFileService.list(seq);
-		model.addAttribute("files", files);
-		
+		model.addAttribute("files", study.getFiles());
 		return "study/study_upload";
 	}
 	
@@ -152,28 +136,14 @@ public class StudyController {
 	/** 공부 업로드  **/
 	@RequestMapping(value = "/mgnt/study/upload.do", method = RequestMethod.POST, params = "!seq")
 	public String studyDoUpload(HttpSession session, Model model, StudyVo study, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
-		String contents = ContentImageManager.moveToSavePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
-		study.setContents(contents);
-		
-		int seq = studyService.insert(study);
-		
-		//파일저장
-		studyFileService.saveFiles(study.getSeq(), files);
-		
+		int seq = studyService.insert(study, files);
 		return "redirect:" + "/study/view?seq=" + seq;
 	}
 	
 	/** 공부 수정 **/
 	@RequestMapping(value = "/mgnt/study/upload.do", method = RequestMethod.POST, params = "seq")
 	public String studyDoModify(HttpSession session, Model model, StudyVo study, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
-		String contents = ContentImageManager.moveToSavePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
-		study.setContents(contents);
-		
-		studyService.update(study);
-		
-		//파일저장
-		studyFileService.saveFiles(study.getSeq(), files);
-		
+		boolean result = studyService.update(study, files);
 		return "redirect:" + "/study/view?seq=" + study.getSeq();
 	}
 	
@@ -181,25 +151,15 @@ public class StudyController {
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/study/delete.do", method = RequestMethod.POST)
 	public String studyDoDelete(HttpSession session, Model model, int seq) throws SQLException, JsonProcessingException{
-		StudyVo study = studyService.get(seq);
-		List<StudyFileVo> files = studyFileService.list(seq);
-		
 		boolean result = studyService.delete(seq);
-		if(result) {
-			ContentImageManager.removeContentImage(study.getContents()); //Content Img 삭제
-			studyFileService.deleteFiles(files);
-		}
-		
 		return new JSONObject().put("result", result).toString();
 	}
 	
 	/** 공부 파일 삭제 **/
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/study/delete-file.do", method = RequestMethod.POST)
-	public String deleteFile(int seq){
-		boolean result = false;
-		result = studyFileService.deleteFile(seq);
-		
+	@RequestMapping(value = "/mgnt/study/file/delete.do", method = RequestMethod.POST)
+	public String studyDoDeleteFile(int seq){
+		boolean result = studyService.deleteFile(seq);
 		return new JSONObject().put("result", result).toString();
 	}
 	

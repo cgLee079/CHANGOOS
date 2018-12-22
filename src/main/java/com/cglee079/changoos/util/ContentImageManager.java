@@ -35,8 +35,10 @@ public class ContentImageManager{
 		if(multiFile != null){
 			filename += MyFileUtils.sanitizeRealFilename(multiFile.getOriginalFilename());
 			imgExt = ImageManager.getExt(filename);
+			
 			File file = new File(getRealPath() + Path.TEMP_CONTENTS_PATH , filename);
 			multiFile.transferTo(file);
+			
 			if(!imgExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
 				BufferedImage image = ImageManager.getLowScaledImage(file, 720, imgExt);
 				ImageIO.write(image, imgExt, file);
@@ -157,6 +159,7 @@ public class ContentImageManager{
 		File tempFile = null;
 		
 		//업로드 파일로 이동했음에도 불구하고, 남아있는 TEMP 폴더의 이미지 파일을 삭제.
+		//즉 이미지를 작성 중 업로드하였지만, 내용에서 지워진 이미지들을 삭제
 		for(int i = 0; i < tempFiles.length; i++) {
 			tempFile = tempFiles[i];
 			MyFileUtils.delete(tempFile);

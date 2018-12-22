@@ -1,5 +1,7 @@
 package com.cglee079.changoos.model;
 
+import java.util.List;
+
 public class StudyVo {
 	private int seq;
 	private String category;
@@ -9,6 +11,7 @@ public class StudyVo {
 	private String date;
 	private int hits;
 	private int comtCnt;
+	private List<StudyFileVo> files;
 
 	public String getCodeLang() {
 		return codeLang;
@@ -73,4 +76,13 @@ public class StudyVo {
 	public void setComtCnt(int comtCnt) {
 		this.comtCnt = comtCnt;
 	}
+
+	public List<StudyFileVo> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<StudyFileVo> files) {
+		this.files = files;
+	}
+	
 }

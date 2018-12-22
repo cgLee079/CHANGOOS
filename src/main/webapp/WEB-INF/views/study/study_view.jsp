@@ -20,7 +20,7 @@
 					<div class="study-category"><c:out value="${study.category}"/></div>
 					<div class="study-title"><c:out value="${study.title}"/></div>
 					<div class="study-info">
-						<c:if test="${not empty study.codeLang }">
+						<c:if test="${not empty study.codeLang}">
 							<div><c:out value="${study.codeLang}"/></div>
 							<div class="colum-border"></div>
 						</c:if>
@@ -32,7 +32,7 @@
 				
 				<div class="study-sub">
 					<c:if test="${!empty files}">
-						<div class="study-files"">
+						<div class="study-files">
 							<c:forEach var="file" items="${files}">
 								<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>
 								<div class="file-item" onclick="downloadFile('${file.pathNm}')">

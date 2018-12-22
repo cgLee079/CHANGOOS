@@ -24,13 +24,13 @@ public class StudyFileDao {
 		return sqlSession.selectList(namespace +".list", studySeq);
 	}
 
-	public StudyFileVo getFile(String pathNm) {
+	public StudyFileVo get(String pathNm) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("pathNm", pathNm);
 		return  sqlSession.selectOne(namespace +".get", map);
 	}
 	
-	public StudyFileVo getFile(int seq) {
+	public StudyFileVo get(int seq) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("seq", seq);
 		return  sqlSession.selectOne(namespace +".get", map);

@@ -49,7 +49,7 @@
 					<c:out value="${project.contents}" escapeXml="false"/>
 					
 					<c:if test="${!empty files}">
-						<h3>첨부파일</h3>
+						<div>첨부파일</div>
 						<div class="project-files">
 							<c:forEach var="file" items="${files}">
 								<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>

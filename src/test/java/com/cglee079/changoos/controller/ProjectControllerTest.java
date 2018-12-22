@@ -2,9 +2,7 @@ package com.cglee079.changoos.controller;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -15,13 +13,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
@@ -33,25 +28,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.api.mockito.internal.PowerMockitoCore;
-import org.powermock.core.PowerMockUtils;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.model.ProjectFileVo;
 import com.cglee079.changoos.model.ProjectVo;
-import com.cglee079.changoos.service.ProjectFileService;
 import com.cglee079.changoos.service.ProjectService;
 import com.cglee079.changoos.util.ContentImageManager;
 import com.cglee079.changoos.util.MyFileUtils;
@@ -64,9 +52,6 @@ import com.google.gson.Gson;
 public class ProjectControllerTest {
 	@Mock
 	private ProjectService projectService;
-	
-	@Mock
-	private ProjectFileService projectFileService;
 	
 	@InjectMocks
 	private ProjectController projectController;
@@ -107,11 +92,11 @@ public class ProjectControllerTest {
 		bProject.setSeq(seq - 1);
 		cProject.setSeq(seq);
 		aProject.setSeq(seq + 1);
+		cProject.setFiles(files);
 		
 		when(projectService.doView((List<Integer>)session.getAttribute("visitProjects"), seq)).thenReturn(cProject);
 		when(projectService.getBefore(seq)).thenReturn(bProject);
 		when(projectService.getAfter(seq)).thenReturn(aProject);
-		when(projectFileService.list(seq)).thenReturn(files);
 
 		
 		mockMvc.perform(get("/project/view")
@@ -173,9 +158,9 @@ public class ProjectControllerTest {
 		ProjectVo cProject = new ProjectVo();
 		cProject.setSeq(seq);
 		cProject.setContents(contents);
+		cProject.setFiles(files);
 		
 		when(projectService.get(seq)).thenReturn(cProject);
-		when(projectFileService.list(seq)).thenReturn(files);
 		when(ContentImageManager.copyToTempPath(cProject.getContents(), Path.PROJECT_CONTENTS_PATH)).thenReturn(newContents);
 		
 		mockMvc.perform(get("/mgnt/project/upload").param("seq", String.valueOf(seq)))
@@ -211,7 +196,7 @@ public class ProjectControllerTest {
 		MockMultipartFile snapshtFile = new MockMultipartFile("snapshot", new byte[1]);
 		
 		when(projectService.saveSnapsht(any(ProjectVo.class), eq(snapshtFile))).thenReturn(snaphtPath);
-		when(projectService.insert(any(ProjectVo.class))).thenReturn(seq);
+		when(projectService.insert(any(ProjectVo.class), anyObject(), anyObject())).thenReturn(seq);
 		when(ContentImageManager.moveToSavePath(contents, Path.PROJECT_CONTENTS_PATH)).thenReturn(newContents);
 		
 		mockMvc.perform(fileUpload("/mgnt/project/upload.do")
@@ -220,7 +205,7 @@ public class ProjectControllerTest {
 			.file("file02", new byte[1])
 			.file("file03", new byte[1])
 			.param("contents", contents))
-			.andExpect(redirectedUrl("/mgnt/project"))
+			.andExpect(redirectedUrl("/project/view?seq=" + seq))
 			.andExpect(status().isFound());
 		
 	}
@@ -235,10 +220,10 @@ public class ProjectControllerTest {
 		MockMultipartFile snapshtFile = new MockMultipartFile("snapshot", new byte[1]);
 		
 		when(projectService.saveSnapsht(any(ProjectVo.class), eq(snapshtFile))).thenReturn(snaphtPath);
-		when(projectService.insert(any(ProjectVo.class))).thenReturn(seq);
+		when(projectService.insert(any(ProjectVo.class), anyObject(), anyObject())).thenReturn(seq);
 		when(ContentImageManager.moveToSavePath(contents, Path.PROJECT_CONTENTS_PATH)).thenReturn(newContents);
 		
-		mockMvc.perform(fileUpload("/mgnt/project/upload.do")
+		mockMvc.perform(fileUpload("/project/upload.do")
 			.file(snapshtFile)
 			.file("file01", new byte[1])
 			.file("file02", new byte[1])
@@ -285,11 +270,11 @@ public class ProjectControllerTest {
 //	}
 	
 	@Test
-	public void testProjectDoDeleteFile() throws Exception {
+	public void testProjectDoFileDelete() throws Exception {
 		int fileSeq = 3;
-		when(projectFileService.deleteFile(fileSeq)).thenReturn(true);
+		when(projectService.deleteFile(fileSeq)).thenReturn(true);
 		
-		mockMvc.perform(post("/mgnt/project/delete-file.do")
+		mockMvc.perform(post("/mgnt/project/file/delete.do")
 				.param("seq", String.valueOf(fileSeq)))
 				.andExpect(status().isOk())
 				.andExpect(content().json(new JSONObject().put("result", true).toString()));

@@ -28,7 +28,8 @@ function studyDelete(seq){
 		})
 		.then(function(willDelete) {
 			if(willDelete) {
-				window.location.href = getContextPath() + "/mgnt/study/delete.do?seq=" + seq;  
+				$.post("/mgnt/study/delete.do", {"seq" : seq});
+				//TODO 삭제시 페이지 이동 처리
 			} 
 		});
 }
