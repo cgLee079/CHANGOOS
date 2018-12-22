@@ -16,8 +16,7 @@
 		<!-- access ='permitAll, denyAll, hasRole(), hasAnyRole, hasIpAddress(ip)-->
 		<!-- ex. access="hasIpAddress('162.79.8.30')" 또는  access="hasIpAddress('162.0.0.0/224')"-->
 		
-		<security:intercept-url pattern="/mgnt/*/*" access="hasRole('ROLE_ADMIN')" />  
-		<security:intercept-url pattern="/mgnt/*" access="hasRole('ROLE_ADMIN')" />
+		<!-- <security:intercept-url pattern="/mgnt/**" access="hasRole('ROLE_ADMIN')" /> -->
 		
 		<security:form-login username-parameter="username"
 			password-parameter="password" login-page="/login"

@@ -31,7 +31,7 @@ public class MyFileUtils {
 		filename += "." + ext;
 		return filename.toUpperCase();
 	}
-
+	
 	public static String sanitizeRealFilename(String name) {
 		return name.replaceAll("[:\\\\/*?|<>\"]", "_");
 	}

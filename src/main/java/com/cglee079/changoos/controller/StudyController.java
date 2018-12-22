@@ -82,7 +82,7 @@ public class StudyController {
 	}
 	
 	/** 파일 다운로드 **/
-	@RequestMapping("/study/download.do")
+	@RequestMapping("/study/file/download.do")
 	public void  download(HttpSession session, HttpServletRequest request, HttpServletResponse response, String filename) throws IOException{
 		String rootPath = session.getServletContext().getRealPath("");
 		StudyFileVo studyFile = studyService.getFile(filename);

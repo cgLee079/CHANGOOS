@@ -75,7 +75,7 @@ public class BlogController {
 	}
 
 	/** 파일 다운로드 **/
-	@RequestMapping("/blog/download.do")
+	@RequestMapping("/blog/file/download.do")
 	public void download(HttpSession session, HttpServletRequest request, HttpServletResponse response, String filename)
 			throws IOException {
 		String realPath = session.getServletContext().getRealPath("");

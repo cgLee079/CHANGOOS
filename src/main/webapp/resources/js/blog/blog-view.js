@@ -8,5 +8,5 @@ function blogList(){
 
 /* download file */
 function downloadFile(pathNm){
-	window.location.href = getContextPath() + "/blog/download.do?filename=" + pathNm;
+	window.location.href = getContextPath() + "/blog/file/download.do?filename=" + pathNm;
 }

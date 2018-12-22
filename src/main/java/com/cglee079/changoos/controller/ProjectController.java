@@ -57,7 +57,7 @@ public class ProjectController {
 	}
 
 	/** 프로젝트 파일 다운로드 **/
-	@RequestMapping("/project/download.do")
+	@RequestMapping("/project/file/download.do")
 	public void projectDoFiledownload(HttpSession session, HttpServletRequest request, HttpServletResponse response,
 			String filename) throws IOException {
 		String realPath = session.getServletContext().getRealPath("");

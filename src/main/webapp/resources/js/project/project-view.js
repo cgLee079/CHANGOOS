@@ -25,6 +25,6 @@ function projectView(seq){
 
 
 /* download file */
-function downloadFile(pathNm){
-	window.location.href = getContextPath() + "/project/download.do?filename=" + pathNm;
+function downloadFile(pathNm, realNm){
+	window.location.href = getContextPath() + "/project/file/download.do?filename=" + pathNm;
 }

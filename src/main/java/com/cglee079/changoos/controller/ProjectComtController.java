@@ -1,17 +1,14 @@
 package com.cglee079.changoos.controller;
 
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cglee079.changoos.model.AdminVo;
 import com.cglee079.changoos.model.ProjectComtVo;
 import com.cglee079.changoos.service.ProjectComtService;
 import com.cglee079.changoos.util.AuthManager;

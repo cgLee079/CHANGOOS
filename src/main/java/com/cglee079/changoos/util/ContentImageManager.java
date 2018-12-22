@@ -66,6 +66,24 @@ public class ContentImageManager{
 		return Path.TEMP_CONTENTS_PATH + filename;
 	}
 	
+	public static String saveContentImage(String filename, String base64) throws IOException {
+		String ImageExt = MyFileUtils.getExt(filename); 
+		String pathNm = MyFileUtils.getRandomFilename(ImageExt);
+		
+		base64 = base64.split(",")[1];
+		byte[] imageBytes = DatatypeConverter.parseBase64Binary(base64);
+		BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
+		File file =  new File(getRealPath() + Path.TEMP_CONTENTS_PATH, pathNm);
+		ImageIO.write(bufImg, ImageExt, file);
+		
+		if(!ImageExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
+			BufferedImage image = ImageManager.getLowScaledImage(file, 720, ImageExt);
+			ImageIO.write(image, ImageExt, file);
+		}
+		
+		return pathNm;
+	}
+	
 	/** 내용에 포함된 이미지파일을, 업로드 폴더에서 삭제 **/
 	public static void removeContentImage(String content) {
 		List<String> imgPaths = new ArrayList<String>();
@@ -167,6 +185,7 @@ public class ContentImageManager{
 		
 		return doc.select("body").html();
 	}
+
 	
 
 }

@@ -44,6 +44,30 @@
 					</div>
 				</div>
 				
+				<script>
+				function openImageUploadPopup(textArea){
+					var popup = window.open(getContextPath() + "/mgnt/image/upload", "_blank", 'width=600, height=800');
+					$("#textArea", popup.document).val(textArea);
+				}
+				</script>
+
+				<div class="study-upload-item">
+					<div class="item-name">이미지</div>
+					<div class="item-input">
+						<div class="image-upload " onclick="openImageUploadPopup('study-contents')">사진올리기</div>
+						<div class="image-list"></div>
+					</div>
+					<style>
+					.image-upload{
+						width: 100%;	
+					    height: 30px;
+					    border: 1px solid #CCC;
+					    background: #FAFAFA;
+					    text-align: center;
+					    }
+					</style>
+				</div>
+				
 				<div class="study-upload-item">
 					<div class="item-name">첨부파일</div>
 					<div class="item-input">
