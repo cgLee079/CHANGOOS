@@ -61,12 +61,19 @@ function doUpload(){
 	for(var i = 0; i < wrapImages.length; i++){
 		//Editor에 이미지 첨부
 		var wrapImage = $(wrapImages[i]);
-		var editorImage = $("<image>");
+		var image = {
+			"editorID": editorID, 
+			"seq" : undefined,
+			"path" : wrapImage.find(".path").val(),
+			"pathname" : wrapImage.find(".pathname").val(),
+			"filename" : wrapImage.find(".filename").val(),
+			"status" : "NEW",
+		}
 		var path = wrapImage.find(".path").val();
 		var pathname = wrapImage.find(".pathname").val();
 		var filename = wrapImage.find(".filename").val();
 		opener.imageUploader.insertCKEditor(editorID, path, pathname, filename, width);
-		opener.imageUploader.insertThumbnail(editorID, path, pathname, filename);
+		opener.imageUploader.insertThumbnail(image);
 	}
 	
 

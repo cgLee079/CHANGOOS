@@ -90,7 +90,16 @@
 							    
 							    editor.insertElement(element);
 							    console.log(editor);
-							    window.imageUploader.insertThumbnail(editor.name, path, pathname, filename);
+							    var image = {
+										"editorID": editor.name, 
+										"seq" : undefined,
+										"path" : path,
+										"pathname" : pathname,
+										"filename" : filename,
+										"status" : "NEW",
+								}
+							    
+							    window.imageUploader.insertThumbnail(image);
 							    
 							}, 10);
 							

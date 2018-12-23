@@ -144,14 +144,23 @@
                 },
                 onOk: function() {
                     if (localStorage.getItem(autoSaveKey)) {
+                    	
                         var jsonSavedContent = LoadData(autoSaveKey);
                         editorInstance.setData(jsonSavedContent.data);
-
+                        
+                        // CHANGOO : 새로추가한 부분
+                        var images = LoadData(autoSaveKey + "Images");
+                        for(var i = 0; i < images.length; i++){
+                        	window.imageUploader.insertThumbnail(images[i]);
+                        }
+                        localStorage.removeItem(autoSaveKey + "Images");
+                        
                         RemoveStorage(autoSaveKey, editorInstance);
                     }
                 },
                 onCancel: function() {
                     RemoveStorage(autoSaveKey, editorInstance);
+                    localStorage.removeItem(autoSaveKey + "Images");
                 },
                 contents: [
                     {
@@ -260,6 +269,7 @@
 
         try {
             localStorage.setItem(autoSaveKey, compressedJSON);
+            localStorage.setItem(autoSaveKey + "Images", LZString.compressToUTF16(JSON.stringify(window.imageUploader.image2JSON())));
         } catch (e) {
             quotaExceeded = isQuotaExceeded(e);
             if (quotaExceeded) {
