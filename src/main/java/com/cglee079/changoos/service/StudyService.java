@@ -82,7 +82,7 @@ public class StudyService {
 	public int insert(StudyVo study, String contentImages, List<MultipartFile> files) throws IllegalStateException, IOException {
 		List<StudyImageVo> images = new ObjectMapper().readValue(contentImages, new TypeReference<List<StudyImageVo>>(){});
 		
-		String contents = ContentImageManager.moveToSavePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
+		String contents = ContentImageManager.changeImagePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
 		study.setContents(contents);
 		study.setDate(Formatter.toDate(new Date()));
 		study.setHits(0);
@@ -91,6 +91,18 @@ public class StudyService {
 		this.saveImages(seq, images);
 		this.saveFiles(seq, files);
 		
+		/**
+		//업로드 파일로 이동했음에도 불구하고, 남아있는 TEMP 폴더의 이미지 파일을 삭제.
+		//즉, 이전에 글 작성 중 작성을 취소한 경우 업로드가 되었던 이미지파일들이 삭제됨.
+		File tempDir = new File(realPath + Path.TEMP_CONTENTS_PATH);
+		File[] tempFiles = tempDir.listFiles();
+		File tempFile = null;
+		
+		for(int i = 0; i < tempFiles.length; i++) {
+			tempFile = tempFiles[i];
+			MyFileUtils.delete(tempFile);
+		}
+		**/
 		return seq;
 	}
 
@@ -111,7 +123,7 @@ public class StudyService {
 	public boolean update(StudyVo study, String contentImages, List<MultipartFile> files) throws IllegalStateException, IOException {
 		List<StudyImageVo> images = new ObjectMapper().readValue(contentImages, new TypeReference<List<StudyImageVo>>(){});
 		
-		String contents = ContentImageManager.moveToSavePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
+		String contents = ContentImageManager.changeImagePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
 		study.setContents(contents);
 		
 		int seq = study.getSeq();
@@ -169,22 +181,28 @@ public class StudyService {
 	}
 	
 	/***
-	 * 내용 중 사진 첨부 관련
-	 */
+	 * 내용 중 이미지 첨부 관련
+	 ***/
 	private void saveImages(int studySeq, List<StudyImageVo> images) {
 		StudyImageVo image;
 		for (int i = 0; i < images.size(); i++) {
 			image = images.get(i);
 			image.setStudySeq(studySeq);
 			switch(image.getStatus()) {
-			case "NEW" : 
-				image.setPath(Path.STUDY_CONTENTS_PATH);
-				studyImageDao.insert(image);
+			case "NEW" : //새롭게 추가된 이미지
+				if(studyImageDao.insert(image)) {
+					//임시폴더에서 본 폴더로 이동
+					String path = image.getPath();
+					String movedPath = Path.STUDY_CONTENTS_PATH;
+					File existFile  = new File(realPath + path, image.getPathname());
+					File newFile	= new File(realPath + movedPath, image.getPathname());
+					MyFileUtils.move(existFile, newFile);
+				}
 				break;
-			case "UNNEW" : 
+			case "UNNEW" : //새롭게 추가된 이미지 중, 삭제된 이미지
 				MyFileUtils.delete(realPath + image.getPath(), image.getPathname());
 				break;
-			case "REMOVE" : 
+			case "REMOVE" : //기존에 있던 이미지 중, 삭제된 이미지
 				if(studyImageDao.delete(image.getSeq())) {
 					MyFileUtils.delete(realPath + image.getPath(), image.getPathname());
 				}

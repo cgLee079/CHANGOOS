@@ -142,7 +142,7 @@ public class BlogController {
 		String snapshtPath = blogService.saveSnapsht(blog, snapshtFile);
 		blog.setSnapsht(snapshtPath);
 
-		String contents = ContentImageManager.moveToSavePath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
+		String contents = ContentImageManager.changeImagePath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
 		blog.setContents(contents);
 
 		int seq = blogService.insert(blog);
@@ -160,7 +160,7 @@ public class BlogController {
 		String snapshtPath = blogService.saveSnapsht(blog, snapshtFile);
 		blog.setSnapsht(snapshtPath);
 
-		String contents = ContentImageManager.moveToSavePath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
+		String contents = ContentImageManager.changeImagePath(blog.getContents(), Path.BLOG_CONTENTS_PATH);
 		blog.setContents(contents);
 
 		blogService.update(blog);

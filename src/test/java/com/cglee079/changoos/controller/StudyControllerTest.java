@@ -199,7 +199,7 @@ public class StudyControllerTest {
 		StudyVo study = mock(StudyVo.class);
 		study.setContents(contents);
 		
-		when(ContentImageManager.moveToSavePath(study.getContents(), Path.STUDY_CONTENTS_PATH)).thenReturn(newcontents);
+		when(ContentImageManager.changeImagePath(study.getContents(), Path.STUDY_CONTENTS_PATH)).thenReturn(newcontents);
 		when(studyService.insert(any(StudyVo.class), anyObject())).thenReturn(seq);
 		
 		mockMvc.perform(fileUpload("/mgnt/study/upload.do")
@@ -217,7 +217,7 @@ public class StudyControllerTest {
 		StudyVo study = mock(StudyVo.class);
 		study.setContents(contents);
 		
-		when(ContentImageManager.moveToSavePath(study.getContents(), Path.STUDY_CONTENTS_PATH)).thenReturn(newcontents);
+		when(ContentImageManager.changeImagePath(study.getContents(), Path.STUDY_CONTENTS_PATH)).thenReturn(newcontents);
 		when(studyService.insert(any(StudyVo.class), anyObject())).thenReturn(seq);
 		
 		mockMvc.perform(fileUpload("/mgnt/study/upload.do")

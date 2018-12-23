@@ -20,7 +20,7 @@ CKEDITOR.editorConfig = function(config) {
 			},
 			{
 				name : 'insert',
-				items : [ 'Image', 'Youtube', 'CodeSnippet', 'Table', 'SpecialChar' ]
+				items : [ 'Youtube', 'CodeSnippet', 'Table', 'SpecialChar', 'Emojione']
 			},
 			{
 				name : 'paragraph',
@@ -33,7 +33,7 @@ CKEDITOR.editorConfig = function(config) {
 			},
 			{
 				name : 'colors',
-				items : [ 'TextColor', 'BGColor', 'Emojione' ]
+				items : [ 'TextColor', 'BGColor']
 			},
 			{
 				name : 'basicstyles',

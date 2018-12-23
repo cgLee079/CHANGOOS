@@ -44,7 +44,7 @@ public class ProjectService {
 		String snapshtPath = this.saveSnapsht(project, snapshtFile);
 		project.setSnapsht(snapshtPath);
 
-		String contents = ContentImageManager.moveToSavePath(project.getContents(), Path.PROJECT_CONTENTS_PATH);
+		String contents = ContentImageManager.changeImagePath(project.getContents(), Path.PROJECT_CONTENTS_PATH);
 		project.setContents(contents);
 		project.setDesc(project.getDesc());
 		project.setHits(0);
@@ -60,7 +60,7 @@ public class ProjectService {
 		String snapshtPath = this.saveSnapsht(project, snapshtFile);
 		project.setSnapsht(snapshtPath);
 
-		String contents = ContentImageManager.moveToSavePath(project.getContents(), Path.PROJECT_CONTENTS_PATH);
+		String contents = ContentImageManager.changeImagePath(project.getContents(), Path.PROJECT_CONTENTS_PATH);
 		project.setContents(contents);
 		
 		boolean result = projectDao.update(project);

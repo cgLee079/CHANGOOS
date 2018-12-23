@@ -9,8 +9,7 @@ function submit(){
 function initContentCKEditor() {
 	var editor = CKEDITOR.replace("contents", {
 		height : '400px',
-		filebrowserUploadUrl : getContextPath() + "/mgnt/img-upload.do",
-		pasteImageUrl : getContextPath() + "/mgnt/img-upload-base64.do",
+		pasteImageUrl : getContextPath() + "/mgnt/image/paste-upload.do",
 		codeSnippet_theme : 'github',
 		on : {
 			instanceReady : function(ev) {

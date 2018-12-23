@@ -66,7 +66,17 @@
 		        			"base64" : base64
 		        		},
 		        		success : function(result) {
-	        				var element = editor.document.createElement('img', {attributes: { src : result.path }});
+		        			var path = result.path;
+		        			var pathname = result.pathname;
+		        			var filename = result.filename;
+	        				var element = editor.document.createElement('img', 
+	        						{attributes: 
+	        							{ 
+	        								"src" : path + pathname,
+	        								"pathname" : pathname
+	        							}
+	        						}
+	        					);
 							setTimeout(function () {
 							    if (useWorkAround) {
 							        var img = editor.getSelection().getRanges()[0].getBoundaryNodes().endNode;
@@ -77,7 +87,11 @@
 							            img.remove()
 							        }
 							    }
+							    
 							    editor.insertElement(element);
+							    console.log(editor);
+							    window.imageUploader.insertThumbnail(editor.name, path, pathname, filename);
+							    
 							}, 10);
 							
 							return true;

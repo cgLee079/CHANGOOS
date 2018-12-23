@@ -22,7 +22,7 @@ function onImageChange() {
 				var base64 = evt.target.result;
 	 	      	$.ajax({
 	 	      		type	: "post",
-	 	      		url 	: getContextPath() + "/img/upload.do",
+	 	      		url 	: getContextPath() + "/mgnt/image/upload.do",
 	 	      		dataType: "JSON",
 	 	      		async 	: false,
 	 	      		data 	: {

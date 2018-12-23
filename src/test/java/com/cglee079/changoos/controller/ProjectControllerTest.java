@@ -197,7 +197,7 @@ public class ProjectControllerTest {
 		
 		when(projectService.saveSnapsht(any(ProjectVo.class), eq(snapshtFile))).thenReturn(snaphtPath);
 		when(projectService.insert(any(ProjectVo.class), anyObject(), anyObject())).thenReturn(seq);
-		when(ContentImageManager.moveToSavePath(contents, Path.PROJECT_CONTENTS_PATH)).thenReturn(newContents);
+		when(ContentImageManager.changeImagePath(contents, Path.PROJECT_CONTENTS_PATH)).thenReturn(newContents);
 		
 		mockMvc.perform(fileUpload("/mgnt/project/upload.do")
 			.file(snapshtFile)
@@ -221,7 +221,7 @@ public class ProjectControllerTest {
 		
 		when(projectService.saveSnapsht(any(ProjectVo.class), eq(snapshtFile))).thenReturn(snaphtPath);
 		when(projectService.insert(any(ProjectVo.class), anyObject(), anyObject())).thenReturn(seq);
-		when(ContentImageManager.moveToSavePath(contents, Path.PROJECT_CONTENTS_PATH)).thenReturn(newContents);
+		when(ContentImageManager.changeImagePath(contents, Path.PROJECT_CONTENTS_PATH)).thenReturn(newContents);
 		
 		mockMvc.perform(fileUpload("/project/upload.do")
 			.file(snapshtFile)
