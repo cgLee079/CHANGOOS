@@ -3,8 +3,10 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-fileupload.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-imageupload.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/study/study-upload.css"/>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-fileupload.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/included/included-imageupload.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/study/study-upload.js"></script>
 
 <body>
@@ -44,28 +46,13 @@
 					</div>
 				</div>
 				
-				<script>
-				function openImageUploadPopup(textArea){
-					var popup = window.open(getContextPath() + "/mgnt/image/upload", "_blank", 'width=600, height=800');
-					$("#textArea", popup.document).val(textArea);
-				}
-				</script>
-
 				<div class="study-upload-item">
 					<div class="item-name">이미지</div>
 					<div class="item-input">
-						<div class="image-upload " onclick="openImageUploadPopup('study-contents')">사진올리기</div>
-						<div class="image-list"></div>
+						<c:import url="../included/included-imageupload.jsp" charEncoding="UTF-8">
+							<c:param name="editor" value="study-contents"/>
+						</c:import>
 					</div>
-					<style>
-					.image-upload{
-						width: 100%;	
-					    height: 30px;
-					    border: 1px solid #CCC;
-					    background: #FAFAFA;
-					    text-align: center;
-					    }
-					</style>
 				</div>
 				
 				<div class="study-upload-item">

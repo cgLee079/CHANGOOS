@@ -12,7 +12,8 @@ public class StudyVo {
 	private int hits;
 	private int comtCnt;
 	private List<StudyFileVo> files;
-
+	private List<StudyImageVo> images;
+	
 	public String getCodeLang() {
 		return codeLang;
 	}
@@ -84,5 +85,14 @@ public class StudyVo {
 	public void setFiles(List<StudyFileVo> files) {
 		this.files = files;
 	}
+
+	public List<StudyImageVo> getImages() {
+		return images;
+	}
+
+	public void setImages(List<StudyImageVo> images) {
+		this.images = images;
+	}
+	
 	
 }

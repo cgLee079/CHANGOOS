@@ -77,6 +77,7 @@ public class StudyController {
 		model.addAttribute("afterStudy", afterStudy);
 		model.addAttribute("beforeStudy", beforeStudy);
 		model.addAttribute("files", study.getFiles());
+		model.addAttribute("images", study.getImages());
 		
 		return "study/study_view";
 	}
@@ -129,21 +130,22 @@ public class StudyController {
 		StudyVo study = studyService.get(seq);
 		model.addAttribute("study", study);
 		model.addAttribute("files", study.getFiles());
+		model.addAttribute("images", study.getImages());
 		return "study/study_upload";
 	}
 	
 	 
 	/** 공부 업로드  **/
 	@RequestMapping(value = "/mgnt/study/upload.do", method = RequestMethod.POST, params = "!seq")
-	public String studyDoUpload(HttpSession session, Model model, StudyVo study, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
-		int seq = studyService.insert(study, files);
+	public String studyDoUpload(HttpSession session, Model model, StudyVo study, @RequestParam("contentImages")String contentImages, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
+		int seq = studyService.insert(study, contentImages, files);
 		return "redirect:" + "/study/view?seq=" + seq;
 	}
 	
 	/** 공부 수정 **/
 	@RequestMapping(value = "/mgnt/study/upload.do", method = RequestMethod.POST, params = "seq")
-	public String studyDoModify(HttpSession session, Model model, StudyVo study, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
-		boolean result = studyService.update(study, files);
+	public String studyDoModify(HttpSession session, Model model, StudyVo study,  @RequestParam("contentImages")String contentImages, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
+		boolean result = studyService.update(study,contentImages, files);
 		return "redirect:" + "/study/view?seq=" + study.getSeq();
 	}
 	
@@ -155,7 +157,7 @@ public class StudyController {
 		return new JSONObject().put("result", result).toString();
 	}
 	
-	/** 공부 파일 삭제 **/
+	/** 파일 삭제 **/
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/study/file/delete.do", method = RequestMethod.POST)
 	public String studyDoDeleteFile(int seq){

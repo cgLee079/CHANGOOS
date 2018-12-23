@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cglee079.changoos.mapper.StudyImageMapper">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.StudyImageVo">
+		INSERT TB_PTFOLIO_STUDY_IMAGE
+		(STUDY_SEQ, EDITOR_ID, IMG_PATH, IMG_PATHNM, IMG_FILENM)
+		VALUES (#{studySeq}, #{editorID}, #{path}, #{pathname}, #{filename})
+	</insert>
+	
+	<select id="list" resultType="com.cglee079.changoos.model.StudyImageVo" parameterType="Integer">
+		SELECT 
+		IMG_SEQ as 'seq',
+		STUDY_SEQ as 'studySeq',
+		EDITOR_ID as 'editorID',
+		IMG_PATH as 'path',
+		IMG_PATHNM as 'pathname',
+		IMG_FILENM as 'filename',
+		'BE' as "status"
+		FROM TB_PTFOLIO_STUDY_IMAGE
+		WHERE STUDY_SEQ = #{studySeq}
+	</select>
+	
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM TB_PTFOLIO_STUDY_IMAGE
+		WHERE IMG_SEQ = #{seq}
+	</delete>	
+	
+	
+</mapper>

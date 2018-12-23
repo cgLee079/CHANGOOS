@@ -20,18 +20,20 @@ import com.cglee079.changoos.util.ContentImageManager;
 public class ImageUploadController {
 	
 	@RequestMapping("/mgnt/image/upload")
-	public String projectImgUpload() {
-		return "common/image_upload_popup";
+	public String projectImgUpload(Model model, String editor) {
+		model.addAttribute("editor", editor);
+		return "popup/popup_imageupload";
 	}
 	
 	@ResponseBody
 	@RequestMapping("/img/upload.do")
 	public String projectImgUpload(Model model, String base64, String filename) throws IllegalStateException, IOException {
-		String pathName= ContentImageManager.saveContentImage(filename, base64);
+		String pathname= ContentImageManager.saveContentImage(filename, base64);
 		
 		JSONObject result = new JSONObject();
 		result.put("path", Path.TEMP_CONTENTS_PATH);
-		result.put("filename", pathName);
+		result.put("filename", filename);
+		result.put("pathname", pathname);
 		
 		return result.toString();
 	}

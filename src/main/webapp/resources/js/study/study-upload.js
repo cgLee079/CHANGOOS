@@ -1,9 +1,12 @@
 $(document).ready(function(){
 	doMenuOn(".menu-mgnt-study");
-	
 	initContentCKEditor();
 });
 
+function submit(){
+	var form = $("#uploadForm");
+	form.submit();
+}
 /* CKEditor Initialize */
 function initContentCKEditor(){
 	var editor = CKEDITOR.replace("study-contents", {

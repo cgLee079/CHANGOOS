@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -18,12 +19,16 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.dao.StudyDao;
 import com.cglee079.changoos.dao.StudyFileDao;
+import com.cglee079.changoos.dao.StudyImageDao;
 import com.cglee079.changoos.model.StudyFileVo;
+import com.cglee079.changoos.model.StudyImageVo;
 import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.util.AuthManager;
 import com.cglee079.changoos.util.ContentImageManager;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.MyFileUtils;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class StudyService {
@@ -33,6 +38,9 @@ public class StudyService {
 	
 	@Autowired
 	StudyFileDao studyFileDao;
+	
+	@Autowired
+	StudyImageDao studyImageDao;
 
 	@Value("#{servletContext.getRealPath('/')}")
 	private String realPath;
@@ -44,17 +52,11 @@ public class StudyService {
 	@Transactional
 	public StudyVo get(int seq) {
 		StudyVo study = studyDao.get(seq);
-		List<StudyFileVo> files = studyFileDao.list(seq);
-		
-		for(int i = 0;  i < files.size(); i++) {
-			System.out.println(files.get(i).getSeq());
-		}
-		
-		study.setFiles(files);
+		study.setImages(studyImageDao.list(seq));
+		study.setFiles(studyFileDao.list(seq));
 		
 		if(study.getContents() != null) {
-			String contents = ContentImageManager.copyToTempPath(study.getContents(), Path.STUDY_CONTENTS_PATH);
-			study.setContents(contents.replace("&", "&amp;"));
+			study.setContents(study.getContents().replace("&", "&amp;"));
 		}
 		
 		return study;
@@ -77,13 +79,16 @@ public class StudyService {
 	}
 
 	@Transactional(rollbackFor = {IllegalStateException.class, IOException.class })
-	public int insert(StudyVo study, List<MultipartFile> files) throws IllegalStateException, IOException {
+	public int insert(StudyVo study, String contentImages, List<MultipartFile> files) throws IllegalStateException, IOException {
+		List<StudyImageVo> images = new ObjectMapper().readValue(contentImages, new TypeReference<List<StudyImageVo>>(){});
+		
 		String contents = ContentImageManager.moveToSavePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
 		study.setContents(contents);
 		study.setDate(Formatter.toDate(new Date()));
 		study.setHits(0);
 		
 		int seq = studyDao.insert(study);
+		this.saveImages(seq, images);
 		this.saveFiles(seq, files);
 		
 		return seq;
@@ -103,12 +108,16 @@ public class StudyService {
 	}
 
 	@Transactional(rollbackFor = {IllegalStateException.class, IOException.class })
-	public boolean update(StudyVo study, List<MultipartFile> files) throws IllegalStateException, IOException {
+	public boolean update(StudyVo study, String contentImages, List<MultipartFile> files) throws IllegalStateException, IOException {
+		List<StudyImageVo> images = new ObjectMapper().readValue(contentImages, new TypeReference<List<StudyImageVo>>(){});
+		
 		String contents = ContentImageManager.moveToSavePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
 		study.setContents(contents);
 		
 		int seq = study.getSeq();
 		boolean result = studyDao.update(study);
+		
+		this.saveImages(seq, images);
 		this.saveFiles(seq, files);
 		
 		return result;
@@ -148,8 +157,8 @@ public class StudyService {
 	@Transactional
 	public StudyVo doView(List<Integer> isVisitStudies, int seq) {
 		StudyVo study = studyDao.get(seq);
-		List<StudyFileVo> files = studyFileDao.list(seq);
-		study.setFiles(files);
+		study.setFiles(studyFileDao.list(seq));
+		study.setImages(studyImageDao.list(seq));
 
 		if (!isVisitStudies.contains(seq) && !AuthManager.isAdmin()) {
 			isVisitStudies.add(seq);
@@ -157,6 +166,32 @@ public class StudyService {
 			studyDao.update(study);
 		}
 		return study;
+	}
+	
+	/***
+	 * 내용 중 사진 첨부 관련
+	 */
+	private void saveImages(int studySeq, List<StudyImageVo> images) {
+		StudyImageVo image;
+		for (int i = 0; i < images.size(); i++) {
+			image = images.get(i);
+			image.setStudySeq(studySeq);
+			switch(image.getStatus()) {
+			case "NEW" : 
+				image.setPath(Path.STUDY_CONTENTS_PATH);
+				studyImageDao.insert(image);
+				break;
+			case "UNNEW" : 
+				MyFileUtils.delete(realPath + image.getPath(), image.getPathname());
+				break;
+			case "REMOVE" : 
+				if(studyImageDao.delete(image.getSeq())) {
+					MyFileUtils.delete(realPath + image.getPath(), image.getPathname());
+				}
+				break;
+			}
+			
+		}
 	}
 	
 	
