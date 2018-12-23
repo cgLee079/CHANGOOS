@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -190,13 +189,16 @@ public class StudyService {
 			image.setStudySeq(studySeq);
 			switch(image.getStatus()) {
 			case "NEW" : //새롭게 추가된 이미지
+				String path = image.getPath();
+				String movedPath = Path.STUDY_CONTENTS_PATH;
+				image.setPath(movedPath);
+				
 				if(studyImageDao.insert(image)) {
 					//임시폴더에서 본 폴더로 이동
-					String path = image.getPath();
-					String movedPath = Path.STUDY_CONTENTS_PATH;
 					File existFile  = new File(realPath + path, image.getPathname());
 					File newFile	= new File(realPath + movedPath, image.getPathname());
 					MyFileUtils.move(existFile, newFile);
+					
 				}
 				break;
 			case "UNNEW" : //새롭게 추가된 이미지 중, 삭제된 이미지
