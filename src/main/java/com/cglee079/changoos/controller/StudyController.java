@@ -44,6 +44,8 @@ public class StudyController {
 	@ResponseBody
 	@RequestMapping("/study/paging")
 	public String studyListPaging(@RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException{
+		params.put("enabled", true);
+		
 		List<StudyVo> studys = studyService.paging(params);
 		int count = studyService.count(params);
 		
@@ -109,15 +111,15 @@ public class StudyController {
 	 
 	/** 공부 업로드  **/
 	@RequestMapping(value = "/mgnt/study/upload.do", method = RequestMethod.POST, params = "!seq")
-	public String studyDoUpload(HttpSession session, Model model, StudyVo study, String imageValues, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
-		int seq = studyService.insert(study, imageValues, files);
+	public String studyDoUpload(HttpSession session, Model model, StudyVo study, String imageValues, String fileValues) throws SQLException, IllegalStateException, IOException{
+		int seq = studyService.insert(study, imageValues, fileValues);
 		return "redirect:" + "/study/view?seq=" + seq;
 	}
 	
 	/** 공부 수정 **/
 	@RequestMapping(value = "/mgnt/study/upload.do", method = RequestMethod.POST, params = "seq")
-	public String studyDoModify(HttpSession session, Model model, StudyVo study, String imageValues, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
-		boolean result = studyService.update(study,imageValues, files);
+	public String studyDoModify(HttpSession session, Model model, StudyVo study, String imageValues, String fileValues) throws SQLException, IllegalStateException, IOException{
+		boolean result = studyService.update(study,imageValues, fileValues);
 		return "redirect:" + "/study/view?seq=" + study.getSeq();
 	}
 	
@@ -128,13 +130,4 @@ public class StudyController {
 		boolean result = studyService.delete(seq);
 		return new JSONObject().put("result", result).toString();
 	}
-	
-	/** 파일 삭제 **/
-	@ResponseBody
-	@RequestMapping(value = "/mgnt/study/file/delete.do", method = RequestMethod.POST)
-	public String studyDoDeleteFile(int seq){
-		boolean result = studyService.deleteFile(seq);
-		return new JSONObject().put("result", result).toString();
-	}
-	
 }

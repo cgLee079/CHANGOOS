@@ -5,9 +5,47 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 public class MyFileUtils {
-	public static boolean delete(File file) {
+	private static MyFileUtils instance;
+
+	
+	public synchronized static MyFileUtils getInstance() {
+		if(instance == null) {
+			instance = new MyFileUtils();
+		}
+		return instance;
+	}
+	
+	/**********************/
+	
+	private String realPath;
+	
+	private MyFileUtils() {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		realPath = request.getSession().getServletContext().getRealPath("/");
+	}
+	
+	public synchronized void emptyFolder(String path) {
+		File dir = new File(realPath + path);
+		File[] files = dir.listFiles();
+		File file = null;
+		
+		if(files != null) {
+			for(int i = 0; i < files.length; i++) {
+				file = files[i];
+				this.delete(file);
+			}
+		}
+	}
+	
+	public synchronized boolean delete(File file) {
 		if (file.exists()) {
 			return file.delete();
 		} else {
@@ -15,41 +53,28 @@ public class MyFileUtils {
 		}
 	}
 
-	public static boolean delete(String path) {
+	public synchronized boolean delete(String path) {
 		File file = new File(path);
 		return delete(file);
 	}
 
-	public static boolean delete(String path, String filename) {
+	public synchronized boolean delete(String path, String filename) {
 		File file = new File(path, filename);
 		return delete(file);
 	}
 
-	public static void copy(File existFile, File newFile) {
-		try {
-
-			FileInputStream fis = new FileInputStream(existFile);
-			FileOutputStream fos = new FileOutputStream(newFile);
-
-			int data = 0;
-
-			while ((data = fis.read()) != -1) {
-				fos.write(data);
-			}
-			fis.close();
-			fos.close();
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return;
+	public synchronized void copy(File existFile, File newFile) {
+		 try {
+			Files.copy(existFile.toPath(), newFile.toPath());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		 
 	}
 
-	public static void move(File existFile, File newFile) {
+	public synchronized void move(File existFile, File newFile) {
 		copy(existFile, newFile);
 		existFile.delete();
 	}
-
+	
 }

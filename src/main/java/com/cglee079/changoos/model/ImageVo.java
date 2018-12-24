@@ -1,8 +1,8 @@
 package com.cglee079.changoos.model;
 
-public class ProjectImageVo {
+public class ImageVo {
 	private int seq;
-	private int projectSeq;
+	private int boardSeq;
 	private String editorID;
 	private String path;
 	private String filename;
@@ -17,12 +17,12 @@ public class ProjectImageVo {
 		this.seq = seq;
 	}
 	
-	public int getProjectSeq() {
-		return projectSeq;
+	public int getBoardSeq() {
+		return boardSeq;
 	}
 
-	public void setProjectSeq(int projectSeq) {
-		this.projectSeq = projectSeq;
+	public void setBoardSeq(int boardSeq) {
+		this.boardSeq = boardSeq;
 	}
 
 	public String getEditorID() {

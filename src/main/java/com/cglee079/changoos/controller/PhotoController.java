@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
@@ -71,7 +70,6 @@ public class PhotoController {
 	@RequestMapping(value = "/photo/doLike.do")
 	public String doLike(HttpSession session, int seq, boolean like) throws JsonProcessingException {
 		int likeCnt = photoService.doLike((Map<Integer, Boolean>)session.getAttribute("likePhotos"), seq, like);
-		
 		JSONObject result = new JSONObject();
 		result.put("likeCnt", likeCnt);
 		result.put("like", like);
@@ -82,12 +80,7 @@ public class PhotoController {
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/photo/delete.do")
 	public String photoDelete(int seq) {
-		PhotoVo photo = photoService.get(seq);
 		boolean result = photoService.delete(seq);
-		if(result) {
-			photoService.deleteFile(photo.getImage());
-			photoService.deleteFile(photo.getSnapsht());
-		}
 		return new JSONObject().put("result", result).toString();
 	}
 	
@@ -108,26 +101,14 @@ public class PhotoController {
 	/** 사진 업로드 **/
 	@RequestMapping(value = "/mgnt/photo/upload.do", params = "!seq")
 	public String photoDoUpload(PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
-		if(imageFile.getSize() != 0){
-			photo = photoService.saveFile(photo, imageFile);
-		}
-		photoService.insert(photo);
-		
+		photoService.insert(photo, imageFile);
 		return "redirect:" + "/mgnt/photo";
 	}
 	
 	/** 사진 수정 **/
 	@RequestMapping(value = "/mgnt/photo/upload.do", params = "seq")
 	public String photoDoModify(PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException{
-		
-		if(imageFile.getSize() != 0){
-			photoService.deleteFile(photo.getImage());
-			photoService.deleteFile(photo.getSnapsht());
-			
-			photo = photoService.saveFile(photo, imageFile);
-		} 
-		
-		photoService.update(photo);
+		photoService.update(photo, imageFile);
 		
 		return "redirect:" + "/mgnt/photo";
 	}

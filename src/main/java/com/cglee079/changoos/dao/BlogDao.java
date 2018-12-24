@@ -32,8 +32,8 @@ public class BlogDao {
 		return sqlSession.selectOne(namespace +".S05", params);
 	}
 
-	public List<String> getTags() {
-		return sqlSession.selectList(namespace +".S06");
+	public List<String> getTags(Map<String, Object> params) {
+		return sqlSession.selectList(namespace +".S06", params);
 	}
 	
 	public int insert(BlogVo blog) {

@@ -28,7 +28,7 @@ public class ImageUploadService {
 		base64 = base64.split(",")[1];
 		byte[] imageBytes = DatatypeConverter.parseBase64Binary(base64);
 		BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
-		File file = new File(realPath + Path.TEMP_PATH, pathname);
+		File file = new File(realPath + Path.TEMP_IMAGE_PATH, pathname);
 		ImageIO.write(bufImg, ImageExt, file);
 
 		if (!ImageExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {

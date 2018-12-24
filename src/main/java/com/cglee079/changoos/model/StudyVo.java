@@ -10,9 +10,10 @@ public class StudyVo {
 	private String contents;
 	private String date;
 	private int hits;
+	private boolean enabled;
 	private int comtCnt;
-	private List<StudyFileVo> files;
-	private List<StudyImageVo> images;
+	private List<FileVo> files;
+	private List<ImageVo> images;
 	
 	public String getCodeLang() {
 		return codeLang;
@@ -69,6 +70,14 @@ public class StudyVo {
 	public void setHits(int hits) {
 		this.hits = hits;
 	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	public int getComtCnt() {
 		return comtCnt;
@@ -78,19 +87,19 @@ public class StudyVo {
 		this.comtCnt = comtCnt;
 	}
 
-	public List<StudyFileVo> getFiles() {
+	public List<FileVo> getFiles() {
 		return files;
 	}
 
-	public void setFiles(List<StudyFileVo> files) {
+	public void setFiles(List<FileVo> files) {
 		this.files = files;
 	}
 
-	public List<StudyImageVo> getImages() {
+	public List<ImageVo> getImages() {
 		return images;
 	}
 
-	public void setImages(List<StudyImageVo> images) {
+	public void setImages(List<ImageVo> images) {
 		this.images = images;
 	}
 	

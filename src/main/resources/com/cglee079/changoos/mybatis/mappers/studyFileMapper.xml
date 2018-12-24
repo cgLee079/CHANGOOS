@@ -6,22 +6,22 @@
 	<select id="count" resultType="Integer">
 	</select>
 	
-	<select id="list" resultType="com.cglee079.changoos.model.StudyFileVo" parameterType="Integer">
+	<select id="list" resultType="com.cglee079.changoos.model.FileVo" parameterType="Integer">
 		SELECT 
 		FILE_SEQ as 'seq',
-		STUDY_SEQ as 'studySeq',
+		STUDY_SEQ as 'boardSeq',
 		FILE_PATH as 'path',
 		FILE_FILENM as 'filename',
 		FILE_PATHNM as 'pathname',
 		FILE_SIZE	 as 'size'
 		FROM TB_PTFOLIO_STUDY_FILE
-		WHERE STUDY_SEQ = #{studySeq}
+		WHERE STUDY_SEQ = #{boardSeq}
 	</select>
 	
-	<select id="get" resultType="com.cglee079.changoos.model.StudyFileVo" parameterType="map">
+	<select id="get" resultType="com.cglee079.changoos.model.FileVo" parameterType="map">
 		SELECT 
 		FILE_SEQ as 'seq',
-		STUDY_SEQ as 'studySeq',
+		STUDY_SEQ as 'boardSeq',
 		FILE_PATH as 'path',
 		FILE_FILENM as 'filename',
 		FILE_PATHNM as 'pathname',
@@ -37,10 +37,10 @@
   		</trim>
 	</select>
 	
-	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.StudyFileVo">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.FileVo">
 		INSERT TB_PTFOLIO_STUDY_FILE 
 		(STUDY_SEQ, FILE_PATH, FILE_PATHNM, FILE_FILENM, FILE_SIZE)
-		VALUES (#{studySeq}, #{path}, #{pathname}, #{filename}, #{size})
+		VALUES (#{boardSeq}, #{path}, #{pathname}, #{filename}, #{size})
 	</insert>
 	
 	<delete id="delete" parameterType="Integer">

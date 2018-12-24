@@ -39,6 +39,8 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping("/blog/paging")
 	public String blogPaging(@RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException {
+		params.put("enabled", true);
+		
 		List<BlogVo> blogs = blogService.paging(params);
 		int count = blogService.count(params);
 
@@ -96,16 +98,16 @@ public class BlogController {
 	/** 블로그 업로드 **/
 	@RequestMapping(value = "/mgnt/blog/upload.do", params = "!seq")
 	public String blogDoUpload(Model model, BlogVo blog, MultipartFile snapshtFile, String imageValues,
-			@RequestParam("file") List<MultipartFile> files) throws SQLException, IllegalStateException, IOException {
-		int seq = blogService.insert(blog, snapshtFile, imageValues, files);
+			String fileValues) throws SQLException, IllegalStateException, IOException {
+		int seq = blogService.insert(blog, snapshtFile, imageValues, fileValues);
 		return "redirect:" + "/blog/view?seq=" + seq;
 	}
 
 	/** 블로그 수정 **/
 	@RequestMapping(value = "/mgnt/blog/upload.do", params = "seq")
 	public String blogDoModify(Model model, BlogVo blog, MultipartFile snapshtFile, String imageValues,
-			@RequestParam("file") List<MultipartFile> files) throws SQLException, IllegalStateException, IOException {
-		blogService.update(blog, snapshtFile, imageValues, files);
+			String fileValuess) throws SQLException, IllegalStateException, IOException {
+		blogService.update(blog, snapshtFile, imageValues, fileValuess);
 		return "redirect:" + "/blog/view?seq=" + blog.getSeq();
 	}
 
@@ -114,14 +116,6 @@ public class BlogController {
 	@RequestMapping("/mgnt/blog/delete.do")
 	public String blogDoDelete(Model model, int seq) throws SQLException, JsonProcessingException {
 		boolean result = blogService.delete(seq);
-		return new JSONObject().put("result", result).toString();
-	}
-
-	/** 블로그 파일 삭제 **/
-	@ResponseBody
-	@RequestMapping(value = "/mgnt/blog/file/delete.do")
-	public String deleteFile(int seq) {
-		boolean result = blogService.deleteFile(seq);
 		return new JSONObject().put("result", result).toString();
 	}
 }

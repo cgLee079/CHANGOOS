@@ -28,9 +28,9 @@ public class PathHandler{
 			src 	= el.attr("src");
 			
 			//이미지 경로 변경
-			index = src.indexOf(Path.TEMP_PATH);
+			index = src.indexOf(Path.TEMP_IMAGE_PATH);
 			if(index != -1) {
-				newSrc = toPath  + src.substring(index + Path.TEMP_PATH.length(), src.length());
+				newSrc = toPath  + src.substring(index + Path.TEMP_IMAGE_PATH.length(), src.length());
 				el.attr("src", newSrc);
 			}
 			

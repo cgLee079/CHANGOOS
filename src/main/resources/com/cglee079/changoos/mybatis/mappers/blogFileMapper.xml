@@ -6,24 +6,24 @@
 	<select id="count" resultType="Integer">
 	</select>
 	
-	<select id="list" resultType="com.cglee079.changoos.model.BlogFileVo" parameterType="Integer">
+	<select id="list" resultType="com.cglee079.changoos.model.FileVo" parameterType="Integer">
 		/* 블로그 파일 리스트 */
 		SELECT 
 		FILE_SEQ as 'seq',
-		BLOG_SEQ as 'blogSeq',
+		BLOG_SEQ as 'boardSeq',
 		FILE_PATH as 'path',
 		FILE_PATHNM as 'pathname',
 		FILE_FILENM as 'filename',
 		FILE_SIZE as 'size'
 		FROM TB_PTFOLIO_BLOG_FILE
-		WHERE BLOG_SEQ = #{blogSeq}
+		WHERE BLOG_SEQ = #{boardSeq}
 	</select>
 	
-	<select id="get" resultType="com.cglee079.changoos.model.BlogFileVo" parameterType="map">
+	<select id="get" resultType="com.cglee079.changoos.model.FileVo" parameterType="map">
 		/* 블로그 파일 가져오기 */
 		SELECT 
 		FILE_SEQ as 'seq',
-		BLOG_SEQ as 'blogSeq',
+		BLOG_SEQ as 'boardSeq',
 		FILE_PATH as 'path',
 		FILE_PATHNM as 'pathname',
 		FILE_FILENM as 'filename',
@@ -39,11 +39,11 @@
   		</trim>
 	</select>
 	
-	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.BlogFileVo">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.FileVo">
 		/* 블로그 파일 추가 */
 		INSERT TB_PTFOLIO_BLOG_FILE 
 		(BLOG_SEQ, FILE_PATH, FILE_PATHNM, FILE_FILENM, FILE_SIZE)
-		VALUES (#{blogSeq}, #{path}, #{pathname}, #{filename}, #{size})
+		VALUES (#{boardSeq}, #{path}, #{pathname}, #{filename}, #{size})
 	</insert>
 	
 	<delete id="delete" parameterType="Integer">

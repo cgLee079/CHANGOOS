@@ -12,9 +12,10 @@ public class ProjectVo {
 	private String sourcecode;
 	private String developer;
 	private int hits;
+	private boolean enabled;
 	private int comtCnt;
-	private List<ProjectImageVo> images;
-	private List<ProjectFileVo> files;
+	private List<ImageVo> images;
+	private List<FileVo> files;
 
 	public int getSeq() {
 		return seq;
@@ -87,6 +88,16 @@ public class ProjectVo {
 	public void setHits(int hits) {
 		this.hits = hits;
 	}
+	
+	
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	public int getComtCnt() {
 		return comtCnt;
@@ -96,19 +107,19 @@ public class ProjectVo {
 		this.comtCnt = comtCnt;
 	}
 
-	public List<ProjectImageVo> getImages() {
+	public List<ImageVo> getImages() {
 		return images;
 	}
 
-	public void setImages(List<ProjectImageVo> images) {
+	public void setImages(List<ImageVo> images) {
 		this.images = images;
 	}
 
-	public List<ProjectFileVo> getFiles() {
+	public List<FileVo> getFiles() {
 		return files;
 	}
 
-	public void setFiles(List<ProjectFileVo> files) {
+	public void setFiles(List<FileVo> files) {
 		this.files = files;
 	}
 }

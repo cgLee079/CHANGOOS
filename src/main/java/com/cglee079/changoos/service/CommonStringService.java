@@ -11,8 +11,8 @@ public class CommonStringService{
 	CommonStringDao commonStringDao;
 	
 
-	public String get(String group, String code) {
-		return commonStringDao.get(group, code);
+	public String get(String groupID, String strID) {
+		return commonStringDao.get(groupID, strID);
 	}
 	
 }

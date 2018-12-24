@@ -1,15 +1,13 @@
 package com.cglee079.changoos.controller;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cglee079.changoos.constants.Path;
-import com.cglee079.changoos.model.ProjectFileVo;
 import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.service.ProjectService;
-import com.cglee079.changoos.util.MyFilenameUtils;
 import com.google.gson.Gson;
 
 @Controller
@@ -35,8 +30,10 @@ public class ProjectController {
 	/** 프로젝트 리스트 **/
 	@RequestMapping(value = "/project")
 	public String projectList(Model model) {
-		List<ProjectVo> projects = projectService.list(null);
+		Map<String, Object> map = new HashMap<>();
+		map.put("enabled", true);
 		
+		List<ProjectVo> projects = projectService.list(map);
 		model.addAttribute("projects", projects);
 		return "project/project_list";
 	}
@@ -92,16 +89,16 @@ public class ProjectController {
 	/** 프로젝트 업로드 **/
 	@RequestMapping(value = "/mgnt/project/upload.do", method = RequestMethod.POST, params = "!seq")
 	public String projectDoUpload(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, String imageValues,
-			@RequestParam("file") List<MultipartFile> files) throws IllegalStateException, IOException {
-		int seq = projectService.insert(project, snapshtFile, imageValues, files);
+			String fileValues) throws IllegalStateException, IOException {
+		int seq = projectService.insert(project, snapshtFile, imageValues, fileValues);
 		return "redirect:" + "/project/view?seq=" + seq;
 	}
 
 	/** 프로젝트 수정 **/
 	@RequestMapping(value = "/mgnt/project/upload.do", method = RequestMethod.POST, params = "seq")
 	public String projectDoModify(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, String imageValues,
-			@RequestParam("file") List<MultipartFile> files) throws IllegalStateException, IOException {
-		projectService.update(project, snapshtFile, imageValues, files);
+			String fileValues) throws IllegalStateException, IOException {
+		projectService.update(project, snapshtFile, imageValues, fileValues);
 		return "redirect:" + "/project/view?seq=" + project.getSeq();
 	}
 
@@ -110,14 +107,6 @@ public class ProjectController {
 	@RequestMapping(value = "/mgnt/project/delete.do", method = RequestMethod.POST)
 	public String projectDoDelete(HttpSession session, int seq) {
 		boolean result = projectService.delete(seq);
-		return new JSONObject().put("result", result).toString();
-	}
-
-	/** 프로젝트 파일 삭제 **/
-	@ResponseBody
-	@RequestMapping(value = "/mgnt/project/file/delete.do", method = RequestMethod.POST)
-	public String projectDoDeleteFile(HttpSession session, int seq) {
-		boolean result = projectService.deleteFile(seq);
 		return new JSONObject().put("result", result).toString();
 	}
 }

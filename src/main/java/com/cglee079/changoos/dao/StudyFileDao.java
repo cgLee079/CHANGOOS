@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cglee079.changoos.model.StudyFileVo;
+import com.cglee079.changoos.model.FileVo;
 
 @Repository
 public class StudyFileDao {
@@ -16,21 +16,21 @@ public class StudyFileDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public boolean insert(StudyFileVo studyFile) {
+	public boolean insert(FileVo studyFile) {
 		return sqlSession.insert(namespace +".insert", studyFile) == 1;
 	}
 
-	public List<StudyFileVo> list(int studySeq) {
+	public List<FileVo> list(int studySeq) {
 		return sqlSession.selectList(namespace +".list", studySeq);
 	}
 
-	public StudyFileVo get(String pathNm) {
+	public FileVo get(String pathNm) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("pathNm", pathNm);
 		return  sqlSession.selectOne(namespace +".get", map);
 	}
 	
-	public StudyFileVo get(int seq) {
+	public FileVo get(int seq) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("seq", seq);
 		return  sqlSession.selectOne(namespace +".get", map);

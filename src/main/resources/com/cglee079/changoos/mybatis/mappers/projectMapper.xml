@@ -14,6 +14,7 @@
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
 		PROJ_HITS as "hits",
+		PROJ_ENABLED as "enabled",
 		count(B.PCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_PROJECT A LEFT OUTER JOIN TB_PTFOLIO_PROJECT_COMT B ON A.PROJ_SEQ = B.PCOMT_PROJ_SEQ
 		WHERE PROJ_SEQ = #{seq}
@@ -30,8 +31,14 @@
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
 		PROJ_HITS as "hits",
+		PROJ_ENABLED as "enabled",
 		count(B.PCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_PROJECT A LEFT OUTER JOIN TB_PTFOLIO_PROJECT_COMT B ON A.PROJ_SEQ = B.PCOMT_PROJ_SEQ
+		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
+		<if test="enabled != null">
+ 		<![CDATA[AND PROJ_ENABLED = #{enabled}]]>
+  		</if>
+  		</trim>
 		GROUP BY A.PROJ_SEQ
 		<choose>
 		<when test="sort != null">
@@ -54,6 +61,7 @@
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
 		PROJ_HITS as "hits",
+		PROJ_ENABLED as "enabled",
 		count(B.PCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_PROJECT A LEFT OUTER JOIN TB_PTFOLIO_PROJECT_COMT B ON A.PROJ_SEQ = B.PCOMT_PROJ_SEQ
 		WHERE <![CDATA[PROJ_SEQ > #{seq}]]> 
@@ -73,6 +81,7 @@
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
 		PROJ_HITS as "hits",
+		PROJ_ENABLED as "enabled",
 		count(B.PCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_PROJECT A LEFT OUTER JOIN TB_PTFOLIO_PROJECT_COMT B ON A.PROJ_SEQ = B.PCOMT_PROJ_SEQ
 		WHERE <![CDATA[PROJ_SEQ < #{seq}]]> 
@@ -88,8 +97,8 @@
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.ProjectVo">
 		INSERT TB_PTFOLIO_PROJECT 
-		(PROJ_TITLE, PROJ_SUBTITLE, PROJ_DESC, PROJ_CONTENTS, PROJ_SNAPSHT, PROJ_SOURCECD, PROJ_DEVELOPER, PROJ_HITS)
-		VALUES (#{title}, #{subtitle}, #{desc}, #{contents}, #{snapsht}, #{sourcecode},#{developer}, #{hits})
+		(PROJ_TITLE, PROJ_SUBTITLE, PROJ_DESC, PROJ_CONTENTS, PROJ_SNAPSHT, PROJ_SOURCECD, PROJ_DEVELOPER, PROJ_HITS, PROJ_ENABLED)
+		VALUES (#{title}, #{subtitle}, #{desc}, #{contents}, #{snapsht}, #{sourcecode},#{developer}, #{hits}, #{enabled})
 	</insert>
 	
 	<update id="update">
@@ -102,7 +111,8 @@
 		PROJ_SNAPSHT = #{snapsht},
 		PROJ_SOURCECD = #{sourcecode},
 		PROJ_DEVELOPER = #{developer},
-		PROJ_HITS = #{hits}
+		PROJ_HITS = #{hits},
+		PROJ_ENABLED = #{enabled}
 		WHERE PROJ_SEQ = #{seq}
 	</update>
 	

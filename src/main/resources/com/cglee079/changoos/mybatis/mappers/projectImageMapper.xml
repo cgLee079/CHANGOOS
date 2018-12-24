@@ -3,23 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cglee079.changoos.mapper.ProjectImageMapper">
-	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.ProjectImageVo">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.ImageVo">
 		INSERT TB_PTFOLIO_PROJECT_IMAGE
 		(PROJ_SEQ, EDITOR_ID, IMG_PATH, IMG_PATHNM, IMG_FILENM)
-		VALUES (#{projectSeq}, #{editorID}, #{path}, #{pathname}, #{filename})
+		VALUES (#{boardSeq}, #{editorID}, #{path}, #{pathname}, #{filename})
 	</insert>
 	
-	<select id="list" resultType="com.cglee079.changoos.model.ProjectImageVo" parameterType="Integer">
+	<select id="list" resultType="com.cglee079.changoos.model.ImageVo" parameterType="Integer">
 		SELECT 
 		IMG_SEQ as 'seq',
-		PROJ_SEQ as 'projectSeq',
+		PROJ_SEQ as 'boardSeq',
 		EDITOR_ID as 'editorID',
 		IMG_PATH as 'path',
 		IMG_PATHNM as 'pathname',
 		IMG_FILENM as 'filename',
 		'BE' as "status"
 		FROM TB_PTFOLIO_PROJECT_IMAGE
-		WHERE PROJ_SEQ = #{projectSeq}
+		WHERE PROJ_SEQ = #{boardSeq}
 	</select>
 	
 	<delete id="delete" parameterType="Integer">

@@ -26,16 +26,15 @@ import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.dao.BlogDao;
 import com.cglee079.changoos.dao.BlogFileDao;
 import com.cglee079.changoos.dao.BlogImageDao;
-import com.cglee079.changoos.model.BlogFileVo;
-import com.cglee079.changoos.model.BlogImageVo;
 import com.cglee079.changoos.model.BlogVo;
+import com.cglee079.changoos.model.FileVo;
+import com.cglee079.changoos.model.ImageVo;
 import com.cglee079.changoos.util.AuthManager;
-import com.cglee079.changoos.util.PathHandler;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageManager;
 import com.cglee079.changoos.util.MyFileUtils;
 import com.cglee079.changoos.util.MyFilenameUtils;
-import com.cglee079.changoos.util.TempFolderManager;
+import com.cglee079.changoos.util.PathHandler;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -137,8 +136,8 @@ public class BlogService{
 		return blogDao.count(params);
 	}
 
-	public int insert(BlogVo blog, MultipartFile snapshtFile, String imageValues, List<MultipartFile> files) throws IllegalStateException, IOException {
-		String contents = PathHandler.changeImagePath(blog.getContents(), Path.TEMP_PATH, Path.BLOG_IMAGE_PATH);
+	public int insert(BlogVo blog, MultipartFile snapshtFile, String imageValues, String fileValues) throws IllegalStateException, IOException {
+		String contents = PathHandler.changeImagePath(blog.getContents(), Path.TEMP_IMAGE_PATH, Path.BLOG_IMAGE_PATH);
 		blog.setContents(contents);
 		blog.setDate(Formatter.toDate(new Date()));
 		blog.setHits(0);
@@ -146,23 +145,27 @@ public class BlogService{
 		
 		int seq = blogDao.insert(blog);
 		
-		List<BlogImageVo> images = new ObjectMapper().readValue(imageValues, new TypeReference<List<BlogImageVo>>(){});
+		List<ImageVo> images = new ObjectMapper().readValue(imageValues, new TypeReference<List<ImageVo>>(){});
 		this.saveImages(seq, images);
+
+		List<FileVo> files = new ObjectMapper().readValue(fileValues, new TypeReference<List<FileVo>>(){});
 		this.saveFiles(seq, files);
 		
 		return seq;
 	}
 
-	public boolean update(BlogVo blog, MultipartFile snapshtFile, String imageValues, List<MultipartFile> files) throws IllegalStateException, IOException {
-		String contents = PathHandler.changeImagePath(blog.getContents(), Path.TEMP_PATH, Path.BLOG_IMAGE_PATH);
+	public boolean update(BlogVo blog, MultipartFile snapshtFile, String imageValues, String fileValues) throws IllegalStateException, IOException {
+		String contents = PathHandler.changeImagePath(blog.getContents(), Path.TEMP_IMAGE_PATH, Path.BLOG_IMAGE_PATH);
 		blog.setContents(contents);
 		blog.setSnapsht(this.saveSnapsht(blog, snapshtFile));
 		
 		int seq = blog.getSeq();
 		boolean result = blogDao.update(blog);
 		
-		List<BlogImageVo> images = new ObjectMapper().readValue(imageValues, new TypeReference<List<BlogImageVo>>(){});
+		List<ImageVo> images = new ObjectMapper().readValue(imageValues, new TypeReference<List<ImageVo>>(){});
 		this.saveImages(seq, images);
+		
+		List<FileVo> files = new ObjectMapper().readValue(fileValues, new TypeReference<List<FileVo>>(){});
 		this.saveFiles(seq, files);
 		
 		return result;
@@ -171,17 +174,25 @@ public class BlogService{
 	@Transactional
 	public boolean delete(int seq) {
 		BlogVo blog = this.get(seq);
-		List<BlogFileVo> files = blog.getFiles();
+		List<FileVo> files = blog.getFiles();
+		List<ImageVo> images = blog.getImages();
+		MyFileUtils fileUtils = MyFileUtils.getInstance();
+		
 		
 		if(blogDao.delete(seq)) {
 			//스냅샷 삭제
 			if(blog.getSnapsht() != null) {
-				MyFileUtils.delete(realPath + blog.getSnapsht());
+				fileUtils.delete(realPath + blog.getSnapsht());
 			}
 			
 			//첨부 파일 삭제
 			for (int i = 0; i < files.size(); i++) {
-				MyFileUtils.delete(realPath + Path.STUDY_FILE_PATH, files.get(i).getPathname());
+				fileUtils.delete(realPath + Path.BLOG_FILE_PATH, files.get(i).getPathname());
+			}
+			
+			//첨부 이미지 삭제
+			for (int i = 0; i < images.size(); i++) {
+				fileUtils.delete(realPath + Path.BLOG_IMAGE_PATH, images.get(i).getPathname());
 			}
 			
 			return true;
@@ -191,9 +202,11 @@ public class BlogService{
 	}
 	
 	public List<String> getTags() {
-		HashMap<String, Object> tagMap = new HashMap<>();
-		List<String> tagDummys = blogDao.getTags();
+		Map<String, Object> params = new HashMap<>();
+		params.put("enabled", true);
+		List<String> tagDummys = blogDao.getTags(params);
 		
+		HashMap<String, Object> tagMap = new HashMap<>();
 		String[] split = null;
 		String	tagDummy = null;
 		for(int i = 0; i < tagDummys.size(); i++) {
@@ -218,9 +231,12 @@ public class BlogService{
 		String filename	= "snapshot_" + blog.getTitle() + "_";
 		String imgExt	= null;
 		String path 	= blog.getSnapsht();
+		MyFileUtils fileUtils = MyFileUtils.getInstance();
+
+		
 		if(snapshtFile.getSize() > 0){
 			if(blog.getSeq() != 0) {
-				MyFileUtils.delete(realPath + this.get(blog.getSeq()).getSnapsht());
+				fileUtils.delete(realPath + this.get(blog.getSeq()).getSnapsht());
 			}
 			
 			filename += MyFilenameUtils.sanitizeRealFilename(snapshtFile.getOriginalFilename());
@@ -240,11 +256,13 @@ public class BlogService{
 	/***
 	 * 내용 중 이미지 첨부 관련
 	 ***/
-	private void saveImages(int blogSeq, List<BlogImageVo> images) {
-		BlogImageVo image;
+	private void saveImages(int blogSeq, List<ImageVo> images) {
+		ImageVo image;
+		MyFileUtils fileUtils = MyFileUtils.getInstance();
+
 		for (int i = 0; i < images.size(); i++) {
 			image = images.get(i);
-			image.setBlogSeq(blogSeq);
+			image.setBoardSeq(blogSeq);
 			switch(image.getStatus()) {
 			case "NEW" : //새롭게 추가된 이미지
 				String path = image.getPath();
@@ -255,12 +273,12 @@ public class BlogService{
 					//임시폴더에서 본 폴더로 이동
 					File existFile  = new File(realPath + path, image.getPathname());
 					File newFile	= new File(realPath + movedPath, image.getPathname());
-					MyFileUtils.move(existFile, newFile);
+					fileUtils.move(existFile, newFile);
 				}
 				break;
 			case "REMOVE" : //기존에 있던 이미지 중, 삭제된 이미지
 				if(blogImageDao.delete(image.getSeq())) {
-					MyFileUtils.delete(realPath + image.getPath(), image.getPathname());
+					fileUtils.delete(realPath + image.getPath(), image.getPathname());
 				}
 				break;
 			}
@@ -269,52 +287,42 @@ public class BlogService{
 		
 		//업로드 파일로 이동했음에도 불구하고, 남아있는 TEMP 폴더의 이미지 파일을 삭제.
 		//즉, 이전에 글 작성 중 작성을 취소한 경우 업로드가 되었던 이미지파일들이 삭제됨.
-		TempFolderManager.getInstance().removeAll();
+		fileUtils.emptyFolder(Path.TEMP_IMAGE_PATH);
 	}
 	
 	/***
 	 *  파일 첨부 관련 
 	 **/
-	
-	public boolean deleteFile(int fileSeq) {
-		BlogFileVo blogFile = blogFileDao.get(fileSeq);
-		if(blogFileDao.delete(fileSeq)) {
-			if(MyFileUtils.delete(realPath + Path.BLOG_FILE_PATH, blogFile.getPathname())) {
-				return true;
+	private void saveFiles(int seq, List<FileVo> files) throws IllegalStateException, IOException {
+		MyFileUtils fileUtils = MyFileUtils.getInstance();
+		
+		FileVo file;
+		for (int i = 0; i < files.size(); i++) {
+			file = files.get(i);
+			file.setBoardSeq(seq);
+			switch(file.getStatus()) {
+			case "NEW" : //새롭게 추가된 파일
+				String path = file.getPath();
+				String movedPath = Path.BLOG_FILE_PATH;
+				file.setPath(movedPath);
+				
+				if(blogFileDao.insert(file)) {
+					//임시폴더에서 본 폴더로 이동
+					File existFile  = new File(realPath + path, file.getPathname());
+					File newFile	= new File(realPath + movedPath, file.getPathname());
+					fileUtils.move(existFile, newFile);
+				}
+				break;
+			case "REMOVE" : //기존에 있던 이미지 중, 삭제된 이미지
+				if(blogFileDao.delete(file.getSeq())) {
+					fileUtils.delete(realPath + file.getPath(), file.getPathname());
+				}
+				break;
 			}
 		}
-		return false;
+		
+		fileUtils.emptyFolder(Path.TEMP_FILE_PATH);
 	}
 	
-	
-	private void saveFiles(int seq, List<MultipartFile> files) throws IllegalStateException, IOException {
-		File file = null;
-		MultipartFile multipartFile = null;
-		BlogFileVo blogFile = null;
-		String realname = null;
-		String pathname = null;
-		String path = Path.BLOG_FILE_PATH;
-		long size = -1;
-		int length = files.size();
-		for (int i = 0; i < length; i++) {
-			multipartFile = files.get(i);
-			realname = MyFilenameUtils.sanitizeRealFilename(multipartFile.getOriginalFilename());
-			pathname = MyFilenameUtils.getRandomFilename(MyFilenameUtils.getExt(realname));
-			size = multipartFile.getSize();
-
-			if (size > 0) {
-				file = new File(realPath + path, pathname);
-				multipartFile.transferTo(file);
-
-				blogFile = new BlogFileVo();
-				blogFile.setPath(path);
-				blogFile.setPathname(pathname);
-				blogFile.setFilename(realname);
-				blogFile.setSize(size);
-				blogFile.setBlogSeq(seq);
-				blogFileDao.insert(blogFile);
-			}
-		}
-	}
 
 }

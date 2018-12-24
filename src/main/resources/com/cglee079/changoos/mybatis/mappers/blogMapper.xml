@@ -13,6 +13,7 @@
 		BLOG_TAG as "tag",
 		BLOG_DATE as "date",
 		BLOG_HITS as "hits",
+		BLOG_ENABLED as "enabled",
 		count(B.BCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_BLOG A LEFT OUTER JOIN TB_PTFOLIO_BLOG_COMT B ON A.BLOG_SEQ = B.BCOMT_BLOG_SEQ
 		WHERE BLOG_SEQ = #{seq}
@@ -33,9 +34,15 @@
 			BLOG_TAG as "tag",
 			BLOG_DATE as "date",
 			BLOG_HITS as "hits",
+			BLOG_ENABLED as "enabled",
 			count(B.BCOMT_SEQ) as 'comtCnt'
 			FROM TB_PTFOLIO_BLOG A LEFT OUTER JOIN TB_PTFOLIO_BLOG_COMT B ON A.BLOG_SEQ = B.BCOMT_BLOG_SEQ
-			WHERE BLOG_TAG like '%${item}%'
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				AND BLOG_TAG like '%${item}%' 
+			<if test="enabled != null">
+				<![CDATA[AND BLOG_ENABLED = #{enabled}]]>
+  			</if>
+  			</trim>
 			GROUP BY A.BLOG_SEQ
 			</foreach>
 		) X
@@ -56,6 +63,7 @@
 		BLOG_TAG as "tag",
 		BLOG_DATE as "date",
 		BLOG_HITS as "hits",
+		BLOG_ENABLED as "enabled",
 		count(B.BCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_BLOG A LEFT OUTER JOIN TB_PTFOLIO_BLOG_COMT B ON A.BLOG_SEQ = B.BCOMT_BLOG_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
@@ -80,21 +88,24 @@
 		SELECT
 			count(*)
 		FROM TB_PTFOLIO_BLOG
-		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
-  		</trim>
 	</select>
 	
-	<select id="S06" resultType="String">
+	<select id="S06" resultType="String" parameterType="map">
 		SELECT BLOG_TAG
 		FROM TB_PTFOLIO_BLOG
+		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
+		<if test="enabled != null">
+		<![CDATA[AND BLOG_ENABLED = #{enabled}]]>
+		</if>
+		</trim>
 	</select>
 	
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
 		/* 블로그 추가하기 */
 		INSERT TB_PTFOLIO_BLOG 
-		(BLOG_SNAPSHT, BLOG_TITLE, BLOG_CONTENTS, BLOG_TAG, BLOG_DATE, BLOG_HITS)
-		VALUES (#{snapsht}, #{title}, #{contents}, #{tag}, #{date}, #{hits})
+		(BLOG_SNAPSHT, BLOG_TITLE, BLOG_CONTENTS, BLOG_TAG, BLOG_DATE, BLOG_HITS, BLOG_ENABLED)
+		VALUES (#{snapsht}, #{title}, #{contents}, #{tag}, #{date}, #{hits}, #{enabled})
 	</insert>
 	
 	<delete id="delete">
@@ -120,7 +131,8 @@
 		BLOG_CONTENTS 	= #{contents},
 		BLOG_TAG 		= #{tag},
 		BLOG_DATE 		= #{date},
-		BLOG_HITS 		= #{hits}
+		BLOG_HITS 		= #{hits},
+		BLOG_ENABLED    = #{enabled}
 		WHERE BLOG_SEQ = #{seq}
 	</update>
 	

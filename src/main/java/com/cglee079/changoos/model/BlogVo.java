@@ -11,14 +11,15 @@ public class BlogVo {
 	private String tag;
 	private int hits;
 	private int comtCnt;
-	private List<BlogImageVo> images;
-	private List<BlogFileVo> files;
+	private boolean enabled;
+	private List<ImageVo> images;
+	private List<FileVo> files;
 
 	//첨부 이미지중, 첫번째 이미지를 스냅샷으로
 	public String extractSnapsht() {
 		//스냅샷 없을 경우, 설정하기
 		if(snapsht == null && images != null && images.size() > 0) {
-			BlogImageVo image = images.get(0);
+			ImageVo image = images.get(0);
 			snapsht = image.getPath() + image.getPathname();
 		}
 		return snapsht; 
@@ -79,6 +80,14 @@ public class BlogVo {
 	public void setHits(int hits) {
 		this.hits = hits;
 	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	public int getComtCnt() {
 		return comtCnt;
@@ -88,20 +97,22 @@ public class BlogVo {
 		this.comtCnt = comtCnt;
 	}
 
-	public List<BlogImageVo> getImages() {
+	public List<ImageVo> getImages() {
 		return images;
 	}
 
-	public void setImages(List<BlogImageVo> images) {
+	public void setImages(List<ImageVo> images) {
 		this.images = images;
 	}
 
-	public List<BlogFileVo> getFiles() {
+	public List<FileVo> getFiles() {
 		return files;
 	}
 
-	public void setFiles(List<BlogFileVo> files) {
+	public void setFiles(List<FileVo> files) {
 		this.files = files;
 	}
+	
+	
 	
 }

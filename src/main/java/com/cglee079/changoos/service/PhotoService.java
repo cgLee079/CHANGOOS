@@ -37,24 +37,51 @@ public class PhotoService {
 		return photoDao.list(map);
 	}
 	
-	public boolean insert(PhotoVo photo){
+	public boolean insert(PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, ImageProcessingException, MetadataException, IOException{
 		photo.setLikeCnt(0);
+		
+		if(imageFile.getSize() != 0){
+			photo = this.savePhoto(photo, imageFile);
+		}
+		
 		return photoDao.insert(photo);
 	}
 
-	public boolean update(PhotoVo photo){
-		return photoDao.update(photo);
+	public boolean update(PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, ImageProcessingException, MetadataException, IOException{
+		boolean result = photoDao.update(photo);
+		
+		if(result) {
+			if(imageFile.getSize() != 0){
+				MyFileUtils fileUtils = MyFileUtils.getInstance();
+				
+				fileUtils.delete(realPath + photo.getImage());
+				fileUtils.delete(realPath + photo.getSnapsht());
+				
+				photo = this.savePhoto(photo, imageFile);
+			} 
+		}
+		return result;
 	}
 	
 	public boolean delete(int seq) {
-		return photoDao.delete(seq);
+		PhotoVo photo = this.get(seq);
+		boolean result = photoDao.delete(seq);
+		
+		if(result) {
+			MyFileUtils fileUtils = MyFileUtils.getInstance();
+			
+			fileUtils.delete(realPath + photo.getImage());
+			fileUtils.delete(realPath + photo.getSnapsht());
+		}
+		
+		return result;
 	}
 	
 	public PhotoVo get(int seq){
 		return photoDao.get(seq);
 	}
 	
-	public PhotoVo saveFile(PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
+	public PhotoVo savePhoto(PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
 		String timeStamp	= TimeStamper.stamp("YYMMdd_HHmmss");
 		String imgName		= "photo_" + timeStamp + "_" + MyFilenameUtils.sanitizeRealFilename(photo.getName());
 		String snapshtName	= "photo_snapsht_" + timeStamp + "_" + MyFilenameUtils.sanitizeRealFilename(photo.getName());
@@ -96,10 +123,6 @@ public class PhotoService {
 		return photo;
 	}
 	
-	public void deleteFile(String subPath){
-		MyFileUtils.delete(realPath + subPath);
-	}
-
 	public List<Integer> seqs() {
 		return photoDao.seqs();
 	}

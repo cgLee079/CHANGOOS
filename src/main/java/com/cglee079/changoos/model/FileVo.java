@@ -1,12 +1,13 @@
 package com.cglee079.changoos.model;
 
-public class ProjectFileVo {
+public class FileVo {
 	private int seq;
-	private int projectSeq;
+	private int boardSeq;
 	private String path;
 	private String pathname;
 	private String filename;
 	private long size;
+	private String status;
 
 	public int getSeq() {
 		return seq;
@@ -16,12 +17,16 @@ public class ProjectFileVo {
 		this.seq = seq;
 	}
 
-	public int getProjectSeq() {
-		return projectSeq;
+	public int getBoardSeq() {
+		return boardSeq;
 	}
 
-	public void setProjectSeq(int projectSeq) {
-		this.projectSeq = projectSeq;
+	public void setBoardSeq(int boardSeq) {
+		this.boardSeq = boardSeq;
+	}
+
+	public long getSize() {
+		return size;
 	}
 
 	public String getPath() {
@@ -48,12 +53,17 @@ public class ProjectFileVo {
 		this.filename = filename;
 	}
 
-	public long getSize() {
-		return size;
-	}
-
 	public void setSize(long size) {
 		this.size = size;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 
 }

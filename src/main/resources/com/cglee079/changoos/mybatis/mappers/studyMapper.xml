@@ -13,6 +13,7 @@
 		STUDY_CONTENTS as "contents",
 		STUDY_DATE as "date",
 		STUDY_HITS as "hits",
+		STUDY_ENABLED as "enabled",
 		count(B.SCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_STUDY A LEFT OUTER JOIN TB_PTFOLIO_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
 		WHERE STUDY_SEQ = #{seq}
@@ -29,10 +30,12 @@
 		STUDY_CONTENTS as "contents",
 		STUDY_DATE as "date",
 		STUDY_HITS as "hits",
+		STUDY_ENABLED as "enabled",
 		count(B.SCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_STUDY A LEFT OUTER JOIN TB_PTFOLIO_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
-		<![CDATA[STUDY_SEQ < #{seq}]]>  
+		<![CDATA[AND STUDY_ENABLED = true]]>
+		<![CDATA[AND STUDY_SEQ < #{seq}]]>  
 		<if test="category != ''">
  		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
   		</if>
@@ -51,10 +54,12 @@
 		STUDY_CONTENTS as "contents",
 		STUDY_DATE as "date",
 		STUDY_HITS as "hits",
+		STUDY_ENABLED as "enabled",
 		count(B.SCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_STUDY A LEFT OUTER JOIN TB_PTFOLIO_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
-		<![CDATA[STUDY_SEQ > #{seq}]]>
+		<![CDATA[AND STUDY_ENABLED = true]]>
+		<![CDATA[AND STUDY_SEQ > #{seq}]]>
 		<if test="category != ''">
  		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
   		</if>
@@ -73,9 +78,13 @@
 		STUDY_CONTENTS as "contents",
 		STUDY_DATE as "date",
 		STUDY_HITS as "hits",
+		STUDY_ENABLED as "enabled",
 		count(B.SCOMT_SEQ) as 'comtCnt'
 		FROM TB_PTFOLIO_STUDY A LEFT OUTER JOIN TB_PTFOLIO_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
+		<if test="enabled != null">
+ 		<![CDATA[AND STUDY_ENABLED = #{enabled}]]>
+  		</if>
 		<if test="category != '' and category != NULL">
  		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
   		</if>
@@ -121,8 +130,8 @@
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
 		INSERT TB_PTFOLIO_STUDY 
-		(STUDY_CATEGORY, STUDY_CODE_LANG, STUDY_TITLE, STUDY_CONTENTS, STUDY_DATE, STUDY_HITS)
-		VALUES (#{category}, #{codeLang}, #{title}, #{contents}, #{date}, #{hits})
+		(STUDY_CATEGORY, STUDY_CODE_LANG, STUDY_TITLE, STUDY_CONTENTS, STUDY_DATE, STUDY_HITS, STUDY_ENABLED)
+		VALUES (#{category}, #{codeLang}, #{title}, #{contents}, #{date}, #{hits}, #{enabled})
 	</insert>
 	
 	<delete id="delete">
@@ -138,7 +147,8 @@
 		STUDY_TITLE = #{title},
 		STUDY_CONTENTS = #{contents},
 		STUDY_DATE = #{date},
-		STUDY_HITS = #{hits}
+		STUDY_HITS = #{hits},
+		STUDY_ENABLED =  #{enabled}
 		WHERE STUDY_SEQ = #{seq}
 	</update>
 	

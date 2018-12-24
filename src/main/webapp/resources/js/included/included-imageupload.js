@@ -72,12 +72,16 @@ function removeImage(tg, editorID, pathname) {
 		}
 	}
 	
-	$(tg).parent(".wrap-thumbnail").addClass("remove");
+	var wrapThumbnail = $(tg).parent(".wrap-thumbnail");
+	wrapThumbnail.addClass("remove");
 	
-	var status =$(tg).parent(".wrap-thumbnail").find(".status");
-	if(status.val() != STATUS_NEW){
+	var status =wrapThumbnail.find(".status");
+	if(status.val() == STATUS_NEW){
+		wrapThumbnail.remove();
+	} else{
 		status.val(STATUS_REMOVE);
 	}
+	
 	
 	updateInputValue();
 }

@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cglee079.changoos.model.StudyImageVo;
+import com.cglee079.changoos.model.ImageVo;
 
 @Repository
 public class StudyImageDao {
@@ -15,11 +15,11 @@ public class StudyImageDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public boolean insert(StudyImageVo studyImage) {
+	public boolean insert(ImageVo studyImage) {
 		return sqlSession.insert(namespace +".insert", studyImage) == 1;
 	}
 
-	public List<StudyImageVo> list(int studySeq) {
+	public List<ImageVo> list(int studySeq) {
 		return sqlSession.selectList(namespace +".list", studySeq);
 	}
 

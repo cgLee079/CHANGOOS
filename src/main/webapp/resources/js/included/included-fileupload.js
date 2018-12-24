@@ -1,59 +1,112 @@
-var boardType;
 var path;
-var fileInfoUpload;
+var fileInfoTemp;
+
+var STATUS_NEW = "NEW";
+var STATUS_REMOVE = "REMOVE";
 	
 $(document).ready(function(){
-	boardType 	= $("#boardType").val();
-	path 		= getContextPath() + "/mgnt/" + boardType;
-	fileInfoUpload = $(".file-info.upload").clone(true);
+	path = getContextPath() + "/mgnt/";
+	fileInfoTemp = $(".file-info.temp").clone();
+	$(".file-info.temp").remove();
+	
+	fileInfoTemp.removeClass("temp");
+	
+	updateFileValues();
 });
 
 function doFileRemove(tg){
 	var fileInfo = $(tg).parents(".file-info");
-	var seq = fileInfo.find(".file-seq").val();
+	swal({
+		  title: "정말로 삭제 하시겠습니까?",
+		  text: "한번 삭제된 파일은 복구 할 수 없습니다.",
+		  icon: "warning",
+		  buttons: ["취소", "삭제"],
+		  dangerMode: true,
+		})
+		.then(function(willDelete) {
+			if(willDelete) {
+				var status = fileInfo.find(".file-status");
+				if(status.val() == STATUS_NEW){
+					fileInfo.remove();
+				} else{
+					status.val(STATUS_REMOVE);
+				}
+				
+				updateFileValues();
+			} 
+			
+			
+		})
 	
-	if(seq){
-		swal({
-			  title: "정말로 삭제 하시겠습니까?",
-			  text: "한번 삭제된 파일은 복구 할 수 없습니다.",
-			  icon: "warning",
-			  buttons: ["취소", "삭제"],
-			  dangerMode: true,
-			})
-			.then(function(willDelete) {
-				if(willDelete) {
-					$.ajax({
-						type	: "POST",
-						url 	: path + "/file/delete.do",
-						dataType: "JSON",
-						data 	: {
-							"seq" : seq
-						},
-						success : function(data) {
-							if(data.result){
-								swal({ text : "서버에서 파일이 삭제되었습니다.", icon : "success" });
-								fileInfo.remove();
-							} else{
-								swal({ text : "파일 삭제 실패하였습니다.", icon : "error" });
-							}
-						}	
-					});  
-				} 
-			});
-	} else{
-		fileInfo.remove();
-	}
+	
 }
 
+
+function sendFile(file){
+	return new Promise(function(resolve, reject) {
+		var formData = new FormData(); 	
+		formData.append("file", file);
+		$.ajax({
+			type : "post",
+			url : getContextPath() + "/mgnt/file/upload.do",
+			dataType : "JSON",
+			async : true,
+			contentType: false,
+			processData: false,
+			data : formData,
+			success : function(result) {
+				resolve(result);
+			}
+		})
+	});
+}
+
+
 function onFileChange(tg){
-	var file = tg.files[0];
-	var fileInfos= $(".file-infos");
+	var files = tg.files;
 	
-	if($(tg).val()){
-		var fileInfo = $(tg).parents(".file-info");
-		fileInfo.removeClass("upload");		
-		fileInfo.find(".file-info-name").text("[" + (file.size/(1024 * 1024)).toFixed(2) + " MB] " + file.name);
+	for(var i = 0; i < files.length; i++){
+		var file = files[i];
 		
-		fileInfos.append(fileInfoUpload.clone(true));
-	} 
+		(function(file){
+			sendFile(file).then(function(result) {
+				var fileInfos= $(".file-infos");
+				var fileInfo = fileInfoTemp.clone();
+				
+				fileInfo.find(".file-path").val(result.path);
+				fileInfo.find(".file-pathname").val(result.pathname);
+				fileInfo.find(".file-filename").val(file.name);
+				fileInfo.find(".file-size").val(file.size);
+				fileInfo.find(".file-status").val(STATUS_NEW);
+				
+				fileInfo.find(".file-info-name").text("[" + (file.size/(1024 * 1024)).toFixed(2) + " MB] " + file.name);
+				fileInfos.append(fileInfo);
+				
+				updateFileValues();
+			})
+		})(file);
+	}
+	
+}
+
+function updateFileValues(){
+	var files = new Array();
+	var file;
+	var fileInfos = $(".file-info");
+	var fileInfo;
+	
+	for(var i = 0; i < fileInfos.length; i++){
+		fileInfo = $(fileInfos[i]);
+		file = new Object();
+		file["seq"] 		= fileInfo.find(".file-seq").val();
+		file["path"] 		= fileInfo.find(".file-path").val();
+		file["pathname"] 	= fileInfo.find(".file-pathname").val();
+		file["filename"] 	= fileInfo.find(".file-filename").val();
+		file["size"] 		= fileInfo.find(".file-size").val();
+		file["status"] 		= fileInfo.find(".file-status").val();
+		files.push(file);
+	}
+	
+	var input = $("#fileValues");
+	input.val(JSON.stringify(files));
 }

@@ -24,6 +24,17 @@
 				</c:if>
 				
 				<div class="blog-upload-item">
+					<div class="item-name">공개여부</div>
+					<div class="item-input">
+						<select id="enabled" name="enabled" class="blog-enabled" >
+							<option value='true' <c:if test='${not empty blog and blog.enabled}'>selected</c:if>>공개 </option>
+							<option value='false' <c:if test='${not empty blog and !blog.enabled}'>selected</c:if>>비공개 </option>
+						</select>
+						
+					</div>
+				</div>
+				
+				<div class="blog-upload-item">
 					<div class="item-name">스냅샷</div>
 					<div class="item-input">
 						<input type="file" id="snapshtFile" name="snapshtFile" class="blog-snapshot"/>

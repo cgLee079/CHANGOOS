@@ -17,10 +17,10 @@ public class CommonStringDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public String get(String group, String code) {
+	public String get(String groupID, String strID) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("group", group);
-		map.put("code", code);
+		map.put("groupID", groupID);
+		map.put("strID", strID);
 		
 		return sqlSession.selectOne(namespace +".S01", map);
 	}

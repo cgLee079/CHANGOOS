@@ -27,6 +27,17 @@
 				</c:if>
 				
 				<div class="upload-project">
+					<div class="upload-project-name">공개여부</div>
+					<div class="upload-project-input">
+						<select id="enabled" name="enabled" class="project-enabled" >
+					<option value='true' <c:if test='${not empty project and project.enabled}'>selected</c:if>>공개 </option>
+							<option value='false' <c:if test='${not empty project and !project.enabled}'>selected</c:if>>비공개 </option>
+						</select>
+						
+					</div>
+				</div>
+				
+				<div class="upload-project">
 					<div class="upload-project-name">스냅샷</div>
 					<div class="upload-project-input">
 						<input type="file" id="snapshtFile" name="snapshtFile" class="project-snapshot"/>

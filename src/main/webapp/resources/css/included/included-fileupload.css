@@ -1,4 +1,4 @@
-.file-infos .file-info{
+.file-infos .file-info, .file-infos .file-upload{
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -8,25 +8,16 @@
 	font-size: 0.75rem;
 }
 
-.file-info .btn-file-upload{
+.file-infos .file-info.temp{
 	display: none;
 }
 
-.file-info.upload .file-name, 
-.file-info.upload .btn-file-remove{
-	display : none ;
-}
-
-.file-info.upload .btn-file-upload{
-	display : inherit;
-}
-
-.file-info .real-file{
-	display : none;
-}
-
-.file-info-name {
+.file-info .file-info-name {
 	flex: 1;
+}
+
+.file-upload .real-file{
+	display : none;
 }
 
 .btn-gray-text {

@@ -6,11 +6,11 @@
 	<select id="S01" resultType="String" parameterType="Map">
 		/* 코드 키 가져오기 	*/
 		SELECT
-		CODE_VALUE
+		STR_VALUE
 		FROM
-		TB_PTFOLIO_COMMCD
-		WHERE GROUP_KEY = #{group}
-		AND CODE_KEY = #{code}
+		TB_PTFOLIO_COMMSTR
+		WHERE GROUP_ID = #{groupID}
+		AND STR_ID = #{strID}
 	</select>
 
 </mapper>

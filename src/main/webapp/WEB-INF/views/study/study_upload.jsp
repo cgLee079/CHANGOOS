@@ -23,6 +23,17 @@
 				</c:if>
 				
 				<div class="study-upload-item">
+					<div class="item-name">공개여부</div>
+					<div class="item-input">
+						<select id="enabled" name="enabled" class="study-enabled" >
+					<option value='true' <c:if test='${not empty study and study.enabled}'>selected</c:if>>공개 </option>
+							<option value='false' <c:if test='${not empty study and !study.enabled}'>selected</c:if>>비공개 </option>
+						</select>
+						
+					</div>
+				</div>
+				
+				<div class="study-upload-item">
 					<div class="item-name">카테고리</div>
 					<div class="item-input"><input type="text" id="category" name="category"  value="<c:out value='${study.category}'/>" class="study-category" ></div>
 				</div>
