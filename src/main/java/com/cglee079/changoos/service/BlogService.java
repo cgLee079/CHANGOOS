@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 
 import org.jsoup.Jsoup;
@@ -29,6 +30,7 @@ import com.cglee079.changoos.dao.BlogImageDao;
 import com.cglee079.changoos.model.BlogVo;
 import com.cglee079.changoos.model.FileVo;
 import com.cglee079.changoos.model.ImageVo;
+import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.util.AuthManager;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageManager;
@@ -68,7 +70,9 @@ public class BlogService{
 	}
 	
 	public BlogVo doView(List<Integer> isVisitBlogs, int seq) {
-		BlogVo blog = this.get(seq);
+		BlogVo blog = blogDao.get(seq);
+		blog.setFiles(blogFileDao.list(seq));
+		blog.setImages(blogImageDao.list(seq));
 		
 		if(!isVisitBlogs.contains(seq) && !AuthManager.isAdmin() ) {
 			isVisitBlogs.add(seq);
@@ -111,7 +115,8 @@ public class BlogService{
 		Document doc 		= null;
 		Elements els		= null;
 		for(int i = 0; i < blogs.size(); i++) {
-			blog 		= blogs.get(i);
+			blog 	= blogs.get(i);
+			blog.setImages(blogImageDao.list(blog.getSeq()));
 			
 			//스냅샷 없을 경우, 설정하기
 			blog.setSnapsht(blog.extractSnapsht());
@@ -173,9 +178,9 @@ public class BlogService{
 	
 	@Transactional
 	public boolean delete(int seq) {
-		BlogVo blog = this.get(seq);
-		List<FileVo> files = blog.getFiles();
-		List<ImageVo> images = blog.getImages();
+		BlogVo blog = blogDao.get(seq);
+		List<FileVo> files = blogFileDao.list(seq);
+		List<ImageVo> images = blogImageDao.list(seq);
 		MyFileUtils fileUtils = MyFileUtils.getInstance();
 		
 		
@@ -236,7 +241,7 @@ public class BlogService{
 		
 		if(snapshtFile.getSize() > 0){
 			if(blog.getSeq() != 0) {
-				fileUtils.delete(realPath + this.get(blog.getSeq()).getSnapsht());
+				fileUtils.delete(realPath + blogDao.get(blog.getSeq()).getSnapsht());
 			}
 			
 			filename += MyFilenameUtils.sanitizeRealFilename(snapshtFile.getOriginalFilename());
@@ -287,7 +292,7 @@ public class BlogService{
 		
 		//업로드 파일로 이동했음에도 불구하고, 남아있는 TEMP 폴더의 이미지 파일을 삭제.
 		//즉, 이전에 글 작성 중 작성을 취소한 경우 업로드가 되었던 이미지파일들이 삭제됨.
-		fileUtils.emptyFolder(Path.TEMP_IMAGE_PATH);
+		fileUtils.emptyFolder(realPath + Path.TEMP_IMAGE_PATH);
 	}
 	
 	/***
@@ -321,7 +326,7 @@ public class BlogService{
 			}
 		}
 		
-		fileUtils.emptyFolder(Path.TEMP_FILE_PATH);
+		fileUtils.emptyFolder(realPath + Path.TEMP_FILE_PATH);
 	}
 	
 

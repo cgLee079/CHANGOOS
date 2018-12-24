@@ -15,7 +15,7 @@
 		BLOG_HITS as "hits",
 		BLOG_ENABLED as "enabled",
 		count(B.BCOMT_SEQ) as 'comtCnt'
-		FROM TB_PTFOLIO_BLOG A LEFT OUTER JOIN TB_PTFOLIO_BLOG_COMT B ON A.BLOG_SEQ = B.BCOMT_BLOG_SEQ
+		FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON A.BLOG_SEQ = B.BCOMT_BLOG_SEQ
 		WHERE BLOG_SEQ = #{seq}
 		GROUP BY A.BLOG_SEQ
 	</select>
@@ -36,7 +36,7 @@
 			BLOG_HITS as "hits",
 			BLOG_ENABLED as "enabled",
 			count(B.BCOMT_SEQ) as 'comtCnt'
-			FROM TB_PTFOLIO_BLOG A LEFT OUTER JOIN TB_PTFOLIO_BLOG_COMT B ON A.BLOG_SEQ = B.BCOMT_BLOG_SEQ
+			FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON A.BLOG_SEQ = B.BCOMT_BLOG_SEQ
 			<trim prefix="WHERE" prefixOverrides="AND |OR ">
 				AND BLOG_TAG like '%${item}%' 
 			<if test="enabled != null">
@@ -65,7 +65,7 @@
 		BLOG_HITS as "hits",
 		BLOG_ENABLED as "enabled",
 		count(B.BCOMT_SEQ) as 'comtCnt'
-		FROM TB_PTFOLIO_BLOG A LEFT OUTER JOIN TB_PTFOLIO_BLOG_COMT B ON A.BLOG_SEQ = B.BCOMT_BLOG_SEQ
+		FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON A.BLOG_SEQ = B.BCOMT_BLOG_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
   		</trim>
 		GROUP BY A.BLOG_SEQ
@@ -87,12 +87,12 @@
 		/* 블로그 개수 */
 		SELECT
 			count(*)
-		FROM TB_PTFOLIO_BLOG
+		FROM TB_CHANGOOS_BLOG
 	</select>
 	
 	<select id="S06" resultType="String" parameterType="map">
 		SELECT BLOG_TAG
-		FROM TB_PTFOLIO_BLOG
+		FROM TB_CHANGOOS_BLOG
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<if test="enabled != null">
 		<![CDATA[AND BLOG_ENABLED = #{enabled}]]>
@@ -103,20 +103,20 @@
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
 		/* 블로그 추가하기 */
-		INSERT TB_PTFOLIO_BLOG 
+		INSERT TB_CHANGOOS_BLOG 
 		(BLOG_SNAPSHT, BLOG_TITLE, BLOG_CONTENTS, BLOG_TAG, BLOG_DATE, BLOG_HITS, BLOG_ENABLED)
 		VALUES (#{snapsht}, #{title}, #{contents}, #{tag}, #{date}, #{hits}, #{enabled})
 	</insert>
 	
 	<delete id="delete">
 		/* 블로그 삭제하기 */
-		DELETE FROM TB_PTFOLIO_BLOG
+		DELETE FROM TB_CHANGOOS_BLOG
 		WHERE BLOG_SEQ = #{seq}
 	</delete>
 	
 	<update id="update">
 		/* 블로그 수정하기 */
-		UPDATE TB_PTFOLIO_BLOG
+		UPDATE TB_CHANGOOS_BLOG
 		SET 
 		<choose>
 		<when test=" snapsht == '' ">

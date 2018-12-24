@@ -7,7 +7,7 @@
 	<select id="count" resultType="Integer">
 		SELECT
 			count(*)
-		FROM TB_PTFOLIO_STUDY_COMT
+		FROM TB_CHANGOOS_STUDY_COMT
 		WHERE SCOMT_STUDY_SEQ = #{studySeq}
 	</select>
 	
@@ -20,7 +20,7 @@
 		SCOMT_CONTENTS as "contents",
 		SCOMT_DATE as "date",
 		SCOMT_PARENT_SEQ as "parentSeq"
-		FROM TB_PTFOLIO_STUDY_COMT
+		FROM TB_CHANGOOS_STUDY_COMT
 		WHERE SCOMT_STUDY_SEQ = #{studySeq}
 		ORDER BY CONCAT(IF(SCOMT_PARENT_SEQ is null, COALESCE(SCOMT_PARENT_SEQ, ''), CONCAT('_', LPAD(SCOMT_PARENT_SEQ,6,'0')) ), '_',LPAD(SCOMT_SEQ,6,'0'))
 		LIMIT #{startRow}, #{perPgLine}
@@ -35,23 +35,23 @@
 		SCOMT_CONTENTS as "contents",
 		SCOMT_DATE as "DATE",
 		SCOMT_PARENT_SEQ as "parentSeq"
-		FROM TB_PTFOLIO_STUDY_COMT
+		FROM TB_CHANGOOS_STUDY_COMT
 		WHERE SCOMT_SEQ = #{seq}
 	</select>
 	
 	<insert id="insert">
-		INSERT TB_PTFOLIO_STUDY_COMT 
+		INSERT TB_CHANGOOS_STUDY_COMT 
 		(SCOMT_STUDY_SEQ, SCOMT_NAME, SCOMT_PWD, SCOMT_CONTENTS, SCOMT_DATE, SCOMT_PARENT_SEQ)
 		VALUES (#{studySeq}, #{name}, #{password}, #{contents}, #{date}, #{parentSeq});
 	</insert>
 	
 	<delete id="delete">
-		DELETE FROM TB_PTFOLIO_STUDY_COMT
+		DELETE FROM TB_CHANGOOS_STUDY_COMT
 		WHERE SCOMT_SEQ = #{seq}
 	</delete>
 	
 	<update id="update" parameterType="map">
-		UPDATE TB_PTFOLIO_STUDY_COMT
+		UPDATE TB_CHANGOOS_STUDY_COMT
 		SET 
 		SCOMT_CONTENTS = #{contents}
 		WHERE SCOMT_SEQ = #{seq}

@@ -38,7 +38,7 @@ public class FileController {
 		if (file.exists()) {
 			response.setContentType("application/octet-stream");
 			response.setContentLength(fileByte.length);
-			response.setHeader("Content-Disposition", "attachment; fileName=\"" + MyFilenameUtils.encodeFilename(request, filename) + "\";");
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + MyFilenameUtils.encodeFilename(request, filename) + "\";");
 			response.setHeader("Content-Transfer-Encoding", "binary");
 			response.getOutputStream().write(fileByte);
 			response.getOutputStream().flush();

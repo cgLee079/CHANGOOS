@@ -15,7 +15,7 @@
 		STUDY_HITS as "hits",
 		STUDY_ENABLED as "enabled",
 		count(B.SCOMT_SEQ) as 'comtCnt'
-		FROM TB_PTFOLIO_STUDY A LEFT OUTER JOIN TB_PTFOLIO_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
+		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
 		WHERE STUDY_SEQ = #{seq}
 		GROUP BY A.STUDY_SEQ
 	</select>
@@ -32,7 +32,7 @@
 		STUDY_HITS as "hits",
 		STUDY_ENABLED as "enabled",
 		count(B.SCOMT_SEQ) as 'comtCnt'
-		FROM TB_PTFOLIO_STUDY A LEFT OUTER JOIN TB_PTFOLIO_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
+		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<![CDATA[AND STUDY_ENABLED = true]]>
 		<![CDATA[AND STUDY_SEQ < #{seq}]]>  
@@ -56,7 +56,7 @@
 		STUDY_HITS as "hits",
 		STUDY_ENABLED as "enabled",
 		count(B.SCOMT_SEQ) as 'comtCnt'
-		FROM TB_PTFOLIO_STUDY A LEFT OUTER JOIN TB_PTFOLIO_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
+		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<![CDATA[AND STUDY_ENABLED = true]]>
 		<![CDATA[AND STUDY_SEQ > #{seq}]]>
@@ -80,7 +80,7 @@
 		STUDY_HITS as "hits",
 		STUDY_ENABLED as "enabled",
 		count(B.SCOMT_SEQ) as 'comtCnt'
-		FROM TB_PTFOLIO_STUDY A LEFT OUTER JOIN TB_PTFOLIO_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
+		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<if test="enabled != null">
  		<![CDATA[AND STUDY_ENABLED = #{enabled}]]>
@@ -110,7 +110,7 @@
 		/* 게시글 개수 */
 		SELECT
 			count(*)
-		FROM TB_PTFOLIO_STUDY
+		FROM TB_CHANGOOS_STUDY
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<if test="category != ''">
  		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
@@ -123,24 +123,24 @@
 	
 	<select id="S06" resultType="String">
 		SELECT STUDY_CATEGORY 
-		FROM TB_PTFOLIO_STUDY
+		FROM TB_CHANGOOS_STUDY
 		GROUP BY STUDY_CATEGORY
 		ORDER BY STUDY_CATEGORY ASC
 	</select>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
-		INSERT TB_PTFOLIO_STUDY 
+		INSERT TB_CHANGOOS_STUDY 
 		(STUDY_CATEGORY, STUDY_CODE_LANG, STUDY_TITLE, STUDY_CONTENTS, STUDY_DATE, STUDY_HITS, STUDY_ENABLED)
 		VALUES (#{category}, #{codeLang}, #{title}, #{contents}, #{date}, #{hits}, #{enabled})
 	</insert>
 	
 	<delete id="delete">
-		DELETE FROM TB_PTFOLIO_STUDY
+		DELETE FROM TB_CHANGOOS_STUDY
 		WHERE STUDY_SEQ = #{seq}
 	</delete>
 	
 	<update id="update">
-		UPDATE TB_PTFOLIO_STUDY
+		UPDATE TB_CHANGOOS_STUDY
 		SET 
 		STUDY_CATEGORY = #{category},
 		STUDY_CODE_LANG = #{codeLang},

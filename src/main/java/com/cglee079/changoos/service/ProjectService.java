@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import com.cglee079.changoos.dao.ProjectImageDao;
 import com.cglee079.changoos.model.FileVo;
 import com.cglee079.changoos.model.ImageVo;
 import com.cglee079.changoos.model.ProjectVo;
+import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.util.AuthManager;
 import com.cglee079.changoos.util.ImageManager;
 import com.cglee079.changoos.util.MyFileUtils;
@@ -38,7 +40,7 @@ public class ProjectService {
 	private ProjectFileDao projectFileDao;
 	
 	@Autowired
-	ProjectImageDao projectImageDao;
+	private ProjectImageDao projectImageDao;
 	
 	@Value("#{servletContext.getRealPath('/')}")
 	private String realPath;
@@ -59,7 +61,9 @@ public class ProjectService {
 
 	@Transactional
 	public ProjectVo doView(List<Integer> isVisitProject, int seq) {
-		ProjectVo project = this.get(seq);
+		ProjectVo project = projectDao.get(seq);
+		project.setImages(projectImageDao.list(seq));
+		project.setFiles(projectFileDao.list(seq));
 		
 		if (!isVisitProject.contains(seq) && !AuthManager.isAdmin()) {
 			isVisitProject.add(seq);
@@ -203,7 +207,7 @@ public class ProjectService {
 		
 		//업로드 파일로 이동했음에도 불구하고, 남아있는 TEMP 폴더의 이미지 파일을 삭제.
 		//즉, 이전에 글 작성 중 작성을 취소한 경우 업로드가 되었던 이미지파일들이 삭제됨.
-		fileUtils.emptyFolder(Path.TEMP_IMAGE_PATH);
+		fileUtils.emptyFolder(realPath + Path.TEMP_IMAGE_PATH);
 	}
 	
 	/**
@@ -239,7 +243,7 @@ public class ProjectService {
 			}
 		}
 		
-		fileUtils.emptyFolder(Path.TEMP_FILE_PATH);
+		fileUtils.emptyFolder(realPath + Path.TEMP_FILE_PATH);
 	}
 	
 	

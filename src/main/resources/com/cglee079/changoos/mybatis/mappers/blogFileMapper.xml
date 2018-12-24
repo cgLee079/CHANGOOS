@@ -15,7 +15,7 @@
 		FILE_PATHNM as 'pathname',
 		FILE_FILENM as 'filename',
 		FILE_SIZE as 'size'
-		FROM TB_PTFOLIO_BLOG_FILE
+		FROM TB_CHANGOOS_BLOG_FILE
 		WHERE BLOG_SEQ = #{boardSeq}
 	</select>
 	
@@ -28,7 +28,7 @@
 		FILE_PATHNM as 'pathname',
 		FILE_FILENM as 'filename',
 		FILE_SIZE as 'size'
-		FROM TB_PTFOLIO_BLOG_FILE
+		FROM TB_CHANGOOS_BLOG_FILE
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<if test="pathname != null">
   		AND FILE_PATHNM = #{pathname} 
@@ -41,14 +41,14 @@
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.FileVo">
 		/* 블로그 파일 추가 */
-		INSERT TB_PTFOLIO_BLOG_FILE 
+		INSERT TB_CHANGOOS_BLOG_FILE 
 		(BLOG_SEQ, FILE_PATH, FILE_PATHNM, FILE_FILENM, FILE_SIZE)
 		VALUES (#{boardSeq}, #{path}, #{pathname}, #{filename}, #{size})
 	</insert>
 	
 	<delete id="delete" parameterType="Integer">
 		/* 블로그 파일 삭제 */
-		DELETE FROM TB_PTFOLIO_BLOG_FILE
+		DELETE FROM TB_CHANGOOS_BLOG_FILE
 		WHERE FILE_SEQ = #{seq}
 	</delete>	
 	

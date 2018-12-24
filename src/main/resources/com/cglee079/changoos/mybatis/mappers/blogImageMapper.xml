@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cglee079.changoos.mapper.BlogImageMapper">
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.ImageVo">
-		INSERT TB_PTFOLIO_BLOG_IMAGE
+		INSERT TB_CHANGOOS_BLOG_IMAGE
 		(BLOG_SEQ, EDITOR_ID, IMG_PATH, IMG_PATHNM, IMG_FILENM)
 		VALUES (#{boardSeq}, #{editorID}, #{path}, #{pathname}, #{filename})
 	</insert>
@@ -18,12 +18,12 @@
 		IMG_PATHNM as 'pathname',
 		IMG_FILENM as 'filename',
 		'BE' as "status"
-		FROM TB_PTFOLIO_BLOG_IMAGE
+		FROM TB_CHANGOOS_BLOG_IMAGE
 		WHERE BLOG_SEQ = #{boardSeq}
 	</select>
 	
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM TB_PTFOLIO_BLOG_IMAGE
+		DELETE FROM TB_CHANGOOS_BLOG_IMAGE
 		WHERE IMG_SEQ = #{seq}
 	</delete>	
 	

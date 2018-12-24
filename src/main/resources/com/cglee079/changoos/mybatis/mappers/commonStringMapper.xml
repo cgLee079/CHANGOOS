@@ -8,7 +8,7 @@
 		SELECT
 		STR_VALUE
 		FROM
-		TB_PTFOLIO_COMMSTR
+		TB_CHANGOOS_COMMSTR
 		WHERE GROUP_ID = #{groupID}
 		AND STR_ID = #{strID}
 	</select>

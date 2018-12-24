@@ -7,14 +7,14 @@
 		SELECT
 		ADMN_USERNAME as "username",
 		ADMN_PASSWORD as "password"
-		FROM TB_PTFOLIO_ADMIN
+		FROM TB_CHANGOOS_ADMIN
 		WHERE ADMN_USERNAME = #{username}
 	</select>
 	
 	<select id="getAuths" resultType="com.cglee079.changoos.model.Role">
 		SELECT
 		ADMIN_ROLE as "name"
-		FROM TB_PTFOLIO_ADMINAUTH
+		FROM TB_CHANGOOS_ADMINAUTH
 		WHERE ADMIN_USERNAME = #{username}
 	</select>
 	

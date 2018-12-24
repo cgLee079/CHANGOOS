@@ -25,15 +25,9 @@ public class MyFileUtils {
 	
 	/**********************/
 	
-	private String realPath;
-	
-	private MyFileUtils() {
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-		realPath = request.getSession().getServletContext().getRealPath("/");
-	}
 	
 	public synchronized void emptyFolder(String path) {
-		File dir = new File(realPath + path);
+		File dir = new File(path);
 		File[] files = dir.listFiles();
 		File file = null;
 		

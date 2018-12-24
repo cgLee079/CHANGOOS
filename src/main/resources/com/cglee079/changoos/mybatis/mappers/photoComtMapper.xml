@@ -7,7 +7,7 @@
 		/* 사진 댓글 수 가져오기 */
 		SELECT
 			count(*)
-		FROM TB_PTFOLIO_PHOTO_COMT
+		FROM TB_CHANGOOS_PHOTO_COMT
 		WHERE PCOMT_PHOTO_SEQ = #{photoSeq} 
 	</select>
 	
@@ -21,7 +21,7 @@
 		PCOMT_CONTENTS as "contents",
 		PCOMT_DATE as "date",
 		PCOMT_PARENT_SEQ as "parentSeq"
-		FROM TB_PTFOLIO_PHOTO_COMT
+		FROM TB_CHANGOOS_PHOTO_COMT
 		WHERE PCOMT_PHOTO_SEQ = #{photoSeq}
 		ORDER BY CONCAT(IF(PCOMT_PARENT_SEQ is null, COALESCE(PCOMT_PARENT_SEQ, ''), CONCAT('_', LPAD(PCOMT_PARENT_SEQ,6,'0')) ), '_',LPAD(PCOMT_SEQ,6,'0'))
 	</select>
@@ -36,26 +36,26 @@
 		PCOMT_CONTENTS as "contents",
 		PCOMT_DATE as "DATE",
 		PCOMT_PARENT_SEQ as "parentSeq"
-		FROM TB_PTFOLIO_PHOTO_COMT
+		FROM TB_CHANGOOS_PHOTO_COMT
 		WHERE PCOMT_SEQ = #{seq}
 	</select>
 	
 	<insert id="insert">
 		/* 사진 댓글 추가하기 */
-		INSERT TB_PTFOLIO_PHOTO_COMT 
+		INSERT TB_CHANGOOS_PHOTO_COMT 
 		(PCOMT_PHOTO_SEQ, PCOMT_NAME, PCOMT_PWD, PCOMT_CONTENTS, PCOMT_DATE, PCOMT_PARENT_SEQ)
 		VALUES (#{photoSeq}, #{name}, #{password}, #{contents}, #{date}, #{parentSeq});
 	</insert>
 	
 	<delete id="delete">
 		/* 사진 댓글 삭제하기*/
-		DELETE FROM TB_PTFOLIO_PHOTO_COMT
+		DELETE FROM TB_CHANGOOS_PHOTO_COMT
 		WHERE PCOMT_SEQ = #{seq}
 	</delete>
 	
 	<update id="update" parameterType="map">
 		/* 사진 댓글 수정하기 */
-		UPDATE TB_PTFOLIO_PHOTO_COMT
+		UPDATE TB_CHANGOOS_PHOTO_COMT
 		SET 
 		PCOMT_CONTENTS = #{contents}
 		WHERE PCOMT_SEQ = #{seq}

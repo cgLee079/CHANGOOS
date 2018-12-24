@@ -1,11 +1,19 @@
 package com.cglee079.changoos.util;
 
+import java.io.File;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.cglee079.changoos.constants.Path;
+import com.cglee079.changoos.dao.BlogImageDao;
+import com.cglee079.changoos.dao.ProjectImageDao;
+import com.cglee079.changoos.dao.StudyImageDao;
+import com.cglee079.changoos.model.BlogVo;
+import com.cglee079.changoos.model.ImageVo;
+import com.cglee079.changoos.model.ProjectVo;
+import com.cglee079.changoos.model.StudyVo;
 
 public class PathHandler{
 		
@@ -28,9 +36,9 @@ public class PathHandler{
 			src 	= el.attr("src");
 			
 			//이미지 경로 변경
-			index = src.indexOf(Path.TEMP_IMAGE_PATH);
+			index = src.indexOf(fromPath);
 			if(index != -1) {
-				newSrc = toPath  + src.substring(index + Path.TEMP_IMAGE_PATH.length(), src.length());
+				newSrc = toPath  + src.substring(index + fromPath.length(), src.length());
 				el.attr("src", newSrc);
 			}
 			
@@ -39,6 +47,7 @@ public class PathHandler{
 		
 		return doc.select("body").html();
 	}
+
 
 	
 

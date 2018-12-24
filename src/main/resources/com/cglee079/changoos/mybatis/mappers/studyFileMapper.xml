@@ -14,7 +14,7 @@
 		FILE_FILENM as 'filename',
 		FILE_PATHNM as 'pathname',
 		FILE_SIZE	 as 'size'
-		FROM TB_PTFOLIO_STUDY_FILE
+		FROM TB_CHANGOOS_STUDY_FILE
 		WHERE STUDY_SEQ = #{boardSeq}
 	</select>
 	
@@ -26,7 +26,7 @@
 		FILE_FILENM as 'filename',
 		FILE_PATHNM as 'pathname',
 		FILE_SIZE	 as 'size'
-		FROM TB_PTFOLIO_STUDY_FILE
+		FROM TB_CHANGOOS_STUDY_FILE
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<if test="pathname != null">
   		AND FILE_PATHNM = #{pathname} 
@@ -38,13 +38,13 @@
 	</select>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.FileVo">
-		INSERT TB_PTFOLIO_STUDY_FILE 
+		INSERT TB_CHANGOOS_STUDY_FILE 
 		(STUDY_SEQ, FILE_PATH, FILE_PATHNM, FILE_FILENM, FILE_SIZE)
 		VALUES (#{boardSeq}, #{path}, #{pathname}, #{filename}, #{size})
 	</insert>
 	
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM TB_PTFOLIO_STUDY_FILE
+		DELETE FROM TB_CHANGOOS_STUDY_FILE
 		WHERE FILE_SEQ = #{seq}
 	</delete>	
 	

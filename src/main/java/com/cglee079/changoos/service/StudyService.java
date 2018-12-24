@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -20,6 +22,7 @@ import com.cglee079.changoos.dao.StudyFileDao;
 import com.cglee079.changoos.dao.StudyImageDao;
 import com.cglee079.changoos.model.FileVo;
 import com.cglee079.changoos.model.ImageVo;
+import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.util.AuthManager;
 import com.cglee079.changoos.util.Formatter;
@@ -46,7 +49,7 @@ public class StudyService {
 	public int count(Map<String, Object> params) {
 		return studyDao.count(params);
 	}
-
+	
 	@Transactional
 	public StudyVo get(int seq) {
 		StudyVo study = studyDao.get(seq);
@@ -60,9 +63,12 @@ public class StudyService {
 		return study;
 	}
 	
+	
 	@Transactional
 	public StudyVo doView(List<Integer> isVisitStudies, int seq) {
-		StudyVo study = this.get(seq);
+		StudyVo study = studyDao.get(seq);
+		study.setImages(studyImageDao.list(seq));
+		study.setFiles(studyFileDao.list(seq));
 
 		if (!isVisitStudies.contains(seq) && !AuthManager.isAdmin()) {
 			isVisitStudies.add(seq);
@@ -128,9 +134,8 @@ public class StudyService {
 	
 	@Transactional
 	public boolean delete(int seq) {
-		StudyVo study = this.get(seq);
-		List<FileVo> files = study.getFiles();
-		List<ImageVo> images = study.getImages();
+		List<FileVo> files = studyFileDao.list(seq);
+		List<ImageVo> images = studyImageDao.list(seq);
 		MyFileUtils fileUtils = MyFileUtils.getInstance();
 		
 		boolean result = studyDao.delete(seq); //CASECADE
@@ -214,7 +219,7 @@ public class StudyService {
 		
 		//업로드 파일로 이동했음에도 불구하고, 남아있는 TEMP 폴더의 이미지 파일을 삭제.
 		//즉, 이전에 글 작성 중 작성을 취소한 경우 업로드가 되었던 이미지파일들이 삭제됨.
-		fileUtils.emptyFolder(Path.TEMP_IMAGE_PATH);
+		fileUtils.emptyFolder(realPath + Path.TEMP_IMAGE_PATH);
 		
 	}
 	
@@ -250,7 +255,7 @@ public class StudyService {
 			}
 		}
 		
-		fileUtils.emptyFolder(Path.TEMP_FILE_PATH);
+		fileUtils.emptyFolder(realPath + Path.TEMP_FILE_PATH);
 	}
 	
 
