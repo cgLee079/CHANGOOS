@@ -22,9 +22,3 @@ function projectView(seq){
 		swal("글이 더 이상 없습니다.");
 	}
 }
-
-
-/* download file */
-function downloadFile(pathNm, realNm){
-	window.location.href = getContextPath() + "/project/file/download.do?filename=" + pathNm;
-}

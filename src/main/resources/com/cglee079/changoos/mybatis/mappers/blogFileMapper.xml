@@ -10,26 +10,28 @@
 		/* 블로그 파일 리스트 */
 		SELECT 
 		FILE_SEQ as 'seq',
-		FILE_BLOG_SEQ as 'blogSeq',
-		FILE_REAL_NM as 'realNm',
-		FILE_PATH_NM as 'pathNm',
-		FILE_SIZE	 as 'size'
+		BLOG_SEQ as 'blogSeq',
+		FILE_PATH as 'path',
+		FILE_PATHNM as 'pathname',
+		FILE_FILENM as 'filename',
+		FILE_SIZE as 'size'
 		FROM TB_PTFOLIO_BLOG_FILE
-		WHERE FILE_BLOG_SEQ = #{blogSeq}
+		WHERE BLOG_SEQ = #{blogSeq}
 	</select>
 	
 	<select id="get" resultType="com.cglee079.changoos.model.BlogFileVo" parameterType="map">
 		/* 블로그 파일 가져오기 */
 		SELECT 
 		FILE_SEQ as 'seq',
-		FILE_BLOG_SEQ as 'blogSeq',
-		FILE_REAL_NM as 'realNm',
-		FILE_PATH_NM as 'pathNm',
-		FILE_SIZE	 as 'size'
+		BLOG_SEQ as 'blogSeq',
+		FILE_PATH as 'path',
+		FILE_PATHNM as 'pathname',
+		FILE_FILENM as 'filename',
+		FILE_SIZE as 'size'
 		FROM TB_PTFOLIO_BLOG_FILE
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
-		<if test="pathNm != null">
-  		AND FILE_PATH_NM = #{pathNm} 
+		<if test="pathname != null">
+  		AND FILE_PATHNM = #{pathname} 
   		</if>
   		<if test="seq != null">
   		AND FILE_SEQ = #{seq} 
@@ -40,8 +42,8 @@
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.BlogFileVo">
 		/* 블로그 파일 추가 */
 		INSERT TB_PTFOLIO_BLOG_FILE 
-		(FILE_BLOG_SEQ, FILE_PATH_NM, FILE_REAL_NM, FILE_SIZE)
-		VALUES (#{blogSeq}, #{pathNm}, #{realNm}, #{size})
+		(BLOG_SEQ, FILE_PATH, FILE_PATHNM, FILE_FILENM, FILE_SIZE)
+		VALUES (#{blogSeq}, #{path}, #{pathname}, #{filename}, #{size})
 	</insert>
 	
 	<delete id="delete" parameterType="Integer">

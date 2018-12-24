@@ -1,5 +1,7 @@
+imageUploader = new Object();
+window.imageUloader = imageUploader;
+
 var STATUS_NEW = "NEW";
-var STATUS_UNNEW = "UNNEW";
 var STATUS_REMOVE = "REMOVE";
 
 var wrapThumbnailTemp;
@@ -11,26 +13,38 @@ $(document).ready(function() {
 	updateInputValue();
 });
 
-window.imageUploader = new Object();
-
-window.imageUploader.insertCKEditor = function(editorID, path, pathname, filename, width) {
-	var editor = CKEDITOR.instances[editorID];
-	var element = editor.document.createElement('img', {
-		attributes : {
-			"src" : path + pathname,
-			"pathname" : pathname,
-			"alt" : filename,
-			"title" : filename,
-			"width" : width
+imageUploader.insertCKEditor = function(image, maxWidth) {
+	var img = new Image();
+	img.src =  image.path + image.pathname;
+	img.onload = function() {
+		var width = this.width;
+		var height = this.height;
+		
+		if(width > maxWidth){
+			height = height / (width/maxWidth);
+			width = maxWidth;
 		}
-	});
-
-	editor.insertElement(element);
+		
+		var editor = CKEDITOR.instances[image.editorID];
+		var p = editor.document.createElement('p');
+		var e = editor.document.createElement('img', {
+			attributes : {
+				"src" : image.path + image.pathname,
+				"pathname" : image.pathname,
+				"alt" : image.filename,
+				"title" : image.filename,
+				"width" : width,
+				"height" : height
+			}
+		});
+		
+		$(p.$).append($(e.$));
+		editor.insertElement(p);
+	}
+	
 }
 
-window.imageUploader.insertThumbnail = function(image) {
-	console.log(image);
-	
+imageUploader.insertImageInfo = function(image) {
 	var thumbnailList = $(".thumbnail-list");
 	var wrapThumbnail = wrapThumbnailTemp.clone();
 	wrapThumbnailTemp.removeClass("temp");
@@ -61,16 +75,14 @@ function removeImage(tg, editorID, pathname) {
 	$(tg).parent(".wrap-thumbnail").addClass("remove");
 	
 	var status =$(tg).parent(".wrap-thumbnail").find(".status");
-	if(status.val() == STATUS_NEW){
-		status.val(STATUS_UNNEW);
-	} else{
-		status.val(STATUS_REMOVE);	
+	if(status.val() != STATUS_NEW){
+		status.val(STATUS_REMOVE);
 	}
 	
 	updateInputValue();
 }
 
-window.imageUploader.image2JSON = function(){
+imageUploader.image2JSON = function(){
 	var images = new Array();
 	var image;
 	var wrapImages = $(".wrap-thumbnail");
@@ -92,8 +104,8 @@ window.imageUploader.image2JSON = function(){
 }
 
 function updateInputValue(){
-	var images = window.imageUploader.image2JSON();
-	var input = $("#contentImages");
+	var images = imageUploader.image2JSON();
+	var input = $("#imageValues");
 	input.val(JSON.stringify(images));
 }
 

@@ -23,9 +23,11 @@ import com.cglee079.changoos.model.StudyFileVo;
 import com.cglee079.changoos.model.StudyImageVo;
 import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.util.AuthManager;
-import com.cglee079.changoos.util.ContentImageManager;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.MyFileUtils;
+import com.cglee079.changoos.util.MyFilenameUtils;
+import com.cglee079.changoos.util.PathHandler;
+import com.cglee079.changoos.util.TempFolderManager;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -60,6 +62,20 @@ public class StudyService {
 		
 		return study;
 	}
+	
+	@Transactional
+	public StudyVo doView(List<Integer> isVisitStudies, int seq) {
+		StudyVo study = this.get(seq);
+
+		if (!isVisitStudies.contains(seq) && !AuthManager.isAdmin()) {
+			isVisitStudies.add(seq);
+			study.setHits(study.getHits() + 1);
+			studyDao.update(study);
+		}
+		
+		return study;
+	}
+	
 
 	public StudyVo getBefore(int seq, String category) {
 		return studyDao.getBefore(seq, category);
@@ -78,10 +94,10 @@ public class StudyService {
 	}
 
 	@Transactional(rollbackFor = {IllegalStateException.class, IOException.class })
-	public int insert(StudyVo study, String contentImages, List<MultipartFile> files) throws IllegalStateException, IOException {
-		List<StudyImageVo> images = new ObjectMapper().readValue(contentImages, new TypeReference<List<StudyImageVo>>(){});
+	public int insert(StudyVo study, String imageValues, List<MultipartFile> files) throws IllegalStateException, IOException {
+		List<StudyImageVo> images = new ObjectMapper().readValue(imageValues, new TypeReference<List<StudyImageVo>>(){});
 		
-		String contents = ContentImageManager.changeImagePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
+		String contents = PathHandler.changeImagePath(study.getContents(), Path.TEMP_PATH, Path.STUDY_IMAGE_PATH);
 		study.setContents(contents);
 		study.setDate(Formatter.toDate(new Date()));
 		study.setHits(0);
@@ -90,49 +106,47 @@ public class StudyService {
 		this.saveImages(seq, images);
 		this.saveFiles(seq, files);
 		
-		/**
-		//업로드 파일로 이동했음에도 불구하고, 남아있는 TEMP 폴더의 이미지 파일을 삭제.
-		//즉, 이전에 글 작성 중 작성을 취소한 경우 업로드가 되었던 이미지파일들이 삭제됨.
-		File tempDir = new File(realPath + Path.TEMP_CONTENTS_PATH);
-		File[] tempFiles = tempDir.listFiles();
-		File tempFile = null;
-		
-		for(int i = 0; i < tempFiles.length; i++) {
-			tempFile = tempFiles[i];
-			MyFileUtils.delete(tempFile);
-		}
-		**/
 		return seq;
 	}
 
-	@Transactional
-	public boolean delete(int seq) {
-		boolean result = studyDao.delete(seq);
-		
-		List<StudyFileVo> files = studyFileDao.list(seq);
-		int fileLength = files.size();
-		for (int i = 0; i < fileLength; i++) {
-			this.deleteFile(files.get(i));
-		}
-		
-		return result;
-	}
 
 	@Transactional(rollbackFor = {IllegalStateException.class, IOException.class })
 	public boolean update(StudyVo study, String contentImages, List<MultipartFile> files) throws IllegalStateException, IOException {
-		List<StudyImageVo> images = new ObjectMapper().readValue(contentImages, new TypeReference<List<StudyImageVo>>(){});
-		
-		String contents = ContentImageManager.changeImagePath(study.getContents(), Path.STUDY_CONTENTS_PATH);
+		String contents = PathHandler.changeImagePath(study.getContents(), Path.TEMP_PATH, Path.STUDY_IMAGE_PATH);
 		study.setContents(contents);
 		
-		int seq = study.getSeq();
 		boolean result = studyDao.update(study);
 		
+		List<StudyImageVo> images = new ObjectMapper().readValue(contentImages, new TypeReference<List<StudyImageVo>>(){});
+		int seq = study.getSeq();
 		this.saveImages(seq, images);
 		this.saveFiles(seq, files);
 		
 		return result;
 	}
+	
+	@Transactional
+	public boolean delete(int seq) {
+		StudyVo study = this.get(seq);
+		List<StudyFileVo> files = study.getFiles();
+		List<StudyImageVo> images = study.getImages();
+		
+		boolean result = studyDao.delete(seq); //CASECADE
+		if(result) {
+			//첨부 파일 삭제
+			for (int i = 0; i < files.size(); i++) {
+				MyFileUtils.delete(realPath + Path.STUDY_FILE_PATH, files.get(i).getPathname());
+			}
+			
+			//첨부 이미지 삭제
+			for (int i = 0; i < images.size(); i++) {
+				MyFileUtils.delete(realPath + Path.STUDY_IMAGE_PATH, images.get(i).getPathname());
+			}
+		}
+		
+		return result;
+	}
+	
 
 	public List<StudyVo> paging(Map<String, Object> params) {
 		int page = Integer.parseInt((String) params.get("page"));
@@ -165,32 +179,19 @@ public class StudyService {
 		return studies;
 	}
 
-	@Transactional
-	public StudyVo doView(List<Integer> isVisitStudies, int seq) {
-		StudyVo study = studyDao.get(seq);
-		study.setFiles(studyFileDao.list(seq));
-		study.setImages(studyImageDao.list(seq));
-
-		if (!isVisitStudies.contains(seq) && !AuthManager.isAdmin()) {
-			isVisitStudies.add(seq);
-			study.setHits(study.getHits() + 1);
-			studyDao.update(study);
-		}
-		return study;
-	}
-	
 	/***
 	 * 내용 중 이미지 첨부 관련
 	 ***/
 	private void saveImages(int studySeq, List<StudyImageVo> images) {
 		StudyImageVo image;
+		
 		for (int i = 0; i < images.size(); i++) {
 			image = images.get(i);
 			image.setStudySeq(studySeq);
 			switch(image.getStatus()) {
 			case "NEW" : //새롭게 추가된 이미지
 				String path = image.getPath();
-				String movedPath = Path.STUDY_CONTENTS_PATH;
+				String movedPath = Path.STUDY_IMAGE_PATH;
 				image.setPath(movedPath);
 				
 				if(studyImageDao.insert(image)) {
@@ -198,11 +199,7 @@ public class StudyService {
 					File existFile  = new File(realPath + path, image.getPathname());
 					File newFile	= new File(realPath + movedPath, image.getPathname());
 					MyFileUtils.move(existFile, newFile);
-					
 				}
-				break;
-			case "UNNEW" : //새롭게 추가된 이미지 중, 삭제된 이미지
-				MyFileUtils.delete(realPath + image.getPath(), image.getPathname());
 				break;
 			case "REMOVE" : //기존에 있던 이미지 중, 삭제된 이미지
 				if(studyImageDao.delete(image.getSeq())) {
@@ -210,53 +207,51 @@ public class StudyService {
 				}
 				break;
 			}
-			
 		}
+		
+		//업로드 파일로 이동했음에도 불구하고, 남아있는 TEMP 폴더의 이미지 파일을 삭제.
+		//즉, 이전에 글 작성 중 작성을 취소한 경우 업로드가 되었던 이미지파일들이 삭제됨.
+		TempFolderManager.getInstance().removeAll();
+		
 	}
 	
 	
 	/***
 	 * 첨부 파일 관련 함수
 	 ***/
-	public StudyFileVo getFile(String pathNm) {
-		return studyFileDao.get(pathNm);
-	}
-	
 	public boolean deleteFile(int fileSeq) {
 		StudyFileVo studyFile = studyFileDao.get(fileSeq);
-		return this.deleteFile(studyFile);
-	}
-	
-	private boolean deleteFile(StudyFileVo studyFile) {
-		if (studyFileDao.delete(studyFile.getSeq())) {
-			if (MyFileUtils.delete(realPath + Path.STUDY_FILE_PATH, studyFile.getPathNm())) {
+		if(studyFileDao.delete(fileSeq)) {
+			if(MyFileUtils.delete(realPath + Path.STUDY_FILE_PATH, studyFile.getPathname())) {
 				return true;
 			}
 		}
 		return false;
 	}
-
+	
 	private void saveFiles(int seq, List<MultipartFile> files) throws IllegalStateException, IOException {
 		File file = null;
 		MultipartFile multipartFile = null;
 		StudyFileVo studyFile = null;
-		String realNm = null;
-		String pathNm = null;
+		String filename = null;
+		String pathname = null;
+		String path = Path.STUDY_FILE_PATH;
 		long size = -1;
 		int length = files.size();
 		for (int i = 0; i < length; i++) {
 			multipartFile = files.get(i);
-			realNm = MyFileUtils.sanitizeRealFilename(multipartFile.getOriginalFilename());
-			pathNm = MyFileUtils.getRandomFilename(MyFileUtils.getExt(realNm));
+			filename = MyFilenameUtils.sanitizeRealFilename(multipartFile.getOriginalFilename());
+			pathname = MyFilenameUtils.getRandomFilename(MyFilenameUtils.getExt(filename));
 			size = multipartFile.getSize();
 
 			if (size > 0) {
-				file = new File(realPath + Path.STUDY_FILE_PATH, pathNm);
+				file = new File(realPath + path, pathname);
 				multipartFile.transferTo(file);
 
 				studyFile = new StudyFileVo();
-				studyFile.setPathNm(pathNm);
-				studyFile.setRealNm(realNm);
+				studyFile.setPath(path);
+				studyFile.setPathname(pathname);
+				studyFile.setFilename(filename);
 				studyFile.setSize(size);
 				studyFile.setStudySeq(seq);
 				studyFileDao.insert(studyFile);

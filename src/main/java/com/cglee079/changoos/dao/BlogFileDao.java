@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cglee079.changoos.model.BlogFileVo;
+import com.cglee079.changoos.model.StudyFileVo;
 
 @Repository
 public class BlogFileDao {
@@ -30,7 +31,7 @@ public class BlogFileDao {
 		return  sqlSession.selectOne(namespace +".get", map);
 	}
 	
-	public BlogFileVo getFile(int seq) {
+	public BlogFileVo get(int seq) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("seq", seq);
 		return  sqlSession.selectOne(namespace +".get", map);

@@ -151,7 +151,7 @@
                         // CHANGOO : 새로추가한 부분
                         var images = LoadData(autoSaveKey + "Images");
                         for(var i = 0; i < images.length; i++){
-                        	window.imageUploader.insertThumbnail(images[i]);
+                        	imageUploader.insertImageInfo(images[i]);
                         }
                         localStorage.removeItem(autoSaveKey + "Images");
                         

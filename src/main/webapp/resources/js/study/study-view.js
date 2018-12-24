@@ -51,8 +51,3 @@ function studyView(seq){
 		}
 	}
 }
-
-/* Download File */
-function downloadFile(pathNm){
-	window.location.href = getContextPath() + "/study/file/download.do?filename=" + pathNm;
-}

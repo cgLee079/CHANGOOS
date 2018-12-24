@@ -1,5 +1,7 @@
 package com.cglee079.changoos.model;
 
+import java.util.List;
+
 public class BlogVo {
 	private int seq;
 	private String snapsht;
@@ -9,7 +11,19 @@ public class BlogVo {
 	private String tag;
 	private int hits;
 	private int comtCnt;
+	private List<BlogImageVo> images;
+	private List<BlogFileVo> files;
 
+	//첨부 이미지중, 첫번째 이미지를 스냅샷으로
+	public String extractSnapsht() {
+		//스냅샷 없을 경우, 설정하기
+		if(snapsht == null && images != null && images.size() > 0) {
+			BlogImageVo image = images.get(0);
+			snapsht = image.getPath() + image.getPathname();
+		}
+		return snapsht; 
+	}
+	
 	public int getSeq() {
 		return seq;
 	}
@@ -74,4 +88,20 @@ public class BlogVo {
 		this.comtCnt = comtCnt;
 	}
 
+	public List<BlogImageVo> getImages() {
+		return images;
+	}
+
+	public void setImages(List<BlogImageVo> images) {
+		this.images = images;
+	}
+
+	public List<BlogFileVo> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<BlogFileVo> files) {
+		this.files = files;
+	}
+	
 }

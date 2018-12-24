@@ -41,12 +41,12 @@ import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.model.ProjectFileVo;
 import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.service.ProjectService;
-import com.cglee079.changoos.util.ContentImageManager;
+import com.cglee079.changoos.util.PathHandler;
 import com.cglee079.changoos.util.MyFileUtils;
 import com.google.gson.Gson;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({FileUtils.class, MyFileUtils.class, ContentImageManager.class})
+@PrepareForTest({FileUtils.class, MyFileUtils.class, PathHandler.class})
 @WebAppConfiguration
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/appServlet/**-context.xml")
 public class ProjectControllerTest {
@@ -63,7 +63,7 @@ public class ProjectControllerTest {
 		MockitoAnnotations.initMocks(this);
 		mockMvc = MockMvcBuilders.standaloneSetup(projectController).build();
 		
-		PowerMockito.mockStatic(ContentImageManager.class);
+		PowerMockito.mockStatic(PathHandler.class);
 	}
 	
 	@Test
@@ -161,7 +161,7 @@ public class ProjectControllerTest {
 		cProject.setFiles(files);
 		
 		when(projectService.get(seq)).thenReturn(cProject);
-		when(ContentImageManager.copyToTempPath(cProject.getContents(), Path.PROJECT_CONTENTS_PATH)).thenReturn(newContents);
+		when(PathHandler.copyToTempPath(cProject.getContents(), Path.PROJECT_IMAGE_PATH)).thenReturn(newContents);
 		
 		mockMvc.perform(get("/mgnt/project/upload").param("seq", String.valueOf(seq)))
 		.andExpect(status().isOk())
@@ -197,7 +197,7 @@ public class ProjectControllerTest {
 		
 		when(projectService.saveSnapsht(any(ProjectVo.class), eq(snapshtFile))).thenReturn(snaphtPath);
 		when(projectService.insert(any(ProjectVo.class), anyObject(), anyObject())).thenReturn(seq);
-		when(ContentImageManager.changeImagePath(contents, Path.PROJECT_CONTENTS_PATH)).thenReturn(newContents);
+		when(PathHandler.changeImagePath(contents, Path.PROJECT_IMAGE_PATH)).thenReturn(newContents);
 		
 		mockMvc.perform(fileUpload("/mgnt/project/upload.do")
 			.file(snapshtFile)
@@ -221,7 +221,7 @@ public class ProjectControllerTest {
 		
 		when(projectService.saveSnapsht(any(ProjectVo.class), eq(snapshtFile))).thenReturn(snaphtPath);
 		when(projectService.insert(any(ProjectVo.class), anyObject(), anyObject())).thenReturn(seq);
-		when(ContentImageManager.changeImagePath(contents, Path.PROJECT_CONTENTS_PATH)).thenReturn(newContents);
+		when(PathHandler.changeImagePath(contents, Path.PROJECT_IMAGE_PATH)).thenReturn(newContents);
 		
 		mockMvc.perform(fileUpload("/project/upload.do")
 			.file(snapshtFile)

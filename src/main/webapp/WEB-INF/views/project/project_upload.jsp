@@ -4,8 +4,10 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/project/project-upload.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-fileupload.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-imageupload.css"/>
 <script src="${pageContext.request.contextPath}/resources/js/project/project-upload.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-fileupload.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/included/included-imageupload.js"></script>
 </head>
 
 <body>
@@ -74,6 +76,15 @@
 						<textarea name="contents" id="contents" class="ckeditor-autosave">
 							<c:out value="${project.contents}" escapeXml="false"/>
 						</textarea>
+					</div>
+				</div>
+				
+				<div class="upload-project">
+					<div class="upload-project-name">이미지</div>
+					<div class="upload-project-input">
+						<c:import url="../included/included_imageupload.jsp" charEncoding="UTF-8">
+							<c:param name="editor" value="contents"/>
+						</c:import>
 					</div>
 				</div>
 				

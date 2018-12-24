@@ -39,11 +39,11 @@ import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.model.StudyFileVo;
 import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.service.StudyService;
-import com.cglee079.changoos.util.ContentImageManager;
+import com.cglee079.changoos.util.PathHandler;
 import com.google.gson.Gson;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ContentImageManager.class})
+@PrepareForTest({PathHandler.class})
 @WebAppConfiguration
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/appServlet/**-context.xml")
 public class StudyControllerTest {
@@ -51,7 +51,7 @@ public class StudyControllerTest {
 	private StudyService studyService;
 
 	@Mock
-	private ContentImageManager commonService;
+	private PathHandler commonService;
 
 	@InjectMocks
 	private StudyController studyController;
@@ -63,7 +63,7 @@ public class StudyControllerTest {
 		MockitoAnnotations.initMocks(this);
 		mockMvc = MockMvcBuilders.standaloneSetup(studyController).build();
 		
-		PowerMockito.mockStatic(ContentImageManager.class);
+		PowerMockito.mockStatic(PathHandler.class);
 	}
 	
 	@Test
@@ -179,7 +179,7 @@ public class StudyControllerTest {
 		study.setFiles(files);
 		
 		when(studyService.get(seq)).thenReturn(study);
-		when(ContentImageManager.copyToTempPath(study.getContents(), Path.STUDY_CONTENTS_PATH)).thenReturn(newContents);
+		when(PathHandler.copyToTempPath(study.getContents(), Path.STUDY_IMAGE_PATH)).thenReturn(newContents);
 		
 		mockMvc.perform(get("/mgnt/study/upload")
 				.param("seq", String.valueOf(seq)))
@@ -199,7 +199,7 @@ public class StudyControllerTest {
 		StudyVo study = mock(StudyVo.class);
 		study.setContents(contents);
 		
-		when(ContentImageManager.changeImagePath(study.getContents(), Path.STUDY_CONTENTS_PATH)).thenReturn(newcontents);
+		when(PathHandler.changeImagePath(study.getContents(), Path.STUDY_IMAGE_PATH)).thenReturn(newcontents);
 		when(studyService.insert(any(StudyVo.class), anyObject())).thenReturn(seq);
 		
 		mockMvc.perform(fileUpload("/mgnt/study/upload.do")
@@ -217,7 +217,7 @@ public class StudyControllerTest {
 		StudyVo study = mock(StudyVo.class);
 		study.setContents(contents);
 		
-		when(ContentImageManager.changeImagePath(study.getContents(), Path.STUDY_CONTENTS_PATH)).thenReturn(newcontents);
+		when(PathHandler.changeImagePath(study.getContents(), Path.STUDY_IMAGE_PATH)).thenReturn(newcontents);
 		when(studyService.insert(any(StudyVo.class), anyObject())).thenReturn(seq);
 		
 		mockMvc.perform(fileUpload("/mgnt/study/upload.do")

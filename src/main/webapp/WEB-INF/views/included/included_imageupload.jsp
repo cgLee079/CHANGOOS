@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div>
-	<input type="hidden" id="contentImages" name="contentImages">
+	<input type="hidden" id="imageValues" name="imageValues">
 	<div class="image-upload" onclick="openImageUploadPopup('${param.editor}')">사진올리기</div>
 	<div class="thumbnail-list">
 		<div class="wrap-thumbnail temp">

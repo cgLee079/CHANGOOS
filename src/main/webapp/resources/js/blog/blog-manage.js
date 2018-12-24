@@ -6,7 +6,7 @@ $(document).ready(function(){
 /* Datagrid Initialize */
 function fn_onInitDataGrid(){
 	$('#dg').datagrid({
-		url: getContextPath() + '/mgnt/blog/list.do',
+		url: getContextPath() + '/mgnt/blog/paging',
 		method: 'post',
 		singleSelect: true,
 		remoteSort: true,

@@ -3,8 +3,9 @@ package com.cglee079.changoos.model;
 public class BlogFileVo {
 	private int seq;
 	private int blogSeq;
-	private String pathNm;
-	private String realNm;
+	private String path;
+	private String pathname;
+	private String filename;
 	private long size;
 
 	public int getSeq() {
@@ -23,20 +24,28 @@ public class BlogFileVo {
 		this.blogSeq = blogSeq;
 	}
 
-	public String getPathNm() {
-		return pathNm;
+	public String getPath() {
+		return path;
 	}
 
-	public void setPathNm(String pathNm) {
-		this.pathNm = pathNm;
+	public void setPath(String path) {
+		this.path = path;
 	}
 
-	public String getRealNm() {
-		return realNm;
+	public String getPathname() {
+		return pathname;
 	}
 
-	public void setRealNm(String realNm) {
-		this.realNm = realNm;
+	public void setPathname(String pathname) {
+		this.pathname = pathname;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 	public long getSize() {

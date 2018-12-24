@@ -2,10 +2,13 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-fileupload.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/blog/blog-upload.css"/>
-<script src="${pageContext.request.contextPath}/resources/js/included/included-fileupload.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-fileupload.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-imageupload.css"/>
 <script src="${pageContext.request.contextPath}/resources/js/blog/blog-upload.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/included/included-fileupload.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/included/included-imageupload.js"></script>
+
 <body>
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8"/>
@@ -49,6 +52,16 @@
 				</div>
 				
 				<div class="blog-upload-item">
+					<div class="item-name">내용</div>
+					<div class="item-input">
+						<c:import url="../included/included_imageupload.jsp" charEncoding="UTF-8">
+							<c:param name="editor" value="blog-contents"/>
+						</c:import>
+					</div>
+				</div>
+				
+				
+				<div class="blog-upload-item">
 					<div class="item-name">첨부파일</div>
 					<div class="item-input">
 						<c:import url="../included/included_fileupload.jsp" charEncoding="UTF-8">
@@ -67,6 +80,7 @@
 				
 			</form>
 		</div>
+		
 		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8" />
 	</div>
 </body>

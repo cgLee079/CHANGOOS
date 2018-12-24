@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.service.ImageUploadService;
-import com.cglee079.changoos.util.ContentImageManager;
+import com.cglee079.changoos.util.PathHandler;
 
 @Controller
 public class ImageUploadController {
@@ -35,7 +35,7 @@ public class ImageUploadController {
 		String pathname= imageUploadService.saveContentImage(filename, base64);
 		
 		JSONObject result = new JSONObject();
-		result.put("path", Path.TEMP_CONTENTS_PATH);
+		result.put("path", Path.TEMP_PATH);
 		result.put("filename", filename);
 		result.put("pathname", pathname);
 		
@@ -49,11 +49,11 @@ public class ImageUploadController {
 		String pathname = imageUploadService.saveContentImage(base64);
 		
 		JSONObject result = new JSONObject();
-		result.put("path", Path.TEMP_CONTENTS_PATH);
+		result.put("path", Path.TEMP_PATH);
 		result.put("filename", pathname);
 		result.put("pathname", pathname);
 		
-		request.setAttribute("path", Path.TEMP_CONTENTS_PATH);
+		request.setAttribute("path", Path.TEMP_PATH);
 		return result.toString();
 	}
 	

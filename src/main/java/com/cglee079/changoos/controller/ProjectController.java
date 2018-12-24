@@ -24,7 +24,7 @@ import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.model.ProjectFileVo;
 import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.service.ProjectService;
-import com.cglee079.changoos.util.MyFileUtils;
+import com.cglee079.changoos.util.MyFilenameUtils;
 import com.google.gson.Gson;
 
 @Controller
@@ -56,27 +56,6 @@ public class ProjectController {
 		return "project/project_view";
 	}
 
-	/** 프로젝트 파일 다운로드 **/
-	@RequestMapping("/project/file/download.do")
-	public void projectDoFiledownload(HttpSession session, HttpServletRequest request, HttpServletResponse response,
-			String filename) throws IOException {
-		String realPath = session.getServletContext().getRealPath("");
-		ProjectFileVo projectFile = projectService.getFile(filename);
-
-		File file = new File(realPath + Path.PROJECT_FILE_PATH, projectFile.getPathNm());
-		byte fileByte[] = FileUtils.readFileToByteArray(file);
-
-		if (file.exists()) {
-			response.setContentType("application/octet-stream");
-			response.setContentLength(fileByte.length);
-			response.setHeader("Content-Disposition", "attachment; fileName=\"" + MyFileUtils.encodeFilename(request, projectFile.getRealNm()) + "\";");
-			response.setHeader("Content-Transfer-Encoding", "binary");
-			response.getOutputStream().write(fileByte);
-			response.getOutputStream().flush();
-			response.getOutputStream().close();
-		}
-	}
-
 	/** 프로젝트 관리자 페이지 이동 **/
 	@RequestMapping(value = "/mgnt/project")
 	public String projectManage(Model model) {
@@ -105,23 +84,24 @@ public class ProjectController {
 
 		model.addAttribute("project", project);
 		model.addAttribute("files", project.getFiles());
-
+		model.addAttribute("images", project.getImages());
+		
 		return "project/project_upload";
 	}
 
 	/** 프로젝트 업로드 **/
 	@RequestMapping(value = "/mgnt/project/upload.do", method = RequestMethod.POST, params = "!seq")
-	public String projectDoUpload(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile,
+	public String projectDoUpload(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, String imageValues,
 			@RequestParam("file") List<MultipartFile> files) throws IllegalStateException, IOException {
-		int seq = projectService.insert(project, snapshtFile, files);
+		int seq = projectService.insert(project, snapshtFile, imageValues, files);
 		return "redirect:" + "/project/view?seq=" + seq;
 	}
 
 	/** 프로젝트 수정 **/
 	@RequestMapping(value = "/mgnt/project/upload.do", method = RequestMethod.POST, params = "seq")
-	public String projectDoModify(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile,
+	public String projectDoModify(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, String imageValues,
 			@RequestParam("file") List<MultipartFile> files) throws IllegalStateException, IOException {
-		projectService.update(project, snapshtFile, files);
+		projectService.update(project, snapshtFile, imageValues, files);
 		return "redirect:" + "/project/view?seq=" + project.getSeq();
 	}
 

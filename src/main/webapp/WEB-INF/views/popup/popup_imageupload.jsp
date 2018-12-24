@@ -56,7 +56,7 @@ function removeImage(tg){
 function doUpload(){
 	var wrapImages = $(".wrap-image");
 	var editorID =  $("#editor").val();
-	var width = $("#width").val();
+	var maxWidth = $("#width").val();
 	
 	for(var i = 0; i < wrapImages.length; i++){
 		//Editor에 이미지 첨부
@@ -72,8 +72,8 @@ function doUpload(){
 		var path = wrapImage.find(".path").val();
 		var pathname = wrapImage.find(".pathname").val();
 		var filename = wrapImage.find(".filename").val();
-		opener.imageUploader.insertCKEditor(editorID, path, pathname, filename, width);
-		opener.imageUploader.insertThumbnail(image);
+		opener.imageUploader.insertCKEditor(image, maxWidth);
+		opener.imageUploader.insertImageInfo(image);
 	}
 	
 

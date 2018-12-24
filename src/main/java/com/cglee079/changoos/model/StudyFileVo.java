@@ -3,8 +3,9 @@ package com.cglee079.changoos.model;
 public class StudyFileVo {
 	private int seq;
 	private int studySeq;
-	private String pathNm;
-	private String realNm;
+	private String path;
+	private String pathname;
+	private String filename;
 	private long size;
 
 	public int getSeq() {
@@ -23,24 +24,32 @@ public class StudyFileVo {
 		this.studySeq = studySeq;
 	}
 
-	public String getPathNm() {
-		return pathNm;
-	}
-
-	public void setPathNm(String pathNm) {
-		this.pathNm = pathNm;
-	}
-
-	public String getRealNm() {
-		return realNm;
-	}
-
-	public void setRealNm(String realNm) {
-		this.realNm = realNm;
-	}
-
 	public long getSize() {
 		return size;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getPathname() {
+		return pathname;
+	}
+
+	public void setPathname(String pathname) {
+		this.pathname = pathname;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 	public void setSize(long size) {

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.util.ImageManager;
-import com.cglee079.changoos.util.MyFileUtils;
+import com.cglee079.changoos.util.MyFilenameUtils;
 
 @Service
 public class ImageUploadService {
@@ -22,13 +22,13 @@ public class ImageUploadService {
 	private String realPath;
 	
 	public String saveContentImage(String filename, String base64) throws IOException {
-		String ImageExt = MyFileUtils.getExt(filename);
-		String pathname = MyFileUtils.getRandomFilename(ImageExt);
+		String ImageExt = MyFilenameUtils.getExt(filename);
+		String pathname = MyFilenameUtils.getRandomImagename(ImageExt);
 
 		base64 = base64.split(",")[1];
 		byte[] imageBytes = DatatypeConverter.parseBase64Binary(base64);
 		BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
-		File file = new File(realPath + Path.TEMP_CONTENTS_PATH, pathname);
+		File file = new File(realPath + Path.TEMP_PATH, pathname);
 		ImageIO.write(bufImg, ImageExt, file);
 
 		if (!ImageExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {

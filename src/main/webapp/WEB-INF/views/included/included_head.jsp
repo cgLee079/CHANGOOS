@@ -97,5 +97,16 @@ $(document).ready(function(){
 
 })
 
+/* Download File */
+function downloadFile(path, pathname, filename){
+	var href = getContextPath()
+		+ "/file/download.do?"
+		+ "path=" + path
+		+ "&pathname=" + pathname
+		+ "&filename=" + filename;
+		
+	window.location.href = href;
+}
+
 
 </script>

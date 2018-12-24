@@ -13,6 +13,7 @@ public class ProjectVo {
 	private String developer;
 	private int hits;
 	private int comtCnt;
+	private List<ProjectImageVo> images;
 	private List<ProjectFileVo> files;
 
 	public int getSeq() {
@@ -93,6 +94,14 @@ public class ProjectVo {
 
 	public void setComtCnt(int comtCnt) {
 		this.comtCnt = comtCnt;
+	}
+
+	public List<ProjectImageVo> getImages() {
+		return images;
+	}
+
+	public void setImages(List<ProjectImageVo> images) {
+		this.images = images;
 	}
 
 	public List<ProjectFileVo> getFiles() {

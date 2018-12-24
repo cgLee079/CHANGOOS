@@ -1,16 +1,12 @@
 package com.cglee079.changoos.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cglee079.changoos.constants.Path;
-import com.cglee079.changoos.model.StudyFileVo;
 import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.service.StudyService;
-import com.cglee079.changoos.util.MyFileUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 
@@ -82,27 +75,6 @@ public class StudyController {
 		return "study/study_view";
 	}
 	
-	/** 파일 다운로드 **/
-	@RequestMapping("/study/file/download.do")
-	public void  download(HttpSession session, HttpServletRequest request, HttpServletResponse response, String filename) throws IOException{
-		String rootPath = session.getServletContext().getRealPath("");
-		StudyFileVo studyFile = studyService.getFile(filename);
-		
-		File file = new File(rootPath + Path.STUDY_FILE_PATH, studyFile.getPathNm());
-		byte fileByte[] = FileUtils.readFileToByteArray(file);
-		
-		if(file.exists()){
-			response.setContentType("application/octet-stream");
-		    response.setContentLength(fileByte.length);
-		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + MyFileUtils.encodeFilename(request, studyFile.getRealNm()) + "\";");
-		    response.setHeader("Content-Transfer-Encoding", "binary");
-		    response.getOutputStream().write(fileByte);
-		     
-		    response.getOutputStream().flush();
-		    response.getOutputStream().close();
-		}
-	}
-	
 	/** 공부 관리 페이지로 이동 **/
 	@RequestMapping(value = "/mgnt/study")
 	public String studyManage(Model model) {
@@ -137,15 +109,15 @@ public class StudyController {
 	 
 	/** 공부 업로드  **/
 	@RequestMapping(value = "/mgnt/study/upload.do", method = RequestMethod.POST, params = "!seq")
-	public String studyDoUpload(HttpSession session, Model model, StudyVo study, @RequestParam("contentImages")String contentImages, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
-		int seq = studyService.insert(study, contentImages, files);
+	public String studyDoUpload(HttpSession session, Model model, StudyVo study, String imageValues, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
+		int seq = studyService.insert(study, imageValues, files);
 		return "redirect:" + "/study/view?seq=" + seq;
 	}
 	
 	/** 공부 수정 **/
 	@RequestMapping(value = "/mgnt/study/upload.do", method = RequestMethod.POST, params = "seq")
-	public String studyDoModify(HttpSession session, Model model, StudyVo study,  @RequestParam("contentImages")String contentImages, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
-		boolean result = studyService.update(study,contentImages, files);
+	public String studyDoModify(HttpSession session, Model model, StudyVo study, String imageValues, @RequestParam("file")List<MultipartFile> files) throws SQLException, IllegalStateException, IOException{
+		boolean result = studyService.update(study,imageValues, files);
 		return "redirect:" + "/study/view?seq=" + study.getSeq();
 	}
 	

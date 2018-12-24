@@ -49,7 +49,7 @@
 				<div class="study-upload-item">
 					<div class="item-name">이미지</div>
 					<div class="item-input">
-						<c:import url="../included/included-imageupload.jsp" charEncoding="UTF-8">
+						<c:import url="../included/included_imageupload.jsp" charEncoding="UTF-8">
 							<c:param name="editor" value="study-contents"/>
 						</c:import>
 					</div>

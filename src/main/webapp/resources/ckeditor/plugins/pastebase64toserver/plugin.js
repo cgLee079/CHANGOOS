@@ -88,8 +88,6 @@
 							        }
 							    }
 							    
-							    editor.insertElement(element);
-							    console.log(editor);
 							    var image = {
 										"editorID": editor.name, 
 										"seq" : undefined,
@@ -99,7 +97,8 @@
 										"status" : "NEW",
 								}
 							    
-							    window.imageUploader.insertThumbnail(image);
+							    imageUploader.insertCKEditor(image, "720");
+							    imageUploader.insertImageInfo(image);
 							    
 							}, 10);
 							
