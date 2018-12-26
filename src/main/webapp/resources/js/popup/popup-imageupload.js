@@ -5,19 +5,27 @@ $(document).ready(function() {
 	$(".wrap-image").remove();
 })
 
-function sendImage(base64, filename) {
+function sendImage(file) {
 	return new Promise(function(resolve, reject) {
+		var formData = new FormData(); 	
+		formData.append("image", file);
+		
 		$.ajax({
 			type : "post",
 			url : getContextPath() + "/mgnt/image/upload.do",
 			dataType : "JSON",
 			async : false,
-			data : {
-				"base64" : base64,
-				"filename" : filename
+			contentType: false,
+			processData: false,
+			data : formData,
+			beforeSend : function(){
+				Progress.start();
 			},
 			success : function(result) {
 				resolve(result);
+			},
+			complete : function(){
+				Progress.stop();
 			}
 		})
 	});
@@ -27,25 +35,18 @@ function onImageChange() {
 	files = $('#images').prop('files');
 	for (var i = 0; i < files.length; i++) {
 		var file = files[i];
-		var fileReader = new FileReader();
-		fileReader.onload = function(file) {
-			return function(evt) {
-				var base64 = evt.target.result;
-				sendImage(base64, file.name).then(function(result) {
-					var path = result.path;
-					var pathname = result.pathname;
-					var filename = result.filename;
-					var wrapImage = wrapImageTemp.clone();
-					wrapImage.appendTo($(".image-list"));
-					wrapImage.find(".image").attr("src", path + pathname);
-					wrapImage.find(".path").val(path);
-					wrapImage.find(".filename").val(filename);
-					wrapImage.find(".pathname").val(pathname);
-				})
-			}
-		}(file);
-
-		fileReader.readAsDataURL(files[i]);
+		(function(file) {
+			sendImage(file).then(function(result) {
+				var path = result.path;
+				var pathname = result.pathname;
+				var wrapImage = wrapImageTemp.clone();
+				wrapImage.appendTo($(".image-list"));
+				wrapImage.find(".image").attr("src", path + pathname);
+				wrapImage.find(".path").val(path);
+				wrapImage.find(".filename").val(file.name);
+				wrapImage.find(".pathname").val(pathname);
+			})
+		})(file);
 	}
 }
 

@@ -1,3 +1,12 @@
+#imageFile{
+	display: none;
+}
+
+#snapshot{
+	cursor : pointer;
+	background: #EEE;
+}
+
 .wrap-upload-form{
 	width : 90%;
 	margin: 0px auto;

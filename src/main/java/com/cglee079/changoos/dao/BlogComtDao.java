@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cglee079.changoos.model.BlogComtVo;
+import com.cglee079.changoos.model.ComtVo;
 
 @Repository
 public class BlogComtDao {
@@ -16,13 +16,13 @@ public class BlogComtDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public List<BlogComtVo> list() {
+	public List<ComtVo> list() {
 		return sqlSession.selectList(namespace +".list");
 	}
 
-	public List<BlogComtVo> list(int blogSeq, int startRow, int perPgLine) {
+	public List<ComtVo> list(int blogSeq, int startRow, int perPgLine) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("blogSeq", blogSeq);
+		map.put("boardSeq", blogSeq);
 		map.put("startRow", startRow);
 		map.put("perPgLine", perPgLine);
 		return sqlSession.selectList(namespace +".list", map);
@@ -30,11 +30,11 @@ public class BlogComtDao {
 
 	public int count(int blogSeq) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("blogSeq", blogSeq);
+		map.put("boardSeq", blogSeq);
 		return sqlSession.selectOne(namespace +".count", map);
 	}
 
-	public boolean insert(BlogComtVo bcomt) {
+	public boolean insert(ComtVo bcomt) {
 		return sqlSession.insert(namespace + ".insert", bcomt) == 1;
 	}
 
@@ -42,7 +42,7 @@ public class BlogComtDao {
 		return sqlSession.delete(namespace + ".delete", seq) == 1;
 	}
 
-	public BlogComtVo get(int seq) {
+	public ComtVo get(int seq) {
 		return sqlSession.selectOne(namespace +".get", seq);
 	}
 	

@@ -10,6 +10,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.util.ImageManager;
@@ -21,8 +22,8 @@ public class ImageUploadService {
 	@Value("#{servletContext.getRealPath('/')}")
 	private String realPath;
 	
-	public String saveContentImage(String filename, String base64) throws IOException {
-		String ImageExt = MyFilenameUtils.getExt(filename);
+	public String saveContentImage(String base64) throws IOException {
+		String ImageExt = ".PNG";
 		String pathname = MyFilenameUtils.getRandomImagename(ImageExt);
 
 		base64 = base64.split(",")[1];
@@ -32,15 +33,29 @@ public class ImageUploadService {
 		ImageIO.write(bufImg, ImageExt, file);
 
 		if (!ImageExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
-			BufferedImage image = ImageManager.getLowScaledImage(file, 720, ImageExt);
+			ImageManager imageManager = ImageManager.getInstance();
+			BufferedImage image = imageManager.getLowScaledImage(file, 720, ImageExt);
 			ImageIO.write(image, ImageExt, file);
 		}
 
 		return pathname;
 	}
 	
-	public String saveContentImage(String base64) throws IOException {
-		return this.saveContentImage("TEMP.PNG", base64);
-	}
+	public String saveContentImage(MultipartFile multipartFile) throws IOException {
+		String filename = multipartFile.getOriginalFilename();
+		String ImageExt = MyFilenameUtils.getExt(filename);
+		String pathname = MyFilenameUtils.getRandomImagename(ImageExt);
 
+		File file = new File(realPath + Path.TEMP_IMAGE_PATH, pathname);
+		multipartFile.transferTo(file);
+
+		if (!ImageExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
+			ImageManager imageManager = ImageManager.getInstance();
+			BufferedImage image = imageManager.getLowScaledImage(file, 720, ImageExt);
+			ImageIO.write(image, ImageExt, file);
+		}
+
+		return pathname;
+	}
+	
 }

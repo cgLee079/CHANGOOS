@@ -5,10 +5,13 @@
 	border: 0.5px solid #CCC;
 	padding: 7px;
 	margin-bottom : 5px;
-	font-size: 0.75rem;
 }
 
 .file-infos .file-info.temp{
+	display: none;
+}
+
+.file-infos .file-info.remove{
 	display: none;
 }
 

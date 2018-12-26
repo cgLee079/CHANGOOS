@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cglee079.changoos.model.StudyComtVo;
+import com.cglee079.changoos.model.ComtVo;
 
 @Repository
 public class StudyComtDao {
@@ -16,13 +16,13 @@ public class StudyComtDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public List<StudyComtVo> list() {
+	public List<ComtVo> list() {
 		return sqlSession.selectList(namespace +".list");
 	}
 
-	public List<StudyComtVo> list(int studySeq, int startRow, int perPgLine) {
+	public List<ComtVo> list(int studySeq, int startRow, int perPgLine) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("studySeq", studySeq);
+		map.put("boardSeq", studySeq);
 		map.put("startRow", startRow);
 		map.put("perPgLine", perPgLine);
 		return sqlSession.selectList(namespace +".list", map);
@@ -30,11 +30,11 @@ public class StudyComtDao {
 
 	public int count(int studySeq) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("studySeq", studySeq);
+		map.put("boardSeq", studySeq);
 		return sqlSession.selectOne(namespace +".count", map);
 	}
 
-	public boolean insert(StudyComtVo bcomt) {
+	public boolean insert(ComtVo bcomt) {
 		return sqlSession.insert(namespace + ".insert", bcomt) == 1;
 	}
 
@@ -42,7 +42,7 @@ public class StudyComtDao {
 		return sqlSession.delete(namespace + ".delete", seq) == 1;
 	}
 
-	public StudyComtVo get(int seq) {
+	public ComtVo get(int seq) {
 		return sqlSession.selectOne(namespace +".get", seq);
 	}
 	

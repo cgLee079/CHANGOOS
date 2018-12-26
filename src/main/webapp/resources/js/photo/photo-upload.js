@@ -1,32 +1,65 @@
-$(document).ready(function(){
+$(document).ready(function() {
 	doMenuOn(".menu-mgnt-photo");
-	
+
 	initDescCKEditor();
-	
+
 	/* CKEditor initialize */
-	function initDescCKEditor(){
+	function initDescCKEditor() {
 		var editor = CKEDITOR.replace("desc", {
 			on : {
-				instanceReady : function( ev ){
-				    // Output paragraphs as <p>Text</p>.
-				    this.dataProcessor.writer.setRules( 'p',
-				        {
-				            indent : false,
-				            breakBeforeOpen : true,
-				            breakAfterOpen : false,
-				            breakBeforeClose : false,
-				            breakAfterClose : true
-				        });
+				instanceReady : function(ev) {
+					// Output paragraphs as <p>Text</p>.
+					this.dataProcessor.writer.setRules('p', {
+						indent : false,
+						breakBeforeOpen : true,
+						breakAfterOpen : false,
+						breakBeforeClose : false,
+						breakAfterClose : true
+					});
 				}
 			},
 			toolbar : "Basic"
 		});
 
-		CKEDITOR.on( 'instanceReady', function( ev ) {
-			  // Ends self closing tags the HTML4 way, like <br>.
-			  ev.editor.dataProcessor.writer.selfClosingEnd = '/>';
-	    });
-		
+		CKEDITOR.on('instanceReady', function(ev) {
+			// Ends self closing tags the HTML4 way, like <br>.
+			ev.editor.dataProcessor.writer.selfClosingEnd = '/>';
+		});
+
 	}
 })
 
+function onPhotoChnage(tg) {
+	var file = tg.files[0];
+	
+	var formData = new FormData(); 	
+	formData.append("image", file);
+	
+	$.ajax({
+		type : "post",
+		url : getContextPath() + "/mgnt/photo/image/upload.do",
+		dataType : "JSON",
+		async : true,
+		contentType: false,
+		processData: false,
+		data : formData,
+		beforeSend : function(){
+			Progress.start();
+		},
+		success : function(photo) {
+			$("#filename").val(photo.filename);
+			$("#photoPath").val(photo.photoPath);
+			$("#photoPathname").val(photo.photoPathname);
+			$("#snapshotPath").val(photo.snapshotPath);
+			$("#snapshotPathname").val(photo.snapshotPathname);
+			$("#date").val(photo.date);
+			$("#time").val(photo.time);
+			$("#device").val(photo.device);
+			
+			$("#snapshot").attr("src", photo.snapshotPath + photo.snapshotPathname)
+		},
+		complete : function(){
+			Progress.stop();
+		},
+	})
+}

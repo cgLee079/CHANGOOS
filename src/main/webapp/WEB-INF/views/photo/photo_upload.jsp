@@ -16,15 +16,20 @@
 				method="post" enctype="multipart/form-data">
 				
 				<c:if test="${not empty photo}">
-					<input type="hidden" name="seq" value="<c:out value='${photo.seq}'/>"/>
-					<input type="hidden" name="image" value="<c:out value='${photo.image}'/>"/>
-					<input type="hidden" name="snapsht" value="<c:out value='${photo.snapsht}'/>"/>
+					<input type="hidden" id="seq" name="seq" value="<c:out value='${photo.seq}'/>"/>
 				</c:if>
+				
+				<input type="hidden" id="filename" name="filename" value="<c:out value='${photo.filename}'/>"/>
+				<input type="hidden" id="photoPath" name="photoPath" value="<c:out value='${photo.photoPath}'/>"/>
+				<input type="hidden" id="photoPathname" name="photoPathname" value="<c:out value='${photo.photoPathname}'/>"/>
+				<input type="hidden" id="snapshotPath" name="snapshotPath" value="<c:out value='${photo.snapshotPath}'/>"/>
+				<input type="hidden" id="snapshotPathname" name="snapshotPathname" value="<c:out value='${photo.snapshotPathname}'/>"/>
 				
 				<div class="upload-item">
 					<div class="upload-item-name">사진</div>
 					<div class="upload-item-input">
-						<input type="file" id="imageFile" name="imageFile" class="photo-image" accept="image/*"/>
+						<img id="snapshot" onclick="$(this).siblings('#imageFile').click();" src="<c:out value='${photo.snapshotPath}${photo.snapshotPathname}'/>" height="150">
+						<input type="file" id="imageFile" name="imageFile" class="photo-image" accept="image/*" onchange="onPhotoChnage(this)"/>
 					</div>
 				</div>
 				
@@ -45,7 +50,7 @@
 				<div class="upload-item">
 					<div class="upload-item-name">촬영시간</div>
 					<div class="upload-item-input">
-						<input type="text" id="time" name="time" class="photo-date" value="<c:out value='${photo.time}'/>"/>
+						<input type="text" id="time" name="time" class="photo-time" value="<c:out value='${photo.time}'/>"/>
 					</div>
 				</div>
 				

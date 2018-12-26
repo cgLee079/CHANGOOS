@@ -8,53 +8,53 @@
 		SELECT
 			count(*)
 		FROM TB_CHANGOOS_STUDY_COMT
-		WHERE SCOMT_STUDY_SEQ = #{studySeq}
+		WHERE STUDY_SEQ = #{boardSeq}
 	</select>
 	
-	<select id="list" resultType="com.cglee079.changoos.model.StudyComtVo" parameterType="map">
+	<select id="list" resultType="com.cglee079.changoos.model.ComtVo" parameterType="map">
 		SELECT
-		SCOMT_SEQ as "seq",
-		SCOMT_STUDY_SEQ as "studySeq",
-		SCOMT_NAME as "name",
-		SCOMT_PWD as "password",
-		SCOMT_CONTENTS as "contents",
-		SCOMT_DATE as "date",
-		SCOMT_PARENT_SEQ as "parentSeq"
+		COMT_SEQ as "seq",
+		STUDY_SEQ as "boardSeq",
+		COMT_USERNAME as "username",
+		COMT_PWD as "password",
+		COMT_CONTENTS as "contents",
+		COMT_DATE as "date",
+		PARENT_COMT as "parentComt"
 		FROM TB_CHANGOOS_STUDY_COMT
-		WHERE SCOMT_STUDY_SEQ = #{studySeq}
-		ORDER BY CONCAT(IF(SCOMT_PARENT_SEQ is null, COALESCE(SCOMT_PARENT_SEQ, ''), CONCAT('_', LPAD(SCOMT_PARENT_SEQ,6,'0')) ), '_',LPAD(SCOMT_SEQ,6,'0'))
+		WHERE STUDY_SEQ = #{boardSeq}
+		ORDER BY CONCAT(IF(PARENT_COMT is null, COALESCE(PARENT_COMT, ''), CONCAT('_', LPAD(PARENT_COMT,6,'0')) ), '_',LPAD(COMT_SEQ,6,'0'))
 		LIMIT #{startRow}, #{perPgLine}
 	</select>
 	
-	<select id="get" resultType="com.cglee079.changoos.model.StudyComtVo" parameterType="Integer">
+	<select id="get" resultType="com.cglee079.changoos.model.ComtVo" parameterType="Integer">
 		SELECT
-		SCOMT_SEQ as "seq",
-		SCOMT_STUDY_SEQ as "studySeq",
-		SCOMT_NAME as "name",
-		SCOMT_PWD as "password",
-		SCOMT_CONTENTS as "contents",
-		SCOMT_DATE as "DATE",
-		SCOMT_PARENT_SEQ as "parentSeq"
+		COMT_SEQ as "seq",
+		STUDY_SEQ as "boardSeq",
+		COMT_USERNAME as "username",
+		COMT_PWD as "password",
+		COMT_CONTENTS as "contents",
+		COMT_DATE as "DATE",
+		PARENT_COMT as "parentComt"
 		FROM TB_CHANGOOS_STUDY_COMT
-		WHERE SCOMT_SEQ = #{seq}
+		WHERE COMT_SEQ = #{seq}
 	</select>
 	
 	<insert id="insert">
 		INSERT TB_CHANGOOS_STUDY_COMT 
-		(SCOMT_STUDY_SEQ, SCOMT_NAME, SCOMT_PWD, SCOMT_CONTENTS, SCOMT_DATE, SCOMT_PARENT_SEQ)
-		VALUES (#{studySeq}, #{name}, #{password}, #{contents}, #{date}, #{parentSeq});
+		(STUDY_SEQ, COMT_USERNAME, COMT_PWD, COMT_CONTENTS, COMT_DATE, PARENT_COMT)
+		VALUES (#{boardSeq}, #{username}, #{password}, #{contents}, #{date}, #{parentComt});
 	</insert>
 	
 	<delete id="delete">
 		DELETE FROM TB_CHANGOOS_STUDY_COMT
-		WHERE SCOMT_SEQ = #{seq}
+		WHERE COMT_SEQ = #{seq}
 	</delete>
 	
 	<update id="update" parameterType="map">
 		UPDATE TB_CHANGOOS_STUDY_COMT
 		SET 
-		SCOMT_CONTENTS = #{contents}
-		WHERE SCOMT_SEQ = #{seq}
+		COMT_CONTENTS = #{contents}
+		WHERE COMT_SEQ = #{seq}
 	</update>
 	
 </mapper>

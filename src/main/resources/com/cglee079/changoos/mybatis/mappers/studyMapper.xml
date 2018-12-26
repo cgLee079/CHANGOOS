@@ -6,7 +6,7 @@
 	<select id="S01" resultType="com.cglee079.changoos.model.StudyVo" parameterType="Integer">
 		/* 게시글 가져오기 */
 		SELECT
-		STUDY_SEQ as "seq",
+		A.STUDY_SEQ as "seq",
 		STUDY_CATEGORY as "category",
 		STUDY_CODE_LANG as "codeLang",
 		STUDY_TITLE as "title",
@@ -14,16 +14,16 @@
 		STUDY_DATE as "date",
 		STUDY_HITS as "hits",
 		STUDY_ENABLED as "enabled",
-		count(B.SCOMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
-		WHERE STUDY_SEQ = #{seq}
+		count(B.COMT_SEQ) as 'comtCnt'
+		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON A.STUDY_SEQ = B.STUDY_SEQ
+		WHERE A.STUDY_SEQ = #{seq}
 		GROUP BY A.STUDY_SEQ
 	</select>
 	
 	<select id="S02" parameterType="map" resultType="com.cglee079.changoos.model.StudyVo">
 		/* 이전 게시글 가져오기 */
 		SELECT 
-		STUDY_SEQ as "seq",
+		A.STUDY_SEQ as "seq",
 		STUDY_CATEGORY as "category",
 		STUDY_CODE_LANG as "codeLang",
 		STUDY_TITLE as "title",
@@ -31,23 +31,23 @@
 		STUDY_DATE as "date",
 		STUDY_HITS as "hits",
 		STUDY_ENABLED as "enabled",
-		count(B.SCOMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
+		count(B.COMT_SEQ) as 'comtCnt'
+		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON A.STUDY_SEQ = B.STUDY_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<![CDATA[AND STUDY_ENABLED = true]]>
-		<![CDATA[AND STUDY_SEQ < #{seq}]]>  
+		<![CDATA[AND A.STUDY_SEQ < #{seq}]]>  
 		<if test="category != ''">
  		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
   		</if>
   		</trim>
 		GROUP BY A.STUDY_SEQ
-		ORDER BY STUDY_SEQ DESC LIMIT 1
+		ORDER BY A.STUDY_SEQ DESC LIMIT 1
 	</select>
 	
 	<select id="S03" parameterType="map" resultType="com.cglee079.changoos.model.StudyVo">
 		/* 다음 게시글 가져오기 */
 		SELECT 
-		STUDY_SEQ as "seq",
+		A.STUDY_SEQ as "seq",
 		STUDY_CATEGORY as "category",
 		STUDY_CODE_LANG as "codeLang",
 		STUDY_TITLE as "title",
@@ -55,23 +55,23 @@
 		STUDY_DATE as "date",
 		STUDY_HITS as "hits",
 		STUDY_ENABLED as "enabled",
-		count(B.SCOMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
+		count(B.COMT_SEQ) as 'comtCnt'
+		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON A.STUDY_SEQ = B.STUDY_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<![CDATA[AND STUDY_ENABLED = true]]>
-		<![CDATA[AND STUDY_SEQ > #{seq}]]>
+		<![CDATA[AND A.STUDY_SEQ > #{seq}]]>
 		<if test="category != ''">
  		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
   		</if>
   		</trim>
 		GROUP BY A.STUDY_SEQ
-		ORDER BY STUDY_SEQ ASC LIMIT 1
+		ORDER BY A.STUDY_SEQ ASC LIMIT 1
 	</select>
 	
 	<select id="S04" resultType="com.cglee079.changoos.model.StudyVo" parameterType="map">
 		/* 게시글 리스트 */
 		SELECT
-		STUDY_SEQ as "seq",
+		A.STUDY_SEQ as "seq",
 		STUDY_CATEGORY as "category",
 		STUDY_CODE_LANG as "codeLang",
 		STUDY_TITLE as "title",
@@ -79,8 +79,8 @@
 		STUDY_DATE as "date",
 		STUDY_HITS as "hits",
 		STUDY_ENABLED as "enabled",
-		count(B.SCOMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON A.STUDY_SEQ = B.SCOMT_STUDY_SEQ
+		count(B.COMT_SEQ) as 'comtCnt'
+		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON A.STUDY_SEQ = B.STUDY_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<if test="enabled != null">
  		<![CDATA[AND STUDY_ENABLED = #{enabled}]]>
@@ -98,7 +98,7 @@
 		ORDER BY ${sort} ${order}
 		</when>
 		<otherwise>
-		ORDER BY STUDY_DATE DESC, STUDY_SEQ DESC
+		ORDER BY STUDY_DATE DESC, A.STUDY_SEQ DESC
 		</otherwise>
 		</choose>
 		<if test="startRow != null and perPgLine != null">

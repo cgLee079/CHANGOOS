@@ -29,7 +29,7 @@ public class FileController {
 	private String realPath;
 	
 	@RequestMapping("/file/download.do")
-	public void projectDoFiledownload(HttpServletRequest request, HttpServletResponse response,
+	public void fileDoDownload(HttpServletRequest request, HttpServletResponse response,
 			String path, String pathname, String filename) throws IOException {
 		
 		File file = new File(realPath + path, pathname);
@@ -48,7 +48,7 @@ public class FileController {
 	
 	@ResponseBody
 	@RequestMapping("/mgnt/file/upload.do")
-	public String projectImgUpload(Model model, MultipartFile file) throws IllegalStateException, IOException {
+	public String fileDoUpload(Model model, MultipartFile file) throws IllegalStateException, IOException {
 		String pathname= fileService.saveFile(file);
 		
 		JSONObject result = new JSONObject();

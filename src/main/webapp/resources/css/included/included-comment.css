@@ -94,7 +94,7 @@
 	height: 1.5rem;
 }
 
-.comment-write-pinfo .write-name, 
+.comment-write-pinfo .write-username, 
 .comment-write-pinfo .write-password {
 	margin-right : 3px;	
 } 

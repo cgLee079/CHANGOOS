@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cglee079.changoos.model.AdminVo;
-import com.cglee079.changoos.model.BlogComtVo;
+import com.cglee079.changoos.model.ComtVo;
 import com.cglee079.changoos.service.BlogComtService;
 import com.cglee079.changoos.util.AuthManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,8 +26,8 @@ public class BlogComtController {
 	/** 게시판 댓글 페이징 **/
 	@ResponseBody
 	@RequestMapping("blog/comment/paging.do")
-	public String doPaging(int blogSeq, int page, int perPgLine) throws SQLException, JsonProcessingException{
-		List<BlogComtVo> bcomts= bcomtService.paging(blogSeq, page, perPgLine);
+	public String doPaging(int boardSeq, int page, int perPgLine) throws SQLException, JsonProcessingException{
+		List<ComtVo> bcomts= bcomtService.paging(boardSeq, page, perPgLine);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(bcomts);
 	}
@@ -35,7 +35,7 @@ public class BlogComtController {
 	/** 게시판 댓글 등록 **/
 	@ResponseBody
 	@RequestMapping("blog/comment/submit.do")
-	public String doSubmit(BlogComtVo comt) throws SQLException, JsonProcessingException{
+	public String doSubmit(ComtVo comt) throws SQLException, JsonProcessingException{
 		boolean result = bcomtService.insert(comt);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);

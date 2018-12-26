@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +30,7 @@ public class PhotoController {
 	
 	/** 사진 페이지로 이동 **/
 	@RequestMapping(value = "/photo")
-	public String photoHome(Model model) {
+	public String photoList(Model model) {
 		List<PhotoVo> photos = photoService.list(null);
 		List<Integer> seqs = photoService.seqs();
 		model.addAttribute("photos", photos);
@@ -37,25 +38,10 @@ public class PhotoController {
 		return "photo/photo_view";
 	}
 	
-	/** 사진 관리 페이지로 이동 **/
-	@RequestMapping(value = "/mgnt/photo")
-	public String photoManage(Model model) {
-		return "photo/photo_manage";
-	}
-	
-	/** 사진 관리 페이지 리스트, Ajax **/
-	@ResponseBody
-	@RequestMapping(value = "/mgnt/photo/list.do")
-	public String DoPhotoManageList(@RequestParam Map<String, Object> map) {
-		List<PhotoVo> photos = photoService.list(map);
-		Gson gson = new Gson();
-		return gson.toJson(photos).toString();
-	}
-	
 	/** 사진 크게 보기, Ajax **/
 	@ResponseBody
 	@RequestMapping(value = "/photo/view.do")
-	public String photoDoView(HttpSession session, int seq) throws JsonProcessingException {
+	public String photoView(HttpSession session, int seq) throws JsonProcessingException {
 		PhotoVo photo = photoService.get(seq);
 		JSONObject photoJSON = new JSONObject(new Gson().toJson(photo));
 		
@@ -74,6 +60,22 @@ public class PhotoController {
 		result.put("likeCnt", likeCnt);
 		result.put("like", like);
 		return result.toString();
+	}
+	
+	
+	/** 사진 관리 페이지로 이동 **/
+	@RequestMapping(value = "/mgnt/photo")
+	public String photoManage(Model model) {
+		return "photo/photo_manage";
+	}
+	
+	/** 사진 관리 페이지 리스트, Ajax **/
+	@ResponseBody
+	@RequestMapping(value = "/mgnt/photo/list.do")
+	public String photoManagePaging(@RequestParam Map<String, Object> map) {
+		List<PhotoVo> photos = photoService.list(map);
+		Gson gson = new Gson();
+		return gson.toJson(photos).toString();
 	}
 	
 	/** 사진 삭제 , Ajax **/
@@ -98,20 +100,26 @@ public class PhotoController {
 		return "photo/photo_upload";
 	}
 	
+	/** 사진 파일 업로드 **/
+	@ResponseBody
+	@RequestMapping(value = "/mgnt/photo/image/upload.do", method = RequestMethod.POST, params = "!seq")
+	public String photoImageDoUpload(MultipartFile image) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
+		PhotoVo photo = photoService.savePhoto(image);
+		return  new Gson().toJson(photo).toString();
+	}
+	
 	/** 사진 업로드 **/
-	@RequestMapping(value = "/mgnt/photo/upload.do", params = "!seq")
-	public String photoDoUpload(PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
-		photoService.insert(photo, imageFile);
+	@RequestMapping(value = "/mgnt/photo/upload.do", method = RequestMethod.POST)
+	public String photoDoUpload(PhotoVo photo) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
+		photoService.insert(photo);
 		return "redirect:" + "/mgnt/photo";
 	}
 	
 	/** 사진 수정 **/
-	@RequestMapping(value = "/mgnt/photo/upload.do", params = "seq")
-	public String photoDoModify(PhotoVo photo, MultipartFile imageFile) throws IllegalStateException, IOException, ImageProcessingException, MetadataException{
-		photoService.update(photo, imageFile);
-		
+	@RequestMapping(value = "/mgnt/photo/upload.do", method = RequestMethod.POST, params = "seq")
+	public String photoDoModify(PhotoVo photo) throws IllegalStateException, IOException, ImageProcessingException, MetadataException{
+		photoService.update(photo);
 		return "redirect:" + "/mgnt/photo";
 	}
-	
 	
 }

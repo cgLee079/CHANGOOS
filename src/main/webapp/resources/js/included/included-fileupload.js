@@ -29,6 +29,7 @@ function doFileRemove(tg){
 				if(status.val() == STATUS_NEW){
 					fileInfo.remove();
 				} else{
+					fileInfo.addClass("remove");
 					status.val(STATUS_REMOVE);
 				}
 				
@@ -46,17 +47,18 @@ function sendFile(file){
 	return new Promise(function(resolve, reject) {
 		var formData = new FormData(); 	
 		formData.append("file", file);
+		
 		$.ajax({
 			type : "post",
 			url : getContextPath() + "/mgnt/file/upload.do",
 			dataType : "JSON",
-			async : true,
+			async : false,
 			contentType: false,
 			processData: false,
 			data : formData,
 			success : function(result) {
 				resolve(result);
-			}
+			},
 		})
 	});
 }
@@ -65,27 +67,34 @@ function sendFile(file){
 function onFileChange(tg){
 	var files = tg.files;
 	
-	for(var i = 0; i < files.length; i++){
-		var file = files[i];
+	Progress.start();
 		
-		(function(file){
-			sendFile(file).then(function(result) {
-				var fileInfos= $(".file-infos");
-				var fileInfo = fileInfoTemp.clone();
-				
-				fileInfo.find(".file-path").val(result.path);
-				fileInfo.find(".file-pathname").val(result.pathname);
-				fileInfo.find(".file-filename").val(file.name);
-				fileInfo.find(".file-size").val(file.size);
-				fileInfo.find(".file-status").val(STATUS_NEW);
-				
-				fileInfo.find(".file-info-name").text("[" + (file.size/(1024 * 1024)).toFixed(2) + " MB] " + file.name);
-				fileInfos.append(fileInfo);
-				
-				updateFileValues();
-			})
-		})(file);
-	}
+	setTimeout(function(){
+		for(var i = 0; i < files.length; i++){
+			var file = files[i];
+			
+			(function(file){
+				sendFile(file).then(function(result) {
+					var fileInfos= $(".file-infos");
+					var fileInfo = fileInfoTemp.clone();
+					
+					fileInfo.find(".file-path").val(result.path);
+					fileInfo.find(".file-pathname").val(result.pathname);
+					fileInfo.find(".file-filename").val(file.name);
+					fileInfo.find(".file-size").val(file.size);
+					fileInfo.find(".file-status").val(STATUS_NEW);
+					
+					fileInfo.find(".file-info-name").text("[" + (file.size/(1024 * 1024)).toFixed(2) + " MB] " + file.name);
+					fileInfos.append(fileInfo);
+					
+					updateFileValues();
+				})
+			})(file);
+		}
+		
+		Progress.stop();
+	}, 0)
+	
 	
 }
 

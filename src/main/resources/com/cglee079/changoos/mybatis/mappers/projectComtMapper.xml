@@ -8,58 +8,58 @@
 		SELECT
 			count(*)
 		FROM TB_CHANGOOS_PROJECT_COMT
-		WHERE PCOMT_PROJ_SEQ = #{projectSeq} 
+		WHERE PROJ_SEQ = #{boardSeq} 
 	</select>
 	
-	<select id="list" resultType="com.cglee079.changoos.model.ProjectComtVo" parameterType="map">
+	<select id="list" resultType="com.cglee079.changoos.model.ComtVo" parameterType="map">
 		/* 프로젝트 댓글 리스트 */
 		SELECT
-		PCOMT_SEQ as "seq",
-		PCOMT_PROJ_SEQ as "projectSeq",
-		PCOMT_NAME as "name",
-		PCOMT_PWD as "password",
-		PCOMT_CONTENTS as "contents",
-		PCOMT_DATE as "date",
-		PCOMT_PARENT_SEQ as "parentSeq"
+		COMT_SEQ as "seq",
+		PROJ_SEQ as "boardSeq",
+		COMT_USERNAME as "username",
+		COMT_PWD as "password",
+		COMT_CONTENTS as "contents",
+		COMT_DATE as "date",
+		PARENT_COMT as "parentComt"
 		FROM TB_CHANGOOS_PROJECT_COMT
-		WHERE PCOMT_PROJ_SEQ = #{projectSeq}
-		ORDER BY CONCAT(IF(PCOMT_PARENT_SEQ is null, COALESCE(PCOMT_PARENT_SEQ, ''), CONCAT('_', LPAD(PCOMT_PARENT_SEQ,6,'0')) ), '_',LPAD(PCOMT_SEQ,6,'0'))
+		WHERE PROJ_SEQ = #{boardSeq}
+		ORDER BY CONCAT(IF(PARENT_COMT is null, COALESCE(PARENT_COMT, ''), CONCAT('_', LPAD(PARENT_COMT,6,'0')) ), '_',LPAD(COMT_SEQ,6,'0'))
 		LIMIT #{startRow}, #{perPgLine}
 	</select>
 	
-	<select id="get" resultType="com.cglee079.changoos.model.ProjectComtVo" parameterType="Integer">
+	<select id="get" resultType="com.cglee079.changoos.model.ComtVo" parameterType="Integer">
 		/* 프로젝트 댓글 가져오기 */
 		SELECT
-		PCOMT_SEQ as "seq",
-		PCOMT_PROJ_SEQ as "projectSeq",
-		PCOMT_NAME as "name",
-		PCOMT_PWD as "password",
-		PCOMT_CONTENTS as "contents",
-		PCOMT_DATE as "DATE",
-		PCOMT_PARENT_SEQ as "parentSeq"
+		COMT_SEQ as "seq",
+		PROJ_SEQ as "boardSeq",
+		COMT_USERNAME as "username",
+		COMT_PWD as "password",
+		COMT_CONTENTS as "contents",
+		COMT_DATE as "DATE",
+		PARENT_COMT as "parentComt"
 		FROM TB_CHANGOOS_PROJECT_COMT
-		WHERE PCOMT_SEQ = #{seq}
+		WHERE COMT_SEQ = #{seq}
 	</select>
 	
 	<insert id="insert">
 		/* 프로젝트 댓글 추가하기 */
 		INSERT TB_CHANGOOS_PROJECT_COMT 
-		(PCOMT_PROJ_SEQ, PCOMT_NAME, PCOMT_PWD, PCOMT_CONTENTS, PCOMT_DATE, PCOMT_PARENT_SEQ)
-		VALUES (#{projectSeq}, #{name}, #{password}, #{contents}, #{date}, #{parentSeq});
+		(PROJ_SEQ, COMT_USERNAME, COMT_PWD, COMT_CONTENTS, COMT_DATE, PARENT_COMT)
+		VALUES (#{boardSeq}, #{username}, #{password}, #{contents}, #{date}, #{parentComt});
 	</insert>
 	
 	<delete id="delete">
 		/* 프로젝트 댓글 삭제하기 */
 		DELETE FROM TB_CHANGOOS_PROJECT_COMT
-		WHERE PCOMT_SEQ = #{seq}
+		WHERE COMT_SEQ = #{seq}
 	</delete>
 	
 	<update id="update" parameterType="map">
 		/* 프로젝트 댓글 수정하기 */
 		UPDATE TB_CHANGOOS_PROJECT_COMT
 		SET 
-		PCOMT_CONTENTS = #{contents}
-		WHERE PCOMT_SEQ = #{seq}
+		COMT_CONTENTS = #{contents}
+		WHERE COMT_SEQ = #{seq}
 	</update>
 	
 </mapper>

@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cglee079.changoos.dao.ProjectComtDao;
-import com.cglee079.changoos.model.StudyComtVo;
-import com.cglee079.changoos.model.ProjectComtVo;
+import com.cglee079.changoos.model.ComtVo;
 
 @Service
 public class ProjectComtService{
@@ -17,7 +16,7 @@ public class ProjectComtService{
 	@Autowired
 	ProjectComtDao projectcomtDao;
 
-	public List<ProjectComtVo> paging(int projectSeq, int page, int perPgLine) {
+	public List<ComtVo> paging(int projectSeq, int page, int perPgLine) {
 		int startRow = (page - 1) * perPgLine;
 		return projectcomtDao.list(projectSeq, startRow, perPgLine);
 	}
@@ -26,23 +25,23 @@ public class ProjectComtService{
 		return projectcomtDao.count(projectSeq);
 	}
 
-	public boolean insert(ProjectComtVo comt) {
+	public boolean insert(ComtVo comt) {
 		String date = new SimpleDateFormat("YYYY-MM-dd").format(new Date());
 		comt.setDate(date);
 		return projectcomtDao.insert(comt);
 	}
 
 	public boolean delete(int seq, String password, boolean isAdmin) {
-		ProjectComtVo comtVo = projectcomtDao.get(seq);
+		ComtVo comtVo = projectcomtDao.get(seq);
 		if(comtVo.getPassword().equals(password) || isAdmin){
 			return projectcomtDao.delete(seq);			
 		} else {
 			return false;
 		}
-	}
+	}	
 	
 	public boolean checkPwd(int seq, String password, boolean isAdmin) {
-		ProjectComtVo comtVo = projectcomtDao.get(seq);
+		ComtVo comtVo = projectcomtDao.get(seq);
 		if(comtVo.getPassword().equals(password) || isAdmin){
 			return true;			
 		} else {

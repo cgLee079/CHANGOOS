@@ -1,13 +1,13 @@
 package com.cglee079.changoos.model;
 
-public class StudyComtVo {
+public class ComtVo {
 	private int seq;
-	private int studySeq;
-	private String name;
+	private int boardSeq;
+	private String username;
 	private String password;
 	private String contents;
 	private String date;
-	private Integer parentSeq;
+	private Integer parentComt;
 
 	public int getSeq() {
 		return seq;
@@ -17,20 +17,20 @@ public class StudyComtVo {
 		this.seq = seq;
 	}
 
-	public int getStudySeq() {
-		return studySeq;
+	public int getBoardSeq() {
+		return boardSeq;
 	}
 
-	public void setStudySeq(int studySeq) {
-		this.studySeq = studySeq;
+	public void setBoardSeq(int boardSeq) {
+		this.boardSeq = boardSeq;
 	}
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -57,12 +57,12 @@ public class StudyComtVo {
 		this.date = date;
 	}
 
-	public Integer getParentSeq() {
-		return parentSeq;
+	public Integer getParentComt() {
+		return parentComt;
 	}
 
-	public void setParentSeq(Integer parentSeq) {
-		this.parentSeq = parentSeq;
+	public void setParentComt(Integer parentComt) {
+		this.parentComt = parentComt;
 	}
 
 }

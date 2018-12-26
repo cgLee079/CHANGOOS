@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cglee079.changoos.model.ProjectComtVo;
+import com.cglee079.changoos.model.ComtVo;
 import com.cglee079.changoos.service.ProjectComtService;
 import com.cglee079.changoos.util.AuthManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -24,8 +24,8 @@ public class ProjectComtController {
 	/** 프로젝트 댓글 페이징 **/
 	@ResponseBody
 	@RequestMapping("/project/comment/paging.do")
-	public String doPaging(int projectSeq, int page, int perPgLine) throws SQLException, JsonProcessingException{
-		List<ProjectComtVo> bcomts= pcomtService.paging(projectSeq, page, perPgLine);
+	public String doPaging(int boardSeq, int page, int perPgLine) throws SQLException, JsonProcessingException{
+		List<ComtVo> bcomts= pcomtService.paging(boardSeq, page, perPgLine);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(bcomts);
 	}
@@ -33,7 +33,7 @@ public class ProjectComtController {
 	/** 프로젝트 댓글 삽입 **/
 	@ResponseBody
 	@RequestMapping("/project/comment/submit.do")
-	public String doSubmit(ProjectComtVo comt) throws SQLException, JsonProcessingException{
+	public String doSubmit(ComtVo comt) throws SQLException, JsonProcessingException{
 		boolean result = pcomtService.insert(comt);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);

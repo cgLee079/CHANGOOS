@@ -79,6 +79,7 @@ function removeImage(tg, editorID, pathname) {
 	if(status.val() == STATUS_NEW){
 		wrapThumbnail.remove();
 	} else{
+		wrapThumbnail.addClass("remove");
 		status.val(STATUS_REMOVE);
 	}
 	

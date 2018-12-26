@@ -219,7 +219,7 @@ public class StudyService {
 		
 		//업로드 파일로 이동했음에도 불구하고, 남아있는 TEMP 폴더의 이미지 파일을 삭제.
 		//즉, 이전에 글 작성 중 작성을 취소한 경우 업로드가 되었던 이미지파일들이 삭제됨.
-		fileUtils.emptyFolder(realPath + Path.TEMP_IMAGE_PATH);
+		fileUtils.emptyDir(realPath + Path.TEMP_IMAGE_PATH);
 		
 	}
 	
@@ -255,7 +255,7 @@ public class StudyService {
 			}
 		}
 		
-		fileUtils.emptyFolder(realPath + Path.TEMP_FILE_PATH);
+		fileUtils.emptyDir(realPath + Path.TEMP_FILE_PATH);
 	}
 	
 

@@ -3,7 +3,6 @@ var perPgLine;
 var path;
 var comtFormTemp;
 var boardType;
-var boardSeqName;
 var boardSeq;
 var comtCnt;
 var isAdmin;
@@ -16,7 +15,6 @@ $(document).ready(function(){
 	comtCnt		= parseInt($("#comtCnt").val());
 	comtFormTemp= $(".comment-write").clone();
 	path 		= getContextPath() + "/" + boardType;
-	boardSeqName= boardType + "Seq";
 	
 	drawCommentCnt();
 	commentPageMove(1); // Paging
@@ -37,7 +35,7 @@ function drawCommentCnt(){
 /* Ajax, Paging */
 function commentPageMove(pg){
 	var param = { };
-	param[boardSeqName] = boardSeq;
+	param['boardSeq'] = boardSeq;
 	param['page'] 		= pg;
 	param['perPgLine'] 	= perPgLine;
 	
@@ -85,11 +83,11 @@ function updateComment(data){
 	container.empty();
 	for(var i = 0; i < length; i++){
 		comment = data[i];
-		if(!comment.parentSeq){
+		if(!comment.parentComt){
 			item = makeComment();
 			item.find(".comment-seq").val(comment.seq);
 			item.find(".comment-boardSeq").val(comment.boardSeq);
-			item.find(".comment-writer").text(comment.name);
+			item.find(".comment-writer").text(comment.username);
 			item.find(".comment-date").text(comment.date);
 			item.find(".comment-contents").html(comment.contents);
 			item.appendTo(container);					
@@ -97,7 +95,7 @@ function updateComment(data){
 			item = makeReplyComment();
 			item.find(".comment-seq").val(comment.seq);
 			item.find(".comment-boardSeq").val(comment.boardSeq);
-			item.find(".comment-writer").text(comment.name);
+			item.find(".comment-writer").text(comment.username);
 			item.find(".comment-date").text(comment.date);
 			item.find(".comment-contents").html(comment.contents);
 			item.appendTo(container);	
@@ -157,7 +155,7 @@ function updateComment(data){
 function addReplyForm(tg){
 	var tg 			= $(tg);
 	var item		= $(tg).parents(".comment-item");
-	var parentSeq	= item.find(".comment-seq").val();
+	var parentComt	= item.find(".comment-seq").val();
 	var form 		= makeReplyForm();
 
 	if(tg.hasClass("open")){
@@ -167,7 +165,7 @@ function addReplyForm(tg){
 			tg.removeClass("open");
 		}
 	} else{
-		$("<div>", {"class" : "parentSeq display-none", text : parentSeq}).appendTo(form);
+		$("<div>", {"class" : "parentComt display-none", text : parentComt}).appendTo(form);
 		form.insertAfter(item);	
 		tg.addClass("open");
 	}
@@ -187,16 +185,16 @@ function addReplyForm(tg){
 /* Do comment reply */
 function doReply(tg){
 	var reply		= $(tg).parents(".comment-reply");
-	var parentSeq	= reply.find(".parentSeq").text();
-	var name		= "CHANGOO";
+	var parentComt	= reply.find(".parentComt").text();
+	var username	= "CHANGOO";
 	var password	= "I_AM_ADMIN";
 	var contents	= reply.find(".comment-reply-content").val();
 	var param = { };
-	param[boardSeqName] = boardSeq;
-	param['name'] 		= name;
+	param['boardSeq'] 	= boardSeq;
+	param['username'] 	= username;
 	param['password'] 	= password;
 	param['contents'] 	= nl2br(contents);
-	param['parentSeq']	= parentSeq;
+	param['parentComt']	= parentComt;
 	
 	$.ajax({	
 		type	: "POST",
@@ -337,16 +335,16 @@ function commentDelete(tg){
 
 /* comment Submit*/
 function doCommentSubmit(){
-	var name = $(".comment-write #name");
+	var username = $(".comment-write #username");
 	var password = $(".comment-write #password");
 	var contents  = $(".comment-write #contents");
 	var param = { };
-	param[boardSeqName] = boardSeq;
-	param['name'] 		= name.val();
+	param['boardSeq'] 	= boardSeq;
+	param['username'] 	= username.val();
 	param['password'] 	= password.val();
 	param['contents'] 	= nl2br(contents.val());
 	
-	if(!name.val()) { swal({text : "이름을 입력해주세요.", icon : "warning"}); return ;}
+	if(!username.val()) { swal({text : "이름을 입력해주세요.", icon : "warning"}); return ;}
 	if(!password.val()) { swal({text : "비밀번호를 입력해주세요.", icon : "warning"}); return ;}
 	if(!contents.val()) { swal({text : "내용을 입력해주세요.", icon : "warning"}); return ;}
 	

@@ -17,14 +17,12 @@ public class Formatter {
 		try {
 			if (str != null) {
 				SimpleDateFormat transFormat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
-				Date dt;
-				dt = transFormat.parse(str);
-				return new SimpleDateFormat("yyyy.MM.dd").format(dt);
+				return new SimpleDateFormat("yyyy.MM.dd").format(transFormat.parse(str));
 			} else {
 				return "";
 			}
 		} catch (ParseException e) {
-			return str;
+			return "";
 		}
 	}
 	
@@ -32,14 +30,12 @@ public class Formatter {
 		try {
 			if (str != null) {
 				SimpleDateFormat transFormat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
-				Date dt;
-				dt = transFormat.parse(str);
-				return new SimpleDateFormat("HH:mm:ss").format(dt);
+				return new SimpleDateFormat("HH:mm:ss").format(transFormat.parse(str));
 			} else {
 				return "";
 			}
 		} catch (ParseException e) {
-			return str;
+			return "";
 		}
 	}
 

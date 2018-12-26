@@ -2,8 +2,11 @@ package com.cglee079.changoos.model;
 
 public class PhotoVo {
 	private int seq;
-	private String image;
-	private String snapsht;
+	private String photoPath;
+	private String photoPathname;
+	private String snapshotPath;
+	private String snapshotPathname;
+	private String filename;
 	private String name;
 	private String desc;
 	private String location;
@@ -21,20 +24,44 @@ public class PhotoVo {
 		this.seq = seq;
 	}
 
-	public String getImage() {
-		return image;
+	public String getPhotoPath() {
+		return photoPath;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setPhotoPath(String photoPath) {
+		this.photoPath = photoPath;
 	}
 
-	public String getSnapsht() {
-		return snapsht;
+	public String getPhotoPathname() {
+		return photoPathname;
 	}
 
-	public void setSnapsht(String snapsht) {
-		this.snapsht = snapsht;
+	public void setPhotoPathname(String photoPathname) {
+		this.photoPathname = photoPathname;
+	}
+
+	public String getSnapshotPath() {
+		return snapshotPath;
+	}
+
+	public void setSnapshotPath(String snapshotPath) {
+		this.snapshotPath = snapshotPath;
+	}
+
+	public String getSnapshotPathname() {
+		return snapshotPathname;
+	}
+
+	public void setSnapshotPathname(String snapshotPathname) {
+		this.snapshotPathname = snapshotPathname;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 	public String getName() {

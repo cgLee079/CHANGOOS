@@ -24,19 +24,18 @@ public class ImageUploadController {
 	private ImageUploadService imageUploadService;
 	
 	@RequestMapping("/mgnt/image/upload")
-	public String projectImgUpload(Model model, String editor) {
+	public String imageUpload(Model model, String editor) {
 		model.addAttribute("editor", editor);
 		return "popup/popup_imageupload";
 	}
 	
 	@ResponseBody
 	@RequestMapping("/mgnt/image/upload.do")
-	public String projectImgUpload(Model model, String base64, String filename) throws IllegalStateException, IOException {
-		String pathname= imageUploadService.saveContentImage(filename, base64);
+	public String imageDoUpload(Model model, MultipartFile image) throws IllegalStateException, IOException {
+		String pathname= imageUploadService.saveContentImage(image);
 		
 		JSONObject result = new JSONObject();
 		result.put("path", Path.TEMP_IMAGE_PATH);
-		result.put("filename", filename);
 		result.put("pathname", pathname);
 		
 		return result.toString();
@@ -45,7 +44,7 @@ public class ImageUploadController {
 		
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/image/paste-upload.do")
-	public String blogDoImgUpload(HttpServletRequest request, String base64) throws IllegalStateException, IOException {
+	public String imageDoPasteUpload(HttpServletRequest request, String base64) throws IllegalStateException, IOException {
 		String pathname = imageUploadService.saveContentImage(base64);
 		
 		JSONObject result = new JSONObject();

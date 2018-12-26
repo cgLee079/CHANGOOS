@@ -6,7 +6,7 @@
 	<select id="S01" resultType="com.cglee079.changoos.model.BlogVo" parameterType="Integer">
 		/* 블로그 가져오기 */
 		SELECT
-		BLOG_SEQ as "seq",
+		A.BLOG_SEQ as "seq",
 		BLOG_SNAPSHT as "snapSht",
 		BLOG_TITLE as "title",
 		BLOG_CONTENTS as "contents",
@@ -14,9 +14,9 @@
 		BLOG_DATE as "date",
 		BLOG_HITS as "hits",
 		BLOG_ENABLED as "enabled",
-		count(B.BCOMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON A.BLOG_SEQ = B.BCOMT_BLOG_SEQ
-		WHERE BLOG_SEQ = #{seq}
+		count(B.COMT_SEQ) as 'comtCnt'
+		FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON A.BLOG_SEQ = B.BLOG_SEQ
+		WHERE A.BLOG_SEQ = #{seq}
 		GROUP BY A.BLOG_SEQ
 	</select>
 	
@@ -27,7 +27,7 @@
       	FROM (
       		<foreach collection="tags" index="index" item="item" separator="UNION DISTINCT">
 			SELECT
-			BLOG_SEQ as "seq",
+			A.BLOG_SEQ as "seq",
 			BLOG_SNAPSHT as "snapSht",
 			BLOG_TITLE as "title",
 			BLOG_CONTENTS as "contents",
@@ -35,8 +35,8 @@
 			BLOG_DATE as "date",
 			BLOG_HITS as "hits",
 			BLOG_ENABLED as "enabled",
-			count(B.BCOMT_SEQ) as 'comtCnt'
-			FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON A.BLOG_SEQ = B.BCOMT_BLOG_SEQ
+			count(B.COMT_SEQ) as 'comtCnt'
+			FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON A.BLOG_SEQ = B.BLOG_SEQ
 			<trim prefix="WHERE" prefixOverrides="AND |OR ">
 				AND BLOG_TAG like '%${item}%' 
 			<if test="enabled != null">
@@ -56,7 +56,7 @@
 	<select id="S04" resultType="com.cglee079.changoos.model.BlogVo" parameterType="map">
 		/* 블로그 리스트 */
 		SELECT
-		BLOG_SEQ as "seq",
+		A.BLOG_SEQ as "seq",
 		BLOG_SNAPSHT as "snapSht",
 		BLOG_TITLE as "title",
 		BLOG_CONTENTS as "contents",
@@ -64,8 +64,8 @@
 		BLOG_DATE as "date",
 		BLOG_HITS as "hits",
 		BLOG_ENABLED as "enabled",
-		count(B.BCOMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON A.BLOG_SEQ = B.BCOMT_BLOG_SEQ
+		count(B.COMT_SEQ) as 'comtCnt'
+		FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON A.BLOG_SEQ = B.BLOG_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
   		</trim>
 		GROUP BY A.BLOG_SEQ
@@ -75,7 +75,7 @@
 		ORDER BY ${sort} ${order}
 		</when>
 		<otherwise>
-		ORDER BY BLOG_DATE DESC, BLOG_SEQ DESC
+		ORDER BY BLOG_DATE DESC, A.BLOG_SEQ DESC
 		</otherwise>
 		</choose>
 		<if test="startRow != null and perPgLine != null">

@@ -20,16 +20,24 @@ import com.drew.metadata.Tag;
 import com.drew.metadata.exif.ExifIFD0Directory;
 
 public class ImageManager {
+	public static ImageManager instance;
+	public synchronized static ImageManager getInstance() {
+		if(instance == null) {
+			instance = new ImageManager();
+		}
+		return instance;
+	}
+	
 	public static final String EXT_JPG = "jpg";
 	public static final String EXT_PNG = "png";
 	public static final String EXT_GIF = "gif";
 	
-	public synchronized static Image fileToImage(File file) throws IOException{
+	public synchronized Image fileToImage(File file) throws IOException{
 		Image image = ImageIO.read(file);
 		return image;
 	}
 	
-	public synchronized static BufferedImage getLowScaledImage(File file, int w , String imgExt) throws IOException {
+	public synchronized BufferedImage getLowScaledImage(File file, int w , String imgExt) throws IOException {
 		BufferedImage srcImg = ImageIO.read(file);
 		int width = srcImg.getWidth();
 		int height = srcImg.getHeight();
@@ -52,28 +60,7 @@ public class ImageManager {
         return scaledImage;
 	}    
 	
-	public synchronized static HashMap<String, String> getImageMetaData(File file) throws ImageProcessingException, IOException{
-		final String sep1 = "\\]";
-		final String sep2 = "\\-";
-		HashMap<String, String> map = new HashMap<String, String>();
-		String sepeartor[] = null;
-		String key;
-		String value;
-		
-		Metadata metadata = ImageMetadataReader.readMetadata(file);
-		for (Directory directory : metadata.getDirectories()) {
-		    for (Tag tag : directory.getTags()) {
-		    	sepeartor = tag.toString().split(sep1);
-		    	sepeartor = sepeartor[1].split(sep2);
-		    	key = sepeartor[0].trim();
-		    	value = sepeartor[1].trim();
-		    	map.put(key, value);
-		    }
-		}
-		return map;
-	}
-	
-    public synchronized static int getOrientation(File file) throws IOException, MetadataException, ImageProcessingException {
+    public synchronized int getOrientation(File file) throws IOException, MetadataException, ImageProcessingException {
         int orientation = 1;
 	    Metadata metadata = ImageMetadataReader.readMetadata(file);
 	    ExifIFD0Directory directory = metadata.getDirectory(ExifIFD0Directory.class);
@@ -86,7 +73,7 @@ public class ImageManager {
         
     }
     
-    public synchronized static BufferedImage rotateImageForMobile(BufferedImage bi, int orientation) throws IOException {
+    public synchronized BufferedImage rotateImageForMobile(BufferedImage bi, int orientation) throws IOException {
 		if(orientation == 6){
 		        return rotateImage(bi, 90);
 		} else if (orientation == 1){
@@ -100,12 +87,12 @@ public class ImageManager {
 		}       
     }
     
-    public synchronized static BufferedImage rotateImageForMobile(File file, int orientation) throws IOException {
+    public synchronized BufferedImage rotateImageForMobile(File file, int orientation) throws IOException {
     	BufferedImage bi = ImageIO.read(file);
     	return rotateImageForMobile(bi, orientation);
     }
     
-    public synchronized static BufferedImage rotateImage(BufferedImage orgImage,int radians) {
+    public synchronized BufferedImage rotateImage(BufferedImage orgImage,int radians) {
 		BufferedImage newImage;
 		 if(radians==90 || radians==270){
 		       newImage = new BufferedImage(orgImage.getHeight(), orgImage.getWidth(), orgImage.getType());
@@ -121,14 +108,5 @@ public class ImageManager {
 		
 		return newImage;	
     }
-    
-    public synchronized static String getExt(String filename){
-    	int pos = filename.lastIndexOf( "." );
-    	String ext = filename.substring( pos + 1 );
-    	if(ext.equalsIgnoreCase(ImageManager.EXT_JPG)) { return ImageManager.EXT_JPG; };
-    	if(ext.equalsIgnoreCase(ImageManager.EXT_PNG)) { return ImageManager.EXT_PNG; };
-    	if(ext.equalsIgnoreCase(ImageManager.EXT_GIF)) { return ImageManager.EXT_GIF; };
-    	return ImageManager.EXT_JPG;
-    }
-    
+
 }

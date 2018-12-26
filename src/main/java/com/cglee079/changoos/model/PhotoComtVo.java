@@ -1,5 +1,6 @@
 package com.cglee079.changoos.model;
 
+
 public class PhotoComtVo {
 	private int seq;
 	private int photoSeq;

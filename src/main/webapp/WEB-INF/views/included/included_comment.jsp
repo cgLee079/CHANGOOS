@@ -15,7 +15,7 @@
 	<div class="comment-write">
 		<textarea class="comment-write-contents" id="contents" name="contents"></textarea>
 		<div class="comment-write-pinfo">
-			<div class="write-name"><input type="text" id="name" name="name" placeholder="name"></div>
+			<div class="write-username"><input type="text" id="username" name="username" placeholder="username"></div>
 			<div class="write-password"><input type="password" id="password" name="password" placeholder="password"></div>
 			<div style="flex : 1"></div>
 			<div onclick="doCommentSubmit()" class="comment-write-submit col-center">등록</div>
