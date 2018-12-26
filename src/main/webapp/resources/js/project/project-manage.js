@@ -26,8 +26,8 @@ function fn_onInitDataGrid(){
 			{field:'delete', title:'삭제', width:'70px', halign:'center', styler : alignCenter, formatter : function(value, row, index){
 				return "<a onclick='projectDelete(" + row.seq + "," + index + ")' class='dg-btn'> 삭제 </a>" 
 			}},
-			{field:'snapsht', title:'스냅샷', width:'100px', halign:'center', styler : alignCenter, formatter: function(value){
-				return "<img src='" + getContextPath() + value + "' height='50px' style='padding : 2px'/>"
+			{field:'thumbnail', title:'썸네일', halign:'center', formatter: function(value){
+				return "<img src='" + getContextPath() + thumbDir + value + "' width='100px' height='50px'/>"
 			}},
 			{field:'category', title:'카테고리', width:'150px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'title', title:'이름', width:'200px', halign:'center', sortable : "true", styler : alignLeft},

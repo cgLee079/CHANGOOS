@@ -6,6 +6,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/project/project-manage.css" />
 <script src="${pageContext.request.contextPath}/resources/js/project/project-manage.js"></script>
 
+<c:set var="thumbDir"><spring:eval expression="@location['project.thumb.dir.url']"/></c:set>
+<script>
+var thumbDir = '<c:out value="${thumbDir}"/>';
+</script>
+
 </head>
 <body>
 <div class="wrapper">
