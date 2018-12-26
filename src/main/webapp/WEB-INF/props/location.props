@@ -12,6 +12,6 @@ project.thumb.dir.url = /uploaded/project/thumb/
 project.image.dir.url = /uploaded/project/image/
 project.file.dir.url = /uploaded/project/file/
 
-blog.thumb.dir.url = /uploaded/blog/snapshot/
+blog.thumb.dir.url = /uploaded/blog/thumb/
 blog.image.dir.url = /uploaded/blog/image/
 blog.file.dir.url  = /uploaded/blog/file/
