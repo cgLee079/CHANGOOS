@@ -97,17 +97,17 @@ public class BlogController {
 
 	/** 블로그 업로드 **/
 	@RequestMapping(value = "/mgnt/blog/upload.do", params = "!seq")
-	public String blogDoUpload(Model model, BlogVo blog, MultipartFile snapshtFile, String imageValues,
+	public String blogDoUpload(Model model, BlogVo blog, MultipartFile thumbnailFile, String imageValues,
 			String fileValues) throws SQLException, IllegalStateException, IOException {
-		int seq = blogService.insert(blog, snapshtFile, imageValues, fileValues);
+		int seq = blogService.insert(blog, thumbnailFile, imageValues, fileValues);
 		return "redirect:" + "/blog/view?seq=" + seq;
 	}
 
 	/** 블로그 수정 **/
 	@RequestMapping(value = "/mgnt/blog/upload.do", params = "seq")
-	public String blogDoModify(Model model, BlogVo blog, MultipartFile snapshtFile, String imageValues,
+	public String blogDoModify(Model model, BlogVo blog, MultipartFile thumbnailFile, String imageValues,
 			String fileValues) throws SQLException, IllegalStateException, IOException {
-		blogService.update(blog, snapshtFile, imageValues, fileValues);
+		blogService.update(blog, thumbnailFile, imageValues, fileValues);
 		return "redirect:" + "/blog/view?seq=" + blog.getSeq();
 	}
 

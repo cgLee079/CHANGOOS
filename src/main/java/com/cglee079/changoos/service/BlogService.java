@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 
 import org.jsoup.Jsoup;
@@ -28,6 +29,7 @@ import com.cglee079.changoos.dao.BlogImageDao;
 import com.cglee079.changoos.model.BlogVo;
 import com.cglee079.changoos.model.FileVo;
 import com.cglee079.changoos.model.ImageVo;
+import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.util.AuthManager;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageManager;
@@ -66,7 +68,6 @@ public class BlogService{
 	
 	@Value("#{location['blog.thumb.dir.url']}")
 	private String thumbDir;
-	
 	
 	public BlogVo get(int seq) {
 		BlogVo blog = blogDao.get(seq);
@@ -241,16 +242,15 @@ public class BlogService{
 	public String saveThumbnail(BlogVo blog, MultipartFile thumbnailFile) throws IllegalStateException, IOException {
 		String filename = thumbnailFile.getOriginalFilename();
 		String imgExt = MyFilenameUtils.getExt(filename);
-		String pathname = "BLOG.THUMB." + MyFilenameUtils.getRandomImagename(imgExt);
-		
-		MyFileUtils fileUtils = MyFileUtils.getInstance();
+		String pathname = null;
 		
 		if(thumbnailFile.getSize() > 0){
-			
+			MyFileUtils fileUtils = MyFileUtils.getInstance();
 			if(blog.getSeq() != 0) {
 				fileUtils.delete(realPath + thumbDir, blogDao.get(blog.getSeq()).getThumbnail());
 			}
 			
+			pathname = "BLOG.THUMB." + MyFilenameUtils.getRandomImagename(imgExt);
 			File file = new File(realPath + thumbDir, pathname);
 			thumbnailFile.transferTo(file);
 			
@@ -259,6 +259,7 @@ public class BlogService{
 				BufferedImage image = imageManager.getLowScaledImage(file, 720, imgExt);
 				ImageIO.write(image, imgExt, file);
 			}
+			
 			
 		} 
 		

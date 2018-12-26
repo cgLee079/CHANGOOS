@@ -3,9 +3,11 @@ package com.cglee079.changoos.service;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +58,7 @@ public class ProjectService {
 	
 	@Value("#{location['project.thumb.dir.url']}")
 	private String thumbDir;
-
+	
 	@Transactional
 	public ProjectVo get(int seq) {
 		ProjectVo project = projectDao.get(seq);
@@ -165,13 +167,14 @@ public class ProjectService {
 	public String saveThumbnail(ProjectVo project, MultipartFile thumbnailFile) throws IllegalStateException, IOException {
 		String filename = thumbnailFile.getOriginalFilename();
 		String imgExt = MyFilenameUtils.getExt(filename);
-		String pathname = "PROJECT.THUMB." + MyFilenameUtils.getRandomImagename(imgExt);
+		String pathname = null;
 		
 		if (thumbnailFile.getSize() != 0) {
 			MyFileUtils fileUtils = MyFileUtils.getInstance();
 			
 			fileUtils.delete(realPath + thumbDir, project.getThumbnail());
 
+			pathname = "PROJECT.THUMB." + MyFilenameUtils.getRandomImagename(imgExt);
 			File file = new File(realPath + thumbDir, pathname);
 			thumbnailFile.transferTo(file);
 			
