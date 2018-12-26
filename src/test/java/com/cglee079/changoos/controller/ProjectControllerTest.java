@@ -195,7 +195,7 @@ public class ProjectControllerTest {
 		
 		MockMultipartFile snapshtFile = new MockMultipartFile("snapshot", new byte[1]);
 		
-		when(projectService.saveSnapsht(any(ProjectVo.class), eq(snapshtFile))).thenReturn(snaphtPath);
+		when(projectService.saveThumbnail(any(ProjectVo.class), eq(snapshtFile))).thenReturn(snaphtPath);
 		when(projectService.insert(any(ProjectVo.class), anyObject(), anyObject())).thenReturn(seq);
 		when(PathHandler.changeImagePath(contents, Path.PROJECT_IMAGE_PATH)).thenReturn(newContents);
 		
@@ -219,7 +219,7 @@ public class ProjectControllerTest {
 		
 		MockMultipartFile snapshtFile = new MockMultipartFile("snapshot", new byte[1]);
 		
-		when(projectService.saveSnapsht(any(ProjectVo.class), eq(snapshtFile))).thenReturn(snaphtPath);
+		when(projectService.saveThumbnail(any(ProjectVo.class), eq(snapshtFile))).thenReturn(snaphtPath);
 		when(projectService.insert(any(ProjectVo.class), anyObject(), anyObject())).thenReturn(seq);
 		when(PathHandler.changeImagePath(contents, Path.PROJECT_IMAGE_PATH)).thenReturn(newContents);
 		

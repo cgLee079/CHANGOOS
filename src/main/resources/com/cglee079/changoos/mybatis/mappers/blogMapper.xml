@@ -7,7 +7,7 @@
 		/* 블로그 가져오기 */
 		SELECT
 		A.BLOG_SEQ as "seq",
-		BLOG_SNAPSHT as "snapSht",
+		BLOG_THUMB as "thumbnail",
 		BLOG_TITLE as "title",
 		BLOG_CONTENTS as "contents",
 		BLOG_TAG as "tag",
@@ -28,7 +28,7 @@
       		<foreach collection="tags" index="index" item="item" separator="UNION DISTINCT">
 			SELECT
 			A.BLOG_SEQ as "seq",
-			BLOG_SNAPSHT as "snapSht",
+			BLOG_THUMB as "thumbnail",
 			BLOG_TITLE as "title",
 			BLOG_CONTENTS as "contents",
 			BLOG_TAG as "tag",
@@ -57,7 +57,7 @@
 		/* 블로그 리스트 */
 		SELECT
 		A.BLOG_SEQ as "seq",
-		BLOG_SNAPSHT as "snapSht",
+		BLOG_THUMB as "thumbnail",
 		BLOG_TITLE as "title",
 		BLOG_CONTENTS as "contents",
 		BLOG_TAG as "tag",
@@ -104,8 +104,8 @@
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
 		/* 블로그 추가하기 */
 		INSERT TB_CHANGOOS_BLOG 
-		(BLOG_SNAPSHT, BLOG_TITLE, BLOG_CONTENTS, BLOG_TAG, BLOG_DATE, BLOG_HITS, BLOG_ENABLED)
-		VALUES (#{snapsht}, #{title}, #{contents}, #{tag}, #{date}, #{hits}, #{enabled})
+		(BLOG_THUMB, BLOG_TITLE, BLOG_CONTENTS, BLOG_TAG, BLOG_DATE, BLOG_HITS, BLOG_ENABLED)
+		VALUES (#{thumbnail}, #{title}, #{contents}, #{tag}, #{date}, #{hits}, #{enabled})
 	</insert>
 	
 	<delete id="delete">
@@ -119,11 +119,11 @@
 		UPDATE TB_CHANGOOS_BLOG
 		SET 
 		<choose>
-		<when test=" snapsht == '' ">
-		BLOG_SNAPSHT 	= null,
+		<when test=" thumbnail == '' ">
+		BLOG_THUMB 	= null,
 		</when>
 		<otherwise>
-		BLOG_SNAPSHT 	= #{snapsht},
+		BLOG_THUMB 	= #{thumbnail},
 		</otherwise>
 		</choose>
 		

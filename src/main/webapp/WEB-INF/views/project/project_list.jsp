@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/project/project-list.css" /> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/project/project-list.css"/>
 <script src="${pageContext.request.contextPath}/resources/js/project/project-list.js"></script> 
+
+<spring:eval var="thumbDir" expression="@location['project.thumb.dir.url']"/>
 </head>
 <body>
 <div class="wrapper">
@@ -15,7 +17,7 @@
 			<c:forEach var="project" items="${projects}">
 				<div onclick="" class="project-view">
 					<div onclick="projectView(${project.seq})" class="project-snapsht">
-						<div class="project-snapsht-img" style="background-image: url('${pageContext.request.contextPath}${project.snapsht}')"></div>
+						<div class="project-snapsht-img" style="background-image: url('${pageContext.request.contextPath}${thumbDir}${project.thumbnail}')"></div>
 						<span class="project-snapsht-overlay"><c:out value="${project.subtitle}"/></span>
 						<div class="project-snapsht-fg"></div>
 					</div>

@@ -11,7 +11,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 
 import org.jsoup.Jsoup;
@@ -23,14 +22,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.dao.BlogDao;
 import com.cglee079.changoos.dao.BlogFileDao;
 import com.cglee079.changoos.dao.BlogImageDao;
 import com.cglee079.changoos.model.BlogVo;
 import com.cglee079.changoos.model.FileVo;
 import com.cglee079.changoos.model.ImageVo;
-import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.util.AuthManager;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageManager;
@@ -55,17 +52,20 @@ public class BlogService{
 	@Value("#{servletContext.getRealPath('/')}")
     private String realPath;
 	
-	@Value("#{location['file.temp.dir.url']}")
+	@Value("#{location['temp.file.dir.url']}")
 	private String fileTempDir;
 	
-	@Value("#{location['file.blog.dir.url']}")
-	private String fileDir;
-	
-	@Value("#{location['image.temp.dir.url']}")
+	@Value("#{location['temp.image.dir.url']}")
 	private String imageTempDir;
 	
-	@Value("#{location['image.blog.dir.url']}")
+	@Value("#{location['blog.file.dir.url ']}")
+	private String fileDir;
+	
+	@Value("#{location['blog.image.dir.url']}")
 	private String imageDir;
+	
+	@Value("#{location['blog.thumb.dir.url']}")
+	private String thumbDir;
 	
 	
 	public BlogVo get(int seq) {
@@ -92,8 +92,6 @@ public class BlogService{
 			blogDao.update(blog);
 		}
 		
-		blog.setSnapsht(blog.extractSnapsht());
-		
 		return blog;
 	}
 	
@@ -102,9 +100,7 @@ public class BlogService{
 		BlogVo blog = null;
 		for(int i = 0; i < blogs.size(); i++) {
 			blog 		= blogs.get(i);
-			
-			//스냅샷 없을 경우, 설정하기
-			blog.setSnapsht(blog.extractSnapsht());
+			blog.setImages(blogImageDao.list(blog.getSeq()));
 		}
 		
 		return blogs;
@@ -130,9 +126,6 @@ public class BlogService{
 			blog 	= blogs.get(i);
 			blog.setImages(blogImageDao.list(blog.getSeq()));
 			
-			//스냅샷 없을 경우, 설정하기
-			blog.setSnapsht(blog.extractSnapsht());
-			
 			//내용중 텍스트만 뽑기
 			contents 	= blog.getContents();
 			newContents = "";
@@ -153,12 +146,12 @@ public class BlogService{
 		return blogDao.count(params);
 	}
 
-	public int insert(BlogVo blog, MultipartFile snapshtFile, String imageValues, String fileValues) throws IllegalStateException, IOException {
+	public int insert(BlogVo blog, MultipartFile thunmbnailFile, String imageValues, String fileValues) throws IllegalStateException, IOException {
 		String contents = PathHandler.changeImagePath(blog.getContents(), imageTempDir, imageDir);
 		blog.setContents(contents);
 		blog.setDate(Formatter.toDate(new Date()));
 		blog.setHits(0);
-		blog.setSnapsht( this.saveSnapsht(blog, snapshtFile));
+		blog.setThumbnail( this.saveThumbnail(blog, thunmbnailFile));
 		
 		int seq = blogDao.insert(blog);
 		
@@ -171,10 +164,10 @@ public class BlogService{
 		return seq;
 	}
 
-	public boolean update(BlogVo blog, MultipartFile snapshtFile, String imageValues, String fileValues) throws IllegalStateException, IOException {
+	public boolean update(BlogVo blog, MultipartFile thunmbnailFile, String imageValues, String fileValues) throws IllegalStateException, IOException {
 		String contents = PathHandler.changeImagePath(blog.getContents(), imageTempDir, imageDir);
 		blog.setContents(contents);
-		blog.setSnapsht(this.saveSnapsht(blog, snapshtFile));
+		blog.setThumbnail(this.saveThumbnail(blog, thunmbnailFile));
 		
 		int seq = blog.getSeq();
 		boolean result = blogDao.update(blog);
@@ -182,6 +175,7 @@ public class BlogService{
 		List<ImageVo> images = new ObjectMapper().readValue(imageValues, new TypeReference<List<ImageVo>>(){});
 		this.saveImages(seq, images);
 		
+		System.out.println(fileValues);
 		List<FileVo> files = new ObjectMapper().readValue(fileValues, new TypeReference<List<FileVo>>(){});
 		this.saveFiles(seq, files);
 		
@@ -198,8 +192,8 @@ public class BlogService{
 		
 		if(blogDao.delete(seq)) {
 			//스냅샷 삭제
-			if(blog.getSnapsht() != null) {
-				fileUtils.delete(realPath + blog.getSnapsht());
+			if(blog.getThumbnail() != null) {
+				fileUtils.delete(realPath + thumbDir, blog.getThumbnail());
 			}
 			
 			//첨부 파일 삭제
@@ -244,30 +238,31 @@ public class BlogService{
 		return tags;
 	}
 	
-	public String saveSnapsht(BlogVo blog, MultipartFile snapshtFile) throws IllegalStateException, IOException {
-		String filename	= "snapshot_" + blog.getTitle() + "_";
-		String imgExt	= null;
-		String path 	= blog.getSnapsht();
+	public String saveThumbnail(BlogVo blog, MultipartFile thumbnailFile) throws IllegalStateException, IOException {
+		String filename = thumbnailFile.getOriginalFilename();
+		String imgExt = MyFilenameUtils.getExt(filename);
+		String pathname = "BLOG.THUMB." + MyFilenameUtils.getRandomImagename(imgExt);
+		
 		MyFileUtils fileUtils = MyFileUtils.getInstance();
 		
-		if(snapshtFile.getSize() > 0){
+		if(thumbnailFile.getSize() > 0){
+			
 			if(blog.getSeq() != 0) {
-				fileUtils.delete(realPath + blogDao.get(blog.getSeq()).getSnapsht());
+				fileUtils.delete(realPath + thumbDir, blogDao.get(blog.getSeq()).getThumbnail());
 			}
 			
-			filename += MyFilenameUtils.sanitizeRealFilename(snapshtFile.getOriginalFilename());
-			imgExt = MyFilenameUtils.getExt(filename);
-			File file = new File(realPath + Path.BLOG_SNAPSHT_PATH, filename);
-			snapshtFile.transferTo(file);
+			File file = new File(realPath + thumbDir, pathname);
+			thumbnailFile.transferTo(file);
+			
 			if(!imgExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
 				ImageManager imageManager = ImageManager.getInstance();
 				BufferedImage image = imageManager.getLowScaledImage(file, 720, imgExt);
 				ImageIO.write(image, imgExt, file);
 			}
-			path = Path.BLOG_SNAPSHT_PATH + filename;
+			
 		} 
 		
-		return path;
+		return pathname;
 	}
 	
 	/***

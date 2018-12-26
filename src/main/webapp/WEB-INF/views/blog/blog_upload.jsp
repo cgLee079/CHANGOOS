@@ -18,7 +18,7 @@
 			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/blog/upload.do" method="post" enctype="multipart/form-data" class="upload-form">
 				<c:if test="${not empty blog}">
 					<input type="hidden" name="seq" value="<c:out value='${blog.seq}'/>"/>
-					<input type="hidden" name="snapsht" value="<c:out value='${blog.snapsht}'/>"/>
+					<input type="hidden" name="thumbnail" value="<c:out value='${blog.thumbnail}'/>"/>
 					<input type="hidden" name="date" value="<c:out value='${blog.date}'/>"/>
 					<input type="hidden" name="hits" value="<c:out value='${blog.hits}'/>"/>
 				</c:if>
@@ -37,7 +37,7 @@
 				<div class="blog-upload-item">
 					<div class="item-name">스냅샷</div>
 					<div class="item-input">
-						<input type="file" id="snapshtFile" name="snapshtFile" class="blog-snapshot"/>
+						<input type="file" id="thumbnailFile" name="thumbnailFile" class="blog-thumbnail"/>
 					</div>
 				</div>
 				
@@ -65,7 +65,7 @@
 				<div class="blog-upload-item">
 					<div class="item-name">내용</div>
 					<div class="item-input">
-						<spring:eval var="dir" expression="@location['image.blog.dir.url']"/>
+						<spring:eval var="dir" expression="@location['blog.image.dir.url']"/>
 						<c:import url="../included/included_imageupload.jsp" charEncoding="UTF-8">
 							<c:param name="dir" value="${dir}"/>
 							<c:param name="editor" value="blog-contents"/>

@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.dao.PhotoDao;
 import com.cglee079.changoos.model.PhotoVo;
-import com.cglee079.changoos.util.CommonUtils;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageManager;
 import com.cglee079.changoos.util.MyFileUtils;
@@ -39,7 +36,7 @@ public class PhotoService {
 	@Autowired
 	private PhotoDao photoDao;
 	
-	@Value("#{location['photo.temp.dir.url']}")
+	@Value("#{location['temp.photo.dir.url']}")
 	private String photoTempDir;
 	
 	@Value("#{location['photo.origin.dir.url']}")

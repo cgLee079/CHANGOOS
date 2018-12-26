@@ -32,7 +32,7 @@
 				
 				<div class="study-sub">
 					<c:if test="${!empty files}">
-						<spring:eval var="dir" expression="@location['file.study.dir.url']"/>
+						<spring:eval var="dir" expression="@location['study.file.dir.url']"/>
 						<div class="study-files">
 							<c:forEach var="file" items="${files}">
 								<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>

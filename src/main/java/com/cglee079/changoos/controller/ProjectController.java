@@ -88,17 +88,17 @@ public class ProjectController {
 
 	/** 프로젝트 업로드 **/
 	@RequestMapping(value = "/mgnt/project/upload.do", method = RequestMethod.POST, params = "!seq")
-	public String projectDoUpload(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, String imageValues,
+	public String projectDoUpload(HttpServletRequest request, ProjectVo project, MultipartFile thumbnailFile, String imageValues,
 			String fileValues) throws IllegalStateException, IOException {
-		int seq = projectService.insert(project, snapshtFile, imageValues, fileValues);
+		int seq = projectService.insert(project, thumbnailFile, imageValues, fileValues);
 		return "redirect:" + "/project/view?seq=" + seq;
 	}
 
 	/** 프로젝트 수정 **/
 	@RequestMapping(value = "/mgnt/project/upload.do", method = RequestMethod.POST, params = "seq")
-	public String projectDoModify(HttpServletRequest request, ProjectVo project, MultipartFile snapshtFile, String imageValues,
+	public String projectDoModify(HttpServletRequest request, ProjectVo project, MultipartFile thumbnailFile, String imageValues,
 			String fileValues) throws IllegalStateException, IOException {
-		projectService.update(project, snapshtFile, imageValues, fileValues);
+		projectService.update(project, thumbnailFile, imageValues, fileValues);
 		return "redirect:" + "/project/view?seq=" + project.getSeq();
 	}
 

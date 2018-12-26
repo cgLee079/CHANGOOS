@@ -4,7 +4,7 @@ import java.util.List;
 
 public class BlogVo {
 	private int seq;
-	private String snapsht;
+	private String thumbnail;
 	private String title;
 	private String contents;
 	private String date;
@@ -15,15 +15,6 @@ public class BlogVo {
 	private List<ImageVo> images;
 	private List<FileVo> files;
 
-	//첨부 이미지중, 첫번째 이미지를 스냅샷으로
-	public String extractSnapsht() {
-		//스냅샷 없을 경우, 설정하기
-		if(snapsht == null && images != null && images.size() > 0) {
-			ImageVo image = images.get(0);
-			snapsht =  image.getPathname();
-		}
-		return snapsht; 
-	}
 	
 	public int getSeq() {
 		return seq;
@@ -33,12 +24,12 @@ public class BlogVo {
 		this.seq = seq;
 	}
 
-	public String getSnapsht() {
-		return snapsht;
+	public String getThumbnail() {
+		return thumbnail;
 	}
 
-	public void setSnapsht(String snapsht) {
-		this.snapsht = snapsht;
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	public String getTitle() {

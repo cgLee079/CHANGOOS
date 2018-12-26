@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <c:set var="tempDir">
-<spring:eval expression="@location['image.temp.dir.url']"/>
+<spring:eval expression="@location['temp.image.dir.url']"/>
 </c:set>
 <script>
 var tempDirURL = '<c:out value="${tempDir}" />';

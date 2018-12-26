@@ -6,8 +6,8 @@
 <script src="${pageContext.request.contextPath}/resources/js/photo/photo-upload.js"></script>
 <spring:eval var="originDir" expression="@location['photo.origin.dir.url']"/>
 <spring:eval var="thumbDir" expression="@location['photo.thumb.dir.url']"/>
-<c:set value="tempDir"> 
-<spring:eval var="tempDir" expression="@location['photo.temp.dir.url']"/>
+<c:set var="tempDir"> 
+<spring:eval expression="@location['temp.photo.dir.url']"/>
 </c:set>
 <script type="text/javascript">
 var tempDir = '<c:out value="${tempDir}"/>';
@@ -35,7 +35,7 @@ var tempDir = '<c:out value="${tempDir}"/>';
 				<div class="upload-item">
 					<div class="upload-item-name">사진</div>
 					<div class="upload-item-input">
-						<img id="snapshot" onclick="$(this).siblings('#imageFile').click();" src="<c:out value='${originDir}${photo.thumbnail}'/>" height="150">
+						<img id="snapshot" onclick="$(this).siblings('#imageFile').click();" src="<c:out value='${thumbDir}${photo.thumbnail}'/>" height="150">
 						<input type="file" id="imageFile" name="imageFile" class="photo-image" accept="image/*" onchange="onPhotoChnage(this)"/>
 					</div>
 				</div>

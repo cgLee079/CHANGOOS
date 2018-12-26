@@ -78,7 +78,7 @@ function clearBlogItems(){
 	$(".blog-item-list").empty();
 }
 
-/* draw Study list */
+/* draw Blog list */
 function drawBlog(data){
 	var blogList 	= $(".blog-item-list");
 	var length		= data.length;
@@ -88,10 +88,12 @@ function drawBlog(data){
 		blog = data[0];
 		
 		var blogFirstItem = $(".blog-first-item");
-		if(blog.snapsht){
-			blogFirstItem.find(".blog-first-item-snapsht").css("background-image", "url('" + getContextPath() + blog.snapsht + "')");
+		if(blog.thumbnail){
+			blogFirstItem.find(".blog-first-item-snapsht").css("background-image", "url('" + getContextPath() + thumbDir + blog.thumbnail + "')");
+		}  else if(blog.images.length > 0){
+			blogFirstItem.find(".blog-first-item-snapsht").css("background-image", "url('" + getContextPath() + imageDir + blog.images[0].pathname + "')");
 		} else{
-			blogFirstItem.find(".blog-item-snapsht").css("background", "#000");
+			blogFirstItem.find(".blog-first-item-snapsht").css("background", "#000");
 		}
 		
 		blogFirstItem.find(".blog-first-item-desc").attr("onclick", "doBlogView('" + blog.seq + "')");
@@ -103,11 +105,14 @@ function drawBlog(data){
 		blog = data[i];
 		
 		var blogItem = blogItemTemp.clone();
-		if(blog.snapsht){
-			blogItem.find(".blog-item-snapsht").css("background-image", "url('" + getContextPath() + blog.snapsht + "')");
+		if(blog.thumbnail){
+			blogItem.find(".blog-item-snapsht").css("background-image", "url('" + getContextPath() + thumbDir + blog.thumbnail + "')");
+		} else if(blog.images.length > 0){
+			blogItem.find(".blog-item-snapsht").css("background-image", "url('" + getContextPath() + imageDir + blog.images[0].pathname + "')");
 		} else{
 			blogItem.find(".blog-item-snapsht").css("background", "#000");
 		}
+		
 		blogItem.find(".blog-item-title").html(blog.title);
 		blogItem.find(".blog-item-content").html(blog.contents);
 		

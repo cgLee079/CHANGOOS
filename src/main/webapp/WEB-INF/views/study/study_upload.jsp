@@ -60,7 +60,7 @@
 				<div class="study-upload-item">
 					<div class="item-name">이미지</div>
 					<div class="item-input">
-						<spring:eval var="dir" expression="@location['image.study.dir.url']"/>
+						<spring:eval var="dir" expression="@location['study.image.dir.url']"/>
 						<c:import url="../included/included_imageupload.jsp" charEncoding="UTF-8">
 							<c:param name="dir" value="${dir}"/>
 							<c:param name="editor" value="study-contents"/>

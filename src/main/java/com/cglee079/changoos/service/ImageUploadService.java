@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.util.ImageManager;
 import com.cglee079.changoos.util.MyFilenameUtils;
 
@@ -22,7 +21,7 @@ public class ImageUploadService {
 	@Value("#{servletContext.getRealPath('/')}")
 	private String realPath;
 	
-	@Value("#{location['image.temp.dir.url']}")
+	@Value("#{location['temp.image.dir.url']}")
 	private String imageTempDir;
 	
 	public String saveContentImage(String base64) throws IOException {

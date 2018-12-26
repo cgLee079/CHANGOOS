@@ -10,7 +10,7 @@
 		PROJ_SUBTITLE as "subtitle",
 		PROJ_DESC as "desc",
 		PROJ_CONTENTS as "contents",
-		PROJ_SNAPSHT as "snapsht",
+		PROJ_THUMB as "thumbnail",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
 		PROJ_HITS as "hits",
@@ -28,7 +28,7 @@
 		PROJ_SUBTITLE as "subtitle",
 		PROJ_DESC as "desc",
 		PROJ_CONTENTS as "contents",
-		PROJ_SNAPSHT as "snapsht",
+		PROJ_THUMB as "thumbnail",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
 		PROJ_HITS as "hits",
@@ -58,7 +58,7 @@
 		PROJ_SUBTITLE as "subtitle",
 		PROJ_DESC as "desc",
 		PROJ_CONTENTS as "contents",
-		PROJ_SNAPSHT as "snapsht",
+		PROJ_THUMB as "thumbnail",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
 		PROJ_HITS as "hits",
@@ -78,7 +78,7 @@
 		PROJ_SUBTITLE as "subtitle",
 		PROJ_DESC as "desc",
 		PROJ_CONTENTS as "contents",
-		PROJ_SNAPSHT as "snapsht",
+		PROJ_THUMB as "thumbnail",
 		PROJ_SOURCECD as "sourcecode",
 		PROJ_DEVELOPER as "developer",
 		PROJ_HITS as "hits",
@@ -98,8 +98,8 @@
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.ProjectVo">
 		INSERT TB_CHANGOOS_PROJECT 
-		(PROJ_TITLE, PROJ_SUBTITLE, PROJ_DESC, PROJ_CONTENTS, PROJ_SNAPSHT, PROJ_SOURCECD, PROJ_DEVELOPER, PROJ_HITS, PROJ_ENABLED)
-		VALUES (#{title}, #{subtitle}, #{desc}, #{contents}, #{snapsht}, #{sourcecode},#{developer}, #{hits}, #{enabled})
+		(PROJ_TITLE, PROJ_SUBTITLE, PROJ_DESC, PROJ_CONTENTS, PROJ_THUMB, PROJ_SOURCECD, PROJ_DEVELOPER, PROJ_HITS, PROJ_ENABLED)
+		VALUES (#{title}, #{subtitle}, #{desc}, #{contents}, #{thumbnail}, #{sourcecode},#{developer}, #{hits}, #{enabled})
 	</insert>
 	
 	<update id="update">
@@ -109,7 +109,7 @@
 		PROJ_SUBTITLE = #{subtitle},
 		PROJ_DESC = #{desc},
 		PROJ_CONTENTS = #{contents},
-		PROJ_SNAPSHT = #{snapsht},
+		PROJ_THUMB = #{thumbnail},
 		PROJ_SOURCECD = #{sourcecode},
 		PROJ_DEVELOPER = #{developer},
 		PROJ_HITS = #{hits},

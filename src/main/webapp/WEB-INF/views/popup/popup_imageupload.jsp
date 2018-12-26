@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/popup/popup-imageupload.css" />
 <script src="${pageContext.request.contextPath}/resources/js/popup/popup-imageupload.js"></script>
 <c:set var="tempDir">
-<spring:eval expression="@location['image.temp.dir.url']"/>
+<spring:eval expression="@location['temp.image.dir.url']"/>
 </c:set>
 <script>
 var tempDirURL = '<c:out value="${tempDir}" />';

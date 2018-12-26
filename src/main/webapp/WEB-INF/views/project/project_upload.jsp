@@ -22,7 +22,7 @@
 				
 				<c:if test="${not empty project}">
 					<input type="hidden" name="seq" value="<c:out value='${project.seq}'/>"/>
-					<input type="hidden" name="snapsht" value="<c:out value='${project.snapsht}'/>"/>
+					<input type="hidden" name="thumbnail" value="<c:out value='${project.thumbnail}'/>"/>
 					<input type="hidden" name="hits" value="<c:out value='${project.hits}'/>"/>
 				</c:if>
 				
@@ -40,7 +40,7 @@
 				<div class="upload-project">
 					<div class="upload-project-name">스냅샷</div>
 					<div class="upload-project-input">
-						<input type="file" id="snapshtFile" name="snapshtFile" class="project-snapshot"/>
+						<input type="file" id="thumbnailFile" name="thumbnailFile" class="project-thumbnail"/>
 					</div>
 				</div>
 				
@@ -93,7 +93,7 @@
 				<div class="upload-project">
 					<div class="upload-project-name">이미지</div>
 					<div class="upload-project-input">
-						<spring:eval var="dir" expression="@location['image.project.dir.url']"/>
+						<spring:eval var="dir" expression="@location['project.image.dir.url']"/>
 						<c:import url="../included/included_imageupload.jsp" charEncoding="UTF-8">
 							<c:param name="dir" value="${dir}"/>
 							<c:param name="editor" value="contents"/>

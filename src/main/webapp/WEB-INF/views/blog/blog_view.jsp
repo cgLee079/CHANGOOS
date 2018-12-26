@@ -7,6 +7,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/blog/blog-view.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-comment.js"></script>
 
+<spring:eval var="imageDir" expression="@location['blog.image.dir.url']"/>
 </head>
 <body>
 	<div class="wrapper">
@@ -16,7 +17,10 @@
 			<div class="blog-head">
 				<c:choose>
 					<c:when test="${not empty blog.snapsht}" >
-					<div class="blog-head-bg" style="background-image: url('${blog.snapsht}')"></div>
+						<div class="blog-head-bg" style="background-image: url('${blog.snapsht}')"></div>
+					</c:when>
+					<c:when test="${fn:length(blog.images) > 0}" >
+						<div class="blog-head-bg" style="background-image: url('${imageDir}${blog.images[0].pathname}')"></div>
 					</c:when>
 					<c:otherwise>
 					<div class="blog-head-bg" style="background: #000"></div>
@@ -42,7 +46,7 @@
 					<c:out value="${blog.contents}" escapeXml="false"/>
 					
 					<c:if test="${!empty files}">
-						<spring:eval var="dir" expression="@location['file.blog.dir.url']"/>
+						<spring:eval var="dir" expression="@location['blog.file.dir.url ']"/>
 						<h3>첨부파일</h3>
 						<div class="blog-files">
 							<c:forEach var="file" items="${files}">

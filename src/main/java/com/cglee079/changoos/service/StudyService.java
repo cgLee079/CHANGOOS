@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -16,13 +14,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.dao.StudyDao;
 import com.cglee079.changoos.dao.StudyFileDao;
 import com.cglee079.changoos.dao.StudyImageDao;
 import com.cglee079.changoos.model.FileVo;
 import com.cglee079.changoos.model.ImageVo;
-import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.util.AuthManager;
 import com.cglee079.changoos.util.Formatter;
@@ -46,16 +42,16 @@ public class StudyService {
 	@Value("#{servletContext.getRealPath('/')}")
 	private String realPath;
 
-	@Value("#{location['file.temp.dir.url']}")
+	@Value("#{location['temp.file.dir.url']}")
 	private String fileTempDir;
 	
-	@Value("#{location['file.blog.dir.url']}")
+	@Value("#{location['study.file.dir.url']}")
 	private String fileDir;
 	
-	@Value("#{location['image.temp.dir.url']}")
+	@Value("#{location['temp.image.dir.url']}")
 	private String imageTempDir;
 	
-	@Value("#{location['image.project.dir.url']}")
+	@Value("#{location['study.image.dir.url']}")
 	private String imageDir;
 	
 	public int count(Map<String, Object> params) {

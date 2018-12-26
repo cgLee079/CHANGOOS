@@ -8,7 +8,7 @@ public class ProjectVo {
 	private String title;
 	private String desc;
 	private String contents;
-	private String snapsht;
+	private String thumbnail;
 	private String sourcecode;
 	private String developer;
 	private int hits;
@@ -57,12 +57,12 @@ public class ProjectVo {
 		this.contents = contents;
 	}
 
-	public String getSnapsht() {
-		return snapsht;
+	public String getThumbnail() {
+		return thumbnail;
 	}
 
-	public void setSnapsht(String snapsht) {
-		this.snapsht = snapsht;
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	public String getSourcecode() {

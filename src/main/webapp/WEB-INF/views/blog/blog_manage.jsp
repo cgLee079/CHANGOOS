@@ -4,6 +4,14 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/blog/blog-manage.css" />
 <script src="${pageContext.request.contextPath}/resources/js/blog/blog-manage.js"></script>
+
+<c:set var="imageDir"><spring:eval expression="@location['blog.image.dir.url']"/></c:set>
+<c:set var="thumbDir"><spring:eval expression="@location['blog.thumb.dir.url']"/></c:set>
+<script>
+var imageDir = '<c:out value="${imageDir}"/>';
+var thumbDir = '<c:out value="${thumbDir}"/>';
+</script>
+
 </head>
 <body>
 <div class="wrapper">

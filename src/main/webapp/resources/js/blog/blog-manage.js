@@ -25,8 +25,14 @@ function fn_onInitDataGrid(){
 			{field:'delete', title:'삭제', width:'70px', halign:'center', styler : alignCenter, formatter : function(value, row, index){
 				return "<a onclick='blogDelete(" + row.seq + "," + index + ")' class='dg-btn'> 삭제 </a>" 
 			}},
-			{field:'snapsht', title:'스냅샷', width:'150px', halign:'center', sortable : "true", styler : alignLeft, formatter: function(value){
-				return "<img src='" + getContextPath() + value + "' height='50px' style='padding : 2px'/>"
+			{field:'thumbnail', title:'스냅샷', halign:'center', sortable : "true", formatter: function(value, row){
+				if(value){
+					return "<img src='" + getContextPath() + thumbDir + value + "' width='150px'/>"
+				} else if (row.images.length > 0){
+					return "<img src='" + getContextPath() + imageDir + row.images[0].pathname + "' width='150px'/>"
+				} else{
+					return "<img src='' width='100px'/>"
+				}
 			}},
 			{field:'tag', title:'태그', width:'150px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'title', title:'이름', width:'300px', halign:'center', sortable : "true", styler : alignLeft},

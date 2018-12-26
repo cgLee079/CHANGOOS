@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-comment.css" />
 <script src="${pageContext.request.contextPath}/resources/js/project/project-view.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-comment.js"></script>
+
+<spring:eval var="dir" expression="@location['project.file.dir.url']"/>
+<spring:eval var="thumbDir" expression="@location['project.thumb.dir.url']"/>
 </head>
 <body>
 	<div class="wrapper">
@@ -14,7 +17,7 @@
 	
 		<div class="project">
 			<div class="project-head">
-				<div class="project-head-bg" style="background-image: url('${pageContext.request.contextPath}${project.snapsht}"></div>
+				<div class="project-head-bg" style="background-image: url('${pageContext.request.contextPath}${thumbDir}${project.thumbnail}"></div>
 				<div class="project-head-fg"></div>
 				<div class="project-detail">
 					<div class="project-subtitle"><c:out value="${project.subtitle}"/></div>
@@ -49,7 +52,6 @@
 					<c:out value="${project.contents}" escapeXml="false"/>
 					
 					<c:if test="${!empty files}">
-						<spring:eval var="dir" expression="@location['file.project.dir.url']"/>
 						<div>첨부파일</div>
 						<div class="project-files">
 							<c:forEach var="file" items="${files}">

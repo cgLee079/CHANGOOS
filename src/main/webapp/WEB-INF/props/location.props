@@ -1,13 +1,17 @@
-file.temp.dir.url = /uploaded/temp/file/
-file.blog.dir.url = /uploaded/blog/file/
-file.study.dir.url = /uploaded/study/file/
-file.project.dir.url = /uploaded/project/file/
+temp.file.dir.url = /uploaded/temp/file/
+temp.image.dir.url = /uploaded/temp/image/
+temp.photo.dir.url = /uploaded/temp/photo/
 
-image.temp.dir.url = /uploaded/temp/image/
-image.blog.dir.url = /uploaded/blog/image/
-image.study.dir.url = /uploaded/study/image/
-image.project.dir.url = /uploaded/project/image/
+study.image.dir.url = /uploaded/study/image/
+study.file.dir.url = /uploaded/study/file/
 
-photo.temp.dir.url = /uploaded/temp/photo/
 photo.origin.dir.url = /uploaded/photo/origin/
 photo.thumb.dir.url = /uploaded/photo/thumb/
+
+project.thumb.dir.url = /uploaded/project/thumb/
+project.image.dir.url = /uploaded/project/image/
+project.file.dir.url = /uploaded/project/file/
+
+blog.thumb.dir.url = /uploaded/blog/snapshot/
+blog.image.dir.url = /uploaded/blog/image/
+blog.file.dir.url  = /uploaded/blog/file/

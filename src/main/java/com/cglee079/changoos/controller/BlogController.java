@@ -106,8 +106,8 @@ public class BlogController {
 	/** 블로그 수정 **/
 	@RequestMapping(value = "/mgnt/blog/upload.do", params = "seq")
 	public String blogDoModify(Model model, BlogVo blog, MultipartFile snapshtFile, String imageValues,
-			String fileValuess) throws SQLException, IllegalStateException, IOException {
-		blogService.update(blog, snapshtFile, imageValues, fileValuess);
+			String fileValues) throws SQLException, IllegalStateException, IOException {
+		blogService.update(blog, snapshtFile, imageValues, fileValues);
 		return "redirect:" + "/blog/view?seq=" + blog.getSeq();
 	}
 
