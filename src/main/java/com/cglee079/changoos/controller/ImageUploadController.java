@@ -35,7 +35,6 @@ public class ImageUploadController {
 		String pathname= imageUploadService.saveContentImage(image);
 		
 		JSONObject result = new JSONObject();
-		result.put("path", Path.TEMP_IMAGE_PATH);
 		result.put("pathname", pathname);
 		
 		return result.toString();
@@ -48,11 +47,9 @@ public class ImageUploadController {
 		String pathname = imageUploadService.saveContentImage(base64);
 		
 		JSONObject result = new JSONObject();
-		result.put("path", Path.TEMP_IMAGE_PATH);
 		result.put("filename", pathname);
 		result.put("pathname", pathname);
 		
-		request.setAttribute("path", Path.TEMP_IMAGE_PATH);
 		return result.toString();
 	}
 	

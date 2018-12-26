@@ -20,7 +20,7 @@ public class BlogVo {
 		//스냅샷 없을 경우, 설정하기
 		if(snapsht == null && images != null && images.size() > 0) {
 			ImageVo image = images.get(0);
-			snapsht = image.getPath() + image.getPathname();
+			snapsht =  image.getPathname();
 		}
 		return snapsht; 
 	}

@@ -36,7 +36,6 @@ function doFileRemove(tg){
 				updateFileValues();
 			} 
 			
-			
 		})
 	
 	
@@ -78,7 +77,6 @@ function onFileChange(tg){
 					var fileInfos= $(".file-infos");
 					var fileInfo = fileInfoTemp.clone();
 					
-					fileInfo.find(".file-path").val(result.path);
 					fileInfo.find(".file-pathname").val(result.pathname);
 					fileInfo.find(".file-filename").val(file.name);
 					fileInfo.find(".file-size").val(file.size);
@@ -108,7 +106,6 @@ function updateFileValues(){
 		fileInfo = $(fileInfos[i]);
 		file = new Object();
 		file["seq"] 		= fileInfo.find(".file-seq").val();
-		file["path"] 		= fileInfo.find(".file-path").val();
 		file["pathname"] 	= fileInfo.find(".file-pathname").val();
 		file["filename"] 	= fileInfo.find(".file-filename").val();
 		file["size"] 		= fileInfo.find(".file-size").val();

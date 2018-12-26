@@ -93,7 +93,9 @@
 				<div class="upload-project">
 					<div class="upload-project-name">이미지</div>
 					<div class="upload-project-input">
+						<spring:eval var="dir" expression="@location['image.project.dir.url']"/>
 						<c:import url="../included/included_imageupload.jsp" charEncoding="UTF-8">
+							<c:param name="dir" value="${dir}"/>
 							<c:param name="editor" value="contents"/>
 						</c:import>
 					</div>

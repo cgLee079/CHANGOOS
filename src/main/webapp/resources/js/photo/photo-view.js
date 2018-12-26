@@ -60,7 +60,7 @@ function loadPhoto(currentView){
 		success : function(data) {
 			var item = templeate.clone();
 			item.find("#photo-seq").val(data.seq);
-			item.find(".photo-img").css("background-image", "url('" + getContextPath() + data.image +"')");
+			item.find(".photo-img").css("background-image", "url('" + getContextPath() + originDir + data.pathname +"')");
 			item.find(".photo-name").text(data.name);
 			item.find(".photo-date-loc").text(data.date + " " + data.location);
 			item.find(".photo-desc").html(data.desc);

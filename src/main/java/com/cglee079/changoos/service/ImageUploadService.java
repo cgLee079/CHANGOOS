@@ -22,6 +22,9 @@ public class ImageUploadService {
 	@Value("#{servletContext.getRealPath('/')}")
 	private String realPath;
 	
+	@Value("#{location['image.temp.dir.url']}")
+	private String imageTempDir;
+	
 	public String saveContentImage(String base64) throws IOException {
 		String ImageExt = ".PNG";
 		String pathname = MyFilenameUtils.getRandomImagename(ImageExt);
@@ -29,7 +32,7 @@ public class ImageUploadService {
 		base64 = base64.split(",")[1];
 		byte[] imageBytes = DatatypeConverter.parseBase64Binary(base64);
 		BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
-		File file = new File(realPath + Path.TEMP_IMAGE_PATH, pathname);
+		File file = new File(realPath + imageTempDir, pathname);
 		ImageIO.write(bufImg, ImageExt, file);
 
 		if (!ImageExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
@@ -46,7 +49,7 @@ public class ImageUploadService {
 		String ImageExt = MyFilenameUtils.getExt(filename);
 		String pathname = MyFilenameUtils.getRandomImagename(ImageExt);
 
-		File file = new File(realPath + Path.TEMP_IMAGE_PATH, pathname);
+		File file = new File(realPath + imageTempDir, pathname);
 		multipartFile.transferTo(file);
 
 		if (!ImageExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {

@@ -39,6 +39,16 @@ public class PhotoService {
 	@Autowired
 	private PhotoDao photoDao;
 	
+	@Value("#{location['photo.temp.dir.url']}")
+	private String photoTempDir;
+	
+	@Value("#{location['photo.origin.dir.url']}")
+	private String photoOriginDir;
+	
+	@Value("#{location['photo.thumb.dir.url']}")
+	private String photoThumbDir;
+	
+	
 	public PhotoVo get(int seq) {
 		return photoDao.get(seq);
 	}
@@ -57,18 +67,16 @@ public class PhotoService {
 		MyFileUtils myFileUtils = MyFileUtils.getInstance();
 
 		// TEMP 폴더에서, 사진 파일 옮기기
-		String photoFilePath = realPath + Path.TEMP_PHOTO_PATH + photo.getPhotoPathname();
-		String movedPhotoPath = realPath + Path.PHOTO_PHOTO_PATH + photo.getPhotoPathname();
+		String photoFilePath = realPath + photoTempDir + photo.getPathname();
+		String movedPhotoPath = realPath + photoOriginDir + photo.getPathname();
 		myFileUtils.move(photoFilePath, movedPhotoPath);
-		photo.setPhotoPath(Path.PHOTO_PHOTO_PATH);
 
 		// TEMP 폴더에서, 스냅샷 파일 옮기기
-		String snapshotFilePath = realPath + Path.TEMP_PHOTO_PATH + photo.getSnapshotPathname();
-		String movedSnapshtFilePath = realPath + Path.PHOTO_SNAPSHT_PATH + photo.getSnapshotPathname();
+		String snapshotFilePath = realPath + photoTempDir + photo.getThumbnail();
+		String movedSnapshtFilePath = realPath + photoThumbDir + photo.getThumbnail();
 		myFileUtils.move(snapshotFilePath, movedSnapshtFilePath);
-		photo.setSnapshotPath(Path.PHOTO_SNAPSHT_PATH);
 		
-		myFileUtils.emptyDir(realPath + Path.TEMP_PHOTO_PATH);
+		myFileUtils.emptyDir(realPath + photoTempDir);
 
 		boolean result = photoDao.insert(photo);
 		return result;
@@ -80,26 +88,24 @@ public class PhotoService {
 		// DB에 저장된 사진정보와 새로 수정된 사진 정보를 비교한다
 		// 다르다면, 사진을 바꿨으므로, 기존 사진을 삭제한다.
 		PhotoVo savedPhoto = photoDao.get(photo.getSeq());
-		if (!savedPhoto.getPhotoPathname().equals(photo.getPhotoPathname())) {
+		if (!savedPhoto.getPathname().equals(photo.getPathname())) {
 			MyFileUtils myFileUtils = MyFileUtils.getInstance();
 
 			// 기존에 수정이전 저장된 사진, 스냅샷 파일 삭제
-			myFileUtils.delete(realPath + savedPhoto.getSnapshotPath() + savedPhoto.getSnapshotPathname());
-			myFileUtils.delete(realPath + savedPhoto.getPhotoPath() + savedPhoto.getPhotoPathname());
+			myFileUtils.delete(realPath + photoOriginDir + savedPhoto.getPathname());
+			myFileUtils.delete(realPath + photoThumbDir + savedPhoto.getThumbnail());
 
 			// TEMP 폴더에서, 사진 파일 옮기기
-			String photoFilePath = realPath + Path.TEMP_PHOTO_PATH + photo.getPhotoPathname();
-			String movedPhotoPath = realPath + Path.PHOTO_PHOTO_PATH + photo.getPhotoPathname();
+			String photoFilePath = realPath + photoTempDir + photo.getPathname();
+			String movedPhotoPath = realPath + photoOriginDir + photo.getPathname();
 			myFileUtils.move(photoFilePath, movedPhotoPath);
-			photo.setPhotoPath(Path.PHOTO_PHOTO_PATH);
 
 			// TEMP 폴더에서, 스냅샷 파일 옮기기
-			String snapshotFilePath = realPath + Path.TEMP_PHOTO_PATH + photo.getSnapshotPathname();
-			String movedSnapshtFilePath = realPath + Path.PHOTO_SNAPSHT_PATH + photo.getSnapshotPathname();
+			String snapshotFilePath = realPath + photoTempDir + photo.getThumbnail();
+			String movedSnapshtFilePath = realPath + photoThumbDir + photo.getThumbnail();
 			myFileUtils.move(snapshotFilePath, movedSnapshtFilePath);
-			photo.setSnapshotPath(Path.PHOTO_SNAPSHT_PATH);
 			
-			myFileUtils.emptyDir(realPath + Path.TEMP_PHOTO_PATH);
+			myFileUtils.emptyDir(realPath + photoTempDir);
 		}
 
 		
@@ -113,8 +119,8 @@ public class PhotoService {
 		// 기존에 수정이전 저장된 사진, 스냅샷 파일 삭제
 		MyFileUtils myFileUtils = MyFileUtils.getInstance();
 
-		myFileUtils.delete(realPath + photo.getSnapshotPath() + photo.getSnapshotPathname());
-		myFileUtils.delete(realPath + photo.getPhotoPath() + photo.getPhotoPathname());
+		myFileUtils.delete(realPath + photoThumbDir + photo.getThumbnail());
+		myFileUtils.delete(realPath + photoOriginDir + photo.getPathname());
 		boolean result = photoDao.delete(seq);
 		return result;
 	}
@@ -150,7 +156,7 @@ public class PhotoService {
 		ImageManager imageManager = ImageManager.getInstance();
 
 		// 사진 저장
-		File photofile = new File(realPath + Path.TEMP_PHOTO_PATH, photoPathname);
+		File photofile = new File(realPath + photoTempDir, photoPathname);
 		multipartFile.transferTo(photofile);
 
 		// 메타데이터 가져오기
@@ -169,14 +175,12 @@ public class PhotoService {
 
 		// 저장된 사진으로, 사진 스냅샷 만들기
 		BufferedImage shapshtImg = imageManager.getLowScaledImage(photofile, 300, ext);
-		File snapshtfile = new File(realPath + Path.TEMP_PHOTO_PATH, snapshotPathname);
+		File snapshtfile = new File(realPath + photoTempDir, snapshotPathname);
 		ImageIO.write(shapshtImg, ext, snapshtfile);
 
 		photo.setFilename(filename);
-		photo.setPhotoPath(Path.TEMP_PHOTO_PATH);
-		photo.setSnapshotPath(Path.TEMP_PHOTO_PATH);
-		photo.setPhotoPathname(photoPathname);
-		photo.setSnapshotPathname(snapshotPathname);
+		photo.setPathname(photoPathname);
+		photo.setThumbnail(snapshotPathname);
 
 		return photo;
 	}

@@ -42,12 +42,13 @@
 					<c:out value="${blog.contents}" escapeXml="false"/>
 					
 					<c:if test="${!empty files}">
+						<spring:eval var="dir" expression="@location['file.blog.dir.url']"/>
 						<h3>첨부파일</h3>
 						<div class="blog-files">
 							<c:forEach var="file" items="${files}">
 								<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>
 								<div class="blog-file">
-									 <a onclick="downloadFile('${file.path}', '${file.pathname}', '${file.filename}')"> 
+									 <a onclick="downloadFile('${dir}', '${file.pathname}', '${file.filename}')"> 
 									 	<c:out value="${file.filename}"/> (<c:out value="${filesize}"/> MB)
 								 	</a>
 								</div>												

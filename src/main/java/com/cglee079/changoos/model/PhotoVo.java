@@ -2,16 +2,14 @@ package com.cglee079.changoos.model;
 
 public class PhotoVo {
 	private int seq;
-	private String photoPath;
-	private String photoPathname;
-	private String snapshotPath;
-	private String snapshotPathname;
 	private String filename;
+	private String pathname;
+	private String thumbnail;
 	private String name;
 	private String desc;
-	private String location;
 	private String date;
 	private String time;
+	private String location;
 	private String tag;
 	private String device;
 	private int likeCnt;
@@ -24,44 +22,28 @@ public class PhotoVo {
 		this.seq = seq;
 	}
 
-	public String getPhotoPath() {
-		return photoPath;
-	}
-
-	public void setPhotoPath(String photoPath) {
-		this.photoPath = photoPath;
-	}
-
-	public String getPhotoPathname() {
-		return photoPathname;
-	}
-
-	public void setPhotoPathname(String photoPathname) {
-		this.photoPathname = photoPathname;
-	}
-
-	public String getSnapshotPath() {
-		return snapshotPath;
-	}
-
-	public void setSnapshotPath(String snapshotPath) {
-		this.snapshotPath = snapshotPath;
-	}
-
-	public String getSnapshotPathname() {
-		return snapshotPathname;
-	}
-
-	public void setSnapshotPathname(String snapshotPathname) {
-		this.snapshotPathname = snapshotPathname;
-	}
-
 	public String getFilename() {
 		return filename;
 	}
 
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+
+	public String getPathname() {
+		return pathname;
+	}
+
+	public void setPathname(String pathname) {
+		this.pathname = pathname;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	public String getName() {
@@ -78,14 +60,6 @@ public class PhotoVo {
 
 	public void setDesc(String desc) {
 		this.desc = desc;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
 	}
 
 	public String getDate() {
@@ -110,6 +84,15 @@ public class PhotoVo {
 
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+	
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public String getDevice() {

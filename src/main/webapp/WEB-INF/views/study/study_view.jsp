@@ -32,10 +32,11 @@
 				
 				<div class="study-sub">
 					<c:if test="${!empty files}">
+						<spring:eval var="dir" expression="@location['file.study.dir.url']"/>
 						<div class="study-files">
 							<c:forEach var="file" items="${files}">
 								<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>
-								<div class="file-item" onclick="downloadFile('${file.path}', '${file.pathname}', '${file.filename}')">
+								<div class="file-item" onclick="downloadFile('${dir}', '${file.pathname}', '${file.filename}')">
 									 <div class="name"><c:out value="${file.filename}"/> </div>
 									 <div class="size">(<c:out value="${filesize}"/> MB)</div>
 								</div>												

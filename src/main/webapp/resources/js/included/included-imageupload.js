@@ -15,7 +15,7 @@ $(document).ready(function() {
 
 imageUploader.insertCKEditor = function(image, maxWidth) {
 	var img = new Image();
-	img.src =  image.path + image.pathname;
+	img.src =  tempDirURL + image.pathname;
 	img.onload = function() {
 		var width = this.width;
 		var height = this.height;
@@ -29,7 +29,7 @@ imageUploader.insertCKEditor = function(image, maxWidth) {
 		var p = editor.document.createElement('p');
 		var e = editor.document.createElement('img', {
 			attributes : {
-				"src" : image.path + image.pathname,
+				"src" : tempDirURL + image.pathname,
 				"pathname" : image.pathname,
 				"alt" : image.filename,
 				"title" : image.filename,
@@ -51,11 +51,10 @@ imageUploader.insertImageInfo = function(image) {
 	
 	wrapThumbnail.appendTo(thumbnailList);
 	wrapThumbnail.find(".editorID").val(image.editorID);
-	wrapThumbnail.find(".path").val(image.path);
 	wrapThumbnail.find(".pathname").val(image.pathname);
 	wrapThumbnail.find(".filename").val(image.filename);
 	wrapThumbnail.find(".status").val(image.status);
-	wrapThumbnail.find(".thumbnail").attr("src", image.path + image.pathname);
+	wrapThumbnail.find(".thumbnail").attr("src", tempDirURL + image.pathname);
 	wrapThumbnail.find(".btn-remove").attr("onclick", "removeImage(this, '" + image.editorID + "', '" + image.pathname + "')");
 	
 	updateInputValue();
@@ -98,7 +97,6 @@ imageUploader.image2JSON = function(){
 		image = new Object();
 		image["seq"] 		= wrapImage.find(".seq").val();
 		image["editorID"] 	= wrapImage.find(".editorID").val();
-		image["path"] 		= wrapImage.find(".path").val();
 		image["filename"] 	= wrapImage.find(".filename").val();
 		image["pathname"] 	= wrapImage.find(".pathname").val();
 		image["status"] 	= wrapImage.find(".status").val();

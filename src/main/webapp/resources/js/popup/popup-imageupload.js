@@ -41,8 +41,7 @@ function onImageChange() {
 				var pathname = result.pathname;
 				var wrapImage = wrapImageTemp.clone();
 				wrapImage.appendTo($(".image-list"));
-				wrapImage.find(".image").attr("src", path + pathname);
-				wrapImage.find(".path").val(path);
+				wrapImage.find(".image").attr("src", tempDirURL + pathname);
 				wrapImage.find(".filename").val(file.name);
 				wrapImage.find(".pathname").val(pathname);
 			})
@@ -65,14 +64,10 @@ function doUpload() {
 		var image = {
 			"editorID" : editorID,
 			"seq" : undefined,
-			"path" : wrapImage.find(".path").val(),
 			"pathname" : wrapImage.find(".pathname").val(),
 			"filename" : wrapImage.find(".filename").val(),
 			"status" : "NEW",
 		}
-		var path = wrapImage.find(".path").val();
-		var pathname = wrapImage.find(".pathname").val();
-		var filename = wrapImage.find(".filename").val();
 		opener.imageUploader.insertCKEditor(image, maxWidth);
 		opener.imageUploader.insertImageInfo(image);
 	}

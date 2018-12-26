@@ -3,7 +3,6 @@ package com.cglee079.changoos.model;
 public class FileVo {
 	private int seq;
 	private int boardSeq;
-	private String path;
 	private String pathname;
 	private String filename;
 	private long size;
@@ -27,14 +26,6 @@ public class FileVo {
 
 	public long getSize() {
 		return size;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
 	}
 
 	public String getPathname() {

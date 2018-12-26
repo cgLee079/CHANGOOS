@@ -4,6 +4,15 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/photo/photo-upload.css" />
 <script src="${pageContext.request.contextPath}/resources/js/photo/photo-upload.js"></script>
+<spring:eval var="originDir" expression="@location['photo.origin.dir.url']"/>
+<spring:eval var="thumbDir" expression="@location['photo.thumb.dir.url']"/>
+<c:set value="tempDir"> 
+<spring:eval var="tempDir" expression="@location['photo.temp.dir.url']"/>
+</c:set>
+<script type="text/javascript">
+var tempDir = '<c:out value="${tempDir}"/>';
+</script>
+
 </head>
 <body>
 	<div class="wrapper">
@@ -20,15 +29,13 @@
 				</c:if>
 				
 				<input type="hidden" id="filename" name="filename" value="<c:out value='${photo.filename}'/>"/>
-				<input type="hidden" id="photoPath" name="photoPath" value="<c:out value='${photo.photoPath}'/>"/>
-				<input type="hidden" id="photoPathname" name="photoPathname" value="<c:out value='${photo.photoPathname}'/>"/>
-				<input type="hidden" id="snapshotPath" name="snapshotPath" value="<c:out value='${photo.snapshotPath}'/>"/>
-				<input type="hidden" id="snapshotPathname" name="snapshotPathname" value="<c:out value='${photo.snapshotPathname}'/>"/>
+				<input type="hidden" id="pathname" name="pathname" value="<c:out value='${photo.pathname}'/>"/>
+				<input type="hidden" id="thumbnail" name="thumbnail" value="<c:out value='${photo.thumbnail}'/>"/>
 				
 				<div class="upload-item">
 					<div class="upload-item-name">사진</div>
 					<div class="upload-item-input">
-						<img id="snapshot" onclick="$(this).siblings('#imageFile').click();" src="<c:out value='${photo.snapshotPath}${photo.snapshotPathname}'/>" height="150">
+						<img id="snapshot" onclick="$(this).siblings('#imageFile').click();" src="<c:out value='${originDir}${photo.thumbnail}'/>" height="150">
 						<input type="file" id="imageFile" name="imageFile" class="photo-image" accept="image/*" onchange="onPhotoChnage(this)"/>
 					</div>
 				</div>

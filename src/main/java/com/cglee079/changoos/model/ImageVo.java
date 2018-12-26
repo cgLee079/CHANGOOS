@@ -4,7 +4,6 @@ public class ImageVo {
 	private int seq;
 	private int boardSeq;
 	private String editorID;
-	private String path;
 	private String filename;
 	private String pathname;
 	private String status;
@@ -33,14 +32,6 @@ public class ImageVo {
 		this.editorID = editorID;
 	}
 
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
 	public String getFilename() {
 		return filename;
 	}
@@ -64,12 +55,5 @@ public class ImageVo {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	@Override
-	public String toString() {
-		return "StudyImageVo [seq=" + seq + ", path=" + path + ", filename=" + filename + ", status=" + status + "]";
-	}
-	
-	
 
 }

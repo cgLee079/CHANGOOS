@@ -55,6 +55,18 @@ public class BlogService{
 	@Value("#{servletContext.getRealPath('/')}")
     private String realPath;
 	
+	@Value("#{location['file.temp.dir.url']}")
+	private String fileTempDir;
+	
+	@Value("#{location['file.blog.dir.url']}")
+	private String fileDir;
+	
+	@Value("#{location['image.temp.dir.url']}")
+	private String imageTempDir;
+	
+	@Value("#{location['image.blog.dir.url']}")
+	private String imageDir;
+	
 	
 	public BlogVo get(int seq) {
 		BlogVo blog = blogDao.get(seq);
@@ -142,7 +154,7 @@ public class BlogService{
 	}
 
 	public int insert(BlogVo blog, MultipartFile snapshtFile, String imageValues, String fileValues) throws IllegalStateException, IOException {
-		String contents = PathHandler.changeImagePath(blog.getContents(), Path.TEMP_IMAGE_PATH, Path.BLOG_IMAGE_PATH);
+		String contents = PathHandler.changeImagePath(blog.getContents(), imageTempDir, imageDir);
 		blog.setContents(contents);
 		blog.setDate(Formatter.toDate(new Date()));
 		blog.setHits(0);
@@ -160,7 +172,7 @@ public class BlogService{
 	}
 
 	public boolean update(BlogVo blog, MultipartFile snapshtFile, String imageValues, String fileValues) throws IllegalStateException, IOException {
-		String contents = PathHandler.changeImagePath(blog.getContents(), Path.TEMP_IMAGE_PATH, Path.BLOG_IMAGE_PATH);
+		String contents = PathHandler.changeImagePath(blog.getContents(), imageTempDir, imageDir);
 		blog.setContents(contents);
 		blog.setSnapsht(this.saveSnapsht(blog, snapshtFile));
 		
@@ -192,12 +204,12 @@ public class BlogService{
 			
 			//첨부 파일 삭제
 			for (int i = 0; i < files.size(); i++) {
-				fileUtils.delete(realPath + Path.BLOG_FILE_PATH, files.get(i).getPathname());
+				fileUtils.delete(realPath + fileDir, files.get(i).getPathname());
 			}
 			
 			//첨부 이미지 삭제
 			for (int i = 0; i < images.size(); i++) {
-				fileUtils.delete(realPath + Path.BLOG_IMAGE_PATH, images.get(i).getPathname());
+				fileUtils.delete(realPath + imageDir, images.get(i).getPathname());
 			}
 			
 			return true;
@@ -270,20 +282,16 @@ public class BlogService{
 			image.setBoardSeq(blogSeq);
 			switch(image.getStatus()) {
 			case "NEW" : //새롭게 추가된 이미지
-				String path = image.getPath();
-				String movedPath = Path.BLOG_IMAGE_PATH;
-				image.setPath(movedPath);
-				
 				if(blogImageDao.insert(image)) {
 					//임시폴더에서 본 폴더로 이동
-					File existFile  = new File(realPath + path, image.getPathname());
-					File newFile	= new File(realPath + movedPath, image.getPathname());
+					File existFile  = new File(realPath + imageTempDir, image.getPathname());
+					File newFile	= new File(realPath + imageDir, image.getPathname());
 					fileUtils.move(existFile, newFile);
 				}
 				break;
 			case "REMOVE" : //기존에 있던 이미지 중, 삭제된 이미지
 				if(blogImageDao.delete(image.getSeq())) {
-					fileUtils.delete(realPath + image.getPath(), image.getPathname());
+					fileUtils.delete(realPath + imageDir, image.getPathname());
 				}
 				break;
 			}
@@ -292,7 +300,7 @@ public class BlogService{
 		
 		//업로드 파일로 이동했음에도 불구하고, 남아있는 TEMP 폴더의 이미지 파일을 삭제.
 		//즉, 이전에 글 작성 중 작성을 취소한 경우 업로드가 되었던 이미지파일들이 삭제됨.
-		fileUtils.emptyDir(realPath + Path.TEMP_IMAGE_PATH);
+		fileUtils.emptyDir(realPath + imageTempDir);
 	}
 	
 	/***
@@ -307,26 +315,22 @@ public class BlogService{
 			file.setBoardSeq(seq);
 			switch(file.getStatus()) {
 			case "NEW" : //새롭게 추가된 파일
-				String path = file.getPath();
-				String movedPath = Path.BLOG_FILE_PATH;
-				file.setPath(movedPath);
-				
 				if(blogFileDao.insert(file)) {
 					//임시폴더에서 본 폴더로 이동
-					File existFile  = new File(realPath + path, file.getPathname());
-					File newFile	= new File(realPath + movedPath, file.getPathname());
+					File existFile  = new File(realPath + fileTempDir, file.getPathname());
+					File newFile	= new File(realPath + fileDir, file.getPathname());
 					fileUtils.move(existFile, newFile);
 				}
 				break;
 			case "REMOVE" : //기존에 있던 이미지 중, 삭제된 이미지
 				if(blogFileDao.delete(file.getSeq())) {
-					fileUtils.delete(realPath + file.getPath(), file.getPathname());
+					fileUtils.delete(realPath + fileDir, file.getPathname());
 				}
 				break;
 			}
 		}
 		
-		fileUtils.emptyDir(realPath + Path.TEMP_FILE_PATH);
+		fileUtils.emptyDir(realPath + fileTempDir);
 	}
 	
 

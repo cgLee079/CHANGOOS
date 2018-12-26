@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cglee079.changoos.constants.Path;
 import com.cglee079.changoos.service.FileService;
 import com.cglee079.changoos.util.MyFilenameUtils;
 
@@ -30,9 +29,9 @@ public class FileController {
 	
 	@RequestMapping("/file/download.do")
 	public void fileDoDownload(HttpServletRequest request, HttpServletResponse response,
-			String path, String pathname, String filename) throws IOException {
+			String dir, String pathname, String filename) throws IOException {
 		
-		File file = new File(realPath + path, pathname);
+		File file = new File(realPath + dir, pathname);
 		byte fileByte[] = FileUtils.readFileToByteArray(file);
 
 		if (file.exists()) {
@@ -52,7 +51,6 @@ public class FileController {
 		String pathname= fileService.saveFile(file);
 		
 		JSONObject result = new JSONObject();
-		result.put("path", Path.TEMP_FILE_PATH);
 		result.put("pathname", pathname);
 		
 		return result.toString();

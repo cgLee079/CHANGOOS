@@ -10,7 +10,6 @@
 		SELECT 
 		FILE_SEQ as 'seq',
 		STUDY_SEQ as 'boardSeq',
-		FILE_PATH as 'path',
 		FILE_FILENM as 'filename',
 		FILE_PATHNM as 'pathname',
 		FILE_SIZE	 as 'size'
@@ -22,7 +21,6 @@
 		SELECT 
 		FILE_SEQ as 'seq',
 		STUDY_SEQ as 'boardSeq',
-		FILE_PATH as 'path',
 		FILE_FILENM as 'filename',
 		FILE_PATHNM as 'pathname',
 		FILE_SIZE	 as 'size'
@@ -39,8 +37,8 @@
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.FileVo">
 		INSERT TB_CHANGOOS_STUDY_FILE 
-		(STUDY_SEQ, FILE_PATH, FILE_PATHNM, FILE_FILENM, FILE_SIZE)
-		VALUES (#{boardSeq}, #{path}, #{pathname}, #{filename}, #{size})
+		(STUDY_SEQ, FILE_PATHNM, FILE_FILENM, FILE_SIZE)
+		VALUES (#{boardSeq}, #{pathname}, #{filename}, #{size})
 	</insert>
 	
 	<delete id="delete" parameterType="Integer">

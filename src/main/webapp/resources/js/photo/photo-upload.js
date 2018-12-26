@@ -48,15 +48,13 @@ function onPhotoChnage(tg) {
 		},
 		success : function(photo) {
 			$("#filename").val(photo.filename);
-			$("#photoPath").val(photo.photoPath);
-			$("#photoPathname").val(photo.photoPathname);
-			$("#snapshotPath").val(photo.snapshotPath);
-			$("#snapshotPathname").val(photo.snapshotPathname);
+			$("#pathname").val(photo.pathname);
+			$("#thumbnail").val(photo.thumbnail);
 			$("#date").val(photo.date);
 			$("#time").val(photo.time);
 			$("#device").val(photo.device);
 			
-			$("#snapshot").attr("src", photo.snapshotPath + photo.snapshotPathname)
+			$("#snapshot").attr("src",  tempDir + photo.thumbnail);
 		},
 		complete : function(){
 			Progress.stop();

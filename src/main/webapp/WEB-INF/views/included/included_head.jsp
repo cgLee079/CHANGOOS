@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
 <title>CHANGOO'S</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" >
@@ -98,10 +100,10 @@ $(document).ready(function(){
 })
 
 /* Download File */
-function downloadFile(path, pathname, filename){
+function downloadFile(dir, pathname, filename){
 	var href = getContextPath()
 		+ "/file/download.do?"
-		+ "path=" + path
+		+ "dir=" + dir
 		+ "&pathname=" + pathname
 		+ "&filename=" + filename;
 		

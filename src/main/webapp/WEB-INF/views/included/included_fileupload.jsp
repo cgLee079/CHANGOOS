@@ -15,7 +15,6 @@
 		<c:forEach var="file" items="${files}">
 			<div class="file-info">
 				<input type="hidden" class="file-seq" value="<c:out value='${file.seq}'/>"/>
-				<input type="hidden" class="file-path" value="<c:out value='${file.path}'/>"/>
 				<input type="hidden" class="file-pathname" value="<c:out value='${file.pathname}'/>"/>
 				<input type="hidden" class="file-filename" value="<c:out value='${file.filename}'/>"/>
 				<input type="hidden" class="file-size" value="<c:out value='${file.size}'/>"/>
@@ -28,7 +27,6 @@
 
 	<div class="file-info temp">
 		<input type="hidden" class="file-seq"/>
-		<input type="hidden" class="file-path"/>
 		<input type="hidden" class="file-pathname"/>
 		<input type="hidden" class="file-filename"/>
 		<input type="hidden" class="file-size"/>

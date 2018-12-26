@@ -11,7 +11,6 @@
 		SELECT 
 		FILE_SEQ as 'seq',
 		BLOG_SEQ as 'boardSeq',
-		FILE_PATH as 'path',
 		FILE_PATHNM as 'pathname',
 		FILE_FILENM as 'filename',
 		FILE_SIZE as 'size'
@@ -24,7 +23,6 @@
 		SELECT 
 		FILE_SEQ as 'seq',
 		BLOG_SEQ as 'boardSeq',
-		FILE_PATH as 'path',
 		FILE_PATHNM as 'pathname',
 		FILE_FILENM as 'filename',
 		FILE_SIZE as 'size'
@@ -42,8 +40,8 @@
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.FileVo">
 		/* 블로그 파일 추가 */
 		INSERT TB_CHANGOOS_BLOG_FILE 
-		(BLOG_SEQ, FILE_PATH, FILE_PATHNM, FILE_FILENM, FILE_SIZE)
-		VALUES (#{boardSeq}, #{path}, #{pathname}, #{filename}, #{size})
+		(BLOG_SEQ, FILE_PATHNM, FILE_FILENM, FILE_SIZE)
+		VALUES (#{boardSeq}, #{pathname}, #{filename}, #{size})
 	</insert>
 	
 	<delete id="delete" parameterType="Integer">

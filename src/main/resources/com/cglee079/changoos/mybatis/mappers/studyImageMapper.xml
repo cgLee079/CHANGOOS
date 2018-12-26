@@ -5,8 +5,8 @@
 <mapper namespace="com.cglee079.changoos.mapper.StudyImageMapper">
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="com.cglee079.changoos.model.ImageVo">
 		INSERT TB_CHANGOOS_STUDY_IMAGE
-		(STUDY_SEQ, EDITOR_ID, IMG_PATH, IMG_PATHNM, IMG_FILENM)
-		VALUES (#{boardSeq}, #{editorID}, #{path}, #{pathname}, #{filename})
+		(STUDY_SEQ, EDITOR_ID, IMG_PATHNM, IMG_FILENM)
+		VALUES (#{boardSeq}, #{editorID}, #{pathname}, #{filename})
 	</insert>
 	
 	<select id="list" resultType="com.cglee079.changoos.model.ImageVo" parameterType="Integer">
@@ -14,7 +14,6 @@
 		IMG_SEQ as 'seq',
 		STUDY_SEQ as 'boardSeq',
 		EDITOR_ID as 'editorID',
-		IMG_PATH as 'path',
 		IMG_PATHNM as 'pathname',
 		IMG_FILENM as 'filename',
 		'BE' as "status"

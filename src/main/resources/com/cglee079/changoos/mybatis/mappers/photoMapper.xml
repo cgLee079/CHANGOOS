@@ -8,10 +8,8 @@
 		SELECT
 		PHOTO_SEQ as "seq",
 		PHOTO_FILENM as "filename",
-		PHOTO_PATH as "photoPath",
-		PHOTO_PATHNM as "photoPathname",
-		SNAPSHOT_PATH as "snapshotPath",
-		SNAPSHOT_PATHNM as "snapshotPathname",
+		PHOTO_PATHNM as "pathname",
+		PHOTO_THUMB as "thumbnail",
 		PHOTO_NAME as 'name',
 		PHOTO_DESC as 'desc',
 		PHOTO_LOC as "location",
@@ -28,10 +26,8 @@
 		SELECT
 		PHOTO_SEQ as "seq",
 		PHOTO_FILENM as "filename",
-		PHOTO_PATH as "photoPath",
-		PHOTO_PATHNM as "photoPathname",
-		SNAPSHOT_PATH as "snapshotPath",
-		SNAPSHOT_PATHNM as "snapshotPathname",
+		PHOTO_PATHNM as "pathname",
+		PHOTO_THUMB as "thumbnail",
 		PHOTO_NAME as 'name',
 		PHOTO_DESC as 'desc',
 		PHOTO_LOC as "location",
@@ -68,10 +64,8 @@
 		/* 사진 추가하기*/
 		INSERT TB_CHANGOOS_PHOTO (
 			PHOTO_FILENM, 
-			PHOTO_PATH, 
 			PHOTO_PATHNM, 
-			SNAPSHOT_PATH, 
-			SNAPSHOT_PATHNM, 
+			PHOTO_THUMB, 
 			PHOTO_NAME, 
 			PHOTO_DESC, 
 			PHOTO_LOC, 
@@ -83,10 +77,8 @@
 		)
 		VALUES (
 			#{filename}, 
-			#{photoPath}, 
-			#{photoPathname}, 
-			#{snapshotPath}, 
-			#{snapshotPathname}, 
+			#{pathname}, 
+			#{thumbnail}, 
 			#{name}, 
 			#{desc},
 			#{location}, 
@@ -103,10 +95,8 @@
 		UPDATE TB_CHANGOOS_PHOTO
 		SET
 		PHOTO_FILENM = #{filename},
-		PHOTO_PATH = #{photoPath},
-		PHOTO_PATHNM = #{photoPathname},
-		SNAPSHOT_PATH = #{snapshotPath},
-		SNAPSHOT_PATHNM = #{snapshotPathname},
+		PHOTO_PATHNM = #{pathname},
+		PHOTO_THUMB = #{thumbnail},
 		PHOTO_NAME = #{name},
 		PHOTO_DESC = #{desc},
 		PHOTO_LOC = #{location},
