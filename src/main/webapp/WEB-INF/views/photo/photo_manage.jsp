@@ -2,15 +2,9 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
+<%@ include file="/WEB-INF/views/photo/photo_common.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/photo/photo-manage.css" />
 <script src="${pageContext.request.contextPath}/resources/js/photo/photo-manage.js"></script>
-
-<c:set var="thumbDir"><spring:eval expression="@location['photo.thumb.dir.url']"/></c:set>
-<script>
-var thumbDir = '<c:out value="${thumbDir}"/>';
-</script>
-
-
 </head>
 <body>
 <div class="wrapper">

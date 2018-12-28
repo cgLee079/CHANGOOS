@@ -1,15 +1,13 @@
 <%@ page pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
+<%@ include file="/WEB-INF/views/project/project_common.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/project/project-view.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-comment.css" />
 <script src="${pageContext.request.contextPath}/resources/js/project/project-view.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-comment.js"></script>
 
-<spring:eval var="dir" expression="@location['project.file.dir.url']"/>
-<spring:eval var="thumbDir" expression="@location['project.thumb.dir.url']"/>
 </head>
 <body>
 	<div class="wrapper">
@@ -57,7 +55,7 @@
 							<c:forEach var="file" items="${files}">
 								<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>
 								<div class="project-file">
-									 <a onclick="downloadFile('${dir}', '${file.pathname}', '${file.filename}')"> 
+									 <a onclick="downloadFile('${fileDir}', '${file.pathname}', '${file.filename}')"> 
 									 	<c:out value="${file.filename}"/> (<c:out value="${filesize}"/> MB)
 									 </a>
 								</div>												
@@ -66,7 +64,6 @@
 					</c:if>
 				</div>
 			
-				<spring:eval var="boardType" expression="@constant['board.type.id.project']"/>
 				<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">
 				   <c:param name = "perPgLine" value = "10" />
 				   <c:param name = "boardType" value = "${boardType}" />

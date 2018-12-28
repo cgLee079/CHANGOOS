@@ -30,27 +30,26 @@ public class BoardImageService {
 	@Autowired
 	private BoardImageDao boardImageDao;
 	
-	@Value("#{servletContext.getRealPath('/')}")
-	private String realPath;
-	
-	@Value("#{location['temp.image.dir.url']}")
-	private String imageTempDir;
-	
-	@Value("#{constant['image.max.width']}")
-	private int maxWidth;
+	@Value("#{servletContext.getRealPath('/')}") 	private String realPath;
+	@Value("#{location['temp.image.dir.url']}")  	private String tempDir;
+ 	@Value("#{constant['image.max.width']}") 		private int maxWidth;
+ 	
+	@Value("#{constant['image.status.id.new']}")	private String statusNew;
+	@Value("#{constant['image.status.id.unnew']}") 	private String statusUnnew;
+	@Value("#{constant['image.status.id.remove']}") private String statusRemove;
 	
 	public List<BoardImageVo> list(String TB, int boardSeq) {
 		return boardImageDao.list(TB, boardSeq);
 	}
 	
 	public String saveBase64(String base64) throws IOException {
-		String ImageExt = ".PNG";
+		String ImageExt = "PNG";
 		String pathname = MyFilenameUtils.getRandomImagename(ImageExt);
 
 		base64 = base64.split(",")[1];
 		byte[] imageBytes = DatatypeConverter.parseBase64Binary(base64);
 		BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
-		File file = new File(realPath + imageTempDir, pathname);
+		File file = new File(realPath + tempDir, pathname);
 		ImageIO.write(bufImg, ImageExt, file);
 
 		if (!ImageExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
@@ -67,7 +66,7 @@ public class BoardImageService {
 		String ImageExt = MyFilenameUtils.getExt(filename);
 		String pathname = MyFilenameUtils.getRandomImagename(ImageExt);
 
-		File file = new File(realPath + imageTempDir, pathname);
+		File file = new File(realPath + tempDir, pathname);
 		multipartFile.transferTo(file);
 
 		if (!ImageExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
@@ -88,23 +87,27 @@ public class BoardImageService {
 		for (int i = 0; i < images.size(); i++) {
 			image = images.get(i);
 			image.setBoardSeq(boardSeq);
-			switch(image.getStatus()) {
-			case "NEW" : //새롭게 추가된 이미지
+			
+			String status = image.getStatus();
+			String pathname = image.getPathname();
+			
+			if(status.equals(statusNew)) { //새롭게 추가된 이미지
 				if(boardImageDao.insert(TB, image)) {
 					//임시폴더에서 본 폴더로 이동
-					String pathname = image.getPathname();
-					File existFile  = new File(realPath + imageTempDir, pathname);
+					File existFile  = new File(realPath + tempDir, pathname);
 					File newFile	= new File(realPath + dir, pathname);
 					if(fileUtils.move(existFile, newFile)) {
-						contents = contents.replaceAll(imageTempDir + pathname, dir + pathname);
+						contents = contents.replaceAll(tempDir + pathname, dir + pathname);
 					}
 				}
-				break;
-			case "REMOVE" : //기존에 있던 이미지 중, 삭제된 이미지
+			}
+			else if (status.equals(statusUnnew)) {
+				fileUtils.delete(realPath + tempDir, pathname);
+			}
+			else if (status.equals(statusRemove)) { //기존에 있던 이미지 중, 삭제된 이미지
 				if(boardImageDao.delete(TB, image.getSeq())) {
-					fileUtils.delete(realPath + dir, image.getPathname());
+					fileUtils.delete(realPath + dir, pathname);
 				}
-				break;
 			}
 		}
 		

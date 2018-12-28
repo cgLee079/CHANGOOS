@@ -23,11 +23,12 @@ public class BoardFileService {
 	@Autowired
 	BoardFileDao boardFileDao;
 	
-	@Value("#{servletContext.getRealPath('/')}")
-	private String realPath;
+	@Value("#{servletContext.getRealPath('/')}") private String realPath;
+	@Value("#{location['temp.file.dir.url']}") 	private String tempDir;
 	
-	@Value("#{location['temp.file.dir.url']}")
-	private String tempDir;
+	@Value("#{constant['file.status.id.new']}")		private String statusNew;
+	@Value("#{constant['file.status.id.unnew']}") 	private String statusUnnew;
+	@Value("#{constant['file.status.id.remove']}") 	private String statusRemove;
 	
 	public String saveFile(MultipartFile multipartFile) throws IllegalStateException, IOException {
 		String filename = MyFilenameUtils.sanitizeRealFilename(multipartFile.getOriginalFilename());
@@ -52,21 +53,27 @@ public class BoardFileService {
 		for (int i = 0; i < files.size(); i++) {
 			file = files.get(i);
 			file.setBoardSeq(boardSeq);
-			switch(file.getStatus()) {
-			case "NEW" : //새롭게 추가된 파일
+			
+			String pathname = file.getPathname();
+			String status = file.getStatus();
+			
+			if(status.equals(statusNew)) { //새롭게 추가된 파일
 				if(boardFileDao.insert(TB, file)) {
 					//임시폴더에서 본 폴더로 이동
-					File existFile  = new File(realPath + tempDir, file.getPathname());
-					File newFile	= new File(realPath + dir, file.getPathname());
+					File existFile  = new File(realPath + tempDir, pathname);
+					File newFile	= new File(realPath + dir, pathname);
 					fileUtils.move(existFile, newFile);
 				}
-				break;
-			case "REMOVE" : //기존에 있던 이미지 중, 삭제된 이미지
-				if(boardFileDao.delete(TB, file.getSeq())) {
-					fileUtils.delete(realPath + dir, file.getPathname());
-				}
-				break;
 			}
+			else if (status.equals(statusUnnew)) {
+				fileUtils.delete(realPath + dir, pathname);
+			}
+			else if (status.equals(statusRemove)) { //기존에 있던 파일 중, 삭제된 파일
+				if(boardFileDao.delete(TB, file.getSeq())) {
+					fileUtils.delete(realPath + dir, pathname);
+				}
+			}
+			
 		}
 		
 		fileUtils.emptyDir(realPath + tempDir);

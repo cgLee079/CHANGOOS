@@ -1,9 +1,8 @@
+var fileUploader = new Object();
+
 var path;
 var fileInfoTemp;
 
-var STATUS_NEW = "NEW";
-var STATUS_REMOVE = "REMOVE";
-	
 $(document).ready(function(){
 	path = getContextPath() + "/mgnt/";
 	fileInfoTemp = $(".file-info.temp").clone();
@@ -13,6 +12,44 @@ $(document).ready(function(){
 	
 	updateFileValues();
 });
+
+fileUploader.file2JSON = function(){
+	var files = new Array();
+	var file;
+	var fileInfos = $(".file-info");
+	var fileInfo;
+	
+	for(var i = 0; i < fileInfos.length; i++){
+		fileInfo = $(fileInfos[i]);
+		file = new Object();
+		file["seq"] 		= fileInfo.find(".file-seq").val();
+		file["pathname"] 	= fileInfo.find(".file-pathname").val();
+		file["filename"] 	= fileInfo.find(".file-filename").val();
+		file["size"] 		= fileInfo.find(".file-size").val();
+		file["status"] 		= fileInfo.find(".file-status").val();
+		files.push(file);
+	}
+	
+	return files;
+}
+
+fileUploader.insertFileInfo = function(file) {
+	var fileInfos= $(".file-infos");
+	var fileInfo = fileInfoTemp.clone();
+	
+	fileInfo.find(".file-seq").val(file.seq);
+	fileInfo.find(".file-pathname").val(file.pathname);
+	fileInfo.find(".file-filename").val(file.filename);
+	fileInfo.find(".file-size").val(file.size);
+	fileInfo.find(".file-status").val(file.status);
+	
+	fileInfo.find(".file-info-name").text("[" + (file.size/(1024 * 1024)).toFixed(2) + " MB] " + file.filename);
+	fileInfos.append(fileInfo);
+	
+	updateFileValues();
+	
+	updateInputValue();
+}
 
 function doFileRemove(tg){
 	var fileInfo = $(tg).parents(".file-info");
@@ -25,12 +62,13 @@ function doFileRemove(tg){
 		})
 		.then(function(willDelete) {
 			if(willDelete) {
-				var status = fileInfo.find(".file-status");
-				if(status.val() == STATUS_NEW){
-					fileInfo.remove();
-				} else{
+				var status = fileInfo.find(".file-status")
+				if(status.val() == FILE_STATUS_BE){
 					fileInfo.addClass("remove");
-					status.val(STATUS_REMOVE);
+					status.val(FILE_STATUS_REMOVE);
+				} else if(status.val() == FILE_STATUS_NEW){
+					fileInfo.addClass("remove");
+					status.val(FILE_STATUS_UNNEW);
 				}
 				
 				updateFileValues();
@@ -80,7 +118,7 @@ function onFileChange(tg){
 					fileInfo.find(".file-pathname").val(result.pathname);
 					fileInfo.find(".file-filename").val(file.name);
 					fileInfo.find(".file-size").val(file.size);
-					fileInfo.find(".file-status").val(STATUS_NEW);
+					fileInfo.find(".file-status").val(FILE_STATUS_NEW);
 					
 					fileInfo.find(".file-info-name").text("[" + (file.size/(1024 * 1024)).toFixed(2) + " MB] " + file.name);
 					fileInfos.append(fileInfo);
@@ -97,22 +135,7 @@ function onFileChange(tg){
 }
 
 function updateFileValues(){
-	var files = new Array();
-	var file;
-	var fileInfos = $(".file-info");
-	var fileInfo;
-	
-	for(var i = 0; i < fileInfos.length; i++){
-		fileInfo = $(fileInfos[i]);
-		file = new Object();
-		file["seq"] 		= fileInfo.find(".file-seq").val();
-		file["pathname"] 	= fileInfo.find(".file-pathname").val();
-		file["filename"] 	= fileInfo.find(".file-filename").val();
-		file["size"] 		= fileInfo.find(".file-size").val();
-		file["status"] 		= fileInfo.find(".file-status").val();
-		files.push(file);
-	}
-	
+	var files = fileUploader.file2JSON();
 	var input = $("#fileValues");
 	input.val(JSON.stringify(files));
 }

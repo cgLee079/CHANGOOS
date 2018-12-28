@@ -2,17 +2,9 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
+<%@ include file="/WEB-INF/views/photo/photo_common.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/photo/photo-upload.css" />
 <script src="${pageContext.request.contextPath}/resources/js/photo/photo-upload.js"></script>
-<spring:eval var="originDir" expression="@location['photo.origin.dir.url']"/>
-<spring:eval var="thumbDir" expression="@location['photo.thumb.dir.url']"/>
-<c:set var="tempDir"> 
-<spring:eval expression="@location['temp.photo.dir.url']"/>
-</c:set>
-<script type="text/javascript">
-var tempDir = '<c:out value="${tempDir}"/>';
-</script>
-
 </head>
 <body>
 	<div class="wrapper">

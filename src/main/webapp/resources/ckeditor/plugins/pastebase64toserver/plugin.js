@@ -66,17 +66,8 @@
 		        			"base64" : base64
 		        		},
 		        		success : function(result) {
-		        			var path = result.path;
 		        			var pathname = result.pathname;
 		        			var filename = result.filename;
-	        				var element = editor.document.createElement('img', 
-	        						{attributes: 
-	        							{ 
-	        								"src" : path + pathname,
-	        								"pathname" : pathname
-	        							}
-	        						}
-	        					);
 							setTimeout(function () {
 							    if (useWorkAround) {
 							        var img = editor.getSelection().getRanges()[0].getBoundaryNodes().endNode;
@@ -91,7 +82,6 @@
 							    var image = {
 										"editorID": editor.name, 
 										"seq" : undefined,
-										"path" : path,
 										"pathname" : pathname,
 										"filename" : filename,
 										"status" : "NEW",

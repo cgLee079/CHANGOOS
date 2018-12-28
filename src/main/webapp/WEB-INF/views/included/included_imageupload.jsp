@@ -3,11 +3,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
-<c:set var="tempDir">
-<spring:eval expression="@location['temp.image.dir.url']"/>
-</c:set>
+<c:set var="tempDir"><spring:eval expression="@location['temp.image.dir.url']"/></c:set>
+<c:set var="statusBe"><spring:eval expression="@constant['image.status.id.be']"/></c:set>
+<c:set var="statusNew"><spring:eval expression="@constant['image.status.id.new']"/></c:set>
+<c:set var="statusUnnew"><spring:eval expression="@constant['image.status.id.unnew']"/></c:set>
+<c:set var="statusRemove"><spring:eval expression="@constant['image.status.id.remove']"/></c:set>
 <script>
-var tempDirURL = '<c:out value="${tempDir}" />';
+var tempDir = '<c:out value="${tempDir}" />';
+var IMAGE_STATUS_BE 	= '<c:out value="${statusBe}"/>';
+var IMAGE_STATUS_NEW 	= '<c:out value="${statusNew}"/>';
+var IMAGE_STATUS_UNNEW 	= '<c:out value="${statusUnnew}"/>';
+var IMAGE_STATUS_REMOVE = '<c:out value="${statusRemove}"/>';
 </script>
 
 <div>
@@ -31,7 +37,7 @@ var tempDirURL = '<c:out value="${tempDir}" />';
 					<input type="hidden" class="editorID" value="${image.editorID}">
 					<input type="hidden" class="pathname" value="${image.pathname}"> 
 					<input type="hidden" class="filename" value="${image.filename}"> 
-					<input type="hidden" class="status" value="${image.status}">
+					<input type="hidden" class="status" value="${statusBe}">
 					<img class="thumbnail" width='100%' height='100%' src="${param.dir}${image.pathname}"/>
 					<div class="btn-remove" onclick="removeImage(this, '${image.editorID}','${image.pathname}')">삭제</div>
 				</div>

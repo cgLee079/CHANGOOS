@@ -65,8 +65,7 @@ function doUpload() {
 			"editorID" : editorID,
 			"seq" : undefined,
 			"pathname" : wrapImage.find(".pathname").val(),
-			"filename" : wrapImage.find(".filename").val(),
-			"status" : "NEW",
+			"filename" : wrapImage.find(".filename").val()
 		}
 		opener.imageUploader.insertCKEditor(image, maxWidth);
 		opener.imageUploader.insertImageInfo(image);

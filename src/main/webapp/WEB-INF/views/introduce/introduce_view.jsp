@@ -2,10 +2,8 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp"%>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/introduce/introduce-view.css" />
-<script
-	src="${pageContext.request.contextPath}/resources/js/introduce/introduce-view.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/introduce/introduce-view.css" />
+<script src="${pageContext.request.contextPath}/resources/js/introduce/introduce-view.js"></script>
 </head>
 
 <body>
@@ -15,7 +13,7 @@
 		<div class="wrap-myinfo">
 			<div class="introduce">
 				<div class="introduce-bg"
-					style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view04.jpg)"></div>
+					style="background-image: url(${pageContext.request.contextPath}/resources/image/introduce/bg_introduce_view05.jpg)"></div>
 				<div class="introduce-text">
 					<div class="introduce-head">LEE CHANGOO</div>
 					<div class="introduce-desc">

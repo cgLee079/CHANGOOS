@@ -2,6 +2,7 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
+<%@ include file="/WEB-INF/views/study/study_common.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-fileupload.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-imageupload.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/study/study-upload.css"/>
@@ -60,9 +61,8 @@
 				<div class="study-upload-item">
 					<div class="item-name">이미지</div>
 					<div class="item-input">
-						<spring:eval var="dir" expression="@location['study.image.dir.url']"/>
 						<c:import url="../included/included_imageupload.jsp" charEncoding="UTF-8">
-							<c:param name="dir" value="${dir}"/>
+							<c:param name="dir" value="${imageDir}"/>
 							<c:param name="editor" value="study-contents"/>
 						</c:import>
 					</div>

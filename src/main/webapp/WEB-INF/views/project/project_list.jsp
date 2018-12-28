@@ -2,8 +2,8 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
+<%@ include file="/WEB-INF/views/project/project_common.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/project/project-list.css" /> 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/project/project-list.css"/>
 <script src="${pageContext.request.contextPath}/resources/js/project/project-list.js"></script> 
 
 <spring:eval var="thumbDir" expression="@location['project.thumb.dir.url']"/>

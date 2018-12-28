@@ -17,9 +17,9 @@ public class BoardComtService {
 
 	@Autowired private BoardComtDao scomtDao;
 
-	@Value("#{tb['project.comt.tb.name']}")	private String projectComtTB;
-	@Value("#{tb['study.comt.tb.name']}") 	private String studyComtTB;
-	@Value("#{tb['blog.comt.tb.name']}") 	private String blogComtTB;
+	@Value("#{db['project.comt.tb.name']}")	private String projectComtTB;
+	@Value("#{db['study.comt.tb.name']}") 	private String studyComtTB;
+	@Value("#{db['blog.comt.tb.name']}") 	private String blogComtTB;
 
 	@Value("#{constant['board.type.id.project']}") 	private String projectID;
 	@Value("#{constant['board.type.id.study']}") 	private String studyID;

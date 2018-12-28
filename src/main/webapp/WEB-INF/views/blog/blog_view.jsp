@@ -2,14 +2,11 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
+<%@ include file="/WEB-INF/views/blog/blog_common.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/blog/blog-view.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-comment.css" />
 <script src="${pageContext.request.contextPath}/resources/js/blog/blog-view.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-comment.js"></script>
-
-<spring:eval var="imageDir" expression="@location['blog.image.dir.url']"/>
-<spring:eval var="thumbDir" expression="@location['blog.thumb.dir.url']"/>
-
 <body>
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
@@ -47,13 +44,12 @@
 					<c:out value="${blog.contents}" escapeXml="false"/>
 					
 					<c:if test="${!empty files}">
-						<spring:eval var="dir" expression="@location['blog.file.dir.url ']"/>
 						<h3>첨부파일</h3>
 						<div class="blog-files">
 							<c:forEach var="file" items="${files}">
 								<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>
 								<div class="blog-file">
-									 <a onclick="downloadFile('${dir}', '${file.pathname}', '${file.filename}')"> 
+									 <a onclick="downloadFile('${fileDir}', '${file.pathname}', '${file.filename}')"> 
 									 	<c:out value="${file.filename}"/> (<c:out value="${filesize}"/> MB)
 								 	</a>
 								</div>												
@@ -62,7 +58,6 @@
 					</c:if>
 				</div>
 				
-				<spring:eval var="boardType" expression="@constant['board.type.id.blog']"/>
 				<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">
 				   <c:param name = "perPgLine" value = "10" />
 				   <c:param name = "boardType" value = "${boardType}" />

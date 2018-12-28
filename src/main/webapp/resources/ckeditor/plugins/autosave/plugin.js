@@ -155,12 +155,19 @@
                         }
                         localStorage.removeItem(autoSaveKey + "Images");
                         
+                        var files = LoadData(autoSaveKey + "Files");
+                        for(var i = 0; i < files.length; i++){
+                        	fileUploader.insertFileInfo(files[i]);
+                        }
+                        localStorage.removeItem(autoSaveKey + "Files");
+                        
                         RemoveStorage(autoSaveKey, editorInstance);
                     }
                 },
                 onCancel: function() {
                     RemoveStorage(autoSaveKey, editorInstance);
                     localStorage.removeItem(autoSaveKey + "Images");
+                    localStorage.removeItem(autoSaveKey + "Files");
                 },
                 contents: [
                     {
@@ -269,7 +276,8 @@
 
         try {
             localStorage.setItem(autoSaveKey, compressedJSON);
-            localStorage.setItem(autoSaveKey + "Images", LZString.compressToUTF16(JSON.stringify(window.imageUploader.image2JSON())));
+            localStorage.setItem(autoSaveKey + "Images", LZString.compressToUTF16(JSON.stringify(imageUploader.image2JSON())));
+            localStorage.setItem(autoSaveKey + "Files", LZString.compressToUTF16(JSON.stringify(fileUploader.file2JSON())));
         } catch (e) {
             quotaExceeded = isQuotaExceeded(e);
             if (quotaExceeded) {

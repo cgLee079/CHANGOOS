@@ -11,7 +11,7 @@
 		WHERE BOARD_SEQ = #{boardSeq}
 	</select>
 	
-	<select id="list" resultType="com.cglee079.changoos.model.ComtVo" parameterType="map">
+	<select id="list" resultType="com.cglee079.changoos.model.BoardComtVo" parameterType="map">
 		SELECT
 		COMT_SEQ as "seq",
 		BOARD_SEQ as "boardSeq",
@@ -26,7 +26,7 @@
 		LIMIT #{startRow}, #{perPgLine}
 	</select>
 	
-	<select id="get" resultType="com.cglee079.changoos.model.ComtVo" parameterType="Integer">
+	<select id="get" resultType="com.cglee079.changoos.model.BoardComtVo" parameterType="Integer">
 		SELECT
 		COMT_SEQ as "seq",
 		BOARD_SEQ as "boardSeq",

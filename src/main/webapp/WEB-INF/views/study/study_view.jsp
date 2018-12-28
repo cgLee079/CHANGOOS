@@ -2,6 +2,7 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
+<%@ include file="/WEB-INF/views/study/study_common.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/study/study-view.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-comment.css" />
 <script src="${pageContext.request.contextPath}/resources/js/study/study-view.js"></script>
@@ -32,11 +33,10 @@
 				
 				<div class="study-sub">
 					<c:if test="${!empty files}">
-						<spring:eval var="dir" expression="@location['study.file.dir.url']"/>
 						<div class="study-files">
 							<c:forEach var="file" items="${files}">
 								<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>
-								<div class="file-item" onclick="downloadFile('${dir}', '${file.pathname}', '${file.filename}')">
+								<div class="file-item" onclick="downloadFile('${fileDir}', '${file.pathname}', '${file.filename}')">
 									 <div class="name"><c:out value="${file.filename}"/> </div>
 									 <div class="size">(<c:out value="${filesize}"/> MB)</div>
 								</div>												
@@ -75,7 +75,6 @@
 				</div>
 			</div>
 			
-			<spring:eval var="boardType" expression="@constant['board.type.id.study']"/>
 			<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">
 				<c:param name = "perPgLine" value = "10" />
 				<c:param name = "boardType" value = "${boardType}" />

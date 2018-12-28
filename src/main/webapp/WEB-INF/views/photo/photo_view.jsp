@@ -2,18 +2,10 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
+<%@ include file="/WEB-INF/views/photo/photo_common.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/photo/photo-view.css" />
 <script src="${pageContext.request.contextPath}/resources/js/photo/photo-view.js"></script> 
-
 <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
-<spring:eval var="thumbDir" expression="@location['photo.thumb.dir.url']"/>
-<c:set var="originDir">
-    <spring:eval expression="@location['photo.origin.dir.url']"/>
-</c:set>
-<script>
-var originDir = '<c:out value="${originDir}"/>';
-</script>
-
 </head>
 <body>
 <div class="wrapper">
@@ -41,9 +33,7 @@ var originDir = '<c:out value="${originDir}"/>';
 							<div class="photo-date-loc"></div>
 						</div>
 						<div class="photo-desc editor-contents"></div>
-						
 						<div class="photo-tag"></div>
-						
 					</div>
 					
 					<div class="photo-comments">			

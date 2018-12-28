@@ -1,6 +1,18 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
+<c:set var="statusBe"><spring:eval expression="@constant['file.status.id.be']"/></c:set>
+<c:set var="statusNew"><spring:eval expression="@constant['file.status.id.new']"/></c:set>
+<c:set var="statusUnnew"><spring:eval expression="@constant['file.status.id.unnew']"/></c:set>
+<c:set var="statusRemove"><spring:eval expression="@constant['file.status.id.remove']"/></c:set>
+<script>
+var FILE_STATUS_BE 		= '<c:out value="${statusBe}"/>';
+var FILE_STATUS_NEW 	= '<c:out value="${statusNew}"/>';
+var FILE_STATUS_UNNEW 	= '<c:out value="${statusUnnew}"/>';
+var FILE_STATUS_REMOVE 	= '<c:out value="${statusRemove}"/>';
+</script>
 
 <div class="file-infos">
 	<input type="hidden" name="fileValues" id="fileValues"/>
@@ -18,7 +30,7 @@
 				<input type="hidden" class="file-pathname" value="<c:out value='${file.pathname}'/>"/>
 				<input type="hidden" class="file-filename" value="<c:out value='${file.filename}'/>"/>
 				<input type="hidden" class="file-size" value="<c:out value='${file.size}'/>"/>
-				<input type="hidden" class="file-status" value="<c:out value='${file.status}'/>"/>
+				<input type="hidden" class="file-status" value="<c:out value='${statusBe}'/>"/>
 				<div class="file-info-name">[<fmt:formatNumber maxFractionDigits="2" value="${file.size/(1024 * 1024)}" /> MB]&nbsp;<c:out value='${file.filename}'/></div>
 				<div class="btn-file-remove btn-red-text" onclick="doFileRemove(this)">REMOVE</div>
 			</div>

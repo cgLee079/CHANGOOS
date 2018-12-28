@@ -45,8 +45,8 @@ public class BlogService{
 	@Value("#{location['blog.image.dir.url']}") private String imageDir;
 	@Value("#{location['blog.thumb.dir.url']}")	private String thumbDir;
 	
-	@Value("#{tb['blog.file.tb.name']}") private String fileTB;
-	@Value("#{tb['blog.image.tb.name']}")private String imageTB;
+	@Value("#{db['blog.file.tb.name']}") private String fileTB;
+	@Value("#{db['blog.image.tb.name']}")private String imageTB;
 	
 	
 	public BlogVo get(int seq) {

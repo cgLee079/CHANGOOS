@@ -2,6 +2,7 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
+<%@ include file="/WEB-INF/views/study/study_common.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/study/study-manage.css" />
 <script src="${pageContext.request.contextPath}/resources/js/study/study-manage.js"></script>
 </head>

@@ -30,8 +30,8 @@ public class StudyService {
 	@Value("#{servletContext.getRealPath('/')}") private String realPath;
 	@Value("#{location['study.file.dir.url']}") private String fileDir;
  	@Value("#{location['study.image.dir.url']}")	private String imageDir;
-	@Value("#{tb['study.file.tb.name']}")	private String fileTB;
-	@Value("#{tb['study.image.tb.name']}") 	private String imageTB;
+	@Value("#{db['study.file.tb.name']}")	private String fileTB;
+	@Value("#{db['study.image.tb.name']}") 	private String imageTB;
 	
 	public int count(Map<String, Object> params) {
 		return studyDao.count(params);
