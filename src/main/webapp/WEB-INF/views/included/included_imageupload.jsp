@@ -10,7 +10,6 @@
 var tempDirURL = '<c:out value="${tempDir}" />';
 </script>
 
-
 <div>
 	<input type="hidden" id="imageValues" name="imageValues">
 	<div class="image-upload" onclick="openImageUploadPopup('${param.editor}')">사진올리기</div>

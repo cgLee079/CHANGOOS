@@ -1,0 +1,11 @@
+blog.file.tb.name		= TB_CHANGOOS_BLOG_FILE
+blog.image.tb.name		= TB_CHANGOOS_BLOG_IMAGE
+blog.comt.tb.name 		= TB_CHANGOOS_BLOG_COMT
+
+study.file.tb.name		= TB_CHANGOOS_STUDY_FILE
+study.image.tb.name		= TB_CHANGOOS_STUDY_IMAGE
+study.comt.tb.name 		= TB_CHANGOOS_STUDY_COMT
+
+project.file.tb.name		= TB_CHANGOOS_PROJECT_FILE
+project.image.tb.name		= TB_CHANGOOS_PROJECT_IMAGE
+project.comt.tb.name 		= TB_CHANGOOS_PROJECT_COMT

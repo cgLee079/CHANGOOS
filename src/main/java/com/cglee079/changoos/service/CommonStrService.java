@@ -3,12 +3,12 @@ package com.cglee079.changoos.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cglee079.changoos.dao.CommonStringDao;
+import com.cglee079.changoos.dao.CommonStrDao;
 
 @Service
-public class CommonStringService{
+public class CommonStrService{
 	@Autowired
-	CommonStringDao commonStringDao;
+	CommonStrDao commonStringDao;
 	
 
 	public String get(String groupID, String strID) {

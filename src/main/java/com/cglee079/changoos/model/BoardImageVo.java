@@ -1,6 +1,6 @@
 package com.cglee079.changoos.model;
 
-public class ImageVo {
+public class BoardImageVo {
 	private int seq;
 	private int boardSeq;
 	private String editorID;

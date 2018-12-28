@@ -45,6 +45,12 @@ public class PhotoService {
 	@Value("#{location['photo.thumb.dir.url']}")
 	private String photoThumbDir;
 	
+	@Value("#{constant['photo.origin.max.width']}")
+	private int originMaxWidth;
+	
+	@Value("#{constant['photo.thumb.max.width']}")
+	private int thumbMaxWidth;
+	
 	
 	public PhotoVo get(int seq) {
 		return photoDao.get(seq);
@@ -149,7 +155,7 @@ public class PhotoService {
 		String ext = MyFilenameUtils.getExt(filename);
 		String pathname = MyFilenameUtils.getRandomImagename(ext);
 		String photoPathname = "PHOTO." + pathname;
-		String snapshotPathname = "PHOTO.SNAPSHOT." + pathname;
+		String thumbPathname = "PHOTO.THUMB." + pathname;
 		ImageManager imageManager = ImageManager.getInstance();
 
 		// 사진 저장
@@ -164,20 +170,20 @@ public class PhotoService {
 
 		// 저장된 사진 축소 및 회전
 		int orientation = imageManager.getOrientation(photofile);
-		BufferedImage photoImg = imageManager.getLowScaledImage(photofile, 720, ext);
+		BufferedImage photoImg = imageManager.getLowScaledImage(photofile, originMaxWidth, ext);
 		if (orientation != 1) {
 			photoImg = imageManager.rotateImageForMobile(photoImg, orientation);
 		}
 		ImageIO.write(photoImg, ext, photofile);
 
 		// 저장된 사진으로, 사진 스냅샷 만들기
-		BufferedImage shapshtImg = imageManager.getLowScaledImage(photofile, 300, ext);
-		File snapshtfile = new File(realPath + photoTempDir, snapshotPathname);
+		BufferedImage shapshtImg = imageManager.getLowScaledImage(photofile, thumbMaxWidth, ext);
+		File snapshtfile = new File(realPath + photoTempDir, thumbPathname);
 		ImageIO.write(shapshtImg, ext, snapshtfile);
 
 		photo.setFilename(filename);
 		photo.setPathname(photoPathname);
-		photo.setThumbnail(snapshotPathname);
+		photo.setThumbnail(thumbPathname);
 
 		return photo;
 	}

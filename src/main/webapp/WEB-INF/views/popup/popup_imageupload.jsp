@@ -4,9 +4,8 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/popup/popup-imageupload.css" />
 <script src="${pageContext.request.contextPath}/resources/js/popup/popup-imageupload.js"></script>
-<c:set var="tempDir">
-<spring:eval expression="@location['temp.image.dir.url']"/>
-</c:set>
+<c:set var="tempDir"><spring:eval expression="@location['temp.image.dir.url']"/></c:set>
+<c:set var="maxWidth"><spring:eval expression="@constant['image.max.width']"/></c:set>
 <script>
 var tempDirURL = '<c:out value="${tempDir}" />';
 </script>
@@ -18,7 +17,7 @@ var tempDirURL = '<c:out value="${tempDir}" />';
 		<input id="images" type="file" multiple="multiple" accept="image/gif,image/jpeg,image/png" onchange="onImageChange()">
 		<div class="btn-image-upload" onclick="$(this).siblings('#images').click();">파일선택</div>
 		<div class="upload-set">
-			<input id="width" class="image-width" type="number" value="720">
+			<input id="width" class="image-width" type="number" value="<c:out value="${maxWidth}" />">
 			<div class="btn-image-upload" onclick="doUpload()">올리기</div>
 		</div>
 	</div>

@@ -12,23 +12,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cglee079.changoos.service.ImageUploadService;
+import com.cglee079.changoos.service.BoardImageService;
 
 @Controller
-public class ImageUploadController {
+public class BoardImageController {
 	@Autowired
-	private ImageUploadService imageUploadService;
+	private BoardImageService boardImageService;
 	
-	@RequestMapping("/mgnt/image/upload")
+	@RequestMapping("/mgnt/board/image/upload")
 	public String imageUpload(Model model, String editor) {
 		model.addAttribute("editor", editor);
 		return "popup/popup_imageupload";
 	}
 	
 	@ResponseBody
-	@RequestMapping("/mgnt/image/upload.do")
+	@RequestMapping("/mgnt/board/image/upload.do")
 	public String imageDoUpload(Model model, MultipartFile image) throws IllegalStateException, IOException {
-		String pathname= imageUploadService.saveContentImage(image);
+		String pathname= boardImageService.saveImage(image);
 		
 		JSONObject result = new JSONObject();
 		result.put("pathname", pathname);
@@ -38,9 +38,9 @@ public class ImageUploadController {
 	
 		
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/image/paste-upload.do")
+	@RequestMapping(value = "/mgnt/board/image/paste-upload.do")
 	public String imageDoPasteUpload(HttpServletRequest request, String base64) throws IllegalStateException, IOException {
-		String pathname = imageUploadService.saveContentImage(base64);
+		String pathname = boardImageService.saveBase64(base64);
 		
 		JSONObject result = new JSONObject();
 		result.put("filename", pathname);

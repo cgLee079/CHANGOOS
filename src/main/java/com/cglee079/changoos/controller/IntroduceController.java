@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cglee079.changoos.service.CommonStringService;
+import com.cglee079.changoos.service.CommonStrService;
 
 /**
  * Handles requests for the application home page.
@@ -20,7 +20,7 @@ import com.cglee079.changoos.service.CommonStringService;
 @Controller
 public class IntroduceController {
 	@Autowired
-	private CommonStringService commonStringService;
+	private CommonStrService commonStringService;
 	
 
 	@RequestMapping(value = "/introduce")

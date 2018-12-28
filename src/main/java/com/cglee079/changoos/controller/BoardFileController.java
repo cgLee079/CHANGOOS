@@ -16,18 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cglee079.changoos.service.FileService;
+import com.cglee079.changoos.service.BoardFileService;
 import com.cglee079.changoos.util.MyFilenameUtils;
 
 @Controller
-public class FileController {
+public class BoardFileController {
 	@Autowired
-	private FileService fileService;
+	private BoardFileService fileService;
 	
 	@Value("#{servletContext.getRealPath('/')}")
 	private String realPath;
 	
-	@RequestMapping("/file/download.do")
+	
+	
+	@RequestMapping("/board/file/download.do")
 	public void fileDoDownload(HttpServletRequest request, HttpServletResponse response,
 			String dir, String pathname, String filename) throws IOException {
 		
@@ -46,7 +48,7 @@ public class FileController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/mgnt/file/upload.do")
+	@RequestMapping("/mgnt/board/file/upload.do")
 	public String fileDoUpload(Model model, MultipartFile file) throws IllegalStateException, IOException {
 		String pathname= fileService.saveFile(file);
 		

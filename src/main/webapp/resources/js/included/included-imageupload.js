@@ -113,5 +113,5 @@ function updateInputValue(){
 }
 
 function openImageUploadPopup(editor) {
-	var popup = window.open(getContextPath() + "/mgnt/image/upload?editor=" + editor, "_blank", 'width=600, height=800');
+	var popup = window.open(getContextPath() + "/mgnt/board/image/upload?editor=" + editor, "_blank", 'width=600, height=800');
 }

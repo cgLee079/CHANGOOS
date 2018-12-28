@@ -36,7 +36,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.cglee079.changoos.constants.Path;
-import com.cglee079.changoos.model.FileVo;
+import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.service.StudyService;
 import com.cglee079.changoos.util.PathHandler;
@@ -106,7 +106,7 @@ public class StudyControllerTest {
 	
 	@Test
 	public void testStudyView() throws Exception {
-		List<FileVo> files = new ArrayList<FileVo>();
+		List<BoardFileVo> files = new ArrayList<BoardFileVo>();
 		List<Integer> visitStudies = new ArrayList<Integer>();
 		String category = "category_sample";
 		int seq = 3;
@@ -169,7 +169,7 @@ public class StudyControllerTest {
 	
 	@Test
 	public void testStudyModify() throws Exception {
-		List<FileVo> files = new ArrayList<FileVo>();
+		List<BoardFileVo> files = new ArrayList<BoardFileVo>();
 		String contents = "contents_sample";
 		String newContents = "newContents_sample";
 		int seq = 3;

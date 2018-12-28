@@ -6,15 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
 
 import org.json.JSONObject;
-import org.springframework.scheduling.annotation.Async;
-
-import com.google.gson.JsonObject;
-import com.sun.org.apache.xerces.internal.util.URI;
 
 public class TelegramHandler {
 	private String defaultUrl = "https://api.telegram.org/bot";

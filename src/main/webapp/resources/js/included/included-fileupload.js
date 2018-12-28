@@ -49,7 +49,7 @@ function sendFile(file){
 		
 		$.ajax({
 			type : "post",
-			url : getContextPath() + "/mgnt/file/upload.do",
+			url : getContextPath() + "/mgnt/board/file/upload.do",
 			dataType : "JSON",
 			async : false,
 			contentType: false,

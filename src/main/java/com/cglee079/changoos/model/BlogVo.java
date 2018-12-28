@@ -12,8 +12,8 @@ public class BlogVo {
 	private int hits;
 	private int comtCnt;
 	private boolean enabled;
-	private List<ImageVo> images;
-	private List<FileVo> files;
+	private List<BoardImageVo> images;
+	private List<BoardFileVo> files;
 
 	
 	public int getSeq() {
@@ -88,19 +88,19 @@ public class BlogVo {
 		this.comtCnt = comtCnt;
 	}
 
-	public List<ImageVo> getImages() {
+	public List<BoardImageVo> getImages() {
 		return images;
 	}
 
-	public void setImages(List<ImageVo> images) {
+	public void setImages(List<BoardImageVo> images) {
 		this.images = images;
 	}
 
-	public List<FileVo> getFiles() {
+	public List<BoardFileVo> getFiles() {
 		return files;
 	}
 
-	public void setFiles(List<FileVo> files) {
+	public void setFiles(List<BoardFileVo> files) {
 		this.files = files;
 	}
 	

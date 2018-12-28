@@ -18,14 +18,14 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.cglee079.changoos.service.CommonStringService;
+import com.cglee079.changoos.service.CommonStrService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/appServlet/**-context.xml")
 public class IntroduceControllerTest {
 	@Mock
-	CommonStringService commonStringService;
+	CommonStrService commonStringService;
 	
 	@InjectMocks
 	private IntroduceController introduceController;

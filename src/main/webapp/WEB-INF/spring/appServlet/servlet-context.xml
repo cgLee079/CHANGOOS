@@ -21,6 +21,8 @@
 	<resources mapping="/uploaded/**" location="/uploaded/" />
 	
 	<util:properties id="location" location="/WEB-INF/props/location.props" />
+	<util:properties id="constant" location="/WEB-INF/props/constant.props" />
+	<util:properties id="tb" location="/WEB-INF/props/tb.props" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->

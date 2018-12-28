@@ -103,7 +103,7 @@ $(document).ready(function(){
 /* Download File */
 function downloadFile(dir, pathname, filename){
 	var href = getContextPath()
-		+ "/file/download.do?"
+		+ "/board/file/download.do?"
 		+ "dir=" + dir
 		+ "&pathname=" + pathname
 		+ "&filename=" + filename;

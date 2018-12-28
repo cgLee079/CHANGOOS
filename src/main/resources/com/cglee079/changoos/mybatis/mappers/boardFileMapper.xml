@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cglee079.changoos.mapper.BoardFileMapper">
+	<select id="count" resultType="Integer">
+	</select>
+	
+	<select id="list" resultType="com.cglee079.changoos.model.BoardFileVo" parameterType="map">
+		SELECT 
+		FILE_SEQ as 'seq',
+		BOARD_SEQ as 'boardSeq',
+		FILE_FILENM as 'filename',
+		FILE_PATHNM as 'pathname',
+		FILE_SIZE as 'size'
+		FROM ${TB}
+		WHERE BOARD_SEQ = #{boardSeq}
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="map">
+		INSERT ${TB} 
+		(BOARD_SEQ, FILE_PATHNM, FILE_FILENM, FILE_SIZE)
+		VALUES (#{file.boardSeq}, #{file.pathname}, #{file.filename}, #{file.size})
+	</insert>
+	
+	<delete id="delete" parameterType="map">
+		DELETE FROM ${TB}
+		WHERE FILE_SEQ = #{seq}
+	</delete>	
+	
+	
+</mapper>

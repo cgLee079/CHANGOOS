@@ -5,7 +5,6 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
@@ -13,10 +12,8 @@ import org.imgscalr.Scalr;
 
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
-import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.MetadataException;
-import com.drew.metadata.Tag;
 import com.drew.metadata.exif.ExifIFD0Directory;
 
 public class ImageManager {
@@ -42,7 +39,9 @@ public class ImageManager {
 		int width = srcImg.getWidth();
 		int height = srcImg.getHeight();
 		
-		if(width < w) { return srcImg; }
+		if(width < w) { 
+			return srcImg; 
+		}
 		
 		double ratio = (double)w / (double)width;
 		int h = (int)(height * ratio);

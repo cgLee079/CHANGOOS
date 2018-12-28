@@ -11,7 +11,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 
 import org.jsoup.Jsoup;
@@ -24,41 +23,29 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.BlogDao;
-import com.cglee079.changoos.dao.BlogFileDao;
-import com.cglee079.changoos.dao.BlogImageDao;
 import com.cglee079.changoos.model.BlogVo;
-import com.cglee079.changoos.model.FileVo;
-import com.cglee079.changoos.model.ImageVo;
-import com.cglee079.changoos.model.ProjectVo;
+import com.cglee079.changoos.model.BoardFileVo;
+import com.cglee079.changoos.model.BoardImageVo;
 import com.cglee079.changoos.util.AuthManager;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageManager;
 import com.cglee079.changoos.util.MyFileUtils;
 import com.cglee079.changoos.util.MyFilenameUtils;
-import com.cglee079.changoos.util.PathHandler;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 @Service
 public class BlogService{
 	@Autowired
+	private BoardImageService boardImageService;
+	
+	@Autowired
+	private BoardFileService boardFileService;
+	
+	@Autowired
 	BlogDao blogDao;
-	
-	@Autowired
-	BlogFileDao blogFileDao;
-	
-	@Autowired
-	BlogImageDao blogImageDao;
 	
 	@Value("#{servletContext.getRealPath('/')}")
     private String realPath;
-	
-	@Value("#{location['temp.file.dir.url']}")
-	private String fileTempDir;
-	
-	@Value("#{location['temp.image.dir.url']}")
-	private String imageTempDir;
 	
 	@Value("#{location['blog.file.dir.url ']}")
 	private String fileDir;
@@ -69,10 +56,17 @@ public class BlogService{
 	@Value("#{location['blog.thumb.dir.url']}")
 	private String thumbDir;
 	
+	@Value("#{tb['blog.file.tb.name']}")
+	private String fileTB;
+	
+	@Value("#{tb['blog.image.tb.name']}")
+	private String imageTB;
+	
+	
 	public BlogVo get(int seq) {
 		BlogVo blog = blogDao.get(seq);
-		blog.setFiles(blogFileDao.list(seq));
-		blog.setImages(blogImageDao.list(seq));
+		blog.setFiles(boardFileService.list(fileTB, seq));
+		blog.setImages(boardImageService.list(imageTB, seq));
 		
 		String contents = blog.getContents();
 		if (contents != null) {
@@ -84,8 +78,8 @@ public class BlogService{
 	
 	public BlogVo doView(List<Integer> isVisitBlogs, int seq) {
 		BlogVo blog = blogDao.get(seq);
-		blog.setFiles(blogFileDao.list(seq));
-		blog.setImages(blogImageDao.list(seq));
+		blog.setFiles(boardFileService.list(fileTB, seq));
+		blog.setImages(boardImageService.list(imageTB, seq));
 		
 		if(!isVisitBlogs.contains(seq) && !AuthManager.isAdmin() ) {
 			isVisitBlogs.add(seq);
@@ -101,7 +95,7 @@ public class BlogService{
 		BlogVo blog = null;
 		for(int i = 0; i < blogs.size(); i++) {
 			blog 		= blogs.get(i);
-			blog.setImages(blogImageDao.list(blog.getSeq()));
+			blog.setImages(boardImageService.list(imageTB, blog.getSeq()));
 		}
 		
 		return blogs;
@@ -125,7 +119,7 @@ public class BlogService{
 		Elements els		= null;
 		for(int i = 0; i < blogs.size(); i++) {
 			blog 	= blogs.get(i);
-			blog.setImages(blogImageDao.list(blog.getSeq()));
+			blog.setImages(boardImageService.list(imageTB, blog.getSeq()));
 			
 			//내용중 텍스트만 뽑기
 			contents 	= blog.getContents();
@@ -147,47 +141,43 @@ public class BlogService{
 		return blogDao.count(params);
 	}
 
+	@Transactional
 	public int insert(BlogVo blog, MultipartFile thunmbnailFile, String imageValues, String fileValues) throws IllegalStateException, IOException {
-		String contents = PathHandler.changeImagePath(blog.getContents(), imageTempDir, imageDir);
-		blog.setContents(contents);
+		blog.setThumbnail( this.saveThumbnail(blog, thunmbnailFile));
 		blog.setDate(Formatter.toDate(new Date()));
 		blog.setHits(0);
-		blog.setThumbnail( this.saveThumbnail(blog, thunmbnailFile));
 		
 		int seq = blogDao.insert(blog);
 		
-		List<ImageVo> images = new ObjectMapper().readValue(imageValues, new TypeReference<List<ImageVo>>(){});
-		this.saveImages(seq, images);
-
-		List<FileVo> files = new ObjectMapper().readValue(fileValues, new TypeReference<List<FileVo>>(){});
-		this.saveFiles(seq, files);
+		boardFileService.insertFiles(fileTB, fileDir, seq, fileValues);
+		
+		String contents = boardImageService.insertImages(imageTB, imageDir, seq, blog.getContents(), imageValues);
+		blog.setContents(contents);
+		blogDao.update(blog);
 		
 		return seq;
 	}
 
+	@Transactional
 	public boolean update(BlogVo blog, MultipartFile thunmbnailFile, String imageValues, String fileValues) throws IllegalStateException, IOException {
-		String contents = PathHandler.changeImagePath(blog.getContents(), imageTempDir, imageDir);
-		blog.setContents(contents);
 		blog.setThumbnail(this.saveThumbnail(blog, thunmbnailFile));
 		
 		int seq = blog.getSeq();
+		
+		boardFileService.insertFiles(fileTB, fileDir, seq, fileValues);
+		
+		String contents = boardImageService.insertImages(imageTB, imageDir, seq, blog.getContents(), imageValues);
+		blog.setContents(contents);
+		
 		boolean result = blogDao.update(blog);
-		
-		List<ImageVo> images = new ObjectMapper().readValue(imageValues, new TypeReference<List<ImageVo>>(){});
-		this.saveImages(seq, images);
-		
-		System.out.println(fileValues);
-		List<FileVo> files = new ObjectMapper().readValue(fileValues, new TypeReference<List<FileVo>>(){});
-		this.saveFiles(seq, files);
-		
 		return result;
 	}
 	
 	@Transactional
 	public boolean delete(int seq) {
 		BlogVo blog = blogDao.get(seq);
-		List<FileVo> files = blogFileDao.list(seq);
-		List<ImageVo> images = blogImageDao.list(seq);
+		List<BoardFileVo> files = boardFileService.list(fileTB, seq);
+		List<BoardImageVo> images = boardImageService.list(imageTB, seq);
 		MyFileUtils fileUtils = MyFileUtils.getInstance();
 		
 		
@@ -266,68 +256,4 @@ public class BlogService{
 		return pathname;
 	}
 	
-	/***
-	 * 내용 중 이미지 첨부 관련
-	 ***/
-	private void saveImages(int blogSeq, List<ImageVo> images) {
-		ImageVo image;
-		MyFileUtils fileUtils = MyFileUtils.getInstance();
-
-		for (int i = 0; i < images.size(); i++) {
-			image = images.get(i);
-			image.setBoardSeq(blogSeq);
-			switch(image.getStatus()) {
-			case "NEW" : //새롭게 추가된 이미지
-				if(blogImageDao.insert(image)) {
-					//임시폴더에서 본 폴더로 이동
-					File existFile  = new File(realPath + imageTempDir, image.getPathname());
-					File newFile	= new File(realPath + imageDir, image.getPathname());
-					fileUtils.move(existFile, newFile);
-				}
-				break;
-			case "REMOVE" : //기존에 있던 이미지 중, 삭제된 이미지
-				if(blogImageDao.delete(image.getSeq())) {
-					fileUtils.delete(realPath + imageDir, image.getPathname());
-				}
-				break;
-			}
-		}
-		
-		
-		//업로드 파일로 이동했음에도 불구하고, 남아있는 TEMP 폴더의 이미지 파일을 삭제.
-		//즉, 이전에 글 작성 중 작성을 취소한 경우 업로드가 되었던 이미지파일들이 삭제됨.
-		fileUtils.emptyDir(realPath + imageTempDir);
-	}
-	
-	/***
-	 *  파일 첨부 관련 
-	 **/
-	private void saveFiles(int seq, List<FileVo> files) throws IllegalStateException, IOException {
-		MyFileUtils fileUtils = MyFileUtils.getInstance();
-		
-		FileVo file;
-		for (int i = 0; i < files.size(); i++) {
-			file = files.get(i);
-			file.setBoardSeq(seq);
-			switch(file.getStatus()) {
-			case "NEW" : //새롭게 추가된 파일
-				if(blogFileDao.insert(file)) {
-					//임시폴더에서 본 폴더로 이동
-					File existFile  = new File(realPath + fileTempDir, file.getPathname());
-					File newFile	= new File(realPath + fileDir, file.getPathname());
-					fileUtils.move(existFile, newFile);
-				}
-				break;
-			case "REMOVE" : //기존에 있던 이미지 중, 삭제된 이미지
-				if(blogFileDao.delete(file.getSeq())) {
-					fileUtils.delete(realPath + fileDir, file.getPathname());
-				}
-				break;
-			}
-		}
-		
-		fileUtils.emptyDir(realPath + fileTempDir);
-	}
-	
-
 }

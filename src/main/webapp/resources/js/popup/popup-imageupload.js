@@ -12,7 +12,7 @@ function sendImage(file) {
 		
 		$.ajax({
 			type : "post",
-			url : getContextPath() + "/mgnt/image/upload.do",
+			url : getContextPath() + "/mgnt/board/image/upload.do",
 			dataType : "JSON",
 			async : false,
 			contentType: false,
