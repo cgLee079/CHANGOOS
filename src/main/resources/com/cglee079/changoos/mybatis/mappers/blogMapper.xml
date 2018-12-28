@@ -6,7 +6,7 @@
 	<select id="S01" resultType="com.cglee079.changoos.model.BlogVo" parameterType="Integer">
 		/* 블로그 가져오기 */
 		SELECT
-		A.BLOG_SEQ as "seq",
+		BLOG_SEQ as "seq",
 		BLOG_THUMB as "thumbnail",
 		BLOG_TITLE as "title",
 		BLOG_CONTENTS as "contents",
@@ -15,9 +15,9 @@
 		BLOG_HITS as "hits",
 		BLOG_ENABLED as "enabled",
 		count(B.COMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON A.BLOG_SEQ = B.BLOG_SEQ
-		WHERE A.BLOG_SEQ = #{seq}
-		GROUP BY A.BLOG_SEQ
+		FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON BLOG_SEQ = BOARD_SEQ
+		WHERE BLOG_SEQ = #{seq}
+		GROUP BY BLOG_SEQ
 	</select>
 	
 	
@@ -27,7 +27,7 @@
       	FROM (
       		<foreach collection="tags" index="index" item="item" separator="UNION DISTINCT">
 			SELECT
-			A.BLOG_SEQ as "seq",
+			BLOG_SEQ as "seq",
 			BLOG_THUMB as "thumbnail",
 			BLOG_TITLE as "title",
 			BLOG_CONTENTS as "contents",
@@ -36,14 +36,14 @@
 			BLOG_HITS as "hits",
 			BLOG_ENABLED as "enabled",
 			count(B.COMT_SEQ) as 'comtCnt'
-			FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON A.BLOG_SEQ = B.BLOG_SEQ
+			FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON BLOG_SEQ = BOARD_SEQ
 			<trim prefix="WHERE" prefixOverrides="AND |OR ">
 				AND BLOG_TAG like '%${item}%' 
 			<if test="enabled != null">
 				<![CDATA[AND BLOG_ENABLED = #{enabled}]]>
   			</if>
   			</trim>
-			GROUP BY A.BLOG_SEQ
+			GROUP BY BLOG_SEQ
 			</foreach>
 		) X
 		
@@ -56,7 +56,7 @@
 	<select id="S04" resultType="com.cglee079.changoos.model.BlogVo" parameterType="map">
 		/* 블로그 리스트 */
 		SELECT
-		A.BLOG_SEQ as "seq",
+		BLOG_SEQ as "seq",
 		BLOG_THUMB as "thumbnail",
 		BLOG_TITLE as "title",
 		BLOG_CONTENTS as "contents",
@@ -65,17 +65,17 @@
 		BLOG_HITS as "hits",
 		BLOG_ENABLED as "enabled",
 		count(B.COMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON A.BLOG_SEQ = B.BLOG_SEQ
+		FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON BLOG_SEQ = BOARD_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
   		</trim>
-		GROUP BY A.BLOG_SEQ
+		GROUP BY BLOG_SEQ
 		
 		<choose>
 		<when test="sort != null">
 		ORDER BY ${sort} ${order}
 		</when>
 		<otherwise>
-		ORDER BY BLOG_DATE DESC, A.BLOG_SEQ DESC
+		ORDER BY BLOG_DATE DESC, BLOG_SEQ DESC
 		</otherwise>
 		</choose>
 		<if test="startRow != null and perPgLine != null">

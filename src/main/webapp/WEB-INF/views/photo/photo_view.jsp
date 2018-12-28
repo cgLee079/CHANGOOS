@@ -17,9 +17,6 @@ var originDir = '<c:out value="${originDir}"/>';
 </head>
 <body>
 <div class="wrapper">
-
-		
-	
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8">
 	</c:import>
 

@@ -35,32 +35,18 @@ import com.google.gson.Gson;
 
 @Service
 public class BlogService{
-	@Autowired
-	private BoardImageService boardImageService;
+	@Autowired private BoardImageService boardImageService;
+	@Autowired private BoardFileService boardFileService;
+	@Autowired private BlogDao blogDao;
 	
-	@Autowired
-	private BoardFileService boardFileService;
+	@Value("#{servletContext.getRealPath('/')}")	private String realPath;
 	
-	@Autowired
-	BlogDao blogDao;
+	@Value("#{location['blog.file.dir.url']}") 	private String fileDir;
+	@Value("#{location['blog.image.dir.url']}") private String imageDir;
+	@Value("#{location['blog.thumb.dir.url']}")	private String thumbDir;
 	
-	@Value("#{servletContext.getRealPath('/')}")
-    private String realPath;
-	
-	@Value("#{location['blog.file.dir.url ']}")
-	private String fileDir;
-	
-	@Value("#{location['blog.image.dir.url']}")
-	private String imageDir;
-	
-	@Value("#{location['blog.thumb.dir.url']}")
-	private String thumbDir;
-	
-	@Value("#{tb['blog.file.tb.name']}")
-	private String fileTB;
-	
-	@Value("#{tb['blog.image.tb.name']}")
-	private String imageTB;
+	@Value("#{tb['blog.file.tb.name']}") private String fileTB;
+	@Value("#{tb['blog.image.tb.name']}")private String imageTB;
 	
 	
 	public BlogVo get(int seq) {

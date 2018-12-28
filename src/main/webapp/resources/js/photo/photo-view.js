@@ -113,7 +113,7 @@ function loadComment(parent, seq){
 				datum = data[i];
 				comment = $("<div>", {"class" : "comment"});
 				$("<input>", {"type": "hidden", "id" : "comment-seq", "value" : datum.seq}).appendTo(comment);
-				$("<div>", {"class" : "comment-userinfo", "text" : datum.name}).appendTo(comment);
+				$("<div>", {"class" : "comment-userinfo", "text" : datum.username}).appendTo(comment);
 				$("<div>", {"class" : "comment-contents", "text" : datum.contents}).appendTo(comment);
 				$("<div>", {"class" : "comment-date", "text" : datum.date}).appendTo(comment);
 				$("<div>", {"class" : "btn btn-comment-delete", "onclick" : "deleteComment(this)", "text" : "삭제"}).appendTo(comment);
@@ -163,7 +163,6 @@ function doLike(tg){
 		asyncl 	: false,
 		success : function(data) {
 			item.find(".photo-like").text("♥" + data.likeCnt);
-			console.log(data);
 			if(data.like){
 				tg.addClass("on");
 				tg.css("background-image", "url('" + getContextPath() + "/resources/image/btn-photo-like-on.svg')");

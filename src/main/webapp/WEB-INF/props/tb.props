@@ -6,6 +6,6 @@ study.file.tb.name		= TB_CHANGOOS_STUDY_FILE
 study.image.tb.name		= TB_CHANGOOS_STUDY_IMAGE
 study.comt.tb.name 		= TB_CHANGOOS_STUDY_COMT
 
-project.file.tb.name		= TB_CHANGOOS_PROJECT_FILE
-project.image.tb.name		= TB_CHANGOOS_PROJECT_IMAGE
-project.comt.tb.name 		= TB_CHANGOOS_PROJECT_COMT
+project.file.tb.name	= TB_CHANGOOS_PROJECT_FILE
+project.image.tb.name	= TB_CHANGOOS_PROJECT_IMAGE
+project.comt.tb.name 	= TB_CHANGOOS_PROJECT_COMT

@@ -62,9 +62,10 @@
 					</c:if>
 				</div>
 				
+				<spring:eval var="boardType" expression="@constant['board.type.id.blog']"/>
 				<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">
 				   <c:param name = "perPgLine" value = "10" />
-				   <c:param name = "boardType" value = "blog" />
+				   <c:param name = "boardType" value = "${boardType}" />
 				   <c:param name = "boardSeq" value = "${blog.seq}" />
 				   <c:param name = "comtCnt" value = "${blog.comtCnt}" />
 				</c:import>

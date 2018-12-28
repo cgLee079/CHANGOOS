@@ -23,29 +23,15 @@ import com.cglee079.changoos.util.MyFileUtils;
 
 @Service
 public class StudyService {
-	@Autowired
-	private BoardImageService boardImageService;
+	@Autowired private BoardImageService boardImageService;
+	@Autowired private BoardFileService boardFileService;
+	@Autowired private StudyDao studyDao;
 	
-	@Autowired
-	private BoardFileService boardFileService;
-	
-	@Autowired
-	private StudyDao studyDao;
-	
-	@Value("#{servletContext.getRealPath('/')}")
-	private String realPath;
-
-	@Value("#{location['study.file.dir.url']}")
-	private String fileDir;
-	
-	@Value("#{location['study.image.dir.url']}")
-	private String imageDir;
-	
-	@Value("#{tb['study.file.tb.name']}")
-	private String fileTB;
-	
-	@Value("#{tb['study.image.tb.name']}")
-	private String imageTB;
+	@Value("#{servletContext.getRealPath('/')}") private String realPath;
+	@Value("#{location['study.file.dir.url']}") private String fileDir;
+ 	@Value("#{location['study.image.dir.url']}")	private String imageDir;
+	@Value("#{tb['study.file.tb.name']}")	private String fileTB;
+	@Value("#{tb['study.image.tb.name']}") 	private String imageTB;
 	
 	public int count(Map<String, Object> params) {
 		return studyDao.count(params);

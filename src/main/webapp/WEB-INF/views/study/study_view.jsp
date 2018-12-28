@@ -75,12 +75,12 @@
 				</div>
 			</div>
 			
-			
+			<spring:eval var="boardType" expression="@constant['board.type.id.study']"/>
 			<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">
-			   <c:param name = "perPgLine" value = "10" />
-			   <c:param name = "boardType" value = "study" />
-			   <c:param name = "boardSeq" value = "${study.seq}" />
-			   <c:param name = "comtCnt" value = "${study.comtCnt}" />
+				<c:param name = "perPgLine" value = "10" />
+				<c:param name = "boardType" value = "${boardType}" />
+				<c:param name = "boardSeq" value = "${study.seq}" />
+				<c:param name = "comtCnt" value = "${study.comtCnt}" />
 			</c:import>
 		</div>	
 	

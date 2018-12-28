@@ -25,33 +25,18 @@ import com.cglee079.changoos.util.MyFilenameUtils;
 
 @Service
 public class ProjectService {
-	@Autowired
-	private BoardImageService boardImageService;
+	@Autowired private BoardImageService boardImageService;
+	@Autowired private BoardFileService boardFileService;
+	@Autowired private ProjectDao projectDao;
 	
-	@Autowired
-	private BoardFileService boardFileService;
+	@Value("#{servletContext.getRealPath('/')}") private String realPath;
 	
-	@Autowired
-	private ProjectDao projectDao;
+	@Value("#{location['project.file.dir.url']}") 	private String fileDir;
+	@Value("#{location['project.image.dir.url']}")	private String imageDir;
+	@Value("#{location['project.thumb.dir.url']}") 	private String thumbDir;
 	
-	
-	@Value("#{servletContext.getRealPath('/')}")
-	private String realPath;
-	
-	@Value("#{location['project.file.dir.url']}")
-	private String fileDir;
-	
-	@Value("#{location['project.image.dir.url']}")
-	private String imageDir;
-	
-	@Value("#{location['project.thumb.dir.url']}")
-	private String thumbDir;
-	
-	@Value("#{tb['project.file.tb.name']}")
-	private String fileTB;
-	
-	@Value("#{tb['project.image.tb.name']}")
-	private String imageTB;
+	@Value("#{tb['project.file.tb.name']}") private String fileTB;
+	@Value("#{tb['project.image.tb.name']}") private String imageTB;
 	
 	
 	@Transactional

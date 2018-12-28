@@ -12,7 +12,7 @@ import com.cglee079.changoos.model.BlogVo;
 
 @Repository
 public class CommonStrDao {
-	private static final String namespace = "com.cglee079.changoos.mapper.CommonStringMapper";
+	private static final String namespace = "com.cglee079.changoos.mapper.CommonStrMapper";
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;

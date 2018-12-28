@@ -48,10 +48,6 @@ function initContentCKEditor() {
 					breakBeforeClose : false,
 					breakAfterClose : true
 				});
-			},
-			
-			keydown : function(ev){
-				console.log(ev);
 			}
 		},
 		toolbar : 'Full'

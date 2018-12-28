@@ -1,5 +1,9 @@
 image.max.width = 1080
 
-photo.origin.max.width = 1920
-photo.thumb.max.width = 300
+photo.origin.max.width 	= 1920
+photo.thumb.max.width 	= 300
 
+
+board.type.id.blog 		= BLOG
+board.type.id.project 	= PROJECT
+board.type.id.study		= STUDY

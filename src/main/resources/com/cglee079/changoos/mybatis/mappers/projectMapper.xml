@@ -5,7 +5,7 @@
 <mapper namespace="com.cglee079.changoos.mapper.ProjectMapper">
 	<select id="get" resultType="com.cglee079.changoos.model.ProjectVo" parameterType="Integer">
 		SELECT
-		A.PROJ_SEQ as "seq",
+		PROJ_SEQ as "seq",
 		PROJ_TITLE as "title",
 		PROJ_SUBTITLE as "subtitle",
 		PROJ_DESC as "desc",
@@ -16,14 +16,14 @@
 		PROJ_HITS as "hits",
 		PROJ_ENABLED as "enabled",
 		count(B.COMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_PROJECT A LEFT OUTER JOIN TB_CHANGOOS_PROJECT_COMT B ON A.PROJ_SEQ = B.PROJ_SEQ
-		WHERE A.PROJ_SEQ = #{seq}
-		GROUP BY A.PROJ_SEQ
+		FROM TB_CHANGOOS_PROJECT A LEFT OUTER JOIN TB_CHANGOOS_PROJECT_COMT B ON PROJ_SEQ = BOARD_SEQ
+		WHERE PROJ_SEQ = #{seq}
+		GROUP BY PROJ_SEQ
 	</select>
 	
 	<select id="list" resultType="com.cglee079.changoos.model.ProjectVo">
 		SELECT
-		A.PROJ_SEQ as "seq",
+		PROJ_SEQ as "seq",
 		PROJ_TITLE as "title",
 		PROJ_SUBTITLE as "subtitle",
 		PROJ_DESC as "desc",
@@ -34,26 +34,26 @@
 		PROJ_HITS as "hits",
 		PROJ_ENABLED as "enabled",
 		count(B.COMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_PROJECT A LEFT OUTER JOIN TB_CHANGOOS_PROJECT_COMT B ON A.PROJ_SEQ = B.PROJ_SEQ
+		FROM TB_CHANGOOS_PROJECT A LEFT OUTER JOIN TB_CHANGOOS_PROJECT_COMT B ON PROJ_SEQ = BOARD_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<if test="enabled != null">
  		<![CDATA[AND PROJ_ENABLED = #{enabled}]]>
   		</if>
   		</trim>
-		GROUP BY A.PROJ_SEQ
+		GROUP BY PROJ_SEQ
 		<choose>
 		<when test="sort != null">
 		ORDER BY ${sort} ${order}
 		</when>
 		<otherwise>
-		ORDER BY A.PROJ_SEQ DESC
+		ORDER BY PROJ_SEQ DESC
 		</otherwise>
 		</choose>
 	</select>
 	
 	<select id="getBefore" resultType="com.cglee079.changoos.model.ProjectVo" parameterType="Integer">
 		SELECT
-		A.PROJ_SEQ as "seq",
+		PROJ_SEQ as "seq",
 		PROJ_TITLE as "title",
 		PROJ_SUBTITLE as "subtitle",
 		PROJ_DESC as "desc",
@@ -64,16 +64,16 @@
 		PROJ_HITS as "hits",
 		PROJ_ENABLED as "enabled",
 		count(B.COMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_PROJECT A LEFT OUTER JOIN TB_CHANGOOS_PROJECT_COMT B ON A.PROJ_SEQ = B.PROJ_SEQ
-		WHERE <![CDATA[A.PROJ_SEQ > #{seq}]]> 
-		GROUP BY A.PROJ_SEQ
-		ORDER BY A.PROJ_SEQ ASC
+		FROM TB_CHANGOOS_PROJECT A LEFT OUTER JOIN TB_CHANGOOS_PROJECT_COMT B ON PROJ_SEQ = BOARD_SEQ
+		WHERE <![CDATA[PROJ_SEQ > #{seq}]]> 
+		GROUP BY PROJ_SEQ
+		ORDER BY PROJ_SEQ ASC
 		LIMIT 1
 	</select>
 	
 	<select id="getAfter" resultType="com.cglee079.changoos.model.ProjectVo" parameterType="Integer">
 		SELECT
-		A.PROJ_SEQ as "seq",
+		PROJ_SEQ as "seq",
 		PROJ_TITLE as "title",
 		PROJ_SUBTITLE as "subtitle",
 		PROJ_DESC as "desc",
@@ -84,10 +84,10 @@
 		PROJ_HITS as "hits",
 		PROJ_ENABLED as "enabled",
 		count(B.COMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_PROJECT A LEFT OUTER JOIN TB_CHANGOOS_PROJECT_COMT B ON A.PROJ_SEQ = B.PROJ_SEQ
-		WHERE <![CDATA[A.PROJ_SEQ < #{seq}]]> 
-		GROUP BY A.PROJ_SEQ
-		ORDER BY A.PROJ_SEQ DESC
+		FROM TB_CHANGOOS_PROJECT A LEFT OUTER JOIN TB_CHANGOOS_PROJECT_COMT B ON PROJ_SEQ = BOARD_SEQ
+		WHERE <![CDATA[PROJ_SEQ < #{seq}]]> 
+		GROUP BY PROJ_SEQ
+		ORDER BY PROJ_SEQ DESC
 		LIMIT 1
 	</select>
 	

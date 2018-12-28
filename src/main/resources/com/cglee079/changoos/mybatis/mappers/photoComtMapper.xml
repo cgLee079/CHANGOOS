@@ -8,57 +8,57 @@
 		SELECT
 			count(*)
 		FROM TB_CHANGOOS_PHOTO_COMT
-		WHERE PCOMT_PHOTO_SEQ = #{photoSeq} 
+		WHERE PHOTO_SEQ = #{photoSeq} 
 	</select>
 	
 	<select id="list" resultType="com.cglee079.changoos.model.PhotoComtVo" parameterType="map">
 		/* 사진 댓글 리스트 */
 		SELECT
-		PCOMT_SEQ as "seq",
-		PCOMT_PHOTO_SEQ as "photoSeq",
-		PCOMT_NAME as "name",
-		PCOMT_PWD as "password",
-		PCOMT_CONTENTS as "contents",
-		PCOMT_DATE as "date",
-		PCOMT_PARENT_SEQ as "parentSeq"
+		COMT_SEQ as "seq",
+		PHOTO_SEQ as "photoSeq",
+		COMT_USERNAME as "username",
+		COMT_PWD as "password",
+		COMT_CONTENTS as "contents",
+		COMT_DATE as "date",
+		PARENT_COMT as "parentSeq"
 		FROM TB_CHANGOOS_PHOTO_COMT
-		WHERE PCOMT_PHOTO_SEQ = #{photoSeq}
-		ORDER BY CONCAT(IF(PCOMT_PARENT_SEQ is null, COALESCE(PCOMT_PARENT_SEQ, ''), CONCAT('_', LPAD(PCOMT_PARENT_SEQ,6,'0')) ), '_',LPAD(PCOMT_SEQ,6,'0'))
+		WHERE PHOTO_SEQ = #{photoSeq}
+		ORDER BY CONCAT(IF(PARENT_COMT is null, COALESCE(PARENT_COMT, ''), CONCAT('_', LPAD(PARENT_COMT,6,'0')) ), '_',LPAD(COMT_SEQ,6,'0'))
 	</select>
 	
 	<select id="get" resultType="com.cglee079.changoos.model.PhotoComtVo" parameterType="Integer">
 		/* 사진 댓글 가져오기 */
 		SELECT
-		PCOMT_SEQ as "seq",
-		PCOMT_PHOTO_SEQ as "photoSeq",
-		PCOMT_NAME as "name",
-		PCOMT_PWD as "password",
-		PCOMT_CONTENTS as "contents",
-		PCOMT_DATE as "DATE",
-		PCOMT_PARENT_SEQ as "parentSeq"
+		COMT_SEQ as "seq",
+		PHOTO_SEQ as "photoSeq",
+		COMT_USERNAME as "username",
+		COMT_PWD as "password",
+		COMT_CONTENTS as "contents",
+		COMT_DATE as "DATE",
+		PARENT_COMT as "parentSeq"
 		FROM TB_CHANGOOS_PHOTO_COMT
-		WHERE PCOMT_SEQ = #{seq}
+		WHERE COMT_SEQ = #{seq}
 	</select>
 	
 	<insert id="insert">
 		/* 사진 댓글 추가하기 */
 		INSERT TB_CHANGOOS_PHOTO_COMT 
-		(PCOMT_PHOTO_SEQ, PCOMT_NAME, PCOMT_PWD, PCOMT_CONTENTS, PCOMT_DATE, PCOMT_PARENT_SEQ)
-		VALUES (#{photoSeq}, #{name}, #{password}, #{contents}, #{date}, #{parentSeq});
+		(PHOTO_SEQ, COMT_USERNAME, COMT_PWD, COMT_CONTENTS, COMT_DATE, PARENT_COMT)
+		VALUES (#{photoSeq}, #{username}, #{password}, #{contents}, #{date}, #{parentSeq});
 	</insert>
 	
 	<delete id="delete">
 		/* 사진 댓글 삭제하기*/
 		DELETE FROM TB_CHANGOOS_PHOTO_COMT
-		WHERE PCOMT_SEQ = #{seq}
+		WHERE COMT_SEQ = #{seq}
 	</delete>
 	
 	<update id="update" parameterType="map">
 		/* 사진 댓글 수정하기 */
 		UPDATE TB_CHANGOOS_PHOTO_COMT
 		SET 
-		PCOMT_CONTENTS = #{contents}
-		WHERE PCOMT_SEQ = #{seq}
+		COMT_CONTENTS = #{contents}
+		WHERE COMT_SEQ = #{seq}
 	</update>
 	
 </mapper>

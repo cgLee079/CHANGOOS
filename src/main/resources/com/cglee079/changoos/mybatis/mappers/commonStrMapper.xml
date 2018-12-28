@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cglee079.changoos.mapper.CommonStringMapper">
+<mapper namespace="com.cglee079.changoos.mapper.CommonStrMapper">
 	<select id="S01" resultType="String" parameterType="Map">
 		/* 코드 키 가져오기 	*/
 		SELECT

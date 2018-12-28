@@ -1,6 +1,5 @@
 var page;
 var perPgLine; 
-var path;
 var comtFormTemp;
 var boardType;
 var boardSeq;
@@ -14,7 +13,6 @@ $(document).ready(function(){
 	isAdmin 	= $("#isAdmin").val();
 	comtCnt		= parseInt($("#comtCnt").val());
 	comtFormTemp= $(".comment-write").clone();
-	path 		= getContextPath() + "/" + boardType;
 	
 	drawCommentCnt();
 	commentPageMove(1); // Paging
@@ -32,16 +30,17 @@ function drawCommentCnt(){
 	$(".comment-cnt").text(comtCnt);
 }
 
-/* Ajax, Paging */
+// 댓글 페이징
 function commentPageMove(pg){
 	var param = { };
-	param['boardSeq'] = boardSeq;
+	param['boardType']	= boardType;
+	param['boardSeq'] 	= boardSeq;
 	param['page'] 		= pg;
 	param['perPgLine'] 	= perPgLine;
 	
 	$.ajax({
 		type	: "POST",
-		url		: path + "/comment/paging.do",
+		url		: getContextPath() + "/board/comment/paging.do",
 		data	: param,
 		beforeSend : function(){
 			Progress.start();
@@ -68,7 +67,7 @@ function updatePaging(callFunc, page, comtCnt, perPgLine, pgGrpCnt){
 	boardPager.empty();
 	
 	if(comtCnt > 0){
-		var	pager		= drawPager(callFunc, page, comtCnt, perPgLine, pgGrpCnt);
+		var	pager	= drawPager(callFunc, page, comtCnt, perPgLine, pgGrpCnt);
 		boardPager.append(pager);
 	}
 }
@@ -190,6 +189,7 @@ function doReply(tg){
 	var password	= "I_AM_ADMIN";
 	var contents	= reply.find(".comment-reply-content").val();
 	var param = { };
+	param['boardType']	= boardType;
 	param['boardSeq'] 	= boardSeq;
 	param['username'] 	= username;
 	param['password'] 	= password;
@@ -198,7 +198,7 @@ function doReply(tg){
 	
 	$.ajax({	
 		type	: "POST",
-		url		: path + "/comment/submit.do",
+		url		: getContextPath() + "/board/comment/submit.do",
 		data	: param,
 		dataType : "JSON",
 		success : function(result) {
@@ -216,8 +216,9 @@ function doCommentModify(tg){
 	
 	$.ajax({	
 		type	: "POST",
-		url		: path + "/comment/update.do",
+		url		: getContextPath() + "/board/comment/update.do",
 		data	: {
+			'boardType' : boardType,
 			'seq' : seq,
 			'contents' : contents
 		},
@@ -255,8 +256,9 @@ function commentModify(tg){
 		var seq	= item.find(".comment-seq").val();
 		$.ajax({	
 			type	: "POST",
-			url		: path + "/comment/check-pwd.do",
+			url		: getContextPath() + "/board/comment/check-pwd.do",
 			data	: {
+				'boardType' : boardType,
 				'seq' : seq,
 				'password'	: password
 			},
@@ -306,8 +308,9 @@ function commentDelete(tg){
 		var seq	= item.find(".comment-seq").val();
 		$.ajax({	
 			type	: "POST",
-			url		: path + "/comment/delete.do",
+			url		: getContextPath() + "/board/comment/delete.do",
 			data	: {
+				'boardType' : boardType,
 				'seq' : seq,
 				'password' 	: password
 			},
@@ -339,6 +342,7 @@ function doCommentSubmit(){
 	var password = $(".comment-write #password");
 	var contents  = $(".comment-write #contents");
 	var param = { };
+	param['boardType']	= boardType;
 	param['boardSeq'] 	= boardSeq;
 	param['username'] 	= username.val();
 	param['password'] 	= password.val();
@@ -350,7 +354,7 @@ function doCommentSubmit(){
 	
 	$.ajax({
 		type	: "POST",
-		url		: path + "/comment/submit.do",
+		url		: getContextPath() + "/board/comment/submit.do",
 		data	: param,
 		dataType: 'JSON',
 		beforeSend : function(){
@@ -377,7 +381,6 @@ function doCommentSubmit(){
 				text : "댓글 등록에 실패하였습니다.", 
 				icon : "error"
 			});
-			Progress.stop();
 		}
 	});
 }
