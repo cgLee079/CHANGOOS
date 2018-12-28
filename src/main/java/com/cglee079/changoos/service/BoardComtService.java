@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.cglee079.changoos.dao.BoardComtDao;
-import com.cglee079.changoos.model.ComtVo;
+import com.cglee079.changoos.model.BoardComtVo;
 import com.cglee079.changoos.util.AuthManager;
 
 @Service
@@ -25,7 +25,7 @@ public class BoardComtService {
 	@Value("#{constant['board.type.id.study']}") 	private String studyID;
 	@Value("#{constant['board.type.id.blog']}")		private String blogID;
 
-	public List<ComtVo> paging(String boardType, int studySeq, int page, int perPgLine) {
+	public List<BoardComtVo> paging(String boardType, int studySeq, int page, int perPgLine) {
 		String TB = this.getTB(boardType);
 
 		int startRow = (page - 1) * perPgLine;
@@ -37,7 +37,7 @@ public class BoardComtService {
 		return scomtDao.count(TB, boardSeq);
 	}
 
-	public boolean insert(String boardType, ComtVo comt) {
+	public boolean insert(String boardType, BoardComtVo comt) {
 		String date = new SimpleDateFormat("YYYY-MM-dd").format(new Date());
 		comt.setDate(date);
 		
@@ -46,10 +46,10 @@ public class BoardComtService {
 		return scomtDao.insert(TB, comt);
 	}
 
-	public boolean delete(String boardType, ComtVo comt) {
+	public boolean delete(String boardType, BoardComtVo comt) {
 		String TB = this.getTB(boardType);
 		
-		ComtVo comtVo = scomtDao.get(TB, comt.getSeq());
+		BoardComtVo comtVo = scomtDao.get(TB, comt.getSeq());
 		if (comtVo.getPassword().equals(comt.getPassword()) || AuthManager.isAdmin()) {
 			return scomtDao.delete(TB, comt.getSeq());
 		} else {
@@ -57,10 +57,10 @@ public class BoardComtService {
 		}
 	}
 
-	public boolean checkPwd(String boardType, ComtVo comt) {
+	public boolean checkPwd(String boardType, BoardComtVo comt) {
 		String TB = this.getTB(boardType);
 		
-		ComtVo comtVo = scomtDao.get(TB, comt.getSeq());
+		BoardComtVo comtVo = scomtDao.get(TB, comt.getSeq());
 		if (comtVo.getPassword().equals(comt.getPassword()) || AuthManager.isAdmin()) {
 			return true;
 		} else {
@@ -68,7 +68,7 @@ public class BoardComtService {
 		}
 	}
 
-	public boolean update(String boardType, ComtVo comt) {
+	public boolean update(String boardType, BoardComtVo comt) {
 		String TB = this.getTB(boardType);
 		return scomtDao.update(TB, comt);
 	}

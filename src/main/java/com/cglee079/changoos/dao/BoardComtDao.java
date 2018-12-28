@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cglee079.changoos.model.ComtVo;
+import com.cglee079.changoos.model.BoardComtVo;
 
 @Repository
 public class BoardComtDao {
@@ -16,7 +16,7 @@ public class BoardComtDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public List<ComtVo> list(String TB, int studySeq, int startRow, int perPgLine) {
+	public List<BoardComtVo> list(String TB, int studySeq, int startRow, int perPgLine) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("TB", TB);
 		map.put("boardSeq", studySeq);
@@ -32,7 +32,7 @@ public class BoardComtDao {
 		return sqlSession.selectOne(namespace +".count", map);
 	}
 
-	public boolean insert(String TB, ComtVo comt) {
+	public boolean insert(String TB, BoardComtVo comt) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("TB", TB);
 		map.put("comt", comt);
@@ -46,14 +46,14 @@ public class BoardComtDao {
 		return sqlSession.delete(namespace + ".delete", map) == 1;
 	}
 
-	public ComtVo get(String TB, int seq) {
+	public BoardComtVo get(String TB, int seq) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("TB", TB);
 		map.put("seq", seq);
 		return sqlSession.selectOne(namespace +".get", map);
 	}
 	
-	public boolean update(String TB, ComtVo comt) {
+	public boolean update(String TB, BoardComtVo comt) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("TB", TB);
 		map.put("comt", comt);

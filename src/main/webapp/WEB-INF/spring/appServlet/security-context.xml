@@ -24,10 +24,6 @@
 			authentication-failure-url="/login?result=false"
 			always-use-default-target="false" />
 
-		<!-- 로그아웃 성공시 핸들러 -->
-		<!-- <bean id="LoginSuccessHandler" class="com.cglee079.changoos.security.LoginSuccessHandler" />  -->
-		<!-- authentication-success-handler-ref="LoginSuccessHandler"-->
-			
 		<!-- login-page: 로그인 페이지 지정 -->
 		<!-- login-processing-url: 로그인시 진행될 링크 (default) 로그인 페이지의 form action과 일치 시켜야 함 -->
 		<!-- username-parameter : 로그인 페이지,  id의 input name값 -->

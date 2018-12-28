@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cglee079.changoos.model.ComtVo;
+import com.cglee079.changoos.model.BoardComtVo;
 import com.cglee079.changoos.service.BoardComtService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +22,7 @@ public class BoardComtController {
 	@ResponseBody
 	@RequestMapping("/board/comment/paging.do")
 	public String doPaging(String boardType, int boardSeq, int page, int perPgLine) throws SQLException, JsonProcessingException{
-		List<ComtVo> bcomts= boarComtService.paging(boardType, boardSeq, page, perPgLine);
+		List<BoardComtVo> bcomts= boarComtService.paging(boardType, boardSeq, page, perPgLine);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(bcomts);
 	}
@@ -30,7 +30,7 @@ public class BoardComtController {
 	/** 게시판 댓글 등록 **/
 	@ResponseBody
 	@RequestMapping("/board/comment/submit.do")
-	public String doSubmit(String boardType, ComtVo comt) throws SQLException, JsonProcessingException{
+	public String doSubmit(String boardType, BoardComtVo comt) throws SQLException, JsonProcessingException{
 		boolean result = boarComtService.insert(boardType, comt);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
@@ -39,7 +39,7 @@ public class BoardComtController {
 	/** 게시판 댓글 삭제 **/
 	@ResponseBody
 	@RequestMapping("/board/comment/delete.do")
-	public String doDelete(String boardType, ComtVo comt) throws SQLException, JsonProcessingException{
+	public String doDelete(String boardType, BoardComtVo comt) throws SQLException, JsonProcessingException{
 		boolean result = boarComtService.delete(boardType, comt);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
@@ -48,7 +48,7 @@ public class BoardComtController {
 	/** 게시판 비밀번호 체크 **/
 	@ResponseBody
 	@RequestMapping("/board/comment/check-pwd.do")
-	public String doCheckPwd(String boardType, ComtVo comt) throws SQLException, JsonProcessingException{
+	public String doCheckPwd(String boardType, BoardComtVo comt) throws SQLException, JsonProcessingException{
 		boolean result = boarComtService.checkPwd(boardType, comt);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
@@ -57,7 +57,7 @@ public class BoardComtController {
 	/** 게시판 댓글 수정 **/
 	@ResponseBody
 	@RequestMapping("/board/comment/update.do")
-	public String doUpdate(String boardType, ComtVo comt) throws SQLException, JsonProcessingException{
+	public String doUpdate(String boardType, BoardComtVo comt) throws SQLException, JsonProcessingException{
 		boolean result = boarComtService.update(boardType, comt);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
