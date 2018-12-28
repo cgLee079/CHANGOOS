@@ -38,6 +38,8 @@ public class ProjectService {
 	@Value("#{db['project.file.tb.name']}") private String fileTB;
 	@Value("#{db['project.image.tb.name']}") private String imageTB;
 	
+	@Value("#{constant['project.thumb.max.width']}")private int thumbMaxWidth;
+	
 	
 	@Transactional
 	public ProjectVo get(int seq) {
@@ -156,7 +158,7 @@ public class ProjectService {
 			
 			if (!imgExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
 				ImageManager imageManager = ImageManager.getInstance();
-				BufferedImage image = imageManager.getLowScaledImage(file, 1080, imgExt);
+				BufferedImage image = imageManager.getLowScaledImage(file, thumbMaxWidth, imgExt);
 				ImageIO.write(image, imgExt, file);
 			}
 

@@ -48,6 +48,9 @@ public class BlogService{
 	@Value("#{db['blog.file.tb.name']}") private String fileTB;
 	@Value("#{db['blog.image.tb.name']}")private String imageTB;
 	
+	@Value("#{constant['blog.thumb.max.width']}")private int thumbMaxWidth;
+	
+	
 	
 	public BlogVo get(int seq) {
 		BlogVo blog = blogDao.get(seq);
@@ -232,7 +235,7 @@ public class BlogService{
 			
 			if(!imgExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
 				ImageManager imageManager = ImageManager.getInstance();
-				BufferedImage image = imageManager.getLowScaledImage(file, 720, imgExt);
+				BufferedImage image = imageManager.getLowScaledImage(file, thumbMaxWidth, imgExt);
 				ImageIO.write(image, imgExt, file);
 			}
 			
