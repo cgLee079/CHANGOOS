@@ -72,7 +72,6 @@ public class StudyController {
 		model.addAttribute("afterStudy", afterStudy);
 		model.addAttribute("beforeStudy", beforeStudy);
 		model.addAttribute("files", study.getFiles());
-		model.addAttribute("images", study.getImages());
 		
 		return "study/study_view";
 	}

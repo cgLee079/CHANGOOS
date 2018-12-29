@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.cglee079.changoos.dao.PhotoComtDao;
 import com.cglee079.changoos.model.PhotoComtVo;
+import com.cglee079.changoos.util.AuthManager;
 
 @Service
 public class PhotoComtService{
@@ -30,25 +31,28 @@ public class PhotoComtService{
 		return photocomtDao.insert(comt);
 	}
 
-	public boolean delete(int seq, String password, boolean isAdmin) {
+	public boolean update(int seq, String contents) {
+		return photocomtDao.update(seq, contents);
+	}
+	
+	public boolean delete(int seq, String password) {
 		PhotoComtVo comtVo = photocomtDao.get(seq);
-		if(comtVo.getPassword().equals(password) || isAdmin){
+		if(comtVo.getPassword().equals(password) || AuthManager.isAdmin()){
 			return photocomtDao.delete(seq);			
 		} else {
 			return false;
 		}
 	}
 	
-	public boolean checkPwd(int seq, String password, boolean isAdmin) {
-		PhotoComtVo comtVo = photocomtDao.get(seq);
-		if(comtVo.getPassword().equals(password) || isAdmin){
-			return true;			
-		} else {
-			return false;
-		}
-	}
+	// TODO 프론트단 구현 안됨
+//	public boolean checkPwd(int seq, String password) {
+//		PhotoComtVo comtVo = photocomtDao.get(seq);
+//		if(comtVo.getPassword().equals(password) || AuthManager.isAdmin()){
+//			return true;			
+//		} else {
+//			return false;
+//		}
+//	}
 
-	public boolean update(int seq, String contents) {
-		return photocomtDao.update(seq, contents);
-	}
+
 }

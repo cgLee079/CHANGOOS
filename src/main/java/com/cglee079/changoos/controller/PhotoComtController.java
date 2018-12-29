@@ -22,8 +22,8 @@ public class PhotoComtController {
 	private PhotoComtService photoComtService;
 
 	@ResponseBody
-	@RequestMapping("/photo/comment/list.do")
-	public String doPaging(int photoSeq) throws SQLException, JsonProcessingException {
+	@RequestMapping("/photo/comment/paging")
+	public String photoCommentPaging(int photoSeq) throws SQLException, JsonProcessingException {
 		List<PhotoComtVo> comts = photoComtService.list(photoSeq);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(comts);
@@ -31,9 +31,18 @@ public class PhotoComtController {
 
 	/** 사진 댓글 삽입 **/
 	@ResponseBody
-	@RequestMapping("/photo/comment/submit.do")
-	public String doSubmit(PhotoComtVo comt) throws SQLException, JsonProcessingException {
+	@RequestMapping("/photo/comment/upload.do")
+	public String photoCommentDoUpload(PhotoComtVo comt) throws SQLException, JsonProcessingException {
 		boolean result = photoComtService.insert(comt);
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(result);
+	}
+	
+	/** 사진 댓글 수정 **/
+	@ResponseBody
+	@RequestMapping("/photo/comment/update.do")
+	public String photoCommentDoUpdate(int seq, String contents) throws SQLException, JsonProcessingException {
+		boolean result = photoComtService.update(seq, contents);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
 	}
@@ -41,27 +50,21 @@ public class PhotoComtController {
 	/** 사진 댓글 삭제 **/
 	@ResponseBody
 	@RequestMapping("/photo/comment/delete.do")
-	public String doDelete(Authentication auth, int seq, String password) throws SQLException, JsonProcessingException {
-		boolean result = photoComtService.delete(seq, password, AuthManager.isAdmin());
+	public String photoCommentDoDelete(int seq, String password) throws SQLException, JsonProcessingException {
+		boolean result = photoComtService.delete(seq, password);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(result);
 	}
 
 	/** 사진 댓글 비밀번호 확인 **/
-	@ResponseBody
-	@RequestMapping("/photo/comment/check-pwd.do")
-	public String doCheckPwd(int seq, String password, boolean isAdmin) throws SQLException, JsonProcessingException {
-		boolean result = photoComtService.checkPwd(seq, password, isAdmin);
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(result);
-	}
+	// TODO 프론트단 구현 안됨
+//	@ResponseBody
+//	@RequestMapping("/photo/comment/check-pwd.do")
+//	public String photoCommentDoCheckPassword(int seq, String password) throws SQLException, JsonProcessingException {
+//		boolean result = photoComtService.checkPwd(seq, password);
+//		ObjectMapper mapper = new ObjectMapper();
+//		return mapper.writeValueAsString(result);
+//	}
 
-	/** 사진 댓글 수정 **/
-	@ResponseBody
-	@RequestMapping("/photo/comment/update.do")
-	public String doUpdate(int seq, String contents) throws SQLException, JsonProcessingException {
-		boolean result = photoComtService.update(seq, contents);
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(result);
-	}
+
 }

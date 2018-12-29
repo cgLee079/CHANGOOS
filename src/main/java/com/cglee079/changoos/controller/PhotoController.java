@@ -40,28 +40,11 @@ public class PhotoController {
 	
 	/** 사진 크게 보기, Ajax **/
 	@ResponseBody
-	@RequestMapping(value = "/photo/view.do")
+	@RequestMapping(value = "/photo/view")
 	public String photoView(HttpSession session, int seq) throws JsonProcessingException {
-		PhotoVo photo = photoService.get(seq);
-		JSONObject photoJSON = new JSONObject(new Gson().toJson(photo));
-		
-		Map<Integer, Boolean> likePhotos = (Map<Integer, Boolean>)session.getAttribute("likePhotos");
-		photoJSON.put("like", likePhotos.get(seq));
-		
-		return photoJSON.toString();
+		PhotoVo photo = photoService.get((Map<Integer, Boolean>)session.getAttribute("likePhotos"), seq);
+		return new Gson().toJson(photo).toString();
 	}
-	
-	/** 사진 좋아요, Ajax **/
-	@ResponseBody
-	@RequestMapping(value = "/photo/doLike.do")
-	public String doLike(HttpSession session, int seq, boolean like) throws JsonProcessingException {
-		int likeCnt = photoService.doLike((Map<Integer, Boolean>)session.getAttribute("likePhotos"), seq, like);
-		JSONObject result = new JSONObject();
-		result.put("likeCnt", likeCnt);
-		result.put("like", like);
-		return result.toString();
-	}
-	
 	
 	/** 사진 관리 페이지로 이동 **/
 	@RequestMapping(value = "/mgnt/photo")
@@ -71,19 +54,11 @@ public class PhotoController {
 	
 	/** 사진 관리 페이지 리스트, Ajax **/
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/photo/list.do")
+	@RequestMapping(value = "/mgnt/photo/paging")
 	public String photoManagePaging(@RequestParam Map<String, Object> map) {
 		List<PhotoVo> photos = photoService.list(map);
 		Gson gson = new Gson();
 		return gson.toJson(photos).toString();
-	}
-	
-	/** 사진 삭제 , Ajax **/
-	@ResponseBody
-	@RequestMapping(value = "/mgnt/photo/delete.do")
-	public String photoDelete(int seq) {
-		boolean result = photoService.delete(seq);
-		return new JSONObject().put("result", result).toString();
 	}
 	
 	/** 사진 업로드 페이지로 이동 **/
@@ -100,16 +75,8 @@ public class PhotoController {
 		return "photo/photo_upload";
 	}
 	
-	/** 사진 파일 업로드 **/
-	@ResponseBody
-	@RequestMapping(value = "/mgnt/photo/image/upload.do", method = RequestMethod.POST, params = "!seq")
-	public String photoImageDoUpload(MultipartFile image) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
-		PhotoVo photo = photoService.savePhoto(image);
-		return  new Gson().toJson(photo).toString();
-	}
-	
 	/** 사진 업로드 **/
-	@RequestMapping(value = "/mgnt/photo/upload.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/mgnt/photo/upload.do", method = RequestMethod.POST, params = "!seq")
 	public String photoDoUpload(PhotoVo photo) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
 		photoService.insert(photo);
 		return "redirect:" + "/mgnt/photo";
@@ -120,6 +87,30 @@ public class PhotoController {
 	public String photoDoModify(PhotoVo photo) throws IllegalStateException, IOException, ImageProcessingException, MetadataException{
 		photoService.update(photo);
 		return "redirect:" + "/mgnt/photo";
+	}
+	
+	/** 사진 삭제 , Ajax **/
+	@ResponseBody
+	@RequestMapping(value = "/mgnt/photo/delete.do")
+	public String photoDoDelete(int seq) {
+		boolean result = photoService.delete(seq);
+		return new JSONObject().put("result", result).toString();
+	}
+	
+	/** 사진 파일 업로드 **/
+	@ResponseBody
+	@RequestMapping(value = "/mgnt/photo/image/upload.do", method = RequestMethod.POST)
+	public String photoImageDoUpload(MultipartFile image) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
+		PhotoVo photo = photoService.savePhoto(image);
+		return new Gson().toJson(photo).toString();
+	}
+	
+	/** 사진 좋아요, Ajax **/
+	@ResponseBody
+	@RequestMapping(value = "/photo/like.do")
+	public String photoDoLike(HttpSession session, int seq, boolean like) throws JsonProcessingException {
+		PhotoVo photo = photoService.doLike((Map<Integer, Boolean>)session.getAttribute("likePhotos"), seq, like);
+		return new Gson().toJson(photo).toString();
 	}
 	
 }

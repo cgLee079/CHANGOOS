@@ -7,8 +7,8 @@ $(document).ready(function(){
 /* datagrid initialize */
 function fn_onInitDataGrid(){
 	$('#dg').datagrid({
-		url: getContextPath() + '/mgnt/photo/list.do',
-		method: 'post',
+		url: getContextPath() + '/mgnt/photo/paging',
+		method: 'get',
 		singleSelect: true,
 		remoteSort: true,
 		fitColumns: false,

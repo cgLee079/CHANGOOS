@@ -27,8 +27,6 @@ public class BoardFileController {
 	@Value("#{servletContext.getRealPath('/')}")
 	private String realPath;
 	
-	
-	
 	@RequestMapping("/board/file/download.do")
 	public void fileDoDownload(HttpServletRequest request, HttpServletResponse response,
 			String dir, String pathname, String filename) throws IOException {

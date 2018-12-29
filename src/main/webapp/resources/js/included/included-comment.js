@@ -40,7 +40,7 @@ function commentPageMove(pg){
 	
 	$.ajax({
 		type	: "POST",
-		url		: getContextPath() + "/board/comment/paging.do",
+		url		: getContextPath() + "/board/comment/paging",
 		data	: param,
 		beforeSend : function(){
 			Progress.start();
@@ -198,7 +198,7 @@ function doReply(tg){
 	
 	$.ajax({	
 		type	: "POST",
-		url		: getContextPath() + "/board/comment/submit.do",
+		url		: getContextPath() + "/board/comment/upload.do",
 		data	: param,
 		dataType : "JSON",
 		success : function(result) {

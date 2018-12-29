@@ -24,7 +24,7 @@
 		</mvc:interceptor>
 		
 		<mvc:interceptor>
-			<mvc:mapping path="/board/comment/submit.do" />
+			<mvc:mapping path="/board/comment/upload.do" />
 			<bean class="com.cglee079.changoos.interceptor.BoardComtNoticeInterceptor"></bean>
 		</mvc:interceptor>
 				

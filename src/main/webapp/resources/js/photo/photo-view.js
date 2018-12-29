@@ -46,8 +46,8 @@ function loadPhoto(currentView){
 	var photoLoading = $("<div>", {"class" : "photo-loading col-center", "text" : "Loading..."});
 	
 	$.ajax({
-		type	: "POST",
-		url		: getContextPath() + "/photo/view.do",
+		type	: "GET",
+		url		: getContextPath() + "/photo/view",
 		data	: {
 			'seq'	: seq,					
 		},
@@ -57,27 +57,27 @@ function loadPhoto(currentView){
 			photoLoading.appendTo(photoWrapper);
 			loading  = true;
 		},
-		success : function(data) {
+		success : function(photo) {
 			var item = templeate.clone();
-			item.find("#photo-seq").val(data.seq);
-			item.find(".photo-img").css("background-image", "url('" + getContextPath() + originDir + data.pathname +"')");
-			item.find(".photo-name").text(data.name);
-			item.find(".photo-date-loc").text(data.date + " " + data.location);
-			item.find(".photo-desc").html(data.desc);
+			item.find("#photo-seq").val(photo.seq);
+			item.find(".photo-img").css("background-image", "url('" + getContextPath() + originDir + photo.pathname +"')");
+			item.find(".photo-name").text(photo.name);
+			item.find(".photo-date-loc").text(photo.date + " " + photo.location);
+			item.find(".photo-desc").html(photo.desc);
 			
-			if(data.likeCnt != 0){
-				item.find(".photo-like").text("♥" + data.likeCnt);
+			if(photo.likeCnt != 0){
+				item.find(".photo-like").text("♥" + photo.likeCnt);
 			}
 			
-			if(data.like){
+			if(photo.like){
 				item.find(".btn-photo-like").addClass("on");
 				item.find(".btn-photo-like").css("background-image", "url('" + getContextPath() + "/resources/image/btn-photo-like-on.svg')");
 			}
 			
-			if(data.device){
-				item.find(".photo-tag").text(data.tag + " D:" + data.device);
+			if(photo.device){
+				item.find(".photo-tag").text(photo.tag + " D:" + photo.device);
 			} else{
-				item.find(".photo-tag").text(data.tag);
+				item.find(".photo-tag").text(photo.tag);
 			}
 			
 			photoLoading.remove();
@@ -100,7 +100,7 @@ function loadComment(parent, seq){
 	
 	$.ajax({
 		type	: "POST",
-		url		: getContextPath() + "/photo/comment/list.do",
+		url		: getContextPath() + "/photo/comment/paging",
 		data	: {
 			'photoSeq'	: seq,					
 		},
@@ -154,7 +154,7 @@ function doLike(tg){
 	
 	$.ajax({	
 		type	: "POST",
-		url		:  getContextPath() + "/photo/doLike.do",
+		url		:  getContextPath() + "/photo/like.do",
 		data	: {
 			'seq' 	: seq,
 			'like'	: !isUnlike
@@ -253,7 +253,7 @@ function doWriteComment(tg){
 	
 	$.ajax({
 		type	: "POST",
-		url		: getContextPath() + "/photo/comment/submit.do",
+		url		: getContextPath() + "/photo/comment/upload.do",
 		data	: {
 			"photoSeq"	: seq,
 			"name"		: name.val(),

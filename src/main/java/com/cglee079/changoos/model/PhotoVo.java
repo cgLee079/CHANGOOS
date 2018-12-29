@@ -13,6 +13,7 @@ public class PhotoVo {
 	private String tag;
 	private String device;
 	private int likeCnt;
+	private boolean like;
 
 	public int getSeq() {
 		return seq;
@@ -110,5 +111,19 @@ public class PhotoVo {
 	public void setLikeCnt(int likeCnt) {
 		this.likeCnt = likeCnt;
 	}
+
+	public boolean isLike() {
+		return like;
+	}
+
+	public void setLike(Boolean like) {
+		if(like == null) {
+			this.like = false;
+		} else {
+			this.like = like;
+		}
+	}
+	
+	
 
 }

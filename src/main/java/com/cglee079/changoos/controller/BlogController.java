@@ -1,5 +1,7 @@
 package com.cglee079.changoos.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -96,7 +99,7 @@ public class BlogController {
 	}
 
 	/** 블로그 업로드 **/
-	@RequestMapping(value = "/mgnt/blog/upload.do", params = "!seq")
+	@RequestMapping(value = "/mgnt/blog/upload.do", method = RequestMethod.POST, params = "!seq")
 	public String blogDoUpload(Model model, BlogVo blog, MultipartFile thumbnailFile, String imageValues,
 			String fileValues) throws SQLException, IllegalStateException, IOException {
 		int seq = blogService.insert(blog, thumbnailFile, imageValues, fileValues);
@@ -104,7 +107,7 @@ public class BlogController {
 	}
 
 	/** 블로그 수정 **/
-	@RequestMapping(value = "/mgnt/blog/upload.do", params = "seq")
+	@RequestMapping(value = "/mgnt/blog/upload.do", method = RequestMethod.POST, params = "seq")
 	public String blogDoModify(Model model, BlogVo blog, MultipartFile thumbnailFile, String imageValues,
 			String fileValues) throws SQLException, IllegalStateException, IOException {
 		blogService.update(blog, thumbnailFile, imageValues, fileValues);
@@ -113,7 +116,7 @@ public class BlogController {
 
 	/** 블로그 삭제 **/
 	@ResponseBody
-	@RequestMapping("/mgnt/blog/delete.do")
+	@RequestMapping(value = "/mgnt/blog/delete.do", method = RequestMethod.POST)
 	public String blogDoDelete(Model model, int seq) throws SQLException, JsonProcessingException {
 		boolean result = blogService.delete(seq);
 		return new JSONObject().put("result", result).toString();

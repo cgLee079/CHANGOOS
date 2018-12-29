@@ -1,7 +1,7 @@
 .wrap-photo-list {
 	display: flex;
 	height: calc(100% - 50px);
-	width: 90%;
+	max-width: 1280px;
 	margin: 0px auto;
 	align-items: center;
 }
@@ -13,6 +13,7 @@
 	overflow-y: scroll;
 	overflow-x: hidden;
 	-ms-overflow-style : none;
+	margin : 0 1rem;
 }
 
 .photo-list::-webkit-scrollbar{
@@ -80,7 +81,6 @@
 
 .photo-detail>.photo-info>.photo-date-loc {
 	color: #555;
-	font-size: 0.75rem;
 	display: flex;
 	align-items: flex-end;
 }
@@ -182,7 +182,6 @@
 	width: 150px;
 	height: 90%;
 	overflow: hidden;
-	margin-left: 1rem;
 	
 	display: flex;
 	flex-flow: row wrap;

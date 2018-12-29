@@ -55,6 +55,13 @@ public class PhotoService {
 	public PhotoVo get(int seq) {
 		return photoDao.get(seq);
 	}
+	
+	public PhotoVo get(Map<Integer, Boolean> likePhotos, int seq) {
+		PhotoVo photo = photoDao.get(seq);
+		photo.setLike(likePhotos.get(seq));
+		
+		return photo;
+	}
 
 	public List<PhotoVo> list(Map<String, Object> map) {
 		return photoDao.list(map);
@@ -129,10 +136,10 @@ public class PhotoService {
 	}
 
 	@Transactional
-	public int doLike(Map<Integer, Boolean> likePhotos, int seq, boolean like) {
+	public PhotoVo doLike(Map<Integer, Boolean> likePhotos, int seq, boolean like) {
 		PhotoVo photo = photoDao.get(seq);
 
-		int likeCnt = -1;
+		int likeCnt;
 		if (like) {
 			likePhotos.put(seq, true);
 			likeCnt = photo.getLikeCnt() + 1;
@@ -144,7 +151,7 @@ public class PhotoService {
 		photo.setLikeCnt(likeCnt);
 		photoDao.update(photo);
 
-		return likeCnt;
+		return photo;
 	}
 
 	public PhotoVo savePhoto(MultipartFile multipartFile)

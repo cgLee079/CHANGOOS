@@ -44,9 +44,9 @@ public class IntroduceControllerTest {
 		when(commonStringService.get("INTRO", "002")).thenReturn("이력내용");
 		
 		mockMvc.perform(get("/introduce"))
-		.andExpect(status().isOk())
-		.andExpect(view().name("introduce/introduce_view"))
-		.andExpect(model().attribute("intro001", "자기소개"))
-		.andExpect(model().attribute("intro002", "이력내용"));
+			.andExpect(status().isOk())
+			.andExpect(view().name("introduce/introduce_view"))
+			.andExpect(model().attribute("intro001", "자기소개"))
+			.andExpect(model().attribute("intro002", "이력내용"));
 	}
 }
