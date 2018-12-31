@@ -2,6 +2,9 @@ package com.cglee079.changoos.model;
 
 import java.util.List;
 
+import lombok.Data;
+
+@Data
 public class BlogVo {
 	private int seq;
 	private String thumbnail;
@@ -14,96 +17,5 @@ public class BlogVo {
 	private boolean enabled;
 	private List<BoardImageVo> images;
 	private List<BoardFileVo> files;
-
-	
-	public int getSeq() {
-		return seq;
-	}
-
-	public void setSeq(int seq) {
-		this.seq = seq;
-	}
-
-	public String getThumbnail() {
-		return thumbnail;
-	}
-
-	public void setThumbnail(String thumbnail) {
-		this.thumbnail = thumbnail;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getContents() {
-		return contents;
-	}
-
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
-
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-	public String getTag() {
-		return tag;
-	}
-
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-
-	public int getHits() {
-		return hits;
-	}
-
-	public void setHits(int hits) {
-		this.hits = hits;
-	}
-	
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public int getComtCnt() {
-		return comtCnt;
-	}
-
-	public void setComtCnt(int comtCnt) {
-		this.comtCnt = comtCnt;
-	}
-
-	public List<BoardImageVo> getImages() {
-		return images;
-	}
-
-	public void setImages(List<BoardImageVo> images) {
-		this.images = images;
-	}
-
-	public List<BoardFileVo> getFiles() {
-		return files;
-	}
-
-	public void setFiles(List<BoardFileVo> files) {
-		this.files = files;
-	}
-	
-	
 	
 }

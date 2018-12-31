@@ -5,21 +5,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class MyFileUtils {
-	private static MyFileUtils instance;
+import org.springframework.stereotype.Component;
 
-	
-	public synchronized static MyFileUtils getInstance() {
-		if(instance == null) {
-			instance = new MyFileUtils();
-		}
-		return instance;
-	}
-	
-	/**********************/
-	
-	
-	public synchronized void emptyDir(String path) {
+@Component
+
+public class FileHandler {
+	public void emptyDir(String path) {
 		File dir = new File(path);
 		File[] files = dir.listFiles();
 		File file = null;
@@ -34,7 +25,7 @@ public class MyFileUtils {
 		}
 	}
 	
-	public synchronized boolean delete(File file) {
+	public boolean delete(File file) {
 		try {
 			Files.deleteIfExists(file.toPath());
 			return true;
@@ -43,7 +34,7 @@ public class MyFileUtils {
 		}
 	}
 
-	public synchronized boolean delete(String path) {
+	public boolean delete(String path) {
 		try {
 			Files.deleteIfExists(Paths.get(path));
 			return true;
@@ -52,11 +43,11 @@ public class MyFileUtils {
 		}
 	}
 
-	public synchronized boolean delete(String path, String filename) {
+	public boolean delete(String path, String filename) {
 		return delete(path + filename);
 	}
 
-	public synchronized boolean move(File existFile, File newFile) {
+	public boolean move(File existFile, File newFile) {
 		try {
 			Files.move(existFile.toPath(), newFile.toPath());
 			return true;
@@ -66,7 +57,17 @@ public class MyFileUtils {
 		}
 	}
 	
-	public synchronized boolean move(String existFile, String newFile) {
+	public boolean copy(File existFile, File newFile) {
+		try {
+			Files.copy(existFile.toPath(), newFile.toPath());
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean move(String existFile, String newFile) {
 		try {
 			Files.move(Paths.get(existFile), Paths.get(newFile));
 			return true;

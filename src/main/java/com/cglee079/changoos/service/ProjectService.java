@@ -19,8 +19,8 @@ import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.BoardImageVo;
 import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.util.AuthManager;
-import com.cglee079.changoos.util.ImageManager;
-import com.cglee079.changoos.util.MyFileUtils;
+import com.cglee079.changoos.util.ImageHandler;
+import com.cglee079.changoos.util.FileHandler;
 import com.cglee079.changoos.util.MyFilenameUtils;
 
 @Service
@@ -28,6 +28,8 @@ public class ProjectService {
 	@Autowired private BoardImageService boardImageService;
 	@Autowired private BoardFileService boardFileService;
 	@Autowired private ProjectDao projectDao;
+	@Autowired private ImageHandler imageHandler;
+	@Autowired private FileHandler fileHandler;
 	
 	@Value("#{servletContext.getRealPath('/')}") private String realPath;
 	
@@ -53,6 +55,14 @@ public class ProjectService {
 		}
 		
 		return project;
+	}
+	
+	public ProjectVo getBefore(int seq) {
+		return projectDao.getBefore(seq);
+	}
+
+	public ProjectVo getAfter(int seq) {
+		return projectDao.getAfter(seq);
 	}
 
 	@Transactional
@@ -108,58 +118,44 @@ public class ProjectService {
 	@Transactional
 	public boolean delete(int seq) {
 		ProjectVo project = projectDao.get(seq);
-		List<BoardFileVo> files = boardFileService.list(fileTB, seq);
-		List<BoardImageVo> images = boardImageService.list(imageTB, seq);
 		
 		boolean result = projectDao.delete(seq);
 		if(result) {
-			MyFileUtils fileUtils = MyFileUtils.getInstance();
+			List<BoardFileVo> files = boardFileService.list(fileTB, seq);
+			List<BoardImageVo> images = boardImageService.list(imageTB, seq);
 			
 			//스냅샷 삭제
-			fileUtils.delete(realPath + thumbDir, project.getThumbnail());
+			fileHandler.delete(realPath + thumbDir, project.getThumbnail());
 			
 			//첨부 파일 삭제
 			for (int i = 0; i < files.size(); i++) {
-				fileUtils.delete(realPath + fileDir, files.get(i).getPathname());
+				fileHandler.delete(realPath + fileDir, files.get(i).getPathname());
 			}
 			
 			//첨부 이미지 삭제
 			for (int i = 0; i < images.size(); i++) {
-				fileUtils.delete(realPath + imageDir, images.get(i).getPathname());
+				fileHandler.delete(realPath + imageDir, images.get(i).getPathname());
 			}
 		}
 		return result;
 	}
 
 
-
-	public ProjectVo getBefore(int seq) {
-		return projectDao.getBefore(seq);
-	}
-
-	public ProjectVo getAfter(int seq) {
-		return projectDao.getAfter(seq);
-	}
-
-	
 	public String saveThumbnail(ProjectVo project, MultipartFile thumbnailFile) throws IllegalStateException, IOException {
-		String filename = thumbnailFile.getOriginalFilename();
-		String imgExt = MyFilenameUtils.getExt(filename);
 		String pathname = null;
 		
 		if (thumbnailFile.getSize() != 0) {
-			MyFileUtils fileUtils = MyFileUtils.getInstance();
+			String filename = thumbnailFile.getOriginalFilename();
+			String imgExt = MyFilenameUtils.getExt(filename);
 			
-			fileUtils.delete(realPath + thumbDir, project.getThumbnail());
+			fileHandler.delete(realPath + thumbDir, project.getThumbnail());
 
 			pathname = "PROJECT.THUMB." + MyFilenameUtils.getRandomImagename(imgExt);
 			File file = new File(realPath + thumbDir, pathname);
 			thumbnailFile.transferTo(file);
 			
-			if (!imgExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
-				ImageManager imageManager = ImageManager.getInstance();
-				BufferedImage image = imageManager.getLowScaledImage(file, thumbMaxWidth, imgExt);
-				ImageIO.write(image, imgExt, file);
+			if (!imgExt.equalsIgnoreCase(ImageHandler.EXT_GIF)) {
+				imageHandler.saveLowscaleImage(file, thumbMaxWidth, imgExt);
 			}
 
 		}

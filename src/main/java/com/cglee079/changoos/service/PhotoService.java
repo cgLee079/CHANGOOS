@@ -18,8 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cglee079.changoos.dao.PhotoDao;
 import com.cglee079.changoos.model.PhotoVo;
 import com.cglee079.changoos.util.Formatter;
-import com.cglee079.changoos.util.ImageManager;
-import com.cglee079.changoos.util.MyFileUtils;
+import com.cglee079.changoos.util.ImageHandler;
+import com.cglee079.changoos.util.FileHandler;
 import com.cglee079.changoos.util.MyFilenameUtils;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
@@ -30,27 +30,16 @@ import com.drew.metadata.Tag;
 
 @Service
 public class PhotoService {
-	@Value("#{servletContext.getRealPath('/')}")
-	private String realPath;
-
-	@Autowired
-	private PhotoDao photoDao;
+	@Autowired private PhotoDao photoDao;
+	@Autowired private ImageHandler imageHandler;
+	@Autowired private FileHandler fileHandler; 
 	
-	@Value("#{location['temp.photo.dir.url']}")
-	private String photoTempDir;
-	
-	@Value("#{location['photo.origin.dir.url']}")
-	private String photoOriginDir;
-	
-	@Value("#{location['photo.thumb.dir.url']}")
-	private String photoThumbDir;
-	
-	@Value("#{constant['photo.origin.max.width']}")
-	private int originMaxWidth;
-	
-	@Value("#{constant['photo.thumb.max.width']}")
-	private int thumbMaxWidth;
-	
+	@Value("#{servletContext.getRealPath('/')}") private String realPath;
+	@Value("#{location['temp.photo.dir.url']}") 	private String photoTempDir;
+	@Value("#{location['photo.origin.dir.url']}") 	private String photoOriginDir;
+	@Value("#{location['photo.thumb.dir.url']}") 	private String photoThumbDir;
+	@Value("#{constant['photo.origin.max.width']}") private int originMaxWidth;
+	@Value("#{constant['photo.thumb.max.width']}") 	private int thumbMaxWidth;
 	
 	public PhotoVo get(int seq) {
 		return photoDao.get(seq);
@@ -74,17 +63,15 @@ public class PhotoService {
 	public boolean insert(PhotoVo photo) throws IllegalStateException, ImageProcessingException, MetadataException, IOException {
 		photo.setLikeCnt(0);
 
-		MyFileUtils myFileUtils = MyFileUtils.getInstance();
-
 		// TEMP 폴더에서, 사진 파일 옮기기
 		String photoFilePath = realPath + photoTempDir + photo.getPathname();
 		String movedPhotoPath = realPath + photoOriginDir + photo.getPathname();
-		myFileUtils.move(photoFilePath, movedPhotoPath);
+		fileHandler.move(photoFilePath, movedPhotoPath);
 
 		// TEMP 폴더에서, 스냅샷 파일 옮기기
 		String snapshotFilePath = realPath + photoTempDir + photo.getThumbnail();
 		String movedSnapshtFilePath = realPath + photoThumbDir + photo.getThumbnail();
-		myFileUtils.move(snapshotFilePath, movedSnapshtFilePath);
+		fileHandler.move(snapshotFilePath, movedSnapshtFilePath);
 		
 		//myFileUtils.emptyDir(realPath + photoTempDir);
 
@@ -99,21 +86,19 @@ public class PhotoService {
 		// 다르다면, 사진을 바꿨으므로, 기존 사진을 삭제한다.
 		PhotoVo savedPhoto = photoDao.get(photo.getSeq());
 		if (!savedPhoto.getPathname().equals(photo.getPathname())) {
-			MyFileUtils myFileUtils = MyFileUtils.getInstance();
-
 			// 기존에 수정이전 저장된 사진, 스냅샷 파일 삭제
-			myFileUtils.delete(realPath + photoOriginDir + savedPhoto.getPathname());
-			myFileUtils.delete(realPath + photoThumbDir + savedPhoto.getThumbnail());
+			fileHandler.delete(realPath + photoOriginDir + savedPhoto.getPathname());
+			fileHandler.delete(realPath + photoThumbDir + savedPhoto.getThumbnail());
 
 			// TEMP 폴더에서, 사진 파일 옮기기
 			String photoFilePath = realPath + photoTempDir + photo.getPathname();
 			String movedPhotoPath = realPath + photoOriginDir + photo.getPathname();
-			myFileUtils.move(photoFilePath, movedPhotoPath);
+			fileHandler.move(photoFilePath, movedPhotoPath);
 
 			// TEMP 폴더에서, 스냅샷 파일 옮기기
 			String snapshotFilePath = realPath + photoTempDir + photo.getThumbnail();
 			String movedSnapshtFilePath = realPath + photoThumbDir + photo.getThumbnail();
-			myFileUtils.move(snapshotFilePath, movedSnapshtFilePath);
+			fileHandler.move(snapshotFilePath, movedSnapshtFilePath);
 			
 			//myFileUtils.emptyDir(realPath + photoTempDir);
 		}
@@ -126,11 +111,10 @@ public class PhotoService {
 	@Transactional
 	public boolean delete(int seq) {
 		PhotoVo photo = photoDao.get(seq);
+		
 		// 기존에 수정이전 저장된 사진, 스냅샷 파일 삭제
-		MyFileUtils myFileUtils = MyFileUtils.getInstance();
-
-		myFileUtils.delete(realPath + photoThumbDir + photo.getThumbnail());
-		myFileUtils.delete(realPath + photoOriginDir + photo.getPathname());
+		fileHandler.delete(realPath + photoThumbDir + photo.getThumbnail());
+		fileHandler.delete(realPath + photoOriginDir + photo.getPathname());
 		boolean result = photoDao.delete(seq);
 		return result;
 	}
@@ -164,7 +148,6 @@ public class PhotoService {
 		String pathname = MyFilenameUtils.getRandomImagename(ext);
 		String photoPathname = "PHOTO." + pathname;
 		String thumbPathname = "PHOTO.THUMB." + pathname;
-		ImageManager imageManager = ImageManager.getInstance();
 
 		// 사진 저장
 		File photofile = new File(realPath + photoTempDir, photoPathname);
@@ -177,17 +160,13 @@ public class PhotoService {
 		photo.setDevice(metadata.get("Model"));
 
 		// 저장된 사진 축소 및 회전
-		int orientation = imageManager.getOrientation(photofile);
-		BufferedImage photoImg = imageManager.getLowScaledImage(photofile, originMaxWidth, ext);
-		if (orientation != 1) {
-			photoImg = imageManager.rotateImageForMobile(photoImg, orientation);
-		}
-		ImageIO.write(photoImg, ext, photofile);
+		imageHandler.saveLowscaleImage(photofile, originMaxWidth, ext);
 
 		// 저장된 사진으로, 사진 스냅샷 만들기
-		BufferedImage shapshtImg = imageManager.getLowScaledImage(photofile, thumbMaxWidth, ext);
-		File snapshtfile = new File(realPath + photoTempDir, thumbPathname);
-		ImageIO.write(shapshtImg, ext, snapshtfile);
+		File thumbFile = new File(realPath + photoTempDir, thumbPathname);
+		fileHandler.copy(photofile, thumbFile);
+		imageHandler.saveLowscaleImage(thumbFile, thumbMaxWidth, ext);
+		
 
 		photo.setFilename(filename);
 		photo.setPathname(photoPathname);

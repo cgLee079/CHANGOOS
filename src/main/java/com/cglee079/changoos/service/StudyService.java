@@ -19,13 +19,14 @@ import com.cglee079.changoos.model.BoardImageVo;
 import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.util.AuthManager;
 import com.cglee079.changoos.util.Formatter;
-import com.cglee079.changoos.util.MyFileUtils;
+import com.cglee079.changoos.util.FileHandler;
 
 @Service
 public class StudyService {
 	@Autowired private BoardImageService boardImageService;
 	@Autowired private BoardFileService boardFileService;
 	@Autowired private StudyDao studyDao;
+	@Autowired private FileHandler fileHandler;
 	
 	@Value("#{servletContext.getRealPath('/')}") private String realPath;
 	@Value("#{location['study.file.dir.url']}") private String fileDir;
@@ -116,18 +117,16 @@ public class StudyService {
 	public boolean delete(int seq) {
 		List<BoardImageVo> images = boardImageService.list(imageTB, seq);
 		List<BoardFileVo> files = boardFileService.list(fileTB, seq);
-		MyFileUtils fileUtils = MyFileUtils.getInstance();
-		
 		boolean result = studyDao.delete(seq); //CASECADE
 		if(result) {
 			//첨부 파일 삭제
 			for (int i = 0; i < files.size(); i++) {
-				fileUtils.delete(realPath + fileDir, files.get(i).getPathname());
+				fileHandler.delete(realPath + fileDir, files.get(i).getPathname());
 			}
 			
 			//첨부 이미지 삭제
 			for (int i = 0; i < images.size(); i++) {
-				fileUtils.delete(realPath + imageDir, images.get(i).getPathname());
+				fileHandler.delete(realPath + imageDir, images.get(i).getPathname());
 			}
 		}
 		

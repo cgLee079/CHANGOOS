@@ -121,7 +121,7 @@
 			<artifactId>spring-security-web</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
@@ -135,14 +135,14 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<!-- DB 연동 관련 라이브러리 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		
+
 		<!-- GPL2.0 License -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -248,17 +248,17 @@
 			<version>2.7.2</version>
 		</dependency>
 
-		<!-- 이미지 사이즈 조절 라이브러리  -->
+		<!-- 이미지 사이즈 조절 라이브러리 -->
 		<!-- Apache 2.0 License -->
 		<dependency>
 			<groupId>org.imgscalr</groupId>
 			<artifactId>imgscalr-lib</artifactId>
 			<version>4.2</version>
 		</dependency>
-		
+
 
 		<!-- ==================== -->
-		<!-- = TEST 관련  라이브러리 = -->
+		<!-- = TEST 관련 라이브러리 = -->
 		<!-- ==================== -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -266,14 +266,14 @@
 			<version>${org.springframework-version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- Mockito -->
 		<!-- MIT License -->
 		<dependency>
@@ -291,14 +291,14 @@
 			<version>1.7.4</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-module-junit4</artifactId>
 			<version>1.7.4</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- JSON TEST -->
 		<!-- Apache 2.0 License -->
 		<dependency>
@@ -308,6 +308,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.0</version>
+		</dependency>
 
 
 	</dependencies>

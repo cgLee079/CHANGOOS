@@ -16,8 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.BoardImageDao;
 import com.cglee079.changoos.model.BoardImageVo;
-import com.cglee079.changoos.util.ImageManager;
-import com.cglee079.changoos.util.MyFileUtils;
+import com.cglee079.changoos.util.ImageHandler;
+import com.cglee079.changoos.util.FileHandler;
 import com.cglee079.changoos.util.MyFilenameUtils;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -26,9 +26,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class BoardImageService {
-	
-	@Autowired
-	private BoardImageDao boardImageDao;
+	@Autowired private BoardImageDao boardImageDao;
+	@Autowired private ImageHandler imageHandler;
+	@Autowired private FileHandler fileHandler; 
 	
 	@Value("#{servletContext.getRealPath('/')}") 	private String realPath;
 	@Value("#{location['temp.image.dir.url']}")  	private String tempDir;
@@ -52,10 +52,8 @@ public class BoardImageService {
 		File file = new File(realPath + tempDir, pathname);
 		ImageIO.write(bufImg, ImageExt, file);
 
-		if (!ImageExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
-			ImageManager imageManager = ImageManager.getInstance();
-			BufferedImage image = imageManager.getLowScaledImage(file, maxWidth, ImageExt);
-			ImageIO.write(image, ImageExt, file);
+		if (!ImageExt.equalsIgnoreCase(ImageHandler.EXT_GIF)) {
+			imageHandler.saveLowscaleImage(file, maxWidth, ImageExt);
 		}
 
 		return pathname;
@@ -69,10 +67,8 @@ public class BoardImageService {
 		File file = new File(realPath + tempDir, pathname);
 		multipartFile.transferTo(file);
 
-		if (!ImageExt.equalsIgnoreCase(ImageManager.EXT_GIF)) {
-			ImageManager imageManager = ImageManager.getInstance();
-			BufferedImage image = imageManager.getLowScaledImage(file, maxWidth, ImageExt);
-			ImageIO.write(image, ImageExt, file);
+		if (!ImageExt.equalsIgnoreCase(ImageHandler.EXT_GIF)) {
+			imageHandler.saveLowscaleImage(file, maxWidth, ImageExt);
 		}
 
 		return pathname;
@@ -82,7 +78,6 @@ public class BoardImageService {
 		List<BoardImageVo> images = new ObjectMapper().readValue(imageValues, new TypeReference<List<BoardImageVo>>(){});
 		
 		BoardImageVo image;
-		MyFileUtils fileUtils = MyFileUtils.getInstance();
 		
 		for (int i = 0; i < images.size(); i++) {
 			image = images.get(i);
@@ -96,17 +91,17 @@ public class BoardImageService {
 					//임시폴더에서 본 폴더로 이동
 					File existFile  = new File(realPath + tempDir, pathname);
 					File newFile	= new File(realPath + dir, pathname);
-					if(fileUtils.move(existFile, newFile)) {
+					if(fileHandler.move(existFile, newFile)) {
 						contents = contents.replaceAll(tempDir + pathname, dir + pathname);
 					}
 				}
 			}
 			else if (status.equals(statusUnnew)) {
-				fileUtils.delete(realPath + tempDir, pathname);
+				fileHandler.delete(realPath + tempDir, pathname);
 			}
 			else if (status.equals(statusRemove)) { //기존에 있던 이미지 중, 삭제된 이미지
 				if(boardImageDao.delete(TB, image.getSeq())) {
-					fileUtils.delete(realPath + dir, pathname);
+					fileHandler.delete(realPath + dir, pathname);
 				}
 			}
 		}

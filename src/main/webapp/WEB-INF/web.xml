@@ -23,6 +23,7 @@
   		/WEB-INF/spring/appServlet/dao-context.xml
   		/WEB-INF/spring/appServlet/security-context.xml
   		/WEB-INF/spring/appServlet/intercepter-context.xml
+ 		/WEB-INF/spring/appServlet/util-context.xml
     </param-value>
 	</context-param>
 	<listener>

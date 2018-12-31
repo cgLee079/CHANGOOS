@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.BoardFileDao;
 import com.cglee079.changoos.model.BoardFileVo;
-import com.cglee079.changoos.util.MyFileUtils;
+import com.cglee079.changoos.util.FileHandler;
 import com.cglee079.changoos.util.MyFilenameUtils;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -20,8 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class BoardFileService {
-	@Autowired
-	BoardFileDao boardFileDao;
+	@Autowired private BoardFileDao boardFileDao;
+	@Autowired private FileHandler fileHandler;
 	
 	@Value("#{servletContext.getRealPath('/')}") private String realPath;
 	@Value("#{location['temp.file.dir.url']}") 	private String tempDir;
@@ -45,8 +45,6 @@ public class BoardFileService {
 	}
 	
 	public void insertFiles(String TB, String dir, int boardSeq, String fileValues) throws JsonParseException, JsonMappingException, IOException{
-		MyFileUtils fileUtils = MyFileUtils.getInstance();
-		
 		List<BoardFileVo> files = new ObjectMapper().readValue(fileValues, new TypeReference<List<BoardFileVo>>(){});
 		BoardFileVo file;
 		
@@ -62,21 +60,21 @@ public class BoardFileService {
 					//임시폴더에서 본 폴더로 이동
 					File existFile  = new File(realPath + tempDir, pathname);
 					File newFile	= new File(realPath + dir, pathname);
-					fileUtils.move(existFile, newFile);
+					fileHandler.move(existFile, newFile);
 				}
 			}
 			else if (status.equals(statusUnnew)) {
-				fileUtils.delete(realPath + dir, pathname);
+				fileHandler.delete(realPath + dir, pathname);
 			}
 			else if (status.equals(statusRemove)) { //기존에 있던 파일 중, 삭제된 파일
 				if(boardFileDao.delete(TB, file.getSeq())) {
-					fileUtils.delete(realPath + dir, pathname);
+					fileHandler.delete(realPath + dir, pathname);
 				}
 			}
 			
 		}
 		
-		fileUtils.emptyDir(realPath + tempDir);
+		//fileHandler.emptyDir(realPath + tempDir);
 	}
 
 	public List<BoardFileVo> list(String fileTB, int seq) {
