@@ -21,8 +21,8 @@
 				<div class="photo-img"></div>
 				<div class="photo-sub">
 					<div class="photo-menu">
-						<div class="btn btn-photo-like" onclick="doLike(this)" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn-photo-like.svg);"></div>
-						<div class="btn btn-photo-comment" onclick="showWriteComment(this)" style="background-image: url(${pageContext.request.contextPath}/resources/image/btn-photo-comment.svg);"></div>
+						<img class="btn btn-photo-like" onclick="doLike(this)" src="${pageContext.request.contextPath}/resources/image/btn-photo-like.svg" />
+						<img class="btn btn-photo-comment" onclick="showWriteComment(this)" src="${pageContext.request.contextPath}/resources/image/btn-photo-comment.svg" />
 					</div>
 					
 					<div class="photo-detail">
@@ -41,7 +41,7 @@
 					
 					<div class="photo-write-comment none">
 						<div class="write-userinfo">
-							<div><input type="text" class="name" placeholder="NAME" style="font-size: 0.6rem"></div>
+							<div><input type="text" class="username" placeholder="NAME" style="font-size: 0.6rem"></div>
 							<div><input type="password" class="password" placeholder="PWD" style="font-size: 0.6rem"></div>
 						</div>
 						<div class="write-comment">

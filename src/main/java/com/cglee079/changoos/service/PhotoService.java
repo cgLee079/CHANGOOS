@@ -86,7 +86,7 @@ public class PhotoService {
 		String movedSnapshtFilePath = realPath + photoThumbDir + photo.getThumbnail();
 		myFileUtils.move(snapshotFilePath, movedSnapshtFilePath);
 		
-		myFileUtils.emptyDir(realPath + photoTempDir);
+		//myFileUtils.emptyDir(realPath + photoTempDir);
 
 		boolean result = photoDao.insert(photo);
 		return result;
@@ -115,7 +115,7 @@ public class PhotoService {
 			String movedSnapshtFilePath = realPath + photoThumbDir + photo.getThumbnail();
 			myFileUtils.move(snapshotFilePath, movedSnapshtFilePath);
 			
-			myFileUtils.emptyDir(realPath + photoTempDir);
+			//myFileUtils.emptyDir(realPath + photoTempDir);
 		}
 
 		
@@ -149,6 +149,7 @@ public class PhotoService {
 		}
 
 		photo.setLikeCnt(likeCnt);
+		photo.setLike(like);
 		photoDao.update(photo);
 
 		return photo;

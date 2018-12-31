@@ -1,4 +1,4 @@
-var perPgLine 	= 10;
+var perPgLine 	= 5;
 var searchType 	= "";
 var searchValue = "";
 var page 		= "";
@@ -45,7 +45,7 @@ function pageMove(pg){
 	}
 	
 	$.ajax({
-		type	: "POST",
+		type	: "GET",
 		url		: getContextPath() + "/blog/paging",
 		data	: {
 			'page'			: pg,

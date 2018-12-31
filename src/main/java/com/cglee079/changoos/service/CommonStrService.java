@@ -10,7 +10,6 @@ public class CommonStrService{
 	@Autowired
 	CommonStrDao commonStringDao;
 	
-
 	public String get(String groupID, String strID) {
 		return commonStringDao.get(groupID, strID);
 	}

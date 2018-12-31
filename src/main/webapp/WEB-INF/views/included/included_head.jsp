@@ -94,10 +94,8 @@ $(window).resize(function(){
 })
 
 $(document).ready(function(){
-	//$("*").css("font-family", "Nanum Gothic");
-	$("html, body").css("font-family", "Nanum Square, Nanum Gothic");
-	//$("*").css("font-family", "MBKCorporateACon");
-
+	/* $("body").css("font-family", "'Nanum Square', sans-serif");
+	$("body").css("font-weight", "400"); */
 })
 
 /* Download File */

@@ -46,13 +46,13 @@
 	align-items: center;
 }
 
-.photo-sub>.photo-menu>.btn-photo-like, .photo-sub>.photo-menu>.btn-photo-comment{
+.photo-sub>.photo-menu>.btn-photo-like, 
+.photo-sub>.photo-menu>.btn-photo-comment{
 	margin-right: 5px;
-	width: 1.1rem;
-	height: 1.1rem;
+	width: 1.5rem;
+	height: 1.5rem;
 	background-position: center;
 	background-repeat: no-repeat;
-	background-size: contain;
 }
 
 .photo-sub>.photo-detail {

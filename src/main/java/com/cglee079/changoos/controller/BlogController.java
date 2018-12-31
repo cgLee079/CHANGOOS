@@ -31,7 +31,7 @@ public class BlogController {
 	private BlogService blogService;
 
 	/** 블로그 리스트로 이동 **/
-	@RequestMapping("/blog")
+	@RequestMapping(value = "/blog")
 	public String blogList(Model model) throws SQLException, JsonProcessingException {
 		List<String> tags = blogService.getTags();
 		model.addAttribute("tags", tags);
@@ -40,7 +40,7 @@ public class BlogController {
 
 	/** 블로그 페이징 **/
 	@ResponseBody
-	@RequestMapping("/blog/paging")
+	@RequestMapping(value = "/blog/paging", method = RequestMethod.GET)
 	public String blogPaging(@RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException {
 		params.put("enabled", true);
 		

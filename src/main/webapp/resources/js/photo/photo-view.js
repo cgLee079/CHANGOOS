@@ -71,7 +71,7 @@ function loadPhoto(currentView){
 			
 			if(photo.like){
 				item.find(".btn-photo-like").addClass("on");
-				item.find(".btn-photo-like").css("background-image", "url('" + getContextPath() + "/resources/image/btn-photo-like-on.svg')");
+				item.find(".btn-photo-like").attr("src", getContextPath() + "/resources/image/btn-photo-like-on.svg");
 			}
 			
 			if(photo.device){
@@ -165,10 +165,10 @@ function doLike(tg){
 			item.find(".photo-like").text("♥" + data.likeCnt);
 			if(data.like){
 				tg.addClass("on");
-				tg.css("background-image", "url('" + getContextPath() + "/resources/image/btn-photo-like-on.svg')");
+				tg.attr("src", getContextPath() + "/resources/image/btn-photo-like-on.svg");
 			} else{
 				tg.removeClass("on");
-				tg.css("background-image", "url('" + getContextPath() + "/resources/image/btn-photo-like.svg')");
+				tg.attr("src", getContextPath() + "/resources/image/btn-photo-like.svg");
 			}
 		},
 		error : function(e){
@@ -242,12 +242,12 @@ function doWriteComment(tg){
 	var item 	= tg.parents(".photo-list-item");
 	var seq 	= item.find("#photo-seq").val();
 	var parent	= item.find(".photo-write-comment");
-	var name	= item.find(".photo-write-comment .name");
+	var username= item.find(".photo-write-comment .username");
 	var pwd 	= item.find(".photo-write-comment .password");
 	var contents= item.find(".photo-write-comment .contents");
 
 
-	if(!name.val()){ swal({text : "이름을 입력해주세요.", icon : "warning"}); return ;}
+	if(!username.val()){ swal({text : "이름을 입력해주세요.", icon : "warning"}); return ;}
 	if(!pwd.val()){ swal({text : "비밀번호를 입력해주세요.", icon : "warning"}); return ;}
 	if(!contents.val()){ swal({text : "내용을 입력해주세요.", icon : "warning"}); return ;}
 	
@@ -256,7 +256,7 @@ function doWriteComment(tg){
 		url		: getContextPath() + "/photo/comment/upload.do",
 		data	: {
 			"photoSeq"	: seq,
-			"name"		: name.val(),
+			"username"	: username.val(),
 			"password"	: pwd.val(),
 			"contents"	: contents.val(),
 		},

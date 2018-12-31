@@ -7,7 +7,7 @@ $(document).ready(function(){
 function fn_onInitDataGrid(){
 	$('#dg').datagrid({
 		url: getContextPath() + '/mgnt/blog/paging',
-		method: 'post',
+		method: 'get',
 		singleSelect: true,
 		remoteSort: true,
 		fitColumns: false,
