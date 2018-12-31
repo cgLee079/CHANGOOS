@@ -12,22 +12,18 @@
 
 @font-face {
 	font-family: 'Nanum Square';
-	font-style : normal;
-	font-weight: 400;
+	font-weight : normal;
 	src:url(../../font/nanum-square/NanumSquareR.eot);
   	src:url(../../font/nanum-square/NanumSquareR.eot?#iefix) format('embedded-opentype'),
-  		url(../../font/nanum-square/NanumSquareR.woff2) format('woff2'),
        	url(../../font/nanum-square/NanumSquareR.woff) format('woff'),
     	url(../../font/nanum-square/NanumSquareR.ttf) format('truetype');
 }
 
 @font-face {
 	font-family: 'Nanum Square';
-	font-style : bold;
-	font-weight: 700;
+	font-weight : bold;
 	src:url(../../font/nanum-square/NanumSquareB.eot);
   	src:url(../../font/nanum-square/NanumSquareB.eot?#iefix) format('embedded-opentype'),
-  		url(../../font/nanum-square/NanumSquareB.woff2) format('woff2'),
        	url(../../font/nanum-square/NanumSquareB.woff) format('woff'),
     	url(../../font/nanum-square/NanumSquareB.ttf) format('truetype');
 }

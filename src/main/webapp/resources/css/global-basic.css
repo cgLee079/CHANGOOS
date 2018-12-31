@@ -7,8 +7,8 @@
 
 body {
 	overflow-x: hidden;
-	font-family: 'Nanum Square', sans-serif;
-	font-weight: 400;
+	font-family: 'Nanum Square', 'Nanum Gothic', sans-serif;
+	font-style: normal;
 }
 
 a, a:VISITED {
