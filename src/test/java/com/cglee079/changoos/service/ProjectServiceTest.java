@@ -1,17 +1,20 @@
 package com.cglee079.changoos.service;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -255,6 +258,34 @@ public class ProjectServiceTest {
 	@Test
 	//TODO 어떻게하라는거야..싱글톤 ㅠㅠ
 	public void testDeleteResultTrue() {
+		int seq = 3;
+		boolean result = true;
+		List<BoardFileVo> files = mock(ArrayList.class);
+		List<BoardImageVo> images = mock(ArrayList.class);
+		BoardFileVo file = mock(BoardFileVo.class);
+		BoardImageVo image = mock(BoardImageVo.class);
+		String thumbnail = "SAMPLE_THUMBNAIL";
+		ProjectVo project = new ProjectVo();
+		project.setSeq(seq);
+		project.setThumbnail(thumbnail);
+		
+		when(boardFileService.list(fileTB, seq)).thenReturn(files);
+		when(boardImageService.list(imageTB, seq)).thenReturn(images);
+		when(files.size()).thenReturn(3);
+		when(images.size()).thenReturn(3);
+		when(files.get(anyInt())).thenReturn(file);
+		when(images.get(anyInt())).thenReturn(image);
+		when(projectDao.get(seq)).thenReturn(project);
+		when(projectDao.delete(seq)).thenReturn(result);
+		
+		//ACT
+		boolean expected = projectService.delete(seq);
+		
+		//ASSERT
+		assertEquals(result, expected);
+		verify(fileHandler).delete(realPath + thumbDir, project.getThumbnail());
+		verify(fileHandler, times(3)).delete(realPath + fileDir, file.getPathname());
+		verify(fileHandler, times(3)).delete(realPath + imageDir, image.getPathname());
 		
 	}
 	

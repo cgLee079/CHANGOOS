@@ -151,6 +151,7 @@ public class StudyControllerTest {
 		
 	}
 	
+	@Test
 	public void testStudyUpload() throws Exception {
 		mockMvc.perform(get("/mgnt/study/upload"))
 			.andExpect(status().isOk())
