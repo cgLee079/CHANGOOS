@@ -25,7 +25,7 @@ function fn_onInitDataGrid(){
 			{field:'delete', title:'삭제', width:'70px', halign:'center', styler : alignCenter, formatter : function(value, row, index){
 				return "<a onclick='blogDelete(" + row.seq + "," + index + ")' class='dg-btn'> 삭제 </a>" 
 			}},
-			{field:'thumbnail', title:'스냅샷', halign:'center', sortable : "true", formatter: function(value, row){
+			{field:'thumbnail', title:'스냅샷', halign:'center',  formatter: function(value, row){
 				if(value){
 					return "<img src='" + getContextPath() + thumbDir + value + "' width='150px'/>"
 				} else if (row.images.length > 0){
@@ -34,9 +34,9 @@ function fn_onInitDataGrid(){
 					return "<img src='' width='100px'/>"
 				}
 			}},
-			{field:'tag', title:'태그', width:'150px', halign:'center', sortable : "true", styler : alignCenter},
+			{field:'tag', title:'태그', width:'150px', halign:'center',  styler : alignCenter},
 			{field:'title', title:'이름', width:'300px', halign:'center', sortable : "true", styler : alignLeft},
-			{field:'comtCnt', title:'댓글수', width:'70px', halign:'center', sortable : "true", styler : alignCenter},
+			{field:'comtCnt', title:'댓글수', width:'70px', halign:'center', styler : alignCenter},
 			{field:'hits', title:'조회수', width:'70px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'date', title:'작성일', width:'100px', halign:'center', sortable : "true", styler : alignCenter},
 		]]

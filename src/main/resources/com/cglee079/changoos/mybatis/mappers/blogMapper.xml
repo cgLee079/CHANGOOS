@@ -105,12 +105,11 @@
 		) X
 		
 		<choose>
-		<when test="sort != null">
-		ORDER BY ${sort} ${order}
-		</when>
-		<otherwise>
-		ORDER BY BLOG_DATE DESC, BLOG_SEQ DESC
-		</otherwise>
+		<when test="sort == 'seq'"> 	ORDER BY BLOG_SEQ ${order} </when>
+		<when test="sort == 'title'"> 	ORDER BY BLOG_TITLE ${order} </when>
+		<when test="sort == 'date'">	ORDER BY BLOG_DATE ${order} </when>
+		<when test="sort == 'hits'"> 	ORDER BY BLOG_HITS ${order} </when>
+		<otherwise> ORDER BY BLOG_DATE DESC, BLOG_SEQ DESC 	</otherwise>
 		</choose>
 		
 		<if test="startRow != null and perPgLine != null">
