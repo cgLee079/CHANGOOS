@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -41,8 +42,6 @@ public class StudyService {
 	@Transactional
 	public StudyVo get(int seq) {
 		StudyVo study = studyDao.get(seq);
-		study.setImages(boardImageService.list(imageTB, seq));
-		study.setFiles(boardFileService.list(fileTB, seq));
 		
 		if(study.getContents() != null) {
 			study.setContents(study.getContents().replace("&", "&amp;"));
@@ -53,13 +52,11 @@ public class StudyService {
 	
 	
 	@Transactional
-	public StudyVo doView(List<Integer> isVisitStudies, int seq) {
+	public StudyVo doView(Set<Integer> visitStudies, int seq) {
 		StudyVo study = studyDao.get(seq);
-		study.setImages(boardImageService.list(imageTB, seq));
-		study.setFiles(boardFileService.list(fileTB, seq));
 
-		if (!isVisitStudies.contains(seq) && !AuthManager.isAdmin()) {
-			isVisitStudies.add(seq);
+		if (!AuthManager.isAdmin() && !visitStudies.contains(seq)) {
+			visitStudies.add(seq);
 			study.setHits(study.getHits() + 1);
 			studyDao.update(study);
 		}
@@ -82,6 +79,37 @@ public class StudyService {
 
 	public List<StudyVo> list(Map<String, Object> map) {
 		return studyDao.list(map);
+	}
+	
+	public List<StudyVo> paging(Map<String, Object> params) {
+		int page = Integer.parseInt((String) params.get("page"));
+		int perPgLine = Integer.parseInt((String) params.get("perPgLine"));
+		int startRow = (page - 1) * perPgLine;
+		params.put("startRow", startRow);
+
+		List<StudyVo> studies = studyDao.list(params);
+		StudyVo study = null;
+		String contents = null;
+		String newContents = "";
+		Document doc = null;
+		Elements els = null;
+		for (int i = 0; i < studies.size(); i++) {
+			study = studies.get(i);
+
+			// 내용중 텍스트만 뽑기
+			contents = study.getContents();
+			newContents = "";
+			doc = Jsoup.parse(contents);
+			els = doc.select("*");
+			if (els.eachText().size() > 0) {
+				newContents = els.eachText().get(0);
+			}
+
+			newContents.replace("\n", " ");
+			study.setContents(newContents);
+		}
+
+		return studies;
 	}
 
 	@Transactional(rollbackFor = {IllegalStateException.class, IOException.class })
@@ -115,8 +143,10 @@ public class StudyService {
 	
 	@Transactional
 	public boolean delete(int seq) {
-		List<BoardImageVo> images = boardImageService.list(imageTB, seq);
-		List<BoardFileVo> files = boardFileService.list(fileTB, seq);
+		StudyVo study = studyDao.get(seq);
+		
+		List<BoardImageVo> images = study.getImages();
+		List<BoardFileVo> files = study.getFiles();
 		boolean result = studyDao.delete(seq); //CASECADE
 		if(result) {
 			//첨부 파일 삭제
@@ -132,36 +162,5 @@ public class StudyService {
 		
 		return result;
 	}
-	
 
-	public List<StudyVo> paging(Map<String, Object> params) {
-		int page = Integer.parseInt((String) params.get("page"));
-		int perPgLine = Integer.parseInt((String) params.get("perPgLine"));
-		int startRow = (page - 1) * perPgLine;
-		params.put("startRow", startRow);
-
-		List<StudyVo> studies = studyDao.list(params);
-		StudyVo study = null;
-		String contents = null;
-		String newContents = "";
-		Document doc = null;
-		Elements els = null;
-		for (int i = 0; i < studies.size(); i++) {
-			study = studies.get(i);
-
-			// 내용중 텍스트만 뽑기
-			contents = study.getContents();
-			newContents = "";
-			doc = Jsoup.parse(contents);
-			els = doc.select("*");
-			if (els.eachText().size() > 0) {
-				newContents = els.eachText().get(0);
-			}
-
-			newContents.replace("\n", " ");
-			study.setContents(newContents);
-		}
-
-		return studies;
-	}
 }

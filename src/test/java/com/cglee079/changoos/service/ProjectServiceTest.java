@@ -1,9 +1,10 @@
 package com.cglee079.changoos.service;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -11,12 +12,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +29,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -82,8 +85,8 @@ public class ProjectServiceTest {
 	@Test
 	public void testGetWithoutContent() {
 		int seq = 3;
-		List<BoardFileVo> files = mock(List.class);
-		List<BoardImageVo> images = mock(List.class);
+		List<BoardFileVo> files = new ArrayList<>();
+		List<BoardImageVo> images = new ArrayList<>();
 		ProjectVo project = new ProjectVo();
 		project.setSeq(seq);
 		
@@ -93,21 +96,19 @@ public class ProjectServiceTest {
 		expectProject.setImages(images);
 		
 		when(projectDao.get(seq)).thenReturn(project);
-		when(boardImageService.list(imageTB, seq)).thenReturn(images);
-		when(boardFileService.list(fileTB, seq)).thenReturn(files);
 		
 		//ACT
 		ProjectVo resultProject = projectService.get(seq);
 		
 		//ASSERT
-		assertEquals(resultProject, expectProject);
+		assertEquals(expectProject, resultProject);
 	}
 	
 	@Test
 	public void testGetWithContents() {
 		int seq = 3;
-		List<BoardFileVo> files = mock(List.class);
-		List<BoardImageVo> images = mock(List.class);
+		List<BoardFileVo> files = new ArrayList<>();
+		List<BoardImageVo> images = new ArrayList<>();
 		String contents = "&";
 		String newContents = "&amp;";
 		
@@ -122,21 +123,19 @@ public class ProjectServiceTest {
 		expectProject.setImages(images);
 		
 		when(projectDao.get(seq)).thenReturn(project);
-		when(boardImageService.list(imageTB, seq)).thenReturn(images);
-		when(boardFileService.list(fileTB, seq)).thenReturn(files);
 		
 		//ACT
 		ProjectVo resultProject = projectService.get(seq);
 		
 		//ASSERT
-		assertEquals(resultProject, expectProject);
+		assertEquals(expectProject, resultProject);
 	}
 	
 	@Test
 	public void testGetBefore() {
 		int seq = 3;
 		ProjectVo project = new ProjectVo();
-		project.setSeq(seq);
+		project.setSeq(seq - 1);
 		
 		when(projectDao.getBefore(seq)).thenReturn(project);
 		
@@ -151,7 +150,7 @@ public class ProjectServiceTest {
 	public void testGetAfter() {
 		int seq = 3;
 		ProjectVo project = new ProjectVo();
-		project.setSeq(seq);
+		project.setSeq(seq + 1);
 		
 		when(projectDao.getAfter(seq)).thenReturn(project);
 		
@@ -163,15 +162,120 @@ public class ProjectServiceTest {
 	}
 	
 	@Test
-	//TODO 어떻게하라는거야..정적클래스
-	public void testDoView() {
+	@WithMockUser(roles = "ADMIN")
+	public void testDoViewVisitedByAdmin() {
+		int seq = 3;
+		List<BoardFileVo> files = new ArrayList<>();
+		List<BoardImageVo> images = new ArrayList<>();
+		Set<Integer> visitProjects = new HashSet<>();
+		visitProjects.add(seq);
 		
+		ProjectVo project = new ProjectVo();
+		project.setSeq(seq);
+		project.setHits(0);
+		
+		when(projectDao.get(seq)).thenReturn(project);
+		
+		ProjectVo expectedProject = new ProjectVo();
+		expectedProject.setSeq(seq);
+		expectedProject.setFiles(files);
+		expectedProject.setImages(images);
+		expectedProject.setHits(0);
+		
+		//ACT
+		ProjectVo resultProject = projectService.doView(visitProjects, seq);
+		
+		//ASSERT
+		assertEquals(expectedProject, resultProject);
+	}
+	
+	@Test
+	@WithMockUser(roles = "ADMIN")
+	public void testDoViewNoneVisitedByAdmin() {
+		int seq = 3;
+		List<BoardFileVo> files = new ArrayList<>();
+		List<BoardImageVo> images = new ArrayList<>();
+		Set<Integer> visitProjects = new HashSet<>();
+		
+		ProjectVo project = new ProjectVo();
+		project.setSeq(seq);
+		project.setHits(0);
+		
+		when(projectDao.get(seq)).thenReturn(project);
+		
+		ProjectVo expectedProject = new ProjectVo();
+		expectedProject.setSeq(seq);
+		expectedProject.setFiles(files);
+		expectedProject.setImages(images);
+		expectedProject.setHits(0);
+		
+		//ACT
+		ProjectVo resultProject = projectService.doView(visitProjects, seq);
+		
+		//
+		assertFalse(visitProjects.contains(seq));
+		assertEquals(expectedProject, resultProject);
+	}
+	
+	@Test
+	public void testDoViewVisitedByAnyone() {
+		int seq = 3;
+		List<BoardFileVo> files = new ArrayList<>();
+		List<BoardImageVo> images = new ArrayList<>();
+		Set<Integer> visitProjects = new HashSet<>();
+		visitProjects.add(seq);
+		
+		ProjectVo project = new ProjectVo();
+		project.setSeq(seq);
+		project.setHits(0);
+		
+		when(projectDao.get(seq)).thenReturn(project);
+		
+		ProjectVo expectedProject = new ProjectVo();
+		expectedProject.setSeq(seq);
+		expectedProject.setFiles(files);
+		expectedProject.setImages(images);
+		expectedProject.setHits(0);
+		
+		//ACT
+		ProjectVo resultProject = projectService.doView(visitProjects, seq);
+		
+		//ASSERT
+		assertEquals(expectedProject, resultProject);
+	}
+	
+	@Test
+	public void testDoViewNoneVisitedByAnyone() {
+		int seq = 3;
+		List<BoardFileVo> files = new ArrayList<>();
+		List<BoardImageVo> images = new ArrayList<>();
+		Set<Integer> visitProjects = new HashSet<>();
+		
+		ProjectVo project = new ProjectVo();
+		project.setSeq(seq);
+		project.setHits(0);
+		
+		when(projectDao.get(seq)).thenReturn(project);
+		
+		ProjectVo expectedProject = new ProjectVo();
+		expectedProject.setSeq(seq);
+		expectedProject.setFiles(files);
+		expectedProject.setImages(images);
+		expectedProject.setHits(1);
+		
+		//ACT
+		ProjectVo resultProject = projectService.doView(visitProjects, seq);
+		
+		//ASSERT
+		assertTrue(visitProjects.contains(seq));
+		assertEquals(expectedProject, resultProject);
+		verify(projectDao).update(project);
 	}
 	
 	@Test
 	public void testList() {
-		HashMap<String, Object> map = mock(HashMap.class);
-		List<ProjectVo> projects = mock(List.class);
+		HashMap<String, Object> map = new HashMap<>();
+		List<ProjectVo> projects = new ArrayList<>();
 		
 		when(projectDao.list(map)).thenReturn(projects);
 		
@@ -207,14 +311,12 @@ public class ProjectServiceTest {
 		when(boardImageService.insertImages(imageTB, imageDir, seq, contents, imageValues)).thenReturn(newContents);
 		
 		//ACT
-		int expect = projectService.insert(project, thumbnailFile, imageValues, fileValues);
+		int result = projectService.insert(project, thumbnailFile, imageValues, fileValues);
 		
 		//ASSERT
-		assertEquals(seq, expect);
-		assertEquals(project, expectProject);
+		assertEquals(seq, result);
+		assertEquals(expectProject, project);
 		verify(boardFileService).insertFiles(fileTB, fileDir, seq, fileValues);
-		verify(projectService).saveThumbnail(project, thumbnailFile);
-		verify(boardImageService).insertImages(imageTB, imageDir, seq, contents, imageValues);
 		verify(projectDao).update(project);
 	}
 	
@@ -227,7 +329,7 @@ public class ProjectServiceTest {
 		String thumbnail = "SAMPLE_THUMBNAIL";
 		String contents = "SAMPLE_CONTENTS";
 		String newContents = "SAMPLE_NEWCONTENTS";
-		boolean result  = true;
+		boolean expect  = true;
 
 		ProjectVo project = new ProjectVo();
 		project.setContents(contents);
@@ -237,73 +339,63 @@ public class ProjectServiceTest {
 		expectProject.setContents(newContents);
 		expectProject.setThumbnail(thumbnail);
 		expectProject.setSeq(seq);
-		expectProject.setHits(0);
 		
-		when(projectDao.update(project)).thenReturn(result);
+		when(projectDao.update(project)).thenReturn(expect);
 		doReturn(thumbnail).when(projectService).saveThumbnail(project, thumbnailFile);
 		when(boardImageService.insertImages(imageTB, imageDir, seq, contents, imageValues)).thenReturn(newContents);
 		
 		//ACT
-		boolean expect = projectService.update(project, thumbnailFile, imageValues, fileValues);
+		boolean result = projectService.update(project, thumbnailFile, imageValues, fileValues);
 		
 		//ASSERT
-		assertEquals(result, expect);
-		assertEquals(project, expectProject);
+		assertEquals(expect, result);
+		assertEquals(expectProject, project);
 		verify(boardFileService).insertFiles(fileTB, fileDir, seq, fileValues);
-		verify(projectService).saveThumbnail(project, thumbnailFile);
-		verify(boardImageService).insertImages(imageTB, imageDir, seq, contents, imageValues);
-		verify(projectDao).update(project);
 	}
 	
 	@Test
-	//TODO 어떻게하라는거야..싱글톤 ㅠㅠ
 	public void testDeleteResultTrue() {
 		int seq = 3;
-		boolean result = true;
-		List<BoardFileVo> files = mock(ArrayList.class);
-		List<BoardImageVo> images = mock(ArrayList.class);
-		BoardFileVo file = mock(BoardFileVo.class);
-		BoardImageVo image = mock(BoardImageVo.class);
+		boolean expected = true;
 		String thumbnail = "SAMPLE_THUMBNAIL";
+		List<BoardFileVo> files = new ArrayList<>();
+		List<BoardImageVo> images = new ArrayList<>();
+		files.add(mock(BoardFileVo.class));
+		files.add(mock(BoardFileVo.class));
+		images.add(mock(BoardImageVo.class));
+		images.add(mock(BoardImageVo.class));
 		ProjectVo project = new ProjectVo();
 		project.setSeq(seq);
 		project.setThumbnail(thumbnail);
 		
-		when(boardFileService.list(fileTB, seq)).thenReturn(files);
-		when(boardImageService.list(imageTB, seq)).thenReturn(images);
-		when(files.size()).thenReturn(3);
-		when(images.size()).thenReturn(3);
-		when(files.get(anyInt())).thenReturn(file);
-		when(images.get(anyInt())).thenReturn(image);
 		when(projectDao.get(seq)).thenReturn(project);
-		when(projectDao.delete(seq)).thenReturn(result);
+		when(projectDao.delete(seq)).thenReturn(expected);
 		
 		//ACT
-		boolean expected = projectService.delete(seq);
+		boolean result = projectService.delete(seq);
 		
 		//ASSERT
-		assertEquals(result, expected);
+		assertEquals(expected, result);
 		verify(fileHandler).delete(realPath + thumbDir, project.getThumbnail());
-		verify(fileHandler, times(3)).delete(realPath + fileDir, file.getPathname());
-		verify(fileHandler, times(3)).delete(realPath + imageDir, image.getPathname());
-		
+		verify(fileHandler, times(2)).delete(eq(realPath + fileDir), anyString());
+		verify(fileHandler, times(2)).delete(eq(realPath + imageDir), anyString());
 	}
 	
 	@Test
 	public void testDeleteResultFalse() {
 		int seq = 3;
-		boolean result = false;
+		boolean expected = false;
 		ProjectVo project = new ProjectVo();
 		project.setSeq(seq);
 		
 		when(projectDao.get(seq)).thenReturn(project);
-		when(projectDao.delete(seq)).thenReturn(result);
+		when(projectDao.delete(seq)).thenReturn(expected);
 		
 		//ACT
-		boolean expected = projectService.delete(seq);
+		boolean result = projectService.delete(seq);
 		
 		//ASSERT
-		assertEquals(result, expected);
+		assertEquals(expected, result);
 	}
 	
 	@Test

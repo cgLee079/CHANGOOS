@@ -3,72 +3,106 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cglee079.changoos.mapper.BlogMapper">
-	<select id="S01" resultType="com.cglee079.changoos.model.BlogVo" parameterType="Integer">
-		/* 블로그 가져오기 */
-		SELECT
-		BLOG_SEQ as "seq",
-		BLOG_THUMB as "thumbnail",
-		BLOG_TITLE as "title",
-		BLOG_CONTENTS as "contents",
-		BLOG_TAG as "tag",
-		BLOG_DATE as "date",
-		BLOG_HITS as "hits",
-		BLOG_ENABLED as "enabled",
-		count(B.COMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON BLOG_SEQ = BOARD_SEQ
-		WHERE BLOG_SEQ = #{seq}
-		GROUP BY BLOG_SEQ
+	<resultMap type="BlogVo" id="blogResultMap">
+		<id property="seq" column="BLOG_SEQ"/>
+		<result property="thumbnail" column="BLOG_THUMB"/>
+		<result property="title" column="BLOG_TITLE"/>
+		<result property="contents" column="BLOG_CONTENTS"/>
+		<result property="tag" column="BLOG_TAG"/>
+		<result property="date" column="BLOG_DATE"/>
+		<result property="hits" column="BLOG_HITS"/>
+		<result property="enabled" column="BLOG_ENABLED"/>
+		<collection property="comtCnt" column="BLOG_SEQ" select="countComt" />
+		
+		<collection property="images" ofType="BoardImageVo">
+			<id property="seq" column="IMG_SEQ"/>
+			<result property="editorID" column="EDITOR_ID"/>
+			<result property="pathname" column="IMG_PATHNM"/>
+			<result property="filename" column="IMG_FILENM"/>
+		</collection>
+		
+		<collection property="files" ofType="BoardFileVo">
+			<id property="seq" column="FILE_SEQ"/>
+			<result property="pathname" column="FILE_PATHNM"/>
+			<result property="filename" column="FILE_FILENM"/>
+			<result property="size" column="FILE_SIZE"/>
+		</collection>
+	</resultMap>
+	
+	<select id="countComt" resultType="int">
+		SELECT 	COUNT(COMT_SEQ)
+		FROM 	TB_CHANGOOS_BLOG_COMT
+		WHERE 	BOARD_SEQ = #{seq}
 	</select>
 	
+	<select id="get" resultMap="blogResultMap" parameterType="Integer">
+		SELECT
+			A.*, 
+			B.*,
+			C.*
+		FROM 
+			TB_CHANGOOS_BLOG A 
+			LEFT JOIN TB_CHANGOOS_BLOG_IMAGE B ON BLOG_SEQ = B.BOARD_SEQ
+			LEFT JOIN TB_CHANGOOS_BLOG_FILE C ON BLOG_SEQ = C.BOARD_SEQ
+			LEFT JOIN 
+			(SELECT BOARD_SEQ, COUNT(COMT_SEQ) as comtCnt
+			FROM TB_CHANGOOS_BLOG_COMT
+			GROUP BY BOARD_SEQ) D
+			ON BLOG_SEQ = D.BOARD_SEQ
+		
+		WHERE BLOG_SEQ = #{seq}
+	</select>
 	
-	<select id="S03" resultType="com.cglee079.changoos.model.BlogVo" parameterType="map">
+	<select id="paging" resultMap="blogResultMap" parameterType="map">
 		/* 블로그 페이징 */
 		SELECT X.* 
       	FROM (
-      		<foreach collection="tags" index="index" item="item" separator="UNION DISTINCT">
-			SELECT
-			BLOG_SEQ as "seq",
-			BLOG_THUMB as "thumbnail",
-			BLOG_TITLE as "title",
-			BLOG_CONTENTS as "contents",
-			BLOG_TAG as "tag",
-			BLOG_DATE as "date",
-			BLOG_HITS as "hits",
-			BLOG_ENABLED as "enabled",
-			count(B.COMT_SEQ) as 'comtCnt'
-			FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON BLOG_SEQ = BOARD_SEQ
-			<trim prefix="WHERE" prefixOverrides="AND |OR ">
-				AND BLOG_TAG like '%${item}%' 
-			<if test="enabled != null">
-				<![CDATA[AND BLOG_ENABLED = #{enabled}]]>
-  			</if>
-  			</trim>
-			GROUP BY BLOG_SEQ
-			</foreach>
+      		<choose>
+      		<when test="tags != null and tags.size() != 0">
+	      		<foreach collection="tags"  item="item" separator="UNION DISTINCT">
+				SELECT
+					A.*, 
+					B.IMG_SEQ,
+					B.EDITOR_ID,
+					B.IMG_PATHNM,
+					B.IMG_FILENM
+				FROM 
+					TB_CHANGOOS_BLOG A 
+					LEFT JOIN 
+					(SELECT *
+					FROM TB_CHANGOOS_BLOG_IMAGE
+					GROUP BY BOARD_SEQ) B
+					ON BLOG_SEQ = B.BOARD_SEQ
+				<trim prefix="WHERE" prefixOverrides="AND |OR ">
+					AND BLOG_TAG like '%${item}%' 
+				<if test="enabled != null">
+					AND BLOG_ENABLED = #{enabled}
+	  			</if>
+	  			</trim>
+				</foreach>
+			</when>
+			<otherwise>
+				SELECT
+					A.*, 
+					B.IMG_SEQ,
+					B.EDITOR_ID,
+					B.IMG_PATHNM,
+					B.IMG_FILENM
+				FROM 
+					TB_CHANGOOS_BLOG A 
+					LEFT JOIN 
+					(SELECT *
+					FROM TB_CHANGOOS_BLOG_IMAGE
+					GROUP BY BOARD_SEQ) B
+					ON BLOG_SEQ = B.BOARD_SEQ
+				<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="enabled != null">
+					AND BLOG_ENABLED = #{enabled}
+	  			</if>
+  				</trim>
+			</otherwise>
+			</choose>
 		) X
-		
-		ORDER BY date DESC, seq DESC
-		<if test="startRow != null and perPgLine != null">
- 		LIMIT ${startRow}, ${perPgLine}
-  		</if>
-	</select>
-	
-	<select id="S04" resultType="com.cglee079.changoos.model.BlogVo" parameterType="map">
-		/* 블로그 리스트 */
-		SELECT
-		BLOG_SEQ as "seq",
-		BLOG_THUMB as "thumbnail",
-		BLOG_TITLE as "title",
-		BLOG_CONTENTS as "contents",
-		BLOG_TAG as "tag",
-		BLOG_DATE as "date",
-		BLOG_HITS as "hits",
-		BLOG_ENABLED as "enabled",
-		count(B.COMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_BLOG A LEFT OUTER JOIN TB_CHANGOOS_BLOG_COMT B ON BLOG_SEQ = BOARD_SEQ
-		<trim prefix="WHERE" prefixOverrides="AND |OR ">
-  		</trim>
-		GROUP BY BLOG_SEQ
 		
 		<choose>
 		<when test="sort != null">
@@ -78,25 +112,24 @@
 		ORDER BY BLOG_DATE DESC, BLOG_SEQ DESC
 		</otherwise>
 		</choose>
+		
 		<if test="startRow != null and perPgLine != null">
  		LIMIT ${startRow}, ${perPgLine}
   		</if>
 	</select>
 	
-	<select id="S05" resultType="Integer" parameterType="map">
+	<select id="count" resultType="Integer" parameterType="map">
 		/* 블로그 개수 */
 		SELECT
 			count(*)
 		FROM TB_CHANGOOS_BLOG
 	</select>
-	
-	<select id="S06" resultType="String" parameterType="map">
+
+	<select id="getTags" resultType="String" parameterType="map">
 		SELECT BLOG_TAG
 		FROM TB_CHANGOOS_BLOG
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
-		<if test="enabled != null">
-		<![CDATA[AND BLOG_ENABLED = #{enabled}]]>
-		</if>
+		AND BLOG_ENABLED = true
 		</trim>
 	</select>
 	
@@ -107,12 +140,6 @@
 		(BLOG_THUMB, BLOG_TITLE, BLOG_CONTENTS, BLOG_TAG, BLOG_DATE, BLOG_HITS, BLOG_ENABLED)
 		VALUES (#{thumbnail}, #{title}, #{contents}, #{tag}, #{date}, #{hits}, #{enabled})
 	</insert>
-	
-	<delete id="delete">
-		/* 블로그 삭제하기 */
-		DELETE FROM TB_CHANGOOS_BLOG
-		WHERE BLOG_SEQ = #{seq}
-	</delete>
 	
 	<update id="update">
 		/* 블로그 수정하기 */
@@ -135,5 +162,11 @@
 		BLOG_ENABLED    = #{enabled}
 		WHERE BLOG_SEQ = #{seq}
 	</update>
+	
+		<delete id="delete">
+		/* 블로그 삭제하기 */
+		DELETE FROM TB_CHANGOOS_BLOG
+		WHERE BLOG_SEQ = #{seq}
+	</delete>
 	
 </mapper>

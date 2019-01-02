@@ -9,22 +9,8 @@
 		VALUES (#{image.boardSeq}, #{image.editorID}, #{image.pathname}, #{image.filename})
 	</insert>
 	
-	<select id="list" resultType="com.cglee079.changoos.model.BoardImageVo" parameterType="map">
-		SELECT 
-		IMG_SEQ as 'seq',
-		BOARD_SEQ as 'boardSeq',
-		EDITOR_ID as 'editorID',
-		IMG_PATHNM as 'pathname',
-		IMG_FILENM as 'filename',
-		'BE' as "status"
-		FROM ${TB}
-		WHERE BOARD_SEQ = #{boardSeq}
-	</select>
-	
 	<delete id="delete" parameterType="map">
 		DELETE FROM  ${TB}
 		WHERE IMG_SEQ = #{seq}
 	</delete>	
-	
-	
 </mapper>

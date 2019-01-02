@@ -37,12 +37,7 @@ $(document).ready(function(){
 function pageMove(pg){
 	var validTags = new Array();
 	
-	if(!tags.length){
-		var allTag = $(".blog-tags .tag");
-		allTag.each(function(){ validTags.push($(this).text()); });
-	} else{
-		validTags = tags;
-	}
+	validTags = tags;
 	
 	$.ajax({
 		type	: "GET",
@@ -136,6 +131,7 @@ function drawBlog(data){
 function drawTags(tags){
 	var allTag = $(".tag");
 	allTag.removeClass("on");
+	
 	for(var i = 0; i < tags.length; i++){
 		allTag.each(function(){
 			if($(this).text() === tags[i]){

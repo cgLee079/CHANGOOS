@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import org.springframework.stereotype.Component;
 
 @Component
-
 public class FileHandler {
 	public void emptyDir(String path) {
 		File dir = new File(path);

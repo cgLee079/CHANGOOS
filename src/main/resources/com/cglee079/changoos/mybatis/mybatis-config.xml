@@ -4,5 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-	<!--  Set Config -->
+	<typeAliases>
+		<typeAlias type="com.cglee079.changoos.model.BoardImageVo" alias="BoardImageVo"/>
+		<typeAlias type="com.cglee079.changoos.model.BoardFileVo" alias="BoardFileVo"/>
+		<typeAlias type="com.cglee079.changoos.model.BoardComtVo" alias="BoardComtVo"/>
+		
+		<typeAlias type="com.cglee079.changoos.model.BlogVo" alias="BlogVo"/>
+		<typeAlias type="com.cglee079.changoos.model.StudyVo" alias="StudyVo"/>
+		<typeAlias type="com.cglee079.changoos.model.ProjectVo" alias="ProjectVo"/>
+		<typeAlias type="com.cglee079.changoos.model.PhotoVo" alias="PhotoVo"/>
+		<typeAlias type="com.cglee079.changoos.model.PhotoComtVo" alias="PhotoComtVo"/>
+	</typeAliases>
+	
 </configuration>

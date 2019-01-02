@@ -354,7 +354,7 @@ function doCommentSubmit(){
 	
 	$.ajax({
 		type	: "POST",
-		url		: getContextPath() + "/board/comment/submit.do",
+		url		: getContextPath() + "/board/comment/upload.do",
 		data	: param,
 		dataType: 'JSON',
 		beforeSend : function(){

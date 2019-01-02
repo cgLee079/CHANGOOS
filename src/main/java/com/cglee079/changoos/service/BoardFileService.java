@@ -77,8 +77,4 @@ public class BoardFileService {
 		//fileHandler.emptyDir(realPath + tempDir);
 	}
 
-	public List<BoardFileVo> list(String fileTB, int seq) {
-		return boardFileDao.list(fileTB, seq);
-	}
-
 }

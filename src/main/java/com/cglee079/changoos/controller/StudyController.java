@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.service.StudyService;
@@ -62,7 +62,7 @@ public class StudyController {
 	/** 게시글로 이동 **/
 	@RequestMapping("/study/view")
 	public String studyView(HttpSession session, Model model, int seq, String category, Integer page) throws SQLException, JsonProcessingException{
-		StudyVo study 		= studyService.doView((List<Integer>)session.getAttribute("visitStudies"), seq);
+		StudyVo study 		= studyService.doView((Set<Integer>)session.getAttribute("visitStudies"), seq);
 		StudyVo beforeStudy = studyService.getBefore(seq, category);
 		StudyVo afterStudy 	= studyService.getAfter(seq, category);
 		

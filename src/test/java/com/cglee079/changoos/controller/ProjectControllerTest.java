@@ -15,8 +15,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,7 +73,7 @@ public class ProjectControllerTest {
 	
 	@Test
 	public void testProjectView() throws Exception {
-		List<Integer> visitProjects = new ArrayList<Integer>();
+		Set<Integer> visitProjects = new HashSet<Integer>();
 		List<BoardFileVo> files = new ArrayList<>();
 		int seq = 3;
 		
@@ -86,7 +88,7 @@ public class ProjectControllerTest {
 		aProject.setSeq(seq + 1);
 		cProject.setFiles(files);
 		
-		when(projectService.doView((List<Integer>)session.getAttribute("visitProjects"), seq)).thenReturn(cProject);
+		when(projectService.doView((Set<Integer>)session.getAttribute("visitProjects"), seq)).thenReturn(cProject);
 		when(projectService.getBefore(seq)).thenReturn(bProject);
 		when(projectService.getAfter(seq)).thenReturn(aProject);
 

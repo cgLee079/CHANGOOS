@@ -3,36 +3,59 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cglee079.changoos.mapper.StudyMapper">
-	<select id="S01" resultType="com.cglee079.changoos.model.StudyVo" parameterType="Integer">
-		/* 게시글 가져오기 */
-		SELECT
-		STUDY_SEQ as "seq",
-		STUDY_CATEGORY as "category",
-		STUDY_CODE_LANG as "codeLang",
-		STUDY_TITLE as "title",
-		STUDY_CONTENTS as "contents",
-		STUDY_DATE as "date",
-		STUDY_HITS as "hits",
-		STUDY_ENABLED as "enabled",
-		count(B.COMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON STUDY_SEQ = BOARD_SEQ
-		WHERE STUDY_SEQ = #{seq}
-		GROUP BY STUDY_SEQ
+	<resultMap type="StudyVo" id="studyResultMap">
+		<id property="seq" column="STUDY_SEQ"/>
+		<result property="category" column="STUDY_CATEGORY"/>
+		<result property="codeLang" column="STUDY_CODE_LANG"/>
+		<result property="title" column="STUDY_TITLE"/>
+		<result property="contents" column="STUDY_CONTENTS"/>
+		<result property="date" column="STUDY_DATE"/>
+		<result property="hits" column="STUDY_HITS"/>
+		<result property="enabled" column="STUDY_ENABLED"/>
+		<collection property="comtCnt" column="STUDY_SEQ" select="countComt" />
+		
+		<collection property="images" ofType="BoardImageVo">
+			<id property="seq" column="IMG_SEQ" />
+			<result property="editorID" column="EDITOR_ID"/>
+			<result property="pathname" column="IMG_PATHNM"/>
+			<result property="filename" column="IMG_FILENM"/>
+		</collection>
+		
+		<collection property="files" ofType="BoardFileVo">
+			<id property="seq" column="FILE_SEQ"/>
+			<result property="pathname" column="FILE_PATHNM"/>
+			<result property="filename" column="FILE_FILENM"/>
+			<result property="size" column="FILE_SIZE"/>
+		</collection>
+	</resultMap>
+	
+	<select id="countComt" resultType="int">
+		SELECT 
+			COUNT(COMT_SEQ)
+		FROM
+			TB_CHANGOOS_STUDY_COMT
+		WHERE
+			BOARD_SEQ = #{seq}
 	</select>
 	
-	<select id="S02" parameterType="map" resultType="com.cglee079.changoos.model.StudyVo">
+	<select id="S01" resultMap="studyResultMap" parameterType="Integer">
+		/* 게시글 가져오기 */
+		SELECT
+			A.*,
+			B.*
+		FROM 
+			TB_CHANGOOS_STUDY A 
+			LEFT JOIN TB_CHANGOOS_STUDY_IMAGE B ON STUDY_SEQ = B.BOARD_SEQ
+		WHERE 
+			STUDY_SEQ = #{seq}
+	</select>
+	
+	<select id="S02" resultMap="studyResultMap" parameterType="map">
 		/* 이전 게시글 가져오기 */
-		SELECT 
-		STUDY_SEQ as "seq",
-		STUDY_CATEGORY as "category",
-		STUDY_CODE_LANG as "codeLang",
-		STUDY_TITLE as "title",
-		STUDY_CONTENTS as "contents",
-		STUDY_DATE as "date",
-		STUDY_HITS as "hits",
-		STUDY_ENABLED as "enabled",
-		count(B.COMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON STUDY_SEQ = BOARD_SEQ
+		SELECT
+			A.*
+		FROM 
+			TB_CHANGOOS_STUDY A 
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<![CDATA[AND STUDY_ENABLED = true]]>
 		<![CDATA[AND STUDY_SEQ < #{seq}]]>  
@@ -40,23 +63,15 @@
  		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
   		</if>
   		</trim>
-		GROUP BY STUDY_SEQ
 		ORDER BY STUDY_SEQ DESC LIMIT 1
 	</select>
 	
-	<select id="S03" parameterType="map" resultType="com.cglee079.changoos.model.StudyVo">
+	<select id="S03" resultMap="studyResultMap" parameterType="map">
 		/* 다음 게시글 가져오기 */
-		SELECT 
-		STUDY_SEQ as "seq",
-		STUDY_CATEGORY as "category",
-		STUDY_CODE_LANG as "codeLang",
-		STUDY_TITLE as "title",
-		STUDY_CONTENTS as "contents",
-		STUDY_DATE as "date",
-		STUDY_HITS as "hits",
-		STUDY_ENABLED as "enabled",
-		count(B.COMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON STUDY_SEQ = BOARD_SEQ
+		SELECT
+			A.*
+		FROM 
+			TB_CHANGOOS_STUDY A 
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<![CDATA[AND STUDY_ENABLED = true]]>
 		<![CDATA[AND STUDY_SEQ > #{seq}]]>
@@ -64,43 +79,36 @@
  		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
   		</if>
   		</trim>
-		GROUP BY STUDY_SEQ
 		ORDER BY STUDY_SEQ ASC LIMIT 1
 	</select>
 	
-	<select id="S04" resultType="com.cglee079.changoos.model.StudyVo" parameterType="map">
+	<select id="S04" resultMap="studyResultMap" parameterType="map" >
 		/* 게시글 리스트 */
 		SELECT
-		STUDY_SEQ as "seq",
-		STUDY_CATEGORY as "category",
-		STUDY_CODE_LANG as "codeLang",
-		STUDY_TITLE as "title",
-		STUDY_CONTENTS as "contents",
-		STUDY_DATE as "date",
-		STUDY_HITS as "hits",
-		STUDY_ENABLED as "enabled",
-		count(B.COMT_SEQ) as 'comtCnt'
-		FROM TB_CHANGOOS_STUDY A LEFT OUTER JOIN TB_CHANGOOS_STUDY_COMT B ON STUDY_SEQ = BOARD_SEQ
+			A.*
+		FROM 
+			TB_CHANGOOS_STUDY A 
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
-		<if test="enabled != null">
- 		<![CDATA[AND STUDY_ENABLED = #{enabled}]]>
-  		</if>
-		<if test="category != '' and category != NULL">
- 		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
-  		</if>
-  		<if test="searchType == 'TITLE' and searchValue != ''">
- 		<![CDATA[AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
-  		</if>
+			<if test="enabled != null">
+	 		<![CDATA[AND STUDY_ENABLED = #{enabled}]]>
+	  		</if>
+			<if test="category != '' and category != null">
+	 		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
+	  		</if>
+	  		<if test="searchValue != '' and searchValue != null">
+	 		<![CDATA[AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
+	  		</if>
   		</trim>
-  		GROUP BY STUDY_SEQ
+  		
   		<choose>
-		<when test="sort != null">
-		ORDER BY ${sort} ${order}
-		</when>
-		<otherwise>
-		ORDER BY STUDY_DATE DESC, STUDY_SEQ DESC
-		</otherwise>
+			<when test="sort != null">
+			ORDER BY ${sort} ${order}
+			</when>
+			<otherwise>
+			ORDER BY STUDY_DATE DESC, STUDY_SEQ DESC
+			</otherwise>
 		</choose>
+		
 		<if test="startRow != null and perPgLine != null">
  		LIMIT ${startRow}, ${perPgLine}
   		</if>
@@ -115,7 +123,7 @@
 		<if test="category != ''">
  		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
   		</if>
-  		<if test="searchType == 'TITLE' and searchValue != ''">
+  		<if test="searchValue != ''">
  		<![CDATA[AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
   		</if>
   		</trim>

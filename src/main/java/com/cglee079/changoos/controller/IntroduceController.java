@@ -35,23 +35,24 @@ public class IntroduceController {
 	}
 
 
-	@RequestMapping(value = "/introduce/download-resume.do")
-	public void doDownloadResume(HttpSession session, HttpServletResponse response) throws IOException {
-		String rootPath = session.getServletContext().getRealPath("");
-		
-		File file = new File(rootPath + "/resources/file/resume.pdf");
-		byte fileByte[] = FileUtils.readFileToByteArray(file);
-		
-		if(file.exists()){
-			response.setContentType("application/octet-stream");
-		    response.setContentLength(fileByte.length);
-		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + "LeeChangoo_resume.pdf" +"\";");
-		    response.setHeader("Content-Transfer-Encoding", "binary");
-		    response.getOutputStream().write(fileByte);
-		     
-		    response.getOutputStream().flush();
-		    response.getOutputStream().close();
-		}
-	}
+	// 이력서 다운로드 기능
+//	@RequestMapping(value = "/introduce/download-resume.do")
+//	public void doDownloadResume(HttpSession session, HttpServletResponse response) throws IOException {
+//		String rootPath = session.getServletContext().getRealPath("");
+//		
+//		File file = new File(rootPath + "/resources/file/resume.pdf");
+//		byte fileByte[] = FileUtils.readFileToByteArray(file);
+//		
+//		if(file.exists()){
+//			response.setContentType("application/octet-stream");
+//		    response.setContentLength(fileByte.length);
+//		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + "LeeChangoo_resume.pdf" +"\";");
+//		    response.setHeader("Content-Transfer-Encoding", "binary");
+//		    response.getOutputStream().write(fileByte);
+//		     
+//		    response.getOutputStream().flush();
+//		    response.getOutputStream().close();
+//		}
+//	}
 	
 }

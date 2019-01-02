@@ -3,6 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cglee079.changoos.mapper.BoardComtMapper">
+	<resultMap type="BoardComtVo" id="boardComtResultMap">
+		<id property="seq" column="COMT_SEQ"/>
+		<result property="seq" column="COMT_SEQ"/>
+		<result property="boardSeq" column="BOARD_SEQ"/>
+		<result property="username" column="COMT_USERNAME"/>
+		<result property="password" column="COMT_PWD"/>
+		<result property="contents" column="COMT_CONTENTS"/>
+		<result property="date" column="COMT_DATE"/>
+		<result property="parentComt" column="PARENT_COMT"/>
+	</resultMap>
 	
 	<select id="count" resultType="Integer">
 		SELECT
@@ -11,30 +21,18 @@
 		WHERE BOARD_SEQ = #{boardSeq}
 	</select>
 	
-	<select id="list" resultType="com.cglee079.changoos.model.BoardComtVo" parameterType="map">
+	<select id="list" resultMap="boardComtResultMap" parameterType="map">
 		SELECT
-		COMT_SEQ as "seq",
-		BOARD_SEQ as "boardSeq",
-		COMT_USERNAME as "username",
-		COMT_PWD as "password",
-		COMT_CONTENTS as "contents",
-		COMT_DATE as "date",
-		PARENT_COMT as "parentComt"
+			*
 		FROM ${TB}
 		WHERE BOARD_SEQ = #{boardSeq}
 		ORDER BY CONCAT(IF(PARENT_COMT is null, COALESCE(PARENT_COMT, ''), CONCAT('_', LPAD(PARENT_COMT,6,'0')) ), '_',LPAD(COMT_SEQ,6,'0'))
 		LIMIT #{startRow}, #{perPgLine}
 	</select>
 	
-	<select id="get" resultType="com.cglee079.changoos.model.BoardComtVo" parameterType="Integer">
+	<select id="get" resultMap="boardComtResultMap" parameterType="Integer">
 		SELECT
-		COMT_SEQ as "seq",
-		BOARD_SEQ as "boardSeq",
-		COMT_USERNAME as "username",
-		COMT_PWD as "password",
-		COMT_CONTENTS as "contents",
-		COMT_DATE as "DATE",
-		PARENT_COMT as "parentComt"
+			*
 		FROM ${TB}
 		WHERE COMT_SEQ = #{seq}
 	</select>

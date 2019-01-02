@@ -15,8 +15,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -99,7 +101,7 @@ public class StudyControllerTest {
 	@Test
 	public void testStudyView() throws Exception {
 		List<BoardFileVo> files = new ArrayList<BoardFileVo>();
-		List<Integer> visitStudies = new ArrayList<Integer>();
+		Set<Integer> visitStudies = new HashSet<Integer>();
 		String category = "category_sample";
 		int seq = 3;
 		int page = 1;
@@ -112,7 +114,7 @@ public class StudyControllerTest {
 		StudyVo afterStudy 	= new StudyVo();
 		study.setFiles(files);
 		
-		when(studyService.doView((List<Integer>)session.getAttribute("visitStudies"), seq)).thenReturn(study);
+		when(studyService.doView((Set<Integer>)session.getAttribute("visitStudies"), seq)).thenReturn(study);
 		when(studyService.getBefore(seq, category)).thenReturn(beforeStudy);
 		when(studyService.getAfter(seq, category)).thenReturn(afterStudy);
 		

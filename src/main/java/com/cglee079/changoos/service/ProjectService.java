@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 
@@ -43,11 +44,8 @@ public class ProjectService {
 	@Value("#{constant['project.thumb.max.width']}")private int thumbMaxWidth;
 	
 	
-	@Transactional
 	public ProjectVo get(int seq) {
 		ProjectVo project = projectDao.get(seq);
-		project.setImages(boardImageService.list(imageTB, seq));
-		project.setFiles(boardFileService.list(fileTB, seq));
 		
 		String contents = project.getContents();
 		if (contents != null) {
@@ -66,13 +64,11 @@ public class ProjectService {
 	}
 
 	@Transactional
-	public ProjectVo doView(List<Integer> isVisitProject, int seq) {
+	public ProjectVo doView(Set<Integer> visitProjects, int seq) {
 		ProjectVo project = projectDao.get(seq);
-		project.setImages(boardImageService.list(imageTB, seq));
-		project.setFiles(boardFileService.list(fileTB, seq));
 		
-		if (!isVisitProject.contains(seq) && !AuthManager.isAdmin()) {
-			isVisitProject.add(seq);
+		if (!visitProjects.contains(seq) && !AuthManager.isAdmin()) {
+			visitProjects.add(seq);
 			project.setHits(project.getHits() + 1);
 			projectDao.update(project);
 		}
@@ -118,12 +114,11 @@ public class ProjectService {
 	@Transactional
 	public boolean delete(int seq) {
 		ProjectVo project = projectDao.get(seq);
+		List<BoardFileVo> files = project.getFiles();
+		List<BoardImageVo> images = project.getImages();
 		
 		boolean result = projectDao.delete(seq);
 		if(result) {
-			List<BoardFileVo> files = boardFileService.list(fileTB, seq);
-			List<BoardImageVo> images = boardImageService.list(imageTB, seq);
-			
 			//스냅샷 삭제
 			fileHandler.delete(realPath + thumbDir, project.getThumbnail());
 			

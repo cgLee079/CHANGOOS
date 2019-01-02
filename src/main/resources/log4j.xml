@@ -11,7 +11,7 @@
 	</appender>
 	
 	<appender name="console-infolog" class="org.apache.log4j.ConsoleAppender">
-		<layout class="org.apache.log4j.PatternLayout">
+		<layout class="org.apache.log4j.Patter`nLayout">
 			<param name="ConversionPattern" value="%d %5p %m%n" />
 		</layout>
 	</appender>

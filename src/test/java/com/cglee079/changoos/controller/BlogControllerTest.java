@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -102,7 +103,7 @@ public class BlogControllerTest {
 		MockHttpSession session = new MockHttpSession();
 		session.setAttribute("visitBlogs", visitBlogs);
 		
-		when(blogService.doView((List<Integer>) session.getAttribute("visitBlogs"), seq)).thenReturn(blog);
+		when(blogService.doView((Set<Integer>) session.getAttribute("visitBlogs"), seq)).thenReturn(blog);
 		
 		mockMvc.perform(get("/blog/view")
 				.session(session)

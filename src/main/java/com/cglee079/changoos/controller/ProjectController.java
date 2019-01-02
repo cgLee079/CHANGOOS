@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -41,7 +42,7 @@ public class ProjectController {
 	/** 프로젝트 보기 **/
 	@RequestMapping(value = "/project/view")
 	public String projectView(HttpSession session, Model model, int seq) {
-		ProjectVo project = projectService.doView((List<Integer>) session.getAttribute("visitProjects"), seq);
+		ProjectVo project = projectService.doView((Set<Integer>) session.getAttribute("visitProjects"), seq);
 		ProjectVo beforeProject = projectService.getBefore(project.getSeq());
 		ProjectVo afterProject = projectService.getAfter(project.getSeq());
 

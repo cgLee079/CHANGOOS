@@ -1,11 +1,10 @@
 package com.cglee079.changoos.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -44,6 +43,7 @@ public class BlogController {
 	public String blogPaging(@RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException {
 		params.put("enabled", true);
 		
+		System.out.println(params);
 		List<BlogVo> blogs = blogService.paging(params);
 		int count = blogService.count(params);
 
@@ -59,7 +59,7 @@ public class BlogController {
 	/** 블로그로 이동 **/
 	@RequestMapping("/blog/view")
 	public String blogView(HttpSession session, Model model, int seq) throws SQLException, JsonProcessingException {
-		BlogVo blog = blogService.doView((List<Integer>) session.getAttribute("visitBlogs"), seq);
+		BlogVo blog = blogService.doView((Set<Integer>) session.getAttribute("visitBlogs"), seq);
 		model.addAttribute("blog", blog);
 		model.addAttribute("files", blog.getFiles());
 		

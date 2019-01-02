@@ -3,39 +3,31 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cglee079.changoos.mapper.PhotoMapper">
+	<resultMap type="PhotoVo" id="photoResultMap">
+		<id property="seq" column="PHOTO_SEQ"/>
+		<result property="filename" column="PHOTO_FILENM"/>
+		<result property="pathname" column="PHOTO_PATHNM"/>
+		<result property="thumbnail" column="PHOTO_THUMB"/>
+		<result property="name" column="PHOTO_NAME"/>
+		<result property="desc" column="PHOTO_DESC"/>
+		<result property="location" column="PHOTO_LOC"/>
+		<result property="date" column="PHOTO_DATE"/>
+		<result property="time" column="PHOTO_TIME"/>
+		<result property="tag" column="PHOTO_TAG"/>
+		<result property="device" column="PHOTO_DEVICE"/>
+		<result property="likeCnt" column="PHOTO_LIKECNT"/>
+	</resultMap>
 	
-	<select id="S01" resultType="com.cglee079.changoos.model.PhotoVo" parameterType="Integer">
+	<select id="S01" resultMap="photoResultMap" parameterType="Integer">
 		SELECT
-		PHOTO_SEQ as "seq",
-		PHOTO_FILENM as "filename",
-		PHOTO_PATHNM as "pathname",
-		PHOTO_THUMB as "thumbnail",
-		PHOTO_NAME as 'name',
-		PHOTO_DESC as 'desc',
-		PHOTO_LOC as "location",
-		PHOTO_DATE as "date",
-		PHOTO_TIME as "time",
-		PHOTO_TAG as "tag",
-		PHOTO_DEVICE as "device",
-		PHOTO_LIKECNT as "likeCnt"
+			*
 		FROM TB_CHANGOOS_PHOTO
 		WHERE PHOTO_SEQ = #{seq}
 	</select>
 	
-	<select id="S02" resultType="com.cglee079.changoos.model.PhotoVo">
+	<select id="S02" resultMap="photoResultMap">
 		SELECT
-		PHOTO_SEQ as "seq",
-		PHOTO_FILENM as "filename",
-		PHOTO_PATHNM as "pathname",
-		PHOTO_THUMB as "thumbnail",
-		PHOTO_NAME as 'name',
-		PHOTO_DESC as 'desc',
-		PHOTO_LOC as "location",
-		PHOTO_DATE as "date",
-		PHOTO_TIME as "time",
-		PHOTO_TAG as "tag",
-		PHOTO_DEVICE as "device",
-		PHOTO_LIKECNT as "likeCnt"
+			*
 		FROM TB_CHANGOOS_PHOTO
 		<choose>
 		<when test="sort != null">

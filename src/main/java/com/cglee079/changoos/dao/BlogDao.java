@@ -17,23 +17,23 @@ public class BlogDao {
 	private SqlSessionTemplate sqlSession;
 
 	public BlogVo get(int seq) {
-		return sqlSession.selectOne(namespace +".S01", seq);
+		return sqlSession.selectOne(namespace +".get", seq);
 	}
 	
 	public List<BlogVo> paging(Map<String, Object> params) {
-		return sqlSession.selectList(namespace +".S03", params);
+		return sqlSession.selectList(namespace +".paging", params);
 	}
 	
 	public List<BlogVo> list(Map<String, Object> params) {
-		return sqlSession.selectList(namespace +".S04", params);
+		return sqlSession.selectList(namespace +".paging", params);
 	}
 	
 	public int count(Map<String, Object> params) {
-		return sqlSession.selectOne(namespace +".S05", params);
+		return sqlSession.selectOne(namespace +".count", params);
 	}
 
-	public List<String> getTags(Map<String, Object> params) {
-		return sqlSession.selectList(namespace +".S06", params);
+	public List<String> getTags() {
+		return sqlSession.selectList(namespace +".getTags");
 	}
 	
 	public int insert(BlogVo blog) {

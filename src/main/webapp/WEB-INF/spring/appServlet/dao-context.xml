@@ -43,10 +43,8 @@
 	<!-- Mybatis -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSourceSpied" />
-		<property name="configLocation"
-			value="classpath:com/cglee079/changoos/mybatis/mybatis-config.xml" />
-		<property name="mapperLocations"
-			value="classpath:com/cglee079/changoos/mybatis/mappers/**.xml" />
+		<property name="configLocation" value="classpath:com/cglee079/changoos/mybatis/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:com/cglee079/changoos/mybatis/mappers/**.xml" />
 	</bean>
 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">

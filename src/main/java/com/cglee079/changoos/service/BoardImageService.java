@@ -38,10 +38,6 @@ public class BoardImageService {
 	@Value("#{constant['image.status.id.unnew']}") 	private String statusUnnew;
 	@Value("#{constant['image.status.id.remove']}") private String statusRemove;
 	
-	public List<BoardImageVo> list(String TB, int boardSeq) {
-		return boardImageDao.list(TB, boardSeq);
-	}
-	
 	public String saveBase64(String base64) throws IOException {
 		String ImageExt = "PNG";
 		String pathname = MyFilenameUtils.getRandomImagename(ImageExt);

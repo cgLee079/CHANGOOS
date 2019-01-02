@@ -1,6 +1,5 @@
 package com.cglee079.changoos.service;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,8 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
+import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,9 +25,9 @@ import com.cglee079.changoos.model.BlogVo;
 import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.BoardImageVo;
 import com.cglee079.changoos.util.AuthManager;
+import com.cglee079.changoos.util.FileHandler;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageHandler;
-import com.cglee079.changoos.util.FileHandler;
 import com.cglee079.changoos.util.MyFilenameUtils;
 import com.google.gson.Gson;
 
@@ -52,10 +50,36 @@ public class BlogService{
 	
 	@Value("#{constant['blog.thumb.max.width']}")private int thumbMaxWidth;
 	
+	public int count(Map<String, Object> params) {
+		return blogDao.count(params);
+	}
+	
+	public List<String> getTags() {
+		List<String> tagDummys = blogDao.getTags();
+		
+		HashMap<String, Object> tagMap = new HashMap<>();
+		String[] split = null;
+		String	tagDummy = null;
+		for(int i = 0; i < tagDummys.size(); i++) {
+			tagDummy = tagDummys.get(i);
+			split = tagDummy.split(" ");
+			
+			for(int j = 0; j < split.length; j++) {
+				tagMap.put(split[j], null);
+			}
+		}
+		
+		List<String> tags = new ArrayList<String>();
+		Iterator<String> iter = tagMap.keySet().iterator();
+		while(iter.hasNext()) {
+			tags.add(iter.next());
+		}
+		
+		return tags;
+	}
+	
 	public BlogVo get(int seq) {
 		BlogVo blog = blogDao.get(seq);
-		blog.setFiles(boardFileService.list(fileTB, seq));
-		blog.setImages(boardImageService.list(imageTB, seq));
 		
 		String contents = blog.getContents();
 		if (contents != null) {
@@ -65,10 +89,9 @@ public class BlogService{
 		return blog;
 	}
 	
-	public BlogVo doView(List<Integer> isVisitBlogs, int seq) {
+	@Transactional
+	public BlogVo doView(Set<Integer> isVisitBlogs, int seq) {
 		BlogVo blog = blogDao.get(seq);
-		blog.setFiles(boardFileService.list(fileTB, seq));
-		blog.setImages(boardImageService.list(imageTB, seq));
 		
 		if(!isVisitBlogs.contains(seq) && !AuthManager.isAdmin() ) {
 			isVisitBlogs.add(seq);
@@ -79,14 +102,8 @@ public class BlogService{
 		return blog;
 	}
 	
-	public List<BlogVo> list(Map<String, Object> map){
-		List<BlogVo> blogs 	= blogDao.list(map);
-		BlogVo blog = null;
-		for(int i = 0; i < blogs.size(); i++) {
-			blog 		= blogs.get(i);
-			blog.setImages(boardImageService.list(imageTB, blog.getSeq()));
-		}
-		
+	public List<BlogVo> list(Map<String, Object> params){
+		List<BlogVo> blogs 	= blogDao.list(params);
 		return blogs;
 	}
 	
@@ -97,8 +114,7 @@ public class BlogService{
 		params.put("startRow", startRow);
 		
 		String tags = (String)params.get("tags");
-		String[] tagArray = new Gson().fromJson(tags, String[].class);
-		params.put("tags", new ArrayList<String>(Arrays.asList(tagArray)));
+		params.put("tags", new Gson().fromJson(tags, List.class));
 		
 		List<BlogVo> blogs 	= blogDao.paging(params);
 		BlogVo blog 		= null;
@@ -108,7 +124,6 @@ public class BlogService{
 		Elements els		= null;
 		for(int i = 0; i < blogs.size(); i++) {
 			blog 	= blogs.get(i);
-			blog.setImages(boardImageService.list(imageTB, blog.getSeq()));
 			
 			//내용중 텍스트만 뽑기
 			contents 	= blog.getContents();
@@ -126,13 +141,9 @@ public class BlogService{
 		return blogs;
 	}
 
-	public int count(Map<String, Object> params) {
-		return blogDao.count(params);
-	}
-
 	@Transactional
 	public int insert(BlogVo blog, MultipartFile thunmbnailFile, String imageValues, String fileValues) throws IllegalStateException, IOException {
-		blog.setThumbnail( this.saveThumbnail(blog, thunmbnailFile));
+		blog.setThumbnail(this.saveThumbnail(blog, thunmbnailFile));
 		blog.setDate(Formatter.toDate(new Date()));
 		blog.setHits(0);
 		
@@ -161,13 +172,12 @@ public class BlogService{
 		boolean result = blogDao.update(blog);
 		return result;
 	}
-	
+
 	@Transactional
 	public boolean delete(int seq) {
 		BlogVo blog = blogDao.get(seq);
-		List<BoardFileVo> files = boardFileService.list(fileTB, seq);
-		List<BoardImageVo> images = boardImageService.list(imageTB, seq);
-		
+		List<BoardFileVo> files = blog.getFiles();
+		List<BoardImageVo> images = blog.getImages();
 		
 		if(blogDao.delete(seq)) {
 			//스냅샷 삭제
@@ -191,31 +201,7 @@ public class BlogService{
 		return false;
 	}
 	
-	public List<String> getTags() {
-		Map<String, Object> params = new HashMap<>();
-		params.put("enabled", true);
-		List<String> tagDummys = blogDao.getTags(params);
-		
-		HashMap<String, Object> tagMap = new HashMap<>();
-		String[] split = null;
-		String	tagDummy = null;
-		for(int i = 0; i < tagDummys.size(); i++) {
-			tagDummy = tagDummys.get(i);
-			split = tagDummy.split(" ");
-			
-			for(int j = 0; j < split.length; j++) {
-				tagMap.put(split[j], null);
-			}
-		}
-		
-		List<String> tags = new ArrayList<String>();
-		Iterator<String> iter = tagMap.keySet().iterator();
-		while(iter.hasNext()) {
-			tags.add(iter.next());
-		}
-		
-		return tags;
-	}
+
 	
 	public String saveThumbnail(BlogVo blog, MultipartFile thumbnailFile) throws IllegalStateException, IOException {
 		String filename = thumbnailFile.getOriginalFilename();

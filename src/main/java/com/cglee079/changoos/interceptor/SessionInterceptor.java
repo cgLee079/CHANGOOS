@@ -3,11 +3,13 @@ package com.cglee079.changoos.interceptor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.jasper.tagplugins.jstl.core.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -33,14 +35,14 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 			sessionLog.setCreateDate(Formatter.toDateTime(new Date()));
 			sessionLogService.insert(sessionLog);
 			
-			session.setAttribute("visitStudies", new ArrayList<Integer>());
-			session.setAttribute("visitBlogs", new ArrayList<Integer>());
-			session.setAttribute("visitProjects", new ArrayList<Integer>());
+			session.setAttribute("visitStudies", new HashSet<Integer>());
+			session.setAttribute("visitBlogs", new HashSet<Integer>());
+			session.setAttribute("visitProjects", new HashSet<Integer>());
 			session.setAttribute("likePhotos", new HashMap<Integer, Boolean>());
 		} else {
-			if(session.getAttribute("visitStudies") == null) { session.setAttribute("visitStudies", new ArrayList<Integer>());}
-			if(session.getAttribute("visitBlogs") == null) { session.setAttribute("visitBlogs", new ArrayList<Integer>());}
-			if(session.getAttribute("visitProjects") == null) { session.setAttribute("visitProjects", new ArrayList<Integer>());}
+			if(session.getAttribute("visitStudies") == null) { session.setAttribute("visitStudies", new HashSet<Integer>());}
+			if(session.getAttribute("visitBlogs") == null) { session.setAttribute("visitBlogs", new HashSet<Integer>());}
+			if(session.getAttribute("visitProjects") == null) { session.setAttribute("visitProjects", new HashSet<Integer>());}
 			if(session.getAttribute("likePhotos") == null) { session.setAttribute("likePhotos", new HashMap<Integer, Boolean>());}
 		}
 		return true;
