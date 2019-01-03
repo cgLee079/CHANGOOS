@@ -33,6 +33,7 @@ function fn_onInitDataGrid(){
 			{field:'location', title:'위치', width:'150px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'tag', title:'태그', width:'200px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'device', title:'촬영기기', width:'150px', halign:'center', sortable : "true", styler : alignCenter},
+			{field:'likeCnt', title:'좋아요', width:'70px', halign:'center', sortable : "true", styler : alignCenter},
 		]]
 	});
 }

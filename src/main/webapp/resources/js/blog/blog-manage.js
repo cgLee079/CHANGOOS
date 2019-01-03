@@ -36,7 +36,7 @@ function fn_onInitDataGrid(){
 			}},
 			{field:'tag', title:'태그', width:'150px', halign:'center',  styler : alignCenter},
 			{field:'title', title:'이름', width:'300px', halign:'center', sortable : "true", styler : alignLeft},
-			{field:'comtCnt', title:'댓글수', width:'70px', halign:'center', styler : alignCenter},
+			{field:'comtCnt', title:'댓글수', width:'70px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'hits', title:'조회수', width:'70px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'date', title:'작성일', width:'100px', halign:'center', sortable : "true", styler : alignCenter},
 		]]

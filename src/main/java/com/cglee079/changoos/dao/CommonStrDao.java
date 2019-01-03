@@ -22,7 +22,7 @@ public class CommonStrDao {
 		map.put("groupID", groupID);
 		map.put("strID", strID);
 		
-		return sqlSession.selectOne(namespace +".S01", map);
+		return sqlSession.selectOne(namespace +".get", map);
 	}
 
 }

@@ -17,15 +17,15 @@ public class PhotoDao {
 	private SqlSessionTemplate sqlSession;
 	
 	public PhotoVo get(int seq) {
-		return sqlSession.selectOne(namespace + ".S01", seq);
+		return sqlSession.selectOne(namespace + ".get", seq);
 	}
 	
 	public List<PhotoVo> list(Map<String, Object> map){
-		return sqlSession.selectList(namespace + ".S02", map);
+		return sqlSession.selectList(namespace + ".list", map);
 	}
 	
 	public List<Integer> seqs() {
-		return sqlSession.selectList(namespace + ".S03");
+		return sqlSession.selectList(namespace + ".getSeqs");
 	}
 	
 	public boolean insert(PhotoVo photo) {

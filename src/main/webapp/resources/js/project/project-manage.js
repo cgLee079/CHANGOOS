@@ -29,11 +29,12 @@ function fn_onInitDataGrid(){
 			{field:'thumbnail', title:'썸네일', halign:'center', formatter: function(value){
 				return "<img src='" + getContextPath() + thumbDir + value + "' width='100px' height='50px'/>"
 			}},
-			{field:'category', title:'카테고리', width:'150px', halign:'center', sortable : "true", styler : alignLeft},
+			{field:'subtitle', title:'부제', width:'150px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'title', title:'이름', width:'200px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'desc', title:'설명', width:'200px', halign:'center', styler : alignLeft},
 			{field:'developer', title:'개발자', width:'200px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'hits', title:'조회수', width:'70px', halign:'center', sortable : "true", styler : alignCenter},
+			{field:'comtCnt', title:'댓글수', width:'70px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'date', title:'날짜', width:'100px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'sourcecode', title:'소스코드', width:'150px', halign:'center', sortable : "true", styler : alignCenter},
 		]]

@@ -18,32 +18,36 @@
 		<result property="likeCnt" column="PHOTO_LIKECNT"/>
 	</resultMap>
 	
-	<select id="S01" resultMap="photoResultMap" parameterType="Integer">
+	<select id="getSeqs" resultType="Integer">
+		SELECT PHOTO_SEQ 
+		FROM TB_CHANGOOS_PHOTO
+		ORDER BY PHOTO_DATE DESC, PHOTO_TIME DESC, PHOTO_SEQ DESC
+	</select>
+	
+	<select id="get" resultMap="photoResultMap" parameterType="Integer">
 		SELECT
 			*
 		FROM TB_CHANGOOS_PHOTO
 		WHERE PHOTO_SEQ = #{seq}
 	</select>
 	
-	<select id="S02" resultMap="photoResultMap">
+	<select id="list" resultMap="photoResultMap">
 		SELECT
 			*
 		FROM TB_CHANGOOS_PHOTO
 		<choose>
-		<when test="sort != null">
-		ORDER BY ${sort} ${order}
-		</when>
+		<when test="sort == 'seq'"> 	ORDER BY PHOTO_SEQ ${order} </when>
+		<when test="sort == 'name'">	ORDER BY PHOTO_NAME ${order} </when>
+		<when test="sort == 'date'"> 	ORDER BY PHOTO_DATE ${order} </when>
+		<when test="sort == 'time'">	ORDER BY PHOTO_TIME ${order} </when>
+		<when test="sort == 'location'">ORDER BY PHOTO_LOC ${order} </when>
+		<when test="sort == 'tag'">		ORDER BY PHOTO_TAG ${order} </when>
+		<when test="sort == 'device'">	ORDER BY PHOTO_DEVICE ${order} </when>
+		<when test="sort == 'likeCnt'">	ORDER BY PHOTO_LIKECNT ${order} </when>
 		<otherwise>
 		ORDER BY PHOTO_DATE DESC, PHOTO_TIME DESC, PHOTO_SEQ DESC
 		</otherwise>
 		</choose>
-	</select>
-	
-	<select id="S03" resultType="Integer">
-		SELECT
-		PHOTO_SEQ as "seq"
-		FROM TB_CHANGOOS_PHOTO
-		ORDER BY PHOTO_DATE DESC, PHOTO_TIME DESC, PHOTO_SEQ DESC
 	</select>
 	
 	<delete id="delete">

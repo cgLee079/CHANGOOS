@@ -1,13 +1,10 @@
 package com.cglee079.changoos.service;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,8 +17,8 @@ import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.BoardImageVo;
 import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.util.AuthManager;
-import com.cglee079.changoos.util.ImageHandler;
 import com.cglee079.changoos.util.FileHandler;
+import com.cglee079.changoos.util.ImageHandler;
 import com.cglee079.changoos.util.MyFilenameUtils;
 
 @Service

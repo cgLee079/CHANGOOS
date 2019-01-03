@@ -12,7 +12,7 @@
 		<result property="date" column="STUDY_DATE"/>
 		<result property="hits" column="STUDY_HITS"/>
 		<result property="enabled" column="STUDY_ENABLED"/>
-		<collection property="comtCnt" column="STUDY_SEQ" select="countComt" />
+		<result property="comtCnt" column="comtCnt" />
 		
 		<collection property="images" ofType="BoardImageVo">
 			<id property="seq" column="IMG_SEQ" />
@@ -29,28 +29,42 @@
 		</collection>
 	</resultMap>
 	
-	<select id="countComt" resultType="int">
-		SELECT 
-			COUNT(COMT_SEQ)
-		FROM
-			TB_CHANGOOS_STUDY_COMT
-		WHERE
-			BOARD_SEQ = #{seq}
+	<select id="count" resultType="Integer" parameterType="map">
+		/* 게시글 개수 */
+		SELECT
+			count(*)
+		FROM TB_CHANGOOS_STUDY
+		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
+		<if test="category != null and category != ''">
+ 		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
+  		</if>
+  		<if test="searchValue != null and searchValue != ''">
+ 		<![CDATA[AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
+  		</if>
+  		</trim>
 	</select>
 	
-	<select id="S01" resultMap="studyResultMap" parameterType="Integer">
+	<select id="get" resultMap="studyResultMap" parameterType="Integer">
 		/* 게시글 가져오기 */
 		SELECT
 			A.*,
-			B.*
+			B.*,
+			C.*,
+			D.comtCnt
 		FROM 
 			TB_CHANGOOS_STUDY A 
 			LEFT JOIN TB_CHANGOOS_STUDY_IMAGE B ON STUDY_SEQ = B.BOARD_SEQ
+			LEFT JOIN TB_CHANGOOS_STUDY_FILE C ON STUDY_SEQ = C.BOARD_SEQ
+			LEFT JOIN 
+			(SELECT BOARD_SEQ, COUNT(COMT_SEQ) as 'comtCnt'
+			FROM TB_CHANGOOS_STUDY_COMT
+			GROUP BY BOARD_SEQ) D
+			ON STUDY_SEQ = D.BOARD_SEQ
 		WHERE 
 			STUDY_SEQ = #{seq}
 	</select>
 	
-	<select id="S02" resultMap="studyResultMap" parameterType="map">
+	<select id="getBefore" resultMap="studyResultMap" parameterType="map">
 		/* 이전 게시글 가져오기 */
 		SELECT
 			A.*
@@ -66,47 +80,57 @@
 		ORDER BY STUDY_SEQ DESC LIMIT 1
 	</select>
 	
-	<select id="S03" resultMap="studyResultMap" parameterType="map">
+	<select id="getAfter" resultMap="studyResultMap" parameterType="map">
 		/* 다음 게시글 가져오기 */
 		SELECT
 			A.*
 		FROM 
 			TB_CHANGOOS_STUDY A 
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
-		<![CDATA[AND STUDY_ENABLED = true]]>
+		AND STUDY_ENABLED = true
 		<![CDATA[AND STUDY_SEQ > #{seq}]]>
-		<if test="category != ''">
- 		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
+		<if test="category != null and category != ''">
+ 		AND UPPER(STUDY_CATEGORY) = UPPER(#{category})
   		</if>
   		</trim>
 		ORDER BY STUDY_SEQ ASC LIMIT 1
 	</select>
 	
-	<select id="S04" resultMap="studyResultMap" parameterType="map" >
+	<select id="list" resultMap="studyResultMap" parameterType="map" >
 		/* 게시글 리스트 */
 		SELECT
-			A.*
+			A.*,
+			B.comtCnt
 		FROM 
-			TB_CHANGOOS_STUDY A 
+			TB_CHANGOOS_STUDY A
+			LEFT JOIN 
+			(SELECT BOARD_SEQ, COUNT(COMT_SEQ) as 'comtCnt'
+			FROM TB_CHANGOOS_STUDY_COMT
+			GROUP BY BOARD_SEQ) B
+			ON STUDY_SEQ = B.BOARD_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 			<if test="enabled != null">
-	 		<![CDATA[AND STUDY_ENABLED = #{enabled}]]>
+	 		AND STUDY_ENABLED = #{enabled}
 	  		</if>
-			<if test="category != '' and category != null">
-	 		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
+			<if test="category != null and category != ''">
+	 		AND UPPER(STUDY_CATEGORY) = UPPER(#{category})
 	  		</if>
-	  		<if test="searchValue != '' and searchValue != null">
-	 		<![CDATA[AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
+	  		<if test="searchValue != null and searchValue != ''">
+	 		AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')
 	  		</if>
   		</trim>
   		
   		<choose>
-			<when test="sort != null">
-			ORDER BY ${sort} ${order}
-			</when>
-			<otherwise>
-			ORDER BY STUDY_DATE DESC, STUDY_SEQ DESC
-			</otherwise>
+		<when test="sort == 'seq'"> 	ORDER BY STUDY_SEQ ${order} </when>
+		<when test="sort == 'category'">ORDER BY STUDY_CATEGORY ${order} </when>
+		<when test="sort == 'title'"> 	ORDER BY STUDY_TITLE ${order} </when>
+		<when test="sort == 'codeLang'">ORDER BY STUDY_CODE_LANG ${order} </when>
+		<when test="sort == 'date'">	ORDER BY STUDY_DATE ${order} </when>
+		<when test="sort == 'hits'">	ORDER BY STUDY_HITS ${order} </when>
+		<when test="sort == 'comtCnt'"> ORDER BY comtCnt ${order} </when>
+		<otherwise>
+		ORDER BY STUDY_DATE DESC, STUDY_SEQ DESC
+		</otherwise>
 		</choose>
 		
 		<if test="startRow != null and perPgLine != null">
@@ -114,22 +138,7 @@
   		</if>
 	</select>
 	
-	<select id="S05" resultType="Integer" parameterType="map">
-		/* 게시글 개수 */
-		SELECT
-			count(*)
-		FROM TB_CHANGOOS_STUDY
-		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
-		<if test="category != ''">
- 		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
-  		</if>
-  		<if test="searchValue != ''">
- 		<![CDATA[AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
-  		</if>
-  		</trim>
-	</select>
-	
-	<select id="S06" resultType="String">
+	<select id="getCategories" resultType="String">
 		SELECT STUDY_CATEGORY 
 		FROM TB_CHANGOOS_STUDY
 		GROUP BY STUDY_CATEGORY
@@ -137,9 +146,24 @@
 	</select>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
-		INSERT TB_CHANGOOS_STUDY 
-		(STUDY_CATEGORY, STUDY_CODE_LANG, STUDY_TITLE, STUDY_CONTENTS, STUDY_DATE, STUDY_HITS, STUDY_ENABLED)
-		VALUES (#{category}, #{codeLang}, #{title}, #{contents}, #{date}, #{hits}, #{enabled})
+		INSERT TB_CHANGOOS_STUDY (
+			STUDY_CATEGORY, 
+			STUDY_CODE_LANG, 
+			STUDY_TITLE, 
+			STUDY_CONTENTS, 
+			STUDY_DATE, 
+			STUDY_HITS, 
+			STUDY_ENABLED
+		)
+		VALUES (	
+			#{category}, 
+			#{codeLang}, 
+			#{title},
+			#{contents}, 
+			#{date}, 
+			#{hits}, 
+			#{enabled}
+		)
 	</insert>
 	
 	<delete id="delete">

@@ -12,7 +12,7 @@
 		<result property="date" column="BLOG_DATE"/>
 		<result property="hits" column="BLOG_HITS"/>
 		<result property="enabled" column="BLOG_ENABLED"/>
-		<collection property="comtCnt" column="BLOG_SEQ" select="countComt" />
+		<result property="comtCnt" column="comtCnt" />
 		
 		<collection property="images" ofType="BoardImageVo">
 			<id property="seq" column="IMG_SEQ"/>
@@ -29,17 +29,12 @@
 		</collection>
 	</resultMap>
 	
-	<select id="countComt" resultType="int">
-		SELECT 	COUNT(COMT_SEQ)
-		FROM 	TB_CHANGOOS_BLOG_COMT
-		WHERE 	BOARD_SEQ = #{seq}
-	</select>
-	
 	<select id="get" resultMap="blogResultMap" parameterType="Integer">
 		SELECT
 			A.*, 
 			B.*,
-			C.*
+			C.*,
+			D.comtCnt
 		FROM 
 			TB_CHANGOOS_BLOG A 
 			LEFT JOIN TB_CHANGOOS_BLOG_IMAGE B ON BLOG_SEQ = B.BOARD_SEQ
@@ -65,7 +60,8 @@
 					B.IMG_SEQ,
 					B.EDITOR_ID,
 					B.IMG_PATHNM,
-					B.IMG_FILENM
+					B.IMG_FILENM,
+					C.comtCnt
 				FROM 
 					TB_CHANGOOS_BLOG A 
 					LEFT JOIN 
@@ -73,6 +69,11 @@
 					FROM TB_CHANGOOS_BLOG_IMAGE
 					GROUP BY BOARD_SEQ) B
 					ON BLOG_SEQ = B.BOARD_SEQ
+					LEFT JOIN 
+					(SELECT BOARD_SEQ, COUNT(COMT_SEQ) as comtCnt
+					FROM TB_CHANGOOS_BLOG_COMT
+					GROUP BY BOARD_SEQ) C
+					ON BLOG_SEQ = C.BOARD_SEQ
 				<trim prefix="WHERE" prefixOverrides="AND |OR ">
 					AND BLOG_TAG like '%${item}%' 
 				<if test="enabled != null">
@@ -87,7 +88,8 @@
 					B.IMG_SEQ,
 					B.EDITOR_ID,
 					B.IMG_PATHNM,
-					B.IMG_FILENM
+					B.IMG_FILENM,
+					C.comtCnt
 				FROM 
 					TB_CHANGOOS_BLOG A 
 					LEFT JOIN 
@@ -95,6 +97,11 @@
 					FROM TB_CHANGOOS_BLOG_IMAGE
 					GROUP BY BOARD_SEQ) B
 					ON BLOG_SEQ = B.BOARD_SEQ
+					LEFT JOIN 
+					(SELECT BOARD_SEQ, COUNT(COMT_SEQ) as comtCnt
+					FROM TB_CHANGOOS_BLOG_COMT
+					GROUP BY BOARD_SEQ) C
+					ON BLOG_SEQ = C.BOARD_SEQ
 				<trim prefix="WHERE" prefixOverrides="AND |OR ">
 				<if test="enabled != null">
 					AND BLOG_ENABLED = #{enabled}
@@ -109,6 +116,7 @@
 		<when test="sort == 'title'"> 	ORDER BY BLOG_TITLE ${order} </when>
 		<when test="sort == 'date'">	ORDER BY BLOG_DATE ${order} </when>
 		<when test="sort == 'hits'"> 	ORDER BY BLOG_HITS ${order} </when>
+		<when test="sort == 'comtCnt'"> ORDER BY comtCnt ${order} </when>
 		<otherwise> ORDER BY BLOG_DATE DESC, BLOG_SEQ DESC 	</otherwise>
 		</choose>
 		

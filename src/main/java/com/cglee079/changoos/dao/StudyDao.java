@@ -20,33 +20,33 @@ public class StudyDao {
 	private SqlSessionTemplate sqlSession;
 
 	public StudyVo get(int seq) {
-		return sqlSession.selectOne(namespace +".S01", seq);
+		return sqlSession.selectOne(namespace +".get", seq);
 	}
 	
 	public StudyVo getBefore(int seq, String category) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("seq", seq);
 		map.put("category", category);
-		return sqlSession.selectOne(namespace +".S02", map);
+		return sqlSession.selectOne(namespace +".getBefore", map);
 	}
 	
 	public StudyVo getAfter(int seq, String category) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("seq", seq);
 		map.put("category", category);
-		return sqlSession.selectOne(namespace +".S03", map);
+		return sqlSession.selectOne(namespace +".getAfter", map);
 	}
 
 	public List<StudyVo> list(Map<String, Object> params) {
-		return sqlSession.selectList(namespace +".S04", params);
+		return sqlSession.selectList(namespace +".list", params);
 	}
 	
 	public int count(Map<String, Object> params) {
-		return sqlSession.selectOne(namespace +".S05", params);
+		return sqlSession.selectOne(namespace +".count", params);
 	}
 
 	public List<String> getCategories() {
-		return sqlSession.selectList(namespace +".S06");
+		return sqlSession.selectList(namespace +".getCategories");
 	}
 	
 	public int insert(StudyVo study) {

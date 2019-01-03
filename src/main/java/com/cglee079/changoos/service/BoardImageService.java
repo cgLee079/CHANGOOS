@@ -40,7 +40,7 @@ public class BoardImageService {
 	@Value("#{constant['image.status.id.remove']}") private String statusRemove;
 	
 	public String saveBase64(String base64) throws IOException {
-		String ImageExt = "PNG";
+		String ImageExt = "GIF";
 		String pathname = MyFilenameUtils.getRandomImagename(ImageExt);
 
 		base64 = base64.split(",")[1];
