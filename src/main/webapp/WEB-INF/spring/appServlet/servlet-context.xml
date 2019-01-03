@@ -23,6 +23,7 @@
 	<util:properties id="location" location="/WEB-INF/props/location.properties" />
 	<util:properties id="constant" location="/WEB-INF/props/constant.properties" />
 	<util:properties id="db" location="/WEB-INF/props/db.properties" />
+	<util:properties id="test" location="/WEB-INF/props/test.properties" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->

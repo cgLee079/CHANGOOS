@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cglee079.changoos.dao.StudyDao;
 import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.BoardImageVo;
+import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.util.AuthManager;
 import com.cglee079.changoos.util.Formatter;
@@ -144,9 +145,9 @@ public class StudyService {
 	@Transactional
 	public boolean delete(int seq) {
 		StudyVo study = studyDao.get(seq);
-		
 		List<BoardImageVo> images = study.getImages();
 		List<BoardFileVo> files = study.getFiles();
+		
 		boolean result = studyDao.delete(seq); //CASECADE
 		if(result) {
 			//첨부 파일 삭제

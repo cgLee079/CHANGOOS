@@ -20,12 +20,8 @@ public class BlogDao {
 		return sqlSession.selectOne(namespace +".get", seq);
 	}
 	
-	public List<BlogVo> paging(Map<String, Object> params) {
-		return sqlSession.selectList(namespace +".paging", params);
-	}
-	
 	public List<BlogVo> list(Map<String, Object> params) {
-		return sqlSession.selectList(namespace +".paging", params);
+		return sqlSession.selectList(namespace +".list", params);
 	}
 	
 	public int count(Map<String, Object> params) {

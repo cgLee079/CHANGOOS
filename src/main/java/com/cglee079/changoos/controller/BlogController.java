@@ -32,7 +32,7 @@ public class BlogController {
 	/** 블로그 리스트로 이동 **/
 	@RequestMapping(value = "/blog")
 	public String blogList(Model model) throws SQLException, JsonProcessingException {
-		List<String> tags = blogService.getTags();
+		Set<String> tags = blogService.getTags();
 		model.addAttribute("tags", tags);
 		return "blog/blog_list";
 	}

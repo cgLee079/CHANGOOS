@@ -38,12 +38,12 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 			session.setAttribute("visitStudies", new HashSet<Integer>());
 			session.setAttribute("visitBlogs", new HashSet<Integer>());
 			session.setAttribute("visitProjects", new HashSet<Integer>());
-			session.setAttribute("likePhotos", new HashMap<Integer, Boolean>());
+			session.setAttribute("likePhotos", new HashSet<Integer>());
 		} else {
 			if(session.getAttribute("visitStudies") == null) { session.setAttribute("visitStudies", new HashSet<Integer>());}
 			if(session.getAttribute("visitBlogs") == null) { session.setAttribute("visitBlogs", new HashSet<Integer>());}
 			if(session.getAttribute("visitProjects") == null) { session.setAttribute("visitProjects", new HashSet<Integer>());}
-			if(session.getAttribute("likePhotos") == null) { session.setAttribute("likePhotos", new HashMap<Integer, Boolean>());}
+			if(session.getAttribute("likePhotos") == null) { session.setAttribute("likePhotos", new HashSet<Integer>());}
 		}
 		return true;
 	}

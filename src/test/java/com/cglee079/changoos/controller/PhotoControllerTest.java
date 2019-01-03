@@ -14,8 +14,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONObject;
 import org.junit.Before;
@@ -76,7 +78,7 @@ public class PhotoControllerTest {
 		int seq = 3;
 		PhotoVo photo = new PhotoVo();
 		photo.setSeq(seq);
-		Map<Integer, Boolean> likePhotos = new HashMap<>();
+		Set<Integer> likePhotos = new HashSet<>();
 		MockHttpSession session = new MockHttpSession();
 		session.setAttribute("likePhotos", likePhotos);
 		
@@ -182,7 +184,7 @@ public class PhotoControllerTest {
 		PhotoVo photo = new PhotoVo();
 		int seq = 3;
 		boolean like = true;
-		Map<Integer, Boolean> likePhotos = new HashMap<>();
+		Set<Integer> likePhotos = new HashSet<>();
 		MockHttpSession session = new MockHttpSession();
 		session.setAttribute("likePhotos", likePhotos);
 		

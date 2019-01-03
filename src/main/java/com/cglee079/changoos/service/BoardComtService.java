@@ -11,11 +11,12 @@ import org.springframework.stereotype.Service;
 import com.cglee079.changoos.dao.BoardComtDao;
 import com.cglee079.changoos.model.BoardComtVo;
 import com.cglee079.changoos.util.AuthManager;
+import com.cglee079.changoos.util.Formatter;
 
 @Service
 public class BoardComtService {
 
-	@Autowired private BoardComtDao scomtDao;
+	@Autowired private BoardComtDao boardcomtDao;
 
 	@Value("#{db['project.comt.tb.name']}")	private String projectComtTB;
 	@Value("#{db['study.comt.tb.name']}") 	private String studyComtTB;
@@ -25,33 +26,38 @@ public class BoardComtService {
 	@Value("#{constant['board.type.id.study']}") 	private String studyID;
 	@Value("#{constant['board.type.id.blog']}")		private String blogID;
 
-	public List<BoardComtVo> paging(String boardType, int studySeq, int page, int perPgLine) {
+	public List<BoardComtVo> paging(String boardType, int boardSeq, int page, int perPgLine) {
 		String TB = this.getTB(boardType);
 
 		int startRow = (page - 1) * perPgLine;
-		return scomtDao.list(TB, studySeq, startRow, perPgLine);
+		return boardcomtDao.list(TB, boardSeq, startRow, perPgLine);
 	}
 
 	public int count(String boardType, int boardSeq) {
 		String TB = this.getTB(boardType);
-		return scomtDao.count(TB, boardSeq);
+		return boardcomtDao.count(TB, boardSeq);
 	}
 
 	public boolean insert(String boardType, BoardComtVo comt) {
-		String date = new SimpleDateFormat("YYYY-MM-dd").format(new Date());
+		String date = Formatter.toDate(new Date());
 		comt.setDate(date);
 		
 		String TB = this.getTB(boardType);
 		
-		return scomtDao.insert(TB, comt);
+		return boardcomtDao.insert(TB, comt);
 	}
 
+	public boolean update(String boardType, BoardComtVo comt) {
+		String TB = this.getTB(boardType);
+		return boardcomtDao.update(TB, comt);
+	}
+	
 	public boolean delete(String boardType, BoardComtVo comt) {
 		String TB = this.getTB(boardType);
 		
-		BoardComtVo comtVo = scomtDao.get(TB, comt.getSeq());
-		if (comtVo.getPassword().equals(comt.getPassword()) || AuthManager.isAdmin()) {
-			return scomtDao.delete(TB, comt.getSeq());
+		BoardComtVo savedComt = boardcomtDao.get(TB, comt.getSeq());
+		if (AuthManager.isAdmin() || savedComt.getPassword().equals(comt.getPassword()) ) {
+			return boardcomtDao.delete(TB, comt.getSeq());
 		} else {
 			return false;
 		}
@@ -60,20 +66,15 @@ public class BoardComtService {
 	public boolean checkPwd(String boardType, BoardComtVo comt) {
 		String TB = this.getTB(boardType);
 		
-		BoardComtVo comtVo = scomtDao.get(TB, comt.getSeq());
-		if (comtVo.getPassword().equals(comt.getPassword()) || AuthManager.isAdmin()) {
+		BoardComtVo savedComt = boardcomtDao.get(TB, comt.getSeq());
+		if (AuthManager.isAdmin() || savedComt.getPassword().equals(comt.getPassword())) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public boolean update(String boardType, BoardComtVo comt) {
-		String TB = this.getTB(boardType);
-		return scomtDao.update(TB, comt);
-	}
-
-	private String getTB(String boardType) {
+	public String getTB(String boardType) {
 		String TB = "";
 		
 		if (boardType.equals(projectID)) {

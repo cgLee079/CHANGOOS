@@ -73,8 +73,6 @@ public class BoardFileService {
 			}
 			
 		}
-		
-		//fileHandler.emptyDir(realPath + tempDir);
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -54,10 +55,10 @@ public class BlogService{
 		return blogDao.count(params);
 	}
 	
-	public List<String> getTags() {
+	public Set<String> getTags() {
 		List<String> tagDummys = blogDao.getTags();
+		Set<String> tags = new HashSet<String>();
 		
-		HashMap<String, Object> tagMap = new HashMap<>();
 		String[] split = null;
 		String	tagDummy = null;
 		for(int i = 0; i < tagDummys.size(); i++) {
@@ -65,15 +66,10 @@ public class BlogService{
 			split = tagDummy.split(" ");
 			
 			for(int j = 0; j < split.length; j++) {
-				tagMap.put(split[j], null);
+				tags.add(split[j]);
 			}
 		}
 		
-		List<String> tags = new ArrayList<String>();
-		Iterator<String> iter = tagMap.keySet().iterator();
-		while(iter.hasNext()) {
-			tags.add(iter.next());
-		}
 		
 		return tags;
 	}
@@ -116,7 +112,7 @@ public class BlogService{
 		String tags = (String)params.get("tags");
 		params.put("tags", new Gson().fromJson(tags, List.class));
 		
-		List<BlogVo> blogs 	= blogDao.paging(params);
+		List<BlogVo> blogs 	= blogDao.list(params);
 		BlogVo blog 		= null;
 		String contents 	= "";
 		String newContents 	= "";
@@ -204,23 +200,20 @@ public class BlogService{
 
 	
 	public String saveThumbnail(BlogVo blog, MultipartFile thumbnailFile) throws IllegalStateException, IOException {
-		String filename = thumbnailFile.getOriginalFilename();
-		String imgExt = MyFilenameUtils.getExt(filename);
 		String pathname = null;
 		
 		if(thumbnailFile.getSize() > 0){
-			if(blog.getSeq() != 0) {
-				fileHandler.delete(realPath + thumbDir, blogDao.get(blog.getSeq()).getThumbnail());
-			}
+			String filename = thumbnailFile.getOriginalFilename();
+			String imgExt = MyFilenameUtils.getExt(filename);
+			
+			fileHandler.delete(realPath + thumbDir, blog.getThumbnail());
 			
 			pathname = "BLOG.THUMB." + MyFilenameUtils.getRandomImagename(imgExt);
 			File file = new File(realPath + thumbDir, pathname);
 			thumbnailFile.transferTo(file);
 			
-			if(!imgExt.equalsIgnoreCase(ImageHandler.EXT_GIF)) {
-				imageHandler.saveLowscaleImage(file, thumbMaxWidth, imgExt);
-			}
-			
+		
+			imageHandler.saveLowscaleImage(file, thumbMaxWidth, imgExt);
 			
 		} 
 		

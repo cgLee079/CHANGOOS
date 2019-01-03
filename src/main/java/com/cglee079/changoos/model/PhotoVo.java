@@ -18,12 +18,4 @@ public class PhotoVo {
 	private int likeCnt;
 	private boolean like;
 
-	public void setLike(Boolean like) {
-		if(like == null) {
-			this.like = false;
-		} else {
-			this.like = like;
-		}
-	}
-
 }

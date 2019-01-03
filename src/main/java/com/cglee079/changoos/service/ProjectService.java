@@ -139,7 +139,7 @@ public class ProjectService {
 	public String saveThumbnail(ProjectVo project, MultipartFile thumbnailFile) throws IllegalStateException, IOException {
 		String pathname = null;
 		
-		if (thumbnailFile.getSize() != 0) {
+		if (thumbnailFile.getSize() > 0) {
 			String filename = thumbnailFile.getOriginalFilename();
 			String imgExt = MyFilenameUtils.getExt(filename);
 			
@@ -149,9 +149,7 @@ public class ProjectService {
 			File file = new File(realPath + thumbDir, pathname);
 			thumbnailFile.transferTo(file);
 			
-			if (!imgExt.equalsIgnoreCase(ImageHandler.EXT_GIF)) {
-				imageHandler.saveLowscaleImage(file, thumbMaxWidth, imgExt);
-			}
+			imageHandler.saveLowscaleImage(file, thumbMaxWidth, imgExt);
 
 		}
 

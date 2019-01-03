@@ -53,7 +53,7 @@
 		WHERE BLOG_SEQ = #{seq}
 	</select>
 	
-	<select id="paging" resultMap="blogResultMap" parameterType="map">
+	<select id="list" resultMap="blogResultMap" parameterType="map">
 		/* 블로그 페이징 */
 		SELECT X.* 
       	FROM (
@@ -131,7 +131,6 @@
 		AND BLOG_ENABLED = true
 		</trim>
 	</select>
-	
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
 		/* 블로그 추가하기 */

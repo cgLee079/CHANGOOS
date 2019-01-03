@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -85,15 +86,11 @@ public class ProjectServiceTest {
 	@Test
 	public void testGetWithoutContent() {
 		int seq = 3;
-		List<BoardFileVo> files = new ArrayList<>();
-		List<BoardImageVo> images = new ArrayList<>();
 		ProjectVo project = new ProjectVo();
 		project.setSeq(seq);
 		
 		ProjectVo expectProject = new ProjectVo();
 		expectProject.setSeq(seq);
-		expectProject.setFiles(files);
-		expectProject.setImages(images);
 		
 		when(projectDao.get(seq)).thenReturn(project);
 		
@@ -107,8 +104,6 @@ public class ProjectServiceTest {
 	@Test
 	public void testGetWithContents() {
 		int seq = 3;
-		List<BoardFileVo> files = new ArrayList<>();
-		List<BoardImageVo> images = new ArrayList<>();
 		String contents = "&";
 		String newContents = "&amp;";
 		
@@ -119,8 +114,6 @@ public class ProjectServiceTest {
 		ProjectVo expectProject = new ProjectVo();
 		expectProject.setSeq(seq);
 		expectProject.setContents(newContents);
-		expectProject.setFiles(files);
-		expectProject.setImages(images);
 		
 		when(projectDao.get(seq)).thenReturn(project);
 		
@@ -165,8 +158,6 @@ public class ProjectServiceTest {
 	@WithMockUser(roles = "ADMIN")
 	public void testDoViewVisitedByAdmin() {
 		int seq = 3;
-		List<BoardFileVo> files = new ArrayList<>();
-		List<BoardImageVo> images = new ArrayList<>();
 		Set<Integer> visitProjects = new HashSet<>();
 		visitProjects.add(seq);
 		
@@ -178,8 +169,6 @@ public class ProjectServiceTest {
 		
 		ProjectVo expectedProject = new ProjectVo();
 		expectedProject.setSeq(seq);
-		expectedProject.setFiles(files);
-		expectedProject.setImages(images);
 		expectedProject.setHits(0);
 		
 		//ACT
@@ -193,8 +182,6 @@ public class ProjectServiceTest {
 	@WithMockUser(roles = "ADMIN")
 	public void testDoViewNoneVisitedByAdmin() {
 		int seq = 3;
-		List<BoardFileVo> files = new ArrayList<>();
-		List<BoardImageVo> images = new ArrayList<>();
 		Set<Integer> visitProjects = new HashSet<>();
 		
 		ProjectVo project = new ProjectVo();
@@ -205,8 +192,6 @@ public class ProjectServiceTest {
 		
 		ProjectVo expectedProject = new ProjectVo();
 		expectedProject.setSeq(seq);
-		expectedProject.setFiles(files);
-		expectedProject.setImages(images);
 		expectedProject.setHits(0);
 		
 		//ACT
@@ -218,10 +203,8 @@ public class ProjectServiceTest {
 	}
 	
 	@Test
-	public void testDoViewVisitedByAnyone() {
+	public void testDoViewVisitedByUser() {
 		int seq = 3;
-		List<BoardFileVo> files = new ArrayList<>();
-		List<BoardImageVo> images = new ArrayList<>();
 		Set<Integer> visitProjects = new HashSet<>();
 		visitProjects.add(seq);
 		
@@ -233,8 +216,6 @@ public class ProjectServiceTest {
 		
 		ProjectVo expectedProject = new ProjectVo();
 		expectedProject.setSeq(seq);
-		expectedProject.setFiles(files);
-		expectedProject.setImages(images);
 		expectedProject.setHits(0);
 		
 		//ACT
@@ -245,10 +226,8 @@ public class ProjectServiceTest {
 	}
 	
 	@Test
-	public void testDoViewNoneVisitedByAnyone() {
+	public void testDoViewNoneVisitedByUser() {
 		int seq = 3;
-		List<BoardFileVo> files = new ArrayList<>();
-		List<BoardImageVo> images = new ArrayList<>();
 		Set<Integer> visitProjects = new HashSet<>();
 		
 		ProjectVo project = new ProjectVo();
@@ -259,8 +238,6 @@ public class ProjectServiceTest {
 		
 		ProjectVo expectedProject = new ProjectVo();
 		expectedProject.setSeq(seq);
-		expectedProject.setFiles(files);
-		expectedProject.setImages(images);
 		expectedProject.setHits(1);
 		
 		//ACT
@@ -367,7 +344,8 @@ public class ProjectServiceTest {
 		ProjectVo project = new ProjectVo();
 		project.setSeq(seq);
 		project.setThumbnail(thumbnail);
-		
+		project.setImages(images);
+		project.setFiles(files);
 		when(projectDao.get(seq)).thenReturn(project);
 		when(projectDao.delete(seq)).thenReturn(expected);
 		
@@ -396,28 +374,11 @@ public class ProjectServiceTest {
 		
 		//ASSERT
 		assertEquals(expected, result);
+		verify(fileHandler, atMost(0)).delete(anyString(), anyString());
 	}
 	
 	@Test
-	public void testSaveThumbnailWithGifFile() throws IllegalStateException, IOException {
-		ProjectVo project = mock(ProjectVo.class);
-		MultipartFile thumbnailFile = mock(MultipartFile.class);
-		long filesize = 1024;
-		String filename = "SAMPLE_FILENAME.GIF";
-		
-		when(thumbnailFile.getSize()).thenReturn(filesize);
-		when(thumbnailFile.getOriginalFilename()).thenReturn(filename);
-		
-		//ACT
-		String resultPathname = projectService.saveThumbnail(project, thumbnailFile);
-		
-		//ASSERT
-		verify(fileHandler).delete(realPath + thumbDir, project.getThumbnail());
-		verify(thumbnailFile).transferTo(new File(realPath + thumbDir, resultPathname));
-	}
-	
-	@Test
-	public void testSaveThumbnailWithNoneGifFile() throws IllegalStateException, IOException {
+	public void testSaveThumbnailWithFile() throws IllegalStateException, IOException {
 		ProjectVo project = mock(ProjectVo.class);
 		MultipartFile thumbnailFile = mock(MultipartFile.class);
 		
@@ -439,17 +400,20 @@ public class ProjectServiceTest {
 	@Test
 	public void testSaveThumbnailWithoutFile() throws IllegalStateException, IOException {
 		ProjectVo project = mock(ProjectVo.class);
-		MultipartFile thumbnailFile = spy(MultipartFile.class);
+		MultipartFile thumbnailFile = mock(MultipartFile.class);
 		
 		long filesize = 0;
 		
-		doReturn(filesize).when(thumbnailFile).getSize();
+		when(thumbnailFile.getSize()).thenReturn(filesize);
 		
 		//ACT
 		String resultPathname = projectService.saveThumbnail(project, thumbnailFile);
 		
 		//ASSERT
 		assertEquals(null, resultPathname);
+		verify(fileHandler, atMost(0)).delete(anyString(), anyString());
+		verify(thumbnailFile, atMost(0)).transferTo(any(File.class));
+		verify(imageHandler, atMost(0)).saveLowscaleImage(any(File.class), eq(thumbMaxWidth), anyString());
 	}
 	
 }

@@ -23,6 +23,10 @@ public class ImageHandler {
 	public static final String EXT_GIF = "gif";
 
 	public boolean saveLowscaleImage(File file, int w, String imgExt) {
+		if(imgExt.equalsIgnoreCase(ImageHandler.EXT_GIF)) {
+			return true;
+		}
+		
 		try {
 			BufferedImage srcImg = ImageIO.read(file);
 

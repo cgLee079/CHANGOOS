@@ -48,13 +48,11 @@ public class BoardImageService {
 		File file = new File(realPath + tempDir, pathname);
 		ImageIO.write(bufImg, ImageExt, file);
 
-		if (!ImageExt.equalsIgnoreCase(ImageHandler.EXT_GIF)) {
-			imageHandler.saveLowscaleImage(file, maxWidth, ImageExt);
-		}
+		imageHandler.saveLowscaleImage(file, maxWidth, ImageExt);
 
 		return pathname;
 	}
-	
+
 	public String saveImage(MultipartFile multipartFile) throws IOException {
 		String filename = multipartFile.getOriginalFilename();
 		String ImageExt = MyFilenameUtils.getExt(filename);
@@ -63,9 +61,7 @@ public class BoardImageService {
 		File file = new File(realPath + tempDir, pathname);
 		multipartFile.transferTo(file);
 
-		if (!ImageExt.equalsIgnoreCase(ImageHandler.EXT_GIF)) {
-			imageHandler.saveLowscaleImage(file, maxWidth, ImageExt);
-		}
+		imageHandler.saveLowscaleImage(file, maxWidth, ImageExt);
 
 		return pathname;
 	}

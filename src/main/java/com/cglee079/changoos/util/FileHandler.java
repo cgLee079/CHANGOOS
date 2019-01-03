@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FileHandler {
+	
 	public void emptyDir(String path) {
 		File dir = new File(path);
 		File[] files = dir.listFiles();
@@ -17,8 +18,12 @@ public class FileHandler {
 		if(files != null) {
 			for(int i = 0; i < files.length; i++) {
 				file = files[i];
-				if(!file.isDirectory()) {
+				if(file.isFile()) {
 					this.delete(file);
+				} 
+				
+				if(file.isDirectory()) {
+					emptyDir(file.getPath());
 				}
 			}
 		}

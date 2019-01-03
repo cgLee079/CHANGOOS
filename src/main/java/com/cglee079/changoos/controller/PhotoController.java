@@ -3,6 +3,7 @@ package com.cglee079.changoos.controller;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -42,7 +43,7 @@ public class PhotoController {
 	@ResponseBody
 	@RequestMapping(value = "/photo/view")
 	public String photoView(HttpSession session, int seq) throws JsonProcessingException {
-		PhotoVo photo = photoService.get((Map<Integer, Boolean>)session.getAttribute("likePhotos"), seq);
+		PhotoVo photo = photoService.get((Set<Integer>)session.getAttribute("likePhotos"), seq);
 		return new Gson().toJson(photo).toString();
 	}
 	
@@ -109,7 +110,7 @@ public class PhotoController {
 	@ResponseBody
 	@RequestMapping(value = "/photo/like.do")
 	public String photoDoLike(HttpSession session, int seq, boolean like) throws JsonProcessingException {
-		PhotoVo photo = photoService.doLike((Map<Integer, Boolean>)session.getAttribute("likePhotos"), seq, like);
+		PhotoVo photo = photoService.doLike((Set<Integer>)session.getAttribute("likePhotos"), seq, like);
 		return new Gson().toJson(photo).toString();
 	}
 	

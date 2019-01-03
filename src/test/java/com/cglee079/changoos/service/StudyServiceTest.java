@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -34,6 +35,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import com.cglee079.changoos.dao.StudyDao;
 import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.BoardImageVo;
+import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.util.FileHandler;
 import com.cglee079.changoos.util.Formatter;
@@ -87,15 +89,11 @@ public class StudyServiceTest {
 	@Test
 	public void testGetWithoutContent() {
 		int seq = 3;
-		List<BoardFileVo> files = new ArrayList<>();
-		List<BoardImageVo> images = new ArrayList<>();
 		StudyVo study = new StudyVo();
 		study.setSeq(seq);
 		
 		StudyVo expectStudy = new StudyVo();
 		expectStudy.setSeq(seq);
-		expectStudy.setFiles(files);
-		expectStudy.setImages(images);
 		
 		when(studyDao.get(seq)).thenReturn(study);
 		
@@ -109,8 +107,6 @@ public class StudyServiceTest {
 	@Test
 	public void testGetWithContents() {
 		int seq = 3;
-		List<BoardFileVo> files = new ArrayList<>();
-		List<BoardImageVo> images = new ArrayList<>();
 		String contents = "&";
 		String newContents = "&amp;";
 		
@@ -120,8 +116,6 @@ public class StudyServiceTest {
 		
 		StudyVo expectStudy = new StudyVo();
 		expectStudy.setSeq(seq);
-		expectStudy.setFiles(files);
-		expectStudy.setImages(images);
 		expectStudy.setContents(newContents);
 		
 		when(studyDao.get(seq)).thenReturn(study);
@@ -137,8 +131,6 @@ public class StudyServiceTest {
 	@WithMockUser(roles = "ADMIN")
 	public void testDoViewVisitedByAdmin() {
 		int seq = 3;
-		List<BoardFileVo> files = new ArrayList<>();
-		List<BoardImageVo> images = new ArrayList<>();
 		Set<Integer> visitStudies = new HashSet<>();
 		visitStudies.add(seq);
 		
@@ -150,8 +142,6 @@ public class StudyServiceTest {
 		
 		StudyVo expectedStudy = new StudyVo();
 		expectedStudy.setSeq(seq);
-		expectedStudy.setFiles(files);
-		expectedStudy.setImages(images);
 		expectedStudy.setHits(0);
 		
 		//ACT
@@ -165,8 +155,6 @@ public class StudyServiceTest {
 	@WithMockUser(roles = "ADMIN")
 	public void testDoViewNoneVisitedByAdmin() {
 		int seq = 3;
-		List<BoardFileVo> files = new ArrayList<>();
-		List<BoardImageVo> images = new ArrayList<>();
 		Set<Integer> visitStudies = new HashSet<>();
 		
 		StudyVo study = new StudyVo();
@@ -177,8 +165,6 @@ public class StudyServiceTest {
 		
 		StudyVo expectedStudy = new StudyVo();
 		expectedStudy.setSeq(seq);
-		expectedStudy.setFiles(files);
-		expectedStudy.setImages(images);
 		expectedStudy.setHits(0);
 		
 		//ACT
@@ -190,10 +176,8 @@ public class StudyServiceTest {
 	}
 	
 	@Test
-	public void testDoViewVisitedByAnyone() {
+	public void testDoViewVisitedByUser() {
 		int seq = 3;
-		List<BoardFileVo> files = new ArrayList<>();
-		List<BoardImageVo> images = new ArrayList<>();
 		Set<Integer> visitStudies = new HashSet<>();
 		visitStudies.add(seq);
 		
@@ -205,8 +189,6 @@ public class StudyServiceTest {
 		
 		StudyVo expectedStudy = new StudyVo();
 		expectedStudy.setSeq(seq);
-		expectedStudy.setFiles(files);
-		expectedStudy.setImages(images);
 		expectedStudy.setHits(0);
 		
 		//ACT
@@ -217,10 +199,8 @@ public class StudyServiceTest {
 	}
 	
 	@Test
-	public void testDoViewNoneVisitedByAnyone() {
+	public void testDoViewNoneVisitedByUser() {
 		int seq = 3;
-		List<BoardFileVo> files = new ArrayList<>();
-		List<BoardImageVo> images = new ArrayList<>();
 		Set<Integer> visitStudies = new HashSet<>();
 		
 		StudyVo study = new StudyVo();
@@ -231,8 +211,6 @@ public class StudyServiceTest {
 		
 		StudyVo expectedStudy = new StudyVo();
 		expectedStudy.setSeq(seq);
-		expectedStudy.setFiles(files);
-		expectedStudy.setImages(images);
 		expectedStudy.setHits(1);
 		
 		//ACT
@@ -408,6 +386,12 @@ public class StudyServiceTest {
 		images.add(mock(BoardImageVo.class));
 		images.add(mock(BoardImageVo.class));
 		
+		StudyVo study = new StudyVo();
+		study.setSeq(seq);
+		study.setImages(images);
+		study.setFiles(files);
+		
+		when(studyDao.get(seq)).thenReturn(study);
 		when(studyDao.delete(seq)).thenReturn(expected);
 		
 		//ACT
@@ -424,7 +408,11 @@ public class StudyServiceTest {
 	public void testDeleteResultFalse() {
 		int seq = 3;
 		boolean expected = false;
+		
+		StudyVo study = new StudyVo();
+		study.setSeq(seq);
 
+		when(studyDao.get(seq)).thenReturn(study);
 		when(studyDao.delete(seq)).thenReturn(expected);
 		
 		//ACT
@@ -432,5 +420,6 @@ public class StudyServiceTest {
 		
 		//ASSERT
 		assertEquals(expected, result);
+		verify(fileHandler, atMost(0)).delete(anyString(), anyString());
 	}
 }

@@ -15,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -61,7 +62,7 @@ public class BlogControllerTest {
 	
 	@Test
 	public void testBlogList() throws Exception {
-		List<String> tags = new ArrayList<>();
+		Set<String> tags = new HashSet<>();
 		
 		when(blogService.getTags()).thenReturn(tags);
 		
@@ -99,7 +100,7 @@ public class BlogControllerTest {
 		BlogVo blog = new BlogVo();
 		List<BoardFileVo> files = new ArrayList<BoardFileVo>();
 		blog.setFiles(files);
-		List<Integer> visitBlogs = new ArrayList<>();
+		Set<Integer> visitBlogs = new HashSet<>();
 		MockHttpSession session = new MockHttpSession();
 		session.setAttribute("visitBlogs", visitBlogs);
 		
