@@ -33,13 +33,9 @@ public class BoardFileService {
 	public String saveFile(MultipartFile multipartFile) throws IllegalStateException, IOException {
 		String filename = MyFilenameUtils.sanitizeRealFilename(multipartFile.getOriginalFilename());
 		String pathname = MyFilenameUtils.getRandomFilename(MyFilenameUtils.getExt(filename));
-		long size = multipartFile.getSize();
 
-		
-		if (size > 0) {
-			File file = new File(realPath + tempDir, pathname);
-			multipartFile.transferTo(file);
-		}
+		File file = new File(realPath + tempDir, pathname);
+		multipartFile.transferTo(file);
 
 		return pathname;
 	}

@@ -12,6 +12,7 @@ import javax.xml.bind.DatatypeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.BoardImageDao;
@@ -66,6 +67,7 @@ public class BoardImageService {
 		return pathname;
 	}
 	
+	@Rollback()
 	public String insertImages(String TB, String dir, int boardSeq, String contents, String imageValues) throws JsonParseException, JsonMappingException, IOException {
 		List<BoardImageVo> images = new ObjectMapper().readValue(imageValues, new TypeReference<List<BoardImageVo>>(){});
 		
@@ -78,6 +80,7 @@ public class BoardImageService {
 			String status = image.getStatus();
 			String pathname = image.getPathname();
 			
+			System.out.println(status);
 			if(status.equals(statusNew)) { //새롭게 추가된 이미지
 				if(boardImageDao.insert(TB, image)) {
 					//임시폴더에서 본 폴더로 이동

@@ -43,7 +43,6 @@ public class BlogController {
 	public String blogPaging(@RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException {
 		params.put("enabled", true);
 		
-		System.out.println(params);
 		List<BlogVo> blogs = blogService.paging(params);
 		int count = blogService.count(params);
 
