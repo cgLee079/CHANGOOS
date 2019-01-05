@@ -33,7 +33,7 @@ public class BoardImageDaoTest {
 	@Before
 	public void setUp() {
 		sampleImageA = BoardImageVo.builder()
-				.filename("filA 이름")
+				.filename("fileA 이름")
 				.pathname("fileA 저장이름")
 				.build();
 	}

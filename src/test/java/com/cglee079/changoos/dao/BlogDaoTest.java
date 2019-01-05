@@ -50,7 +50,7 @@ public class BlogDaoTest {
 	public void setUp() {
 		sampleBlogA = BlogVo.builder()
 				.title("blogA")
-				.thumbnail("blogA 썸네일.jpg")
+				.thumbnail("blogA 썸네일")
 				.contents("blogA 내용")
 				.files(new ArrayList<BoardFileVo>())
 				.images(new ArrayList<BoardImageVo>())
@@ -59,7 +59,7 @@ public class BlogDaoTest {
 		
 		sampleBlogB = BlogVo.builder()
 				.title("blogB")
-				.thumbnail("blogB 썸네일.jpg")
+				.thumbnail("blogB 썸네일")
 				.contents("blogB 내용")
 				.files(new ArrayList<BoardFileVo>())
 				.images(new ArrayList<BoardImageVo>())
@@ -68,7 +68,7 @@ public class BlogDaoTest {
 		
 		sampleBlogC = BlogVo.builder()
 				.title("blogC")
-				.thumbnail("blogC 썸네일.jpg")
+				.thumbnail("blogC 썸네일")
 				.contents("blogC 내용")
 				.files(new ArrayList<BoardFileVo>())
 				.images(new ArrayList<BoardImageVo>())

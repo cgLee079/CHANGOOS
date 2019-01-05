@@ -17,11 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cglee079.changoos.dao.StudyDao;
 import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.BoardImageVo;
-import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.util.AuthManager;
-import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.FileHandler;
+import com.cglee079.changoos.util.Formatter;
 
 @Service
 public class StudyService {

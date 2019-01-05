@@ -1,15 +1,11 @@
 package com.cglee079.changoos.service;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,9 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.PhotoDao;
 import com.cglee079.changoos.model.PhotoVo;
+import com.cglee079.changoos.util.FileHandler;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageHandler;
-import com.cglee079.changoos.util.FileHandler;
 import com.cglee079.changoos.util.MyFilenameUtils;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;

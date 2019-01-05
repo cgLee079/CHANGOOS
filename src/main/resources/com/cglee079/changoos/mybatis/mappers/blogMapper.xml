@@ -189,7 +189,7 @@
 		WHERE BLOG_SEQ = #{seq}
 	</update>
 	
-		<delete id="delete">
+	<delete id="delete">
 		/* 블로그 삭제하기 */
 		DELETE FROM TB_CHANGOOS_BLOG
 		WHERE BLOG_SEQ = #{seq}

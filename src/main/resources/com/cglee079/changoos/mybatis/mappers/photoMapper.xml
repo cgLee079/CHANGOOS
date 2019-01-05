@@ -56,7 +56,7 @@
 		WHERE PHOTO_SEQ = #{seq}
 	</delete>
 	
-	<insert id="insert">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="seq">
 		/* 사진 추가하기*/
 		INSERT TB_CHANGOOS_PHOTO (
 			PHOTO_FILENM, 

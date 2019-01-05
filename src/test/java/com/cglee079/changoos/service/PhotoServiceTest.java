@@ -93,8 +93,9 @@ public class PhotoServiceTest {
 	@Test
 	public void testGet() {
 		int seq = 3;
-		PhotoVo Photo = new PhotoVo();
-		Photo.setSeq(seq);
+		PhotoVo Photo = PhotoVo.builder()
+				.seq(seq)
+				.build();
 		
 		when(photoDao.get(seq)).thenReturn(Photo);
 		
@@ -111,13 +112,15 @@ public class PhotoServiceTest {
 		Set<Integer> likePhotos = new HashSet<>();
 		likePhotos.add(seq);
 		
-		PhotoVo photo = new PhotoVo();
-		photo.setSeq(seq);
+		PhotoVo photo = PhotoVo.builder()
+				.seq(seq)
+				.build();
 		
 		
-		PhotoVo expectPhoto = new PhotoVo();
-		expectPhoto.setSeq(seq);
-		expectPhoto.setLike(true);
+		PhotoVo expectPhoto = PhotoVo.builder()
+				.seq(seq)
+				.like(true)
+				.build();
 		
 		when(photoDao.get(seq)).thenReturn(photo);
 		
@@ -162,10 +165,11 @@ public class PhotoServiceTest {
 		String pathname = "SAMPLE_PATHNAME";
 		String thumbnail = "SAMPLE_THUMB";
 		
-		PhotoVo photo = new PhotoVo();
-		photo.setSeq(seq);
-		photo.setPathname(pathname);
-		photo.setThumbnail(thumbnail);
+		PhotoVo photo = PhotoVo.builder()
+				.seq(seq)
+				.thumbnail(thumbnail)
+				.pathname(pathname)
+				.build();
 		
 		boolean expect = true;
 		
@@ -184,15 +188,17 @@ public class PhotoServiceTest {
 	public void testUpdate() throws Exception {
 		int seq = 3;
 		boolean expect = true;
-		String pathname = "SAMPLE_PATHNAME1";
+		String pathname = "SAMPLE_PATHNAME";
 		
-		PhotoVo photo = new PhotoVo();
-		photo.setSeq(seq);
-		photo.setPathname(pathname);
+		PhotoVo photo = PhotoVo.builder()
+				.seq(seq)
+				.pathname(pathname)
+				.build();
 		
-		PhotoVo savedPhoto = new PhotoVo();
-		savedPhoto.setSeq(seq);
-		savedPhoto.setPathname(pathname);
+		PhotoVo savedPhoto = PhotoVo.builder()
+				.seq(seq)
+				.pathname(pathname)
+				.build();
 		
 		when(photoDao.get(seq)).thenReturn(savedPhoto);
 		when(photoDao.update(photo)).thenReturn(expect);
@@ -214,15 +220,17 @@ public class PhotoServiceTest {
 		String thumbnail1 = "SAMPLE_THUMB1";
 		String thumbnail2 = "SAMPLE_THUMB2";
 		
-		PhotoVo photo = new PhotoVo();
-		photo.setSeq(seq);
-		photo.setPathname(pathname1);
-		photo.setThumbnail(thumbnail1);
+		PhotoVo photo = PhotoVo.builder()
+				.seq(seq)
+				.thumbnail(thumbnail1)
+				.pathname(pathname1)
+				.build();
 		
-		PhotoVo savedPhoto = new PhotoVo();
-		savedPhoto.setSeq(seq);
-		savedPhoto.setPathname(pathname2);
-		savedPhoto.setThumbnail(thumbnail2);
+		PhotoVo savedPhoto = PhotoVo.builder()
+				.seq(seq)
+				.thumbnail(thumbnail2)
+				.pathname(pathname2)
+				.build();
 		
 		boolean expect = true;
 		
@@ -247,10 +255,11 @@ public class PhotoServiceTest {
 		String pathname = "SAMPLE_PATHNAME";
 		String thumbnail = "SAMPLE_THUMB";
 		
-		PhotoVo photo = new PhotoVo();
-		photo.setSeq(seq);
-		photo.setPathname(pathname);
-		photo.setThumbnail(thumbnail);
+		PhotoVo photo = PhotoVo.builder()
+				.seq(seq)
+				.thumbnail(thumbnail)
+				.pathname(pathname)
+				.build();
 		
 		when(photoDao.get(seq)).thenReturn(photo);
 		when(photoDao.delete(seq)).thenReturn(expected);
@@ -270,8 +279,9 @@ public class PhotoServiceTest {
 		int seq = 3;
 		boolean expected = false;
 		
-		PhotoVo photo = new PhotoVo();
-		photo.setSeq(seq);
+		PhotoVo photo = PhotoVo.builder()
+				.seq(seq)
+				.build();
 		
 		when(photoDao.get(seq)).thenReturn(photo);
 		when(photoDao.delete(seq)).thenReturn(expected);
@@ -291,14 +301,16 @@ public class PhotoServiceTest {
 		int likeCnt = 3;
 		boolean like = true;
 		
-		PhotoVo photo = new PhotoVo();
-		photo.setSeq(seq);
-		photo.setLikeCnt(likeCnt);
+		PhotoVo photo = PhotoVo.builder()
+				.seq(seq)
+				.likeCnt(likeCnt)
+				.build();
 		
-		PhotoVo expectPhoto = new PhotoVo();
-		expectPhoto.setSeq(seq);
-		expectPhoto.setLikeCnt(likeCnt + 1);
-		expectPhoto.setLike(like);
+		PhotoVo expectPhoto = PhotoVo.builder()
+				.seq(seq)
+				.likeCnt(likeCnt + 1)
+				.like(like)
+				.build();
 		
 		when(photoDao.get(seq)).thenReturn(photo);
 		
@@ -317,14 +329,16 @@ public class PhotoServiceTest {
 		int likeCnt = 3;
 		boolean like = false;
 		
-		PhotoVo photo = new PhotoVo();
-		photo.setSeq(seq);
-		photo.setLikeCnt(likeCnt);
+		PhotoVo photo = PhotoVo.builder()
+				.seq(seq)
+				.likeCnt(likeCnt + 1)
+				.build();
 		
-		PhotoVo expectPhoto = new PhotoVo();
-		expectPhoto.setSeq(seq);
-		expectPhoto.setLikeCnt(likeCnt - 1);
-		expectPhoto.setLike(like);
+		PhotoVo expectPhoto = PhotoVo.builder()
+				.seq(seq)
+				.likeCnt(likeCnt - 1)
+				.like(like)
+				.build();
 		
 		when(photoDao.get(seq)).thenReturn(photo);
 		

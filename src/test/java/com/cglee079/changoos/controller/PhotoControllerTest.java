@@ -76,8 +76,9 @@ public class PhotoControllerTest {
 	@Test
 	public void testPhotoView() throws Exception {
 		int seq = 3;
-		PhotoVo photo = new PhotoVo();
-		photo.setSeq(seq);
+		PhotoVo photo = PhotoVo.builder()
+				.seq(seq)
+				.build();
 		Set<Integer> likePhotos = new HashSet<>();
 		MockHttpSession session = new MockHttpSession();
 		session.setAttribute("likePhotos", likePhotos);
@@ -121,7 +122,9 @@ public class PhotoControllerTest {
 	@Test
 	public void testPhotoModify() throws Exception {
 		int seq = 3;
-		PhotoVo photo = new PhotoVo();
+		PhotoVo photo = PhotoVo.builder()
+				.seq(seq)
+				.build();
 		
 		when(photoService.get(seq)).thenReturn(photo);
 		
@@ -168,7 +171,7 @@ public class PhotoControllerTest {
 	
 	@Test
 	public void testPhotoImageDoUpload() throws Exception {
-		PhotoVo photo = new PhotoVo();
+		PhotoVo photo = PhotoVo.builder().build();
 		MockMultipartFile imageFile = new MockMultipartFile("image", new byte[1]);
 		
 		when(photoService.savePhoto(imageFile)).thenReturn(photo);
@@ -181,7 +184,7 @@ public class PhotoControllerTest {
 	
 	@Test
 	public void testphotoDoLike() throws Exception {
-		PhotoVo photo = new PhotoVo();
+		PhotoVo photo = PhotoVo.builder().build();
 		int seq = 3;
 		boolean like = true;
 		Set<Integer> likePhotos = new HashSet<>();
