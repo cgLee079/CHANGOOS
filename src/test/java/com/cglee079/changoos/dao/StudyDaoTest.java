@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cglee079.changoos.model.BlogVo;
 import com.cglee079.changoos.model.BoardComtVo;
 import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.BoardImageVo;
@@ -45,24 +44,36 @@ public class StudyDaoTest {
 	@Before
 	public void setUp() {
 		sampleStudyA = StudyVo.builder()
-				.title("studyA")
+				.title("studyA 제목")
+				.category("studyA 카테고리")
+				.codeLang("studyA 코드언어")
 				.contents("studyA 내용")
+				.date("2018-01-01")
+				.hits(1)
 				.enabled(true)
 				.files(new ArrayList<BoardFileVo>())
 				.images(new ArrayList<BoardImageVo>())
 				.build();
 		
 		sampleStudyB = StudyVo.builder()
-				.title("studyB")
+				.title("studyB 제목")
+				.category("studyB 카테고리")
+				.codeLang("studyB 코드언어")
 				.contents("studyB 내용")
+				.date("2018-01-02")
+				.hits(2)
 				.enabled(true)
 				.files(new ArrayList<BoardFileVo>())
 				.images(new ArrayList<BoardImageVo>())
 				.build();
 		
 		sampleStudyC = StudyVo.builder()
-				.title("studyC")
+				.title("studyC 제목")
+				.category("studyC 카테고리")
+				.codeLang("studyC 코드언어")
 				.contents("studyC 내용")
+				.date("2018-01-03")
+				.hits(3)
 				.enabled(true)
 				.files(new ArrayList<BoardFileVo>())
 				.images(new ArrayList<BoardImageVo>())

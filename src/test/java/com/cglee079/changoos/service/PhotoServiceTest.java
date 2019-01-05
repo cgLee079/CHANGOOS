@@ -331,7 +331,7 @@ public class PhotoServiceTest {
 		
 		PhotoVo photo = PhotoVo.builder()
 				.seq(seq)
-				.likeCnt(likeCnt + 1)
+				.likeCnt(likeCnt)
 				.build();
 		
 		PhotoVo expectPhoto = PhotoVo.builder()
