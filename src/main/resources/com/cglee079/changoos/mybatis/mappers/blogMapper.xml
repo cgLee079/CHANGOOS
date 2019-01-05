@@ -130,10 +130,15 @@
 		SELECT
 			count(*)
 		FROM TB_CHANGOOS_BLOG
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+		<if test="enabled != null">
+			AND BLOG_ENABLED = #{enabled}
+		</if>
+		</trim>
 	</select>
 
 	<select id="getTags" resultType="String" parameterType="map">
-		SELECT BLOG_TAG
+		SELECT DISTINCT BLOG_TAG
 		FROM TB_CHANGOOS_BLOG
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		AND BLOG_ENABLED = true
@@ -142,9 +147,24 @@
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
 		/* 블로그 추가하기 */
-		INSERT TB_CHANGOOS_BLOG 
-		(BLOG_THUMB, BLOG_TITLE, BLOG_CONTENTS, BLOG_TAG, BLOG_DATE, BLOG_HITS, BLOG_ENABLED)
-		VALUES (#{thumbnail}, #{title}, #{contents}, #{tag}, #{date}, #{hits}, #{enabled})
+		INSERT TB_CHANGOOS_BLOG (
+			BLOG_THUMB,
+			BLOG_TITLE,
+			BLOG_CONTENTS,
+			BLOG_TAG,
+			BLOG_DATE,
+			BLOG_HITS,
+			BLOG_ENABLED
+		)
+		VALUES (
+			#{thumbnail},
+			#{title},
+			#{contents},
+			#{tag},
+			#{date},
+			#{hits},
+			#{enabled}
+		)
 	</insert>
 	
 	<update id="update">

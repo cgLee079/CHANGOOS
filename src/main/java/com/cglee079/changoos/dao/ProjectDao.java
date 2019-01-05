@@ -20,8 +20,8 @@ public class ProjectDao {
 		return sqlSession.selectOne(namespace + ".get", seq);
 	}
 	
-	public List<ProjectVo> list(Map<String, Object> map) {
-		return sqlSession.selectList(namespace + ".list", map);
+	public List<ProjectVo> list(Map<String, Object> param) {
+		return sqlSession.selectList(namespace + ".list", param);
 	}
 	
 	public int insert(ProjectVo project) {

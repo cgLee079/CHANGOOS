@@ -113,11 +113,13 @@ public class BlogServiceTest {
 	@Test
 	public void testGetWithoutContent() {
 		int seq = 3;
-		BlogVo blog = new BlogVo();
-		blog.setSeq(seq);
+		BlogVo blog = BlogVo.builder()
+				.seq(seq)
+				.build();
 		
-		BlogVo expectBlog = new BlogVo();
-		expectBlog.setSeq(seq);
+		BlogVo expectBlog = BlogVo.builder()
+				.seq(seq)
+				.build();
 		
 		when(blogDao.get(seq)).thenReturn(blog);
 		
@@ -134,13 +136,15 @@ public class BlogServiceTest {
 		String contents = "&";
 		String newContents = "&amp;";
 		
-		BlogVo blog = new BlogVo();
-		blog.setSeq(seq);
-		blog.setContents(contents);
+		BlogVo blog = BlogVo.builder()
+				.seq(seq)
+				.contents(contents)
+				.build();
 		
-		BlogVo expectBlog = new BlogVo();
-		expectBlog.setSeq(seq);
-		expectBlog.setContents(newContents);
+		BlogVo expectBlog = BlogVo.builder()
+				.seq(seq)
+				.contents(newContents)
+				.build();
 		
 		when(blogDao.get(seq)).thenReturn(blog);
 		
@@ -158,15 +162,17 @@ public class BlogServiceTest {
 		Set<Integer> visitBlogs = new HashSet<>();
 		visitBlogs.add(seq);
 		
-		BlogVo blog = new BlogVo();
-		blog.setSeq(seq);
-		blog.setHits(0);
+		BlogVo blog = BlogVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
+		
+		BlogVo expectedBlog = BlogVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
 		
 		when(blogDao.get(seq)).thenReturn(blog);
-		
-		BlogVo expectedBlog = new BlogVo();
-		expectedBlog.setSeq(seq);
-		expectedBlog.setHits(0);
 		
 		//ACT
 		BlogVo resultBlog = blogService.doView(visitBlogs, seq);
@@ -181,15 +187,17 @@ public class BlogServiceTest {
 		int seq = 3;
 		Set<Integer> visitBlogs = new HashSet<>();
 		
-		BlogVo blog = new BlogVo();
-		blog.setSeq(seq);
-		blog.setHits(0);
+		BlogVo blog = BlogVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
+		
+		BlogVo expectedBlog = BlogVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
 		
 		when(blogDao.get(seq)).thenReturn(blog);
-		
-		BlogVo expectedBlog = new BlogVo();
-		expectedBlog.setSeq(seq);
-		expectedBlog.setHits(0);
 		
 		//ACT
 		BlogVo resultBlog = blogService.doView(visitBlogs, seq);
@@ -205,15 +213,18 @@ public class BlogServiceTest {
 		Set<Integer> visitBlogs = new HashSet<>();
 		visitBlogs.add(seq);
 		
-		BlogVo blog = new BlogVo();
-		blog.setSeq(seq);
-		blog.setHits(0);
+		BlogVo blog = BlogVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
+		
+		BlogVo expectedBlog = BlogVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
 		
 		when(blogDao.get(seq)).thenReturn(blog);
 		
-		BlogVo expectedBlog = new BlogVo();
-		expectedBlog.setSeq(seq);
-		expectedBlog.setHits(0);
 		
 		//ACT
 		BlogVo resultBlog = blogService.doView(visitBlogs, seq);
@@ -227,15 +238,17 @@ public class BlogServiceTest {
 		int seq = 3;
 		Set<Integer> visitBlogs = new HashSet<>();
 		
-		BlogVo blog = new BlogVo();
-		blog.setSeq(seq);
-		blog.setHits(0);
+		BlogVo blog = BlogVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
+		
+		BlogVo expectedBlog = BlogVo.builder()
+				.seq(seq)
+				.hits(1)
+				.build();
 		
 		when(blogDao.get(seq)).thenReturn(blog);
-		
-		BlogVo expectedBlog = new BlogVo();
-		expectedBlog.setSeq(seq);
-		expectedBlog.setHits(1);
 		
 		//ACT
 		BlogVo resultBlog = blogService.doView(visitBlogs, seq);
@@ -253,11 +266,13 @@ public class BlogServiceTest {
 		HashMap<String, Object> params = new HashMap<>();
 		List<BlogVo> blogs = new ArrayList<>();
 		
-		BlogVo blog = new BlogVo();
-		blog.setSeq(seq);
+		BlogVo blog = BlogVo.builder()
+				.seq(seq)
+				.build();
 		
-		BlogVo expectedBlog = new BlogVo();
-		expectedBlog.setSeq(seq);
+		BlogVo expectedBlog = BlogVo.builder()
+				.seq(seq)
+				.build();
 		
 		blogs.add(blog);
 		
@@ -274,8 +289,8 @@ public class BlogServiceTest {
 	public void testPaging() {
 		String page = "1";
 		String perPgLine = "10";
-		String content = "<body>SAMPLE_CONTENTS\nNN<body>";
-		String newContent = "SAMPLE_CONTENTS NN";
+		String contents = "<body>SAMPLE_CONTENTS\nNN<body>";
+		String newContents = "SAMPLE_CONTENTS NN";
 		JsonArray tags = new JsonArray();
 		String tag1 = "A";
 		String tag2 = "B";
@@ -288,13 +303,14 @@ public class BlogServiceTest {
 		params.put("tags", tags.toString());
 		
 		List<BlogVo> blogs = new ArrayList<>();
-		BlogVo blog = new BlogVo();
-		blog.setContents(content);
+		BlogVo blog = BlogVo.builder()
+				.contents(contents)
+				.build();
 		blogs.add(blog);
 		
-		
-		BlogVo expectedBlog = new BlogVo();
-		expectedBlog.setContents(newContent);
+		BlogVo expectedBlog = BlogVo.builder()
+				.contents(newContents)
+				.build();
 		
 		when(blogDao.list(params)).thenReturn(blogs);
 		
@@ -318,16 +334,18 @@ public class BlogServiceTest {
 		String thumbnail = "SAMPLE_THUMBNAIL";
 		String newContents = "SAMPLE_NEWCONTENTS";
 		
-		BlogVo blog = new BlogVo();
-		blog.setContents(contents);
-		blog.setSeq(seq);
+		BlogVo blog = BlogVo.builder()
+				.seq(seq)
+				.contents(contents)
+				.build();
 		
-		BlogVo expectBlog = new BlogVo();
-		expectBlog.setDate(Formatter.toDate(new Date()));
-		expectBlog.setContents(newContents);
-		expectBlog.setThumbnail(thumbnail);
-		expectBlog.setSeq(seq);
-		expectBlog.setHits(0);
+		BlogVo expectBlog = BlogVo.builder()
+				.seq(seq)
+				.contents(newContents)
+				.thumbnail(thumbnail)
+				.date(Formatter.toDate(new Date()))
+				.hits(0)
+				.build();
 		
 		doReturn(thumbnail).when(blogService).saveThumbnail(blog, thumbnailFile);
 		when(blogDao.insert(blog)).thenReturn(seq);
@@ -354,14 +372,16 @@ public class BlogServiceTest {
 		String newContents = "SAMPLE_NEWCONTENTS";
 		boolean expect  = true;
 
-		BlogVo blog = new BlogVo();
-		blog.setContents(contents);
-		blog.setSeq(seq);
+		BlogVo blog = BlogVo.builder()
+				.seq(seq)
+				.contents(contents)
+				.build();
 		
-		BlogVo expectBlog = new BlogVo();
-		expectBlog.setContents(newContents);
-		expectBlog.setThumbnail(thumbnail);
-		expectBlog.setSeq(seq);
+		BlogVo expectBlog = BlogVo.builder()
+				.seq(seq)
+				.contents(newContents)
+				.thumbnail(thumbnail)
+				.build();
 		
 		when(blogDao.update(blog)).thenReturn(expect);
 		doReturn(thumbnail).when(blogService).saveThumbnail(blog, thumbnailFile);
@@ -387,11 +407,13 @@ public class BlogServiceTest {
 		files.add(mock(BoardFileVo.class));
 		images.add(mock(BoardImageVo.class));
 		images.add(mock(BoardImageVo.class));
-		BlogVo blog = new BlogVo();
-		blog.setSeq(seq);
-		blog.setThumbnail(thumbnail);
-		blog.setImages(images);
-		blog.setFiles(files);
+		
+		BlogVo blog = BlogVo.builder()
+				.seq(seq)
+				.thumbnail(thumbnail)
+				.images(images)
+				.files(files)
+				.build();
 		
 		when(blogDao.get(seq)).thenReturn(blog);
 		when(blogDao.delete(seq)).thenReturn(expected);
@@ -410,8 +432,9 @@ public class BlogServiceTest {
 	public void testDeleteResultFalse() {
 		int seq = 3;
 		boolean expected = false;
-		BlogVo blog = new BlogVo();
-		blog.setSeq(seq);
+		BlogVo blog = BlogVo.builder()
+				.seq(seq)
+				.build();
 		
 		when(blogDao.get(seq)).thenReturn(blog);
 		when(blogDao.delete(seq)).thenReturn(expected);

@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cglee079.changoos.mapper.BoardImageMapper">
-	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" parameterType="map">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="image.seq" parameterType="map">
 		INSERT ${TB}
 		(BOARD_SEQ, EDITOR_ID, IMG_PATHNM, IMG_FILENM)
 		VALUES (#{image.boardSeq}, #{image.editorID}, #{image.pathname}, #{image.filename})

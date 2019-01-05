@@ -37,7 +37,7 @@
 		WHERE COMT_SEQ = #{seq}
 	</select>
 	
-	<insert id="insert">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="comt.seq">
 		INSERT ${TB} 
 		(
 			BOARD_SEQ, 

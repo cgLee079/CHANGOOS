@@ -68,7 +68,6 @@
   		</trim>
 		<choose>
 		<when test="sort == 'seq'"> 	ORDER BY PROJ_SEQ ${order} </when>
-		<when test="sort == 'category'">ORDER BY PROJ_SUBTITLE ${order} </when>
 		<when test="sort == 'title'"> 	ORDER BY PROJ_TITLE ${order} </when>
 		<when test="sort == 'subtitle'">ORDER BY PROJ_SUBTITLE ${order} </when>
 		<when test="sort == 'developer'">ORDER BY PROJ_DEVELOPER ${order} </when>

@@ -70,7 +70,7 @@ public class PhotoServiceTest {
 	@Value("#{location['photo.thumb.dir.url']}") 	private String thumbDir;
 	@Value("#{constant['photo.origin.max.width']}") private int originMaxWidth;
 	@Value("#{constant['photo.thumb.max.width']}") 	private int thumbMaxWidth;
-	@Value("#{test['test.sample.dir.url']}")  		private String sampleDir;
+	@Value("#{location['test.sample.dir.url']}")  		private String sampleDir;
 	
 	@Spy
 	@InjectMocks

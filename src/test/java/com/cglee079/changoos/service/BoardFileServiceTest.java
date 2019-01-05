@@ -56,7 +56,7 @@ public class BoardFileServiceTest {
 	@Value("#{constant['file.status.id.new']}")		private String statusNew;
 	@Value("#{constant['file.status.id.unnew']}") 	private String statusUnnew;
 	@Value("#{constant['file.status.id.remove']}") 	private String statusRemove;
-	@Value("#{test['test.sample.dir.url']}")  		private String sampleDir;
+	@Value("#{location['test.sample.dir.url']}")  		private String sampleDir;
 
 	@Spy
 	@InjectMocks
@@ -97,9 +97,10 @@ public class BoardFileServiceTest {
 		int boardSeq = 3;
 		
 		List<BoardFileVo> files = new ArrayList<>();
-		BoardFileVo file = new BoardFileVo();
-		file.setPathname(pathname);
-		file.setStatus(statusNew);
+		BoardFileVo file = BoardFileVo.builder()
+				.pathname(pathname)
+				.status(statusNew)
+				.build();
 		files.add(file);
 		
 		String fileValues = new JSONArray(new Gson().toJson(files)).toString();
@@ -123,9 +124,10 @@ public class BoardFileServiceTest {
 		int boardSeq = 3;
 		
 		List<BoardFileVo> files = new ArrayList<>();
-		BoardFileVo file = new BoardFileVo();
-		file.setPathname(pathname);
-		file.setStatus(statusUnnew);
+		BoardFileVo file = BoardFileVo.builder()
+				.pathname(pathname)
+				.status(statusUnnew)
+				.build();
 		files.add(file);
 		
 		String fileValues = new JSONArray(new Gson().toJson(files)).toString();
@@ -147,10 +149,11 @@ public class BoardFileServiceTest {
 		int seq = 3;
 		
 		List<BoardFileVo> files = new ArrayList<>();
-		BoardFileVo file = new BoardFileVo();
-		file.setSeq(seq);
-		file.setPathname(pathname);
-		file.setStatus(statusRemove);
+		BoardFileVo file = BoardFileVo.builder()
+				.seq(seq)
+				.pathname(pathname)
+				.status(statusRemove)
+				.build();
 		files.add(file);
 		
 		String fileValues = new JSONArray(new Gson().toJson(files)).toString();

@@ -121,10 +121,11 @@ public class BoardComtServiceTest {
 		String TB = blogComtTB;
 		String boardType = blogID;
 		
-		BoardComtVo comt = new BoardComtVo();
+		BoardComtVo comt = BoardComtVo.builder().build();
 		
-		BoardComtVo expectComt = new BoardComtVo();
-		expectComt.setDate(date);
+		BoardComtVo expectComt = BoardComtVo.builder()
+				.date(date)
+				.build();
 		
 		doReturn(blogComtTB).when(boardComtService).getTB(boardType);
 		when(boardcomtDao.insert(TB, comt)).thenReturn(expect);
@@ -143,7 +144,7 @@ public class BoardComtServiceTest {
 		String TB = blogComtTB;
 		String boardType = blogID;
 		
-		BoardComtVo comt = new BoardComtVo();
+		BoardComtVo comt = BoardComtVo.builder().build();
 		
 		doReturn(blogComtTB).when(boardComtService).getTB(boardType);
 		when(boardcomtDao.update(TB, comt)).thenReturn(true);
@@ -164,13 +165,15 @@ public class BoardComtServiceTest {
 		String TB = blogComtTB;
 		String boardType = blogID;
 		
-		BoardComtVo comt = new BoardComtVo();
-		comt.setSeq(seq);
-		comt.setPassword(password);
+		BoardComtVo comt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password)
+				.build();
 		
-		BoardComtVo savedComt = new BoardComtVo();
-		savedComt.setSeq(seq);
-		savedComt.setPassword(password);
+		BoardComtVo savedComt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password)
+				.build();
 		
 		doReturn(blogComtTB).when(boardComtService).getTB(boardType);
 		when(boardcomtDao.get(TB, seq)).thenReturn(savedComt);
@@ -192,13 +195,15 @@ public class BoardComtServiceTest {
 		String TB = blogComtTB;
 		String boardType = blogID;
 		
-		BoardComtVo comt = new BoardComtVo();
-		comt.setSeq(seq);
-		comt.setPassword(password);
+		BoardComtVo comt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password)
+				.build();
 		
-		BoardComtVo savedComt = new BoardComtVo();
-		savedComt.setSeq(seq);
-		savedComt.setPassword(password);
+		BoardComtVo savedComt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password)
+				.build();
 		
 		doReturn(blogComtTB).when(boardComtService).getTB(boardType);
 		when(boardcomtDao.get(TB, seq)).thenReturn(savedComt);
@@ -222,13 +227,15 @@ public class BoardComtServiceTest {
 		String TB = blogComtTB;
 		String boardType = blogID;
 		
-		BoardComtVo comt = new BoardComtVo();
-		comt.setSeq(seq);
-		comt.setPassword(password1);
+		BoardComtVo comt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password1)
+				.build();
 		
-		BoardComtVo savedComt = new BoardComtVo();
-		savedComt.setSeq(seq);
-		savedComt.setPassword(password2);
+		BoardComtVo savedComt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password2)
+				.build();
 		
 		doReturn(blogComtTB).when(boardComtService).getTB(boardType);
 		when(boardcomtDao.get(TB, seq)).thenReturn(savedComt);
@@ -251,13 +258,15 @@ public class BoardComtServiceTest {
 		String TB = blogComtTB;
 		String boardType = blogID;
 		
-		BoardComtVo comt = new BoardComtVo();
-		comt.setSeq(seq);
-		comt.setPassword(password1);
+		BoardComtVo comt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password1)
+				.build();
 		
-		BoardComtVo savedComt = new BoardComtVo();
-		savedComt.setSeq(seq);
-		savedComt.setPassword(password2);
+		BoardComtVo savedComt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password2)
+				.build();
 		
 		doReturn(blogComtTB).when(boardComtService).getTB(boardType);
 		when(boardcomtDao.get(TB, seq)).thenReturn(savedComt);
@@ -280,13 +289,15 @@ public class BoardComtServiceTest {
 		String TB = blogComtTB;
 		String boardType = blogID;
 		
-		BoardComtVo comt = new BoardComtVo();
-		comt.setSeq(seq);
-		comt.setPassword(password);
+		BoardComtVo comt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password)
+				.build();
 		
-		BoardComtVo savedComt = new BoardComtVo();
-		savedComt.setSeq(seq);
-		savedComt.setPassword(password);
+		BoardComtVo savedComt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password)
+				.build();
 		
 		doReturn(blogComtTB).when(boardComtService).getTB(boardType);
 		when(boardcomtDao.get(TB, seq)).thenReturn(savedComt);
@@ -306,13 +317,15 @@ public class BoardComtServiceTest {
 		String TB = blogComtTB;
 		String boardType = blogID;
 		
-		BoardComtVo comt = new BoardComtVo();
-		comt.setSeq(seq);
-		comt.setPassword(password);
+		BoardComtVo comt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password)
+				.build();
 		
-		BoardComtVo savedComt = new BoardComtVo();
-		savedComt.setSeq(seq);
-		savedComt.setPassword(password);
+		BoardComtVo savedComt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password)
+				.build();
 		
 		doReturn(blogComtTB).when(boardComtService).getTB(boardType);
 		when(boardcomtDao.get(TB, seq)).thenReturn(savedComt);
@@ -334,13 +347,15 @@ public class BoardComtServiceTest {
 		String TB = blogComtTB;
 		String boardType = blogID;
 		
-		BoardComtVo comt = new BoardComtVo();
-		comt.setSeq(seq);
-		comt.setPassword(password1);
+		BoardComtVo comt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password1)
+				.build();
 		
-		BoardComtVo savedComt = new BoardComtVo();
-		savedComt.setSeq(seq);
-		savedComt.setPassword(password2);
+		BoardComtVo savedComt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password2)
+				.build();
 		
 		doReturn(blogComtTB).when(boardComtService).getTB(boardType);
 		when(boardcomtDao.get(TB, seq)).thenReturn(savedComt);
@@ -361,13 +376,15 @@ public class BoardComtServiceTest {
 		String TB = blogComtTB;
 		String boardType = blogID;
 		
-		BoardComtVo comt = new BoardComtVo();
-		comt.setSeq(seq);
-		comt.setPassword(password1);
+		BoardComtVo comt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password1)
+				.build();
 		
-		BoardComtVo savedComt = new BoardComtVo();
-		savedComt.setSeq(seq);
-		savedComt.setPassword(password2);
+		BoardComtVo savedComt = BoardComtVo.builder()
+				.seq(seq)
+				.password(password2)
+				.build();
 		
 		doReturn(blogComtTB).when(boardComtService).getTB(boardType);
 		when(boardcomtDao.get(TB, seq)).thenReturn(savedComt);

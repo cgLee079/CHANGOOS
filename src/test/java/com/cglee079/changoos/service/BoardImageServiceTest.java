@@ -63,7 +63,7 @@ public class BoardImageServiceTest {
 	@Value("#{constant['image.status.id.new']}")	private String statusNew;
 	@Value("#{constant['image.status.id.unnew']}") 	private String statusUnnew;
 	@Value("#{constant['image.status.id.remove']}") private String statusRemove;
-	@Value("#{test['test.sample.dir.url']}")  		private String sampleDir;
+	@Value("#{location['test.sample.dir.url']}")  		private String sampleDir;
 
 	@Spy
 	@InjectMocks
@@ -124,9 +124,10 @@ public class BoardImageServiceTest {
 		int boardSeq = 3;
 		
 		List<BoardImageVo> images = new ArrayList<>();
-		BoardImageVo image = new BoardImageVo();
-		image.setPathname(pathname);
-		image.setStatus(statusNew);
+		BoardImageVo image = BoardImageVo.builder()
+				.pathname(pathname)
+				.status(statusNew)
+				.build();
 		images.add(image);
 		
 		String imageValues = new JSONArray(new Gson().toJson(images)).toString();
@@ -152,9 +153,10 @@ public class BoardImageServiceTest {
 		int boardSeq = 3;
 		
 		List<BoardImageVo> images = new ArrayList<>();
-		BoardImageVo image = new BoardImageVo();
-		image.setPathname(pathname);
-		image.setStatus(statusUnnew);
+		BoardImageVo image = BoardImageVo.builder()
+				.pathname(pathname)
+				.status(statusUnnew)
+				.build();
 		images.add(image);
 		
 		String imageValues = new JSONArray(new Gson().toJson(images)).toString();
@@ -177,10 +179,11 @@ public class BoardImageServiceTest {
 		int seq = 3;
 		
 		List<BoardImageVo> images = new ArrayList<>();
-		BoardImageVo image = new BoardImageVo();
-		image.setSeq(seq);
-		image.setPathname(pathname);
-		image.setStatus(statusRemove);
+		BoardImageVo image = BoardImageVo.builder()
+				.seq(seq)
+				.pathname(pathname)
+				.status(statusRemove)
+				.build();
 		images.add(image);
 		
 		String imageValues = new JSONArray(new Gson().toJson(images)).toString();

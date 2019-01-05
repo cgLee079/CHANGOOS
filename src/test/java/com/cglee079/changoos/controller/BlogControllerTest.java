@@ -97,12 +97,14 @@ public class BlogControllerTest {
 	@Test
 	public void testBlogView() throws Exception {
 		int seq = 3;
-		BlogVo blog = new BlogVo();
 		List<BoardFileVo> files = new ArrayList<BoardFileVo>();
-		blog.setFiles(files);
 		Set<Integer> visitBlogs = new HashSet<>();
 		MockHttpSession session = new MockHttpSession();
 		session.setAttribute("visitBlogs", visitBlogs);
+		
+		BlogVo blog = BlogVo.builder()
+				.files(files)
+				.build();
 		
 		when(blogService.doView((Set<Integer>) session.getAttribute("visitBlogs"), seq)).thenReturn(blog);
 		
@@ -144,11 +146,13 @@ public class BlogControllerTest {
 	@Test
 	public void testBlogModify() throws Exception {
 		int seq = 3;
-		BlogVo blog = new BlogVo();
 		List<BoardFileVo> files =  new ArrayList<>();
 		List<BoardImageVo> images =  new ArrayList<>();
-		blog.setFiles(files);
-		blog.setImages(images);
+		
+		BlogVo blog = BlogVo.builder()
+				.images(images)
+				.files(files)
+				.build();
 		
 		when(blogService.get(seq)).thenReturn(blog);
 		

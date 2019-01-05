@@ -80,13 +80,16 @@ public class ProjectControllerTest {
 		MockHttpSession session = new MockHttpSession();
 		session.setAttribute("visitProjects", visitProjects);
 		
-		ProjectVo bProject = new ProjectVo();
-		ProjectVo cProject = new ProjectVo();
-		ProjectVo aProject = new ProjectVo();
-		bProject.setSeq(seq - 1);
-		cProject.setSeq(seq);
-		aProject.setSeq(seq + 1);
-		cProject.setFiles(files);
+		ProjectVo bProject = ProjectVo.builder()
+				.seq(seq-1)
+				.build();
+		ProjectVo cProject = ProjectVo.builder()
+				.seq(seq)
+				.files(files)
+				.build();
+		ProjectVo aProject = ProjectVo.builder()
+				.seq(seq+1)
+				.build();
 		
 		when(projectService.doView((Set<Integer>)session.getAttribute("visitProjects"), seq)).thenReturn(cProject);
 		when(projectService.getBefore(seq)).thenReturn(bProject);
@@ -118,15 +121,16 @@ public class ProjectControllerTest {
 		Map<String,Object> map = new HashMap<>();
 		
 		List<ProjectVo> projects = new ArrayList<>();
-		ProjectVo project;
 		
-		project = new ProjectVo();
-		project.setSeq(1);
-		projects.add(project);
+		ProjectVo project1 = ProjectVo.builder()
+				.seq(1)
+				.build();
+		ProjectVo project2 = ProjectVo.builder()
+				.seq(2)
+				.build();
 		
-		project = new ProjectVo();
-		project.setSeq(2);
-		projects.add(project);
+		projects.add(project1);
+		projects.add(project2);
 		
 		when(projectService.list(map)).thenReturn(projects);
 		
@@ -149,10 +153,11 @@ public class ProjectControllerTest {
 		
 		int seq = 3;
 		
-		ProjectVo project = new ProjectVo();
-		project.setSeq(seq);
-		project.setFiles(files);
-		project.setImages(images);
+		ProjectVo project = ProjectVo.builder()
+				.seq(seq)
+				.files(files)
+				.images(images)
+				.build();
 		
 		when(projectService.get(seq)).thenReturn(project);
 		

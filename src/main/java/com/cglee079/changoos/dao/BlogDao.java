@@ -16,14 +16,6 @@ public class BlogDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public BlogVo get(int seq) {
-		return sqlSession.selectOne(namespace +".get", seq);
-	}
-	
-	public List<BlogVo> list(Map<String, Object> params) {
-		return sqlSession.selectList(namespace +".list", params);
-	}
-	
 	public int count(Map<String, Object> params) {
 		return sqlSession.selectOne(namespace +".count", params);
 	}
@@ -32,16 +24,24 @@ public class BlogDao {
 		return sqlSession.selectList(namespace +".getTags");
 	}
 	
+	public BlogVo get(int seq) {
+		return sqlSession.selectOne(namespace +".get", seq);
+	}
+	
+	public List<BlogVo> list(Map<String, Object> params) {
+		return sqlSession.selectList(namespace +".list", params);
+	}
+	
 	public int insert(BlogVo blog) {
 		sqlSession.insert(namespace +".insert", blog);
 		return blog.getSeq();
 	}
 
-	public boolean delete(int seq) {
-		return  sqlSession.delete(namespace +".delete", seq) == 1;
-	}
-
 	public boolean update(BlogVo blog) {
 		return  sqlSession.update(namespace +".update", blog) == 1;
+	}
+	
+	public boolean delete(int seq) {
+		return  sqlSession.delete(namespace +".delete", seq) == 1;
 	}
 }

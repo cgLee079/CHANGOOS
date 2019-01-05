@@ -86,11 +86,13 @@ public class ProjectServiceTest {
 	@Test
 	public void testGetWithoutContent() {
 		int seq = 3;
-		ProjectVo project = new ProjectVo();
-		project.setSeq(seq);
+		ProjectVo project = ProjectVo.builder()
+				.seq(seq)
+				.build();
 		
-		ProjectVo expectProject = new ProjectVo();
-		expectProject.setSeq(seq);
+		ProjectVo expectProject = ProjectVo.builder()
+				.seq(seq)
+				.build();
 		
 		when(projectDao.get(seq)).thenReturn(project);
 		
@@ -107,13 +109,15 @@ public class ProjectServiceTest {
 		String contents = "&";
 		String newContents = "&amp;";
 		
-		ProjectVo project = new ProjectVo();
-		project.setSeq(seq);
-		project.setContents(contents);
+		ProjectVo project = ProjectVo.builder()
+				.seq(seq)
+				.contents(contents)
+				.build();
 		
-		ProjectVo expectProject = new ProjectVo();
-		expectProject.setSeq(seq);
-		expectProject.setContents(newContents);
+		ProjectVo expectProject = ProjectVo.builder()
+				.seq(seq)
+				.contents(newContents)
+				.build();
 		
 		when(projectDao.get(seq)).thenReturn(project);
 		
@@ -127,8 +131,9 @@ public class ProjectServiceTest {
 	@Test
 	public void testGetBefore() {
 		int seq = 3;
-		ProjectVo project = new ProjectVo();
-		project.setSeq(seq - 1);
+		ProjectVo project = ProjectVo.builder()
+				.seq(seq - 1)
+				.build();
 		
 		when(projectDao.getBefore(seq)).thenReturn(project);
 		
@@ -142,8 +147,9 @@ public class ProjectServiceTest {
 	@Test
 	public void testGetAfter() {
 		int seq = 3;
-		ProjectVo project = new ProjectVo();
-		project.setSeq(seq + 1);
+		ProjectVo project = ProjectVo.builder()
+				.seq(seq + 1)
+				.build();
 		
 		when(projectDao.getAfter(seq)).thenReturn(project);
 		
@@ -161,15 +167,17 @@ public class ProjectServiceTest {
 		Set<Integer> visitProjects = new HashSet<>();
 		visitProjects.add(seq);
 		
-		ProjectVo project = new ProjectVo();
-		project.setSeq(seq);
-		project.setHits(0);
+		ProjectVo project = ProjectVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
 		
 		when(projectDao.get(seq)).thenReturn(project);
 		
-		ProjectVo expectedProject = new ProjectVo();
-		expectedProject.setSeq(seq);
-		expectedProject.setHits(0);
+		ProjectVo expectedProject = ProjectVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
 		
 		//ACT
 		ProjectVo resultProject = projectService.doView(visitProjects, seq);
@@ -184,15 +192,17 @@ public class ProjectServiceTest {
 		int seq = 3;
 		Set<Integer> visitProjects = new HashSet<>();
 		
-		ProjectVo project = new ProjectVo();
-		project.setSeq(seq);
-		project.setHits(0);
+		ProjectVo project = ProjectVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
 		
 		when(projectDao.get(seq)).thenReturn(project);
 		
-		ProjectVo expectedProject = new ProjectVo();
-		expectedProject.setSeq(seq);
-		expectedProject.setHits(0);
+		ProjectVo expectedProject = ProjectVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
 		
 		//ACT
 		ProjectVo resultProject = projectService.doView(visitProjects, seq);
@@ -208,15 +218,17 @@ public class ProjectServiceTest {
 		Set<Integer> visitProjects = new HashSet<>();
 		visitProjects.add(seq);
 		
-		ProjectVo project = new ProjectVo();
-		project.setSeq(seq);
-		project.setHits(0);
+		ProjectVo project = ProjectVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
 		
 		when(projectDao.get(seq)).thenReturn(project);
 		
-		ProjectVo expectedProject = new ProjectVo();
-		expectedProject.setSeq(seq);
-		expectedProject.setHits(0);
+		ProjectVo expectedProject = ProjectVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
 		
 		//ACT
 		ProjectVo resultProject = projectService.doView(visitProjects, seq);
@@ -230,15 +242,17 @@ public class ProjectServiceTest {
 		int seq = 3;
 		Set<Integer> visitProjects = new HashSet<>();
 		
-		ProjectVo project = new ProjectVo();
-		project.setSeq(seq);
-		project.setHits(0);
+		ProjectVo project = ProjectVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
 		
 		when(projectDao.get(seq)).thenReturn(project);
 		
-		ProjectVo expectedProject = new ProjectVo();
-		expectedProject.setSeq(seq);
-		expectedProject.setHits(1);
+		ProjectVo expectedProject = ProjectVo.builder()
+				.seq(seq)
+				.hits(1)
+				.build();
 		
 		//ACT
 		ProjectVo resultProject = projectService.doView(visitProjects, seq);
@@ -273,15 +287,17 @@ public class ProjectServiceTest {
 		String thumbnail = "SAMPLE_THUMBNAIL";
 		String newContents = "SAMPLE_NEWCONTENTS";
 		
-		ProjectVo project = new ProjectVo();
-		project.setContents(contents);
-		project.setSeq(seq);
+		ProjectVo project = ProjectVo.builder()
+				.seq(seq)
+				.contents(contents)
+				.build();
 		
-		ProjectVo expectProject = new ProjectVo();
-		expectProject.setContents(newContents);
-		expectProject.setThumbnail(thumbnail);
-		expectProject.setSeq(seq);
-		expectProject.setHits(0);
+		ProjectVo expectProject = ProjectVo.builder()
+				.seq(seq)
+				.contents(newContents)
+				.thumbnail(thumbnail)
+				.hits(0)
+				.build();
 		
 		doReturn(thumbnail).when(projectService).saveThumbnail(project, thumbnailFile);
 		when(projectDao.insert(project)).thenReturn(seq);
@@ -308,14 +324,16 @@ public class ProjectServiceTest {
 		String newContents = "SAMPLE_NEWCONTENTS";
 		boolean expect  = true;
 
-		ProjectVo project = new ProjectVo();
-		project.setContents(contents);
-		project.setSeq(seq);
+		ProjectVo project = ProjectVo.builder()
+				.seq(seq)
+				.contents(contents)
+				.build();
 		
-		ProjectVo expectProject = new ProjectVo();
-		expectProject.setContents(newContents);
-		expectProject.setThumbnail(thumbnail);
-		expectProject.setSeq(seq);
+		ProjectVo expectProject = ProjectVo.builder()
+				.seq(seq)
+				.contents(newContents)
+				.thumbnail(thumbnail)
+				.build();
 		
 		when(projectDao.update(project)).thenReturn(expect);
 		doReturn(thumbnail).when(projectService).saveThumbnail(project, thumbnailFile);
@@ -341,11 +359,14 @@ public class ProjectServiceTest {
 		files.add(mock(BoardFileVo.class));
 		images.add(mock(BoardImageVo.class));
 		images.add(mock(BoardImageVo.class));
-		ProjectVo project = new ProjectVo();
-		project.setSeq(seq);
-		project.setThumbnail(thumbnail);
-		project.setImages(images);
-		project.setFiles(files);
+		
+		ProjectVo project = ProjectVo.builder()
+				.seq(seq)
+				.thumbnail(thumbnail)
+				.files(files)
+				.images(images)
+				.build();
+		
 		when(projectDao.get(seq)).thenReturn(project);
 		when(projectDao.delete(seq)).thenReturn(expected);
 		
@@ -363,8 +384,9 @@ public class ProjectServiceTest {
 	public void testDeleteResultFalse() {
 		int seq = 3;
 		boolean expected = false;
-		ProjectVo project = new ProjectVo();
-		project.setSeq(seq);
+		ProjectVo project = ProjectVo.builder()
+				.seq(seq)
+				.build();
 		
 		when(projectDao.get(seq)).thenReturn(project);
 		when(projectDao.delete(seq)).thenReturn(expected);
