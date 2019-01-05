@@ -17,21 +17,20 @@ public class BoardFileDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public boolean insert(String TB, BoardFileVo file) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("TB", TB);
-		map.put("file", file);
+	public BoardFileVo get(String TB, int seq) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("TB", TB);
+		params.put("seq", seq);
 		
-		
-		return sqlSession.insert(namespace +".insert", map) == 1;
+		return sqlSession.selectOne(namespace +".get", params);
 	}
-
-	public List<BoardFileVo> list(String TB, int boardSeq) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("TB", TB);
-		map.put("boardSeq", boardSeq);
+	
+	public boolean insert(String TB, BoardFileVo file) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("TB", TB);
+		params.put("file", file);
 		
-		return sqlSession.selectList(namespace +".list", map);
+		return sqlSession.insert(namespace +".insert", params) == 1;
 	}
 
 	public boolean delete(String TB, int seq) {

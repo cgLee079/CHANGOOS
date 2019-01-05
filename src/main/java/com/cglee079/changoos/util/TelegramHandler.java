@@ -8,22 +8,19 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TelegramHandler {
 	private String defaultUrl = "https://api.telegram.org/bot";
-	private String botToken;
-	private String botUsername;
-	private String chatId;
-
-	public TelegramHandler(String botToken, String botUsername, String chatId) {
-		this.botToken = botToken;
-		this.botUsername = botUsername;
-		this.chatId = chatId;
-		defaultUrl += botToken;
-	}
+	
+	@Value("#{telegram['bot.token']}") 		private String botToken;
+	@Value("#{telegram['bot.username']}") 	private String botUsername;
+	@Value("#{telegram['my.chat.id']}")  	private String chatId;
 
 	public JSONObject sendMessage(String text) throws IOException {
-		String sendUrl = defaultUrl;
+		String sendUrl = defaultUrl + botToken;
 		sendUrl += "/sendmessage";
 		sendUrl += "?";
 		sendUrl += "chat_id=";

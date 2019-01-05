@@ -3,10 +3,30 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cglee079.changoos.mapper.BoardImageMapper">
+	<select id="get" resultType="com.cglee079.changoos.model.BoardImageVo" parameterType="map">
+		SELECT 
+			IMG_SEQ as 'seq',
+			EDITOR_ID as 'editorID',
+			BOARD_SEQ as 'boardSeq',
+			IMG_PATHNM as 'pathname',
+			IMG_FILENM as 'filename'
+		FROM ${TB}
+		WHERE IMG_SEQ = ${seq}
+	</select>
+	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="image.seq" parameterType="map">
-		INSERT ${TB}
-		(BOARD_SEQ, EDITOR_ID, IMG_PATHNM, IMG_FILENM)
-		VALUES (#{image.boardSeq}, #{image.editorID}, #{image.pathname}, #{image.filename})
+		INSERT ${TB} (
+			BOARD_SEQ,
+			EDITOR_ID,
+			IMG_PATHNM,
+			IMG_FILENM
+		)
+		VALUES (
+			#{image.boardSeq},
+			#{image.editorID}, 
+			#{image.pathname},
+			#{image.filename}
+		)
 	</insert>
 	
 	<delete id="delete" parameterType="map">

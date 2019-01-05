@@ -11,5 +11,6 @@
 	<util:properties id="location" location="/WEB-INF/props/location.properties" />
 	<util:properties id="constant" location="/WEB-INF/props/constant.properties" />
 	<util:properties id="db" location="/WEB-INF/props/db.properties" />
+	<util:properties id="telegram" location="/WEB-INF/props/telegram.properties" />
 	
 </beans>

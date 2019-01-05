@@ -5,21 +5,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	<bean id="TelegramHandler" class="com.cglee079.changoos.util.TelegramHandler">
-		<constructor-arg index="0" value="509885308:AAGqgiMXRfkXWeamsta6N0nFkF0d9I_SFOI"></constructor-arg>
-		<constructor-arg index="1" value="changoos_bot"></constructor-arg>
-		<constructor-arg index="2" value="503609560"></constructor-arg>
-	</bean> 
-	
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/" />
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/resources/**" />
 			<mvc:exclude-mapping path="/uploaded/**" />
-			<mvc:exclude-mapping path="/mgnt/**" />
-			<mvc:exclude-mapping path="/**.do" />
-			<mvc:exclude-mapping path="/login" />
 			<bean class="com.cglee079.changoos.interceptor.SessionInterceptor"></bean>
 		</mvc:interceptor>
 		
