@@ -296,7 +296,6 @@ public class ProjectServiceTest {
 				.seq(seq)
 				.contents(newContents)
 				.thumbnail(thumbnail)
-				.hits(0)
 				.build();
 		
 		doReturn(thumbnail).when(projectService).saveThumbnail(project, thumbnailFile);

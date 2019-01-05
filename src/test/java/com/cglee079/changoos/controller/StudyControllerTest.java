@@ -109,10 +109,11 @@ public class StudyControllerTest {
 		MockHttpSession session = new MockHttpSession();
 		session.setAttribute("visitStudies", visitStudies);
 		
-		StudyVo study 		= new StudyVo();
-		StudyVo beforeStudy = new StudyVo();
-		StudyVo afterStudy 	= new StudyVo();
-		study.setFiles(files);
+		StudyVo study 		= StudyVo.builder()
+				.files(files)
+				.build();
+		StudyVo beforeStudy = StudyVo.builder().build();
+		StudyVo afterStudy 	= StudyVo.builder().build();
 		
 		when(studyService.doView((Set<Integer>)session.getAttribute("visitStudies"), seq)).thenReturn(study);
 		when(studyService.getBefore(seq, category)).thenReturn(beforeStudy);
@@ -168,9 +169,10 @@ public class StudyControllerTest {
 		
 		int seq = 3;
 		
-		StudyVo study = new StudyVo();
-		study.setFiles(files);
-		study.setImages(images);
+		StudyVo study = StudyVo.builder()
+				.files(files)
+				.images(images)
+				.build();
 		
 		when(studyService.get(seq)).thenReturn(study);
 		

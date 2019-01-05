@@ -46,9 +46,9 @@ public class ProjectDaoTest {
 		sampleProjectA = ProjectVo.builder()
 				.title("projectA")
 				.subtitle("projectA 입니다")
-				.thumbnail("projectA_썸네일.jpg")
-				.contents("projectA_내용")
-				.desc("projectA_개요")
+				.thumbnail("projectA 썸네일.jpg")
+				.contents("projectA 내용")
+				.desc("projectA 개요")
 				.developer("projectA개발자")
 				.sourcecode("projectA 소스코드")
 				.enabled(true)
@@ -59,9 +59,9 @@ public class ProjectDaoTest {
 		sampleProjectB = ProjectVo.builder()
 				.title("projectB")
 				.subtitle("projectB 입니다")
-				.thumbnail("projectB_썸네일.jpg")
-				.contents("projectB_내용")
-				.desc("projectB_개요")
+				.thumbnail("projectB 썸네일.jpg")
+				.contents("projectB 내용")
+				.desc("projectB 개요")
 				.developer("projectB 개발자")
 				.sourcecode("projectB 소스코드")
 				.enabled(true)
@@ -72,9 +72,9 @@ public class ProjectDaoTest {
 		sampleProjectC = ProjectVo.builder()
 				.title("projectC")
 				.subtitle("projectC 입니다")
-				.thumbnail("projectC_썸네일.jpg")
-				.contents("projectC_내용")
-				.desc("projectC_개요")
+				.thumbnail("projectC 썸네일.jpg")
+				.contents("projectC 내용")
+				.desc("projectC 개요")
 				.developer("projectC 개발자")
 				.sourcecode("projectC 소스코드")
 				.enabled(true)
@@ -200,11 +200,11 @@ public class ProjectDaoTest {
 		projectDao.insert(sampleProjectB);
 		projectDao.insert(sampleProjectC);
 		
-		Map<String,Object> param = new HashMap<String,Object>();
-		param.put("enabled", true);
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("enabled", true);
 		
 		//ACT
-		List<ProjectVo> resultProjects = projectDao.list(param);
+		List<ProjectVo> resultProjects = projectDao.list(params);
 		
 		//ASSERT
 		assertEquals(1, resultProjects.size());
@@ -219,12 +219,12 @@ public class ProjectDaoTest {
 		projectDao.insert(sampleProjectC);
 		projectDao.insert(sampleProjectB);
 		
-		Map<String,Object> param = new HashMap<String,Object>();
-		param.put("sort", "seq");
-		param.put("order", "ASC");
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("sort", "seq");
+		params.put("order", "ASC");
 		
 		//ACT
-		List<ProjectVo> resultProjects = projectDao.list(param);
+		List<ProjectVo> resultProjects = projectDao.list(params);
 		
 		//ASSERT
 		assertEquals(sampleProjectA, resultProjects.get(0));
@@ -244,12 +244,12 @@ public class ProjectDaoTest {
 		projectDao.insert(sampleProjectB);
 		projectDao.insert(sampleProjectC);
 		
-		Map<String,Object> param = new HashMap<String,Object>();
-		param.put("sort", "title");
-		param.put("order", "ASC");
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("sort", "title");
+		params.put("order", "ASC");
 		
 		//ACT
-		List<ProjectVo> resultProjects = projectDao.list(param);
+		List<ProjectVo> resultProjects = projectDao.list(params);
 		
 		//ASSERT
 		assertEquals(sampleProjectA, resultProjects.get(0));
@@ -269,12 +269,12 @@ public class ProjectDaoTest {
 		projectDao.insert(sampleProjectB);
 		projectDao.insert(sampleProjectC);
 		
-		Map<String,Object> param = new HashMap<String,Object>();
-		param.put("sort", "subtitle");
-		param.put("order", "ASC");
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("sort", "subtitle");
+		params.put("order", "ASC");
 		
 		//ACT
-		List<ProjectVo> resultProjects = projectDao.list(param);
+		List<ProjectVo> resultProjects = projectDao.list(params);
 		
 		//ASSERT
 		assertEquals(sampleProjectA, resultProjects.get(0));
@@ -294,12 +294,12 @@ public class ProjectDaoTest {
 		projectDao.insert(sampleProjectB);
 		projectDao.insert(sampleProjectC);
 		
-		Map<String,Object> param = new HashMap<String,Object>();
-		param.put("sort", "developer");
-		param.put("order", "ASC");
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("sort", "developer");
+		params.put("order", "ASC");
 		
 		//ACT
-		List<ProjectVo> resultProjects = projectDao.list(param);
+		List<ProjectVo> resultProjects = projectDao.list(params);
 		
 		//ASSERT
 		assertEquals(sampleProjectA, resultProjects.get(0));
@@ -319,12 +319,12 @@ public class ProjectDaoTest {
 		projectDao.insert(sampleProjectB);
 		projectDao.insert(sampleProjectC);
 		
-		Map<String,Object> param = new HashMap<String,Object>();
-		param.put("sort", "sourcecode");
-		param.put("order", "ASC");
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("sort", "sourcecode");
+		params.put("order", "ASC");
 		
 		//ACT
-		List<ProjectVo> resultProjects = projectDao.list(param);
+		List<ProjectVo> resultProjects = projectDao.list(params);
 		
 		//ASSERT
 		assertEquals(sampleProjectA, resultProjects.get(0));
@@ -344,12 +344,12 @@ public class ProjectDaoTest {
 		projectDao.insert(sampleProjectB);
 		projectDao.insert(sampleProjectC);
 		
-		Map<String,Object> param = new HashMap<String,Object>();
-		param.put("sort", "hits");
-		param.put("order", "ASC");
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("sort", "hits");
+		params.put("order", "ASC");
 		
 		//ACT
-		List<ProjectVo> resultProjects = projectDao.list(param);
+		List<ProjectVo> resultProjects = projectDao.list(params);
 		
 		//ASSERT
 		assertEquals(sampleProjectA, resultProjects.get(0));
@@ -372,14 +372,12 @@ public class ProjectDaoTest {
 		boardComtDao.insert(comtTB, BoardComtVo.builder().boardSeq(seqC).build());
 		boardComtDao.insert(comtTB, BoardComtVo.builder().boardSeq(seqC).build());
 		
-
-		
-		Map<String,Object> param = new HashMap<String,Object>();
-		param.put("sort", "comtCnt");
-		param.put("order", "ASC");
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("sort", "comtCnt");
+		params.put("order", "ASC");
 		
 		//ACT
-		List<ProjectVo> resultProjects = projectDao.list(param);
+		List<ProjectVo> resultProjects = projectDao.list(params);
 		
 		//ASSERT
 		sampleProjectA.setComtCnt(1);

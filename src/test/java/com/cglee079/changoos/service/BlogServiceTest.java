@@ -344,7 +344,6 @@ public class BlogServiceTest {
 				.contents(newContents)
 				.thumbnail(thumbnail)
 				.date(Formatter.toDate(new Date()))
-				.hits(0)
 				.build();
 		
 		doReturn(thumbnail).when(blogService).saveThumbnail(blog, thumbnailFile);

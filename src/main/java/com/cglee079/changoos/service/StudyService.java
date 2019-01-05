@@ -116,7 +116,6 @@ public class StudyService {
 	@Transactional(rollbackFor = {IllegalStateException.class, IOException.class })
 	public int insert(StudyVo study, String imageValues, String fileValues) throws IllegalStateException, IOException {
 		study.setDate(Formatter.toDate(new Date()));
-		study.setHits(0);
 		
 		int seq = studyDao.insert(study);
 		boardFileService.insertFiles(fileTB, fileDir, seq, fileValues);

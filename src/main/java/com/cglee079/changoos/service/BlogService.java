@@ -141,7 +141,6 @@ public class BlogService{
 	public int insert(BlogVo blog, MultipartFile thunmbnailFile, String imageValues, String fileValues) throws IllegalStateException, IOException {
 		blog.setThumbnail(this.saveThumbnail(blog, thunmbnailFile));
 		blog.setDate(Formatter.toDate(new Date()));
-		blog.setHits(0);
 		
 		int seq = blogDao.insert(blog);
 		

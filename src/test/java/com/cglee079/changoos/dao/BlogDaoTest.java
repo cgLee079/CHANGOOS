@@ -50,8 +50,8 @@ public class BlogDaoTest {
 	public void setUp() {
 		sampleBlogA = BlogVo.builder()
 				.title("blogA")
-				.thumbnail("blogA_썸네일.jpg")
-				.contents("blogA_내용")
+				.thumbnail("blogA 썸네일.jpg")
+				.contents("blogA 내용")
 				.files(new ArrayList<BoardFileVo>())
 				.images(new ArrayList<BoardImageVo>())
 				.enabled(true)
@@ -59,8 +59,8 @@ public class BlogDaoTest {
 		
 		sampleBlogB = BlogVo.builder()
 				.title("blogB")
-				.thumbnail("blogB_썸네일.jpg")
-				.contents("blogB_내용")
+				.thumbnail("blogB 썸네일.jpg")
+				.contents("blogB 내용")
 				.files(new ArrayList<BoardFileVo>())
 				.images(new ArrayList<BoardImageVo>())
 				.enabled(true)
@@ -68,8 +68,8 @@ public class BlogDaoTest {
 		
 		sampleBlogC = BlogVo.builder()
 				.title("blogC")
-				.thumbnail("blogC_썸네일.jpg")
-				.contents("blogC_내용")
+				.thumbnail("blogC 썸네일.jpg")
+				.contents("blogC 내용")
 				.files(new ArrayList<BoardFileVo>())
 				.images(new ArrayList<BoardImageVo>())
 				.enabled(true)
@@ -260,7 +260,7 @@ public class BlogDaoTest {
 	@Test
 	@Transactional
 	@Rollback(true)
-	public void testListWithTagAB() {
+	public void testListWithTagB() {
 		sampleBlogA.setTag("tagA tagB");
 		sampleBlogB.setTag("tagB");
 		sampleBlogC.setTag("tagC");
@@ -271,7 +271,6 @@ public class BlogDaoTest {
 		
 		Map<String,Object> params = new HashMap<String,Object>();
 		List<String> tags = new ArrayList<>();
-		tags.add("tagA");
 		tags.add("tagB");
 		params.put("tags", tags);
 		
@@ -285,17 +284,42 @@ public class BlogDaoTest {
 	@Test
 	@Transactional
 	@Rollback(true)
+	public void testListWithPaging() {
+		sampleBlogA.setDate("2019-01-03");
+		sampleBlogB.setDate("2019-01-02");
+		sampleBlogC.setDate("2019-01-01");
+		
+		blogDao.insert(sampleBlogA);
+		blogDao.insert(sampleBlogB);
+		blogDao.insert(sampleBlogC);
+		
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("startRow", 1);
+		params.put("perPgLine", 2);
+		
+		//ACT
+		List<BlogVo> resultBlogs = blogDao.list(params);
+		
+		//ASSERT
+		assertEquals(2, resultBlogs.size());
+		assertEquals(sampleBlogB, resultBlogs.get(0));
+		assertEquals(sampleBlogC, resultBlogs.get(1));
+	}
+	
+	@Test
+	@Transactional
+	@Rollback(true)
 	public void testListWithSortSeq() {
 		blogDao.insert(sampleBlogA);
 		blogDao.insert(sampleBlogC);
 		blogDao.insert(sampleBlogB);
 		
-		Map<String,Object> param = new HashMap<String,Object>();
-		param.put("sort", "seq");
-		param.put("order", "ASC");
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("sort", "seq");
+		params.put("order", "ASC");
 		
 		//ACT
-		List<BlogVo> resultBlogs = blogDao.list(param);
+		List<BlogVo> resultBlogs = blogDao.list(params);
 		
 		//ASSERT
 		assertEquals(sampleBlogA, resultBlogs.get(0));
@@ -315,12 +339,12 @@ public class BlogDaoTest {
 		blogDao.insert(sampleBlogB);
 		blogDao.insert(sampleBlogC);
 		
-		Map<String,Object> param = new HashMap<String,Object>();
-		param.put("sort", "title");
-		param.put("order", "ASC");
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("sort", "title");
+		params.put("order", "ASC");
 		
 		//ACT
-		List<BlogVo> resultBlogs = blogDao.list(param);
+		List<BlogVo> resultBlogs = blogDao.list(params);
 		
 		//ASSERT
 		assertEquals(sampleBlogA, resultBlogs.get(0));
@@ -341,12 +365,12 @@ public class BlogDaoTest {
 		blogDao.insert(sampleBlogB);
 		blogDao.insert(sampleBlogC);
 		
-		Map<String,Object> param = new HashMap<String,Object>();
-		param.put("sort", "hits");
-		param.put("order", "ASC");
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("sort", "hits");
+		params.put("order", "ASC");
 		
 		//ACT
-		List<BlogVo> resultBlogs = blogDao.list(param);
+		List<BlogVo> resultBlogs = blogDao.list(params);
 		
 		//ASSERT
 		assertEquals(sampleBlogA, resultBlogs.get(0));
@@ -358,27 +382,20 @@ public class BlogDaoTest {
 	@Transactional
 	@Rollback(true)
 	public void testListWithSortDate() {
-		Calendar cal = Calendar.getInstance();
-		
-		cal.set(2019, 01, 01);
-		sampleBlogA.setDate(Formatter.toDate(cal.getTime()));
-		
-		cal.set(2019, 01, 03);
-		sampleBlogB.setDate(Formatter.toDate(cal.getTime()));
-		
-		cal.set(2019, 01, 02);
-		sampleBlogC.setDate(Formatter.toDate(cal.getTime()));
+		sampleBlogA.setDate("2019-01-01");
+		sampleBlogB.setDate("2019-01-03");
+		sampleBlogC.setDate("2019-01-02");
 		
 		blogDao.insert(sampleBlogA);
 		blogDao.insert(sampleBlogB);
 		blogDao.insert(sampleBlogC);
 		
-		Map<String,Object> param = new HashMap<String,Object>();
-		param.put("sort", "date");
-		param.put("order", "asc");
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("sort", "date");
+		params.put("order", "asc");
 		
 		//ACT
-		List<BlogVo> resultBlogs = blogDao.list(param);
+		List<BlogVo> resultBlogs = blogDao.list(params);
 		
 		//ASSERT
 		assertEquals(sampleBlogA, resultBlogs.get(0));
@@ -401,12 +418,12 @@ public class BlogDaoTest {
 		boardComtDao.insert(comtTB, BoardComtVo.builder().boardSeq(seqC).build());
 		boardComtDao.insert(comtTB, BoardComtVo.builder().boardSeq(seqC).build());
 		
-		Map<String,Object> param = new HashMap<String,Object>();
-		param.put("sort", "comtCnt");
-		param.put("order", "ASC");
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("sort", "comtCnt");
+		params.put("order", "ASC");
 		
 		//ACT
-		List<BlogVo> resultBlogs = blogDao.list(param);
+		List<BlogVo> resultBlogs = blogDao.list(params);
 		
 		//ASSERT
 		sampleBlogA.setComtCnt(1);

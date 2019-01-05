@@ -80,7 +80,6 @@ public class ProjectService {
 	public int insert(ProjectVo project, MultipartFile thumbnailFile, String imageValues, String fileValues) throws IllegalStateException, IOException {
 		String thumbnail = this.saveThumbnail(project, thumbnailFile);
 		project.setThumbnail(thumbnail);
-		project.setHits(0);
 		
 		int seq = projectDao.insert(project);
 		

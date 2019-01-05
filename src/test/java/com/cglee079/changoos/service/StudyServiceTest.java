@@ -89,11 +89,14 @@ public class StudyServiceTest {
 	@Test
 	public void testGetWithoutContent() {
 		int seq = 3;
-		StudyVo study = new StudyVo();
+		StudyVo study = StudyVo.builder()
+				.seq(seq)
+				.build();
 		study.setSeq(seq);
 		
-		StudyVo expectStudy = new StudyVo();
-		expectStudy.setSeq(seq);
+		StudyVo expectStudy = StudyVo.builder()
+				.seq(seq)
+				.build();
 		
 		when(studyDao.get(seq)).thenReturn(study);
 		
@@ -110,13 +113,17 @@ public class StudyServiceTest {
 		String contents = "&";
 		String newContents = "&amp;";
 		
-		StudyVo study = new StudyVo();
+		StudyVo study = StudyVo.builder()
+				.seq(seq)
+				.contents(contents)
+				.build();
 		study.setSeq(seq);
 		study.setContents(contents);
 		
-		StudyVo expectStudy = new StudyVo();
-		expectStudy.setSeq(seq);
-		expectStudy.setContents(newContents);
+		StudyVo expectStudy = StudyVo.builder()
+				.seq(seq)
+				.contents(newContents)
+				.build();
 		
 		when(studyDao.get(seq)).thenReturn(study);
 		
@@ -134,15 +141,17 @@ public class StudyServiceTest {
 		Set<Integer> visitStudies = new HashSet<>();
 		visitStudies.add(seq);
 		
-		StudyVo study = new StudyVo();
-		study.setSeq(seq);
-		study.setHits(0);
+		StudyVo study = StudyVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
+		
+		StudyVo expectedStudy = StudyVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
 		
 		when(studyDao.get(seq)).thenReturn(study);
-		
-		StudyVo expectedStudy = new StudyVo();
-		expectedStudy.setSeq(seq);
-		expectedStudy.setHits(0);
 		
 		//ACT
 		StudyVo resultStudy = studyService.doView(visitStudies, seq);
@@ -157,15 +166,17 @@ public class StudyServiceTest {
 		int seq = 3;
 		Set<Integer> visitStudies = new HashSet<>();
 		
-		StudyVo study = new StudyVo();
-		study.setSeq(seq);
-		study.setHits(0);
+		StudyVo study = StudyVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
+		
+		StudyVo expectedStudy = StudyVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
 		
 		when(studyDao.get(seq)).thenReturn(study);
-		
-		StudyVo expectedStudy = new StudyVo();
-		expectedStudy.setSeq(seq);
-		expectedStudy.setHits(0);
 		
 		//ACT
 		StudyVo resultStudy = studyService.doView(visitStudies, seq);
@@ -181,15 +192,17 @@ public class StudyServiceTest {
 		Set<Integer> visitStudies = new HashSet<>();
 		visitStudies.add(seq);
 		
-		StudyVo study = new StudyVo();
-		study.setSeq(seq);
-		study.setHits(0);
+		StudyVo study = StudyVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
+		
+		StudyVo expectedStudy = StudyVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
 		
 		when(studyDao.get(seq)).thenReturn(study);
-		
-		StudyVo expectedStudy = new StudyVo();
-		expectedStudy.setSeq(seq);
-		expectedStudy.setHits(0);
 		
 		//ACT
 		StudyVo resultStudy = studyService.doView(visitStudies, seq);
@@ -203,15 +216,17 @@ public class StudyServiceTest {
 		int seq = 3;
 		Set<Integer> visitStudies = new HashSet<>();
 		
-		StudyVo study = new StudyVo();
-		study.setSeq(seq);
-		study.setHits(0);
+		StudyVo study = StudyVo.builder()
+				.seq(seq)
+				.hits(0)
+				.build();
+		
+		StudyVo expectedStudy = StudyVo.builder()
+				.seq(seq)
+				.hits(1)
+				.build();
 		
 		when(studyDao.get(seq)).thenReturn(study);
-		
-		StudyVo expectedStudy = new StudyVo();
-		expectedStudy.setSeq(seq);
-		expectedStudy.setHits(1);
 		
 		//ACT
 		StudyVo resultStudy = studyService.doView(visitStudies, seq);
@@ -227,8 +242,9 @@ public class StudyServiceTest {
 	public void testGetBefore() {
 		int seq = 3;
 		String category = "SAMPLE_CATEGORY";
-		StudyVo study = new StudyVo();
-		study.setSeq(seq - 1);
+		StudyVo study = StudyVo.builder()
+				.seq(seq -1)
+				.build();
 		
 		when(studyDao.getBefore(seq, category)).thenReturn(study);
 		
@@ -243,8 +259,9 @@ public class StudyServiceTest {
 	public void testGetAfter() {
 		int seq = 3;
 		String category = "SAMPLE_CATEGORY";
-		StudyVo study = new StudyVo();
-		study.setSeq(seq + 1);
+		StudyVo study = StudyVo.builder()
+				.seq(seq + 1)
+				.build();
 		
 		when(studyDao.getAfter(seq, category)).thenReturn(study);
 		
@@ -288,20 +305,22 @@ public class StudyServiceTest {
 	public void testPaging() {
 		String page = "1";
 		String perPgLine = "10";
-		String content = "<body>SAMPLE_CONTENTS\nNN<body>";
-		String newContent = "SAMPLE_CONTENTS NN";
+		String contents = "<body>SAMPLE_CONTENTS\nNN<body>";
+		String newContents = "SAMPLE_CONTENTS NN";
 		
 		Map<String, Object> params = new HashMap<>();
 		params.put("page", page);
 		params.put("perPgLine", perPgLine);
 		
 		List<StudyVo> studies = new ArrayList<>();
-		StudyVo study = new StudyVo();
-		study.setContents(content);
+		StudyVo study = StudyVo.builder()
+				.contents(contents)
+				.build();
 		studies.add(study);
 		
-		StudyVo expectedStudy = new StudyVo();
-		expectedStudy.setContents(newContent);
+		StudyVo expectedStudy = StudyVo.builder()
+				.contents(newContents)
+				.build();
 		
 		when(studyDao.list(params)).thenReturn(studies);
 		
@@ -321,15 +340,16 @@ public class StudyServiceTest {
 		String imageValues = "SAMPLE_IMAGEVALUES";
 		String newContents = "SAMPLE_NEWCONTENTS";
 		
-		StudyVo study = new StudyVo();
-		study.setContents(contents);
-		study.setSeq(seq);
+		StudyVo study = StudyVo.builder()
+				.seq(seq)
+				.contents(contents)
+				.build();
 		
-		StudyVo expectStudy = new StudyVo();
-		expectStudy.setDate(Formatter.toDate(new Date()));
-		expectStudy.setContents(newContents);
-		expectStudy.setSeq(seq);
-		expectStudy.setHits(0);
+		StudyVo expectStudy = StudyVo.builder()
+				.seq(seq)
+				.contents(newContents)
+				.date(Formatter.toDate(new Date()))
+				.build();
 		
 		when(studyDao.insert(study)).thenReturn(seq);
 		when(boardImageService.insertImages(imageTB, imageDir, seq, contents, imageValues)).thenReturn(newContents);
@@ -353,14 +373,16 @@ public class StudyServiceTest {
 		String newContents = "SAMPLE_NEWCONTENTS";
 		boolean expected = true;
 		
-		StudyVo study = new StudyVo();
-		study.setContents(contents);
-		study.setSeq(seq);
+		StudyVo study = StudyVo.builder()
+				.seq(seq)
+				.contents(contents)
+				.build();
 		
-		StudyVo expectStudy = new StudyVo();
-		expectStudy.setContents(newContents);
-		expectStudy.setSeq(seq);
-		expectStudy.setHits(0);
+		StudyVo expectStudy = StudyVo.builder()
+				.seq(seq)
+				.contents(newContents)
+				.build();
+		
 		
 		when(boardImageService.insertImages(imageTB, imageDir, seq, contents, imageValues)).thenReturn(newContents);
 		when(studyDao.update(study)).thenReturn(true);
@@ -386,10 +408,11 @@ public class StudyServiceTest {
 		images.add(mock(BoardImageVo.class));
 		images.add(mock(BoardImageVo.class));
 		
-		StudyVo study = new StudyVo();
-		study.setSeq(seq);
-		study.setImages(images);
-		study.setFiles(files);
+		StudyVo study = StudyVo.builder()
+				.seq(seq)
+				.files(files)
+				.images(images)
+				.build();
 		
 		when(studyDao.get(seq)).thenReturn(study);
 		when(studyDao.delete(seq)).thenReturn(expected);
@@ -409,8 +432,9 @@ public class StudyServiceTest {
 		int seq = 3;
 		boolean expected = false;
 		
-		StudyVo study = new StudyVo();
-		study.setSeq(seq);
+		StudyVo study = StudyVo.builder()
+				.seq(seq)
+				.build();
 
 		when(studyDao.get(seq)).thenReturn(study);
 		when(studyDao.delete(seq)).thenReturn(expected);

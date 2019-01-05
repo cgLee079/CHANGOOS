@@ -72,8 +72,8 @@
 			TB_CHANGOOS_STUDY A 
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		<![CDATA[AND STUDY_ENABLED = true]]>
-		<![CDATA[AND STUDY_SEQ < #{seq}]]>  
-		<if test="category != ''">
+		<![CDATA[AND STUDY_SEQ > #{seq}]]>  
+		<if test="category != null and category != ''">
  		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
   		</if>
   		</trim>
@@ -88,7 +88,7 @@
 			TB_CHANGOOS_STUDY A 
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
 		AND STUDY_ENABLED = true
-		<![CDATA[AND STUDY_SEQ > #{seq}]]>
+		<![CDATA[AND STUDY_SEQ < #{seq}]]>
 		<if test="category != null and category != ''">
  		AND UPPER(STUDY_CATEGORY) = UPPER(#{category})
   		</if>
