@@ -1,11 +1,15 @@
 package com.cglee079.changoos.util;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import javax.imageio.ImageIO;
+
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class FileHandler {
@@ -79,6 +83,31 @@ public class FileHandler {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	public File save(String path, MultipartFile multipartFile) {
+		File file = new File(path);
+		try {
+			multipartFile.transferTo(file);
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return file;
+		
+	}
+
+	public File save(String path, String ext, BufferedImage bufImg) {
+		File file = new File(path);
+		try {
+			ImageIO.write(bufImg, ext, file);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return file;
 	}
 	
 }

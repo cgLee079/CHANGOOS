@@ -1,7 +1,5 @@
 package com.cglee079.changoos.service;
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -9,19 +7,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.awt.image.DataBufferByte;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,6 +35,7 @@ import com.cglee079.changoos.dao.BoardImageDao;
 import com.cglee079.changoos.model.BoardImageVo;
 import com.cglee079.changoos.util.FileHandler;
 import com.cglee079.changoos.util.ImageHandler;
+import com.cglee079.changoos.util.MyFilenameUtils;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.gson.Gson;
@@ -85,33 +78,28 @@ public class BoardImageServiceTest {
 	
 	@Test
 	public void testSaveBase64() throws IOException {
-		File sampleImage = new File(realPath + sampleDir, "sample_image.jpg");
-		String base64 = Base64.encodeBase64String(FileUtils.readFileToByteArray(sampleImage));
+//		File sampleImage = new File(realPath + sampleDir, "sample_image.jpg");
+//		String base64 = Base64.encodeBase64String(FileUtils.readFileToByteArray(sampleImage));
+		String base64 = "image/jpg, BASE64";
 		
 		//ACT
 		String resultPathname = boardImageService.saveBase64("," + base64);
 		
 		//ASSERT
-		File saveImage = new File(realPath + tempDir, resultPathname);
-		byte[] expectByte = ((DataBufferByte) ImageIO.read(sampleImage).getData().getDataBuffer()).getData();
-		byte[] resultByte = ((DataBufferByte) ImageIO.read(saveImage).getData().getDataBuffer()).getData();
-		assertTrue(saveImage.exists());
-		assertArrayEquals(expectByte, resultByte);
-		
+		verify(fileHandler).save(eq(realPath + tempDir + resultPathname), eq("PNG"), any(BufferedImage.class));
+		verify(imageHandler).saveLowscaleImage(any(File.class), eq(maxWidth), eq("PNG"));
 	}
 	
 	@Test
 	public void testSaveImage() throws FileNotFoundException, IOException {
-		File sampleImage = new File(realPath + sampleDir, "sample_image.jpg");
-		MultipartFile multipartFile = new MockMultipartFile(sampleImage.getName(), sampleImage.getName(), null, new FileInputStream(sampleImage));
-
+		String filename = "sample_image.jpg";
+		MultipartFile multipartFile = new MockMultipartFile(filename, filename, null,  new byte[1]);
 		//ACT
 		String resultPathname = boardImageService.saveImage(multipartFile);
 		
 		//ASSERT
-		File saveImage = new File(realPath + tempDir, resultPathname);
-		assertTrue(saveImage.exists());
-		assertArrayEquals(Files.readAllBytes(sampleImage.toPath()), Files.readAllBytes(saveImage.toPath()));
+		verify(fileHandler).save(realPath + tempDir + resultPathname, multipartFile);
+		verify(imageHandler).saveLowscaleImage(any(File.class), eq(maxWidth), eq(MyFilenameUtils.getExt(filename)));
 	}
 	
 	@Test

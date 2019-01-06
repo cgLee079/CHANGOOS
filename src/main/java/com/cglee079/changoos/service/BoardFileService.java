@@ -34,8 +34,7 @@ public class BoardFileService {
 		String filename = MyFilenameUtils.sanitizeRealFilename(multipartFile.getOriginalFilename());
 		String pathname = MyFilenameUtils.getRandomFilename(MyFilenameUtils.getExt(filename));
 
-		File file = new File(realPath + tempDir, pathname);
-		multipartFile.transferTo(file);
+		fileHandler.save(realPath + tempDir + pathname, multipartFile);
 
 		return pathname;
 	}

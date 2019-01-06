@@ -1,6 +1,4 @@
 package com.cglee079.changoos.service;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
@@ -8,10 +6,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,17 +70,29 @@ public class BoardFileServiceTest {
 	
 	@Test
 	public void testSaveFile() throws FileNotFoundException, IOException {
-		File sampleFile = new File(realPath + sampleDir, "sample_file.pdf");
-		MultipartFile multipartFile = new MockMultipartFile(sampleFile.getName(), sampleFile.getName(), null, new FileInputStream(sampleFile));
+		String filename = "sample_file.pdf";
+		MultipartFile multipartFile = new MockMultipartFile(filename, filename, null,  new byte[1]);
 
 		//ACT
 		String resultPathname = boardFileService.saveFile(multipartFile);
 		
 		//ASSERT
-		File saveFile = new File(realPath + tempDir, resultPathname);
-		assertTrue(saveFile.exists());
-		assertArrayEquals(Files.readAllBytes(sampleFile.toPath()), Files.readAllBytes(saveFile.toPath()));
+		verify(fileHandler).save(realPath + tempDir + resultPathname, multipartFile);
 	}
+	
+	//나중에 쓸꺼임..
+//	public void testSaveFile() throws FileNotFoundException, IOException {
+//		File sampleFile = new File(realPath + sampleDir, "sample_file.pdf");
+//		MultipartFile multipartFile = new MockMultipartFile(sampleFile.getName(), sampleFile.getName(), null, new FileInputStream(sampleFile));
+//
+//		//ACT
+//		String resultPathname = boardFileService.saveFile(multipartFile);
+//		
+//		//ASSERT
+//		File saveFile = new File(realPath + tempDir, resultPathname);
+//		assertTrue(saveFile.exists());
+//		assertArrayEquals(Files.readAllBytes(sampleFile.toPath()), Files.readAllBytes(saveFile.toPath()));
+//	}
 	
 	@Test
 	public void testInsertFilesWithStatusNewFile() throws JsonParseException, JsonMappingException, IOException{

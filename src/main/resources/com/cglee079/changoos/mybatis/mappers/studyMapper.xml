@@ -6,7 +6,7 @@
 	<resultMap type="StudyVo" id="studyResultMap">
 		<id property="seq" column="STUDY_SEQ"/>
 		<result property="category" column="STUDY_CATEGORY"/>
-		<result property="codeLang" column="STUDY_CODE_LANG"/>
+		<result property="codeLang" column="CODE_LANG"/>
 		<result property="title" column="STUDY_TITLE"/>
 		<result property="contents" column="STUDY_CONTENTS"/>
 		<result property="date" column="STUDY_DATE"/>
@@ -124,7 +124,7 @@
 		<when test="sort == 'seq'"> 	ORDER BY STUDY_SEQ ${order} </when>
 		<when test="sort == 'category'">ORDER BY STUDY_CATEGORY ${order} </when>
 		<when test="sort == 'title'"> 	ORDER BY STUDY_TITLE ${order} </when>
-		<when test="sort == 'codeLang'">ORDER BY STUDY_CODE_LANG ${order} </when>
+		<when test="sort == 'codeLang'">ORDER BY CODE_LANG ${order} </when>
 		<when test="sort == 'date'">	ORDER BY STUDY_DATE ${order} </when>
 		<when test="sort == 'hits'">	ORDER BY STUDY_HITS ${order} </when>
 		<when test="sort == 'comtCnt'"> ORDER BY comtCnt ${order} </when>
@@ -148,7 +148,7 @@
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
 		INSERT TB_CHANGOOS_STUDY (
 			STUDY_CATEGORY, 
-			STUDY_CODE_LANG, 
+			CODE_LANG, 
 			STUDY_TITLE, 
 			STUDY_CONTENTS, 
 			STUDY_DATE, 
@@ -175,7 +175,7 @@
 		UPDATE TB_CHANGOOS_STUDY
 		SET 
 		STUDY_CATEGORY = #{category},
-		STUDY_CODE_LANG = #{codeLang},
+		CODE_LANG = #{codeLang},
 		STUDY_TITLE = #{title},
 		STUDY_CONTENTS = #{contents},
 		STUDY_DATE = #{date},

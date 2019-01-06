@@ -46,9 +46,8 @@ public class BoardImageService {
 		base64 = base64.split(",")[1];
 		byte[] imageBytes = DatatypeConverter.parseBase64Binary(base64);
 		BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
-		File file = new File(realPath + tempDir, pathname);
-		ImageIO.write(bufImg, ImageExt, file);
-
+		
+		File file = fileHandler.save(realPath + tempDir + pathname, ImageExt, bufImg);
 		imageHandler.saveLowscaleImage(file, maxWidth, ImageExt);
 
 		return pathname;
@@ -59,9 +58,7 @@ public class BoardImageService {
 		String ImageExt = MyFilenameUtils.getExt(filename);
 		String pathname = MyFilenameUtils.getRandomImagename(ImageExt);
 
-		File file = new File(realPath + tempDir, pathname);
-		multipartFile.transferTo(file);
-
+		File file = fileHandler.save(realPath + tempDir + pathname, multipartFile);
 		imageHandler.saveLowscaleImage(file, maxWidth, ImageExt);
 
 		return pathname;
