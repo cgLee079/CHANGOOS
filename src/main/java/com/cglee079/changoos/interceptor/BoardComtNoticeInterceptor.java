@@ -33,7 +33,6 @@ public class BoardComtNoticeInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		
 		String boardType = request.getParameter("boardType");
 		String name = request.getParameter("username");
 		String contents = request.getParameter("contents").replaceAll("<br />", "\n");
@@ -72,9 +71,6 @@ public class BoardComtNoticeInterceptor extends HandlerInterceptorAdapter {
 
 			telegramHandler.sendMessage(msg.toString());
 		}
-		
-		
-		
 		
 		super.afterCompletion(request, response, handler, ex);
 	}

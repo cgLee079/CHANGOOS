@@ -18,10 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cglee079.changoos.model.BoardComtVo;
 import com.cglee079.changoos.model.ProjectVo;
 
+@Transactional
+@Rollback(true)
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/test_config/dao-context.xml",
-	"file:src/main/webapp/WEB-INF/spring/appServlet/property-context.xml"})
+	"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class BoardComtDaoTest {
 
 	@Autowired private BoardComtDao boardComtDao;
@@ -56,8 +58,6 @@ public class BoardComtDaoTest {
 	
 
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testCount() { 
 		int boardSeq = projectDao.insert(ProjectVo.builder().build());
 		
@@ -77,8 +77,6 @@ public class BoardComtDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testGet() { 
 		int boardSeq = projectDao.insert(ProjectVo.builder().build());
 		
@@ -94,8 +92,6 @@ public class BoardComtDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testDelete() { 
 		int boardSeq = projectDao.insert(ProjectVo.builder().build());
 		
@@ -112,8 +108,6 @@ public class BoardComtDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testUpdate() { 
 		int boardSeq = projectDao.insert(ProjectVo.builder().build());
 		sampleComtA.setBoardSeq(boardSeq);
@@ -131,8 +125,6 @@ public class BoardComtDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testList() { 
 		int boardSeq = projectDao.insert(ProjectVo.builder().build());
 		int startRow = 0;
@@ -154,8 +146,6 @@ public class BoardComtDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithShortPgLine() { 
 		int boardSeq = projectDao.insert(ProjectVo.builder().build());
 		int startRow = 0;
@@ -177,8 +167,6 @@ public class BoardComtDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortParentComt() { 
 		int boardSeq = projectDao.insert(ProjectVo.builder().build());
 		int startRow = 0;

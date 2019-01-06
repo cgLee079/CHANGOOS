@@ -80,7 +80,6 @@ public class BoardImageService {
 			String status = image.getStatus();
 			String pathname = image.getPathname();
 			
-			System.out.println(status);
 			if(status.equals(statusNew)) { //새롭게 추가된 이미지
 				if(boardImageDao.insert(TB, image)) {
 					//임시폴더에서 본 폴더로 이동

@@ -23,10 +23,12 @@ import com.cglee079.changoos.model.BoardComtVo;
 import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.BoardImageVo;
 
+@Transactional
+@Rollback(true)
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/test_config/dao-context.xml",
-	"file:src/main/webapp/WEB-INF/spring/appServlet/property-context.xml"})
+	"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class PhotoDaoTest {
 	
 	@Autowired private PhotoDao photoDao;
@@ -82,8 +84,6 @@ public class PhotoDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testGet() {
 		photoDao.insert(samplePhotoA);
 		int seq = samplePhotoA.getSeq();
@@ -96,8 +96,6 @@ public class PhotoDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testSeqs() {
 		photoDao.insert(samplePhotoA);
 		photoDao.insert(samplePhotoB);
@@ -118,8 +116,6 @@ public class PhotoDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testUpdate() {
 		photoDao.insert(samplePhotoA);
 		int seq = samplePhotoA.getSeq();
@@ -134,8 +130,6 @@ public class PhotoDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testDelete() {
 		photoDao.insert(samplePhotoA);
 		int seq = samplePhotoA.getSeq();
@@ -150,8 +144,6 @@ public class PhotoDaoTest {
 	
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testList() {
 		photoDao.insert(samplePhotoA);
 		photoDao.insert(samplePhotoB);
@@ -166,8 +158,6 @@ public class PhotoDaoTest {
 	
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortSeq() {
 		photoDao.insert(samplePhotoA);
 		photoDao.insert(samplePhotoC);
@@ -187,8 +177,6 @@ public class PhotoDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortName() {
 		samplePhotoA.setName("1");
 		samplePhotoB.setName("3");
@@ -213,8 +201,6 @@ public class PhotoDaoTest {
 	
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortLikeCnt() {
 		samplePhotoA.setLikeCnt(1);
 		samplePhotoB.setLikeCnt(3);
@@ -238,8 +224,6 @@ public class PhotoDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortDate() {
 		samplePhotoA.setDate("2019-01-01");
 		samplePhotoB.setDate("2019-01-03");
@@ -263,8 +247,6 @@ public class PhotoDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortTime() {
 		samplePhotoA.setTime("00:00:01");
 		samplePhotoB.setTime("00:00:03");
@@ -288,8 +270,6 @@ public class PhotoDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortDevice() {
 		samplePhotoA.setDevice("deviceA");
 		samplePhotoB.setDevice("deviceC");
@@ -313,8 +293,6 @@ public class PhotoDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortLocation() {
 		samplePhotoA.setLocation("locationA");
 		samplePhotoB.setLocation("locationC");
@@ -338,8 +316,6 @@ public class PhotoDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortTag() {
 		samplePhotoA.setTag("tagA");
 		samplePhotoB.setTag("tagC");

@@ -3,8 +3,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,13 +22,13 @@ import com.cglee079.changoos.model.BlogVo;
 import com.cglee079.changoos.model.BoardComtVo;
 import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.BoardImageVo;
-import com.cglee079.changoos.model.ProjectVo;
-import com.cglee079.changoos.util.Formatter;
 
+@Transactional
+@Rollback(true)
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/test_config/dao-context.xml",
-	"file:src/main/webapp/WEB-INF/spring/appServlet/property-context.xml"})
+	"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class BlogDaoTest {
 	
 	@Autowired private BlogDao blogDao;
@@ -90,7 +88,6 @@ public class BlogDaoTest {
 	
 	
 	@Test
-	@Transactional
 	@Rollback(true)
 	public void testGet() {
 		int seq = blogDao.insert(sampleBlogA);
@@ -124,7 +121,6 @@ public class BlogDaoTest {
 	}
 	
 	@Test
-	@Transactional
 	@Rollback(true)
 	public void testGetTags() {
 		sampleBlogA.setTag("tagA tagB");
@@ -144,7 +140,6 @@ public class BlogDaoTest {
 	}
 	
 	@Test
-	@Transactional
 	@Rollback(true)
 	public void testCount() {
 		blogDao.insert(sampleBlogA);
@@ -157,7 +152,6 @@ public class BlogDaoTest {
 	}
 	
 	@Test
-	@Transactional
 	@Rollback(true)
 	public void testCountWithEnabledTrue() {
 		sampleBlogA.setEnabled(true);
@@ -177,8 +171,6 @@ public class BlogDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testUpdate() {
 		int seq = blogDao.insert(sampleBlogA);
 		sampleBlogB.setSeq(seq);
@@ -192,8 +184,6 @@ public class BlogDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testDelete() {
 		int seq = blogDao.insert(sampleBlogA);
 		
@@ -207,8 +197,6 @@ public class BlogDaoTest {
 	
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testList() {
 		blogDao.insert(sampleBlogA);
 		blogDao.insert(sampleBlogB);
@@ -222,8 +210,6 @@ public class BlogDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithEnabledTrue() {
 		sampleBlogA.setEnabled(true);
 		sampleBlogB.setEnabled(false);
@@ -245,8 +231,6 @@ public class BlogDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithTagA() {
 		sampleBlogA.setTag("tagA tagB");
 		sampleBlogB.setTag("tagB");
@@ -270,8 +254,6 @@ public class BlogDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithTagB() {
 		sampleBlogA.setTag("tagA tagB");
 		sampleBlogB.setTag("tagB");
@@ -294,8 +276,6 @@ public class BlogDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithPaging() {
 		sampleBlogA.setDate("2019-01-03");
 		sampleBlogB.setDate("2019-01-02");
@@ -319,8 +299,6 @@ public class BlogDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortSeq() {
 		blogDao.insert(sampleBlogA);
 		blogDao.insert(sampleBlogC);
@@ -340,8 +318,6 @@ public class BlogDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortTitle() {
 		sampleBlogA.setTitle("1");
 		sampleBlogB.setTitle("3");
@@ -366,8 +342,6 @@ public class BlogDaoTest {
 	
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortHits() {
 		sampleBlogA.setHits(1);
 		sampleBlogB.setHits(3);
@@ -391,8 +365,6 @@ public class BlogDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortDate() {
 		sampleBlogA.setDate("2019-01-01");
 		sampleBlogB.setDate("2019-01-03");
@@ -416,8 +388,6 @@ public class BlogDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortComtCnt() {
 		int seqA = blogDao.insert(sampleBlogA);
 		int seqB = blogDao.insert(sampleBlogB);

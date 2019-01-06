@@ -1,6 +1,7 @@
 package com.cglee079.changoos.controller;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -29,7 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/appServlet/**-context.xml")
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/appServlet/**-context.xml"})
 public class PhotoComtControllerTest {
 
 	@Mock	
@@ -71,27 +72,12 @@ public class PhotoComtControllerTest {
 	}
 	
 	@Test
-	public void testPhotoCommentDoUpdate() throws JsonProcessingException, Exception {
-		int seq = 3;
-		String contents = "SAMPLE_CONTENT";
-		boolean result = true;
-		
-		when(photoComtService.update(seq, contents)).thenReturn(result);
-		
-		mockMvc.perform(post("/photo/comment/update.do")
-				.param("seq", String.valueOf(seq))
-				.param("contents", contents))
-			.andExpect(status().isOk())
-			.andExpect(content().string(new ObjectMapper().writeValueAsString(result)));
-	}
-	
-	@Test
 	public void testPhotoCommentDoDelete() throws JsonProcessingException, Exception {
 		int seq = 3;
 		String password = "SAMPLE_PASSWORD";
 		boolean result = true;
 		
-		when(photoComtService.delete(seq, password)).thenReturn(result);
+		when(photoComtService.delete(any(PhotoComtVo.class))).thenReturn(result);
 		
 		mockMvc.perform(post("/photo/comment/delete.do")
 				.param("seq", String.valueOf(seq))

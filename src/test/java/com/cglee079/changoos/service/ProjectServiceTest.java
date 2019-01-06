@@ -46,7 +46,7 @@ import com.cglee079.changoos.util.ImageHandler;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/appServlet/**-context.xml")
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/appServlet/**-context.xml"})
 public class ProjectServiceTest {
 	
 	@Mock private BoardImageService boardImageService;

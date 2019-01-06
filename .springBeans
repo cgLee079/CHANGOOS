@@ -8,11 +8,11 @@
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/service-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/aop-context.xml</config>
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/dao-context.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/util-context.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/property-context.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/security-context.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/intercepter-context.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>

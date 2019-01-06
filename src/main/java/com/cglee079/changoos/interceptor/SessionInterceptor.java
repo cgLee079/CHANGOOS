@@ -24,6 +24,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		
 		HttpSession session = request.getSession(true);
 		if(session.isNew()) {
 			SessionLogVo sessionLog = new SessionLogVo();
@@ -44,11 +45,4 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 		}
 		return true;
 	}
-
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-
-	}
-
 }

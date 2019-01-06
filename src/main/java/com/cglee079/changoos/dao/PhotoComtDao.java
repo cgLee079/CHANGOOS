@@ -44,10 +44,7 @@ public class PhotoComtDao {
 		return sqlSession.selectOne(namespace +".get", seq);
 	}
 	
-	public boolean update(int seq, String contents) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("seq", seq);
-		map.put("contents", contents);
-		return sqlSession.update(namespace +".update", map) == 1;
+	public boolean update(PhotoComtVo comt) {
+		return sqlSession.update(namespace +".update", comt) == 1;
 	}
 }

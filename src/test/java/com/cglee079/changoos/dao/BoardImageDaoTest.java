@@ -17,10 +17,12 @@ import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.BoardImageVo;
 import com.cglee079.changoos.model.ProjectVo;
 
+@Transactional
+@Rollback(true)
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/test_config/dao-context.xml",
-	"file:src/main/webapp/WEB-INF/spring/appServlet/property-context.xml"})
+	"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class BoardImageDaoTest {
 
 	@Autowired private BoardImageDao boardImageDao;
@@ -40,8 +42,6 @@ public class BoardImageDaoTest {
 	
 
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testGet() { 
 		int boardSeq = projectDao.insert(ProjectVo.builder().build());
 		
@@ -58,8 +58,6 @@ public class BoardImageDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testDelete() { 
 		int boardSeq = projectDao.insert(ProjectVo.builder().build());
 		

@@ -22,10 +22,12 @@ import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.BoardImageVo;
 import com.cglee079.changoos.model.ProjectVo;
 
+@Transactional
+@Rollback(true)
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/test_config/dao-context.xml",
-	"file:src/main/webapp/WEB-INF/spring/appServlet/property-context.xml"})
+	"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class ProjectDaoTest {
 	
 	@Autowired private ProjectDao projectDao;
@@ -88,8 +90,6 @@ public class ProjectDaoTest {
 	
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testGet() {
 		int seq = projectDao.insert(sampleProjectA);
 		
@@ -122,8 +122,6 @@ public class ProjectDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testGetBefore() {
 		int seqA = projectDao.insert(sampleProjectA);
 		int seqB = projectDao.insert(sampleProjectB);
@@ -135,8 +133,6 @@ public class ProjectDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testGetAfter() {
 		int seqA = projectDao.insert(sampleProjectA);
 		int seqB = projectDao.insert(sampleProjectB);
@@ -148,8 +144,6 @@ public class ProjectDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testUpdate() {
 		int seq = projectDao.insert(sampleProjectA);
 		sampleProjectB.setSeq(seq);
@@ -163,8 +157,6 @@ public class ProjectDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testDelete() {
 		int seq = projectDao.insert(sampleProjectA);
 		
@@ -178,8 +170,6 @@ public class ProjectDaoTest {
 	
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testList() {
 		projectDao.insert(sampleProjectA);
 		projectDao.insert(sampleProjectB);
@@ -193,8 +183,6 @@ public class ProjectDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithEnabledTrue() {
 		sampleProjectA.setEnabled(true);
 		sampleProjectB.setEnabled(false);
@@ -215,8 +203,6 @@ public class ProjectDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortSeq() {
 		projectDao.insert(sampleProjectA);
 		projectDao.insert(sampleProjectC);
@@ -236,8 +222,6 @@ public class ProjectDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortTitle() {
 		sampleProjectA.setTitle("1");
 		sampleProjectB.setTitle("3");
@@ -261,8 +245,6 @@ public class ProjectDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortSubtitle() {
 		sampleProjectA.setSubtitle("1");
 		sampleProjectB.setSubtitle("3");
@@ -286,8 +268,6 @@ public class ProjectDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortDeveloper() {
 		sampleProjectA.setDeveloper("1");
 		sampleProjectB.setDeveloper("3");
@@ -311,8 +291,6 @@ public class ProjectDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortSourcecode() {
 		sampleProjectA.setSourcecode("1");
 		sampleProjectB.setSourcecode("3");
@@ -336,8 +314,6 @@ public class ProjectDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortHits() {
 		sampleProjectA.setHits(1);
 		sampleProjectB.setHits(3);
@@ -361,8 +337,6 @@ public class ProjectDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortComtCnt() {
 		int seqA = projectDao.insert(sampleProjectA);
 		int seqB = projectDao.insert(sampleProjectB);

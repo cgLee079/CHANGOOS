@@ -1,9 +1,7 @@
 package com.cglee079.changoos.service;
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -36,7 +34,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.dao.BoardFileDao;
 import com.cglee079.changoos.model.BoardFileVo;
-import com.cglee079.changoos.model.BoardImageVo;
 import com.cglee079.changoos.util.FileHandler;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -44,7 +41,7 @@ import com.google.gson.Gson;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/appServlet/**-context.xml")
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/appServlet/**-context.xml"})
 public class BoardFileServiceTest {
 	private String realPath;
 	

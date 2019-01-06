@@ -34,22 +34,29 @@
 	<select id="get" resultMap="photoComtResultMap" parameterType="Integer">
 		/* 사진 댓글 가져오기 */
 		SELECT
-		COMT_SEQ as "seq",
-		PHOTO_SEQ as "photoSeq",
-		COMT_USERNAME as "username",
-		COMT_PWD as "password",
-		COMT_CONTENTS as "contents",
-		COMT_DATE as "DATE",
-		PARENT_COMT as "parentSeq"
+			*
 		FROM TB_CHANGOOS_PHOTO_COMT
 		WHERE COMT_SEQ = #{seq}
 	</select>
 	
 	<insert id="insert">
 		/* 사진 댓글 추가하기 */
-		INSERT TB_CHANGOOS_PHOTO_COMT 
-		(PHOTO_SEQ, COMT_USERNAME, COMT_PWD, COMT_CONTENTS, COMT_DATE, PARENT_COMT)
-		VALUES (#{photoSeq}, #{username}, #{password}, #{contents}, #{date}, #{parentSeq});
+		INSERT TB_CHANGOOS_PHOTO_COMT (
+			PHOTO_SEQ,
+			COMT_USERNAME,
+			COMT_PWD,
+			COMT_CONTENTS,
+			COMT_DATE,
+			PARENT_COMT
+		)
+		VALUES (
+			#{photoSeq},
+			#{username},
+			#{password},
+			#{contents},
+			#{date},
+			#{parentSeq}
+		)
 	</insert>
 	
 	<delete id="delete">
@@ -57,13 +64,5 @@
 		DELETE FROM TB_CHANGOOS_PHOTO_COMT
 		WHERE COMT_SEQ = #{seq}
 	</delete>
-	
-	<update id="update" parameterType="map">
-		/* 사진 댓글 수정하기 */
-		UPDATE TB_CHANGOOS_PHOTO_COMT
-		SET 
-		COMT_CONTENTS = #{contents}
-		WHERE COMT_SEQ = #{seq}
-	</update>
 	
 </mapper>

@@ -3,8 +3,11 @@ package com.cglee079.changoos.service;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cglee079.changoos.dao.BoardComtDao;
@@ -14,9 +17,8 @@ import com.cglee079.changoos.util.Formatter;
 
 @Service
 public class BoardComtService {
-
 	@Autowired private BoardComtDao boardcomtDao;
-
+	
 	@Value("#{db['project.comt.tb.name']}")	private String projectComtTB;
 	@Value("#{db['study.comt.tb.name']}") 	private String studyComtTB;
 	@Value("#{db['blog.comt.tb.name']}") 	private String blogComtTB;

@@ -22,10 +22,12 @@ import com.cglee079.changoos.model.BoardFileVo;
 import com.cglee079.changoos.model.BoardImageVo;
 import com.cglee079.changoos.model.StudyVo;
 
+@Transactional
+@Rollback(true)
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/test_config/dao-context.xml",
-	"file:src/main/webapp/WEB-INF/spring/appServlet/property-context.xml"})
+	"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class StudyDaoTest {
 	
 	@Autowired private StudyDao studyDao;
@@ -82,8 +84,6 @@ public class StudyDaoTest {
 	
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testGet() {
 		int seq = studyDao.insert(sampleStudyA);
 		
@@ -116,8 +116,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testGetBeforeWithSameCategory() {
 		sampleStudyA.setCategory("categoryA");
 		sampleStudyB.setCategory("categoryB");
@@ -132,8 +130,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testGetBeforeWithoutSameCategory() {
 		sampleStudyA.setCategory("categoryA");
 		sampleStudyB.setCategory("categoryB");
@@ -148,8 +144,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testGetAfterWithSameCategory() {
 		sampleStudyA.setCategory("categoryB");
 		sampleStudyB.setCategory("categoryB");
@@ -164,8 +158,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testGetAfterWithoutSameCategory() {
 		sampleStudyA.setCategory("categoryA");
 		sampleStudyB.setCategory("categoryB");
@@ -180,8 +172,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testUpdate() {
 		int seq = studyDao.insert(sampleStudyA);
 		sampleStudyB.setSeq(seq);
@@ -196,8 +186,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testDelete() {
 		int seq = studyDao.insert(sampleStudyA);
 		
@@ -211,8 +199,6 @@ public class StudyDaoTest {
 	
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testList() {
 		studyDao.insert(sampleStudyA);
 		studyDao.insert(sampleStudyB);
@@ -226,8 +212,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithEnabledTrue() {
 		sampleStudyA.setEnabled(true);
 		sampleStudyB.setEnabled(false);
@@ -248,8 +232,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithCategory() {
 		sampleStudyA.setCategory("categoryA");
 		sampleStudyB.setCategory("categoryB");
@@ -271,8 +253,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSearchValueA() {
 		sampleStudyA.setTitle("A");
 		sampleStudyB.setTitle("B");
@@ -294,8 +274,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSearchValueB() {
 		sampleStudyA.setTitle("A");
 		sampleStudyA.setTitle("B");
@@ -316,8 +294,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithPaging() {
 		sampleStudyA.setDate("2019-01-03");
 		sampleStudyB.setDate("2019-01-02");
@@ -341,8 +317,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortSeq() {
 		studyDao.insert(sampleStudyA);
 		studyDao.insert(sampleStudyC);
@@ -362,8 +336,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortTitle() {
 		sampleStudyA.setTitle("1");
 		sampleStudyB.setTitle("3");
@@ -387,8 +359,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortCategory() {
 		sampleStudyA.setCategory("categoryA");
 		sampleStudyB.setCategory("categoryC");
@@ -412,8 +382,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortCodeLang() {
 		sampleStudyA.setCodeLang("langA");
 		sampleStudyB.setCodeLang("langC");
@@ -439,8 +407,6 @@ public class StudyDaoTest {
 	
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortDate() {
 		sampleStudyA.setDate("2019-01-01");
 		sampleStudyB.setDate("2019-01-03");
@@ -464,8 +430,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortHits() {
 		sampleStudyA.setHits(1);
 		sampleStudyB.setHits(3);
@@ -489,8 +453,6 @@ public class StudyDaoTest {
 	}
 	
 	@Test
-	@Transactional
-	@Rollback(true)
 	public void testListWithSortComtCnt() {
 		int seqA = studyDao.insert(sampleStudyA);
 		int seqB = studyDao.insert(sampleStudyB);

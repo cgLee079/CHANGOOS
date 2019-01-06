@@ -3,33 +3,19 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
-	<filter>
-		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>utf-8</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
 	<!-- ContextLoaderListener 설정 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml
-		/WEB-INF/spring/appServlet/property-context.xml
   		/WEB-INF/spring/appServlet/service-context.xml
   		/WEB-INF/spring/appServlet/dao-context.xml
   		/WEB-INF/spring/appServlet/security-context.xml
  		/WEB-INF/spring/appServlet/util-context.xml
     </param-value>
 	</context-param>
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
 
 	<!-- AppSevlet 설정 -->
 	<servlet>
@@ -40,6 +26,7 @@
 			<param-value>
 				/WEB-INF/spring/appServlet/servlet-context.xml
 				/WEB-INF/spring/appServlet/intercepter-context.xml
+				/WEB-INF/spring/appServlet/aop-context.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
@@ -50,6 +37,15 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/views/error/404.jsp</location>
+	</error-page>
+
+	<session-config>
+		<session-timeout>10080</session-timeout>
+	</session-config>
+
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -58,23 +54,6 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-	<error-page>
-		<error-code>404</error-code>
-		<location>/WEB-INF/views/error/404.jsp</location>
-	</error-page>
-
-
-	<session-config>
-		<session-timeout>10080</session-timeout>
-	</session-config>
-
-	<!-- CKEDITOR 이미지 업로드 때문에 추가한부분인데..? -->
-	<!-- <filter> <filter-name>httpHeaderSecurity</filter-name> <filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class> 
-		<init-param> <param-name>antiClickJackingOption</param-name> <param-value>SAMEORIGIN</param-value> 
-		</init-param> </filter> <filter-mapping> <filter-name>httpHeaderSecurity</filter-name> 
-		<url-pattern>/*</url-pattern> <dispatcher>REQUEST</dispatcher> </filter-mapping> -->
-
 
 	<!-- RESTful -->
 	<!-- Spring GET, POST 이외의 메소드를 가능하게 해주는 필터 -->
@@ -87,4 +66,16 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>

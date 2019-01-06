@@ -9,6 +9,7 @@
 
 	<security:http pattern="/resources/**" security="none"></security:http> <!-- 리소스 파일은 Security(X) -->
 	<security:http pattern="/uploaded/**" security="none"></security:http> <!-- 리소스 파일은 Security(X) -->
+	
 	<security:http use-expressions="true" auto-config="true">
 		
 		<!-- auto-config='true' 를 설정한것만으로 기본 로그인페이지/ HTTP 기본인증 / 로그아웃기능등을 제공 -->
@@ -46,11 +47,12 @@
 	
 	<security:authentication-manager> <!-- 로그인 관리자 -->
 		<security:authentication-provider user-service-ref="adminService">
-		<security:password-encoder ref="passwordEncoder"></security:password-encoder>
+			<security:password-encoder ref="passwordEncoder"></security:password-encoder>
 		</security:authentication-provider>
 	</security:authentication-manager>
 	
 	<bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
   		<constructor-arg name="strength" value="256"></constructor-arg>
 	</bean>
+	
 </beans>
