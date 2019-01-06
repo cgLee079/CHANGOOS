@@ -239,9 +239,14 @@ function commentModify(tg){
 		commentPageMove(page);
 	} else {
 		swal({
-			  text: '비밀번호를 입력해주세요',
-			  content: "input",
-			  buttons : ["취소", "확인"]
+				text: '비밀번호를 입력해주세요',
+				content: {
+					element : "input",
+					attributes: {
+						type: "password",
+					}
+				},
+				buttons : ["취소", "확인"]
 			})
 			.then(function(pw) {
 				if(pw){
@@ -294,7 +299,12 @@ function commentModify(tg){
 function commentDelete(tg){
 	swal({
 		  	text: '비밀번호를 입력해주세요',
-		  	content: "input",
+			content: {
+				element : "input",
+				attributes: {
+					type: "password",
+				}
+			},
 			buttons : ["취소", "확인"]
 		})
 		.then(function(pw) {

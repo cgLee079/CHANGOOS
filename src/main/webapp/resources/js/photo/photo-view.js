@@ -193,7 +193,13 @@ function showWriteComment(tg){
 function deleteComment(tg){
 	swal({
 		  	text: '비밀번호를 입력해주세요',
-		  	content: "input",
+			content: {
+				element : "input",
+				attributes: {
+					type: "password",
+				}
+			},
+		  	inputType: "password",
 			buttons : ["취소", "확인"]
 		}).then(function(pw) {
 			if(pw){
