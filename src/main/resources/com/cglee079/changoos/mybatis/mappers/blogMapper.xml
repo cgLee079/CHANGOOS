@@ -42,6 +42,7 @@
 			LEFT JOIN 
 			(SELECT BOARD_SEQ, COUNT(COMT_SEQ) as comtCnt
 			FROM TB_CHANGOOS_BLOG_COMT
+			WHERE COMT_ENABLED = true
 			GROUP BY BOARD_SEQ) D
 			ON BLOG_SEQ = D.BOARD_SEQ
 		
@@ -72,6 +73,7 @@
 					LEFT JOIN 
 					(SELECT BOARD_SEQ, COUNT(COMT_SEQ) as comtCnt
 					FROM TB_CHANGOOS_BLOG_COMT
+					WHERE COMT_ENABLED = true
 					GROUP BY BOARD_SEQ) C
 					ON BLOG_SEQ = C.BOARD_SEQ
 				<trim prefix="WHERE" prefixOverrides="AND |OR ">
@@ -100,6 +102,7 @@
 					LEFT JOIN 
 					(SELECT BOARD_SEQ, COUNT(COMT_SEQ) as comtCnt
 					FROM TB_CHANGOOS_BLOG_COMT
+					WHERE COMT_ENABLED = true
 					GROUP BY BOARD_SEQ) C
 					ON BLOG_SEQ = C.BOARD_SEQ
 				<trim prefix="WHERE" prefixOverrides="AND |OR ">
@@ -120,8 +123,8 @@
 		<otherwise> ORDER BY BLOG_DATE DESC, BLOG_SEQ DESC 	</otherwise>
 		</choose>
 		
-		<if test="startRow != null and perPgLine != null">
- 		LIMIT ${startRow}, ${perPgLine}
+		<if test="offset != null and limit != null">
+ 		LIMIT ${offset}, ${limit}
   		</if>
 	</select>
 	
@@ -129,12 +132,35 @@
 		/* 블로그 개수 */
 		SELECT
 			count(*)
-		FROM TB_CHANGOOS_BLOG
-		<trim prefix="WHERE" prefixOverrides="AND |OR ">
-		<if test="enabled != null">
-			AND BLOG_ENABLED = #{enabled}
-		</if>
-		</trim>
+		FROM (
+			<choose>
+			<when test="tags != null and tags.size() != 0">
+	      		<foreach collection="tags"  item="item" separator="UNION DISTINCT">
+				SELECT
+					BLOG_SEQ
+				FROM 
+					TB_CHANGOOS_BLOG 
+				<trim prefix="WHERE" prefixOverrides="AND |OR ">
+					AND BLOG_TAG like '%${item}%' 
+				<if test="enabled != null">
+					AND BLOG_ENABLED = #{enabled}
+	  			</if>
+	  			</trim>
+				</foreach>
+			</when>
+			<otherwise>
+				SELECT
+					BLOG_SEQ
+				FROM 
+					TB_CHANGOOS_BLOG 
+				<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="enabled != null">
+					AND BLOG_ENABLED = #{enabled}
+	  			</if>
+  				</trim>
+			</otherwise>
+			</choose>
+		) B
 	</select>
 
 	<select id="getTags" resultType="String" parameterType="map">

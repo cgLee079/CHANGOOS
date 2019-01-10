@@ -18,12 +18,12 @@
 		<div class="wrap-upload-form">
 			<div class="upload-title">프로젝트 업로드</div>
 			
-			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/project/upload.do" 
-				method="post" enctype="multipart/form-data">
+			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/projects/post/${project.seq}" 
+				method="POST">
 				
 				<c:if test="${not empty project}">
+					<input type="hidden" name="_method" value="PUT"/>
 					<input type="hidden" name="seq" value="<c:out value='${project.seq}'/>"/>
-					<input type="hidden" name="thumbnail" value="<c:out value='${project.thumbnail}'/>"/>
 					<input type="hidden" name="hits" value="<c:out value='${project.hits}'/>"/>
 				</c:if>
 				
@@ -39,9 +39,11 @@
 				</div>
 				
 				<div class="upload-project">
-					<div class="upload-project-name">스냅샷</div>
+					<div class="upload-project-name">썸네일</div>
 					<div class="upload-project-input">
-						<input type="file" id="thumbnailFile" name="thumbnailFile" class="project-thumbnail"/>
+						<img id="thumbnail-img" class="project-thumbnail-img" onclick="$(this).siblings('#thumbnailFile').click();" src="<c:out value='${thumbDir}${project.thumbnail}'/>" height="150">
+						<input type="hidden" id="thumbnail" name="thumbnail" value="<c:out value='${project.thumbnail}'/>" />
+						<input type="file" id="thumbnailFile" name="thumbnailFile" class="project-thumbnailFile" onchange="onThumbnailChange(this)"/>
 					</div>
 				</div>
 				

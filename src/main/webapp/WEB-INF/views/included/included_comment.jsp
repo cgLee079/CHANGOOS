@@ -18,7 +18,7 @@
 			<div class="write-username"><input type="text" id="username" name="username" placeholder="username"></div>
 			<div class="write-password"><input type="password" id="password" name="password" placeholder="password"></div>
 			<div style="flex : 1"></div>
-			<div onclick="doCommentSubmit()" class="comment-write-submit col-center">등록</div>
+			<div onclick="commentDoSubmit()" class="comment-write-submit col-center">등록</div>
 		</div>
 		
 	</div>

@@ -1,18 +1,19 @@
 var page;
-var perPgLine; 
+var limit; 
 var comtFormTemp;
 var boardType;
 var boardSeq;
 var comtCnt;
 var isAdmin;
-
+var path;
 $(document).ready(function(){
-	perPgLine 	= 1000000;
+	limit 	= 1000000;
 	boardType	= $("#boardType").val();
 	boardSeq	= $("#boardSeq").val();
 	isAdmin 	= $("#isAdmin").val();
 	comtCnt		= parseInt($("#comtCnt").val());
 	comtFormTemp= $(".comment-write").clone();
+	path = getContextPath() + "/" + boardType + "/" + boardSeq;
 	
 	drawCommentCnt();
 	commentPageMove(1); // Paging
@@ -32,24 +33,21 @@ function drawCommentCnt(){
 
 // 댓글 페이징
 function commentPageMove(pg){
-	var param = { };
-	param['boardType']	= boardType;
-	param['boardSeq'] 	= boardSeq;
-	param['page'] 		= pg;
-	param['perPgLine'] 	= perPgLine;
-	
 	$.ajax({
-		type	: "POST",
-		url		: getContextPath() + "/board/comment/paging",
-		data	: param,
+		type	: "GET",
+		url		: path + "/comments",
+		data	: {
+			'offset'	: (pg - 1) * limit,
+			'limit' 	: limit
+		},
 		beforeSend : function(){
 			Progress.start();
 		},
 		dataType: 'JSON',
 		success : function(data) {
 			page = pg;
-			updateComment(data);
-			updatePaging("commentPageMove", page, comtCnt, perPgLine, 3);
+			drawComment(data);
+			updatePaging("commentPageMove", page, comtCnt, limit, 3);
 		},
 		complete : function(){
 			Progress.stop();
@@ -62,18 +60,18 @@ function commentPageMove(pg){
 }
 
 /* draw Page number */
-function updatePaging(callFunc, page, comtCnt, perPgLine, pgGrpCnt){
+function updatePaging(callFunc, page, comtCnt, limit, pgGrpCnt){
 	var boardPager	= $('.comt-pager');
 	boardPager.empty();
 	
 	if(comtCnt > 0){
-		var	pager	= drawPager(callFunc, page, comtCnt, perPgLine, pgGrpCnt);
+		var	pager	= drawPager(callFunc, page, comtCnt, limit, pgGrpCnt);
 		boardPager.append(pager);
 	}
 }
 
 /* draw comment */
-function updateComment(data){
+function drawComment(data){
 	var container = $(".comments");
 	var length = data.length;
 	var comment;
@@ -101,7 +99,7 @@ function updateComment(data){
 		}
 	}
 	
-	/* Make comment element */
+	/* 일반 댓글 작성 */
 	function makeComment(){
 		var comment = "";
 		comment += '<div class="comment-item">';
@@ -112,7 +110,7 @@ function updateComment(data){
 		comment += '<div class="comment-head-info"><a class="comment-writer"></a> <a class="comment-date"></a></div>'
 		comment += '<div class="comment-menu">';
 		if(isAdmin === 'true'){
-			comment += '<a onclick="addReplyForm(this)" class="btn btn-reply">답변</a>';	
+			comment += '<a onclick="drawReplyForm(this)" class="btn btn-reply">답변</a>';	
 		}
 		if(!(isAdmin === 'true')){
 			comment += '<a onclick="commentModify(this)" class="btn btn-modify">수정</a>';
@@ -127,7 +125,7 @@ function updateComment(data){
 		return $(comment);
 	}
 	
-	/* Make reply comment element */
+	/* 답변 댓글 작성  */
 	function makeReplyComment(){
 		var comment = "";
 		comment += '<div class="comment-item reply">';
@@ -150,8 +148,8 @@ function updateComment(data){
 	}
 }
 
-/* draw reply form element */
-function addReplyForm(tg){
+/* 답변하기 클릭 시, 답변 폼 */
+function drawReplyForm(tg){
 	var tg 			= $(tg);
 	var item		= $(tg).parents(".comment-item");
 	var parentComt	= item.find(".comment-seq").val();
@@ -175,22 +173,55 @@ function addReplyForm(tg){
 		form += '<div class="comment-reply row-center">';
 		form += '<img src="' + getContextPath() + '/resources/image/icon_comment_reply.svg" style="width:1rem; height:1rem; margin-right: 0.3rem">';
 		form += '<textarea class="comment-reply-content" id="contents" name="contents"/></textarea>';
-		form += '<div onclick="doReply(this)" class="comment-reply-submit col-center">답변</div>';
+		form += '<div onclick="commentDoReply(this)" class="comment-reply-submit col-center">답변</div>';
 		form += '</div>';
 		return $(form);
 	}
 }
 
-/* Do comment reply */
-function doReply(tg){
+/* 수정하기 클릭 시*/
+function commentModify(tg){
+	var tg = $(tg);
+	var item= $(tg).parents(".comment-item");
+	var seq = item.find(".comment-seq").val();
+	
+	if(tg.hasClass("open")){
+		commentPageMove(page);
+	} else {
+		commentDoCheck(seq, commentToModifyForm, tg);
+	}
+}
+
+/* 수정 하기 클릭 시, 수정 폼 변환*/
+function commentToModifyForm(tg){
+	var item= tg.parents(".comment-item");
+	var contentsDiv = item.find(".comment-contents");
+	var contents = br2nl(contentsDiv.html());
+	tg.toggleClass("open");
+	
+	var commentModify = $("<div>" , {"class" : "comment-modify"});
+	$("<textarea>", {text : contents, id : "contents", "class" : "comment-write-contents"}).appendTo(commentModify);
+	$("<div>", {text : "수정", onclick:  "commentDoModify(this)", "class" : "col-center comment-write-submit"}).appendTo(commentModify);
+	contentsDiv.empty();
+	contentsDiv.append(commentModify);
+}
+
+/* 삭제하기 클릭 시 */
+function commentDelete(tg){
+	var item= $(tg).parents(".comment-item");
+	var seq	= item.find(".comment-seq").val();
+	
+	commentDoCheck(seq, commentDoDelete, seq);		  
+}
+
+/* 답변 작성하기 */
+function commentDoReply(tg){
 	var reply		= $(tg).parents(".comment-reply");
 	var parentComt	= reply.find(".parentComt").text();
 	var username	= "CHANGOO";
 	var password	= "I_AM_ADMIN";
 	var contents	= reply.find(".comment-reply-content").val();
 	var param = { };
-	param['boardType']	= boardType;
-	param['boardSeq'] 	= boardSeq;
 	param['username'] 	= username;
 	param['password'] 	= password;
 	param['contents'] 	= nl2br(contents);
@@ -198,7 +229,7 @@ function doReply(tg){
 	
 	$.ajax({	
 		type	: "POST",
-		url		: getContextPath() + "/board/comment/upload.do",
+		url		: path +  "/comments",
 		data	: param,
 		dataType : "JSON",
 		success : function(result) {
@@ -207,8 +238,8 @@ function doReply(tg){
 	});
 }
 
-/* Do comment modify */
-function doCommentModify(tg){
+/* 댓글 수정하기 */
+function commentDoModify(tg){
 	var item	= $(tg).parents(".comment-item");
 	var seq 	= item.find(".comment-seq").val();
 	var contents = item.find(".comment-modify #contents").val();
@@ -216,11 +247,10 @@ function doCommentModify(tg){
 	
 	$.ajax({	
 		type	: "POST",
-		url		: getContextPath() + "/board/comment/update.do",
+		url		: path + "/comments/" + seq,
 		data	: {
-			'boardType' : boardType,
-			'seq' : seq,
-			'contents' : contents
+			'_method'	: "PUT",
+			'contents' 	: contents
 		},
 		dataType : "JSON",
 		success : function(result) {
@@ -233,127 +263,73 @@ function doCommentModify(tg){
 	});
 }
 
-function commentModify(tg){
-	var tg = $(tg);
-	if(tg.hasClass("open")){
-		commentPageMove(page);
-	} else {
-		swal({
-				text: '비밀번호를 입력해주세요',
-				content: {
-					element : "input",
-					attributes: {
-						type: "password",
-					}
-				},
-				buttons : ["취소", "확인"]
-			})
-			.then(function(pw) {
-				if(pw){
-					checkPwd(pw);				  
-			  	}
-			});
-	}
-	
-	/* Check Comment Password */
-	function checkPwd(password){
-		var item= tg.parents(".comment-item");
-		var seq	= item.find(".comment-seq").val();
-		$.ajax({	
+
+/* 비밀번호 검증 */
+function commentDoCheck(seq, callback, callBackValue){
+	swal({
+		text: '비밀번호를 입력해주세요',
+		content: {
+			element : "input",
+			attributes: {
+				type: "password",
+			}
+		},
+		buttons : ["취소", "확인"]
+	})
+	.then(function(password) {
+		return $.ajax({	
 			type	: "POST",
-			url		: getContextPath() + "/board/comment/check-pwd.do",
+			url		: path +  "/comments/" + seq + "/check",
 			data	: {
-				'boardType' : boardType,
-				'seq' : seq,
 				'password'	: password
 			},
+			async 	: false,
 			dataType : "JSON",
 			success : function(result) {
-				if (result){
-					changeToForm(item);
+				if(result){
+					callback(callBackValue);
 				} else{
 					swal({
-						text : "비밀번호가 틀렸습니다.", 
+						text : '비밀번호가 틀렸습니다',
 						icon : "error"
 					});
 				}
 			}
 		});
-	}
-	
-	/* change comment - > comment form */
-	function changeToForm(item){
-		var contentsDiv = item.find(".comment-contents");
-		var contents = br2nl(contentsDiv.html());
-		tg.toggleClass("open");
-		
-		var commentModify = $("<div>" , {"class" : "comment-modify"});
-		$("<textarea>", {text : contents, id : "contents", "class" : "comment-write-contents"}).appendTo(commentModify);
-		$("<div>", {text : "수정", onclick:  "doCommentModify(this)", "class" : "col-center comment-write-submit"}).appendTo(commentModify);
-		contentsDiv.empty();
-		contentsDiv.append(commentModify);
-	}
+	});
 }
-		
-/* comment Delete */
-function commentDelete(tg){
-	swal({
-		  	text: '비밀번호를 입력해주세요',
-			content: {
-				element : "input",
-				attributes: {
-					type: "password",
-				}
-			},
-			buttons : ["취소", "확인"]
-		})
-		.then(function(pw) {
-			if(pw){
-				doCommentDelete(pw);				  
-		  	}
-		});
 
-	function doCommentDelete(password){
-		var item= $(tg).parents(".comment-item");
-		var seq	= item.find(".comment-seq").val();
-		$.ajax({	
-			type	: "POST",
-			url		: getContextPath() + "/board/comment/delete.do",
-			data	: {
-				'boardType' : boardType,
-				'seq' : seq,
-				'password' 	: password
-			},
-			dataType: 'JSON',
-			success : function(data) {
-				if(data){
-					swal({
-						text : "댓글이 삭제 되었습니다.", 
-						icon : "success"
-					});
-					
-					comtCnt = comtCnt - 1;
-					drawCommentCnt();
-					commentPageMove(parseInt((comtCnt-1) / perPgLine)+1);
-				} else{
-					swal({
-						text : "비밀번호가 틀렸습니다.", 
-						icon : "error"
-					});
-				}
+function commentDoDelete(seq){
+	$.ajax({	
+		type	: "DELETE",
+		url		: path + "/comments/" + seq,
+		dataType: 'JSON',
+		success : function(data) {
+			if(data){
+				swal({
+					text : "댓글이 삭제 되었습니다.", 
+					icon : "success"
+				});
+				
+				comtCnt = comtCnt - 1;
+				drawCommentCnt();
+				commentPageMove(parseInt((comtCnt-1) / limit)+1);
+			} else{
+				swal({
+					text : "댓글 삭제 실패!", 
+					icon : "error"
+				});
 			}
-		});
-	}	
-}
+		}
+	});
+}	
 
 /* comment Submit*/
-function doCommentSubmit(){
+function commentDoSubmit(){
 	var username = $(".comment-write #username");
 	var password = $(".comment-write #password");
 	var contents  = $(".comment-write #contents");
 	var param = { };
-	param['boardType']	= boardType;
-	param['boardSeq'] 	= boardSeq;
 	param['username'] 	= username.val();
 	param['password'] 	= password.val();
 	param['contents'] 	= nl2br(contents.val());
@@ -364,7 +340,7 @@ function doCommentSubmit(){
 	
 	$.ajax({
 		type	: "POST",
-		url		: getContextPath() + "/board/comment/upload.do",
+		url		: path + "/comments",
 		data	: param,
 		dataType: 'JSON',
 		beforeSend : function(){
@@ -379,7 +355,7 @@ function doCommentSubmit(){
 				contents.val('');
 				comtCnt = comtCnt + 1;
 				drawCommentCnt();
-				commentPageMove(parseInt((comtCnt-1) / perPgLine)+1);
+				commentPageMove(parseInt((comtCnt-1) / limit )+1);
 			}
 		},
 		complete : function(){

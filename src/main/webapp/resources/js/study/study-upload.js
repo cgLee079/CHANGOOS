@@ -7,11 +7,12 @@ function submit(){
 	var form = $("#uploadForm");
 	form.submit();
 }
+
 /* CKEditor Initialize */
 function initContentCKEditor(){
 	var editor = CKEDITOR.replace("study-contents", {
 		height : '400px',
-		pasteImageUrl : getContextPath() + "/mgnt/board/image/paste-upload.do",
+		pasteImageUrl : getContextPath() + "/mgnt/board/post/image",
 		on : {
 			instanceReady : function( ev ){
 			    // Output paragraphs as <p>Text</p>.

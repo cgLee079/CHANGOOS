@@ -39,7 +39,6 @@ public class StudyService {
 		return studyDao.count(params);
 	}
 	
-	@Transactional
 	public StudyVo get(int seq) {
 		StudyVo study = studyDao.get(seq);
 		
@@ -82,11 +81,6 @@ public class StudyService {
 	}
 	
 	public List<StudyVo> paging(Map<String, Object> params) {
-		int page = Integer.parseInt((String) params.get("page"));
-		int perPgLine = Integer.parseInt((String) params.get("perPgLine"));
-		int startRow = (page - 1) * perPgLine;
-		params.put("startRow", startRow);
-
 		List<StudyVo> studies = studyDao.list(params);
 		StudyVo study = null;
 		String contents = null;

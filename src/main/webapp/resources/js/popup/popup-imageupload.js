@@ -11,8 +11,8 @@ function sendImage(file) {
 		formData.append("image", file);
 		
 		$.ajax({
-			type : "post",
-			url : getContextPath() + "/mgnt/board/image/upload.do",
+			type : "POST",
+			url : getContextPath() + "/mgnt/board/post/image",
 			dataType : "JSON",
 			async : false,
 			contentType: false,

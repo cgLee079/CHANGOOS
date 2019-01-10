@@ -7,8 +7,8 @@ $(document).ready(function(){
 /* datagrid initialize */
 function fn_onInitDataGrid(){
 	$('#dg').datagrid({
-		url: getContextPath() + '/mgnt/photo/paging',
-		method: 'get',
+		url: getContextPath() + '/mgnt/photos/records',
+		method: 'GET',
 		singleSelect: true,
 		remoteSort: true,
 		fitColumns: false,
@@ -34,6 +34,7 @@ function fn_onInitDataGrid(){
 			{field:'tag', title:'태그', width:'200px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'device', title:'촬영기기', width:'150px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'likeCnt', title:'좋아요', width:'70px', halign:'center', sortable : "true", styler : alignCenter},
+			{field:'enabled', title:'공개여부', width:'70px', halign:'center', sortable : "true", styler : alignCenter},
 		]]
 	});
 }
@@ -56,9 +57,8 @@ function photoDelete(seq, index){
 	/* Ajax */
 	function doDelete(seq, index){
 		$.ajax({
-			type	: "POST",
-			url		:  getContextPath() + "/mgnt/photo/delete.do",
-			data	: { 'seq' : seq },
+			type	: "DELETE",
+			url		:  getContextPath() + "/mgnt/photos/post/" + seq,
 			dataType: 'JSON',
 			async	: false,
 			success : function(data) {
@@ -76,6 +76,6 @@ function photoDelete(seq, index){
 
 /* when '수정' click' */
 function photoModify(seq){
-	window.location.href = getContextPath() + "/mgnt/photo/upload?seq=" + seq;		
+	window.location.href = getContextPath() + "/mgnt/photos/post/" + seq;		
 }
 

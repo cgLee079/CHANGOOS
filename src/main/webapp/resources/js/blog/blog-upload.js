@@ -4,12 +4,46 @@ $(document).ready(function() {
 });
 
 function submit(){
+	form = $('#uploadForm');
+	seq = $('#seq').val();
+	
+	if(!seq){
+		form.attr("action", getContextPath() + "/mgnt/blogs/post/");
+		form.attr("method", "post");
+	} else{
+		form.attr("action", getContextPath() + "/mgnt/blogs/post/" + seq);
+		form.attr("method", "put");
+	}
+	
+	form.submit();	
+}
+
+function onThumbnailChange(tg){
+	var files = tg.files;
+	var file = files[0];
+	
+	var formData = new FormData(); 	
+	formData.append("thumbnailFile", file);
+	
+	$.ajax({
+		type : "POST",
+		url : getContextPath() + "/mgnt/blogs/post/thumbnail",
+		dataType : "JSON",
+		async : false,
+		contentType: false,
+		processData: false,
+		data : formData,
+		success : function(result) {
+			$("#thumbnail").val(result["pathname"]);
+			$("#thumbnail-img").attr("src", getContextPath() + tempThumbDir + result["pathname"]);
+		},
+	})
 }
 
 function initContentCKEditor() {
 	var editor = CKEDITOR.replace("contents", {
 		height : '400px',
-		pasteImageUrl : getContextPath() + "/mgnt/board/image/paste-upload.do",
+		pasteImageUrl : getContextPath() + "/mgnt/board/post/image",
 		codeSnippet_theme : 'github',
 		on : {
 			instanceReady : function(ev) {

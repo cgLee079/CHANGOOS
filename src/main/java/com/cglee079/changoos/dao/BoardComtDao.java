@@ -16,12 +16,12 @@ public class BoardComtDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public List<BoardComtVo> list(String TB, int boardSeq, int startRow, int perPgLine) {
+	public List<BoardComtVo> list(String TB, int boardSeq, int offset, int limit) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("TB", TB);
 		map.put("boardSeq", boardSeq);
-		map.put("startRow", startRow);
-		map.put("perPgLine", perPgLine);
+		map.put("offset", offset);
+		map.put("limit", limit);
 		return sqlSession.selectList(namespace +".list", map);
 	}
 

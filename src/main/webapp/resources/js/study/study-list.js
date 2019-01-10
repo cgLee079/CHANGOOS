@@ -1,10 +1,9 @@
-var perPgLine 	= 10;
-var searchType 	= "";
-var searchValue = "";
 var page 		= 1;
-var category 	= 'ALL';
-var allRowCnt	= undefined;
-var studyTemp	= undefined;
+var limit 		= 10;
+var category 	= '';
+var totalCount	= '';
+var searchValue = '';
+var studyTemp;
 
 $(document).ready(function(){
 	doMenuOn(".menu-study");
@@ -16,18 +15,18 @@ $(document).ready(function(){
 	$(window).scroll(function(){
 		var scrollPosition = $(this).scrollTop() + $(this).outerHeight();
 		var docHeight = $(this).height();
-		if(scrollPosition >= (docHeight/2) - 10 && page * perPgLine < allRowCnt){
+		if(scrollPosition >= (docHeight/2) - 10 && page * limit < totalCount){
 			page = page + 1;
 			pageMove(page);
 		}
 	});
 	
-	/* Get Hash */
-	allRowCnt = $("#allRowCnt").val();
-	category = decodeURI(window.location.hash.substring(1));
+	
+	totalCount = $("#totalCount").val();
+	category = $("#category").val();
+	searchValue = $("#searchValue").val();
 	
 	/* Add Class 'on' to Category*/
-	if(!category){ category = 'ALL'; }
 	var items = $(".study-categories .study-categories-item");
 	for(var i = 0; i < items.length; i++){
 		if($(items[i]).text() == category){
@@ -48,59 +47,57 @@ function clearStudyItems(){
 /* when study click */
 function studyView(seq){
 	Progress.start();
-	window.location.href = getContextPath() + "/study/view?seq=" + seq + "&category=" + category;
-}
-
-/* when Search button click */
-function search(){
-	searchType	= $(".search-type").val();
-	searchValue = $(".search-value").val();
 	
-	clearStudyItems();
-	pageMove(1);
+	var param = {};
+	param["category"] = category;
+	window.location.href = getContextPath() + "/studies/" + seq + encodeURIParam(param);
 }
 
-/* when Category click */
+/* 검색 했을때 */
+function search(){
+	searchValue =  $("#searchValue").val();
+	
+	var param = {};
+	param["category"] = category;
+	param["title"] = searchValue;
+	window.location.href = getContextPath() + "/studies" + encodeURIParam(param);
+}
+
+/* 카테고리를 선택했을 때 */
 function selectCategory(tg){
 	var tg = $(tg);
 	
-	var items = $(".study-categories .study-categories-item");
-	items.removeClass("on");
-	tg.addClass("on");
-	category = tg.text();
-	window.location.hash = category;
+	if(tg.hasClass("on")){
+		category = '';
+	} else{
+		category  = tg.text();
+	}
 	
-	clearStudyItems();
-	pageMove(1);
+	var param = {};
+	param["category"] = category;
+	param["title"] = searchValue;
+	window.location.href = getContextPath() + "/studies" + encodeURIParam(param);
 }
 
 /* Paging */
 function pageMove(pg){
-	if(category == "ALL"){
-		category = '';
-	}
-	
 	$.ajax({
-		type	: "POST",
-		url		: getContextPath() + "/study/paging",
+		type	: "GET",
+		url		: getContextPath() + "/studies/records",
 		data	: {
-			'page'			: pg,
-			'perPgLine' 	: perPgLine,
-			'category' 		: category,
-			'searchType'	: searchType,
-			'searchValue'	: searchValue
+			'offset'	: (pg - 1) * limit,
+			'limit' 	: limit,
+			'category' 	: category,
+			'title'		: searchValue
 		},
 		dataType: 'JSON',
 		async	: false,
 		success : function(result) {
-			var count = result['count'];
-			var data = result['data'];
-			allRowCnt = count;
+			var records = result['records'];
+			totalCount = result['total-count'];
 			
-			if(data.length){
-				page = pg;
-				drawStudy(data);
-			}
+			page = pg;
+			drawStudy(records);
 		},
 		complete: function(){
 		},
@@ -111,20 +108,20 @@ function pageMove(pg){
 }
 
 /* draw Study list */
-function drawStudy(data){
+function drawStudy(records){
 	var studyList 	= $(".study-list");
-	var length		= data.length;
+	var length		= records.length;
 	var item		= undefined;
 	
-	if(!data.length){
-		study = data[i];
+	if(!records.length){
+		study = records[i];
 		item = $("<div>", {'class' : 'study-list-item', onclick : "$('.search-value').val(''); search();"});
 		$("<div>",{ 'class' : 'study-item-nosearch', text: "조회된 글이 없습니다.(목록으로)" }).appendTo(item);
 		item.appendTo(studyList);
 	}
 	
 	for (var i = 0; i < length; i++){
-		study = data[i];
+		study = records[i];
 		item = studyTemp.clone();
 		
 		item.attr("onclick", "studyView(" + study.seq + ")");

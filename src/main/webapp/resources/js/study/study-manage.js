@@ -7,8 +7,8 @@ $(document).ready(function(){
 /* Datagrid Initialize */
 function fn_onInitDataGrid(){
 	$('#dg').datagrid({
-		url: getContextPath() + '/mgnt/study/paging',
-		method: 'post',
+		url: getContextPath() + '/mgnt/studies/records',
+		method: 'GET',
 		singleSelect: true,
 		remoteSort: true,
 		fitColumns: false,
@@ -32,13 +32,14 @@ function fn_onInitDataGrid(){
 			{field:'comtCnt', title:'댓글수', width:'70px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'hits', title:'조회수', width:'70px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'date', title:'작성일', width:'100px', halign:'center', sortable : "true", styler : alignCenter},
+			{field:'enabled', title:'공개여부', width:'100px', halign:'center', sortable : "true", styler : alignCenter},
 		]]
 	});
 }
 
 /* when '보기' click */
 function studyView(seq){
-	window.location.href = getContextPath() + "/study/view?seq=" + seq;		
+	window.location.href = getContextPath() + "/studies/" + seq;		
 }
 
 /* when '삭제' click */
@@ -58,9 +59,8 @@ function studyDelete(seq, index){
 	
 	function doDelete(seq, index){
 		$.ajax({
-			type	: "POST",
-			url		: getContextPath() + "/mgnt/study/delete.do?",
-			data	: { 'seq' : seq },
+			type	: "DELETE",
+			url		: getContextPath() + "/mgnt/studies/post/" + seq,
 			dataType: 'JSON',
 			async	: false,
 			success : function(data) {
@@ -78,5 +78,5 @@ function studyDelete(seq, index){
 
 /* when '수정' click */
 function studyModify(seq){
-	window.location.href = getContextPath() + "/mgnt/study/upload?seq=" + seq;		
+	window.location.href = getContextPath() + "/mgnt/studies/post/" + seq;		
 }

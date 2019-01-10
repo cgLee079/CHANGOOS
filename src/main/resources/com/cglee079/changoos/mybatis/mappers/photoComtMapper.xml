@@ -12,6 +12,7 @@
 		<result property="contents" column="COMT_CONTENTS"/>
 		<result property="date" column="COMT_DATE"/>
 		<result property="parentComt" column="PARENT_COMT"/>
+		<result property="enabled" column="COMT_ENABLED"/>
 	</resultMap>
 	
 	<select id="count" resultType="Integer">
@@ -19,7 +20,8 @@
 		SELECT
 			count(*)
 		FROM TB_CHANGOOS_PHOTO_COMT
-		WHERE PHOTO_SEQ = #{photoSeq} 
+		WHERE PHOTO_SEQ = #{photoSeq}
+		AND COMT_ENABLED = true 
 	</select>
 	
 	<select id="list" resultMap="photoComtResultMap" parameterType="map">
@@ -28,6 +30,7 @@
 			*
 		FROM TB_CHANGOOS_PHOTO_COMT
 		WHERE PHOTO_SEQ = #{photoSeq}
+		AND COMT_ENABLED = true
 		ORDER BY CONCAT(IF(PARENT_COMT is null, COALESCE(PARENT_COMT, ''), CONCAT('_', LPAD(PARENT_COMT,6,'0')) ), '_',LPAD(COMT_SEQ,6,'0'))
 	</select>
 	

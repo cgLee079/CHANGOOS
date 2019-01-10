@@ -16,11 +16,13 @@
 		<result property="tag" column="PHOTO_TAG"/>
 		<result property="device" column="PHOTO_DEVICE"/>
 		<result property="likeCnt" column="PHOTO_LIKECNT"/>
+		<result property="enabled" column="PHOTO_ENABLED"/>
 	</resultMap>
 	
 	<select id="getSeqs" resultType="Integer">
 		SELECT PHOTO_SEQ 
 		FROM TB_CHANGOOS_PHOTO
+		WHERE PHOTO_ENABLED = true
 		ORDER BY PHOTO_DATE DESC, PHOTO_TIME DESC, PHOTO_SEQ DESC
 	</select>
 	
@@ -35,6 +37,11 @@
 		SELECT
 			*
 		FROM TB_CHANGOOS_PHOTO
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+		<if test="enabled != null">
+			AND PHOTO_ENABLED = #{enabled}
+ 		</if>
+		</trim>
 		<choose>
 		<when test="sort == 'seq'"> 	ORDER BY PHOTO_SEQ ${order} </when>
 		<when test="sort == 'name'">	ORDER BY PHOTO_NAME ${order} </when>
@@ -69,7 +76,8 @@
 			PHOTO_TIME, 
 			PHOTO_TAG, 
 			PHOTO_DEVICE, 
-			PHOTO_LIKECNT
+			PHOTO_LIKECNT,
+			PHOTO_ENABLED
 		)
 		VALUES (
 			#{filename}, 
@@ -82,7 +90,8 @@
 			#{time}, 
 			#{tag}, 
 			#{device}, 
-			#{likeCnt}
+			#{likeCnt},
+			#{enabled}
 		)
 	</insert>
 	
@@ -100,7 +109,8 @@
 		PHOTO_TIME = #{time},
 		PHOTO_TAG = #{tag},
 		PHOTO_DEVICE = #{device},
-		PHOTO_LIKECNT = #{likeCnt}
+		PHOTO_LIKECNT = #{likeCnt},
+		PHOTO_ENABLED = #{enabled}
 		WHERE PHOTO_SEQ = #{seq}
 	</update>
 </mapper>

@@ -7,8 +7,8 @@ $(document).ready(function(){
 /* datagrid initialize */
 function fn_onInitDataGrid(){
 	$('#dg').datagrid({
-		url: getContextPath() + '/mgnt/project/list',
-		method: 'post',
+		url: getContextPath() + '/mgnt/projects/records',
+		method: 'GET',
 		singleSelect: true,
 		remoteSort: true,
 		fitColumns: false,
@@ -35,15 +35,15 @@ function fn_onInitDataGrid(){
 			{field:'developer', title:'개발자', width:'200px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'hits', title:'조회수', width:'70px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'comtCnt', title:'댓글수', width:'70px', halign:'center', sortable : "true", styler : alignCenter},
-			{field:'date', title:'날짜', width:'100px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'sourcecode', title:'소스코드', width:'150px', halign:'center', sortable : "true", styler : alignCenter},
+			{field:'enabled', title:'공개여부', width:'150px', halign:'center', sortable : "true", styler : alignCenter},
 		]]
 	});
 }
 
 /* when '보기' click */
 function projectView(seq){
-	window.location.href = getContextPath() + "/project/view?seq=" + seq;		
+	window.location.href = getContextPath() + "/projects/" + seq;		
 }
 
 /* Ajax, when '삭제' click */
@@ -63,9 +63,8 @@ function projectDelete(seq, index){
 	
 	function doDelete(seq, index){
 		$.ajax({
-			type	: "POST",
-			url		: getContextPath() + "/mgnt/project/delete.do?",
-			data	: { 'seq' : seq },
+			type	: "DELETE",
+			url		: getContextPath() + "/mgnt/projects/post/" + seq,
 			dataType: 'JSON',
 			async	: false,
 			success : function(data) {
@@ -83,5 +82,5 @@ function projectDelete(seq, index){
 
 /* Ajax, when '수정' click */
 function projectModify(seq){
-	window.location.href = getContextPath() + "/mgnt/project/upload?seq=" + seq;		
+	window.location.href = getContextPath() + "/mgnt/projects/post/" + seq;		
 }

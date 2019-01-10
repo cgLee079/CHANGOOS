@@ -1,10 +1,8 @@
-var perPgLine 	= 5;
-var searchType 	= "";
-var searchValue = "";
-var page 		= "";
-var allRowCnt	= undefined;
+var limit 	= 5;
+var page 		= 1;
+var totalCount	= undefined;
 var blogItemTemp= undefined;
-var tags		=  new Array();
+var tags		= new Array();
 
 $(document).ready(function(){
 	doMenuOn(".menu-blog");
@@ -12,16 +10,19 @@ $(document).ready(function(){
 	blogItemTemp = $(".blog-item").clone();
 	$(".blog-item").remove();
 	
-	/* Page to 1 */
-	if(!page){
-		page = 1;
+	totalCount = $("#totalCount").val();
+	
+	if($("#tags").val()){
+		tags = $("#tags").val().replace("[",'').replace("]",'').replace(/ /gi,'').split(",");
 	}
+	
+	drawTags();
 	
 	/* Add Scroll Page event */
 	$(window).scroll(function(){
 		var scrollPosition = $(this).scrollTop() + $(this).outerHeight();
 		var docHeight = $(this).height();
-		if(scrollPosition >= (docHeight/2) - 10 && page * perPgLine < allRowCnt){
+		if(scrollPosition >= (docHeight/2) - 10 && page * limit < totalCount){
 			page = page + 1;
 			pageMove(page);
 		}
@@ -29,39 +30,29 @@ $(document).ready(function(){
 	
 	clearBlogItems();
 	pageMove(page);
-	
 });
 
 
 /* Paging */
 function pageMove(pg){
-	var validTags = new Array();
-	
-	validTags = tags;
+	var param = {
+		'offset': (pg - 1) * limit,
+		'limit' : limit,
+		'tags' 	: tags
+	};
 	
 	$.ajax({
 		type	: "GET",
-		url		: getContextPath() + "/blog/paging",
-		data	: {
-			'page'			: pg,
-			'perPgLine' 	: perPgLine,
-			'tags' 			: JSON.stringify(validTags)
-		},
+		url		: getContextPath() + "/blogs/records" + encodeURIParam(param),
 		dataType: 'JSON',
 		async	: false,
 		success : function(result) {
-			var count = result['count'];
-			var data = result['data'];
-			
-			allRowCnt = count;
+			var data = result['records'];
 			
 			if(data.length){
 				page = pg;
 				drawBlog(data);
-				drawTags(tags);
 			}
-			
-
 		},
 		error : function(e) {
 			console.log(e);
@@ -94,8 +85,8 @@ function drawBlog(data){
 		blogFirstItem.find(".blog-first-item-desc").attr("onclick", "doBlogView('" + blog.seq + "')");
 		blogFirstItem.find(".blog-first-item-desc .title").html(blog.title);
 		blogFirstItem.find(".blog-first-item-desc .content").html(blog.contents);
-	} 
-	
+	}
+
 	for (var i = 0; i < length; i++){
 		blog = data[i];
 		
@@ -123,12 +114,11 @@ function drawBlog(data){
 		}
 		blogItem.find(".blog-item-comt").text("댓글 " + blog.comtCnt);
 		
-		
 		blogItem.appendTo($(".blog-item-list"));
 	}
 }
 
-function drawTags(tags){
+function drawTags(){
 	var allTag = $(".tag");
 	allTag.removeClass("on");
 	
@@ -143,7 +133,7 @@ function drawTags(tags){
 
 function doSearchTag(tg){
 	var tg = $(tg);
-	var tag = tg.text();
+	var tag = tg.text().trim();
 	
 	tg.toggleClass("on");
 	if(tg.hasClass("on")){
@@ -155,10 +145,9 @@ function doSearchTag(tg){
 		}
 	}
 	
-	clearBlogItems();
-	pageMove(1);
+	window.location.href = getContextPath() + "/blogs" + encodeURIParam({"tags" : tags});
 }
 
 function doBlogView(seq){
-	window.location.href = getContextPath() + "/blog/view?seq=" + seq;
+	window.location.href = getContextPath() + "/blogs/" + seq;
 }

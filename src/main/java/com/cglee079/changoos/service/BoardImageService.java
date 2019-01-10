@@ -64,7 +64,6 @@ public class BoardImageService {
 		return pathname;
 	}
 	
-	@Rollback()
 	public String insertImages(String TB, String dir, int boardSeq, String contents, String imageValues) throws JsonParseException, JsonMappingException, IOException {
 		List<BoardImageVo> images = new ObjectMapper().readValue(imageValues, new TypeReference<List<BoardImageVo>>(){});
 		

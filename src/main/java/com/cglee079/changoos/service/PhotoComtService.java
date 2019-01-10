@@ -36,10 +36,14 @@ public class PhotoComtService{
 	}
 
 	public boolean delete(PhotoComtVo comt) {
+		return photocomtDao.delete(comt.getSeq());			
+	}
+
+	public boolean check(PhotoComtVo comt) {
 		int seq = comt.getSeq();
 		PhotoComtVo savedComt = photocomtDao.get(seq);
 		if(savedComt.getPassword().equals(comt.getPassword()) || AuthManager.isAdmin()){
-			return photocomtDao.delete(seq);			
+			return true;			
 		} else {
 			return false;
 		}

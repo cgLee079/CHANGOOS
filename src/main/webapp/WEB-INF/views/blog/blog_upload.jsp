@@ -16,12 +16,13 @@
 		<div class="wrap-upload-form">
 			<div class="upload-title">블로그 업로드</div>
 		
-			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/blog/upload.do" method="post" enctype="multipart/form-data" class="upload-form">
+			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/blogs/post/${blog.seq}" 
+					method="POST" class="upload-form">
 				<c:if test="${not empty blog}">
-					<input type="hidden" name="seq" value="<c:out value='${blog.seq}'/>"/>
-					<input type="hidden" name="thumbnail" value="<c:out value='${blog.thumbnail}'/>"/>
-					<input type="hidden" name="date" value="<c:out value='${blog.date}'/>"/>
-					<input type="hidden" name="hits" value="<c:out value='${blog.hits}'/>"/>
+				 	<input type="hidden" name="_method" value="PUT"/> 
+					<input type="hidden" id = "seq" name="seq" value="<c:out value='${blog.seq}'/>"/>
+					<input type="hidden" id = "date" name="date" value="<c:out value='${blog.date}'/>"/>
+					<input type="hidden" id = "hits" name="hits" value="<c:out value='${blog.hits}'/>"/>
 				</c:if>
 				
 				<div class="blog-upload-item">
@@ -31,14 +32,15 @@
 							<option value='true' <c:if test='${not empty blog and blog.enabled}'>selected</c:if>>공개 </option>
 							<option value='false' <c:if test='${not empty blog and !blog.enabled}'>selected</c:if>>비공개 </option>
 						</select>
-						
 					</div>
 				</div>
 				
 				<div class="blog-upload-item">
-					<div class="item-name">스냅샷</div>
+					<div class="item-name">썸네일</div>
 					<div class="item-input">
-						<input type="file" id="thumbnailFile" name="thumbnailFile" class="blog-thumbnail"/>
+						<img id="thumbnail-img" class="blog-thumbnail-img" onclick="$(this).siblings('#thumbnailFile').click();" src="<c:out value='${thumbDir}${blog.thumbnail}'/>" height="150">
+						<input type="hidden" id="thumbnail" name="thumbnail" value="<c:out value='${blog.thumbnail}'/>" />
+						<input type="file" id="thumbnailFile" name="thumbnailFile" class="blog-thumbnailfile" onchange="onThumbnailChange(this)"/>
 					</div>
 				</div>
 				
@@ -87,7 +89,7 @@
 					<div class="item-name"></div>
 					<div class="item-input blog-submit">
 						<a class="btn" onclick="Progress.start(); history.back();">취소</a>
-						<a class="btn" onclick="Progress.start(); $('#uploadForm').submit()">저장</a>
+						<a class="btn" onclick="Progress.start(); $('#uploadForm').submit();">저장</a>
 					</div>
 				</div>	
 				

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,7 +28,7 @@ public class BoardFileController {
 	@Value("#{servletContext.getRealPath('/')}")
 	private String realPath;
 	
-	@RequestMapping("/board/file/download.do")
+	@RequestMapping(value = "/board/file", method=RequestMethod.GET)
 	public void fileDoDownload(HttpServletRequest request, HttpServletResponse response,
 			String dir, String pathname, String filename) throws IOException {
 		
@@ -46,8 +47,8 @@ public class BoardFileController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/mgnt/board/file/upload.do")
-	public String fileDoUpload(Model model, MultipartFile file) throws IllegalStateException, IOException {
+	@RequestMapping(value = "/mgnt/board/post/file" , method=RequestMethod.POST)
+	public String fileDoUpload(MultipartFile file) throws IllegalStateException, IOException {
 		String pathname= fileService.saveFile(file);
 		
 		JSONObject result = new JSONObject();

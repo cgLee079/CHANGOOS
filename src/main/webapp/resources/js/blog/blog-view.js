@@ -3,6 +3,6 @@ $(document).ready(function() {
 });
 
 function blogList(){
-	window.location.href = getContextPath() + "/blog";
+	window.location.href = getContextPath() + "/blogs";
 }
 

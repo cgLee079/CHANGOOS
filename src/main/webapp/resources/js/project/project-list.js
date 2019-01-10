@@ -5,7 +5,7 @@ var pass 	= [];
 /* when project click */
 function projectView(seq){
 	Progress.start();
-	window.location.href = getContextPath() + "/project/view?seq=" + seq;		
+	window.location.href = getContextPath() + "/projects/" + seq;
 }
 
 $(document).ready(function(){

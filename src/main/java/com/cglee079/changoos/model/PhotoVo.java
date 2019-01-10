@@ -23,5 +23,6 @@ public class PhotoVo {
 	private String device;
 	private int likeCnt;
 	private boolean like;
+	private boolean enabled;
 
 }

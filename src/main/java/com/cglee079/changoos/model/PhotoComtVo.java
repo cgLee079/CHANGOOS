@@ -17,5 +17,6 @@ public class PhotoComtVo {
 	private String contents;
 	private String date;
 	private Integer parentSeq;
+	private boolean enabled;
 
 }

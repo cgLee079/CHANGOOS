@@ -38,8 +38,8 @@
 		<if test="category != null and category != ''">
  		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
   		</if>
-  		<if test="searchValue != null and searchValue != ''">
- 		<![CDATA[AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')]]>
+  		<if test="title != null and title != ''">
+ 		<![CDATA[AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{title}), '%')]]>
   		</if>
   		</trim>
 	</select>
@@ -58,6 +58,7 @@
 			LEFT JOIN 
 			(SELECT BOARD_SEQ, COUNT(COMT_SEQ) as 'comtCnt'
 			FROM TB_CHANGOOS_STUDY_COMT
+			WHERE COMT_ENABLED = true
 			GROUP BY BOARD_SEQ) D
 			ON STUDY_SEQ = D.BOARD_SEQ
 		WHERE 
@@ -77,7 +78,7 @@
  		<![CDATA[AND UPPER(STUDY_CATEGORY) = UPPER(#{category})]]>
   		</if>
   		</trim>
-		ORDER BY STUDY_SEQ DESC LIMIT 1
+		ORDER BY STUDY_SEQ ASC LIMIT 1
 	</select>
 	
 	<select id="getAfter" resultMap="studyResultMap" parameterType="map">
@@ -93,7 +94,7 @@
  		AND UPPER(STUDY_CATEGORY) = UPPER(#{category})
   		</if>
   		</trim>
-		ORDER BY STUDY_SEQ ASC LIMIT 1
+		ORDER BY STUDY_SEQ DESC LIMIT 1
 	</select>
 	
 	<select id="list" resultMap="studyResultMap" parameterType="map" >
@@ -106,6 +107,7 @@
 			LEFT JOIN 
 			(SELECT BOARD_SEQ, COUNT(COMT_SEQ) as 'comtCnt'
 			FROM TB_CHANGOOS_STUDY_COMT
+			WHERE COMT_ENABLED = true
 			GROUP BY BOARD_SEQ) B
 			ON STUDY_SEQ = B.BOARD_SEQ
 		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
@@ -115,8 +117,8 @@
 			<if test="category != null and category != ''">
 	 		AND UPPER(STUDY_CATEGORY) = UPPER(#{category})
 	  		</if>
-	  		<if test="searchValue != null and searchValue != ''">
-	 		AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{searchValue}), '%')
+	  		<if test="title != null and title != ''">
+	 		AND UPPER(STUDY_TITLE) LIKE CONCAT('%', UPPER(#{title}), '%')
 	  		</if>
   		</trim>
   		
@@ -133,8 +135,8 @@
 		</otherwise>
 		</choose>
 		
-		<if test="startRow != null and perPgLine != null">
- 		LIMIT ${startRow}, ${perPgLine}
+		<if test="offset != null and limit != null">
+ 		LIMIT ${offset}, ${limit}
   		</if>
 	</select>
 	

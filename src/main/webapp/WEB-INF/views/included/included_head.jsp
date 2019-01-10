@@ -93,21 +93,42 @@ $(window).resize(function(){
 	checkDevice();
 })
 
-$(document).ready(function(){
-	/* $("body").css("font-family", "'Nanum Square', sans-serif");
-	$("body").css("font-weight", "400"); */
-})
-
 /* Download File */
 function downloadFile(dir, pathname, filename){
-	var href = getContextPath()
-		+ "/board/file/download.do?"
+	var href = getContextPath() 
+		+ "/board/file?"
 		+ "dir=" + dir
 		+ "&pathname=" + pathname
 		+ "&filename=" + filename;
-		
 	window.location.href = href;
 }
+
+
+function encodeURIParam(data) {
+	var count = 0;
+	var param = "";
+	var keys = Object.keys(data);
+	for(var i = 0; i < keys.length; i++){
+		var key = keys[i];
+		if((data[key] || data[key] === 0) && data[key] != undefined && data[key].length != 0){
+			count++;
+			if(count == 1){ param += "?"}
+			else{ param += "&"}
+			
+			var value = data[key];
+			if(Array.isArray(data[key])){
+				value = data[key][0];
+				console.log(data[key]);
+				for(var j = 1; j < data[key].length; j++){
+					value += "," + data[key][j].trim();
+				}
+			}
+			param += key + "=" + value;
+		}
+	}
+	
+	return param;
+}  
 
 
 </script>

@@ -36,8 +36,8 @@ function onPhotoChnage(tg) {
 	formData.append("image", file);
 	
 	$.ajax({
-		type : "post",
-		url : getContextPath() + "/mgnt/photo/image/upload.do",
+		type : "POST",
+		url : getContextPath() + "/mgnt/photos/post/image",
 		dataType : "JSON",
 		async : true,
 		contentType: false,
@@ -47,6 +47,7 @@ function onPhotoChnage(tg) {
 			Progress.start();
 		},
 		success : function(photo) {
+			console.log(photo);
 			$("#filename").val(photo.filename);
 			$("#pathname").val(photo.pathname);
 			$("#thumbnail").val(photo.thumbnail);
@@ -54,7 +55,7 @@ function onPhotoChnage(tg) {
 			$("#time").val(photo.time);
 			$("#device").val(photo.device);
 			
-			$("#snapshot").attr("src",  tempDir + photo.thumbnail);
+			$("#snapshot").attr("src",  getContextPath()  + tempDir + photo.thumbnail);
 		},
 		complete : function(){
 			Progress.stop();

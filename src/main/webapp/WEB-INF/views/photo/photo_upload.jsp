@@ -13,16 +13,26 @@
 		<div class="wrap-upload-form">
 			<div class="upload-title">사진 업로드</div>
 			
-			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/photo/upload.do" 
-				method="post" enctype="multipart/form-data">
+			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/photos/post/${photo.seq}" method="post" >
 				
 				<c:if test="${not empty photo}">
+					<input type="hidden" name="_method" value="PUT"/>
 					<input type="hidden" id="seq" name="seq" value="<c:out value='${photo.seq}'/>"/>
 				</c:if>
 				
 				<input type="hidden" id="filename" name="filename" value="<c:out value='${photo.filename}'/>"/>
 				<input type="hidden" id="pathname" name="pathname" value="<c:out value='${photo.pathname}'/>"/>
 				<input type="hidden" id="thumbnail" name="thumbnail" value="<c:out value='${photo.thumbnail}'/>"/>
+				
+				<div class="upload-item">
+					<div class="upload-item-name">공개여부</div>
+					<div class="upload-item-input">
+						<select id="enabled" name="enabled" class="photo-enabled" >
+							<option value='true' <c:if test='${not empty photo and photo.enabled}'>selected</c:if>>공개 </option>
+							<option value='false' <c:if test='${not empty photo and !photo.enabled}'>selected</c:if>>비공개 </option>
+						</select>
+					</div>
+				</div>
 				
 				<div class="upload-item">
 					<div class="upload-item-name">사진</div>

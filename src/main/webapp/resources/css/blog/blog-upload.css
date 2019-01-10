@@ -1,5 +1,5 @@
 .wrap-upload-form{
-	width :	90%;
+	width :	80%;
 	margin : 0 auto;
 	margin-top : 20px;
 	margin-bottom: 150px;
@@ -36,6 +36,15 @@
 	padding : 1px 3px;
 }
 
+.blog-upload-item .blog-thumbnail-img{
+	cursor : pointer;
+	background : #EEE;
+}
+
+.blog-upload-item .blog-thumbnailfile{
+	display: none;
+}
+
 .blog-contents{
 	height: 450px;
 }
@@ -45,6 +54,10 @@
 }
 
 @media ( max-width : 800px) {
+	.wrap-upload-form{
+		width :	90%;
+	}
+
 	.blog-upload-item {
 		flex-flow: column nowrap;
 	}

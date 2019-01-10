@@ -17,4 +17,5 @@ public class BoardComtVo {
 	private String contents;
 	private String date;
 	private Integer parentComt;
+	private boolean enabled;
 }

@@ -12,8 +12,8 @@
 	
 	<div class="wrap-study-list">
 		<div class="menu-manage">
-			<a href="${pageContext.request.contextPath}/study" class="btn">List</a>
-			<a href="${pageContext.request.contextPath}/mgnt/study/upload" class="btn">Upload</a>
+			<a href="${pageContext.request.contextPath}/studies" class="btn">List</a>
+			<a href="${pageContext.request.contextPath}/mgnt/studies/post" class="btn">Upload</a>
 		</div>
 		
 		<div class="study-list">

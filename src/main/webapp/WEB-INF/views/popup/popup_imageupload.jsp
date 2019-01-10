@@ -8,6 +8,7 @@
 <c:set var="maxWidth"><spring:eval expression="@constant['image.max.width']"/></c:set>
 <script>
 var tempDirURL = '<c:out value="${tempDir}" />';
+
 </script>
 </head>
 <body>

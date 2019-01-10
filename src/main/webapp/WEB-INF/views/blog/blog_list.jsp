@@ -11,9 +11,10 @@
 <div class="wrapper">
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 	
-	<input type="hidden" id="allRowCnt" value="<c:out value='${count}'/>"/>
-	
 	<div class="wrap-blog">
+		<input type="hidden" id="tags" value="<c:out value='${tags}' />"/>
+		<input type="hidden" id="totalCount" value="<c:out value='${count}'/>"/>
+			
 		<div class="blog-first-item">
 			<div class="blog-first-item-fg"></div>
 			<div class="blog-first-item-snapsht"></div>
@@ -43,8 +44,8 @@
 				</div>		
 			</div>
 			<div class="blog-tags">
-				<c:forEach var="tag" items="${tags}">
-					<a class="tag" onclick="doSearchTag(this)"><c:out value="${tag}"/></a>
+				<c:forEach var="tag" items="${totalTags}">
+					<a class="tag" onclick="doSearchTag(this)" ><c:out value="${tag}"/></a>
 				</c:forEach>
 			</div>
 		</div>

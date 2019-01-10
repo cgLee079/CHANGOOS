@@ -16,8 +16,11 @@
 		<div class="wrap-upload-form">
 			<div class="upload-title">스터디 업로드</div>
 		
-			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/study/upload.do" method="post" enctype="multipart/form-data" class="upload-form">
+			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/studies/post/${study.seq}" 
+					method="post" class="upload-form">
+					
 				<c:if test="${not empty study}">
+					<input type="hidden" name="_method" value="put"/>
 					<input type="hidden" name="seq" value="<c:out value='${study.seq}'/>"/>
 					<input type="hidden" name="date" value="<c:out value='${study.date}'/>"/>
 					<input type="hidden" name="hits" value="<c:out value='${study.hits}'/>"/>

@@ -27,11 +27,10 @@ public class BoardComtService {
 	@Value("#{constant['board.type.id.study']}") 	private String studyID;
 	@Value("#{constant['board.type.id.blog']}")		private String blogID;
 
-	public List<BoardComtVo> paging(String boardType, int boardSeq, int page, int perPgLine) {
+	public List<BoardComtVo> paging(String boardType, int boardSeq, int offset, int limit) {
 		String TB = this.getTB(boardType);
 
-		int startRow = (page - 1) * perPgLine;
-		return boardcomtDao.list(TB, boardSeq, startRow, perPgLine);
+		return boardcomtDao.list(TB, boardSeq, offset, limit);
 	}
 
 	public int count(String boardType, int boardSeq) {
@@ -53,15 +52,9 @@ public class BoardComtService {
 		return boardcomtDao.update(TB, comt);
 	}
 	
-	public boolean delete(String boardType, BoardComtVo comt) {
+	public boolean delete(String boardType, int seq) {
 		String TB = this.getTB(boardType);
-		
-		BoardComtVo savedComt = boardcomtDao.get(TB, comt.getSeq());
-		if (AuthManager.isAdmin() || savedComt.getPassword().equals(comt.getPassword()) ) {
-			return boardcomtDao.delete(TB, comt.getSeq());
-		} else {
-			return false;
-		}
+		return boardcomtDao.delete(TB, seq);
 	}
 
 	public boolean checkPwd(String boardType, BoardComtVo comt) {

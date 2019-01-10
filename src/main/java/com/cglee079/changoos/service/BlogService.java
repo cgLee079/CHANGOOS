@@ -45,6 +45,7 @@ public class BlogService{
 	@Value("#{location['blog.file.dir.url']}") 	private String fileDir;
 	@Value("#{location['blog.image.dir.url']}") private String imageDir;
 	@Value("#{location['blog.thumb.dir.url']}")	private String thumbDir;
+	@Value("#{location['temp.thumb.dir.url']}")	private String tempThumbDir;
 	
 	@Value("#{db['blog.file.tb.name']}") private String fileTB;
 	@Value("#{db['blog.image.tb.name']}")private String imageTB;
@@ -52,6 +53,11 @@ public class BlogService{
 	@Value("#{constant['blog.thumb.max.width']}")private int thumbMaxWidth;
 	
 	public int count(Map<String, Object> params) {
+		if(params.containsKey("tags")) {
+			String tags = (String)params.get("tags");
+			params.put("tags", new HashSet<String>(Arrays.asList(tags.split(","))));
+		}
+		
 		return blogDao.count(params);
 	}
 	
@@ -98,19 +104,11 @@ public class BlogService{
 		return blog;
 	}
 	
-	public List<BlogVo> list(Map<String, Object> params){
-		List<BlogVo> blogs 	= blogDao.list(params);
-		return blogs;
-	}
-	
 	public List<BlogVo> paging(Map<String, Object> params){
-		int page = Integer.parseInt((String)params.get("page"));
-		int perPgLine = Integer.parseInt((String)params.get("perPgLine"));
-		int startRow = (page - 1) * perPgLine;
-		params.put("startRow", startRow);
-		
-		String tags = (String)params.get("tags");
-		params.put("tags", new Gson().fromJson(tags, List.class));
+		if(params.containsKey("tags")) {
+			String tags = (String) params.get("tags");
+			params.put("tags", new HashSet<String>(Arrays.asList(tags.split(","))));
+		}
 		
 		List<BlogVo> blogs 	= blogDao.list(params);
 		BlogVo blog 		= null;
@@ -138,11 +136,11 @@ public class BlogService{
 	}
 
 	@Transactional
-	public int insert(BlogVo blog, MultipartFile thunmbnailFile, String imageValues, String fileValues) throws IllegalStateException, IOException {
-		blog.setThumbnail(this.saveThumbnail(blog, thunmbnailFile));
+	public int insert(BlogVo blog, String imageValues, String fileValues) throws IllegalStateException, IOException {
 		blog.setDate(Formatter.toDate(new Date()));
-		
 		int seq = blogDao.insert(blog);
+		
+		fileHandler.move(realPath + tempThumbDir + blog.getThumbnail(), realPath + thumbDir + blog.getThumbnail());
 		
 		boardFileService.insertFiles(fileTB, fileDir, seq, fileValues);
 		
@@ -154,11 +152,16 @@ public class BlogService{
 	}
 
 	@Transactional
-	public boolean update(BlogVo blog, MultipartFile thunmbnailFile, String imageValues, String fileValues) throws IllegalStateException, IOException {
-		blog.setThumbnail(this.saveThumbnail(blog, thunmbnailFile));
-		
+	public boolean update(BlogVo blog, String thumbnailValues, String imageValues, String fileValues) throws IllegalStateException, IOException {
 		int seq = blog.getSeq();
 		
+		BlogVo savedBlog = blogDao.get(seq);
+		
+		if(!blog.getThumbnail().equals(savedBlog.getThumbnail())) {
+			fileHandler.delete(realPath + thumbDir + savedBlog.getThumbnail());
+		}
+		
+		fileHandler.move(realPath + tempThumbDir + blog.getThumbnail(), realPath + thumbDir + blog.getThumbnail());
 		boardFileService.insertFiles(fileTB, fileDir, seq, fileValues);
 		
 		String contents = boardImageService.insertImages(imageTB, imageDir, seq, blog.getContents(), imageValues);
@@ -196,22 +199,16 @@ public class BlogService{
 		return false;
 	}
 	
-
-	
-	public String saveThumbnail(BlogVo blog, MultipartFile thumbnailFile) throws IllegalStateException, IOException {
+	public String saveThumbnail(MultipartFile thumbnailFile) {
 		String pathname = null;
 		
 		if(thumbnailFile.getSize() > 0){
 			String filename = thumbnailFile.getOriginalFilename();
 			String imgExt = MyFilenameUtils.getExt(filename);
 			
-			fileHandler.delete(realPath + thumbDir, blog.getThumbnail());
-			
 			pathname = "BLOG.THUMB." + MyFilenameUtils.getRandomImagename(imgExt);
-			File file = new File(realPath + thumbDir, pathname);
-			thumbnailFile.transferTo(file);
+			File file = fileHandler.save(realPath + tempThumbDir +  pathname, thumbnailFile);
 			
-		
 			imageHandler.saveLowscaleImage(file, thumbMaxWidth, imgExt);
 			
 		} 

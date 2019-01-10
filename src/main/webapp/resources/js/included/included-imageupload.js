@@ -51,7 +51,7 @@ imageUploader.insertImageInfo = function(image) {
 	wrapThumbnail.find(".pathname").val(image.pathname);
 	wrapThumbnail.find(".filename").val(image.filename);
 	wrapThumbnail.find(".status").val(IMAGE_STATUS_NEW);
-	wrapThumbnail.find(".thumbnail").attr("src", tempDir + image.pathname);
+	wrapThumbnail.find(".thumbnail").attr("src", getContextPath() + tempDir + image.pathname);
 	wrapThumbnail.find(".btn-remove").attr("onclick", "removeImage(this, '" + image.editorID + "', '" + image.pathname + "')");
 	
 	updateInputValue();
@@ -108,5 +108,5 @@ function updateInputValue(){
 }
 
 function openImageUploadPopup(editor) {
-	var popup = window.open(getContextPath() + "/mgnt/board/image/upload?editor=" + editor, "_blank", 'width=600, height=800');
+	var popup = window.open(getContextPath() + "/mgnt/board/post/image?editor=" + editor, "_blank", 'width=600, height=800');
 }

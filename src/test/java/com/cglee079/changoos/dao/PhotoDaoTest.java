@@ -50,6 +50,7 @@ public class PhotoDaoTest {
 				.location("photoA 촬영장소")
 				.tag("photoA 태그")
 				.device("photoA 촬영기기")
+				.enabled(true)
 				.likeCnt(1)
 				
 				.build();
@@ -66,6 +67,7 @@ public class PhotoDaoTest {
 				.tag("photoB 태그")
 				.device("photoB 촬영기기")
 				.likeCnt(2)
+				.enabled(true)
 				.build();
 		
 		samplePhotoC = PhotoVo.builder()
@@ -80,6 +82,7 @@ public class PhotoDaoTest {
 				.tag("photoC 태그")
 				.device("photoC 촬영기기")
 				.likeCnt(3)
+				.enabled(true)
 				.build();
 	}
 	
@@ -97,6 +100,10 @@ public class PhotoDaoTest {
 	
 	@Test
 	public void testSeqs() {
+		samplePhotoA.setEnabled(true);
+		samplePhotoB.setEnabled(false);
+		samplePhotoC.setEnabled(false);
+		
 		photoDao.insert(samplePhotoA);
 		photoDao.insert(samplePhotoB);
 		photoDao.insert(samplePhotoC);
@@ -109,10 +116,8 @@ public class PhotoDaoTest {
 		List<Integer> resultSeqs = photoDao.seqs();
 		
 		//ASSERT
-		assertEquals(3, resultSeqs.size());
+		assertEquals(1, resultSeqs.size());
 		assertTrue(resultSeqs.contains(seqA));
-		assertTrue(resultSeqs.contains(seqB));
-		assertTrue(resultSeqs.contains(seqC));
 	}
 	
 	@Test
@@ -154,6 +159,46 @@ public class PhotoDaoTest {
 		
 		//ASSERT
 		assertEquals(3, resultPhotos.size());
+	}
+	
+	@Test
+	public void testListWithEnabledTrue() {
+		Map<String, Object> params = new HashMap<>();
+		params.put("enabled", true);
+		
+		samplePhotoA.setEnabled(true);
+		samplePhotoB.setEnabled(false);
+		samplePhotoC.setEnabled(false);
+		
+		photoDao.insert(samplePhotoA);
+		photoDao.insert(samplePhotoB);
+		photoDao.insert(samplePhotoC);
+		
+		//ACT
+		List<PhotoVo> resultPhotos = photoDao.list(null);
+		
+		//ASSERT
+		assertEquals(1, resultPhotos.size());
+	}
+	
+	@Test
+	public void testListWithEnabledFalse() {
+		Map<String, Object> params = new HashMap<>();
+		params.put("enabled", false);
+		
+		samplePhotoA.setEnabled(true);
+		samplePhotoB.setEnabled(false);
+		samplePhotoC.setEnabled(false);
+		
+		photoDao.insert(samplePhotoA);
+		photoDao.insert(samplePhotoB);
+		photoDao.insert(samplePhotoC);
+		
+		//ACT
+		List<PhotoVo> resultPhotos = photoDao.list(params);
+		
+		//ASSERT
+		assertEquals(2, resultPhotos.size());
 	}
 	
 	

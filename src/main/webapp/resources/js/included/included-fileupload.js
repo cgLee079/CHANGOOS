@@ -1,14 +1,11 @@
 var fileUploader = new Object();
 
-var path;
 var fileInfoTemp;
 
 $(document).ready(function(){
-	path = getContextPath() + "/mgnt/";
 	fileInfoTemp = $(".file-info.temp").clone();
-	$(".file-info.temp").remove();
-	
 	fileInfoTemp.removeClass("temp");
+	$(".file-info.temp").remove();
 	
 	updateFileValues();
 });
@@ -86,8 +83,8 @@ function sendFile(file){
 		formData.append("file", file);
 		
 		$.ajax({
-			type : "post",
-			url : getContextPath() + "/mgnt/board/file/upload.do",
+			type : "POST",
+			url : getContextPath() + "/mgnt/board/post/file",
 			dataType : "JSON",
 			async : false,
 			contentType: false,

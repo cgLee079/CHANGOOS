@@ -55,16 +55,16 @@
 						<div class="btn" onclick="studyList()">목록</div>
 						
 						<c:choose>
+							<c:when test='${not empty beforeStudy}'><c:set value="${beforeStudy.title}" var="beforeStudyTooltip" /></c:when>
+							<c:otherwise><c:set value="더 이상 글이 없습니다." var="beforeStudyTooltip" /></c:otherwise>
+						</c:choose>
+						<div class="btn btn-study-before" title="<c:out value='${beforeStudyTooltip}'/>" onclick="studyView('${beforeStudy.seq}')">이전글</div>
+						
+						<c:choose>
 							<c:when test='${not empty afterStudy}'><c:set value="${afterStudy.title}" var="afterStudyTooltip" /></c:when>
 							<c:otherwise><c:set value="더 이상 글이 없습니다." var="afterStudyTooltip" /></c:otherwise>
 						</c:choose>
-						<div class="btn btn-study-before" title="<c:out value='${afterStudyTooltip}'/>" onclick="studyView('${afterStudy.seq}')">이전글</div>
-						
-						<c:choose>
-							<c:when test='${not empty beforeStudy}'><c:set value="${beforeStudy.title}" var="boforeStudyTooltip" /></c:when>
-							<c:otherwise><c:set value="더 이상 글이 없습니다." var="boforeStudyTooltip" /></c:otherwise>
-						</c:choose>
-						<div class="btn btn-study-next" title="<c:out value='${boforeStudyTooltip}'/>"onclick="studyView('${beforeStudy.seq}')">다음글</div>
+						<div class="btn btn-study-next" title="<c:out value='${afterStudyTooltip}'/>"onclick="studyView('${afterStudy.seq}')">다음글</div>
 					</div>
 				</div>
 

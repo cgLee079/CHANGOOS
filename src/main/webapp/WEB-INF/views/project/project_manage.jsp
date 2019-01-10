@@ -13,7 +13,7 @@
 	<div class="wrap-project-list">
 		<div class="menu-manage">
 			<a href="${pageContext.request.contextPath}/project" class="btn">List</a>
-			<a href="${pageContext.request.contextPath}/mgnt/project/upload" class="btn">Upload</a>
+			<a href="${pageContext.request.contextPath}/mgnt/projects/post" class="btn">Upload</a>
 		</div>
 		
 		<div class="project-list">

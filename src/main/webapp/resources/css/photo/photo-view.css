@@ -1,7 +1,7 @@
 .wrap-photo-list {
 	display: flex;
 	height: calc(100% - 50px);
-	max-width: 1280px;
+	max-width: 80%;
 	margin: 0px auto;
 	align-items: center;
 }

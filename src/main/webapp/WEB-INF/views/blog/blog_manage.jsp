@@ -12,8 +12,8 @@
 	
 	<div class="wrap-blog-list">
 		<div class="menu-manage">
-			<a href="${pageContext.request.contextPath}/blog" class="btn">List</a>
-			<a href="${pageContext.request.contextPath}/mgnt/blog/upload" class="btn">Upload</a>
+			<a href="${pageContext.request.contextPath}/blogs" class="btn">List</a>
+			<a href="${pageContext.request.contextPath}/mgnt/blogs/post" class="btn">Upload</a>
 		</div>
 		
 		<div class="blog-list">

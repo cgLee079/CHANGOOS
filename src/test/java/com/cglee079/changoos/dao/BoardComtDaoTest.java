@@ -41,18 +41,21 @@ public class BoardComtDaoTest {
 				.contents("comtA 내용")
 				.username("comtA 유저명")
 				.password("comtA 비밀번호")
+				.enabled(true)
 				.build();
 		
 		sampleComtB = BoardComtVo.builder()
 				.contents("comtB 내용")
 				.username("comtB 유저명")
 				.password("comtB 비밀번호")
+				.enabled(true)
 				.build();
 		
 		sampleComtC = BoardComtVo.builder()
 				.contents("comtC 내용")
 				.username("comtC 유저명")
 				.password("comtC 비밀번호")
+				.enabled(true)
 				.build();
 	}
 	

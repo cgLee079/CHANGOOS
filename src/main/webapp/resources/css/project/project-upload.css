@@ -33,6 +33,16 @@
 	padding: 1px 3px;
 }
 
+.upload-project-input .project-thumbnail-img{
+	cursor : pointer;
+	background : #EEE;
+}
+
+.upload-project-input .project-thumbnailfile{
+	display: none;
+}
+
+
 .project-submit {
 	text-align: right;
 }

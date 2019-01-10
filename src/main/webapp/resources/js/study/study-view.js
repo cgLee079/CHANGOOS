@@ -14,7 +14,9 @@ $(document).ready(function(){
 
 /* when '목록' click */
 function studyList(){
-	window.location.href = getContextPath() + "/study#" + category;
+	var param = {};
+	param["category"] = $("#category").val();
+	window.location.href = getContextPath() + "/studies" + encodeURIParam(param);
 }
 
 /* when '삭제' click, only for Admin */
@@ -28,23 +30,32 @@ function studyDelete(seq){
 		})
 		.then(function(willDelete) {
 			if(willDelete) {
-				$.post("/mgnt/study/delete.do", {"seq" : seq});
-				//TODO 삭제시 페이지 이동 처리
+				$.ajax({
+					method: 'DELETE',
+				    url: getContextPath() + '/mgnt/studies/post/' + seq,
+				    contentType: 'application/json',
+				    success: function(result) {
+				    },
+				    error: function(request,msg,error) {
+				    }
+				});
 			} 
 		});
 }
 
 /* when '수정' click, only for Admin */
 function studyModify(seq){
-	window.location.href = getContextPath() + "/mgnt/study/upload?seq=" + seq;		
+	window.location.href = getContextPath() + "/mgnt/studies/post/" + seq;		
 }
 
 /* when '이전글', '다음글' click */
 function studyView(seq){
 	if (seq){
-		window.location.href = getContextPath() + "/study/view?seq=" + seq + "&category=" + category;
+		var param = {};
+		param["category"] = category;
+		window.location.href = getContextPath() + "/studies/" + seq + encodeURIParam(param);
 	} else {
-		if(category){
+		if(category){ 
 			swal( category + " 카테고리에 글이 더 이상 없습니다.");
 		} else{
 			swal("글이 더 이상 없습니다.");

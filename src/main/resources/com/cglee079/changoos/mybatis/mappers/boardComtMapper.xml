@@ -12,6 +12,7 @@
 		<result property="contents" column="COMT_CONTENTS"/>
 		<result property="date" column="COMT_DATE"/>
 		<result property="parentComt" column="PARENT_COMT"/>
+		<result property="enabled" column="COMT_ENABLED"/>
 	</resultMap>
 	
 	<select id="count" resultType="Integer">
@@ -26,8 +27,9 @@
 			*
 		FROM ${TB}
 		WHERE BOARD_SEQ = #{boardSeq}
+		AND COMT_ENABLED = true
 		ORDER BY CONCAT(IF(PARENT_COMT is null, COALESCE(PARENT_COMT, ''), CONCAT('_', LPAD(PARENT_COMT,6,'0')) ), '_',LPAD(COMT_SEQ,6,'0'))
-		LIMIT #{startRow}, #{perPgLine}
+		LIMIT #{offset}, #{limit}
 	</select>
 	
 	<select id="get" resultMap="boardComtResultMap" parameterType="Integer">

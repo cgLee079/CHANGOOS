@@ -17,12 +17,12 @@
 	<div class="wrap-photo-list">
 		<div class="photo-list">
 			<div class="photo-list-item">
-				<input type="hidden" id="photo-seq"/>
+				<input type="hidden" class="photo-seq"/>
 				<div class="photo-img"></div>
 				<div class="photo-sub">
 					<div class="photo-menu">
-						<img class="btn btn-photo-like" onclick="doLike(this)" src="${pageContext.request.contextPath}/resources/image/btn-photo-like.svg" />
-						<img class="btn btn-photo-comment" onclick="showWriteComment(this)" src="${pageContext.request.contextPath}/resources/image/btn-photo-comment.svg" />
+						<img class="btn btn-photo-like" onclick="photoDoLike(this)" src="${pageContext.request.contextPath}/resources/image/btn-photo-like.svg" />
+						<img class="btn btn-photo-comment" onclick="drawCommentForm(this)" src="${pageContext.request.contextPath}/resources/image/btn-photo-comment.svg" />
 					</div>
 					
 					<div class="photo-detail">
@@ -48,7 +48,7 @@
 							<div><textarea class="contents" style="font-size: 0.6rem"></textarea></div>
 						</div>
 						
-						<div class="btn btn-write col-center" onclick="doWriteComment(this)">등록</div>
+						<div class="btn btn-write col-center" onclick="commentDoWrite(this)">등록</div>
 					</div>
 				</div>
 			</div>
