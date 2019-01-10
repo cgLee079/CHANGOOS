@@ -143,15 +143,15 @@ function showPhoto(index){
 function photoDoLike(tg){
 	var tg		= $(tg);
 	var item 	= tg.parents(".photo-list-item");
-	var seq 	= item.find("#photo-seq").val();
+	var seq 	= item.find(".photo-seq").val();
 	var isUnlike= tg.hasClass("on");
 	
 	$.ajax({	
 		type	: "POST",
-		url		:  getContextPath() + "/photo/like.do",
+		url		:  getContextPath() + "/photos/" + seq + "/like",
 		data	: {
-			'seq' 	: seq,
-			'like'	: !isUnlike
+			'_method' 	: "PUT",
+			'like'		: !isUnlike
 		},
 		dataType: 'JSON',
 		asyncl 	: false,

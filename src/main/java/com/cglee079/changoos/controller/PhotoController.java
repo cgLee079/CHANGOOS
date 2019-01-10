@@ -111,7 +111,7 @@ public class PhotoController {
 	
 	/** 사진 좋아요, Ajax **/
 	@ResponseBody
-	@RequestMapping(value = "/photos/{seq}/like", method = RequestMethod.POST)
+	@RequestMapping(value = "/photos/{seq}/like", method = RequestMethod.PUT)
 	public String photoDoLike(HttpSession session, @PathVariable int seq, boolean like) throws JsonProcessingException {
 		PhotoVo photo = photoService.doLike((Set<Integer>)session.getAttribute("likePhotos"), seq, like);
 		return new Gson().toJson(photo).toString();
