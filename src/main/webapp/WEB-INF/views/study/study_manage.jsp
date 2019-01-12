@@ -2,7 +2,6 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
-<%@ include file="/WEB-INF/views/study/study_common.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/study/study-manage.css" />
 <script src="${pageContext.request.contextPath}/resources/js/study/study-manage.js"></script>
 </head>
@@ -13,7 +12,7 @@
 	<div class="wrap-study-list">
 		<div class="menu-manage">
 			<a href="${pageContext.request.contextPath}/studies" class="btn">List</a>
-			<a href="${pageContext.request.contextPath}/mgnt/studies/post" class="btn">Upload</a>
+			<a href="${pageContext.request.contextPath}/studies/post" class="btn">Upload</a>
 		</div>
 		
 		<div class="study-list">

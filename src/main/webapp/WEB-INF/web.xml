@@ -3,6 +3,28 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
+
+
+	<!--  Session Listener 설정 -->
+	<listener>
+        <listener-class>com.cglee079.changoos.config.listener.MySessionListener</listener-class>
+    </listener>
+    
+	<!--  ENUM Listener 설정 -->
+	<listener>
+		<listener-class>com.cglee079.changoos.config.listener.EnumContextListener</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>enumServletContextConfig</param-name>
+		<param-value> 
+			<!-- Enums-->
+			com.cglee079.changoos.config.code.BoardType,
+			com.cglee079.changoos.config.code.FileStatus,
+			com.cglee079.changoos.config.code.ImageStatus
+		</param-value>
+	</context-param>
+
 	<!-- ContextLoaderListener 설정 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -10,10 +32,10 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml
-  		/WEB-INF/spring/appServlet/service-context.xml
-  		/WEB-INF/spring/appServlet/dao-context.xml
   		/WEB-INF/spring/appServlet/security-context.xml
- 		/WEB-INF/spring/appServlet/util-context.xml
+  		/WEB-INF/spring/appServlet/service-context.xml
+  		/WEB-INF/spring/appServlet/util-context.xml
+  		/WEB-INF/spring/appServlet/dao-context.xml
     </param-value>
 	</context-param>
 
@@ -25,8 +47,6 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 				/WEB-INF/spring/appServlet/servlet-context.xml
-				/WEB-INF/spring/appServlet/intercepter-context.xml
-				/WEB-INF/spring/appServlet/aop-context.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
@@ -67,8 +87,8 @@
 		<filter-name>HiddenHttpMethodFilter</filter-name>
 		<servlet-name>appServlet</servlet-name>
 	</filter-mapping>
-	
-	
+
+
 	<!-- Encoding UTF-8 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>

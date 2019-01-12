@@ -32,8 +32,8 @@ public class PhotoService {
 	@Autowired private ImageHandler imageHandler;
 	@Autowired private FileHandler fileHandler; 
 	
-	@Value("#{servletContext.getRealPath('/')}") private String realPath;
-	@Value("#{location['temp.photo.dir.url']}") 	private String tempDir;
+	@Value("#{servletContext.getRealPath('/')}") 	private String realPath;
+	@Value("#{location['temp.dir.url']}") 			private String tempDir;
 	@Value("#{location['photo.origin.dir.url']}") 	private String originDir;
 	@Value("#{location['photo.thumb.dir.url']}") 	private String thumbDir;
 	@Value("#{constant['photo.origin.max.width']}") private int originMaxWidth;
@@ -55,7 +55,7 @@ public class PhotoService {
 	}
 
 	public List<Integer> seqs() {
-		return photoDao.seqs();
+		return photoDao.getSeqs();
 	}
 	
 	public boolean insert(PhotoVo photo) throws IllegalStateException, ImageProcessingException, MetadataException, IOException {

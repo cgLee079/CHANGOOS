@@ -2,7 +2,6 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
-<%@ include file="/WEB-INF/views/study/study_common.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-fileupload.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-imageupload.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/study/study-upload.css"/>
@@ -16,7 +15,7 @@
 		<div class="wrap-upload-form">
 			<div class="upload-title">스터디 업로드</div>
 		
-			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/studies/post/${study.seq}" 
+			<form id="uploadForm" action="${pageContext.request.contextPath}/studies/post/${study.seq}" 
 					method="post" class="upload-form">
 					
 				<c:if test="${not empty study}">
@@ -65,7 +64,7 @@
 					<div class="item-name">이미지</div>
 					<div class="item-input">
 						<c:import url="../included/included_imageupload.jsp" charEncoding="UTF-8">
-							<c:param name="dir" value="${imageDir}"/>
+							<c:param name="dir" value="${studyImageDir}"/>
 							<c:param name="editor" value="study-contents"/>
 						</c:import>
 					</div>
@@ -74,9 +73,7 @@
 				<div class="study-upload-item">
 					<div class="item-name">첨부파일</div>
 					<div class="item-input">
-						<c:import url="../included/included_fileupload.jsp" charEncoding="UTF-8">
-							<c:param name="boardType" value="study"/>
-						</c:import>
+						<c:import url="../included/included_fileupload.jsp" charEncoding="UTF-8" />
 					</div>
 				</div>
 				

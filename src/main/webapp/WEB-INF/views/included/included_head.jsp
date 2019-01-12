@@ -26,12 +26,6 @@
 <!-- font -->
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-nanumsquare.css'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-nanumgothic.css'/>
-<%-- <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-lora.css'/>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-misaeng.css'/>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-bm.css'/>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-kcc.css'/>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-apple-sd.css'/>
- --%>
  
 <!-- lib-css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lib/letter-motion.css" />
@@ -63,72 +57,55 @@
 <script src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.5/datagrid-cellediting.js"></script>
 
 <!--  -->
+<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/dg-common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/editor-contents-resizer.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-nav.js"></script>
 
-<script>
+<!--  Property -->
+<c:set var="projectThumbDir"><spring:eval expression="@location['project.thumb.dir.url']"/></c:set>
+<c:set var="projectImageDir"><spring:eval expression="@location['project.image.dir.url']"/></c:set>
+<c:set var="projectFileDir"><spring:eval expression="@location['project.file.dir.url']"/></c:set>
+<c:set var="studyImageDir"><spring:eval expression="@location['study.image.dir.url']"/></c:set>
+<c:set var="studyFileDir"><spring:eval expression="@location['study.file.dir.url']"/></c:set>
+<c:set var="blogThumbDir"><spring:eval expression="@location['blog.thumb.dir.url']"/></c:set>
+<c:set var="blogImageDir"><spring:eval expression="@location['blog.image.dir.url']"/></c:set>
+<c:set var="blogFileDir"><spring:eval expression="@location['blog.file.dir.url']"/></c:set>
+<c:set var="photoThumbDir"><spring:eval expression="@location['photo.thumb.dir.url']"/></c:set>
+<c:set var="photoOriginDir"><spring:eval expression="@location['photo.origin.dir.url']"/></c:set>
+<c:set var="tempDir"><spring:eval expression="@location['temp.dir.url']"/></c:set>
 
+<script>
+var loc = {
+	project : {
+		thumbDir: '<c:out value="${projectThumbDir}"/>',
+		imageDir: '<c:out value="${projectImageDir}"/>',
+		fileDir	: '<c:out value="${projectFileDir}"/>'
+	},
+	study:{
+		imageDir: '<c:out value="${studyImageDir}"/>',
+		fileDir	: '<c:out value="${studyFileDir}"/>'
+	},
+	blog :{
+		thumbDir: '<c:out value="${blogThumbDir}"/>',
+		imageDir: '<c:out value="${blogImageDir}"/>',
+		fileDir	: '<c:out value="${blogFileDir}"/>'
+	}, 
+	photo :{
+		thumbDir: '<c:out value="${photoThumbDir}"/>',
+		originDir: '<c:out value="${photoOriginDir}"/>',
+	}, 
+	temp:{
+		dir : '<c:out value="${tempDir}"/>'
+	}
+}
+
+
+</script>
+
+<script>
 /* context Path */
 var contextPath = "${pageContext.request.contextPath}";
 function getContextPath(){ return contextPath; }
-
-/* check, is mobile?*/
-var isMobile = false;
-var deviceWidth = undefined;
-var deviceHeight = undefined;
-
-function checkDevice(){
-	deviceWidth 	= Math.min(window.innerWidth || Infinity, screen.width);
-	deviceHeight	= Math.min(window.innerHeight || Infinity, screen.height);
-	if(deviceWidth <= 800){
-		isMobile = true;
-	}
-	
-}
-
-checkDevice();
-$(window).resize(function(){
-	checkDevice();
-})
-
-/* Download File */
-function downloadFile(dir, pathname, filename){
-	var href = getContextPath() 
-		+ "/board/file?"
-		+ "dir=" + dir
-		+ "&pathname=" + pathname
-		+ "&filename=" + filename;
-	window.location.href = href;
-}
-
-
-function encodeURIParam(data) {
-	var count = 0;
-	var param = "";
-	var keys = Object.keys(data);
-	for(var i = 0; i < keys.length; i++){
-		var key = keys[i];
-		if((data[key] || data[key] === 0) && data[key] != undefined && data[key].length != 0){
-			count++;
-			if(count == 1){ param += "?"}
-			else{ param += "&"}
-			
-			var value = data[key];
-			if(Array.isArray(data[key])){
-				value = data[key][0];
-				console.log(data[key]);
-				for(var j = 1; j < data[key].length; j++){
-					value += "," + data[key][j].trim();
-				}
-			}
-			param += key + "=" + value;
-		}
-	}
-	
-	return param;
-}  
-
-
 </script>

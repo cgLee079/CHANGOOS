@@ -32,7 +32,7 @@ function studyDelete(seq){
 			if(willDelete) {
 				$.ajax({
 					method: 'DELETE',
-				    url: getContextPath() + '/mgnt/studies/post/' + seq,
+				    url: getContextPath() + '/studies/post/' + seq,
 				    contentType: 'application/json',
 				    success: function(result) {
 				    },
@@ -45,7 +45,7 @@ function studyDelete(seq){
 
 /* when '수정' click, only for Admin */
 function studyModify(seq){
-	window.location.href = getContextPath() + "/mgnt/studies/post/" + seq;		
+	window.location.href = getContextPath() + "/studies/post/" + seq;		
 }
 
 /* when '이전글', '다음글' click */

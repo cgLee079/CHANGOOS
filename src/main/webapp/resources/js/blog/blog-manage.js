@@ -27,9 +27,9 @@ function fn_onInitDataGrid(){
 			}},
 			{field:'thumbnail', title:'스냅샷', width:'100px', halign:'center', styler : alignCenter,  formatter: function(value, row){
 				if(value){
-					return "<img src='" + getContextPath() + thumbDir + value + "' height='50px' style='padding : 2px'/>"
+					return "<img src='" + getContextPath() + loc.blog.thumbDir + value + "' height='50px' style='padding : 2px'/>"
 				} else if (row.images.length > 0){
-					return "<img src='" + getContextPath() + imageDir + row.images[0].pathname + "' height='50px'style='padding : 2px'/>"
+					return "<img src='" + getContextPath() + loc.blog.imageDir + row.images[0].pathname + "' height='50px'style='padding : 2px'/>"
 				} else{
 					return "<img src='' height='50px' style='padding : 2px'/>"
 				}
@@ -67,7 +67,7 @@ function blogDelete(seq, index){
 	function doDelete(seq, index){
 		$.ajax({
 			type	: "DELETE",
-			url		: getContextPath() + "/mgnt/blogs/post/" + seq,
+			url		: getContextPath() + "/blogs/post/" + seq,
 			dataType: 'JSON',
 			async	: false,
 			success : function(data) {
@@ -85,5 +85,5 @@ function blogDelete(seq, index){
 
 /* when '수정' click */
 function blogModify(seq){
-	window.location.href = getContextPath() + "/mgnt/blogs/post/" + seq;		
+	window.location.href = getContextPath() + "/blogs/post/" + seq;		
 }

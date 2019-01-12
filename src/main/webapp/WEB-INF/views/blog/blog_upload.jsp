@@ -2,7 +2,6 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
-<%@ include file="/WEB-INF/views/blog/blog_common.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/blog/blog-upload.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-fileupload.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-imageupload.css"/>
@@ -16,7 +15,7 @@
 		<div class="wrap-upload-form">
 			<div class="upload-title">블로그 업로드</div>
 		
-			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/blogs/post/${blog.seq}" 
+			<form id="uploadForm" action="${pageContext.request.contextPath}/blogs/post/${blog.seq}" 
 					method="POST" class="upload-form">
 				<c:if test="${not empty blog}">
 				 	<input type="hidden" name="_method" value="PUT"/> 
@@ -69,7 +68,7 @@
 					<div class="item-name">내용</div>
 					<div class="item-input">
 						<c:import url="../included/included_imageupload.jsp" charEncoding="UTF-8">
-							<c:param name="dir" value="${imageDir}"/>
+							<c:param name="dir" value="${blogImageDir}"/>
 							<c:param name="editor" value="blog-contents"/>
 						</c:import>
 					</div>

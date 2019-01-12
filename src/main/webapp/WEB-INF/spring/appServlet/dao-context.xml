@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
-	<context:annotation-config></context:annotation-config>
-	<context:property-placeholder location="/WEB-INF/props/jdbc.properties" />
 	<context:component-scan base-package="com.cglee079.changoos.dao" />
+
+	<context:annotation-config></context:annotation-config>
+	<context:property-placeholder location="classpath:env/jdbc.properties" />
+
 
 	<bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
@@ -21,13 +22,13 @@
 		<property name="testWhileIdle" value="true" />  <!-- 추가된 부분 -->
 		<property name="timeBetweenEvictionRunsMillis" value="1200000" /> <!-- 추가된 부분, 1200000 = 20분 -->
 	</bean>
-	
+
 
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSourceSpied" />
 	</bean>
-	<tx:annotation-driven/>
+	<tx:annotation-driven />
 
 	<!-- Query Log -->
 	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
@@ -43,8 +44,8 @@
 	<!-- Mybatis -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSourceSpied" />
-		<property name="configLocation" value="classpath:com/cglee079/changoos/mybatis/mybatis-config.xml" />
-		<property name="mapperLocations" value="classpath:com/cglee079/changoos/mybatis/mappers/**.xml" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:query/**.xml" />
 	</bean>
 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">

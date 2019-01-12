@@ -113,7 +113,7 @@ public class PhotoDaoTest {
 		int seqC = samplePhotoC.getSeq();
 		
 		//ACT
-		List<Integer> resultSeqs = photoDao.seqs();
+		List<Integer> resultSeqs = photoDao.getSeqs();
 		
 		//ASSERT
 		assertEquals(1, resultSeqs.size());

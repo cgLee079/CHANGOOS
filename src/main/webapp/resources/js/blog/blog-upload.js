@@ -8,10 +8,10 @@ function submit(){
 	seq = $('#seq').val();
 	
 	if(!seq){
-		form.attr("action", getContextPath() + "/mgnt/blogs/post/");
+		form.attr("action", getContextPath() + "/blogs/post/");
 		form.attr("method", "post");
 	} else{
-		form.attr("action", getContextPath() + "/mgnt/blogs/post/" + seq);
+		form.attr("action", getContextPath() + "/blogs/post/" + seq);
 		form.attr("method", "put");
 	}
 	
@@ -27,7 +27,7 @@ function onThumbnailChange(tg){
 	
 	$.ajax({
 		type : "POST",
-		url : getContextPath() + "/mgnt/blogs/post/thumbnail",
+		url : getContextPath() + "/blogs/post/thumbnail",
 		dataType : "JSON",
 		async : false,
 		contentType: false,
@@ -35,7 +35,7 @@ function onThumbnailChange(tg){
 		data : formData,
 		success : function(result) {
 			$("#thumbnail").val(result["pathname"]);
-			$("#thumbnail-img").attr("src", getContextPath() + tempThumbDir + result["pathname"]);
+			$("#thumbnail-img").attr("src", getContextPath() + loc.temp.dir + result["pathname"]);
 		},
 	})
 }
@@ -43,7 +43,7 @@ function onThumbnailChange(tg){
 function initContentCKEditor() {
 	var editor = CKEDITOR.replace("contents", {
 		height : '400px',
-		pasteImageUrl : getContextPath() + "/mgnt/board/post/image",
+		pasteImageUrl : getContextPath() + "/board/post/image",
 		codeSnippet_theme : 'github',
 		on : {
 			instanceReady : function(ev) {

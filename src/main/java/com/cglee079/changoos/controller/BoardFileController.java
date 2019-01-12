@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
@@ -47,8 +48,8 @@ public class BoardFileController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/board/post/file" , method=RequestMethod.POST)
-	public String fileDoUpload(MultipartFile file) throws IllegalStateException, IOException {
+	@RequestMapping(value = "/board/post/file" , method=RequestMethod.POST)
+	public String fileDoUpload(HttpSession session, MultipartFile file) throws IllegalStateException, IOException {
 		String pathname= fileService.saveFile(file);
 		
 		JSONObject result = new JSONObject();

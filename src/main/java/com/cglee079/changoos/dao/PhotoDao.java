@@ -24,7 +24,7 @@ public class PhotoDao {
 		return sqlSession.selectList(namespace + ".list", map);
 	}
 	
-	public List<Integer> seqs() {
+	public List<Integer> getSeqs() {
 		return sqlSession.selectList(namespace + ".getSeqs");
 	}
 	

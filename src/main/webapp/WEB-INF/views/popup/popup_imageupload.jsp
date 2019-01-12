@@ -4,12 +4,13 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/popup/popup-imageupload.css" />
 <script src="${pageContext.request.contextPath}/resources/js/popup/popup-imageupload.js"></script>
-<c:set var="tempDir"><spring:eval expression="@location['temp.image.dir.url']"/></c:set>
-<c:set var="maxWidth"><spring:eval expression="@constant['image.max.width']"/></c:set>
-<script>
-var tempDirURL = '<c:out value="${tempDir}" />';
 
+<c:set var="tempDir"><spring:eval expression="@location['temp.dir.url']"/></c:set>
+<spring:eval expression="@constant['image.max.width']" var='maxWidth' />
+<script>
+var tempDir = '${tempDir}';
 </script>
+
 </head>
 <body>
 	<input type="hidden" id="editor" value='<c:out value="${editor}"/>'>
@@ -28,7 +29,7 @@ var tempDirURL = '<c:out value="${tempDir}" />';
 			<input type="hidden" class="pathname">
 			<input type="hidden" class="filename">
 			<input type="hidden" class="status">
-			<img class="image" width='100%' height='100%'/>
+			<img class="image" src='${pageContext.request.contextPath}${tempDir}' width='100%' height='100%'/>
 			<div class="btn-remove" onclick="removeImage(this)">삭제</div>
 		</div>
 	</div>

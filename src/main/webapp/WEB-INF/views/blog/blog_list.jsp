@@ -2,7 +2,6 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
-<%@ include file="/WEB-INF/views/blog/blog_common.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/blog/blog-list.css" />
 <script src="${pageContext.request.contextPath}/resources/js/blog/blog-list.js"></script>
 </head>

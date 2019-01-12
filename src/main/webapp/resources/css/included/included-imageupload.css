@@ -1,9 +1,9 @@
-.thumbnail-list {
+.image-list {
 	display: flex;
 	flex-flow: row wrap;
 }
 
-.wrap-thumbnail {
+.wrap-image {
 	width: 100px;
 	height: 100px;
 	margin: 5px;
@@ -11,11 +11,11 @@
 	border: 1px solid #DDD;
 }
 
-.wrap-thumbnail.remove {
+.wrap-image.remove {
 	display: none;
 }
 
-.wrap-thumbnail .btn-remove {
+.wrap-image .btn-remove {
 	position: absolute;
 	cursor: pointer;
 	padding: 5px 7px;

@@ -66,13 +66,13 @@ public class PhotoController {
 	}
 	
 	/** 사진 업로드 페이지로 이동 **/
-	@RequestMapping(value = "/mgnt/photos/post", method = RequestMethod.GET)
+	@RequestMapping(value = "/photos/post", method = RequestMethod.GET)
 	public String photoUpload() {
 		return "photo/photo_upload";
 	}
 	
 	/** 사진 수정 페이지로 이동 **/
-	@RequestMapping(value = "/mgnt/photos/post/{seq}", method = RequestMethod.GET)
+	@RequestMapping(value = "/photos/post/{seq}", method = RequestMethod.GET)
 	public String photoModify(Model model, @PathVariable int seq) {
 		PhotoVo photo = photoService.get(seq);
 		model.addAttribute("photo", photo);
@@ -80,14 +80,14 @@ public class PhotoController {
 	}
 	
 	/** 사진 업로드 **/
-	@RequestMapping(value = "/mgnt/photos/post", method = RequestMethod.POST)
+	@RequestMapping(value = "/photos/post", method = RequestMethod.POST)
 	public String photoDoUpload(PhotoVo photo) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
 		photoService.insert(photo);
 		return "redirect:" + "/mgnt/photos";
 	}
 	
 	/** 사진 수정 **/
-	@RequestMapping(value = "/mgnt/photos/post/{seq}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/photos/post/{seq}", method = RequestMethod.PUT)
 	public String photoDoModify(PhotoVo photo) throws IllegalStateException, IOException, ImageProcessingException, MetadataException{
 		photoService.update(photo);
 		return "redirect:" + "/mgnt/photos";
@@ -95,7 +95,7 @@ public class PhotoController {
 	
 	/** 사진 삭제 , Ajax **/
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/photos/post/{seq}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/photos/post/{seq}", method = RequestMethod.DELETE)
 	public String photoDoDelete(@PathVariable int seq) {
 		boolean result = photoService.delete(seq);
 		return new JSONObject().put("result", result).toString();
@@ -103,7 +103,7 @@ public class PhotoController {
 	
 	/** 사진 파일 업로드 **/
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/photos/post/image", method = RequestMethod.POST)
+	@RequestMapping(value = "/photos/post/image", method = RequestMethod.POST)
 	public String photoImageDoUpload(MultipartFile image) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
 		PhotoVo photo = photoService.savePhoto(image);
 		return new Gson().toJson(photo).toString();

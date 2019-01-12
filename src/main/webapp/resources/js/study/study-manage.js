@@ -60,7 +60,7 @@ function studyDelete(seq, index){
 	function doDelete(seq, index){
 		$.ajax({
 			type	: "DELETE",
-			url		: getContextPath() + "/mgnt/studies/post/" + seq,
+			url		: getContextPath() + "/studies/post/" + seq,
 			dataType: 'JSON',
 			async	: false,
 			success : function(data) {
@@ -78,5 +78,5 @@ function studyDelete(seq, index){
 
 /* when '수정' click */
 function studyModify(seq){
-	window.location.href = getContextPath() + "/mgnt/studies/post/" + seq;		
+	window.location.href = getContextPath() + "/studies/post/" + seq;		
 }

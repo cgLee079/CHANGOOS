@@ -75,9 +75,9 @@ function drawBlog(data){
 		
 		var blogFirstItem = $(".blog-first-item");
 		if(blog.thumbnail){
-			blogFirstItem.find(".blog-first-item-snapsht").css("background-image", "url('" + getContextPath() + thumbDir + blog.thumbnail + "')");
+			blogFirstItem.find(".blog-first-item-snapsht").css("background-image", "url('" + getContextPath() + loc.blog.thumbDir + blog.thumbnail + "')");
 		}  else if(blog.images.length > 0){
-			blogFirstItem.find(".blog-first-item-snapsht").css("background-image", "url('" + getContextPath() + imageDir + blog.images[0].pathname + "')");
+			blogFirstItem.find(".blog-first-item-snapsht").css("background-image", "url('" + getContextPath() + loc.blog.imageDir + blog.images[0].pathname + "')");
 		} else{
 			blogFirstItem.find(".blog-first-item-snapsht").css("background", "#000");
 		}
@@ -92,9 +92,9 @@ function drawBlog(data){
 		
 		var blogItem = blogItemTemp.clone();
 		if(blog.thumbnail){
-			blogItem.find(".blog-item-snapsht").css("background-image", "url('" + getContextPath() + thumbDir + blog.thumbnail + "')");
+			blogItem.find(".blog-item-snapsht").css("background-image", "url('" + getContextPath() + loc.blog.thumbDir + blog.thumbnail + "')");
 		} else if(blog.images.length > 0){
-			blogItem.find(".blog-item-snapsht").css("background-image", "url('" + getContextPath() + imageDir + blog.images[0].pathname + "')");
+			blogItem.find(".blog-item-snapsht").css("background-image", "url('" + getContextPath() + loc.blog.imageDir + blog.images[0].pathname + "')");
 		} else{
 			blogItem.find(".blog-item-snapsht").css("background", "#000");
 		}

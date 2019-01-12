@@ -2,7 +2,6 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
-<%@ include file="/WEB-INF/views/photo/photo_common.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/photo/photo-upload.css" />
 <script src="${pageContext.request.contextPath}/resources/js/photo/photo-upload.js"></script>
 </head>
@@ -13,7 +12,7 @@
 		<div class="wrap-upload-form">
 			<div class="upload-title">사진 업로드</div>
 			
-			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/photos/post/${photo.seq}" method="post" >
+			<form id="uploadForm" action="${pageContext.request.contextPath}/photos/post/${photo.seq}" method="post" >
 				
 				<c:if test="${not empty photo}">
 					<input type="hidden" name="_method" value="PUT"/>
@@ -37,7 +36,7 @@
 				<div class="upload-item">
 					<div class="upload-item-name">사진</div>
 					<div class="upload-item-input">
-						<img id="snapshot" onclick="$(this).siblings('#imageFile').click();" src="<c:out value='${thumbDir}${photo.thumbnail}'/>" height="150">
+						<img id="snapshot" onclick="$(this).siblings('#imageFile').click();" src="<c:out value='${projectThumbDir}${photo.thumbnail}'/>" height="150">
 						<input type="file" id="imageFile" name="imageFile" class="photo-image" accept="image/*" onchange="onPhotoChnage(this)"/>
 					</div>
 				</div>

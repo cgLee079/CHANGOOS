@@ -19,7 +19,7 @@ function onThumbnailChange(tg){
 	
 	$.ajax({
 		type : "POST",
-		url : getContextPath() + "/mgnt/projects/post/thumbnail",
+		url : getContextPath() + "/projects/post/thumbnail",
 		dataType : "JSON",
 		async : false,
 		contentType: false,
@@ -27,7 +27,7 @@ function onThumbnailChange(tg){
 		data : formData,
 		success : function(result) {
 			$("#thumbnail").val(result["pathname"]);
-			$("#thumbnail-img").attr("src", getContextPath() + tempThumbDir + result["pathname"]);
+			$("#thumbnail-img").attr("src", getContextPath() + loc.temp.dir + result["pathname"]);
 		},
 	})
 }
@@ -58,7 +58,7 @@ function initDescCKEditor() {
 function initContentCKEditor() {
 	var editor = CKEDITOR.replace("contents", {
 		height : '400px',
-		pasteImageUrl : getContextPath() + "/mgnt/board/post/image",
+		pasteImageUrl : getContextPath() + "/board/post/image",
 		codeSnippet_theme : 'github',
 		on : {
 			instanceReady : function(ev) {

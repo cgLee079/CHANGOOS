@@ -12,7 +12,7 @@ function submit(){
 function initContentCKEditor(){
 	var editor = CKEDITOR.replace("study-contents", {
 		height : '400px',
-		pasteImageUrl : getContextPath() + "/mgnt/board/post/image",
+		pasteImageUrl : getContextPath() + "/board/post/image",
 		on : {
 			instanceReady : function( ev ){
 			    // Output paragraphs as <p>Text</p>.

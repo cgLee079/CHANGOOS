@@ -45,7 +45,7 @@ public class BlogService{
 	@Value("#{location['blog.file.dir.url']}") 	private String fileDir;
 	@Value("#{location['blog.image.dir.url']}") private String imageDir;
 	@Value("#{location['blog.thumb.dir.url']}")	private String thumbDir;
-	@Value("#{location['temp.thumb.dir.url']}")	private String tempThumbDir;
+	@Value("#{location['temp.dir.url']}")	private String tempDir;
 	
 	@Value("#{db['blog.file.tb.name']}") private String fileTB;
 	@Value("#{db['blog.image.tb.name']}")private String imageTB;
@@ -104,7 +104,7 @@ public class BlogService{
 		return blog;
 	}
 	
-	public List<BlogVo> paging(Map<String, Object> params){
+	public List<BlogVo> list(Map<String, Object> params){
 		if(params.containsKey("tags")) {
 			String tags = (String) params.get("tags");
 			params.put("tags", new HashSet<String>(Arrays.asList(tags.split(","))));
@@ -140,7 +140,7 @@ public class BlogService{
 		blog.setDate(Formatter.toDate(new Date()));
 		int seq = blogDao.insert(blog);
 		
-		fileHandler.move(realPath + tempThumbDir + blog.getThumbnail(), realPath + thumbDir + blog.getThumbnail());
+		fileHandler.move(realPath + tempDir + blog.getThumbnail(), realPath + thumbDir + blog.getThumbnail());
 		
 		boardFileService.insertFiles(fileTB, fileDir, seq, fileValues);
 		
@@ -161,7 +161,7 @@ public class BlogService{
 			fileHandler.delete(realPath + thumbDir + savedBlog.getThumbnail());
 		}
 		
-		fileHandler.move(realPath + tempThumbDir + blog.getThumbnail(), realPath + thumbDir + blog.getThumbnail());
+		fileHandler.move(realPath + tempDir + blog.getThumbnail(), realPath + thumbDir + blog.getThumbnail());
 		boardFileService.insertFiles(fileTB, fileDir, seq, fileValues);
 		
 		String contents = boardImageService.insertImages(imageTB, imageDir, seq, blog.getContents(), imageValues);
@@ -207,7 +207,7 @@ public class BlogService{
 			String imgExt = MyFilenameUtils.getExt(filename);
 			
 			pathname = "BLOG.THUMB." + MyFilenameUtils.getRandomImagename(imgExt);
-			File file = fileHandler.save(realPath + tempThumbDir +  pathname, thumbnailFile);
+			File file = fileHandler.save(realPath + tempDir +  pathname, thumbnailFile);
 			
 			imageHandler.saveLowscaleImage(file, thumbMaxWidth, imgExt);
 			

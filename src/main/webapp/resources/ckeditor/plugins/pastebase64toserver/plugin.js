@@ -58,7 +58,7 @@
 		        	var base64 = evt.target.result;
 		        	
 		        	$.ajax({
-		        		type	: "post",
+		        		type	: "POST",
 		        		url 	: editor.config.pasteImageUrl,
 		        		dataType: "JSON",
 		        		async 	: false,
@@ -80,11 +80,11 @@
 							    }
 							    
 							    var image = {
-										"editorID": editor.name, 
-										"seq" : undefined,
-										"pathname" : pathname,
-										"filename" : filename,
-										"status" : "NEW",
+										"editorID"	: editor.name, 
+										"seq" 		: undefined,
+										"pathname" 	: result.pathname,
+										"filename" 	: result.filename,
+										"src"		: result.src
 								}
 							    
 							    imageUploader.insertCKEditor(image, "720");

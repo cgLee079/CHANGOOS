@@ -1,18 +1,19 @@
 var imageUploader = new Object();
 window.imageUloader = imageUploader;
 
-var wrapThumbnailTemp;
+var wrapImageTemp;
 
 $(document).ready(function() {
-	wrapThumbnailTemp = $(".wrap-thumbnail.temp").clone();
-	$(".wrap-thumbnail.temp").remove();
+	wrapImageTemp = $(".wrap-image.temp").clone();
+	$(".wrap-image.temp").remove();
 	
-	updateInputValue();
+	imageUploader.updateInputValue();
 });
 
 imageUploader.insertCKEditor = function(image, maxWidth) {
 	var img = new Image();
-	img.src =  tempDir + image.pathname;
+	img.src =  loc.temp.dir + image.pathname;
+	
 	img.onload = function() {
 		var width = this.width;
 		var height = this.height;
@@ -26,7 +27,7 @@ imageUploader.insertCKEditor = function(image, maxWidth) {
 		var p = editor.document.createElement('p');
 		var e = editor.document.createElement('img', {
 			attributes : {
-				"src" : tempDir + image.pathname,
+				"src" : loc.temp.dir + image.pathname,
 				"pathname" : image.pathname,
 				"alt" : image.filename,
 				"title" : image.filename,
@@ -42,24 +43,27 @@ imageUploader.insertCKEditor = function(image, maxWidth) {
 }
 
 imageUploader.insertImageInfo = function(image) {
-	var thumbnailList = $(".thumbnail-list");
-	var wrapThumbnail = wrapThumbnailTemp.clone();
-	wrapThumbnailTemp.removeClass("temp");
+	var imageList = $(".image-list");
+	var wrapImage = wrapImageTemp.clone();
+	wrapImageTemp.removeClass("temp");
 	
-	wrapThumbnail.appendTo(thumbnailList);
-	wrapThumbnail.find(".editorID").val(image.editorID);
-	wrapThumbnail.find(".pathname").val(image.pathname);
-	wrapThumbnail.find(".filename").val(image.filename);
-	wrapThumbnail.find(".status").val(IMAGE_STATUS_NEW);
-	wrapThumbnail.find(".thumbnail").attr("src", getContextPath() + tempDir + image.pathname);
-	wrapThumbnail.find(".btn-remove").attr("onclick", "removeImage(this, '" + image.editorID + "', '" + image.pathname + "')");
+	wrapImage.appendTo(imageList);
+	wrapImage.find(".editorID").val(image.editorID);
+	wrapImage.find(".pathname").val(image.pathname);
+	wrapImage.find(".filename").val(image.filename);
+	wrapImage.find(".status").val(imageUploader.status.NEW);
+	wrapImage.find(".image").attr("src", loc.temp.dir + image.pathname);
 	
-	updateInputValue();
+	imageUploader.updateInputValue();
 }
 
-function removeImage(tg, editorID, pathname) {
-	var editor = CKEDITOR.instances[editorID];
-	var images = $(editor.document.$.body).find("img");
+imageUploader.removeImage = function(tg) {
+	var wrapImage 	= $(tg).parent(".wrap-image");
+	var status 		= wrapImage.find(".status").val();
+	var editorID	= wrapImage.find(".editorID").val();
+	var pathname 	= wrapImage.find(".pathname").val(); 
+	var editor 		= CKEDITOR.instances[editorID];
+	var images 		= $(editor.document.$.body).find("img");
 	
 	for(var i = 0; i < images.length; i++){
 		var image = $(images[i]);
@@ -68,23 +72,21 @@ function removeImage(tg, editorID, pathname) {
 		}
 	}
 	
-	var wrapThumbnail = $(tg).parent(".wrap-thumbnail");
-	var status =wrapThumbnail.find(".status");
-	if(status.val() == IMAGE_STATUS_BE){
-		wrapThumbnail.addClass("remove");
-		status.val(IMAGE_STATUS_REMOVE);
-	} else if(status.val() == IMAGE_STATUS_NEW){
-		wrapThumbnail.addClass("remove");
-		status.val(IMAGE_STATUS_UNNEW);
+	if(status == imageUploader.status.BE){
+		wrapImage.addClass("remove");
+		status.val(imageUploader.status.REMOVE);
+	} else if(status == imageUploader.status.NEW){
+		wrapImage.addClass("remove");
+		status.val(imageUploader.status.UNNEW);
 	} 
 	
-	updateInputValue();
+	imageUploader.updateInputValue();
 }
 
 imageUploader.image2JSON = function(){
 	var images = new Array();
 	var image;
-	var wrapImages = $(".wrap-thumbnail");
+	var wrapImages = $(".wrap-image");
 	var wrapImage;
 	for(var i = 0; i < wrapImages.length; i++){
 		wrapImage = $(wrapImages[i]);
@@ -101,12 +103,12 @@ imageUploader.image2JSON = function(){
 	return images;
 }
 
-function updateInputValue(){
+imageUploader.updateInputValue = function(){
 	var images = imageUploader.image2JSON();
 	var input = $("#imageValues");
 	input.val(JSON.stringify(images));
 }
 
 function openImageUploadPopup(editor) {
-	var popup = window.open(getContextPath() + "/mgnt/board/post/image?editor=" + editor, "_blank", 'width=600, height=800');
+	var popup = window.open(getContextPath() + "/board/post/image?editor=" + editor, "_blank", 'width=600, height=800');
 }

@@ -95,13 +95,13 @@ public class StudyController {
 	}
 	
 	/** 공부 업로드 페이지로 이동 **/
-	@RequestMapping(value = "/mgnt/studies/post", method = RequestMethod.GET)
+	@RequestMapping(value = "/studies/post", method = RequestMethod.GET)
 	public String studyUpload(Model model)throws SQLException, JsonProcessingException{
 		return "study/study_upload";
 	}
 	
 	/** 공부 수정 페이지로 이동 **/
-	@RequestMapping(value = "/mgnt/studies/post/{seq}", method = RequestMethod.GET)
+	@RequestMapping(value = "/studies/post/{seq}", method = RequestMethod.GET)
 	public String studyModify(Model model, @PathVariable int seq)throws SQLException, JsonProcessingException{
 		StudyVo study = studyService.get(seq);
 		model.addAttribute("study", study);
@@ -112,14 +112,14 @@ public class StudyController {
 	
 	 
 	/** 공부 업로드  **/
-	@RequestMapping(value = "/mgnt/studies/post", method = RequestMethod.POST)
+	@RequestMapping(value = "/studies/post", method = RequestMethod.POST)
 	public String studyDoUpload(StudyVo study, String imageValues, String fileValues) throws SQLException, IllegalStateException, IOException{
 		int seq = studyService.insert(study, imageValues, fileValues);
 		return "redirect:" + "/studies/" + seq;
 	}
 	
 	/** 공부 수정 **/
-	@RequestMapping(value = "/mgnt/studies/post/{seq}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/studies/post/{seq}", method = RequestMethod.PUT)
 	public String studyDoModify(StudyVo study, String imageValues, String fileValues) throws SQLException, IllegalStateException, IOException{
 		boolean result = studyService.update(study,imageValues, fileValues);
 		return "redirect:" + "/studies/" + study.getSeq();
@@ -127,7 +127,7 @@ public class StudyController {
 	
 	/** 공부 삭제 **/
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/studies/post/{seq}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/studies/post/{seq}", method = RequestMethod.DELETE)
 	public String studyDoDelete(@PathVariable int seq) throws SQLException, JsonProcessingException{
 		boolean result = studyService.delete(seq);
 		return new JSONObject().put("result", result).toString();

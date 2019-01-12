@@ -16,10 +16,10 @@ public class PhotoComtDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public List<PhotoComtVo> list() {
-		return sqlSession.selectList(namespace +".list");
+	public PhotoComtVo get(int seq) {
+		return sqlSession.selectOne(namespace +".get", seq);
 	}
-
+	
 	public List<PhotoComtVo> list(int photoSeq) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("photoSeq", photoSeq);
@@ -36,15 +36,12 @@ public class PhotoComtDao {
 		return sqlSession.insert(namespace + ".insert", pcomt) == 1;
 	}
 
+	public boolean update(PhotoComtVo comt) {
+		return sqlSession.update(namespace +".update", comt) == 1;
+	}
+	
 	public boolean delete(int seq) {
 		return sqlSession.delete(namespace + ".delete", seq) == 1;
 	}
 
-	public PhotoComtVo get(int seq) {
-		return sqlSession.selectOne(namespace +".get", seq);
-	}
-	
-	public boolean update(PhotoComtVo comt) {
-		return sqlSession.update(namespace +".update", comt) == 1;
-	}
 }

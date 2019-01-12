@@ -29,14 +29,14 @@ public class ProjectDao {
 		return project.getSeq();
 	}
 
-	public boolean delete(int seq) {
-		return sqlSession.delete(namespace + ".delete", seq) == 1;
-	}
-
 	public boolean update(ProjectVo project) {
 		return sqlSession.update(namespace + ".update", project) == 1;
 	}
 
+	public boolean delete(int seq) {
+		return sqlSession.delete(namespace + ".delete", seq) == 1;
+	}
+	
 	public ProjectVo getBefore(int seq) {
 		return sqlSession.selectOne(namespace + ".getBefore", seq);
 	}

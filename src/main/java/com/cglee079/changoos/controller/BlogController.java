@@ -52,7 +52,7 @@ public class BlogController {
 	public String blogPaging(@RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException {
 		params.put("enabled", true);
 		
-		List<BlogVo> blogs = blogService.paging(params);
+		List<BlogVo> blogs = blogService.list(params);
 		
 		String data = new Gson().toJson(blogs);
 		JSONArray rescords = new JSONArray(data);
@@ -72,7 +72,6 @@ public class BlogController {
 		return "blog/blog_view";
 	}
 
-	/** 블로그 관리 페이지로 이동 **/
 	@RequestMapping(value = "/mgnt/blogs", method = RequestMethod.GET)
 	public String blogManage(Model model) {
 		return "blog/blog_manage";
@@ -82,18 +81,18 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/blogs/records", method = RequestMethod.GET)
 	public String blogManagePaging(@RequestParam Map<String, Object> params) {
-		List<BlogVo> blogs = blogService.paging(params);
+		List<BlogVo> blogs = blogService.list(params);
 		return new Gson().toJson(blogs).toString();
 	}
 
 	/** 블로그 업로드 페이지로 이동 **/
-	@RequestMapping(value = "/mgnt/blogs/post", method = RequestMethod.GET)
+	@RequestMapping(value = "/blogs/post", method = RequestMethod.GET)
 	public String blogUpload(Model model) throws SQLException, JsonProcessingException {
 		return "blog/blog_upload";
 	}
 
 	/** 블로그 수정 페이지로 이동 **/
-	@RequestMapping(value = "/mgnt/blogs/post/{seq}", method = RequestMethod.GET)
+	@RequestMapping(value = "/blogs/post/{seq}", method = RequestMethod.GET)
 	public String blogModify(Model model, @PathVariable int seq) throws SQLException, JsonProcessingException {
 		BlogVo blog = blogService.get(seq);
 
@@ -105,14 +104,14 @@ public class BlogController {
 	}
 
 	/** 블로그 업로드 **/
-	@RequestMapping(value = "/mgnt/blogs/post", method = RequestMethod.POST )
+	@RequestMapping(value = "/blogs/post", method = RequestMethod.POST )
 	public String blogDoUpload(BlogVo blog, String imageValues, String fileValues) throws SQLException, IllegalStateException, IOException {
 		int seq = blogService.insert(blog, imageValues, fileValues);
 		return "redirect:" + "/blogs/" + seq;
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/blogs/post/thumbnail", method = RequestMethod.POST )
+	@RequestMapping(value = "/blogs/post/thumbnail", method = RequestMethod.POST )
 	public String blogDoThumbUpload(MultipartFile thumbnailFile) throws SQLException, IllegalStateException, IOException {
 		String pathname = blogService.saveThumbnail(thumbnailFile);
 		
@@ -123,7 +122,7 @@ public class BlogController {
 	}
 	
 	/** 블로그 수정 **/
-	@RequestMapping(value = "/mgnt/blogs/post/{seq}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/blogs/post/{seq}", method = RequestMethod.PUT)
 	public String blogDoModify(BlogVo blog, String thumbValues, String imageValues,
 			String fileValues) throws SQLException, IllegalStateException, IOException {
 		blogService.update(blog, thumbValues, imageValues, fileValues);
@@ -132,7 +131,7 @@ public class BlogController {
 
 	/** 블로그 삭제 **/
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/blogs/post/{seq}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/blogs/post/{seq}", method = RequestMethod.DELETE)
 	public String blogDoDelete(@PathVariable int seq) throws SQLException, JsonProcessingException {
 		boolean result = blogService.delete(seq);
 		return new JSONObject().put("result", result).toString();

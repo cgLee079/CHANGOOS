@@ -17,47 +17,47 @@ public class BoardComtDao {
 	private SqlSessionTemplate sqlSession;
 
 	public List<BoardComtVo> list(String TB, int boardSeq, int offset, int limit) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("TB", TB);
-		map.put("boardSeq", boardSeq);
-		map.put("offset", offset);
-		map.put("limit", limit);
-		return sqlSession.selectList(namespace +".list", map);
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("TB", TB);
+		param.put("boardSeq", boardSeq);
+		param.put("offset", offset);
+		param.put("limit", limit);
+		return sqlSession.selectList(namespace +".list", param);
 	}
 
 	public int count(String TB, int boardSeq) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("TB", TB);
-		map.put("boardSeq", boardSeq);
-		return sqlSession.selectOne(namespace +".count", map);
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("TB", TB);
+		params.put("boardSeq", boardSeq);
+		return sqlSession.selectOne(namespace +".count", params);
 	}
 
 	public boolean insert(String TB, BoardComtVo comt) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("TB", TB);
-		map.put("comt", comt);
-		return sqlSession.insert(namespace + ".insert", map) == 1;
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("TB", TB);
+		params.put("comt", comt);
+		return sqlSession.insert(namespace + ".insert", params) == 1;
 	}
 
 	public boolean delete(String TB, int seq) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("TB", TB);
-		map.put("seq", seq);
-		return sqlSession.delete(namespace + ".delete", map) == 1;
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("TB", TB);
+		params.put("seq", seq);
+		return sqlSession.delete(namespace + ".delete", params) == 1;
 	}
 
 	public BoardComtVo get(String TB, int seq) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("TB", TB);
-		map.put("seq", seq);
-		return sqlSession.selectOne(namespace +".get", map);
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("TB", TB);
+		params.put("seq", seq);
+		return sqlSession.selectOne(namespace +".get", params);
 	}
 	
 	public boolean update(String TB, BoardComtVo comt) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("TB", TB);
-		map.put("comt", comt);
-		return sqlSession.update(namespace +".update", map) == 1;
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("TB", TB);
+		params.put("comt", comt);
+		return sqlSession.update(namespace +".update", params) == 1;
 	}
 
 

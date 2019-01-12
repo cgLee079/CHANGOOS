@@ -7,7 +7,7 @@ $(document).ready(function(){
 	fileInfoTemp.removeClass("temp");
 	$(".file-info.temp").remove();
 	
-	updateFileValues();
+	fileUploader.updateFileValues();
 });
 
 fileUploader.file2JSON = function(){
@@ -43,12 +43,10 @@ fileUploader.insertFileInfo = function(file) {
 	fileInfo.find(".file-info-name").text("[" + (file.size/(1024 * 1024)).toFixed(2) + " MB] " + file.filename);
 	fileInfos.append(fileInfo);
 	
-	updateFileValues();
-	
-	updateInputValue();
+	fileUploader.updateFileValues();
 }
 
-function doFileRemove(tg){
+fileUploader.doFileRemove = function(tg){
 	var fileInfo = $(tg).parents(".file-info");
 	swal({
 		  title: "정말로 삭제 하시겠습니까?",
@@ -60,15 +58,15 @@ function doFileRemove(tg){
 		.then(function(willDelete) {
 			if(willDelete) {
 				var status = fileInfo.find(".file-status")
-				if(status.val() == FILE_STATUS_BE){
+				if(status.val() == fileUploader.status.BE){
 					fileInfo.addClass("remove");
-					status.val(FILE_STATUS_REMOVE);
-				} else if(status.val() == FILE_STATUS_NEW){
+					status.val(fileUploader.status.REMOVE);
+				} else if(status.val() == fileUploader.status.NEW){
 					fileInfo.addClass("remove");
-					status.val(FILE_STATUS_UNNEW);
+					status.val(fileUploader.status.UNNEW);
 				}
 				
-				updateFileValues();
+				fileUploader.updateFileValues();
 			} 
 			
 		})
@@ -77,14 +75,14 @@ function doFileRemove(tg){
 }
 
 
-function sendFile(file){
+fileUploader.sendFile = function(file){
 	return new Promise(function(resolve, reject) {
 		var formData = new FormData(); 	
 		formData.append("file", file);
 		
 		$.ajax({
 			type : "POST",
-			url : getContextPath() + "/mgnt/board/post/file",
+			url : getContextPath() + "/board/post/file",
 			dataType : "JSON",
 			async : false,
 			contentType: false,
@@ -98,7 +96,7 @@ function sendFile(file){
 }
 
 
-function onFileChange(tg){
+fileUploader.onFileChange = function(tg){
 	var files = tg.files;
 	
 	Progress.start();
@@ -108,19 +106,19 @@ function onFileChange(tg){
 			var file = files[i];
 			
 			(function(file){
-				sendFile(file).then(function(result) {
+				fileUploader.sendFile(file).then(function(result) {
 					var fileInfos= $(".file-infos");
 					var fileInfo = fileInfoTemp.clone();
 					
 					fileInfo.find(".file-pathname").val(result.pathname);
 					fileInfo.find(".file-filename").val(file.name);
 					fileInfo.find(".file-size").val(file.size);
-					fileInfo.find(".file-status").val(FILE_STATUS_NEW);
+					fileInfo.find(".file-status").val(fileUploader.status.NEW);
 					
 					fileInfo.find(".file-info-name").text("[" + (file.size/(1024 * 1024)).toFixed(2) + " MB] " + file.name);
 					fileInfos.append(fileInfo);
 					
-					updateFileValues();
+					fileUploader.updateFileValues();
 				})
 			})(file);
 		}
@@ -131,7 +129,7 @@ function onFileChange(tg){
 	
 }
 
-function updateFileValues(){
+fileUploader.updateFileValues = function(){
 	var files = fileUploader.file2JSON();
 	var input = $("#fileValues");
 	input.val(JSON.stringify(files));

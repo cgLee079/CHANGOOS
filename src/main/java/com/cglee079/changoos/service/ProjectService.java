@@ -35,7 +35,7 @@ public class ProjectService {
 	@Value("#{location['project.file.dir.url']}") 	private String fileDir;
 	@Value("#{location['project.image.dir.url']}")	private String imageDir;
 	@Value("#{location['project.thumb.dir.url']}") 	private String thumbDir;
-	@Value("#{location['temp.thumb.dir.url']}")		private String tempThumbDir;
+	@Value("#{location['temp.dir.url']}")			private String tempThumbDir;
 	
 	@Value("#{db['project.file.tb.name']}") private String fileTB;
 	@Value("#{db['project.image.tb.name']}") private String imageTB;

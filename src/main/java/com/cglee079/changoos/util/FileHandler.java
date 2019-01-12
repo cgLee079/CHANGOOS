@@ -55,9 +55,10 @@ public class FileHandler {
 		return delete(path + filename);
 	}
 
-	public boolean move(File existFile, File newFile) {
+	public boolean move(String existFile, String newFile) {
 		try {
-			Files.move(existFile.toPath(), newFile.toPath());
+			Files.createDirectories(Paths.get(newFile).getParent());
+			Files.move(Paths.get(existFile), Paths.get(newFile));
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -65,8 +66,14 @@ public class FileHandler {
 		}
 	}
 	
+	public boolean move(File existFile, File newFile) {
+		return this.move(existFile.getPath(), newFile.getPath());
+	}
+
+	
 	public boolean copy(File existFile, File newFile) {
 		try {
+			Files.createDirectories(newFile.toPath().getParent());
 			Files.copy(existFile.toPath(), newFile.toPath());
 			return true;
 		} catch (IOException e) {
@@ -75,19 +82,10 @@ public class FileHandler {
 		}
 	}
 	
-	public boolean move(String existFile, String newFile) {
-		try {
-			Files.move(Paths.get(existFile), Paths.get(newFile));
-			return true;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
 	public File save(String path, MultipartFile multipartFile) {
 		File file = new File(path);
 		try {
+			Files.createDirectories(Paths.get(path).getParent());
 			multipartFile.transferTo(file);
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
@@ -101,6 +99,7 @@ public class FileHandler {
 	public File save(String path, String ext, BufferedImage bufImg) {
 		File file = new File(path);
 		try {
+			Files.createDirectories(Paths.get(path).getParent());
 			ImageIO.write(bufImg, ext, file);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -6,6 +6,7 @@ var boardSeq;
 var comtCnt;
 var isAdmin;
 var path;
+
 $(document).ready(function(){
 	limit 	= 1000000;
 	boardType	= $("#boardType").val();

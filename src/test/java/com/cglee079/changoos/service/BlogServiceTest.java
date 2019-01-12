@@ -64,6 +64,7 @@ public class BlogServiceTest {
 	@Value("#{location['blog.file.dir.url']}") 	private String fileDir;
 	@Value("#{location['blog.image.dir.url']}")	private String imageDir;
 	@Value("#{location['blog.thumb.dir.url']}") 	private String thumbDir;
+	@Value("#{location['temp.dir.url']}") 	private String tempDir;
 	
 	@Value("#{db['blog.file.tb.name']}") private String fileTB;
 	@Value("#{db['blog.image.tb.name']}") private String imageTB;
@@ -82,6 +83,7 @@ public class BlogServiceTest {
 		ReflectionTestUtils.setField(blogService, "fileDir", fileDir);
 		ReflectionTestUtils.setField(blogService, "imageDir", imageDir);
 		ReflectionTestUtils.setField(blogService, "thumbDir", thumbDir);
+		ReflectionTestUtils.setField(blogService, "tempDir", tempDir);
 		ReflectionTestUtils.setField(blogService, "fileTB", fileTB);
 		ReflectionTestUtils.setField(blogService, "imageTB", imageTB);
 		ReflectionTestUtils.setField(blogService, "thumbMaxWidth", thumbMaxWidth);
@@ -286,7 +288,7 @@ public class BlogServiceTest {
 	}
 	
 	@Test
-	public void testPaging() {
+	public void testListWithParam() {
 		String page = "1";
 		String perPgLine = "10";
 		String contents = "<body>SAMPLE_CONTENTS\nNN<body>";
@@ -315,10 +317,9 @@ public class BlogServiceTest {
 		when(blogDao.list(params)).thenReturn(blogs);
 		
 		//ACT
-		List<BlogVo> resultBlogs = blogService.paging(params);
+		List<BlogVo> resultBlogs = blogService.list(params);
 		
 		//ASSERT
-		assertEquals(0, params.get("startRow"));
 		assertEquals(tag1, ((List<String>)params.get("tags")).get(0));
 		assertEquals(tag2, ((List<String>)params.get("tags")).get(1));
 		assertEquals(expectedBlog, resultBlogs.get(0));
@@ -346,7 +347,6 @@ public class BlogServiceTest {
 				.date(Formatter.toDate(new Date()))
 				.build();
 		
-		doReturn(thumbnail).when(blogService).saveThumbnail(blog, thumbnailFile);
 		when(blogDao.insert(blog)).thenReturn(seq);
 		when(boardImageService.insertImages(imageTB, imageDir, seq, contents, imageValues)).thenReturn(newContents);
 		
@@ -356,6 +356,7 @@ public class BlogServiceTest {
 		//ASSERT
 		assertEquals(seq, result);
 		assertEquals(expectBlog, blog);
+		verify(fileHandler).move(realPath + tempThumbDir + blog.getThumbnail(), realPath + tempThumbDir + blog.getThumbnail());
 		verify(boardFileService).insertFiles(fileTB, fileDir, seq, fileValues);
 		verify(blogDao).update(blog);
 	}

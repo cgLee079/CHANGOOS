@@ -2,7 +2,6 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
-<%@ include file="/WEB-INF/views/project/project_common.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/project/project-upload.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-fileupload.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-imageupload.css"/>
@@ -18,7 +17,7 @@
 		<div class="wrap-upload-form">
 			<div class="upload-title">프로젝트 업로드</div>
 			
-			<form id="uploadForm" action="${pageContext.request.contextPath}/mgnt/projects/post/${project.seq}" 
+			<form id="uploadForm" action="${pageContext.request.contextPath}/projects/post/${project.seq}" 
 				method="POST">
 				
 				<c:if test="${not empty project}">
@@ -41,7 +40,7 @@
 				<div class="upload-project">
 					<div class="upload-project-name">썸네일</div>
 					<div class="upload-project-input">
-						<img id="thumbnail-img" class="project-thumbnail-img" onclick="$(this).siblings('#thumbnailFile').click();" src="<c:out value='${thumbDir}${project.thumbnail}'/>" height="150">
+						<img id="thumbnail-img" class="project-thumbnail-img" onclick="$(this).siblings('#thumbnailFile').click();" src="<c:out value='${projectThumbDir}${project.thumbnail}'/>" height="150">
 						<input type="hidden" id="thumbnail" name="thumbnail" value="<c:out value='${project.thumbnail}'/>" />
 						<input type="file" id="thumbnailFile" name="thumbnailFile" class="project-thumbnailFile" onchange="onThumbnailChange(this)"/>
 					</div>
@@ -97,7 +96,7 @@
 					<div class="upload-project-name">이미지</div>
 					<div class="upload-project-input">
 						<c:import url="../included/included_imageupload.jsp" charEncoding="UTF-8">
-							<c:param name="dir" value="${imageDir}"/>
+							<c:param name="dir" value="${projectImageDir}"/>
 							<c:param name="editor" value="contents"/>
 						</c:import>
 					</div>

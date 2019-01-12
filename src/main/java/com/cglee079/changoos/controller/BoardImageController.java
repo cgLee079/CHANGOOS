@@ -20,16 +20,16 @@ public class BoardImageController {
 	@Autowired
 	private BoardImageService boardImageService;
 	
-	@RequestMapping(value = "/mgnt/board/post/image", method = RequestMethod.GET)
+	@RequestMapping(value = "/board/post/image", method = RequestMethod.GET)
 	public String imageUpload(Model model, String editor) {
 		model.addAttribute("editor", editor);
 		return "popup/popup_imageupload";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/board/post/image", method = RequestMethod.POST, consumes = "multipart/form-data")
+	@RequestMapping(value = "/board/post/image", method = RequestMethod.POST, consumes = "multipart/form-data")
 	public String imageDoUpload(Model model, MultipartFile image) throws IllegalStateException, IOException {
-		String pathname= boardImageService.saveImage(image);
+		String pathname = boardImageService.saveImage(image);
 		
 		JSONObject result = new JSONObject();
 		result.put("pathname", pathname);
@@ -39,12 +39,11 @@ public class BoardImageController {
 	
 		
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/board/post/image", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+	@RequestMapping(value = "/board/post/image", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
 	public String imageDoPasteUpload(HttpServletRequest request, String base64) throws IllegalStateException, IOException {
 		String pathname = boardImageService.saveBase64(base64);
 		
 		JSONObject result = new JSONObject();
-		result.put("filename", "pasteImage.png");
 		result.put("pathname", pathname);
 		
 		return result.toString();

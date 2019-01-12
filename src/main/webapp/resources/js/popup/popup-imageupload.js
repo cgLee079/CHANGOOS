@@ -12,7 +12,7 @@ function sendImage(file) {
 		
 		$.ajax({
 			type : "POST",
-			url : getContextPath() + "/mgnt/board/post/image",
+			url : getContextPath() + "/board/post/image",
 			dataType : "JSON",
 			async : false,
 			contentType: false,
@@ -37,13 +37,11 @@ function onImageChange() {
 		var file = files[i];
 		(function(file) {
 			sendImage(file).then(function(result) {
-				var path = result.path;
-				var pathname = result.pathname;
 				var wrapImage = wrapImageTemp.clone();
 				wrapImage.appendTo($(".image-list"));
-				wrapImage.find(".image").attr("src", tempDirURL + pathname);
 				wrapImage.find(".filename").val(file.name);
-				wrapImage.find(".pathname").val(pathname);
+				wrapImage.find(".pathname").val(result.pathname);
+				wrapImage.find(".image").attr("src", getContextPath() +  tempDir + result.pathname);
 			})
 		})(file);
 	}
@@ -65,7 +63,7 @@ function doUpload() {
 			"editorID" : editorID,
 			"seq" : undefined,
 			"pathname" : wrapImage.find(".pathname").val(),
-			"filename" : wrapImage.find(".filename").val()
+			"filename" : wrapImage.find(".filename").val(),
 		}
 		opener.imageUploader.insertCKEditor(image, maxWidth);
 		opener.imageUploader.insertImageInfo(image);

@@ -2,7 +2,6 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
-<%@ include file="/WEB-INF/views/photo/photo_common.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/photo/photo-manage.css" />
 <script src="${pageContext.request.contextPath}/resources/js/photo/photo-manage.js"></script>
 </head>
@@ -13,7 +12,7 @@
 	<div class="wrap-photo-list">
 		<div class="menu-manage">
 			<a href="${pageContext.request.contextPath}/photos" class="btn">List</a>
-			<a href="${pageContext.request.contextPath}/mgnt/photos/post" class="btn">Upload</a>
+			<a href="${pageContext.request.contextPath}/photos/post" class="btn">Upload</a>
 		</div>
 		
 		<div class="photo-list">

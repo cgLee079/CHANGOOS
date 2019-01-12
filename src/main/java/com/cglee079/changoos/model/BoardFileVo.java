@@ -1,5 +1,7 @@
 package com.cglee079.changoos.model;
 
+import com.cglee079.changoos.config.code.FileStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +17,6 @@ public class BoardFileVo {
 	private String pathname;
 	private String filename;
 	private long size;
-	private String status;
+	private FileStatus status;
 
 }

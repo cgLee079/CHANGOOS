@@ -70,13 +70,13 @@ public class ProjectController {
 	}
 
 	/** 프로젝트 업로드 페이지로 이동 **/
-	@RequestMapping(value = "/mgnt/projects/post", method = RequestMethod.GET)
+	@RequestMapping(value = "/projects/post", method = RequestMethod.GET)
 	public String projectUpload() {
 		return "project/project_upload";
 	}
 
 	/** 프로젝트 수정 페이지로 이동 **/
-	@RequestMapping(value = "/mgnt/projects/post/{seq}", method = RequestMethod.GET)
+	@RequestMapping(value = "/projects/post/{seq}", method = RequestMethod.GET)
 	public String projectModify(Model model, @PathVariable int seq) {
 		ProjectVo project = projectService.get(seq);
 
@@ -88,14 +88,14 @@ public class ProjectController {
 	}
 
 	/** 프로젝트 업로드 **/
-	@RequestMapping(value = "/mgnt/projects/post", method = RequestMethod.POST)
+	@RequestMapping(value = "/projects/post", method = RequestMethod.POST)
 	public String projectDoUpload(ProjectVo project, String imageValues, String fileValues) throws IllegalStateException, IOException {
 		int seq = projectService.insert(project, imageValues, fileValues);
 		return "redirect:" + "/projects/" + seq;
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/projects/post/thumbnail", method = RequestMethod.POST )
+	@RequestMapping(value = "/projects/post/thumbnail", method = RequestMethod.POST )
 	public String blogDoThumbUpload(MultipartFile thumbnailFile) throws SQLException, IllegalStateException, IOException {
 		String pathname = projectService.saveThumbnail(thumbnailFile);
 		
@@ -106,7 +106,7 @@ public class ProjectController {
 	}
 	
 	/** 프로젝트 수정 **/
-	@RequestMapping(value = "/mgnt/projects/post/{seq}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/projects/post/{seq}", method = RequestMethod.PUT)
 	public String projectDoModify(ProjectVo project, String imageValues, String fileValues) throws IllegalStateException, IOException {
 		projectService.update(project, imageValues, fileValues);
 		return "redirect:" + "/projects/" + project.getSeq();
@@ -114,7 +114,7 @@ public class ProjectController {
 
 	/** 프로젝트 삭제 **/
 	@ResponseBody
-	@RequestMapping(value = "/mgnt/projects/post/{seq}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/projects/post/{seq}", method = RequestMethod.DELETE)
 	public String projectDoDelete(@PathVariable int seq) {
 		boolean result = projectService.delete(seq);
 		return new JSONObject().put("result", result).toString();

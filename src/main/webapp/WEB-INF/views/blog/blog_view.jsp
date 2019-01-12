@@ -2,11 +2,11 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
-<%@ include file="/WEB-INF/views/blog/blog_common.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/blog/blog-view.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-comment.css" />
 <script src="${pageContext.request.contextPath}/resources/js/blog/blog-view.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-comment.js"></script>
+
 <body>
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
@@ -15,10 +15,10 @@
 			<div class="blog-head">
 				<c:choose>
 					<c:when test="${not empty blog.thumbnail}" >
-						<div class="blog-head-bg" style="background-image: url('${thumbDir}${blog.thumbnail}')"></div>
+						<div class="blog-head-bg" style="background-image: url('${blogThumbDir}${blog.thumbnail}')"></div>
 					</c:when>
 					<c:when test="${fn:length(blog.images) > 0}" >
-						<div class="blog-head-bg" style="background-image: url('${imageDir}${blog.images[0].pathname}')"></div>
+						<div class="blog-head-bg" style="background-image: url('${blogImageDir}${blog.images[0].pathname}')"></div>
 					</c:when>
 					<c:otherwise>
 					<div class="blog-head-bg" style="background: #000"></div>
@@ -49,7 +49,7 @@
 							<c:forEach var="file" items="${files}">
 								<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>
 								<div class="blog-file">
-									 <a onclick="downloadFile('${fileDir}', '${file.pathname}', '${file.filename}')"> 
+									 <a onclick="downloadFile('${blogFileDir}', '${file.pathname}', '${file.filename}')"> 
 									 	<c:out value="${file.filename}"/> (<c:out value="${filesize}"/> MB)
 								 	</a>
 								</div>												
@@ -60,7 +60,7 @@
 				
 				<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">
 				   <c:param name = "perPgLine" value = "10" />
-				   <c:param name = "boardType" value = "${boardType}" />
+				   <c:param name = "boardType" value = "${boardType.BLOG.val}" />
 				   <c:param name = "boardSeq" value = "${blog.seq}" />
 				   <c:param name = "comtCnt" value = "${blog.comtCnt}" />
 				</c:import>

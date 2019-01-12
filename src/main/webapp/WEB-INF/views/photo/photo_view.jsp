@@ -2,7 +2,6 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
-<%@ include file="/WEB-INF/views/photo/photo_common.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/photo/photo-view.css" />
 <script src="${pageContext.request.contextPath}/resources/js/photo/photo-view.js"></script> 
 <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
@@ -58,7 +57,7 @@
 			<div class="snapsht-list-cut"></div>
 			<c:forEach items="${photos}" var="photo" varStatus="status" >
 				<div class="btn snapsht-list-item" onclick="showPhoto('${status.index}')"  
-					style="background-image: url('${pageContext.request.contextPath}${thumbDir}${photo.thumbnail}')">
+					style="background-image: url('${pageContext.request.contextPath}${photoThumbDir}${photo.thumbnail}')">
 				</div>
 			</c:forEach>
 			<div class="snapsht-list-cut"></div>

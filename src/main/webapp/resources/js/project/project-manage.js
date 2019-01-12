@@ -27,7 +27,7 @@ function fn_onInitDataGrid(){
 				return "<a onclick='projectDelete(" + row.seq + "," + index + ")' class='dg-btn'> 삭제 </a>" 
 			}},
 			{field:'thumbnail', title:'썸네일', halign:'center', formatter: function(value){
-				return "<img src='" + getContextPath() + thumbDir + value + "' width='100px' height='50px'/>"
+				return "<img src='" + getContextPath() + loc.project.thumbDir + value + "' width='100px' height='50px'/>"
 			}},
 			{field:'subtitle', title:'부제', width:'150px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'title', title:'이름', width:'200px', halign:'center', sortable : "true", styler : alignLeft},
@@ -64,7 +64,7 @@ function projectDelete(seq, index){
 	function doDelete(seq, index){
 		$.ajax({
 			type	: "DELETE",
-			url		: getContextPath() + "/mgnt/projects/post/" + seq,
+			url		: getContextPath() + "/projects/post/" + seq,
 			dataType: 'JSON',
 			async	: false,
 			success : function(data) {
@@ -82,5 +82,5 @@ function projectDelete(seq, index){
 
 /* Ajax, when '수정' click */
 function projectModify(seq){
-	window.location.href = getContextPath() + "/mgnt/projects/post/" + seq;		
+	window.location.href = getContextPath() + "/projects/post/" + seq;		
 }

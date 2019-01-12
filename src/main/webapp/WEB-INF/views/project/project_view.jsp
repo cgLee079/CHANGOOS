@@ -2,7 +2,6 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
-<%@ include file="/WEB-INF/views/project/project_common.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/project/project-view.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-comment.css" />
 <script src="${pageContext.request.contextPath}/resources/js/project/project-view.js"></script>
@@ -15,7 +14,7 @@
 	
 		<div class="project">
 			<div class="project-head">
-				<div class="project-head-bg" style="background-image: url('${pageContext.request.contextPath}${thumbDir}${project.thumbnail}"></div>
+				<div class="project-head-bg" style="background-image: url('${pageContext.request.contextPath}${projectThumbDir}${project.thumbnail}"></div>
 				<div class="project-head-fg"></div>
 				<div class="project-detail">
 					<div class="project-subtitle"><c:out value="${project.subtitle}"/></div>
@@ -55,7 +54,7 @@
 							<c:forEach var="file" items="${files}">
 								<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>
 								<div class="project-file">
-									 <a onclick="downloadFile('${fileDir}', '${file.pathname}', '${file.filename}')"> 
+									 <a onclick="downloadFile('${projectFileDir}', '${file.pathname}', '${file.filename}')"> 
 									 	<c:out value="${file.filename}"/> (<c:out value="${filesize}"/> MB)
 									 </a>
 								</div>												
@@ -66,7 +65,7 @@
 			
 				<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">
 				   <c:param name = "perPgLine" value = "10" />
-				   <c:param name = "boardType" value = "${boardType}" />
+				   <c:param name = "boardType" value = "${boardType.PROJECT.val}" />
 				   <c:param name = "boardSeq" value = "${project.seq}" />
 				   <c:param name = "comtCnt" value = "${project.comtCnt}" />
 				</c:import>

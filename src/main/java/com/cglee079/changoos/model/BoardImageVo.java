@@ -1,5 +1,7 @@
 package com.cglee079.changoos.model;
 
+import com.cglee079.changoos.config.code.ImageStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,5 +17,5 @@ public class BoardImageVo {
 	private String editorID;
 	private String filename;
 	private String pathname;
-	private String status;
+	private ImageStatus status;
 }

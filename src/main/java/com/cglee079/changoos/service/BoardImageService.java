@@ -9,16 +9,17 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cglee079.changoos.config.code.ImageStatus;
 import com.cglee079.changoos.dao.BoardImageDao;
 import com.cglee079.changoos.model.BoardImageVo;
-import com.cglee079.changoos.util.ImageHandler;
 import com.cglee079.changoos.util.FileHandler;
+import com.cglee079.changoos.util.ImageHandler;
 import com.cglee079.changoos.util.MyFilenameUtils;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -32,13 +33,9 @@ public class BoardImageService {
 	@Autowired private FileHandler fileHandler; 
 	
 	@Value("#{servletContext.getRealPath('/')}") 	private String realPath;
-	@Value("#{location['temp.image.dir.url']}")  	private String tempDir;
+	@Value("#{location['temp.dir.url']}")  			private String tempDir;
  	@Value("#{constant['image.max.width']}") 		private int maxWidth;
  	
-	@Value("#{constant['image.status.id.new']}")	private String statusNew;
-	@Value("#{constant['image.status.id.unnew']}") 	private String statusUnnew;
-	@Value("#{constant['image.status.id.remove']}") private String statusRemove;
-	
 	public String saveBase64(String base64) throws IOException {
 		String ImageExt = "PNG";
 		String pathname = MyFilenameUtils.getRandomImagename(ImageExt);
@@ -73,10 +70,11 @@ public class BoardImageService {
 			image = images.get(i);
 			image.setBoardSeq(boardSeq);
 			
-			String status = image.getStatus();
 			String pathname = image.getPathname();
+			ImageStatus status = image.getStatus();
 			
-			if(status.equals(statusNew)) { //새롭게 추가된 이미지
+			switch(status){
+			case NEW:
 				if(boardImageDao.insert(TB, image)) {
 					//임시폴더에서 본 폴더로 이동
 					File existFile  = new File(realPath + tempDir, pathname);
@@ -85,22 +83,19 @@ public class BoardImageService {
 						contents = contents.replaceAll(tempDir + pathname, dir + pathname);
 					}
 				}
-			}
-			else if (status.equals(statusUnnew)) {
+				break;
+			case UNNEW:
 				fileHandler.delete(realPath + tempDir, pathname);
-			}
-			else if (status.equals(statusRemove)) { //기존에 있던 이미지 중, 삭제된 이미지
+				break;
+			case REMOVE:
 				if(boardImageDao.delete(TB, image.getSeq())) {
 					fileHandler.delete(realPath + dir, pathname);
 				}
+				break;
+			case BE: 
+				break;
 			}
 		}
-		
-		//업로드 파일로 이동했음에도 불구하고, 남아있는 TEMP 폴더의 이미지 파일을 삭제.
-		//즉, 이전에 글 작성 중 작성을 취소한 경우 업로드가 되었던 이미지파일들이 삭제됨.
-		//TODO 여러사용자가 동시에 파일을 업로드한다면..?
-		//fileUtils.emptyDir(realPath + imageTempDir);
-		
 		
 		return contents;
 	}

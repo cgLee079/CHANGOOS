@@ -3,9 +3,9 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
-<%@ include file="/WEB-INF/views/project/project_common.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/project/project-manage.css" />
 <script src="${pageContext.request.contextPath}/resources/js/project/project-manage.js"></script>
+
 </head>
 <body>
 <div class="wrapper">
@@ -13,7 +13,7 @@
 	<div class="wrap-project-list">
 		<div class="menu-manage">
 			<a href="${pageContext.request.contextPath}/project" class="btn">List</a>
-			<a href="${pageContext.request.contextPath}/mgnt/projects/post" class="btn">Upload</a>
+			<a href="${pageContext.request.contextPath}/projects/post" class="btn">Upload</a>
 		</div>
 		
 		<div class="project-list">

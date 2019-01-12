@@ -6,7 +6,6 @@
 }
 
 .editor-contents h1, .editor-contents h2, .editor-contents h3 {
-	margin: 7px 0px;
 }
 
 .editor-contents a, .editor-contents a:VISITED {
@@ -15,7 +14,7 @@
 }
 
 .editor-contents ul, .editor-contents ol{
-	padding : 10px 30px;
+	padding : 5px 25px;
 }
 
 .editor-contents img{

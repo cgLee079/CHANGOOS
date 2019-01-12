@@ -37,7 +37,7 @@ function onPhotoChnage(tg) {
 	
 	$.ajax({
 		type : "POST",
-		url : getContextPath() + "/mgnt/photos/post/image",
+		url : getContextPath() + "/photos/post/image",
 		dataType : "JSON",
 		async : true,
 		contentType: false,
@@ -55,7 +55,7 @@ function onPhotoChnage(tg) {
 			$("#time").val(photo.time);
 			$("#device").val(photo.device);
 			
-			$("#snapshot").attr("src",  getContextPath()  + tempDir + photo.thumbnail);
+			$("#snapshot").attr("src",  getContextPath()  + loc.temp.dir + photo.thumbnail);
 		},
 		complete : function(){
 			Progress.stop();
