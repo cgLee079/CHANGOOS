@@ -102,11 +102,14 @@ $(window).scroll(function(event) {
 });
 
 
+/** 스크롤시, 메뉴바 border 유무, 기능삭제**/
+/*
 $(window).scroll(function(event) {
 	var scroll = $(window).scrollTop();
 	if (scroll > 30) { $(".wrap-header").addClass("down");}
 	else {$(".wrap-header").removeClass("down");}
 });
+*/
 
 /* Progress bar */
 var Progress = {

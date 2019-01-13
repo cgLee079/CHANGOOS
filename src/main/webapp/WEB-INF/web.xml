@@ -5,12 +5,12 @@
 	version="2.5">
 
 
-	<!--  Session Listener 설정 -->
+	<!-- Session Listener 설정 -->
 	<listener>
-        <listener-class>com.cglee079.changoos.config.listener.MySessionListener</listener-class>
-    </listener>
-    
-	<!--  ENUM Listener 설정 -->
+		<listener-class>com.cglee079.changoos.config.listener.MySessionListener</listener-class>
+	</listener>
+
+	<!-- ENUM Listener 설정 -->
 	<listener>
 		<listener-class>com.cglee079.changoos.config.listener.EnumContextListener</listener-class>
 	</listener>
@@ -58,13 +58,23 @@
 	</servlet-mapping>
 
 	<error-page>
+		<error-code>400</error-code>
+		<location>/error/400</location>
+	</error-page>
+
+	<error-page>
 		<error-code>404</error-code>
 		<location>/error/404</location>
 	</error-page>
-	
-		<error-page>
+
+	<error-page>
 		<error-code>401</error-code>
 		<location>/error/401</location>
+	</error-page>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/500</location>
 	</error-page>
 
 	<session-config>

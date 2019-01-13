@@ -13,7 +13,7 @@ $(document).ready(function(){
 	totalCount = $("#totalCount").val();
 	
 	if($("#tags").val()){
-		tags = $("#tags").val().replace("[",'').replace("]",'').replace(/ /gi,'').split(",");
+		tags = $("#tags").val().replace(/ /gi,'').split(",");
 	}
 	
 	drawTags();
@@ -46,9 +46,7 @@ function pageMove(pg){
 		url		: getContextPath() + "/blogs/records" + encodeURIParam(param),
 		dataType: 'JSON',
 		async	: false,
-		success : function(result) {
-			var data = result['records'];
-			
+		success : function(data) {
 			if(data.length){
 				page = pg;
 				drawBlog(data);

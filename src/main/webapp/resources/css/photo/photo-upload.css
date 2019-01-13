@@ -1,51 +1,56 @@
-#imageFile{
+#imageFile {
 	display: none;
 }
 
-#snapshot{
-	cursor : pointer;
+#snapshot {
+	cursor: pointer;
 	background: #EEE;
 }
 
-.wrap-upload-form{
-	width : 90%;
-	margin: 0px auto;
-	margin-top : 20px;
+.wrap-upload-form {
+	margin-top: 20px;
 	margin-bottom: 150px;
 }
 
-.upload-title{
+.upload-title {
 	font-size: 1.5rem;
 	font-weight: bold;
-	margin-bottom : 30px;
-	margin-left	: 10px;	
+	margin-bottom: 30px;
+	margin-left: 10px;
 }
 
-.upload-item{
-	display : flex;
-	flex-flow : row nowrap;
+.upload-item {
+	display: flex;
+	flex-flow: row nowrap;
 	margin-bottom: 15px;
 }
 
-.upload-item-name{
-	width : 150px;
+.upload-item-name {
+	width: 150px;
 	font-weight: bold;
 }
 
-.upload-item-input{
-	flex  : 1;
+.upload-item-input {
+	flex: 1;
 }
 
-.upload-item-input input[type='text']{
-	width : 50%;
-	padding : 1px 3px;
+.upload-item-input input[type='text'] {
+	width: 50%;
+	padding: 1px 3px;
 }
 
-.photo-submit{
+.photo-submit {
 	text-align: right;
 }
 
 @media ( max-width : 800px) {
+	.wrap-upload-form {
+		width: 90%;
+		margin: 0 auto;
+		margin-top: 20px;
+		margin-bottom: 150px;
+	}
+	
 	.upload-item {
 		flex-flow: column nowrap;
 	}

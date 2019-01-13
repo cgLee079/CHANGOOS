@@ -19,6 +19,7 @@
 	
 	.message{
 		background : #FFF;
+		min-width: 200px;
 		padding : 2rem;
 		border-radius: 10px;
 	    box-shadow: 0px 10px 10px #ECF0F1;
@@ -38,11 +39,11 @@
 		font-size: 1rem;
 		font-weight: bold;
 		margin-bottom: 2rem;
+		text-align: center;
 	}
 	
 	.message .message-content{
 		text-align: center;
-		font-size: 0.7rem;
 	}
 	
 	.message .message-content .btn-before{

@@ -1,12 +1,12 @@
 .wrap-photo-list {
 	display: flex;
-	height: calc(100% - 50px);
+	height: calc(100% - 60px);
 	align-items: center;
 }
 
 .photo-list {
 	flex: 1;
-	height: 90%;
+	height: 95%;
 	justify-content: center;
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -178,7 +178,7 @@
 
 .snapsht-list {
 	width: 150px;
-	height: 90%;
+	height: 95%;
 	overflow: hidden;
 	
 	display: flex;

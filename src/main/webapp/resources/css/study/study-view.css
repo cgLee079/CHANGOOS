@@ -1,12 +1,11 @@
 .wrap-study {
 	margin: 0px auto;
 	margin-bottom: 150px;
-	
-	min-height : calc(100% - 50px);
+	min-height : calc(100% - 60px);
 }
 
 .study-head{
-	margin: 80px 0;
+	margin: 90px 0;
 }
 
 .study-head .study-category {

@@ -1,6 +1,4 @@
 .wrap-upload-form{
-	width :	80%;
-	margin : 0 auto;
 	margin-top : 20px;
 	margin-bottom: 150px;
 }
@@ -54,10 +52,13 @@
 }
 
 @media ( max-width : 800px) {
-	.wrap-upload-form{
-		width :	90%;
+	.wrap-upload-form {
+		width: 90%;
+		margin: 0 auto;
+		margin-top: 20px;
+		margin-bottom: 150px;
 	}
-
+	
 	.blog-upload-item {
 		flex-flow: column nowrap;
 	}
