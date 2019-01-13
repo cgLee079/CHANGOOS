@@ -2,12 +2,9 @@ package com.cglee079.changoos.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,7 +27,6 @@ import com.cglee079.changoos.util.FileHandler;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageHandler;
 import com.cglee079.changoos.util.MyFilenameUtils;
-import com.google.gson.Gson;
 
 @Service
 public class BlogService{
@@ -136,15 +132,15 @@ public class BlogService{
 	}
 
 	@Transactional
-	public int insert(BlogVo blog, String imageValues, String fileValues) throws IllegalStateException, IOException {
+	public int insert(BlogVo blog, String tempDirId, String imageValues, String fileValues) throws IllegalStateException, IOException {
 		blog.setDate(Formatter.toDate(new Date()));
 		int seq = blogDao.insert(blog);
 		
-		fileHandler.move(realPath + tempDir + blog.getThumbnail(), realPath + thumbDir + blog.getThumbnail());
+		fileHandler.move(realPath + tempDir + tempDirId + blog.getThumbnail(), realPath + thumbDir + blog.getThumbnail());
 		
-		boardFileService.insertFiles(fileTB, fileDir, seq, fileValues);
+		boardFileService.insertFiles(fileTB, tempDirId, fileDir, seq, fileValues);
 		
-		String contents = boardImageService.insertImages(imageTB, imageDir, seq, blog.getContents(), imageValues);
+		String contents = boardImageService.insertImages(imageTB, tempDirId, imageDir, seq, blog.getContents(), imageValues);
 		blog.setContents(contents);
 		blogDao.update(blog);
 		
@@ -152,7 +148,7 @@ public class BlogService{
 	}
 
 	@Transactional
-	public boolean update(BlogVo blog, String thumbnailValues, String imageValues, String fileValues) throws IllegalStateException, IOException {
+	public boolean update(BlogVo blog,  String tempDirId, String thumbnailValues, String imageValues, String fileValues) throws IllegalStateException, IOException {
 		int seq = blog.getSeq();
 		
 		BlogVo savedBlog = blogDao.get(seq);
@@ -161,10 +157,10 @@ public class BlogService{
 			fileHandler.delete(realPath + thumbDir + savedBlog.getThumbnail());
 		}
 		
-		fileHandler.move(realPath + tempDir + blog.getThumbnail(), realPath + thumbDir + blog.getThumbnail());
-		boardFileService.insertFiles(fileTB, fileDir, seq, fileValues);
+		fileHandler.move(realPath + tempDir + tempDirId + blog.getThumbnail(), realPath + thumbDir + blog.getThumbnail());
+		boardFileService.insertFiles(fileTB, tempDirId,fileDir, seq, fileValues);
 		
-		String contents = boardImageService.insertImages(imageTB, imageDir, seq, blog.getContents(), imageValues);
+		String contents = boardImageService.insertImages(imageTB, tempDirId,imageDir, seq, blog.getContents(), imageValues);
 		blog.setContents(contents);
 		
 		boolean result = blogDao.update(blog);
@@ -199,7 +195,7 @@ public class BlogService{
 		return false;
 	}
 	
-	public String saveThumbnail(MultipartFile thumbnailFile) {
+	public String saveThumbnail(MultipartFile thumbnailFile, String tempDirId) {
 		String pathname = null;
 		
 		if(thumbnailFile.getSize() > 0){
@@ -207,7 +203,7 @@ public class BlogService{
 			String imgExt = MyFilenameUtils.getExt(filename);
 			
 			pathname = "BLOG.THUMB." + MyFilenameUtils.getRandomImagename(imgExt);
-			File file = fileHandler.save(realPath + tempDir +  pathname, thumbnailFile);
+			File file = fileHandler.save(realPath + tempDir + tempDirId + pathname, thumbnailFile);
 			
 			imageHandler.saveLowscaleImage(file, thumbMaxWidth, imgExt);
 			

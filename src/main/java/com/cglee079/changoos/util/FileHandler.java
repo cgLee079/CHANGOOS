@@ -57,7 +57,6 @@ public class FileHandler {
 
 	public boolean move(String existFile, String newFile) {
 		try {
-			Files.createDirectories(Paths.get(newFile).getParent());
 			Files.move(Paths.get(existFile), Paths.get(newFile));
 			return true;
 		} catch (IOException e) {
@@ -73,7 +72,6 @@ public class FileHandler {
 	
 	public boolean copy(File existFile, File newFile) {
 		try {
-			Files.createDirectories(newFile.toPath().getParent());
 			Files.copy(existFile.toPath(), newFile.toPath());
 			return true;
 		} catch (IOException e) {

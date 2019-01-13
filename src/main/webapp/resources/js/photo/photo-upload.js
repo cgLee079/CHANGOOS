@@ -47,7 +47,6 @@ function onPhotoChnage(tg) {
 			Progress.start();
 		},
 		success : function(photo) {
-			console.log(photo);
 			$("#filename").val(photo.filename);
 			$("#pathname").val(photo.pathname);
 			$("#thumbnail").val(photo.thumbnail);

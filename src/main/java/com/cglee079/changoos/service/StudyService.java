@@ -107,13 +107,13 @@ public class StudyService {
 	}
 
 	@Transactional(rollbackFor = {IllegalStateException.class, IOException.class })
-	public int insert(StudyVo study, String imageValues, String fileValues) throws IllegalStateException, IOException {
+	public int insert(StudyVo study, String tempDirId, String imageValues, String fileValues) throws IllegalStateException, IOException {
 		study.setDate(Formatter.toDate(new Date()));
 		
 		int seq = studyDao.insert(study);
-		boardFileService.insertFiles(fileTB, fileDir, seq, fileValues);
+		boardFileService.insertFiles(fileTB, tempDirId, fileDir, seq, fileValues);
 		
-		String contents = boardImageService.insertImages(imageTB, imageDir, seq, study.getContents(), imageValues);
+		String contents = boardImageService.insertImages(imageTB, tempDirId, imageDir, seq, study.getContents(), imageValues);
 		study.setContents(contents);
 		
 		studyDao.update(study);
@@ -123,11 +123,11 @@ public class StudyService {
 
 
 	@Transactional(rollbackFor = {IllegalStateException.class, IOException.class })
-	public boolean update(StudyVo study, String imageValues, String fileValues) throws IllegalStateException, IOException {
+	public boolean update(StudyVo study, String tempDirId, String imageValues, String fileValues) throws IllegalStateException, IOException {
 		int seq = study.getSeq();
-		boardFileService.insertFiles(fileTB, fileDir, seq, fileValues);
+		boardFileService.insertFiles(fileTB, tempDirId, fileDir, seq, fileValues);
 		
-		String contents = boardImageService.insertImages(imageTB, imageDir, seq, study.getContents(), imageValues);
+		String contents = boardImageService.insertImages(imageTB, tempDirId, imageDir, seq, study.getContents(), imageValues);
 		study.setContents(contents);
 		
 		boolean result = studyDao.update(study);

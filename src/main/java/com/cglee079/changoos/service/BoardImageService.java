@@ -36,7 +36,7 @@ public class BoardImageService {
 	@Value("#{location['temp.dir.url']}")  			private String tempDir;
  	@Value("#{constant['image.max.width']}") 		private int maxWidth;
  	
-	public String saveBase64(String base64) throws IOException {
+	public String saveBase64(String tempDirId, String base64) throws IOException {
 		String ImageExt = "PNG";
 		String pathname = MyFilenameUtils.getRandomImagename(ImageExt);
 
@@ -44,24 +44,24 @@ public class BoardImageService {
 		byte[] imageBytes = DatatypeConverter.parseBase64Binary(base64);
 		BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
 		
-		File file = fileHandler.save(realPath + tempDir + pathname, ImageExt, bufImg);
+		File file = fileHandler.save(realPath + tempDir + tempDirId + pathname, ImageExt, bufImg);
 		imageHandler.saveLowscaleImage(file, maxWidth, ImageExt);
 
 		return pathname;
 	}
 
-	public String saveImage(MultipartFile multipartFile) throws IOException {
+	public String saveImage(String tempDirId, MultipartFile multipartFile) throws IOException {
 		String filename = multipartFile.getOriginalFilename();
 		String ImageExt = MyFilenameUtils.getExt(filename);
 		String pathname = MyFilenameUtils.getRandomImagename(ImageExt);
 
-		File file = fileHandler.save(realPath + tempDir + pathname, multipartFile);
+		File file = fileHandler.save(realPath + tempDir + tempDirId +  pathname, multipartFile);
 		imageHandler.saveLowscaleImage(file, maxWidth, ImageExt);
 
 		return pathname;
 	}
 	
-	public String insertImages(String TB, String dir, int boardSeq, String contents, String imageValues) throws JsonParseException, JsonMappingException, IOException {
+	public String insertImages(String TB, String tempDirId, String dir, int boardSeq, String contents, String imageValues) throws JsonParseException, JsonMappingException, IOException {
 		List<BoardImageVo> images = new ObjectMapper().readValue(imageValues, new TypeReference<List<BoardImageVo>>(){});
 		
 		BoardImageVo image;
@@ -77,15 +77,15 @@ public class BoardImageService {
 			case NEW:
 				if(boardImageDao.insert(TB, image)) {
 					//임시폴더에서 본 폴더로 이동
-					File existFile  = new File(realPath + tempDir, pathname);
+					File existFile  = new File(realPath + tempDir + tempDirId, pathname);
 					File newFile	= new File(realPath + dir, pathname);
 					if(fileHandler.move(existFile, newFile)) {
-						contents = contents.replaceAll(tempDir + pathname, dir + pathname);
+						contents = contents.replaceAll(tempDir + tempDirId + pathname, dir + pathname);
 					}
 				}
 				break;
 			case UNNEW:
-				fileHandler.delete(realPath + tempDir, pathname);
+				fileHandler.delete(realPath + tempDir + tempDirId, pathname);
 				break;
 			case REMOVE:
 				if(boardImageDao.delete(TB, image.getSeq())) {

@@ -81,15 +81,15 @@ public class PhotoController {
 	
 	/** 사진 업로드 **/
 	@RequestMapping(value = "/photos/post", method = RequestMethod.POST)
-	public String photoDoUpload(PhotoVo photo) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
-		photoService.insert(photo);
+	public String photoDoUpload(HttpSession session, PhotoVo photo) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
+		photoService.insert(photo, (String)session.getAttribute("tempDirId"));
 		return "redirect:" + "/mgnt/photos";
 	}
 	
 	/** 사진 수정 **/
 	@RequestMapping(value = "/photos/post/{seq}", method = RequestMethod.PUT)
-	public String photoDoModify(PhotoVo photo) throws IllegalStateException, IOException, ImageProcessingException, MetadataException{
-		photoService.update(photo);
+	public String photoDoModify(HttpSession session, PhotoVo photo) throws IllegalStateException, IOException, ImageProcessingException, MetadataException{
+		photoService.update(photo, (String)session.getAttribute("tempDirId"));
 		return "redirect:" + "/mgnt/photos";
 	}
 	
@@ -104,8 +104,8 @@ public class PhotoController {
 	/** 사진 파일 업로드 **/
 	@ResponseBody
 	@RequestMapping(value = "/photos/post/image", method = RequestMethod.POST)
-	public String photoImageDoUpload(MultipartFile image) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
-		PhotoVo photo = photoService.savePhoto(image);
+	public String photoImageDoUpload(HttpSession session, MultipartFile image) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
+		PhotoVo photo = photoService.savePhoto(image, (String)session.getAttribute("tempDirId"));
 		return new Gson().toJson(photo).toString();
 	}
 	

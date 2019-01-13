@@ -2,7 +2,7 @@ package com.cglee079.changoos.controller;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +28,8 @@ public class BoardImageController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/board/post/image", method = RequestMethod.POST, consumes = "multipart/form-data")
-	public String imageDoUpload(Model model, MultipartFile image) throws IllegalStateException, IOException {
-		String pathname = boardImageService.saveImage(image);
+	public String imageDoUpload(HttpSession session, MultipartFile image) throws IllegalStateException, IOException {
+		String pathname = boardImageService.saveImage((String)session.getAttribute("tempDirId"), image);
 		
 		JSONObject result = new JSONObject();
 		result.put("pathname", pathname);
@@ -40,8 +40,8 @@ public class BoardImageController {
 		
 	@ResponseBody
 	@RequestMapping(value = "/board/post/image", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
-	public String imageDoPasteUpload(HttpServletRequest request, String base64) throws IllegalStateException, IOException {
-		String pathname = boardImageService.saveBase64(base64);
+	public String imageDoPasteUpload(HttpSession session, String base64) throws IllegalStateException, IOException {
+		String pathname = boardImageService.saveBase64((String)session.getAttribute("tempDirId"), base64);
 		
 		JSONObject result = new JSONObject();
 		result.put("pathname", pathname);

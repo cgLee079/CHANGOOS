@@ -58,16 +58,16 @@ public class PhotoService {
 		return photoDao.getSeqs();
 	}
 	
-	public boolean insert(PhotoVo photo) throws IllegalStateException, ImageProcessingException, MetadataException, IOException {
+	public boolean insert(PhotoVo photo, String tempDirId) throws IllegalStateException, ImageProcessingException, MetadataException, IOException {
 		photo.setLikeCnt(0);
 
 		// TEMP 폴더에서, 사진 파일 옮기기
-		String photoFilePath = realPath + tempDir + photo.getPathname();
+		String photoFilePath = realPath + tempDir + tempDirId + photo.getPathname();
 		String movedPhotoPath = realPath + originDir + photo.getPathname();
 		fileHandler.move(photoFilePath, movedPhotoPath);
 
 		// TEMP 폴더에서, 스냅샷 파일 옮기기
-		String snapshotFilePath = realPath + tempDir + photo.getThumbnail();
+		String snapshotFilePath = realPath + tempDir + tempDirId + photo.getThumbnail();
 		String movedSnapshtFilePath = realPath + thumbDir + photo.getThumbnail();
 		fileHandler.move(snapshotFilePath, movedSnapshtFilePath);
 		
@@ -76,7 +76,7 @@ public class PhotoService {
 	}
 
 	@Transactional
-	public boolean update(PhotoVo photo) throws IllegalStateException, ImageProcessingException, MetadataException, IOException {
+	public boolean update(PhotoVo photo, String tempDirId) throws IllegalStateException, ImageProcessingException, MetadataException, IOException {
 		// DB에 저장된 사진정보와 새로 수정된 사진 정보를 비교한다
 		// 다르다면, 사진을 바꿨으므로, 기존 사진을 삭제한다.
 		PhotoVo savedPhoto = photoDao.get(photo.getSeq());
@@ -86,12 +86,12 @@ public class PhotoService {
 			fileHandler.delete(realPath + thumbDir, savedPhoto.getThumbnail());
 
 			// TEMP 폴더에서, 사진 파일 옮기기
-			String photoFilePath = realPath + tempDir + photo.getPathname();
+			String photoFilePath = realPath + tempDir + tempDirId + photo.getPathname();
 			String movedPhotoPath = realPath + originDir + photo.getPathname();
 			fileHandler.move(photoFilePath, movedPhotoPath);
 
 			// TEMP 폴더에서, 스냅샷 파일 옮기기
-			String snapshotFilePath = realPath + tempDir + photo.getThumbnail();
+			String snapshotFilePath = realPath + tempDir + tempDirId + photo.getThumbnail();
 			String movedSnapshtFilePath = realPath + thumbDir + photo.getThumbnail();
 			fileHandler.move(snapshotFilePath, movedSnapshtFilePath);
 		}
@@ -134,7 +134,7 @@ public class PhotoService {
 		return photo;
 	}
 
-	public PhotoVo savePhoto(MultipartFile multipartFile) throws IllegalStateException, IOException {
+	public PhotoVo savePhoto(MultipartFile multipartFile, String tempDirId) throws IllegalStateException, IOException {
 		PhotoVo photo = new PhotoVo();
 
 		String filename = multipartFile.getOriginalFilename();
@@ -144,21 +144,20 @@ public class PhotoService {
 		String thumbPathname = "PHOTO.THUMB." + pathname;
 
 		// 사진 저장
-		File photofile = new File(realPath + tempDir, photoPathname);
-		multipartFile.transferTo(photofile);
+		File photoFile = fileHandler.save(realPath + tempDir + tempDirId +  photoPathname, multipartFile);
 
 		// 메타데이터 가져오기
-		Map<String, String> metadata = this.getMetaData(photofile);
+		Map<String, String> metadata = this.getMetaData(photoFile);
 		photo.setDate(metadata.get("Date"));
 		photo.setTime(metadata.get("Time"));
 		photo.setDevice(metadata.get("Model"));
 
 		// 저장된 사진 축소 및 회전
-		imageHandler.saveLowscaleImage(photofile, originMaxWidth, ext);
+		imageHandler.saveLowscaleImage(photoFile, originMaxWidth, ext);
 
 		// 저장된 사진으로, 사진 스냅샷 만들기
-		File thumbFile = new File(realPath + tempDir, thumbPathname);
-		fileHandler.copy(photofile, thumbFile);
+		File thumbFile = new File(realPath + tempDir + tempDirId, thumbPathname);
+		fileHandler.copy(photoFile, thumbFile);
 		imageHandler.saveLowscaleImage(thumbFile, thumbMaxWidth, ext);
 		
 		photo.setFilename(filename);

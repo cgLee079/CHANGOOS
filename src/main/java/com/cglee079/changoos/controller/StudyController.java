@@ -113,15 +113,15 @@ public class StudyController {
 	 
 	/** 공부 업로드  **/
 	@RequestMapping(value = "/studies/post", method = RequestMethod.POST)
-	public String studyDoUpload(StudyVo study, String imageValues, String fileValues) throws SQLException, IllegalStateException, IOException{
-		int seq = studyService.insert(study, imageValues, fileValues);
+	public String studyDoUpload(HttpSession session, StudyVo study, String imageValues, String fileValues) throws SQLException, IllegalStateException, IOException{
+		int seq = studyService.insert(study, (String)session.getAttribute("tempDirId"), imageValues, fileValues);
 		return "redirect:" + "/studies/" + seq;
 	}
 	
 	/** 공부 수정 **/
 	@RequestMapping(value = "/studies/post/{seq}", method = RequestMethod.PUT)
-	public String studyDoModify(StudyVo study, String imageValues, String fileValues) throws SQLException, IllegalStateException, IOException{
-		boolean result = studyService.update(study,imageValues, fileValues);
+	public String studyDoModify(HttpSession session, StudyVo study, String imageValues, String fileValues) throws SQLException, IllegalStateException, IOException{
+		boolean result = studyService.update(study, (String)session.getAttribute("tempDirId"), imageValues, fileValues);
 		return "redirect:" + "/studies/" + study.getSeq();
 	}
 	

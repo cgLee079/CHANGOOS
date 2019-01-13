@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.model.ProjectVo;
@@ -89,15 +90,15 @@ public class ProjectController {
 
 	/** 프로젝트 업로드 **/
 	@RequestMapping(value = "/projects/post", method = RequestMethod.POST)
-	public String projectDoUpload(ProjectVo project, String imageValues, String fileValues) throws IllegalStateException, IOException {
-		int seq = projectService.insert(project, imageValues, fileValues);
+	public String projectDoUpload(HttpSession session, ProjectVo project, String imageValues, String fileValues) throws IllegalStateException, IOException {
+		int seq = projectService.insert(project, (String)session.getAttribute("tempDirId"), imageValues, fileValues);
 		return "redirect:" + "/projects/" + seq;
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/projects/post/thumbnail", method = RequestMethod.POST )
-	public String blogDoThumbUpload(MultipartFile thumbnailFile) throws SQLException, IllegalStateException, IOException {
-		String pathname = projectService.saveThumbnail(thumbnailFile);
+	public String projectDoThumbUpload(HttpSession session, MultipartFile thumbnailFile) throws SQLException, IllegalStateException, IOException {
+		String pathname = projectService.saveThumbnail(thumbnailFile, (String)session.getAttribute("tempDirId"));
 		
 		JSONObject result = new JSONObject();
 		result.put("pathname", pathname);
@@ -107,8 +108,8 @@ public class ProjectController {
 	
 	/** 프로젝트 수정 **/
 	@RequestMapping(value = "/projects/post/{seq}", method = RequestMethod.PUT)
-	public String projectDoModify(ProjectVo project, String imageValues, String fileValues) throws IllegalStateException, IOException {
-		projectService.update(project, imageValues, fileValues);
+	public String projectDoModify(HttpSession session, ProjectVo project, String imageValues, String fileValues) throws IllegalStateException, IOException {
+		projectService.update(project, (String)session.getAttribute("tempDirId"), imageValues, fileValues);
 		return "redirect:" + "/projects/" + project.getSeq();
 	}
 

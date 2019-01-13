@@ -35,7 +35,7 @@ public class ProjectService {
 	@Value("#{location['project.file.dir.url']}") 	private String fileDir;
 	@Value("#{location['project.image.dir.url']}")	private String imageDir;
 	@Value("#{location['project.thumb.dir.url']}") 	private String thumbDir;
-	@Value("#{location['temp.dir.url']}")			private String tempThumbDir;
+	@Value("#{location['temp.dir.url']}")			private String tempDir;
 	
 	@Value("#{db['project.file.tb.name']}") private String fileTB;
 	@Value("#{db['project.image.tb.name']}") private String imageTB;
@@ -79,15 +79,15 @@ public class ProjectService {
 	}
 
 	@Transactional(rollbackFor = {IllegalStateException.class, IOException.class})
-	public int insert(ProjectVo project, String imageValues, String fileValues) throws IllegalStateException, IOException {
+	public int insert(ProjectVo project, String tempDirId, String imageValues, String fileValues) throws IllegalStateException, IOException {
 		
 		int seq = projectDao.insert(project);
 		
-		fileHandler.move(realPath + tempThumbDir + project.getThumbnail(), realPath + thumbDir + project.getThumbnail());
+		fileHandler.move(realPath + tempDir + tempDirId + project.getThumbnail(), realPath + thumbDir + project.getThumbnail());
 		
-		boardFileService.insertFiles(fileTB, fileDir, seq, fileValues);
+		boardFileService.insertFiles(fileTB, tempDirId, fileDir, seq, fileValues);
 		
-		String contents = boardImageService.insertImages(imageTB, imageDir, seq, project.getContents(), imageValues);
+		String contents = boardImageService.insertImages(imageTB, tempDirId, imageDir, seq, project.getContents(), imageValues);
 		project.setContents(contents);
 		projectDao.update(project);
 		
@@ -95,7 +95,7 @@ public class ProjectService {
 	}
 
 	@Transactional(rollbackFor = {IllegalStateException.class, IOException.class})
-	public boolean update(ProjectVo project, String imageValues, String fileValues) throws IllegalStateException, IOException {
+	public boolean update(ProjectVo project, String tempDirId, String imageValues, String fileValues) throws IllegalStateException, IOException {
 		int seq = project.getSeq();
 		
 		ProjectVo savedProject = projectDao.get(seq);
@@ -104,11 +104,11 @@ public class ProjectService {
 			fileHandler.delete(realPath + thumbDir + savedProject.getThumbnail());
 		}
 		
-		fileHandler.move(realPath + tempThumbDir + project.getThumbnail(), realPath + thumbDir + project.getThumbnail());
+		fileHandler.move(realPath + tempDir + tempDirId + project.getThumbnail(), realPath + thumbDir + project.getThumbnail());
 		
-		boardFileService.insertFiles(fileTB, fileDir, seq, fileValues);
+		boardFileService.insertFiles(fileTB, tempDirId, fileDir, seq, fileValues);
 		
-		String contents = boardImageService.insertImages(imageTB, imageDir, seq, project.getContents(), imageValues);
+		String contents = boardImageService.insertImages(imageTB, tempDirId, imageDir, seq, project.getContents(), imageValues);
 		project.setContents(contents);
 		
 		boolean result = projectDao.update(project);
@@ -140,7 +140,7 @@ public class ProjectService {
 	}
 
 
-	public String saveThumbnail(MultipartFile thumbnailFile) {
+	public String saveThumbnail(MultipartFile thumbnailFile, String tempDirId) {
 		String pathname = null;
 		
 		if(thumbnailFile.getSize() > 0){
@@ -148,7 +148,7 @@ public class ProjectService {
 			String imgExt = MyFilenameUtils.getExt(filename);
 			
 			pathname = "PROJECT.THUMB." + MyFilenameUtils.getRandomImagename(imgExt);
-			File file = fileHandler.save(realPath + tempThumbDir +  pathname, thumbnailFile);
+			File file = fileHandler.save(realPath + tempDir + tempDirId + pathname, thumbnailFile);
 			
 			imageHandler.saveLowscaleImage(file, thumbMaxWidth, imgExt);
 			

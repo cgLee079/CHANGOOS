@@ -105,15 +105,15 @@ public class BlogController {
 
 	/** 블로그 업로드 **/
 	@RequestMapping(value = "/blogs/post", method = RequestMethod.POST )
-	public String blogDoUpload(BlogVo blog, String imageValues, String fileValues) throws SQLException, IllegalStateException, IOException {
-		int seq = blogService.insert(blog, imageValues, fileValues);
+	public String blogDoUpload(HttpSession session, BlogVo blog, String imageValues, String fileValues) throws SQLException, IllegalStateException, IOException {
+		int seq = blogService.insert(blog, (String)session.getAttribute("tempDirId"), imageValues, fileValues);
 		return "redirect:" + "/blogs/" + seq;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/blogs/post/thumbnail", method = RequestMethod.POST )
-	public String blogDoThumbUpload(MultipartFile thumbnailFile) throws SQLException, IllegalStateException, IOException {
-		String pathname = blogService.saveThumbnail(thumbnailFile);
+	public String blogDoThumbUpload(HttpSession session, MultipartFile thumbnailFile) throws SQLException, IllegalStateException, IOException {
+		String pathname = blogService.saveThumbnail(thumbnailFile, (String)session.getAttribute("tempDirId"));
 		
 		JSONObject result = new JSONObject();
 		result.put("pathname", pathname);
@@ -123,9 +123,9 @@ public class BlogController {
 	
 	/** 블로그 수정 **/
 	@RequestMapping(value = "/blogs/post/{seq}", method = RequestMethod.PUT)
-	public String blogDoModify(BlogVo blog, String thumbValues, String imageValues,
+	public String blogDoModify(HttpSession session, BlogVo blog, String thumbValues, String imageValues,
 			String fileValues) throws SQLException, IllegalStateException, IOException {
-		blogService.update(blog, thumbValues, imageValues, fileValues);
+		blogService.update(blog, (String)session.getAttribute("tempDirId"), thumbValues, imageValues, fileValues);
 		return "redirect:" + "/blogs/" + blog.getSeq();
 	}
 

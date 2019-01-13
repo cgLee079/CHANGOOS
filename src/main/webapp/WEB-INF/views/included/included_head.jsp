@@ -74,7 +74,7 @@
 <c:set var="blogFileDir"><spring:eval expression="@location['blog.file.dir.url']"/></c:set>
 <c:set var="photoThumbDir"><spring:eval expression="@location['photo.thumb.dir.url']"/></c:set>
 <c:set var="photoOriginDir"><spring:eval expression="@location['photo.origin.dir.url']"/></c:set>
-<c:set var="tempDir"><spring:eval expression="@location['temp.dir.url']"/></c:set>
+<c:set var="tempDir" ><spring:eval expression="@location['temp.dir.url']"/><c:out value="${sessionScope.tempDirId}"/></c:set>
 
 <script>
 var loc = {

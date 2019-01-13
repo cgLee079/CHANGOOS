@@ -5,11 +5,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/popup/popup-imageupload.css" />
 <script src="${pageContext.request.contextPath}/resources/js/popup/popup-imageupload.js"></script>
 
-<c:set var="tempDir"><spring:eval expression="@location['temp.dir.url']"/></c:set>
 <spring:eval expression="@constant['image.max.width']" var='maxWidth' />
-<script>
-var tempDir = '${tempDir}';
-</script>
 
 </head>
 <body>

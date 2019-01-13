@@ -50,7 +50,7 @@ public class BoardFileController {
 	@ResponseBody
 	@RequestMapping(value = "/board/post/file" , method=RequestMethod.POST)
 	public String fileDoUpload(HttpSession session, MultipartFile file) throws IllegalStateException, IOException {
-		String pathname= fileService.saveFile(file);
+		String pathname= fileService.saveFile((String)session.getAttribute("tempDirId"), file);
 		
 		JSONObject result = new JSONObject();
 		result.put("pathname", pathname);
