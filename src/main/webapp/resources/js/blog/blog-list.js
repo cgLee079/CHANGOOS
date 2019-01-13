@@ -16,8 +16,6 @@ $(document).ready(function(){
 		tags = $("#tags").val().replace(/ /gi,'').split(",");
 	}
 	
-	drawTags();
-	
 	/* Add Scroll Page event */
 	$(window).scroll(function(){
 		var scrollPosition = $(this).scrollTop() + $(this).outerHeight();
@@ -114,6 +112,8 @@ function drawBlog(data){
 		
 		blogItem.appendTo($(".blog-item-list"));
 	}
+	
+	drawTags();
 }
 
 function drawTags(){
