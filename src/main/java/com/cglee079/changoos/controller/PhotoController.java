@@ -46,7 +46,7 @@ public class PhotoController {
 	/** 사진 크게 보기, Ajax **/
 	@ResponseBody
 	@RequestMapping(value = "/photos/{seq}", method = RequestMethod.GET)
-	public String photoView(HttpSession session, @PathVariable int seq) throws JsonProcessingException {
+	public String photoView(HttpSession session, @PathVariable int seq){
 		PhotoVo photo = photoService.get((Set<Integer>)session.getAttribute("likePhotos"), seq);
 		return new Gson().toJson(photo).toString();
 	}
@@ -81,14 +81,14 @@ public class PhotoController {
 	
 	/** 사진 업로드 **/
 	@RequestMapping(value = "/photos/post", method = RequestMethod.POST)
-	public String photoDoUpload(HttpSession session, PhotoVo photo) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
+	public String photoDoUpload(HttpSession session, PhotoVo photo){
 		photoService.insert(photo, (String)session.getAttribute("tempDirId"));
 		return "redirect:" + "/mgnt/photos";
 	}
 	
 	/** 사진 수정 **/
 	@RequestMapping(value = "/photos/post/{seq}", method = RequestMethod.PUT)
-	public String photoDoModify(HttpSession session, PhotoVo photo) throws IllegalStateException, IOException, ImageProcessingException, MetadataException{
+	public String photoDoModify(HttpSession session, PhotoVo photo){
 		photoService.update(photo, (String)session.getAttribute("tempDirId"));
 		return "redirect:" + "/mgnt/photos";
 	}
@@ -104,7 +104,7 @@ public class PhotoController {
 	/** 사진 파일 업로드 **/
 	@ResponseBody
 	@RequestMapping(value = "/photos/post/image", method = RequestMethod.POST)
-	public String photoImageDoUpload(HttpSession session, MultipartFile image) throws IllegalStateException, IOException, ImageProcessingException, MetadataException {
+	public String photoImageDoUpload(HttpSession session, MultipartFile image){
 		PhotoVo photo = photoService.savePhoto(image, (String)session.getAttribute("tempDirId"));
 		return new Gson().toJson(photo).toString();
 	}
@@ -112,7 +112,7 @@ public class PhotoController {
 	/** 사진 좋아요, Ajax **/
 	@ResponseBody
 	@RequestMapping(value = "/photos/{seq}/like", method = RequestMethod.PUT)
-	public String photoDoLike(HttpSession session, @PathVariable int seq, boolean like) throws JsonProcessingException {
+	public String photoDoLike(HttpSession session, @PathVariable int seq, boolean like){
 		PhotoVo photo = photoService.doLike((Set<Integer>)session.getAttribute("likePhotos"), seq, like);
 		return new Gson().toJson(photo).toString();
 	}

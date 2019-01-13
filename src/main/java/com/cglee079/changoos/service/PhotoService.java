@@ -58,7 +58,7 @@ public class PhotoService {
 		return photoDao.getSeqs();
 	}
 	
-	public boolean insert(PhotoVo photo, String tempDirId) throws IllegalStateException, ImageProcessingException, MetadataException, IOException {
+	public boolean insert(PhotoVo photo, String tempDirId){
 		photo.setLikeCnt(0);
 
 		// TEMP 폴더에서, 사진 파일 옮기기
@@ -76,7 +76,7 @@ public class PhotoService {
 	}
 
 	@Transactional
-	public boolean update(PhotoVo photo, String tempDirId) throws IllegalStateException, ImageProcessingException, MetadataException, IOException {
+	public boolean update(PhotoVo photo, String tempDirId){
 		// DB에 저장된 사진정보와 새로 수정된 사진 정보를 비교한다
 		// 다르다면, 사진을 바꿨으므로, 기존 사진을 삭제한다.
 		PhotoVo savedPhoto = photoDao.get(photo.getSeq());
@@ -134,7 +134,7 @@ public class PhotoService {
 		return photo;
 	}
 
-	public PhotoVo savePhoto(MultipartFile multipartFile, String tempDirId) throws IllegalStateException, IOException {
+	public PhotoVo savePhoto(MultipartFile multipartFile, String tempDirId){
 		PhotoVo photo = new PhotoVo();
 
 		String filename = multipartFile.getOriginalFilename();

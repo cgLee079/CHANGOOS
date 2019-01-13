@@ -42,7 +42,6 @@ function encodeURIParam(data) {
 			var value = data[key];
 			if(Array.isArray(data[key])){
 				value = data[key][0];
-				console.log(data[key]);
 				for(var j = 1; j < data[key].length; j++){
 					value += "," + data[key][j].trim();
 				}

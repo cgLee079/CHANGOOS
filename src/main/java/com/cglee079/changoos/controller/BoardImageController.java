@@ -28,7 +28,7 @@ public class BoardImageController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/board/post/image", method = RequestMethod.POST, consumes = "multipart/form-data")
-	public String imageDoUpload(HttpSession session, MultipartFile image) throws IllegalStateException, IOException {
+	public String imageDoUpload(HttpSession session, MultipartFile image) throws IOException{
 		String pathname = boardImageService.saveImage((String)session.getAttribute("tempDirId"), image);
 		
 		JSONObject result = new JSONObject();
@@ -40,7 +40,7 @@ public class BoardImageController {
 		
 	@ResponseBody
 	@RequestMapping(value = "/board/post/image", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
-	public String imageDoPasteUpload(HttpSession session, String base64) throws IllegalStateException, IOException {
+	public String imageDoPasteUpload(HttpSession session, String base64) throws IOException{
 		String pathname = boardImageService.saveBase64((String)session.getAttribute("tempDirId"), base64);
 		
 		JSONObject result = new JSONObject();

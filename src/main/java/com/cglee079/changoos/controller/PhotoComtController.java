@@ -16,6 +16,7 @@ import com.cglee079.changoos.service.PhotoComtService;
 import com.cglee079.changoos.util.AuthManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 @Controller
 public class PhotoComtController {
@@ -25,37 +26,33 @@ public class PhotoComtController {
 
 	@ResponseBody
 	@RequestMapping(value = "/photos/{photoSeq}/comments", method = RequestMethod.GET )
-	public String photoCommentPaging(@PathVariable int photoSeq) throws SQLException, JsonProcessingException {
+	public String photoCommentPaging(@PathVariable int photoSeq) {
 		List<PhotoComtVo> comts = photoComtService.list(photoSeq);
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(comts);
+		return new Gson().toJson(comts).toString();
 	}
 
 	/** 사진 댓글 삽입 **/
 	@ResponseBody
 	@RequestMapping(value = "/photos/{photoSeq}/comments", method = RequestMethod.POST)
-	public String photoCommentDoUpload(PhotoComtVo comt) throws SQLException, JsonProcessingException {
+	public boolean photoCommentDoUpload(PhotoComtVo comt) {
 		boolean result = photoComtService.insert(comt);
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(result);
+		return result;
 	}
 	
 	/** 사진 댓글 삭제 **/
 	@ResponseBody
 	@RequestMapping(value = "/photos/{photoSeq}/comments/{seq}", method = RequestMethod.DELETE)
-	public String photoCommentDoDelete(PhotoComtVo comt) throws SQLException, JsonProcessingException {
+	public boolean photoCommentDoDelete(PhotoComtVo comt) {
 		boolean result = photoComtService.delete(comt);
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(result);
+		return result;
 	}
 	
 	/** 사진 비밀번호 검증 **/
 	@ResponseBody
 	@RequestMapping(value = "/photos/{photoSeq}/comments/{seq}/check", method = RequestMethod.POST)
-	public String photoCommentDoCheck(PhotoComtVo comt) throws SQLException, JsonProcessingException {
+	public boolean photoCommentDoCheck(PhotoComtVo comt){
 		boolean result = photoComtService.check(comt);
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(result);
+		return result;
 	}
 	
 

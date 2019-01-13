@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -42,6 +40,7 @@ public class BoardFileService {
 	
 	public void insertFiles(String TB, String tempDirId, String dir, int boardSeq, String fileValues) throws JsonParseException, JsonMappingException, IOException{
 		List<BoardFileVo> files = new ObjectMapper().readValue(fileValues, new TypeReference<List<BoardFileVo>>(){});
+		
 		BoardFileVo file;
 		
 		for (int i = 0; i < files.size(); i++) {

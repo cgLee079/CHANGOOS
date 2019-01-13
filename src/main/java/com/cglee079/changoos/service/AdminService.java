@@ -18,7 +18,7 @@ public class AdminService implements UserDetailsService {
 	@Autowired
 	AdminDao adminDao;
 
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username){
 		AdminVo admin = adminDao.get(username);
 
 		if (admin != null) {

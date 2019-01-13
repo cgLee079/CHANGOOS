@@ -14,6 +14,7 @@ import com.cglee079.changoos.model.BoardComtVo;
 import com.cglee079.changoos.service.BoardComtService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 @Controller
 public class BoardComtController {
@@ -23,46 +24,41 @@ public class BoardComtController {
 	/** 게시판 댓글 페이징 **/
 	@ResponseBody
 	@RequestMapping(value = "/{boardType}/{boardSeq}/comments", method = RequestMethod.GET)
-	public String commentPaging(@PathVariable String boardType, @PathVariable int boardSeq, int offset, int limit) throws SQLException, JsonProcessingException{
+	public String commentPaging(@PathVariable String boardType, @PathVariable int boardSeq, int offset, int limit){
 		List<BoardComtVo> comts= boardComtService.paging(boardType, boardSeq, offset, limit);
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(comts);
+		return new Gson().toJson(comts).toString();
 	}
 	
 	/** 게시판 댓글 등록 **/
 	@ResponseBody
 	@RequestMapping(value = "/{boardType}/{boardSeq}/comments", method = RequestMethod.POST)
-	public String commentDoUpload(@PathVariable String boardType, BoardComtVo comt) throws SQLException, JsonProcessingException{
+	public boolean commentDoUpload(@PathVariable String boardType, BoardComtVo comt){
 		boolean result = boardComtService.insert(boardType, comt);
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(result);
+		return result;
 	}
 	
 	/** 게시판 댓글 수정 **/
 	@ResponseBody
 	@RequestMapping(value = "/{boardType}/{boardSeq}/comments/{seq}", method = RequestMethod.PUT)
-	public String commentDoUpdate(@PathVariable String boardType, BoardComtVo comt) throws SQLException, JsonProcessingException{
+	public boolean commentDoUpdate(@PathVariable String boardType, BoardComtVo comt){
 		boolean result = boardComtService.update(boardType, comt);
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(true);
+		return result;
 	}
 	
 	/** 게시판 댓글 삭제 **/
 	@ResponseBody
 	@RequestMapping(value = "/{boardType}/{boardSeq}/comments/{seq}", method = RequestMethod.DELETE)
-	public String commentDoDelete(@PathVariable String boardType, @PathVariable int seq) throws SQLException, JsonProcessingException{
+	public boolean commentDoDelete(@PathVariable String boardType, @PathVariable int seq){
 		boolean result = boardComtService.delete(boardType, seq);
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(result);
+		return result;
 	}
 	
 	/** 게시판 댓글 비밀번호 체크 **/
 	@ResponseBody
 	@RequestMapping(value = "/{boardType}/{boardSeq}/comments/{seq}/check", method = RequestMethod.POST)
-	public String commentDoCheckPassword(@PathVariable String boardType, BoardComtVo comt) throws SQLException, JsonProcessingException{
+	public boolean commentDoCheckPassword(@PathVariable String boardType, BoardComtVo comt) throws SQLException, JsonProcessingException{
 		boolean result = boardComtService.checkPwd(boardType, comt);
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(result);
+		return result;
 	}
 	
 

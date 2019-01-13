@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,8 +29,7 @@ public class BoardFileController {
 	private String realPath;
 	
 	@RequestMapping(value = "/board/file", method=RequestMethod.GET)
-	public void fileDoDownload(HttpServletRequest request, HttpServletResponse response,
-			String dir, String pathname, String filename) throws IOException {
+	public void fileDoDownload(HttpServletRequest request, HttpServletResponse response, String dir, String pathname, String filename) throws IOException {
 		
 		File file = new File(realPath + dir, pathname);
 		byte fileByte[] = FileUtils.readFileToByteArray(file);

@@ -27,6 +27,8 @@ import com.cglee079.changoos.util.FileHandler;
 import com.cglee079.changoos.util.Formatter;
 import com.cglee079.changoos.util.ImageHandler;
 import com.cglee079.changoos.util.MyFilenameUtils;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 @Service
 public class BlogService{
@@ -132,7 +134,7 @@ public class BlogService{
 	}
 
 	@Transactional
-	public int insert(BlogVo blog, String tempDirId, String imageValues, String fileValues) throws IllegalStateException, IOException {
+	public int insert(BlogVo blog, String tempDirId, String imageValues, String fileValues) throws JsonParseException, JsonMappingException, IOException{
 		blog.setDate(Formatter.toDate(new Date()));
 		int seq = blogDao.insert(blog);
 		
@@ -148,7 +150,7 @@ public class BlogService{
 	}
 
 	@Transactional
-	public boolean update(BlogVo blog,  String tempDirId, String thumbnailValues, String imageValues, String fileValues) throws IllegalStateException, IOException {
+	public boolean update(BlogVo blog,  String tempDirId, String thumbnailValues, String imageValues, String fileValues) throws JsonParseException, JsonMappingException, IOException{
 		int seq = blog.getSeq();
 		
 		BlogVo savedBlog = blogDao.get(seq);

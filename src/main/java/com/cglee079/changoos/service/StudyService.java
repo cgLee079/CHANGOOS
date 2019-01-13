@@ -21,6 +21,8 @@ import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.util.AuthManager;
 import com.cglee079.changoos.util.FileHandler;
 import com.cglee079.changoos.util.Formatter;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 @Service
 public class StudyService {
@@ -106,8 +108,8 @@ public class StudyService {
 		return studies;
 	}
 
-	@Transactional(rollbackFor = {IllegalStateException.class, IOException.class })
-	public int insert(StudyVo study, String tempDirId, String imageValues, String fileValues) throws IllegalStateException, IOException {
+	@Transactional
+	public int insert(StudyVo study, String tempDirId, String imageValues, String fileValues) throws JsonParseException, JsonMappingException, IOException{
 		study.setDate(Formatter.toDate(new Date()));
 		
 		int seq = studyDao.insert(study);
@@ -122,8 +124,8 @@ public class StudyService {
 	}
 
 
-	@Transactional(rollbackFor = {IllegalStateException.class, IOException.class })
-	public boolean update(StudyVo study, String tempDirId, String imageValues, String fileValues) throws IllegalStateException, IOException {
+	@Transactional
+	public boolean update(StudyVo study, String tempDirId, String imageValues, String fileValues) throws JsonParseException, JsonMappingException, IOException{
 		int seq = study.getSeq();
 		boardFileService.insertFiles(fileTB, tempDirId, fileDir, seq, fileValues);
 		

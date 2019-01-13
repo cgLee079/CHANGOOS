@@ -14,6 +14,7 @@
 		display:  flex;
 		align-items: center;
 		justify-content: center;
+		
 	}
 	
 	.message{
@@ -55,16 +56,15 @@
 <body>
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
+		
 		<div class="wrap-message">
 			<div class="message">
 				<div class="message-icon" style="background-image: url('${pageContext.request.contextPath}/resources/image/icon-error-warning.svg')">
 				</div>
 				<div class="message-title">
-					원인을 알 수 없는 에러입니다.
+					${message}
 				</div>
 				<div class="message-content">
-					${exception} <br/>
-					<br/>
 					<span class="btn-before" onclick="history.back()">이전 페이지로</span>
 				</div>
 			</div>

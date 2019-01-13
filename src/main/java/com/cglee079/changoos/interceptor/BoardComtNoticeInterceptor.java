@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.cglee079.changoos.config.code.BoardType;
 import com.cglee079.changoos.model.BlogVo;
 import com.cglee079.changoos.model.ProjectVo;
 import com.cglee079.changoos.model.StudyVo;
@@ -48,22 +49,22 @@ public class BoardComtNoticeInterceptor extends HandlerInterceptorAdapter {
 			
 			//답글은 관리자밖에 못달기 때문에, 관리지가 작성하지아니한 댓글에 대해서 알림
 			if (parentComt == null) {
-				if (boardType.equals(projectID)) {
+				switch (BoardType.from(boardType)) {
+				case PROJECT:
 					ProjectVo project = projectService.get(Integer.parseInt(boardSeq));
 					String projectTitle = project.getTitle();
-	
 					msg.append("#프로젝트에 댓글이 등록되었습니다.\n");
 					msg.append("프로젝트 : " + projectTitle + "\n");
-					
-				} else if(boardType.equals(studyID)) {
+					break;
+				case STUDY:
 					StudyVo study = studyService.get(Integer.parseInt(boardSeq));
 					String studyTitle = study.getTitle();
 					msg.append("#공부글에 댓글이 등록되었습니다.\n");
 					msg.append("공부글	 : " + studyTitle + "\n");
-				} else if(boardType.equals(blogID)) {
+					break;
+				case BLOG:
 					BlogVo blog = blogService.get(Integer.parseInt(boardSeq));
 					String blogTitle = blog.getTitle();
-	
 					msg.append("#블로그에 댓글이 등록되었습니다.\n");
 					msg.append("블로그	 : " + blogTitle + "\n");
 				}

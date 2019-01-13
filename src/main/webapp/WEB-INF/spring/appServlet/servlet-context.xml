@@ -42,7 +42,9 @@
 	<!-- Interceptor -->
 	<interceptors>
 		<interceptor>
-			<mapping path="/**/comments" />
+			<mapping path="/projects/**/comments" />
+			<mapping path="/studies/**/comments" />
+			<mapping path="/blogs/**/comments" />
 			<beans:bean class="com.cglee079.changoos.interceptor.BoardComtNoticeInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>

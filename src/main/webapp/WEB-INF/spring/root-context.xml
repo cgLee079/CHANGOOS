@@ -10,5 +10,6 @@
 	<util:properties id="constant" location="classpath:env/constant.properties" />
 	<util:properties id="db" location="classpath:env/db.properties" />
 	<util:properties id="telegram" location="classpath:env/telegram.properties" />
+	<util:properties id="message" location="classpath:env/msg.properties" />
 	
 </beans>

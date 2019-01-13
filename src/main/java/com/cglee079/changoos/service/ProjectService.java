@@ -21,6 +21,8 @@ import com.cglee079.changoos.util.AuthManager;
 import com.cglee079.changoos.util.FileHandler;
 import com.cglee079.changoos.util.ImageHandler;
 import com.cglee079.changoos.util.MyFilenameUtils;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 @Service
 public class ProjectService {
@@ -78,8 +80,8 @@ public class ProjectService {
 		return projectDao.list(map);
 	}
 
-	@Transactional(rollbackFor = {IllegalStateException.class, IOException.class})
-	public int insert(ProjectVo project, String tempDirId, String imageValues, String fileValues) throws IllegalStateException, IOException {
+	@Transactional
+	public int insert(ProjectVo project, String tempDirId, String imageValues, String fileValues) throws JsonParseException, JsonMappingException, IOException{
 		
 		int seq = projectDao.insert(project);
 		
@@ -95,7 +97,7 @@ public class ProjectService {
 	}
 
 	@Transactional(rollbackFor = {IllegalStateException.class, IOException.class})
-	public boolean update(ProjectVo project, String tempDirId, String imageValues, String fileValues) throws IllegalStateException, IOException {
+	public boolean update(ProjectVo project, String tempDirId, String imageValues, String fileValues) throws JsonParseException, JsonMappingException, IOException{
 		int seq = project.getSeq();
 		
 		ProjectVo savedProject = projectDao.get(seq);

@@ -40,6 +40,11 @@
 
 .project-snapsht .project-snapsht-overlay {
 	position: absolute;
+	max-width : 80%;
+	margin : 0 auto;
+	word-break : keep-all;
+	line-height: 1.6;
+	text-align : center;
 	left: 0;
 	top: 0;
 	right: 0;
