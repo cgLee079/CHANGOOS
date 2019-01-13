@@ -37,8 +37,8 @@
 <!--  -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-nav.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-footer.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global-basic.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global-responsive.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-flex.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/editor-contents.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/dg-common.css" />
 
