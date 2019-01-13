@@ -20,7 +20,7 @@ CKEDITOR.editorConfig = function(config) {
 			},
 			{
 				name : 'insert',
-				items : [ 'Youtube', 'CodeSnippet', 'Table', 'SpecialChar', 'Emojione']
+				items : [ 'Youtube', 'CodeSnippet', 'Table', 'SpecialChar', 'Emojione', 'Image']
 			},
 			{
 				name : 'paragraph',

@@ -67,7 +67,7 @@
 		        		},
 		        		success : function(result) {
 		        			var pathname = result.pathname;
-		        			var filename = result.filename;
+		        			var filename = "pasteImage.png";
 							setTimeout(function () {
 							    if (useWorkAround) {
 							        var img = editor.getSelection().getRanges()[0].getBoundaryNodes().endNode;

@@ -19,7 +19,6 @@ public class HomeController {
 	
 	@RequestMapping(value = "/")
 	public String home(HttpSession session, Model model) {
-		System.out.println(session.getAttribute("tempDirId"));
 		String home001 = commonStringService.get("HOME", "001"); // 메인홈 메시지
 		model.addAttribute("home001", home001);
 		return "main_home";

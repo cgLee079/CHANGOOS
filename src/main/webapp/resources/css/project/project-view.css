@@ -1,54 +1,53 @@
-.project{
-	min-height : calc(100% - 50px);
+.project {
+	min-height: calc(100% - 50px);
 	margin-bottom: 150px;
+	margin-top: 20px;
 }
 
 /* Project Head */
-.project-head{
-	position : relative;
+.project-head {
+	position: relative;
 	height: 60%
 }
 
-.project-head::after{
+.project-head::after {
 	content: '&nbsp;';
 	display: block;
 }
 
-.project-head-bg{
+.project-head-bg {
 	position: absolute;
-	top		: 0;
-	left 	: 0;
-	right 	: 0;
-	bottom 	: 0;
-	z-index : 1;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
 }
 
-.project-head-fg{
+.project-head-fg {
 	position: absolute;
-	top		: 0;
-	left 	: 0;
-	right 	: 0;
-	bottom 	: 0;
-	z-index : 2;
-	
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 2;
 	background: rgba(0, 0, 0, 0.6);
 }
 
-.project-detail{
+.project-detail {
 	position: absolute;
-	top		: 0;
-	left 	: 0;
-	right 	: 0;
-	bottom 	: 0;
-	z-index : 3;
-	
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 3;
 	display: flex;
-	flex-flow : column nowrap;
+	flex-flow: column nowrap;
 	justify-content: center;
-	align-content: center;	
+	align-content: center;
 	color: #FFF;
 }
 
@@ -59,44 +58,43 @@
 }
 
 .project-detail .project-title {
-	width : 80%;
-	margin : 0 auto;
+	width: 80%;
+	margin: 0 auto;
 	margin-bottom: 10px;
-	font-size	: 2.5rem;
-	font-weight	: bold;
-	text-align	: center;
-	
+	font-size: 2.5rem;
+	font-weight: bold;
+	text-align: center;
 	word-break: keep-all;
 	word-wrap: break-word;
 }
 
 .project-detail .project-subinfo {
-	display : flex;
-	flex-flow : row nowrap;
-	justify-content : center;
-	align-items : center;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
 	font-size: 0.75rem;
 }
 
-.colum-border{
-	width : 1px;
+.colum-border {
+	width: 1px;
 	height: 0.5rem;
-   	background : #DDD;
+	background: #DDD;
 }
 
-.project-detail .project-subinfo > div{
+.project-detail .project-subinfo>div {
 	margin-right: 7px;
 }
 
-.project-detail .project-subinfo .project-source{
+.project-detail .project-subinfo .project-source {
 	display: flex;
 	font-weight: bold;
 }
 
-.project-detail .project-subinfo .project-source .git-logo{
-	width : 0.75rem;
-	height : 0.75rem;
-	margin-right : 0.2rem;
+.project-detail .project-subinfo .project-source .git-logo {
+	width: 0.75rem;
+	height: 0.75rem;
+	margin-right: 0.2rem;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;
@@ -104,11 +102,11 @@
 
 /* Project Submenu */
 .project-head .project-submenu {
-	position : absolute;
-	right : 3%;
+	position: absolute;
+	right: 3%;
 	bottom: 3%;
-	z-index : 3;
-	color : #FFF;
+	z-index: 3;
+	color: #FFF;
 	text-align: right;
 	font-size: 0.75rem;
 	margin-bottom: 5px;
@@ -116,34 +114,36 @@
 
 .project-head .project-submenu .submenu {
 	margin-left: 1rem;
-	cursor : pointer;
+	cursor: pointer;
 }
 
-.project-desc{
-	width : 80%;
+.project-desc {
 	margin: 0 auto;
 	margin-top: 30px;
-	margin-bottom : 40px;
+	margin-bottom: 40px;
 }
 
 /* Project Content */
 .project-content {
-	position : relative;
+	position: relative;
 	min-height: 100%;
 }
 
-.project-files .project-file{
+.project-files .project-file {
 	margin: 5px 0;
 }
 
-.project-files .project-file a{
+.project-files .project-file a {
 	cursor: pointer;
 	color: #00D;
 	text-decoration: none;
 }
-		
-@media (max-width: 800px){
-	.project-desc{
-		width : 90%;
+
+@media ( max-width : 800px) {
+	.project {
+		margin-top: 0;
+	}
+	.project-desc {
+		width: 90%;
 	}
 }

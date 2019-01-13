@@ -1,5 +1,4 @@
 .wrap-study {
-	width : 80%;
 	min-height : calc(100% - 50px);
 	margin: 0 auto;
 	margin-top: 40px;
@@ -16,7 +15,6 @@
 .study-list-item {
 	position: relative;
 	padding: 20px 0;
-	margin : 0 10px;
 	cursor: pointer;
 	border-bottom: 1px solid #ecf0f5;
 }
@@ -102,7 +100,7 @@
 }
 
 .study-submenu{
-	margin-left: 10px;
+	margin-left: 20px;
 	min-width: 20%;
 }
 
@@ -175,6 +173,10 @@
 	
 	.study-list{
 		margin-top: 20px;	
+	}
+	
+	.study-submenu{
+		margin-left : 0;
 	}
 	
 	.study-search{

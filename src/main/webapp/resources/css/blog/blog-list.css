@@ -4,8 +4,7 @@
 
 .blog-first-item {
 	position: relative;
-	width: 60%;
-	height: 50%;
+	height: 60%;
 	margin: 0px auto;
 	margin-top: 30px;
 	margin-bottom: 40px;
@@ -78,8 +77,6 @@
 }
 
 .wrap-blog-list {
-	width: 60%;
-	margin: 0 auto;
 	display: flex;
 	min-height: 50%;
 }

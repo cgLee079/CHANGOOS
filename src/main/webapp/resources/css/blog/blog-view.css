@@ -1,10 +1,11 @@
 .wrap-blog {
 	margin-bottom: 150px;
 	min-height : calc(100% - 50px);
+	margin-top: 20px;
 }
 
 .blog-head{
-	height : 70%;
+	height : 60%;
 	position: relative;
 }
 
@@ -119,6 +120,10 @@
 }
 
 @media (max-width: 800px){
+	.wrap-blog {
+		margin-top: 0;
+	}
+	
 	.blog-main{
 		width: 90%;
 	}

@@ -104,8 +104,8 @@ $(window).scroll(function(event) {
 
 $(window).scroll(function(event) {
 	var scroll = $(window).scrollTop();
-	if (scroll > 30) { $(".header").addClass("down");}
-	else {$(".header").removeClass("down");}
+	if (scroll > 30) { $(".wrap-header").addClass("down");}
+	else {$(".wrap-header").removeClass("down");}
 });
 
 /* Progress bar */

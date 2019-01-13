@@ -9,6 +9,9 @@ body {
 	overflow-x: hidden;
 	font-family: 'Nanum Square', 'Nanum Gothic', sans-serif;
 	font-weight: normal;
+	max-width: 1080px;
+	margin : 0 auto;
+	padding: 0 3%;
 }
 
 a, a:VISITED {
@@ -68,5 +71,11 @@ a, a:VISITED {
 	color: #FFF !important;	
     box-shadow: 0px 5px 5px #ECF0F1;
     border: none;
+}
+
+@media ( max-width : 800px) {
+	body {
+		padding : 0;
+	}
 }
 

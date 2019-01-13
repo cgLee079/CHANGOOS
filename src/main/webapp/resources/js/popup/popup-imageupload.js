@@ -41,7 +41,7 @@ function onImageChange() {
 				wrapImage.appendTo($(".image-list"));
 				wrapImage.find(".filename").val(file.name);
 				wrapImage.find(".pathname").val(result.pathname);
-				wrapImage.find(".image").attr("src", getContextPath() +  tempDir + result.pathname);
+				wrapImage.find(".image").attr("src", getContextPath() +  loc.temp.dir + result.pathname);
 			})
 		})(file);
 	}
