@@ -66,8 +66,6 @@
 		        			"base64" : base64
 		        		},
 		        		success : function(result) {
-		        			var pathname = result.pathname;
-		        			var filename = "pasteImage.png";
 							setTimeout(function () {
 							    if (useWorkAround) {
 							        var img = editor.getSelection().getRanges()[0].getBoundaryNodes().endNode;
@@ -83,11 +81,10 @@
 										"editorID"	: editor.name, 
 										"seq" 		: undefined,
 										"pathname" 	: result.pathname,
-										"filename" 	: result.filename,
-										"src"		: result.src
+										"filename" 	: "pasteImage.png",
 								}
 							    
-							    imageUploader.insertCKEditor(image, "720");
+							    imageUploader.insertCKEditor(image, imageUploader.maxWidth);
 							    imageUploader.insertImageInfo(image);
 							    
 							}, 10);

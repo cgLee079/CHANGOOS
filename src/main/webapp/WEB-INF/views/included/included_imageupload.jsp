@@ -3,7 +3,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
+<c:set var='maxWidth'><spring:eval expression="@constant['image.max.width']" /></c:set>
+
 <script>
+imageUplodaer.maxWidth = <c:out value="${maxWidth}"/>
 imageUploader.status = {
 	'BE' 	: '<c:out value="${imageStatus.BE}"/>',
 	'NEW'	: '<c:out value="${imageStatus.NEW}"/>',

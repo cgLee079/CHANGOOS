@@ -6,15 +6,14 @@
 }
 
 .info-contact {
-	width : 100%;
-	display: flex;
-	flex-flw : row nowrap;
-	justify-content: center;
-	align-items : center;
-	font-size : 0.6rem;
-	padding : 2rem 0;
-	background : #FFF;
-	border-top: 1px dotted #DDD;
+	width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.6rem;
+    padding: 2rem 0;
+    background: #FFF;
+    border-top: 0.5px solid #ececec;
 }
 
 .info-contact .btn-contact{
