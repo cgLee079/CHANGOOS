@@ -72,7 +72,6 @@
 	white-space: normal;
 	-webkit-line-clamp: 3;
 	max-height: 4.4rem;
-	line-height: 1.5;
 	word-break: break-word;
 }
 
@@ -123,7 +122,7 @@
 .blog-item .blog-item-desc .blog-item-title {
 	font-size: 1.25rem;
 	font-weight: bold;
-	max-height: 20px;
+	max-height: 1.5rem;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	margin-bottom: 7px;
@@ -136,7 +135,6 @@
 	-webkit-box-orient: vertical;
 	white-space: normal;
 	-webkit-line-clamp: 4;
-	line-height: 1.5;
 	max-height: 6rem;
 	word-break: break-word;
 }

@@ -11,8 +11,8 @@
 }
 
 .project-view {
-	width: calc(100%/ 3 - 31px);
-	margin: 20px 15px;
+	width: calc(100%/ 3 - 26px);
+	margin: 20px 13px;
 	cursor: pointer;
 	opacity: 1;
 	overflow: hidden;
@@ -43,7 +43,6 @@
 	max-width : 80%;
 	margin : 0 auto;
 	word-break : keep-all;
-	line-height: 1.6;
 	text-align : center;
 	left: 0;
 	top: 0;
@@ -85,11 +84,10 @@
 }
 
 .project-info {
-	height: auto;
 	margin: 20px 0;
 	flex: 1;
 	position: relative;
-	opacity: 0.8;
+	opacity: 0.9;
 }
 
 .project-title {
@@ -144,7 +142,7 @@
 
 @media ( min-width : 800px) and (max-width: 1100px) {
 	.project-view {
-		width: calc(100%/ 2 - 31px);
+		width: calc(100%/ 2 - 26px);
 	}
 }
 

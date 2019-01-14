@@ -12,6 +12,7 @@ body {
 	max-width: 1080px;
 	margin : 0 auto;
 	padding: 0 3%;
+	line-height: 1.5;
 }
 
 a, a:VISITED {

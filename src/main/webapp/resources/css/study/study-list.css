@@ -67,7 +67,6 @@
     white-space: normal;
     -webkit-line-clamp: 2;
     max-height : 3.3rem;
-    line-height: 1.5;
     color: #606060;
     word-break: break-all;
     margin-bottom: 15px;
@@ -146,6 +145,7 @@
 
 .study-categories {
 	margin-top: 25px;
+	line-height : 1.2;
 }
 
 .study-categories .study-categories-item {

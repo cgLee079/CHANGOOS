@@ -36,7 +36,7 @@
 				<div class="upload-item">
 					<div class="upload-item-name">사진</div>
 					<div class="upload-item-input">
-						<img id="snapshot" onclick="$(this).siblings('#imageFile').click();" src="<c:out value='${projectThumbDir}${photo.thumbnail}'/>" height="150">
+						<img id="snapshot" onclick="$(this).siblings('#imageFile').click();" src="<c:out value='${photoThumbDir}${photo.thumbnail}'/>" height="150">
 						<input type="file" id="imageFile" name="imageFile" class="photo-image" accept="image/*" onchange="onPhotoChnage(this)"/>
 					</div>
 				</div>
