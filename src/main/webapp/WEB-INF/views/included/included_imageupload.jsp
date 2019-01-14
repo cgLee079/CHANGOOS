@@ -6,7 +6,7 @@
 <c:set var='maxWidth'><spring:eval expression="@constant['image.max.width']" /></c:set>
 
 <script>
-imageUplodaer.maxWidth = <c:out value="${maxWidth}"/>
+imageUploader.maxWidth = '<c:out value="${maxWidth}"/>'
 imageUploader.status = {
 	'BE' 	: '<c:out value="${imageStatus.BE}"/>',
 	'NEW'	: '<c:out value="${imageStatus.NEW}"/>',

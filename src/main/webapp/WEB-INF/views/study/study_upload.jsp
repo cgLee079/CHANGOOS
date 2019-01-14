@@ -81,7 +81,7 @@
 					<div class="item-name"></div>
 					<div class="item-input study-submit">
 						<a class="btn" onclick="Progress.start(); history.back();">취소</a>
-						<a class="btn" onclick="Progress.start(); $('#uploadForm').submit()">저장</a>
+						<a class="btn submit" onclick="Progress.start(); $('#uploadForm').submit()">저장</a>
 					</div>
 				</div>	
 				

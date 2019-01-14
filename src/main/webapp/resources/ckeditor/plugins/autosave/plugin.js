@@ -153,21 +153,17 @@
                         for(var i = 0; i < images.length; i++){
                         	imageUploader.insertImageInfo(images[i]);
                         }
-                        localStorage.removeItem(autoSaveKey + "Images");
                         
                         var files = LoadData(autoSaveKey + "Files");
                         for(var i = 0; i < files.length; i++){
                         	fileUploader.insertFileInfo(files[i]);
                         }
-                        localStorage.removeItem(autoSaveKey + "Files");
                         
                         RemoveStorage(autoSaveKey, editorInstance);
                     }
                 },
                 onCancel: function() {
                     RemoveStorage(autoSaveKey, editorInstance);
-                    localStorage.removeItem(autoSaveKey + "Images");
-                    localStorage.removeItem(autoSaveKey + "Files");
                 },
                 contents: [
                     {
@@ -318,6 +314,10 @@
         }
 
         localStorage.removeItem(autoSaveKey);
+        
+        //CHANGOO'S
+        localStorage.removeItem(autoSaveKey + "Images");
+        localStorage.removeItem(autoSaveKey + "Files");
     }
 
     function RenderDiff(dialog, editorInstance, autoSaveKey) {

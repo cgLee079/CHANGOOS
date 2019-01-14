@@ -116,7 +116,7 @@
 					<div class="upload-project-name"></div>
 					<div class="upload-project-input project-submit">
 						<a class="btn" onclick="Progress.start(); history.back();">취소</a>
-						<a class="btn" onclick="Progress.start(); $('#uploadForm').submit()">저장</a>
+						<a class="btn submit" onclick="Progress.start(); $('#uploadForm').submit()">저장</a>
 					</div>
 				</div>	
 				

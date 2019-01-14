@@ -58,7 +58,7 @@ CKEDITOR.editorConfig = function(config) {
 		saveOnDestroy : false,
 
 		// Setting to set the Save button to inform the plugin when the content is saved by the user and doesn't need to be stored temporary ...
-		saveDetectionSelectors : "a[class*='btn']",
+		saveDetectionSelectors : "a[class*='btn submit']",
 
 		// Notification Type - Setting to set the if you want to show the "Auto Saved" message, and if yes you can show as Notification or as Message in the Status bar (Default is "notification")
 		//messageType : "notification",
@@ -70,7 +70,7 @@ CKEDITOR.editorConfig = function(config) {
 		//messageType : "no",
 
 		// Delay
-		delay : 25,
+		delay : 60,
 
 		// The Default Diff Type for the Compare Dialog, you can choose between "sideBySide" or "inline". Default is "sideBySide"
 		diffType : "inline",
