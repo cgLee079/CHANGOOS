@@ -173,7 +173,7 @@
 
 .tag {
 	display: inline-block;
-	border: 1px solid #DDD;
+	border: 0.7px solid #DDD;
 	border-radius: 5px;
 	opacity: 0.8;
 	padding: 5px 10px;
