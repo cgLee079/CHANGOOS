@@ -42,10 +42,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/editor-contents.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/dg-common.css" />
 
-<!-- lib-js -->
+<!-- Javascript 라이브러리-->
 <script src="${pageContext.request.contextPath}/resources/js/lib/jquery-3.2.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/lib/jquery-ui.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/lib/jquery.touchwipe.1.1.1.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/lib/jquery-ui-1.12.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/lib/anime-2.2.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/lib/letter-motion.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/lib/sweetalert.min.js"></script>

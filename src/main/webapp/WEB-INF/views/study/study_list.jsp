@@ -10,10 +10,10 @@
 <div class="wrapper">
 	<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 	
-	<input type="hidden" id="allRowCnt" value="<c:out value='${total-count}'/>"/>
-	<input type="hidden" id="category" value="<c:out value='${category}'/>"/>
-	
 	<div class="wrap-study">
+		<input type="hidden" id="allRowCnt" value="<c:out value='${total-count}'/>"/>
+		<input type="hidden" id="category" value="<c:out value='${category}'/>"/>
+	
 		<div class="study-list">
 			<div class="study-list-item">
 				<div class="study-item-title"></div>
@@ -52,7 +52,6 @@
 	
 	<c:import url="../included/included_footer.jsp" charEncoding="UTF-8" />
 </div>
-
 </body>
 </html>
 

@@ -1,78 +1,94 @@
 /* header */
-.header-occupy{
+.header-occupy {
 	height: 60px;
-	opacity: 0; 
+	opacity: 0;
 }
 
-.wrap-header{
+.wrap-header {
 	position: fixed;
 	top: 0px;
-	left : 0px;
-	right : 0px;
+	left: 0px;
+	right: 0px;
 	height: 60px;
 	z-index: 2000;
 	background: rgba(255, 255, 255, 0.9);
-	border-bottom : 0.5px solid #e7e7e7;
+	border-bottom: 0.5px solid #e7e7e7;
 }
 
-.wrap-header.down{
+.wrap-header.down {
 	/* box-shadow: 0 1px 0 rgba(12,13,14,0.1), 0 1px 3px rgba(12,13,14,0.1), 0 4px 20px rgba(12,13,14,0.035), 0 1px 1px rgba(12,13,14,0.025); */
+	
 }
 
 .header {
-	display : flex;
-	justify-content : space-between;
-	align-items : center;
-
-	height : 100%;	
-	max-width : 1080px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 100%;
+	max-width: 1080px;
 	margin: 0 auto;
 	padding: 0 3%;
 }
 
-
-.header .wrap-home-logo{
-	height : 100%;
+.header .wrap-home-logo {
+	height: 100%;
 	font-size: 15px;
-	font-weight : bold;
-	color : #000;
+	font-weight: bold;
+	color: #000;
 }
 
-.header .wrap-home-logo .logo{
-	cursor : pointer;
-	width : 9rem;
-	height : 5rem;
+.header .wrap-home-logo .logo {
+	cursor: pointer;
+	width: 9rem;
+	height: 5rem;
 }
 
-.header .web-menus{
+/** PC화면 메뉴 아이콘 **/
+.header .web-menus {
 	display: flex;
-	height : 100%;
+	height: 100%;
 	align-items: center;
 }
 
 .btn-web-menu {
-	margin-left : 2rem;
-	opacity: 0.8;
+	margin-left: 2rem;
 	font-size: 15px;
 }
 
-.btn-web-menu:hover{
-	opacity: 1;
-}
-
-.btn-web-menu.on{
-	opacity: 1;
+.btn-web-menu.on {
 	font-weight: bold;
 }
 
+.menu-search {
+	display: flex;
+	align-items: center;
+}
 
-/* navigation */
-.wrap-nav-icon{
-	display : none;
+.menu-search .global-search {
+	padding-left: 3px; border : none;
+	width: 0px;
+	height: 1.6rem;
+	background: none;
+	transition: width .3s cubic-bezier(0.215, 0.61, 0.355, 1);
+	border: none;
+}
+
+.menu-search .global-search:focus {
+	margin-left: 10px;
+	background: #FFF;
+	width: 130px;
+}
+/* .menu-search .global-search::placeholder{
+	color: #333;
+}  */
+
+/* 모바일 화면, 메뉴 아이콘 */
+.wrap-nav-icon {
+	display: none;
 	position: fixed;
-	top : 0;
-	right : 5%;
-	height : 60px;
+	top: 0;
+	right: 5%;
+	height: 60px;
 	z-index: 4000;
 }
 
@@ -109,7 +125,7 @@
 	transition: .25s ease-in-out;
 }
 
-.nav-icon.open span{
+.nav-icon.open span {
 	background: #000;
 }
 
@@ -151,21 +167,23 @@
 	left: 50%;
 }
 
-.nav-background-wrapper{
+.nav-background-wrapper {
 	overflow: hidden;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 3000;
-    top: 0;
-    pointer-events: none;
+	position: fixed;
+	z-index: 3000;
+	left: 0;
+	right: 0;
+	bottom: 0; top : 0;
+	pointer-events: none;
+	top: 0;
 }
+
 .nav-background {
 	position: fixed;
 	top: -358px;
-    right: -358px;
-    width: 800px;
-    height: 800px;
+	right: -358px;
+	width: 800px;
+	height: 800px;
 	z-index: 3001;
 	transform: scale(0, 0);
 	border-radius: 50%;
@@ -175,16 +193,17 @@
 
 .nav-menu {
 	position: fixed;
-	width: 100%;
-	height: 100%;
-	top: 0;
+	left: 0; right : 0; bottom : 0; top : 0;
 	z-index: 3000;
 	text-align: center;
-	background : #FEFEFE;
+	background: #FEFEFE;
 	opacity: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
 }
 
-.nav-menu.unvalid { 
+.nav-menu.unvalid {
 	pointer-events: none;
 }
 
@@ -193,44 +212,46 @@
 	font-size: 1.3rem;
 }
 
-/* btn-top */
-.btn-scroll-top{
+/** 위로가기 버튼 관련 **/
+.btn-scroll-top {
 	position: fixed;
 	right: 1.5rem;
 	bottom: 1rem;
-	width : 0.5rem;
-	height : 0.5rem;
+	width: 0.5rem;
+	height: 0.5rem;
 	border-radius: 2rem;
 	background: #000;
 	color: #FFF;
 	font-size: 0.4rem;
-	font-weight:bold;
-	padding : 1rem;
+	font-weight: bold;
+	padding: 1rem;
 	z-index: 2999;
-	
 	cursor: pointer;
 	opacity: 0.7;
-	
-	trasnform : scale(1);
-	transition : transform 0.2s;
+	trasnform: scale(1);
+	transition: transform 0.2s;
 }
 
-.btn-scroll-top:hover{ opacity : 1; }
-.btn-scroll-top.off{ transform: scale(0) }
+.btn-scroll-top:hover {
+	opacity: 1;
+}
 
+.btn-scroll-top.off {
+	transform: scale(0)
+}
 
-/* progress-bar*/	
-.progress-bar{
-	position : fixed;
-	top : 0;
-	bottom : 0;
-	left : 0;
-	right : 0;
+/* progress-bar*/
+.progress-bar {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 	z-index: 5000;
 	background: rgba(0, 0, 0, 0.05);
 }
 
-.progress-bar.off{
+.progress-bar.off {
 	display: none;
 }
 
@@ -238,9 +259,9 @@
 	width: 40px;
 	height: 40px;
 	position: relative;
-	top : 50%;
+	top: 50%;
 	margin: auto;
-	margin-top : -20px;
+	margin-top: -20px;
 }
 
 .double-bounce1, .double-bounce2 {
@@ -261,29 +282,58 @@
 	animation-delay: -1.0s;
 }
 
-@-webkit-keyframes sk-bounce {
-	0%, 100% { -webkit-transform: scale(0.0) }
-	50% { -webkit-transform: scale(1.0) }
+@
+-webkit-keyframes sk-bounce { 0%, 100% {
+	-webkit-transform: scale(0.0)
 }
 
-@keyframes sk-bounce {
-	0%, 100% { 
-		transform: scale(0.0);
-		-webkit-transform: scale(0.0);
-	} 50% { 
-		transform: scale(1.0);
-		-webkit-transform: scale(1.0);
-	}
+50%
+{
+-webkit-transform
+:
+ 
+scale
+(1
+.0
+)
+ 
+}
+}
+@
+keyframes sk-bounce { 0%, 100% {
+	transform: scale(0.0);
+	-webkit-transform: scale(0.0);
 }
 
-@media (max-width: 800px){
-	.header .web-menus{
+50%
+{
+transform
+:
+ 
+scale
+(1
+.0
+);
+
+		
+-webkit-transform
+:
+ 
+scale
+(1
+.0
+);
+
+	
+}
+}
+@media ( max-width : 800px) {
+	.header .web-menus {
 		display: none;
 	}
-	
-	.wrap-nav-icon{
-		display : flex;
+	.wrap-nav-icon {
+		display: flex;
 		justify-content: center;
-		align-items: center;	
+		align-items: center;
 	}
 }

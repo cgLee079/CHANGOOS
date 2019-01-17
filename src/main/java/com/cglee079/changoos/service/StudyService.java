@@ -21,6 +21,7 @@ import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.util.AuthManager;
 import com.cglee079.changoos.util.FileHandler;
 import com.cglee079.changoos.util.Formatter;
+import com.cglee079.changoos.util.HTMLHandler;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -85,24 +86,11 @@ public class StudyService {
 	public List<StudyVo> paging(Map<String, Object> params) {
 		List<StudyVo> studies = studyDao.list(params);
 		StudyVo study = null;
-		String contents = null;
-		String newContents = "";
-		Document doc = null;
-		Elements els = null;
+		
 		for (int i = 0; i < studies.size(); i++) {
 			study = studies.get(i);
 
-			// 내용중 텍스트만 뽑기
-			contents = study.getContents();
-			newContents = "";
-			doc = Jsoup.parse(contents);
-			els = doc.select("*");
-			if (els.eachText().size() > 0) {
-				newContents = els.eachText().get(0);
-			}
-
-			newContents.replace("\n", " ");
-			study.setContents(newContents);
+			study.setContents(HTMLHandler.extractHTMLText(study.getContents()));
 		}
 
 		return studies;

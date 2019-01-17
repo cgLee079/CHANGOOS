@@ -5,12 +5,16 @@
 	z-index: 0;
 }
 
+html, body, .wrapper{
+    height: 100%;
+}
+
 body {
 	overflow-x: hidden;
 	font-family: 'Nanum Square', 'Nanum Gothic', sans-serif;
 	font-weight: normal;
 	max-width: 1080px;
-	margin : 0 auto;
+	margin: 0 auto;
 	padding: 0 3%;
 	line-height: 1.5;
 }
@@ -23,28 +27,25 @@ a, a:VISITED {
 /* centering */
 .col-center {
 	display: -ms-flexbox;
-    display: -webkit-flex;
+	display: -webkit-flex;
 	display: flex;
 	flex-flow: column nowrap;
 	align-items: center;
 	justify-content: center;
-	
-  	/*Center horizontaly ie */
-    -ms-flex-pack: center;
+	/*Center horizontaly ie */
+	-ms-flex-pack: center;
 }
 
 .row-center {
 	display: -ms-flexbox;
-    display: -webkit-flex;
+	display: -webkit-flex;
 	display: flex;
 	flex-flow: row nowrap;
 	align-items: center;
 	justify-content: center;
-	
 	/*Center horizontaly ie */
-    -ms-flex-pack: center;
+	-ms-flex-pack: center;
 }
-
 
 /* util*/
 .display-none {
@@ -61,22 +62,40 @@ a, a:VISITED {
 }
 
 /* btn */
-.btn { cursor: pointer; opacity: 0.6; }
-.btn.on { opacity: 1; }
-.btn:hover { opacity: 1; }
+.btn {
+	cursor: pointer;
+	opacity: 0.6;
+}
 
-/* easyui tooltip override */
-.tooltip{
-	padding : 3px 7px !important;
+.btn.on {
+	opacity: 1;
+}
+
+.btn:hover {
+	opacity: 1;
+}
+
+/* JQuery EasyUI, style Override */
+.tooltip {
+	padding: 3px 7px !important;
 	background: #000 !important;
-	color: #FFF !important;	
-    box-shadow: 0px 5px 5px #ECF0F1;
-    border: none;
+	color: #FFF !important;
+	box-shadow: 0px 5px 5px #ECF0F1;
+	border: none;
+}
+
+.textbox-focused {
+	box-shadow: none;
+}
+
+.panel {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
 }
 
 @media ( max-width : 800px) {
 	body {
-		padding : 0;
+		padding: 0;
 	}
 }
-

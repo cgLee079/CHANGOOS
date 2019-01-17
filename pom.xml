@@ -328,6 +328,12 @@
 			<version>1.18.0</version>
 		</dependency>
 
+		<!-- Solr -->
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-solrj</artifactId>
+			<version>7.1.0</version>
+		</dependency>
 
 
 

@@ -11,7 +11,7 @@ $(document).ready(function(){
 	studyTemp = $(".study-list-item").clone();
 	$(".study-list-item").remove();
 	
-	/* Add Scroll Page event */
+	/* Scroll Page event */
 	$(window).scroll(function(){
 		var scrollPosition = $(this).scrollTop() + $(this).outerHeight();
 		var docHeight = $(this).height();

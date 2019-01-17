@@ -35,7 +35,7 @@
 					</div>
 				</div>
 				<div class="blog-head-submenu">
-					<a class="btn-list" href="${pageContext.request.contextPath}/blog">목록</a>
+					<a class="btn-list" href="${pageContext.request.contextPath}/blogs">목록</a>
 				</div>
 			</div>
 			
