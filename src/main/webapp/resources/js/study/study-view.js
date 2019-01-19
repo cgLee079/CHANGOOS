@@ -5,7 +5,7 @@ $(document).ready(function(){
 	
 	category = $("#category").val();
 	
-	$(".btn-study-before, .btn-study-next").tooltip({
+	$(".submenu.study-before, .submenu.study-next").tooltip({
     	position: 'top',
     	show : null,
     	hide : null,

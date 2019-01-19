@@ -11,7 +11,12 @@
 <body>
 	<div class="wrapper">
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
-	
+		<c:import url="../included/included_export.jsp" charEncoding="UTF-8">
+			<c:param name = "thumbnail" value = "${projectThumbDir}${project.thumbnail}" />
+			<c:param name = "title" value = "[프로젝트] ${project.title}" />
+			<c:param name = "comtCnt" value = "${project.comtCnt}" />
+		</c:import>
+		
 		<div class="project">
 			<div class="project-head">
 				<div class="project-head-bg" style="background-image: url('${pageContext.request.contextPath}${projectThumbDir}${project.thumbnail}"></div>
@@ -37,7 +42,8 @@
 					</div>
 				</div>
 				
-				<div class="project-submenu">
+				<div class="project-submenus">
+					<a class="submenu " onclick="drawExportView()">공유하기</a>
 					<a class="submenu btn-project-list" onclick="projectList()">목록</a>
 					<a class="submenu btn-project-before" onclick="projectView('${beforeProject.seq}')">이전글</a>
 					<a class="submenu btn-project-next" onclick="projectView('${afterProject.seq}')">다음글</a>

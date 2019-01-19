@@ -64,15 +64,6 @@ a, a:VISITED {
 /* btn */
 .btn {
 	cursor: pointer;
-	opacity: 0.6;
-}
-
-.btn.on {
-	opacity: 1;
-}
-
-.btn:hover {
-	opacity: 1;
 }
 
 /* JQuery EasyUI, style Override */

@@ -70,9 +70,9 @@ $(document).ready(function(){
 					targets : ".mob-menus .mob-menu",
 					scale: [ 0, 1 ],
 					easing : "easeOutExpo",
-					duration : 700,
+					duration : 500,
 					delay : function(el, i) {
-						return 100 * (i);
+						return 50 * (i);
 					}
 				})
 			} else {

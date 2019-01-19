@@ -9,21 +9,25 @@
 
 <body>
 	<div class="wrapper">
+		<c:choose>
+			<c:when test="${not empty blog.thumbnail}" >
+				<c:set var="thumbnail" value="${blogThumbDir}${blog.thumbnail}"/>
+			</c:when>
+			<c:when test="${fn:length(blog.images) > 0}" >
+				<c:set var="thumbnail" value="${blogImageDir}${blog.images[0].pathname}"/>
+			</c:when>
+		</c:choose>
+							
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
+		<c:import url="../included/included_export.jsp" charEncoding="UTF-8">
+			<c:param name = "thumbnail" value = "${thumbnail}" />
+			<c:param name = "title" value = "[블로그] ${blog.title}" />
+			<c:param name = "comtCnt" value = "${blog.comtCnt}" />
+		</c:import>
 		
 		<div class="wrap-blog">
 			<div class="blog-head">
-				<c:choose>
-					<c:when test="${not empty blog.thumbnail}" >
-						<div class="blog-head-bg" style="background-image: url('${blogThumbDir}${blog.thumbnail}')"></div>
-					</c:when>
-					<c:when test="${fn:length(blog.images) > 0}" >
-						<div class="blog-head-bg" style="background-image: url('${blogImageDir}${blog.images[0].pathname}')"></div>
-					</c:when>
-					<c:otherwise>
-					<div class="blog-head-bg" style="background: #000"></div>
-					</c:otherwise>
-				</c:choose>
+				<div class="blog-head-bg" style="background-image: url('${pageContext.request.contextPath}${thumbnail}')"></div>
 				<div class="blog-head-fg"></div>
 				<div class="blog-head-desc">
 					<div class="tag"><c:out value="${blog.tag}"/></div>
@@ -35,7 +39,7 @@
 					</div>
 				</div>
 				<div class="blog-head-submenu">
-					<c:import url="../included/included_export.jsp" charEncoding="UTF-8" />
+					<a onclick="drawExportView()">공유하기</a>
 					<a class="btn-list" href="${pageContext.request.contextPath}/blogs">목록</a>
 				</div>
 			</div>

@@ -10,9 +10,17 @@
 </head>
 <body>
 	<div class="wrapper">
-		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
-		
 		<input type="hidden" id="category" value="<c:out value='${category}'/>"/>
+		<c:if test="${fn:length(study.images) > 0}" >
+			<c:set var="thumbnail" value="${studyImageDir}${study.images[0].pathname}"/>
+		</c:if>
+		
+		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
+		<c:import url="../included/included_export.jsp" charEncoding="UTF-8">
+			<c:param name = "thumbnail" value = "${thumbnail}" />
+			<c:param name = "title" value = "[스터디] ${study.title}" />
+			<c:param name = "comtCnt" value = "${study.comtCnt}" />
+		</c:import>
 		
 		<div class="wrap-study">
 			<div class="study">
@@ -45,25 +53,25 @@
 					
 					<div></div>
 			
-					<div class="study-submenu">
+					<div class="study-submenus">
 						<sec:authorize access="hasRole('ROLE_ADMIN')">
-							<div class="btn" onclick="studyModify('${study.seq}')">수정</div>
-							<div class="btn" onclick="studyDelete('${study.seq}')">삭제</div>
+							<div class="btn submenu" onclick="studyModify('${study.seq}')">수정</div>
+							<div class="btn submenu" onclick="studyDelete('${study.seq}')">삭제</div>
 						</sec:authorize>
-						
-						<div class="btn" onclick="studyList()">목록</div>
+						<div class="btn submenu" onclick="drawExportView()">공유하기</div>
+						<div class="btn submenu" onclick="studyList()">목록</div>
 						
 						<c:choose>
 							<c:when test='${not empty beforeStudy}'><c:set value="${beforeStudy.title}" var="beforeStudyTooltip" /></c:when>
 							<c:otherwise><c:set value="더 이상 글이 없습니다." var="beforeStudyTooltip" /></c:otherwise>
 						</c:choose>
-						<div class="btn btn-study-before" title="<c:out value='${beforeStudyTooltip}'/>" onclick="studyView('${beforeStudy.seq}')">이전글</div>
+						<div class="btn submenu study-before" title="<c:out value='${beforeStudyTooltip}'/>" onclick="studyView('${beforeStudy.seq}')">이전글</div>
 						
 						<c:choose>
 							<c:when test='${not empty afterStudy}'><c:set value="${afterStudy.title}" var="afterStudyTooltip" /></c:when>
 							<c:otherwise><c:set value="더 이상 글이 없습니다." var="afterStudyTooltip" /></c:otherwise>
 						</c:choose>
-						<div class="btn btn-study-next" title="<c:out value='${afterStudyTooltip}'/>"onclick="studyView('${afterStudy.seq}')">다음글</div>
+						<div class="btn submenu study-next" title="<c:out value='${afterStudyTooltip}'/>"onclick="studyView('${afterStudy.seq}')">다음글</div>
 					</div>
 				</div>
 

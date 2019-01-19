@@ -77,13 +77,13 @@
    	white-space: nowrap;
 }
 
-.study-sub .study-submenu {
+.study-sub .study-submenus {
 	display : flex;
 	flex-flow : row nowrap;
-	font-size: 0.75rem;
+	font-size: 0.8rem;
 }
 
-.study-sub .study-submenu .btn {
+.study-sub .study-submenus .submenu {
 	margin-left: 10px;
 }
 

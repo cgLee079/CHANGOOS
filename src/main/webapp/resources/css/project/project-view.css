@@ -101,19 +101,19 @@
 }
 
 /* Project Submenu */
-.project-head .project-submenu {
+.project-head .project-submenus {
 	position: absolute;
 	right: 3%;
 	bottom: 3%;
 	z-index: 3;
 	color: #FFF;
 	text-align: right;
-	font-size: 0.75rem;
+	font-size: 0.8rem;
 	margin-bottom: 5px;
 }
 
-.project-head .project-submenu .submenu {
-	margin-left: 1rem;
+.project-head .project-submenus .submenu {
+	margin-left: 0.7rem;
 	cursor: pointer;
 }
 

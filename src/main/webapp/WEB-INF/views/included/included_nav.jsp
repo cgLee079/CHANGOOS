@@ -66,7 +66,7 @@
 </div>
 	
 <div class="wrap-bg-mobmenu">
-	<div class="nav-background"></div>
+	<div class="bg-mobmenu"></div>
 </div>
 <div class="mob-menus unvalid col-center">
 	<div class="mob-menu btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">이력</a></div>

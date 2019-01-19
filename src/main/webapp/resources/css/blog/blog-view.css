@@ -91,9 +91,13 @@
 	right : 3%;
 	bottom : 3%;
 	z-index: 3;
-	
+}
+
+.blog-head  .blog-head-submenu a{
+	margin-left : 1rem;
 	color: #FFF;
 }
+
 
 .blog-head  .blog-head-submenu .btn-list{
 	cursor : pointer;
