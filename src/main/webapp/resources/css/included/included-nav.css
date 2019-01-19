@@ -57,6 +57,7 @@
 .web-menu.menu-search-field {
 	display: flex;
 	align-items: center;
+	margin-left: 0rem;
 }
 
 .web-menu.menu-search-field .global-search {
@@ -72,6 +73,8 @@
 .web-menu.menu-search-field .global-search.on {
 	background: #FFF;
 	width: 130px;
+	margin-left: 2rem;
+	
 }
 
 .web-menu.menu-search-field .facet-value{

@@ -126,11 +126,11 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 						dataType: 'JSON',
 						success : function(result) {
 							var facetPanel = el.siblings(".facet-panel");
-							
+							console.log(el);
 							facetPanel.empty();
 							facetPanel.css("width", el.width());
-							facetPanel.css("left", el.position().left);
-							facetPanel.css("top", el.position().top + el.height());
+							facetPanel.css("left", el[0].offsetLeft);
+							facetPanel.css("top", el[0].offsetTop + el.height());
 							facetPanel.css("display", "initial");
 							
 							var length = result.length > maxValues ? maxValues : result.length;

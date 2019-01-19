@@ -39,8 +39,8 @@
 					</div>
 				</div>
 				<div class="blog-head-submenu">
-					<a onclick="drawExportView()">공유하기</a>
-					<a class="btn-list" href="${pageContext.request.contextPath}/blogs">목록</a>
+					<a class="btn" onclick="drawExportView()">공유하기</a>
+					<a class="btn btn-list" href="${pageContext.request.contextPath}/blogs">목록</a>
 				</div>
 			</div>
 			
