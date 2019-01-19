@@ -62,7 +62,6 @@
 .btn-slideup a {
 	cursor: pointer;
 	padding: 0.2rem 0.3rem;
-	color: #444;
 	letter-spacing: 1px;
 	text-decoration: none;
 	-webkit-transition: color 0.2s ease-in-out;

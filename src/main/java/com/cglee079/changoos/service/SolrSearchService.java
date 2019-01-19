@@ -8,7 +8,7 @@ import java.util.Map;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.FacetField.Count;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.common.params.MapSolrParams;
+import org.apache.solr.client.solrj.util.ClientUtils;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,15 +24,18 @@ public class SolrSearchService{
 	private SolrSearchDao solrSearchDao;
 	
 	private static final String CORE = "changoos_board";
+	private static final int MAX_HL_PRE_LENGTH = 100; 
 	
 	public List<SearchResultVo> search(String value) throws SolrServerException, IOException {
+		String hlSimplePre = "<sch-val>";
+		String hlSimplePost	= "</sch-val>";
 		Map<String, String> param = new HashMap<String, String>();
-		param.put("q", "contents:" + value);
+		param.put("q", "contents:" +  ClientUtils.escapeQueryChars(value) + "AND enabled = true");
 		param.put("hl", "on");
-		param.put("hl.fragsize", "500");
+		param.put("hl.fragsize", "1000");
 		param.put("hl.fl", "contents");
-		param.put("hl.simple.pre", "<sch-val>");
-		param.put("hl.simple.post", "</sch-val>");
+		param.put("hl.simple.pre", hlSimplePre);
+		param.put("hl.simple.post", hlSimplePost);
 		
 		QueryResponse response = solrSearchDao.search(CORE, param);
 		
@@ -40,10 +43,25 @@ public class SolrSearchService{
 		Map<String, Map<String, List<String>>> highlights = response.getHighlighting();
 		
 		SearchResultVo result = null;
+		String highlight = null;
+		List<String> hlList = null;
+		int schIndex = -1;
 		for(int i = 0; i < results.size(); i++) {
 			result = results.get(i);
-			result.setContents(result.getContents().replaceAll("(\r\n|\r|\n|\n\r)", " "));
-			result.setHighlight(HTMLHandler.removeHTML(highlights.get(result.getId()).get("contents").get(0)));
+			result.setContents(HTMLHandler.extractHTMLText(result.getContents()));
+			
+			hlList = highlights.get(result.getId()).get("contents");
+			if(hlList == null) { //SOLR 버그? 똑같은 쿼리를 N번 호출 하면 M번에서 Highlight가 NULL인 상황이 발생.
+				highlight = result.getContents();
+			} else {
+				highlight= HTMLHandler.removeHTML(hlList.get(0));
+				schIndex = highlight.indexOf(hlSimplePre);		
+				if(schIndex > MAX_HL_PRE_LENGTH) {
+					highlight = highlight.substring(schIndex - MAX_HL_PRE_LENGTH, highlight.length());
+				}
+			}
+			
+			result.setHighlight(highlight);
 		}
 		
 		return results;

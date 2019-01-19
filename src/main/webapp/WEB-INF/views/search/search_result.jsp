@@ -16,11 +16,16 @@ sch-val {
 	min-height: calc(100% - 60px);
 }
 
-.board {
+.board{
     margin: 20px 20px;
-    border-bottom: 0.7px solid #D3D3D3;
+    border-bottom: 0.5px solid #E1E1E1;
     padding: 25px 0;
     cursor: pointer;
+}
+
+.board:first-child{
+	margin-top : 0;
+	padding-top: 0;
 }
 
 .board .board-title {
@@ -44,6 +49,24 @@ sch-val {
 	max-height: 5.6rem;
 	word-break: break-word;
 }
+
+.noresult{
+    text-align: center;
+}
+
+.noresult .noresult-title {
+	text-align: center;
+	font-size: 1.4rem;
+	font-weight: bold;
+	margin-bottom: 0.7rem;
+}
+
+.noresult .noresult-desc {
+	text-align: center;
+	color : #00F;
+}
+
+
 </style>
 <script type="text/javascript">
 	function boardView(type, seq) {
@@ -65,17 +88,27 @@ sch-val {
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 
 		<div class="wrap-sch-result">
-
-			<c:forEach var="result" items="${results}">
-				<c:if test="${result.enabled eq true}">
-					<div class="board"
-						onclick="boardView('${result.type}', '${result.seq}')">
-						<div class="board-title">${result.title}</div>
-						<div class="board-desc">${result.highlight}</div>
+	
+			<c:choose>
+				<c:when test="${fn:length(results) == 0}" >
+					<div class="noresult" onclick="boardView('${result.type}', '${result.seq}')">
+						<div class="noresult-title">검색된 결과가 없습니다</div>
+						<div class="noresult-desc"><a href="javascript:history.back();" >뒤로가기</a></div>
 					</div>
-				</c:if>
-			</c:forEach>
-
+				</c:when>
+				
+				<c:otherwise>
+					<c:forEach var="result" items="${results}">
+						<c:if test="${result.enabled eq true}">
+							<div class="board" onclick="boardView('${result.type}', '${result.seq}')">
+								<div class="board-title">${result.title}</div>
+								<div class="board-desc">${result.highlight}</div>
+							</div>
+						</c:if>
+					</c:forEach>
+				</c:otherwise>
+		
+			</c:choose>
 		</div>
 
 		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8" />

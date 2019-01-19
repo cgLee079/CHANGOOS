@@ -35,6 +35,7 @@
 					</div>
 				</div>
 				<div class="blog-head-submenu">
+					<c:import url="../included/included_export.jsp" charEncoding="UTF-8" />
 					<a class="btn-list" href="${pageContext.request.contextPath}/blogs">목록</a>
 				</div>
 			</div>

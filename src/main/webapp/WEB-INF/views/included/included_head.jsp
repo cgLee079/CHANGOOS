@@ -48,6 +48,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/lib/anime-2.2.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/lib/letter-motion.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/lib/sweetalert.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/lib/cg-autocomplete.js"></script>
 <script src="${pageContext.request.contextPath}/resources/ckeditor/plugins/prism/lib/prism/prism_patched.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 <script src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.5/jquery.easyui.min.js"></script>
