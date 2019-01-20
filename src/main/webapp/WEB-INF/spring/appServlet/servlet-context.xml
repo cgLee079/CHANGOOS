@@ -52,6 +52,7 @@
 	<!-- AOP -->
 	<aop:aspectj-autoproxy ></aop:aspectj-autoproxy>
 	<beans:bean id="passwordEncryptor" class="com.cglee079.changoos.aop.PasswordEncryptor"></beans:bean>
+	<beans:bean id="solrDataImportCaller" class="com.cglee079.changoos.aop.SolrDataImportCaller"></beans:bean>
 
 	
 </beans:beans>

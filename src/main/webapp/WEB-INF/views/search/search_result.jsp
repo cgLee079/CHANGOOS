@@ -6,10 +6,6 @@
 </head>
 
 <style>
-sch-val {
-	color: #00F;
-	font-weight: bold;
-}
 
 .wrap-sch-result {
 	margin: 50px 0 70px 0;
@@ -48,6 +44,11 @@ sch-val {
 	-webkit-line-clamp: 4;
 	max-height: 5.6rem;
 	word-break: break-word;
+}
+
+.board-desc sch-val {
+	color : #00F;
+	font-weight: bold
 }
 
 .noresult{

@@ -126,7 +126,6 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 						dataType: 'JSON',
 						success : function(result) {
 							var facetPanel = el.siblings(".facet-panel");
-							console.log(el);
 							facetPanel.empty();
 							facetPanel.css("width", el.width());
 							facetPanel.css("left", el[0].offsetLeft);
@@ -138,6 +137,7 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 								var facetValue = $("<div>");
 								
 								facetValue.text(result[i]);
+								facetValue.css("word-break", "keep-all");
 								facetValue.addClass(listItemClass);
 								facetValue.bind("click", function(){
 									var facetPanel = $(this).parent();

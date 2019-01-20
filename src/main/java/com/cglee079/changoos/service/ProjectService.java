@@ -85,6 +85,7 @@ public class ProjectService {
 		
 		int seq = projectDao.insert(project);
 		
+		
 		fileHandler.move(realPath + tempDir + tempDirId + project.getThumbnail(), realPath + thumbDir + project.getThumbnail());
 		
 		boardFileService.insertFiles(fileTB, tempDirId, fileDir, seq, fileValues);

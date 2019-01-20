@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cglee079.changoos.config.annotation.SolrData;
 import com.cglee079.changoos.model.ProjectVo;
 
 @Repository
@@ -24,15 +25,18 @@ public class ProjectDao {
 		return sqlSession.selectList(namespace + ".list", param);
 	}
 	
+	@SolrData
 	public int insert(ProjectVo project) {
 		sqlSession.insert(namespace + ".insert", project);
 		return project.getSeq();
 	}
 
+	@SolrData
 	public boolean update(ProjectVo project) {
 		return sqlSession.update(namespace + ".update", project) == 1;
 	}
 
+	@SolrData
 	public boolean delete(int seq) {
 		return sqlSession.delete(namespace + ".delete", seq) == 1;
 	}

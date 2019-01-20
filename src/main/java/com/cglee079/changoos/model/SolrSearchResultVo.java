@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SearchResultVo {
+public class SolrSearchResultVo {
 	@Field("id") private String id;
 	@Field("seq") private String seq;
 	@Field("title") private String title;

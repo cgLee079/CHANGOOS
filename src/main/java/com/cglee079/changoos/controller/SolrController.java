@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cglee079.changoos.service.SolrSearchService;
+import com.cglee079.changoos.service.SolrService;
 
 @Controller
-public class SolrSearchController {
+public class SolrController {
 	
 	@Autowired
-	private SolrSearchService solrSearchService;
+	private SolrService solrSearchService;
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String solrDoSearch(Model model, String value) throws SolrServerException, IOException {

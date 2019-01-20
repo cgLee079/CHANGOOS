@@ -11,19 +11,22 @@ $(document).ready(function(){
 		$(".wrap-photo-list").css("display", "none");
 		photoWrapper = $(".wrapper");
 		$(window).scroll(function(){
-			var scrollPosition = $(this).scrollTop() + $(this).outerHeight();
+			var scrollPosition = $(this).scrollTop();
 			var docHeight = $(this).height();
-			if(scrollPosition >= (docHeight/2) - 10 && !loading && currentView < seqs.length){
+			if(scrollPosition >= ((docHeight * 0.8) * (currentView - 1)) && !loading && currentView < seqs.length){
 				loadPhoto(currentView);
+				console.log("load")
 				currentView++;
 			}
 		});
-	} else{
+	} 
+	
+	else{
 		photoWrapper = $(".photo-list");
 		photoWrapper.scroll(function(){
 			var scrollPosition = $(this).scrollTop() + $(this).outerHeight();
 			var docHeight = $(this)[0].scrollHeight ;
-			if(scrollPosition >= (docHeight/2) - 10 && !loading && currentView < seqs.length){
+			if(scrollPosition >= (docHeight * 0.6) && !loading && currentView < seqs.length){
 				loadPhoto(currentView);
 				currentView++;
 			}

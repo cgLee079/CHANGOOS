@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cglee079.changoos.config.annotation.SolrData;
 import com.cglee079.changoos.model.AdminVo;
 import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.model.Role;
@@ -49,15 +50,18 @@ public class StudyDao {
 		return sqlSession.selectList(namespace +".getCategories");
 	}
 	
+	@SolrData
 	public int insert(StudyVo study) {
 		sqlSession.insert(namespace +".insert", study);
 		return study.getSeq();
 	}
 
+	@SolrData
 	public boolean delete(int seq) {
 		return  sqlSession.delete(namespace +".delete", seq) == 1;
 	}
 
+	@SolrData
 	public boolean update(StudyVo study) {
 		return  sqlSession.update(namespace +".update", study) == 1;
 	}

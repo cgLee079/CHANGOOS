@@ -13,9 +13,9 @@ $(document).ready(function(){
 	
 	/* Scroll Page event */
 	$(window).scroll(function(){
-		var scrollPosition = $(this).scrollTop() + $(this).outerHeight();
+		var scrollPosition = $(this).scrollTop();
 		var docHeight = $(this).height();
-		if(scrollPosition >= (docHeight/2) - 10 && page * limit < totalCount){
+		if(scrollPosition >= (docHeight * page) - 10 && page * limit < totalCount){
 			page = page + 1;
 			pageMove(page);
 		}

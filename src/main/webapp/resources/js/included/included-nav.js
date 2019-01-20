@@ -36,8 +36,8 @@ $(document).ready(function(){
 
 			if ($(this).hasClass("open")) {
 				$(".mob-menus").removeClass("unvalid");
-				$("html, body").css("overflow", "hidden");
-				$("html, body").on("scroll touchmove mousewheel", function(event) {
+				$("body").css("overflow", "hidden");
+				$("body").on("scroll touchmove mousewheel", function(event) {
 					event.preventDefault();
 					event.stopPropagation();
 					return false;
@@ -92,8 +92,8 @@ $(document).ready(function(){
 				})
 
 				$(".mob-menus").addClass("unvalid");
-				$("html, body").off("scroll touchmove mousewheel");
-				$("html, body").css("overflow", "");
+				$("body").off("scroll touchmove mousewheel");
+				$("body").css("overflow", "");
 			}
 		});
 	}

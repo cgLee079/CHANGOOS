@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cglee079.changoos.config.annotation.SolrData;
 import com.cglee079.changoos.model.BlogVo;
 
 @Repository
@@ -32,15 +33,18 @@ public class BlogDao {
 		return sqlSession.selectList(namespace +".list", params);
 	}
 	
+	@SolrData
 	public int insert(BlogVo blog) {
 		sqlSession.insert(namespace +".insert", blog);
 		return blog.getSeq();
 	}
 
+	@SolrData
 	public boolean update(BlogVo blog) {
 		return  sqlSession.update(namespace +".update", blog) == 1;
 	}
 	
+	@SolrData
 	public boolean delete(int seq) {
 		return  sqlSession.delete(namespace +".delete", seq) == 1;
 	}
