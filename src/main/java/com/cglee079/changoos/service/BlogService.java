@@ -152,7 +152,7 @@ public class BlogService{
 	}
 
 	@Transactional
-	public boolean update(BlogVo blog,  String tempDirId, String thumbnailValues, String imageValues, String fileValues) throws JsonParseException, JsonMappingException, IOException{
+	public boolean update(BlogVo blog,  String tempDirId, String imageValues, String fileValues) throws JsonParseException, JsonMappingException, IOException{
 		int seq = blog.getSeq();
 		
 		BlogVo savedBlog = blogDao.get(seq);

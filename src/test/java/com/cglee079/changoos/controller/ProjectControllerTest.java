@@ -1,12 +1,15 @@
 package com.cglee079.changoos.controller;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
@@ -62,13 +65,17 @@ public class ProjectControllerTest {
 	
 	@Test
 	public void testProjectList() throws Exception {
-		List<ProjectVo> lists = new ArrayList<ProjectVo>();
-		when(projectService.list(null)).thenReturn(lists);
+		Map<String, Object> params = new HashMap<>();
+
+		params.put("enabled", true);
 		
-		mockMvc.perform(get("/project"))
+		List<ProjectVo> projects = new ArrayList<ProjectVo>();
+		when(projectService.list(params)).thenReturn(projects);
+		
+		mockMvc.perform(get("/projects"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("project/project_list"))
-			.andExpect(model().attribute("projects", lists));
+			.andExpect(model().attribute("projects", projects));
 	}
 	
 	@Test
@@ -96,9 +103,8 @@ public class ProjectControllerTest {
 		when(projectService.getAfter(seq)).thenReturn(aProject);
 
 		
-		mockMvc.perform(get("/project/view")
-				.session(session)
-				.param("seq", String.valueOf(seq)))
+		mockMvc.perform(get("/projects/" + seq)
+				.session(session))
 			.andExpect(status().isOk())
 			.andExpect(view().name("project/project_view"))
 			.andExpect(model().attribute("project", cProject))
@@ -111,7 +117,7 @@ public class ProjectControllerTest {
 	
 	@Test
 	public void testProjectManage() throws Exception {
-		mockMvc.perform(get("/mgnt/project"))
+		mockMvc.perform(get("/mgnt/projects"))
 		.andExpect(status().isOk())
 		.andExpect(view().name("project/project_manage"));
 	}
@@ -134,14 +140,14 @@ public class ProjectControllerTest {
 		
 		when(projectService.list(map)).thenReturn(projects);
 		
-		mockMvc.perform(get("/mgnt/project/list.do"))
+		mockMvc.perform(get("/mgnt/projects/records"))
 			.andExpect(status().isOk())
 			.andExpect(content().json(new Gson().toJson(projects).toString()));
 	}
 	
 	@Test
 	public void testProjectUpload() throws Exception {
-		mockMvc.perform(get("/mgnt/project/upload"))
+		mockMvc.perform(get("/projects/post"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("project/project_upload"));
 	}
@@ -161,8 +167,7 @@ public class ProjectControllerTest {
 		
 		when(projectService.get(seq)).thenReturn(project);
 		
-		mockMvc.perform(get("/mgnt/project/upload")
-				.param("seq", String.valueOf(seq)))
+		mockMvc.perform(get("/projects/post/" + seq))
 			.andExpect(status().isOk())
 			.andExpect(view().name("project/project_upload"))
 			.andExpect(model().attribute("project", project))
@@ -172,53 +177,54 @@ public class ProjectControllerTest {
 	
 	@Test
 	public void testProjectDoUpload() throws JSONException, Exception {
-		MockMultipartFile thumbnailFile = new MockMultipartFile("thumbnailFile", new byte[1]);
 		String imageValues = "SAMPLE_IMAGEVALUES";
 		String fileValues = "SAMPLE_FILEVALUES";
+		String tempDirId = "SAMPLE_TEMPDIR_ID";
 		int seq = 3;
 		
-		when(projectService.insert(any(ProjectVo.class), same(thumbnailFile), same(imageValues), same(fileValues))).thenReturn(seq);
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute("tempDirId", tempDirId);
 		
-		mockMvc.perform(fileUpload("/mgnt/project/upload.do")
-				.file(thumbnailFile)
+		when(projectService.insert(any(ProjectVo.class), eq((String)session.getAttribute("tempDirId")), same(imageValues), same(fileValues))).thenReturn(seq);
+		
+		mockMvc.perform(post("/projects/post")
+				.session(session)
 				.param("imageValues", imageValues)
 				.param("fileValues", fileValues))
-			.andExpect(redirectedUrl("/project/view?seq=" + seq))
+			.andExpect(redirectedUrl("/projects/" + seq))
 			.andExpect(status().isFound());
-		
-		verify(projectService).insert(any(ProjectVo.class), same(thumbnailFile), same(imageValues), same(fileValues));
 		
 	}
 	
 	@Test
 	public void testProjectDoModify() throws JSONException, Exception {
-		MockMultipartFile thumbnailFile = new MockMultipartFile("thumbnailFile", new byte[1]);
 		String imageValues = "SAMPLE_IMAGEVALUES";
 		String fileValues = "SAMPLE_FILEVALUES";
+		String tempDirId = "SAMPLE_TEMPDIR_ID";
 		int seq = 3;
 		
-		when(projectService.update(any(ProjectVo.class), same(thumbnailFile), same(imageValues), same(fileValues))).thenReturn(true);
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute("tempDirId", tempDirId);
 		
-		mockMvc.perform(fileUpload("/mgnt/project/upload.do")
-				.file(thumbnailFile)
-				.param("seq", String.valueOf(seq))
+		mockMvc.perform(put("/projects/post/" + seq)
+				.session(session)
 				.param("imageValues", imageValues)
 				.param("fileValues", fileValues))
-			.andExpect(redirectedUrl("/project/view?seq=" + seq))
+			.andExpect(redirectedUrl("/projects/" + seq))
 			.andExpect(status().isFound());
 		
-		verify(projectService).update(any(ProjectVo.class), same(thumbnailFile), same(imageValues), same(fileValues));
+		verify(projectService).update(any(ProjectVo.class), eq((String)session.getAttribute("tempDirId")), same(imageValues), same(fileValues));
 	}
 	
 	@Test
 	public void testProjectDoDelete() throws JSONException, Exception {
 		int seq = 3;
+		boolean result = true;
 		
-		when(projectService.delete(seq)).thenReturn(true);
+		when(projectService.delete(seq)).thenReturn(result);
 		
-		mockMvc.perform(post("/mgnt/project/delete.do")
-				.param("seq", String.valueOf(seq)))
+		mockMvc.perform(delete("/projects/post/" + seq))
 			.andExpect(status().isOk())
-			.andExpect(content().json(new JSONObject().put("result", true).toString()));
+			.andExpect(content().json(new JSONObject().put("result", result).toString()));
 	}
 }

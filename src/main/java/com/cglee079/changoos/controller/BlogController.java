@@ -124,8 +124,8 @@ public class BlogController {
 	 * @throws IOException 
 	 * @throws IllegalStateException **/
 	@RequestMapping(value = "/blogs/post/{seq}", method = RequestMethod.PUT)
-	public String blogDoModify(HttpSession session, BlogVo blog, String thumbValues, String imageValues, String fileValues) throws IllegalStateException, IOException{
-		blogService.update(blog, (String)session.getAttribute("tempDirId"), thumbValues, imageValues, fileValues);
+	public String blogDoModify(HttpSession session, BlogVo blog, String imageValues, String fileValues) throws IllegalStateException, IOException{
+		blogService.update(blog, (String)session.getAttribute("tempDirId"), imageValues, fileValues);
 		return "redirect:" + "/blogs/" + blog.getSeq();
 	}
 

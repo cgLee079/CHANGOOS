@@ -36,7 +36,7 @@ public class StudyController {
 		List<String> categories = studyService.getCategories();
 		int totalCount = studyService.count(params);
 		
-		model.addAttribute("total-count", totalCount);
+		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("categories", categories);
 		model.addAttribute("category", params.get("category"));
 		model.addAttribute("title", params.get("title"));
@@ -50,17 +50,9 @@ public class StudyController {
 	public String studyListPaging(@RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException{
 		params.put("enabled", true);
 		
-		List<StudyVo> studys = studyService.paging(params);
-		int totalCount = studyService.count(params);
+		List<StudyVo> studies = studyService.paging(params);
 		
-		String data = new Gson().toJson(studys);
-		JSONArray records = new JSONArray(data);
-			
-		JSONObject result = new JSONObject();
-		result.put("total-count", totalCount);
-		result.put("records", records);
-		
-		return result.toString();
+		return new Gson().toJson(studies);
 	}
 	
 	/** 게시글로 이동 **/

@@ -33,10 +33,10 @@ public class ProjectController {
 	/** 프로젝트 리스트 **/
 	@RequestMapping(value = "/projects", method = RequestMethod.GET)
 	public String projectList(Model model) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("enabled", true);
+		Map<String, Object> params = new HashMap<>();
+		params.put("enabled", true);
 		
-		List<ProjectVo> projects = projectService.list(map);
+		List<ProjectVo> projects = projectService.list(params);
 		model.addAttribute("projects", projects);
 		return "project/project_list";
 	}

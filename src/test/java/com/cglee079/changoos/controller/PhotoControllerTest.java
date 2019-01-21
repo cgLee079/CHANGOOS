@@ -1,11 +1,15 @@
 package com.cglee079.changoos.controller;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
@@ -34,6 +38,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.cglee079.changoos.model.BlogVo;
 import com.cglee079.changoos.model.PhotoVo;
 import com.cglee079.changoos.service.PhotoService;
 import com.google.gson.Gson;
@@ -65,7 +70,7 @@ public class PhotoControllerTest {
 		when(photoService.list(null)).thenReturn(photos);
 		when(photoService.seqs()).thenReturn(seqs);
 		
-		mockMvc.perform(get("/photo"))
+		mockMvc.perform(get("/photos"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("photo/photo_view"))
 			.andExpect(model().attribute("photos", photos))
@@ -79,22 +84,22 @@ public class PhotoControllerTest {
 		PhotoVo photo = PhotoVo.builder()
 				.seq(seq)
 				.build();
+		
 		Set<Integer> likePhotos = new HashSet<>();
 		MockHttpSession session = new MockHttpSession();
 		session.setAttribute("likePhotos", likePhotos);
 		
-		when(photoService.get(likePhotos, seq)).thenReturn(photo);
+		when(photoService.get((Set<Integer>)session.getAttribute("likePhotos"), seq)).thenReturn(photo);
 		
-		mockMvc.perform(get("/photo/view")
-				.session(session)
-				.param("seq", String.valueOf(seq)))
+		mockMvc.perform(get("/photos/" + seq)
+				.session(session))
 			.andExpect(status().isOk())
 			.andExpect(content().json(new Gson().toJson(photo).toString()));
 	}
 	
 	@Test
 	public void testPhotoManage() throws Exception {
-		mockMvc.perform(get("/mgnt/photo"))
+		mockMvc.perform(get("/mgnt/photos"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("photo/photo_manage"));
 	}
@@ -106,7 +111,7 @@ public class PhotoControllerTest {
 		
 		when(photoService.list(params)).thenReturn(photos);
 		
-		mockMvc.perform(get("/mgnt/photo/paging"))
+		mockMvc.perform(get("/mgnt/photos/records"))
 			.andExpect(status().isOk())
 			.andExpect(content().json(new Gson().toJson(photos).toString()));
 	}
@@ -114,7 +119,7 @@ public class PhotoControllerTest {
 	
 	@Test
 	public void testPhotoUpload() throws Exception {
-		mockMvc.perform(get("/mgnt/photo/upload"))
+		mockMvc.perform(get("/photos/post"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("photo/photo_upload"));
 	}
@@ -128,8 +133,7 @@ public class PhotoControllerTest {
 		
 		when(photoService.get(seq)).thenReturn(photo);
 		
-		mockMvc.perform(get("/mgnt/photo/upload")
-				.param("seq", String.valueOf(seq)))
+		mockMvc.perform(get("/photos/post/" + seq))
 			.andExpect(status().isOk())
 			.andExpect(view().name("photo/photo_upload"))
 			.andExpect(model().attribute("photo", photo));
@@ -137,23 +141,33 @@ public class PhotoControllerTest {
 	
 	@Test
 	public void testPhotoDoUpload() throws Exception {
-		mockMvc.perform(post("/mgnt/photo/upload.do"))
-			.andExpect(redirectedUrl("/mgnt/photo"))
+		String tempDirId = "SAMPLE_TEMPDIR_ID";
+		
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute("tempDirId", tempDirId);
+		
+		mockMvc.perform(post("/photos/post")
+				.session(session))
+			.andExpect(redirectedUrl("/mgnt/photos"))
 			.andExpect(status().isFound());
 			
-		verify(photoService).insert(any(PhotoVo.class));
+		verify(photoService).insert(any(PhotoVo.class), eq((String)session.getAttribute("tempDirId")));
 	}
 	
 	@Test
 	public void testPhotoDoModify() throws Exception {
+		String tempDirId = "SAMPLE_TEMPDIR_ID";
 		int seq = 3;
 		
-		mockMvc.perform(post("/mgnt/photo/upload.do")
-				.param("seq", String.valueOf(seq)))
-			.andExpect(redirectedUrl("/mgnt/photo"))
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute("tempDirId", tempDirId);
+		
+		mockMvc.perform(put("/photos/post/" + seq)
+				.session(session))
+			.andExpect(redirectedUrl("/mgnt/photos"))
 			.andExpect(status().isFound());
 			
-		verify(photoService).update(any(PhotoVo.class));
+		verify(photoService).update(any(PhotoVo.class), eq((String)session.getAttribute("tempDirId")));
 	}
 	
 	@Test
@@ -163,21 +177,26 @@ public class PhotoControllerTest {
 		
 		when(photoService.delete(seq)).thenReturn(result);
 		
-		mockMvc.perform(get("/mgnt/photo/delete.do")
-				.param("seq", String.valueOf(seq)))
+		mockMvc.perform(delete("/photos/post/" + seq))
 			.andExpect(status().isOk())
 			.andExpect(content().json(new JSONObject().put("result", result).toString()));
 	}
 	
 	@Test
 	public void testPhotoImageDoUpload() throws Exception {
+		String tempDirId = "SAMPLE_TEMPDIR_ID";
 		PhotoVo photo = PhotoVo.builder().build();
 		MockMultipartFile imageFile = new MockMultipartFile("image", new byte[1]);
 		
-		when(photoService.savePhoto(imageFile)).thenReturn(photo);
+
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute("tempDirId", tempDirId);
 		
-		mockMvc.perform(fileUpload("/mgnt/photo/image/upload.do")
-				.file(imageFile))
+		when(photoService.savePhoto(imageFile, (String)session.getAttribute("tempDirId"))).thenReturn(photo);
+		
+		mockMvc.perform(fileUpload("/photos/post/image")
+				.file(imageFile)
+				.session(session))
 			.andExpect(status().isOk())
 			.andExpect(content().json(new Gson().toJson(photo).toString()));
 	}
@@ -193,9 +212,8 @@ public class PhotoControllerTest {
 		
 		when(photoService.doLike(likePhotos, seq, like)).thenReturn(photo);
 		
-		mockMvc.perform(fileUpload("/photo/like.do")
+		mockMvc.perform(put("/photos/" + seq + "/like")
 				.session(session)
-				.param("seq", String.valueOf(seq))
 				.param("like", String.valueOf(like)))
 			.andExpect(status().isOk())
 			.andExpect(content().json(new Gson().toJson(photo).toString()));

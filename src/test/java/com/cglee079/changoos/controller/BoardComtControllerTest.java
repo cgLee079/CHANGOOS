@@ -1,10 +1,13 @@
 package com.cglee079.changoos.controller;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,6 +31,7 @@ import com.cglee079.changoos.model.BoardComtVo;
 import com.cglee079.changoos.service.BoardComtService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -52,74 +56,73 @@ public class BoardComtControllerTest {
 	public void testCommentPaging() throws JsonProcessingException, Exception {
 		String boardType = "SAMPLE_BOARDTYPE";
 		int boardSeq = 3;
-		int page = 1;
-		int perPgLine = 10;
+		int offset = 0;
+		int limit = 10;
 		
 		List<BoardComtVo> comts = new ArrayList<>();
-		when(boardComtService.paging(boardType, boardSeq, page, perPgLine)).thenReturn(comts);
+		when(boardComtService.paging(boardType, boardSeq, offset, limit)).thenReturn(comts);
 		
-		mockMvc.perform(get("/board/comment/paging")
-				.param("boardType", boardType)
-				.param("boardSeq", String.valueOf(boardSeq))
-				.param("page", String.valueOf(page))
-				.param("perPgLine", String.valueOf(perPgLine)))
+		mockMvc.perform(get("/" + boardType + "/" + boardSeq + "/comments")
+				.param("offset", String.valueOf(offset))
+				.param("limit", String.valueOf(limit)))
 			.andExpect(status().isOk())
-			.andExpect(content().string(new ObjectMapper().writeValueAsString(comts)));
+			.andExpect(content().string(new Gson().toJson(comts).toString()));
 			
 	}
 	
 	@Test
 	public void testCommentDoUpload() throws JsonProcessingException, Exception {
 		String boardType = "SAMPLE_BOARDTYPE";
+		int boardSeq = 3;
 		boolean result = true;
 		
-		when(boardComtService.insert(same(boardType), any(BoardComtVo.class))).thenReturn(result);
+		when(boardComtService.insert(eq(boardType), any(BoardComtVo.class))).thenReturn(result);
 		
-		mockMvc.perform(post("/board/comment/upload.do")
-				.param("boardType", boardType))
+		mockMvc.perform(post("/" + boardType + "/" + boardSeq + "/comments"))
 			.andExpect(status().isOk())
-			.andExpect(content().string(new ObjectMapper().writeValueAsString(result)));
-			
+			.andExpect(content().string(String.valueOf(result)));
 	}
 	
 	@Test
 	public void testCommentDoUpdate() throws JsonProcessingException, Exception {
 		String boardType = "SAMPLE_BOARDTYPE";
+		int boardSeq = 3;
+		int seq = 10;
 		boolean result = true;
 		
-		when(boardComtService.update(same(boardType), any(BoardComtVo.class))).thenReturn(result);
+		when(boardComtService.update(eq(boardType), any(BoardComtVo.class))).thenReturn(result);
 		
-		mockMvc.perform(post("/board/comment/update.do")
-				.param("boardType", boardType))
+		mockMvc.perform(put("/" + boardType + "/" + boardSeq + "/comments/" + seq))
 			.andExpect(status().isOk())
-			.andExpect(content().string(new ObjectMapper().writeValueAsString(result)));
+			.andExpect(content().string(String.valueOf(result)));
 	}
 	
 	@Test
 	public void testCommentDoDelete() throws JsonProcessingException, Exception {
 		String boardType = "SAMPLE_BOARDTYPE";
+		int boardSeq = 3;
+		int seq = 10;
 		boolean result = true;
 		
-		when(boardComtService.delete(same(boardType), any(BoardComtVo.class))).thenReturn(result);
+		when(boardComtService.delete(eq(boardType), eq(seq))).thenReturn(result);
 		
-		mockMvc.perform(post("/board/comment/delete.do")
-				.param("boardType", boardType))
+		mockMvc.perform(delete("/" + boardType + "/" + boardSeq + "/comments/" + seq))
 			.andExpect(status().isOk())
-			.andExpect(content().string(new ObjectMapper().writeValueAsString(result)));
-		
+			.andExpect(content().string(String.valueOf(result)));
 	}
 	
 	@Test
 	public void testCommentDoCheckPassword() throws JsonProcessingException, Exception {
 		String boardType = "SAMPLE_BOARDTYPE";
+		int boardSeq = 3;
+		int seq = 10;
 		boolean result = true;
 		
-		when(boardComtService.checkPwd(same(boardType), any(BoardComtVo.class))).thenReturn(result);
+		when(boardComtService.checkPwd(eq(boardType), any(BoardComtVo.class))).thenReturn(result);
 		
-		mockMvc.perform(post("/board/comment/check-pwd.do")
-				.param("boardType", boardType))
+		mockMvc.perform(post("/" + boardType + "/" + boardSeq + "/comments/" + seq + "/check"))
 			.andExpect(status().isOk())
-			.andExpect(content().string(new ObjectMapper().writeValueAsString(result)));
+			.andExpect(content().string(String.valueOf(result)));
 	}
 	
 	

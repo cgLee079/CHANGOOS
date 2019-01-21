@@ -92,12 +92,9 @@ function pageMove(pg){
 		},
 		dataType: 'JSON',
 		async	: false,
-		success : function(result) {
-			var records = result['records'];
-			totalCount = result['total-count'];
-			
+		success : function(data) {
 			page = pg;
-			drawStudy(records);
+			drawStudy(data);
 		},
 		complete: function(){
 		},

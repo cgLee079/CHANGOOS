@@ -1,12 +1,15 @@
 package com.cglee079.changoos.controller;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
@@ -40,6 +43,7 @@ import com.cglee079.changoos.model.BoardImageVo;
 import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.service.StudyService;
 import com.google.gson.Gson;
+import com.mysql.fabric.xmlrpc.base.Params;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -63,16 +67,25 @@ public class StudyControllerTest {
 	public void testStudyList() throws Exception {
 		Map<String, Object> param = new HashMap<>();
 		List<String> categories = new ArrayList<String>();
-		int count = 1;
+		String title = "SAMPLE_TITLE";
+		String category ="SAMPLE_CATEGORY";
+		int totalCount = 1;
+		
+		param.put("title", title);
+		param.put("category", category);
 		
 		when(studyService.getCategories()).thenReturn(categories);
-		when(studyService.count(param)).thenReturn(count);
+		when(studyService.count(param)).thenReturn(totalCount);
 		
-		mockMvc.perform(get("/study"))
+		mockMvc.perform(get("/studies")
+				.param("category", category)
+				.param("title", title))
 			.andExpect(status().isOk())
 			.andExpect(view().name("study/study_list"))
-			.andExpect(model().attribute("count", count))
-			.andExpect(model().attribute("categories", categories));
+			.andExpect(model().attribute("totalCount", totalCount))
+			.andExpect(model().attribute("categories", categories))
+			.andExpect(model().attribute("category", category))
+			.andExpect(model().attribute("title", title));
 	}
 	
 	@Test
@@ -81,20 +94,12 @@ public class StudyControllerTest {
 		params.put("enabled", true);
 		
 		List<StudyVo> studies = new ArrayList<StudyVo>();
-		int count = 1;
 				
 		when(studyService.paging(params)).thenReturn(studies);
-		when(studyService.count(params)).thenReturn(count);
 		
-		String data = new Gson().toJson(studies);
-		JSONArray dataJson = new JSONArray(data);
-		JSONObject result = new JSONObject();
-		result.put("count", count);
-		result.put("data", dataJson);
-		
-		mockMvc.perform(get("/study/paging"))
+		mockMvc.perform(get("/studies/records"))
 			.andExpect(status().isOk())
-			.andExpect(content().json(result.toString()));
+			.andExpect(content().json(new Gson().toJson(studies)));
 	}
 	
 	
@@ -102,14 +107,13 @@ public class StudyControllerTest {
 	public void testStudyView() throws Exception {
 		List<BoardFileVo> files = new ArrayList<BoardFileVo>();
 		Set<Integer> visitStudies = new HashSet<Integer>();
-		String category = "category_sample";
+		String category = "SAMPLE_CATEGORY";
 		int seq = 3;
-		int page = 1;
 		
 		MockHttpSession session = new MockHttpSession();
 		session.setAttribute("visitStudies", visitStudies);
 		
-		StudyVo study 		= StudyVo.builder()
+		StudyVo study = StudyVo.builder()
 				.files(files)
 				.build();
 		StudyVo beforeStudy = StudyVo.builder().build();
@@ -119,15 +123,12 @@ public class StudyControllerTest {
 		when(studyService.getBefore(seq, category)).thenReturn(beforeStudy);
 		when(studyService.getAfter(seq, category)).thenReturn(afterStudy);
 		
-		mockMvc.perform(get("/study/view")
+		mockMvc.perform(get("/studies/" + seq)
 				.session(session)
-				.param("category", category)
-			.param("page", String.valueOf(page))
-			.param("seq", String.valueOf(seq)))
+				.param("category", category))
 			.andExpect(status().isOk())
 			.andExpect(view().name("study/study_view"))
 			.andExpect(model().attribute("category", category))
-			.andExpect(model().attribute("page", page))
 			.andExpect(model().attribute("beforeStudy", beforeStudy))
 			.andExpect(model().attribute("study", study))
 			.andExpect(model().attribute("afterStudy", afterStudy))
@@ -136,7 +137,7 @@ public class StudyControllerTest {
 	
 	@Test
 	public void testStudyManage() throws Exception {
-		mockMvc.perform(get("/mgnt/study"))
+		mockMvc.perform(get("/mgnt/studies"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("study/study_manage"));
 	}	
@@ -148,7 +149,7 @@ public class StudyControllerTest {
 				
 		when(studyService.list(params)).thenReturn(studies);
 		
-		mockMvc.perform(get("/mgnt/study/paging"))
+		mockMvc.perform(get("/mgnt/studies/records"))
 			.andExpect(status().isOk())
 			.andExpect(content().json(new Gson().toJson(studies).toString()));
 		
@@ -156,10 +157,9 @@ public class StudyControllerTest {
 	
 	@Test
 	public void testStudyUpload() throws Exception {
-		mockMvc.perform(get("/mgnt/study/upload"))
+		mockMvc.perform(get("/studies/post"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("study/study_upload"));
-		
 	}	
 	
 	@Test
@@ -176,8 +176,7 @@ public class StudyControllerTest {
 		
 		when(studyService.get(seq)).thenReturn(study);
 		
-		mockMvc.perform(get("/mgnt/study/upload")
-				.param("seq", String.valueOf(seq)))
+		mockMvc.perform(get("/studies/post/" + seq))
 			.andExpect(status().isOk())
 			.andExpect(view().name("study/study_upload"))
 			.andExpect(model().attribute("study", study))
@@ -189,15 +188,19 @@ public class StudyControllerTest {
 	public void testStudyDoUpload() throws Exception {
 		String imageValues = "SAMPLE_IMAGEVALUES";
 		String fileValues = "SAMPLE_FILEVALUES";
-		
+		String tempDirId = "SAMPLE_TEMPDIR_ID";
 		int seq = 3;
 		
-		when(studyService.insert(any(StudyVo.class), same(imageValues), same(fileValues))).thenReturn(seq);
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute("tempDirId", tempDirId);
 		
-		mockMvc.perform(post("/mgnt/study/upload.do")
+		when(studyService.insert(any(StudyVo.class), eq((String)session.getAttribute("tempDirId")), same(imageValues), same(fileValues))).thenReturn(seq);
+		
+		mockMvc.perform(post("/studies/post")
+				.session(session)
 				.param("imageValues", imageValues)
 				.param("fileValues", fileValues))
-			.andExpect(redirectedUrl("/study/view?seq=" + String.valueOf(seq)))
+			.andExpect(redirectedUrl("/studies/" + seq))
 			.andExpect(status().isFound());
 		
 	}
@@ -206,19 +209,21 @@ public class StudyControllerTest {
 	public void testStudyDoModify() throws Exception {
 		String imageValues = "SAMPLE_IMAGEVALUES";
 		String fileValues = "SAMPLE_FILEVALUES";
+		String tempDirId = "SAMPLE_TEMPDIR_ID";
 		int seq = 3;
 		boolean result = true;
 		
-		when(studyService.update(any(StudyVo.class), same(imageValues), same(fileValues))).thenReturn(result);
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute("tempDirId", tempDirId);
 		
-		mockMvc.perform(post("/mgnt/study/upload.do")
-				.param("seq", String.valueOf(seq))
+		mockMvc.perform(put("/studies/post/" + seq)
+				.session(session)
 				.param("imageValues", imageValues)
 				.param("fileValues", fileValues))
-			.andExpect(redirectedUrl("/study/view?seq=" + String.valueOf(seq)))
+			.andExpect(redirectedUrl("/studies/" + seq))
 			.andExpect(status().isFound());
 		
-		verify(studyService).update(any(StudyVo.class), same(imageValues), same(fileValues));
+		verify(studyService).update(any(StudyVo.class), eq((String)session.getAttribute("tempDirId")), same(imageValues), same(fileValues));
 	}
 	
 	@Test
@@ -230,8 +235,7 @@ public class StudyControllerTest {
 		when(studyService.delete(seq)).thenReturn(result);
 		when(studyService.get(seq)).thenReturn(study);
 		
-		mockMvc.perform(post("/mgnt/study/delete.do")
-				.param("seq", String.valueOf(seq)))
+		mockMvc.perform(delete("/studies/post/" + seq))
 			.andExpect(status().isOk())
 			.andExpect(content().json(new JSONObject().put("result", result).toString()));
 	}

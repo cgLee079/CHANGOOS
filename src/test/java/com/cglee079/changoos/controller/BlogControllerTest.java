@@ -1,12 +1,14 @@
 package com.cglee079.changoos.controller;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
@@ -20,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +30,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpSession;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -62,14 +62,24 @@ public class BlogControllerTest {
 	
 	@Test
 	public void testBlogList() throws Exception {
-		Set<String> tags = new HashSet<>();
+		Map<String, Object> params = new HashMap<>();
+		Set<String> totalTags = new HashSet<>();
+		int count = 3;
+		String tags = "SAMPLE_TAGS";
 		
-		when(blogService.getTags()).thenReturn(tags);
+		params.put("enabled", true);
+		params.put("tags", tags);
 		
-		mockMvc.perform(get("/blog"))
+		when(blogService.getTags()).thenReturn(totalTags);
+		when(blogService.count(params)).thenReturn(count);
+		
+		mockMvc.perform(get("/blogs")
+				.param("tags", tags))
 			.andExpect(status().isOk())
 			.andExpect(view().name("blog/blog_list"))
-			.andExpect(model().attribute("tags", tags));
+			.andExpect(model().attribute("tags", tags))
+			.andExpect(model().attribute("totalTags", totalTags))
+			.andExpect(model().attribute("count", count));
 	}
 	
 	@Test
@@ -77,21 +87,12 @@ public class BlogControllerTest {
 		Map<String, Object> params = new HashMap<>();
 		List<BlogVo> blogs = new ArrayList<>();
 		params.put("enabled", true);
-		int count = 3;
 		
-		when(blogService.paging(params)).thenReturn(blogs);
-		when(blogService.count(params)).thenReturn(count);
+		when(blogService.list(params)).thenReturn(blogs);
 		
-		String data = new Gson().toJson(blogs);
-		JSONArray dataJson = new JSONArray(data);
-
-		JSONObject result = new JSONObject();
-		result.put("count", count);
-		result.put("data", dataJson);
-		
-		mockMvc.perform(get("/blog/paging"))
+		mockMvc.perform(get("/blogs/records"))
 			.andExpect(status().isOk())
-			.andExpect(content().json(result.toString()));
+			.andExpect(content().json(new Gson().toJson(blogs)));
 	}
 	
 	@Test
@@ -108,9 +109,8 @@ public class BlogControllerTest {
 		
 		when(blogService.doView((Set<Integer>) session.getAttribute("visitBlogs"), seq)).thenReturn(blog);
 		
-		mockMvc.perform(get("/blog/view")
-				.session(session)
-				.param("seq", String.valueOf(seq)))
+		mockMvc.perform(get("/blogs/" + seq)
+				.session(session))
 			.andExpect(status().isOk())
 			.andExpect(view().name("blog/blog_view"))
 			.andExpect(model().attribute("blog", blog))
@@ -119,7 +119,7 @@ public class BlogControllerTest {
 	
 	@Test
 	public void testBlogManage() throws Exception {
-		mockMvc.perform(get("/mgnt/blog"))
+		mockMvc.perform(get("/mgnt/blogs"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("blog/blog_manage"));
 	}
@@ -131,14 +131,14 @@ public class BlogControllerTest {
 				
 		when(blogService.list(params)).thenReturn(blogs);
 		
-		mockMvc.perform(get("/mgnt/blog/paging"))
+		mockMvc.perform(get("/mgnt/blogs/records"))
 			.andExpect(status().isOk())
 			.andExpect(content().json(new Gson().toJson(blogs).toString()));
 	}
 	
 	@Test
 	public void testBlogUpload() throws Exception {
-		mockMvc.perform(get("/mgnt/blog/upload"))
+		mockMvc.perform(get("/blogs/post"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("blog/blog_upload"));
 	}
@@ -156,8 +156,7 @@ public class BlogControllerTest {
 		
 		when(blogService.get(seq)).thenReturn(blog);
 		
-		mockMvc.perform(get("/mgnt/blog/upload")
-				.param("seq", String.valueOf(seq)))
+		mockMvc.perform(get("/blogs/post/" + seq))
 			.andExpect(status().isOk())
 			.andExpect(view().name("blog/blog_upload"))
 			.andExpect(model().attribute("blog", blog))
@@ -167,40 +166,42 @@ public class BlogControllerTest {
 	
 	@Test
 	public void testBlogDoUpload() throws Exception {
-		MockMultipartFile thumbnailFile = new MockMultipartFile("thumbnailFile", new byte[1]);
 		String imageValues = "SAMPLE_IMAGEVALUES";
 		String fileValues = "SAMPLE_FILEVALUES";
+		String tempDirId = "SAMPLE_TEMPDIR_ID";
 		int seq = 3;
 		
-		when(blogService.insert(any(BlogVo.class), same(thumbnailFile), same(imageValues), same(fileValues))).thenReturn(seq);
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute("tempDirId", tempDirId);
 		
-		mockMvc.perform(fileUpload("/mgnt/blog/upload.do")
-				.file(thumbnailFile)
+		when(blogService.insert(any(BlogVo.class), eq((String)session.getAttribute("tempDirId")), same(imageValues), same(fileValues))).thenReturn(seq);
+		
+		mockMvc.perform(post("/blogs/post")
+				.session(session)
 				.param("imageValues", imageValues)
 				.param("fileValues", fileValues))
-			.andExpect(redirectedUrl("/blog/view?seq=" + String.valueOf(seq)))
+			.andExpect(redirectedUrl("/blogs/" + seq))
 			.andExpect(status().isFound());
 	}
 	
 	@Test
 	public void testBlogDoModify() throws Exception {
-		MockMultipartFile thumbnailFile = new MockMultipartFile("thumbnailFile", new byte[1]);
 		String imageValues = "SAMPLE_IMAGEVALUES";
 		String fileValues = "SAMPLE_FILEVALUES";
+		String tempDirId = "SAMPLE_TEMPDIR_ID";
 		int seq = 3;
-		boolean result = true;
 		
-		when(blogService.update(any(BlogVo.class), same(thumbnailFile), same(imageValues), same(fileValues))).thenReturn(result);
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute("tempDirId", tempDirId);
 		
-		mockMvc.perform(fileUpload("/mgnt/blog/upload.do")
-				.file(thumbnailFile)
-				.param("seq", String.valueOf(seq))
+		mockMvc.perform(put("/blogs/post/" + seq)
+				.session(session)
 				.param("imageValues", imageValues)
 				.param("fileValues", fileValues))
-			.andExpect(redirectedUrl("/blog/view?seq=" + String.valueOf(seq)))
+			.andExpect(redirectedUrl("/blogs/" + seq))
 			.andExpect(status().isFound());
 		
-		verify(blogService).update(any(BlogVo.class), same(thumbnailFile), same(imageValues), same(fileValues));
+		verify(blogService).update(any(BlogVo.class), eq((String)session.getAttribute("tempDirId")), same(imageValues), same(fileValues));
 	}
 	
 	@Test
@@ -210,8 +211,7 @@ public class BlogControllerTest {
 		
 		when(blogService.delete(seq)).thenReturn(result);
 		
-		mockMvc.perform(post("/mgnt/blog/delete.do")
-				.param("seq", String.valueOf(seq)))
+		mockMvc.perform(delete("/blogs/post/" + seq))
 			.andExpect(status().isOk())
 			.andExpect(content().json(new JSONObject().put("result", result).toString()));
 		
