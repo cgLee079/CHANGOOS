@@ -33,6 +33,10 @@ public class SolrService {
 	@Value("#{solr['query.hl.simple.post']}")	private String hlSimplePost;
 
 	public List<SolrSearchResultVo> search(String value) throws SolrServerException, IOException {
+		if(value.length() == 0) {
+			return new ArrayList<>();
+		}
+		
 		String q = "(title:" + value + " OR " + "contents: " + value + ") AND enabled:true";
 		Map<String, String> param = new HashMap<String, String>();
 

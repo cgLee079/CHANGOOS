@@ -66,11 +66,6 @@ a, a:VISITED {
 	-ms-filter: "FlipH";
 }
 
-/* btn */
-.btn {
-	cursor: pointer;
-}
-
 /* JQuery EasyUI, style Override */
 .tooltip {
 	padding: 3px 7px !important;
