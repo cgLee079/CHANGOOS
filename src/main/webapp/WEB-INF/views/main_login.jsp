@@ -14,8 +14,7 @@
 	.wrap-body{
 		position : absolute;
 		left : 0;
-		right
-		 : 0;
+		right: 0;
 		bottom : 0;
 		top : 0;
 		display:  flex;
@@ -25,19 +24,19 @@
 	}
 	
 	.wrap-form{
-		width : 11rem;
+		max-width : 150px;
 	}
 	
 	.input-head{
 		width : 100%;
-		margin-bottom: 1rem;
+		margin-bottom: 10px;
 	}
 	
 	.input-id, .input-pwd{
-		border: 0.5px solid #DDD;
+		border : none;
 		height : 1rem;
-		margin-bottom: 0.5rem;
-		padding : 0.2rem 0.2rem;
+		margin-bottom: 7px;
+		padding : 3px  2px;
 		width : 100%;
 	}	
 	

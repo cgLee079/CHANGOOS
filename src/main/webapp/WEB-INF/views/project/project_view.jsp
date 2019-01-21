@@ -4,8 +4,11 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/project/project-view.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-comment.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-export.css" />
 <script src="${pageContext.request.contextPath}/resources/js/project/project-view.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-comment.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/included/included-export.js"></script>
 
 </head>
 <body>
@@ -14,6 +17,7 @@
 		<c:import url="../included/included_export.jsp" charEncoding="UTF-8">
 			<c:param name = "thumbnail" value = "${projectThumbDir}${project.thumbnail}" />
 			<c:param name = "title" value = "[프로젝트] ${project.title}" />
+			<c:param name = "hits" value = "${project.hits}" />
 			<c:param name = "comtCnt" value = "${project.comtCnt}" />
 		</c:import>
 		
@@ -55,7 +59,7 @@
 					<c:out value="${project.contents}" escapeXml="false"/>
 					
 					<c:if test="${!empty files}">
-						<div>첨부파일</div>
+						<h2>첨부파일</h2>
 						<div class="project-files">
 							<c:forEach var="file" items="${files}">
 								<fmt:formatNumber var="filesize" value="${file.size/(1024*1024)}" pattern="0.00"/>

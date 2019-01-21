@@ -26,16 +26,11 @@ public class SolrService {
 	@Autowired
 	private SolrDao solrDao;
 
-	@Value("#{solr['core.id.changoos.board']}")
-	private String core;
-	@Value("#{solr['query.hl.max.pre.length']}")
-	private int maxHlPreLength;
-	@Value("#{solr['query.hl.frag.length']}")
-	private String hlfragLength;
-	@Value("#{solr['query.hl.simple.pre']}")
-	private String hlSimplePre;
-	@Value("#{solr['query.hl.simple.post']}")
-	private String hlSimplePost;
+	@Value("#{solr['core.id.changoos.board']}") private String core;
+	@Value("#{solr['query.hl.max.pre.length']}")private int maxHlPreLength;
+	@Value("#{solr['query.hl.frag.length']}")	private String hlfragLength;
+	@Value("#{solr['query.hl.simple.pre']}")	private String hlSimplePre;
+	@Value("#{solr['query.hl.simple.post']}")	private String hlSimplePost;
 
 	public List<SolrSearchResultVo> search(String value) throws SolrServerException, IOException {
 		String q = "(title:" + value + " OR " + "contents: " + value + ") AND enabled:true";
@@ -68,7 +63,8 @@ public class SolrService {
 			}
 
 			if (hl.containsKey("contents")) {
-				highlight = HTMLHandler.removeHTML(hl.get("contents").get(0));
+				//Solr에서 HTML코드가 제거됬지만, CodeSinppet 안에 HTML 코드는 제거되지 않는다. 별도로 제거.
+				highlight = HTMLHandler.removeHTML(hl.get("contents").get(0)); 
 				schIndex = highlight.indexOf(hlSimplePre);
 				if (schIndex > maxHlPreLength) {
 					highlight = highlight.substring(schIndex - maxHlPreLength, highlight.length());

@@ -20,8 +20,8 @@
 				<div class="photo-img"></div>
 				<div class="photo-sub">
 					<div class="photo-menu">
-						<img class="btn btn-photo-like" onclick="photoDoLike(this)" src="${pageContext.request.contextPath}/resources/image/btn-photo-like.svg" />
-						<img class="btn btn-photo-comment" onclick="drawCommentForm(this)" src="${pageContext.request.contextPath}/resources/image/btn-photo-comment.svg" />
+						<img class="btn-photo-like" onclick="photoDoLike(this)" src="${pageContext.request.contextPath}/resources/image/btn-photo-like.svg" />
+						<img class="btn-photo-comment" onclick="drawCommentForm(this)" src="${pageContext.request.contextPath}/resources/image/btn-photo-comment.svg" />
 					</div>
 					
 					<div class="photo-detail">
@@ -47,7 +47,7 @@
 							<div><textarea class="contents" style="font-size: 0.6rem"></textarea></div>
 						</div>
 						
-						<div class="btn btn-write col-center" onclick="commentDoWrite(this)">등록</div>
+						<div class="btn-write col-center" onclick="commentDoWrite(this)">등록</div>
 					</div>
 				</div>
 			</div>
@@ -56,7 +56,7 @@
 		<div class="snapsht-list">
 			<div class="snapsht-list-cut"></div>
 			<c:forEach items="${photos}" var="photo" varStatus="status" >
-				<div class="btn snapsht-list-item" onclick="showPhoto('${status.index}')"  
+				<div class="snapsht-list-item" onclick="showPhoto('${status.index}')"  
 					style="background-image: url('${pageContext.request.contextPath}${photoThumbDir}${photo.thumbnail}')">
 				</div>
 			</c:forEach>

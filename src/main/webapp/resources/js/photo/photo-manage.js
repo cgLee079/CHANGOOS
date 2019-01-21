@@ -24,7 +24,7 @@ function fn_onInitDataGrid(){
 				return "<a onclick='photoDelete(" + row.seq + "," + index + ")' class='dg-btn'> 삭제 </a>" 
 			}},
 			{field:'thumbnail', title:'스냅샷', width:'100px', halign:'center', styler : alignCenter, formatter: function(value, row){
-				return "<img src='" + getContextPath() + loc.photo.thumbDir + value  + "' height='50px' style='padding : 2px'/>"
+				return "<img src='" + getContextPath() + loc.photo.thumbDir + value  + "' style='max-width: 90px; max-height: 70px; padding : 1px'/>"
 			}},
 			{field:'name', title:'이름', width:'200px', halign:'center', sortable : "true", styler : alignLeft},
 			{field:'desc', title:'설명', width:'200px', halign:'center', styler : alignLeft},

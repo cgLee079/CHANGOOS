@@ -86,7 +86,9 @@ public class ProjectService {
 		int seq = projectDao.insert(project);
 		
 		
-		fileHandler.move(realPath + tempDir + tempDirId + project.getThumbnail(), realPath + thumbDir + project.getThumbnail());
+		if(project.getThumbnail() != null && project.getThumbnail().length() > 0) {
+			fileHandler.move(realPath + tempDir + tempDirId + project.getThumbnail(), realPath + thumbDir + project.getThumbnail());
+		}
 		
 		boardFileService.insertFiles(fileTB, tempDirId, fileDir, seq, fileValues);
 		
@@ -105,9 +107,8 @@ public class ProjectService {
 		
 		if(!project.getThumbnail().equals(savedProject.getThumbnail())) {
 			fileHandler.delete(realPath + thumbDir + savedProject.getThumbnail());
+			fileHandler.move(realPath + tempDir + tempDirId + project.getThumbnail(), realPath + thumbDir + project.getThumbnail());
 		}
-		
-		fileHandler.move(realPath + tempDir + tempDirId + project.getThumbnail(), realPath + thumbDir + project.getThumbnail());
 		
 		boardFileService.insertFiles(fileTB, tempDirId, fileDir, seq, fileValues);
 		

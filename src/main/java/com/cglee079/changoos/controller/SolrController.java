@@ -21,7 +21,6 @@ public class SolrController {
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String solrDoSearch(Model model, String value) throws SolrServerException, IOException {
-		
 		model.addAttribute("schValue", value);
 		model.addAttribute("results", solrSearchService.search(value));
 

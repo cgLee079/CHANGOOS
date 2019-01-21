@@ -4,8 +4,11 @@
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/blog/blog-view.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-comment.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-export.css" />
 <script src="${pageContext.request.contextPath}/resources/js/blog/blog-view.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-comment.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/included/included-export.js"></script>
 
 <body>
 	<div class="wrapper">
@@ -22,6 +25,7 @@
 		<c:import url="../included/included_export.jsp" charEncoding="UTF-8">
 			<c:param name = "thumbnail" value = "${thumbnail}" />
 			<c:param name = "title" value = "[블로그] ${blog.title}" />
+			<c:param name = "hits" value = "${blog.hits}" />
 			<c:param name = "comtCnt" value = "${blog.comtCnt}" />
 		</c:import>
 		
@@ -39,8 +43,8 @@
 					</div>
 				</div>
 				<div class="blog-head-submenu">
-					<a class="btn" onclick="drawExportView()">공유하기</a>
-					<a class="btn btn-list" href="${pageContext.request.contextPath}/blogs">목록</a>
+					<a href="javascript:void(0);" onclick="drawExportView()">공유하기</a>
+					<a class="btn-list" href="${pageContext.request.contextPath}/blogs">목록</a>
 				</div>
 			</div>
 			

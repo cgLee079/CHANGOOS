@@ -61,17 +61,21 @@ public class PhotoService {
 	public boolean insert(PhotoVo photo, String tempDirId){
 		photo.setLikeCnt(0);
 
-		// TEMP 폴더에서, 사진 파일 옮기기
-		String photoFilePath = realPath + tempDir + tempDirId + photo.getPathname();
-		String movedPhotoPath = realPath + originDir + photo.getPathname();
-		fileHandler.move(photoFilePath, movedPhotoPath);
-
-		// TEMP 폴더에서, 스냅샷 파일 옮기기
-		String snapshotFilePath = realPath + tempDir + tempDirId + photo.getThumbnail();
-		String movedSnapshtFilePath = realPath + thumbDir + photo.getThumbnail();
-		fileHandler.move(snapshotFilePath, movedSnapshtFilePath);
+		boolean result = false;
+		if(photo.getPathname() != null && photo.getPathname().length() != 0) { //사진을 업로드한 경우.
+			// TEMP 폴더에서, 사진 파일 옮기기
+			String photoFilePath = realPath + tempDir + tempDirId + photo.getPathname();
+			String movedPhotoPath = realPath + originDir + photo.getPathname();
+			fileHandler.move(photoFilePath, movedPhotoPath);
+	
+			// TEMP 폴더에서, 스냅샷 파일 옮기기
+			String snapshotFilePath = realPath + tempDir + tempDirId + photo.getThumbnail();
+			String movedSnapshtFilePath = realPath + thumbDir + photo.getThumbnail();
+			fileHandler.move(snapshotFilePath, movedSnapshtFilePath);
+			
+			result = photoDao.insert(photo);
+		}
 		
-		boolean result = photoDao.insert(photo);
 		return result;
 	}
 
@@ -96,7 +100,6 @@ public class PhotoService {
 			fileHandler.move(snapshotFilePath, movedSnapshtFilePath);
 		}
 
-		
 		boolean result = photoDao.update(photo);
 		return result;
 	}

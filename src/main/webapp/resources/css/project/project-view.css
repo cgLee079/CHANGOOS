@@ -1,5 +1,5 @@
 .project {
-	min-height: calc(100% - 60px);
+	min-height: calc(100% - var(--nav-height));
 	margin-bottom: 150px;
 	margin-top: 20px;
 }

@@ -26,13 +26,17 @@ function fn_onInitDataGrid(){
 				return "<a onclick='blogDelete(" + row.seq + "," + index + ")' class='dg-btn'> 삭제 </a>" 
 			}},
 			{field:'thumbnail', title:'스냅샷', width:'100px', halign:'center', styler : alignCenter,  formatter: function(value, row){
+				var src = "";
+				
 				if(value){
-					return "<img src='" + getContextPath() + loc.blog.thumbDir + value + "' height='50px' style='padding : 2px'/>"
+					src = getContextPath() + loc.blog.thumbDir + value;
 				} else if (row.images.length > 0){
-					return "<img src='" + getContextPath() + loc.blog.imageDir + row.images[0].pathname + "' height='50px'style='padding : 2px'/>"
-				} else{
-					return "<img src='' height='50px' style='padding : 2px'/>"
-				}
+					src = getContextPath() + loc.blog.imageDir + row.images[0].pathname;
+				} 
+				
+				return "<img src='" + src + "' style='max-width: 90px; max-height: 70px; padding : 1px'/>"
+				
+				style='max-width: 100px; max-height: 50px;'
 			}},
 			{field:'tag', title:'태그', width:'150px', halign:'center',  styler : alignCenter},
 			{field:'title', title:'이름', width:'300px', halign:'center', sortable : "true", styler : alignLeft},

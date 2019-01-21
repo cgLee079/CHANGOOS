@@ -138,7 +138,9 @@ public class BlogService{
 		blog.setDate(Formatter.toDate(new Date()));
 		int seq = blogDao.insert(blog);
 		
-		fileHandler.move(realPath + tempDir + tempDirId + blog.getThumbnail(), realPath + thumbDir + blog.getThumbnail());
+		if(blog.getThumbnail() != null && blog.getThumbnail().length() > 0) {
+			fileHandler.move(realPath + tempDir + tempDirId + blog.getThumbnail(), realPath + thumbDir + blog.getThumbnail());
+		}
 		
 		boardFileService.insertFiles(fileTB, tempDirId, fileDir, seq, fileValues);
 		
@@ -157,9 +159,9 @@ public class BlogService{
 		
 		if(!blog.getThumbnail().equals(savedBlog.getThumbnail())) {
 			fileHandler.delete(realPath + thumbDir + savedBlog.getThumbnail());
+			fileHandler.move(realPath + tempDir + tempDirId + blog.getThumbnail(), realPath + thumbDir + blog.getThumbnail());
 		}
 		
-		fileHandler.move(realPath + tempDir + tempDirId + blog.getThumbnail(), realPath + thumbDir + blog.getThumbnail());
 		boardFileService.insertFiles(fileTB, tempDirId,fileDir, seq, fileValues);
 		
 		String contents = boardImageService.insertImages(imageTB, tempDirId,imageDir, seq, blog.getContents(), imageValues);

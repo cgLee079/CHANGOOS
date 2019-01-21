@@ -1,7 +1,7 @@
 .wrap-study {
 	margin: 0px auto;
 	margin-bottom: 150px;
-	min-height : calc(100% - 60px);
+	min-height : calc(100% - var(--nav-height));
 }
 
 .study-head{
@@ -13,6 +13,7 @@
 	text-align: center;
 	font-weight: bold;
 	color : #ec5621;
+	cursor: pointer;
 }
 
 .study-head .study-title {
@@ -85,6 +86,7 @@
 
 .study-sub .study-submenus .submenu {
 	margin-left: 10px;
+	cursor: pointer;
 }
 
 .study-contents {

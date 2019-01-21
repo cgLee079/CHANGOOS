@@ -12,7 +12,7 @@
 	<input type="hidden" id="editor" value='<c:out value="${editor}"/>'>
 	
 	<div class="upload-form">
-		<input id="images" type="file" multiple="multiple" accept="image/gif,image/jpeg,image/png" onchange="onImageChange()">
+		<input id="images" type="file" multiple="multiple" accept="image/*" onchange="onImageChange()">
 		<div class="btn-image-upload" onclick="$(this).siblings('#images').click();">파일선택</div>
 		<div class="upload-set">
 			<input id="width" class="image-width" type="number" value="<c:out value="${maxWidth}" />">

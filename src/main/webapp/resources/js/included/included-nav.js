@@ -9,14 +9,14 @@ $(document).ready(function(){
 			panelMinHeight: 100,
 			panelMaxHeight: 200,
 			onEnter : function globalSearch(value){
-				window.location.href = getContextPath() + "/search?value=" + value;
+				window.location.href = getContextPath() + "/search?value=" + encodeURIComponent(value);
 			},
 			maxValues : 5
 		});
 	}
 	
 	else{ // Mobile 환경이라면
-		var globalSearch = $(".mob-nav .menu-search-field .global-search");
+		var globalSearch = $(".mob-nav .mobnav-search-field .global-search");
 		globalSearch[0].comboboxByCG({
 			inputFocusClass : "on",
 			listItemClass : "facet-value",
@@ -25,7 +25,7 @@ $(document).ready(function(){
 			panelMinHeight: 100,
 			panelMaxHeight: 200,
 			onEnter : function globalSearch(value){
-				window.location.href = getContextPath() + "/search?value=" + value;
+				window.location.href = getContextPath() + "/search?value=" + encodeURIComponent(value);
 			},
 			maxValues : 5
 		});
@@ -121,7 +121,7 @@ function scrollToTop() {
 
 /* 검색 버튼 누를 시 이벤트 */
 function focuseSearch(tg){
-	var globalSearch = $(tg).parent().siblings(".menu-search-field").find(".global-search")
+	var globalSearch = $(tg).parent().siblings("*").find(".global-search")
 	if(!globalSearch.hasClass("on")){
 		globalSearch.focus();	
 	}

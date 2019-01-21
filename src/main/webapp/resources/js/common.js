@@ -1,3 +1,4 @@
+
 /* check, is mobile?*/
 var isMobile = false;
 var deviceWidth = undefined;

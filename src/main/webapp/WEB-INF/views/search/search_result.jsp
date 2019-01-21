@@ -12,9 +12,15 @@
 	min-height: calc(100% - 60px);
 }
 
+@media ( max-width : 800px) {
+	.wrap-sch-result {
+		margin-left : 20px;
+		margin-right : 20px;
+	}
+}
+
 .board{
-    margin: 20px 20px;
-    border-bottom: 0.5px solid #E1E1E1;
+    margin: 20px 0px;
     padding: 25px 0;
     cursor: pointer;
 }

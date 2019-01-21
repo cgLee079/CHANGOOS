@@ -1,3 +1,8 @@
+:root{
+	--body-max-width : 1080px;
+	--nav-height : 60px;
+}
+
 /* basic-set*/
 * {
 	margin: 0px;
@@ -13,7 +18,7 @@ body {
 	overflow-x: hidden;
 	font-family: 'Nanum Square', 'Nanum Gothic', sans-serif;
 	font-weight: normal;
-	max-width: 1080px;
+	max-width: var(--body-max-width);
 	margin: 0 auto;
 	padding: 0 3%;
 	line-height: 1.5;

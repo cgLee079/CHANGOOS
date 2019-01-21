@@ -1,6 +1,6 @@
 .wrap-photo-list {
 	display: flex;
-	height: calc(100% - 60px);
+	height: calc(100% - var(--nav-height));
 	align-items: center;
 }
 
@@ -51,6 +51,7 @@
 	height: 1.5rem;
 	background-position: center;
 	background-repeat: no-repeat;
+	cursor: pointer;
 }
 
 .photo-sub>.photo-detail {
@@ -174,6 +175,7 @@
 .photo-write-comment .btn-write {
 	margin-left: 10px;
 	font-size: 0.6rem;
+	cursor: pointer;
 }
 
 .snapsht-list {
@@ -209,10 +211,13 @@
 	background-repeat: no-repeat;
 	background-size: contain;
 	transition: transform .3s cubic-bezier(0.215, 0.61, 0.355, 1);
+	opacity: 0.7;
+	cursor: pointer;
 }
 
 .snapsht-list-item:hover {
 	transform : scale(1.05);
+	opacity: 1;
 }
 
 @media ( max-width : 800px) {

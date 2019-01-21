@@ -42,7 +42,7 @@
 					<div class="upload-project-input">
 						<img id="thumbnail-img" class="project-thumbnail-img" onclick="$(this).siblings('#thumbnailFile').click();" src="<c:out value='${projectThumbDir}${project.thumbnail}'/>" height="150">
 						<input type="hidden" id="thumbnail" name="thumbnail" value="<c:out value='${project.thumbnail}'/>" />
-						<input type="file" id="thumbnailFile" name="thumbnailFile" class="project-thumbnailFile" onchange="onThumbnailChange(this)"/>
+						<input type="file" id="thumbnailFile" name="thumbnailFile" accept="image/*" class="project-thumbnailFile" onchange="onThumbnailChange(this)"/>
 					</div>
 				</div>
 				
@@ -115,8 +115,8 @@
 				<div class="upload-project">
 					<div class="upload-project-name"></div>
 					<div class="upload-project-input project-submit">
-						<a class="btn" onclick="Progress.start(); history.back();">취소</a>
-						<a class="btn submit" onclick="Progress.start(); $('#uploadForm').submit()">저장</a>
+						<a  href="javascript:void(0);" onclick="Progress.start(); history.back();">취소</a>
+						<a  href="javascript:void(0);" class="submit" onclick="Progress.start(); $('#uploadForm').submit()">저장</a>
 					</div>
 				</div>	
 				

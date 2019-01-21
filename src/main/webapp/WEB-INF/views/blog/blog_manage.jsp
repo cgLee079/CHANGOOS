@@ -3,7 +3,12 @@
 <head>
 <%@ include file="/WEB-INF/views/included/included_head.jsp" %> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/blog/blog-manage.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/datagrid-common.css" />
+<script src="${pageContext.request.contextPath}/resources/js/datagrid-common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/blog/blog-manage.js"></script>
+<script src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.5/datagrid-detailview.js"></script>
+<script src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.5/datagrid-groupview.js"></script>
+<script src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.5/datagrid-cellediting.js"></script>
 
 </head>
 <body>
@@ -12,8 +17,8 @@
 	
 	<div class="wrap-blog-list">
 		<div class="menu-manage">
-			<a href="${pageContext.request.contextPath}/blogs" class="btn">List</a>
-			<a href="${pageContext.request.contextPath}/blogs/post" class="btn">Upload</a>
+			<a href="${pageContext.request.contextPath}/blogs">List</a>
+			<a href="${pageContext.request.contextPath}/blogs/post">Upload</a>
 		</div>
 		
 		<div class="blog-list">

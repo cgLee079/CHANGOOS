@@ -32,15 +32,13 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lib/letter-motion.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ckeditor/plugins/prism/lib/prism/prism_patched.min.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.5/themes/material/easyui.css"/>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.5/themes/icon.css"/>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.5/themes/color.css" />
 
 <!--  -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-nav.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/included/included-footer.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/editor-contents.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/dg-common.css" />
+
 
 <!-- Javascript 라이브러리-->
 <script src="${pageContext.request.contextPath}/resources/js/lib/jquery-3.2.1.min.js"></script>
@@ -52,13 +50,9 @@
 <script src="${pageContext.request.contextPath}/resources/ckeditor/plugins/prism/lib/prism/prism_patched.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 <script src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.5/jquery.easyui.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.5/datagrid-detailview.js"></script>
-<script src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.5/datagrid-groupview.js"></script>
-<script src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.5/datagrid-cellediting.js"></script>
 
 <!--  -->
 <script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/dg-common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/pager-1.0.0.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/editor-contents-resizer.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-nav.js"></script>

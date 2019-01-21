@@ -58,7 +58,7 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 		
 		switch(event.keyCode){
 			case 13 : //Enter
-				var focused = facetPanel.find(".facet-value." + listItemFocusClass);
+				var focused = facetPanel.find("." + listItemClass + "." + listItemFocusClass);
 				if(focused.length){
 					focused.removeClass(listItemFocusClass);
 					searchField.val(focused.text());
@@ -68,7 +68,7 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 				
 				break;
 			case 38 : //Arrow Up
-				var facetValues = facetPanel.find(".facet-value");
+				var facetValues = facetPanel.find("." + listItemClass);
 				var focused = facetPanel.find(".facet-value." + listItemFocusClass);
 				var index = focused.index();
 				
@@ -82,9 +82,9 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 				
 				break;
 			case 40 : //Arrow Down
-				var facetValues = facetPanel.find(".facet-value");
+				var facetValues = facetPanel.find("." + listItemClass);
 				var length = facetValues.length;
-				var focused = facetPanel.find(".facet-value." + listItemFocusClass);
+				var focused = facetPanel.find("." + listItemClass + "." + listItemFocusClass);
 				var index = focused.index();
 				
 				facetValues.removeClass(listItemFocusClass);

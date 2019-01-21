@@ -3,7 +3,7 @@
 }
 
 .wrap-introduce {
-	height: calc(100% - 60px);
+	height: calc(100% - var(--nav-height));
 	display: flex;
 	justify-content: center;
 	align-items: center;

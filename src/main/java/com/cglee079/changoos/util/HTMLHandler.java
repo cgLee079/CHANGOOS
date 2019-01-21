@@ -29,9 +29,23 @@ public class HTMLHandler {
 		Document doc = null;
 		Elements body = null;
 		
+		String els = "div, span, applet, object, iframe,\r\n" + 
+				"h1, h2, h3, h4, h5, h6, p, blockquote, pre,\r\n" + 
+				"a, abbr, acronym, address, big, cite, code,\r\n" + 
+				"del, dfn, em, img, ins, kbd, q, s, samp,\r\n" + 
+				"small, strike, strong, sub, sup, tt, var,\r\n" + 
+				"b, u, i, center,\r\n" + 
+				"dl, dt, dd, ol, ul, li,\r\n" + 
+				"fieldset, form, label, legend,\r\n" + 
+				"table, caption, tbody, tfoot, thead, tr, th, td,\r\n" + 
+				"article, aside, canvas, details, embed, \r\n" + 
+				"figure, figcaption, footer, header, hgroup, \r\n" + 
+				"menu, nav, output, ruby, section, summary,\r\n" + 
+				"time, mark, audio, video";
+		
 		doc 		= Jsoup.parse(contents);
 		body 		= doc.select("body");
-		body.select("p,img").remove();
+		body.select(els).remove();
 		
 		newContents = body.html();
 		newContents.replaceAll("(\r\n|\r|\n|\n\r)", " ");
