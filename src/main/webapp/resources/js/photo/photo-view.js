@@ -113,7 +113,7 @@ function loadComment(parent, seq){
 				$("<div>", {"class" : "comment-userinfo", "text" : datum.username}).appendTo(comment);
 				$("<div>", {"class" : "comment-contents", "text" : datum.contents}).appendTo(comment);
 				$("<div>", {"class" : "comment-date", "text" : datum.date}).appendTo(comment);
-				$("<div>", {"class" : "btn btn-comment-delete", "onclick" : "commentDelete(this)", "text" : "삭제"}).appendTo(comment);
+				$("<div>", {"class" : "btn-comment-delete", "onclick" : "commentDelete(this)", "text" : "삭제"}).appendTo(comment);
 				comment.appendTo(parent);
 			}
 		},

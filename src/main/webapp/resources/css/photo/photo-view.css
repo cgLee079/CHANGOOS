@@ -136,6 +136,12 @@
 }
 
 .photo-comments .comment .btn-comment-delete {
+	cursor : pointer;
+	opacity: 0.6;
+}
+
+.photo-comments .comment .btn-comment-delete:hover{
+	opacity: 1;
 }
 
 .photo-write-comment {
