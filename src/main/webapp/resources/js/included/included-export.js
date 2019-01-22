@@ -46,6 +46,7 @@ function urlClipCopy() {
 function initExportKakao(data){
 	var url = window.location.href;
 	var thumbnailURL = window.location.origin + data.thumbnail;
+	var path  = window.location.pathname;
 	
 	Kakao.init('3684e89896f38ed809137a3e7062bf95');
 	
@@ -67,16 +68,16 @@ function initExportKakao(data){
  	    },
   		buttons: [
 			{
-	   			title: '웹으로 보기',
+	   			title: '웹에서 보기',
 	   			link: {
 					mobileWebUrl: url,
 					webUrl: url
 				}
 			},
 			{
-	   			title: "CHANGOO'S",
+	   			title: "앱에서 보기",
 	   			link: {
-	   				androidExecParams : url,
+	   				androidExecParams : "path=" + path,
 				}
 			}
   		]
