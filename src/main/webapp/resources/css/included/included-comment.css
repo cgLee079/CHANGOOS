@@ -59,6 +59,7 @@
 
 .comment-menu a {
 	margin-left: 7px;
+	cursor: pointer;
 }
 
 
@@ -79,10 +80,10 @@
 
 .comment-write .comment-write-contents {
 	width : 100%;
-	height : 4rem;
+	height : 5rem;
 	resize: none;
 	overflow: hidden;
-	border: 0.7px solid #DDD;
+	border: 0.7px solid #BBB;
 	border-radius : 3px;
 }
 
@@ -103,7 +104,7 @@
 	height: 100%;
 	font-size: 0.75rem;
 	padding-left: 2px;
-	border: 0.7px solid #DDD;
+	border: 0.7px solid #BBB;
 	border-radius : 3px;
 }
 

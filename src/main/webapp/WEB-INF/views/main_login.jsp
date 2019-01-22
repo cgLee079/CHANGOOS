@@ -33,7 +33,7 @@
 	}
 	
 	.input-id, .input-pwd{
-		border : none;
+		border : 0.5px solid #DDD;
 		height : 1rem;
 		margin-bottom: 7px;
 		padding : 3px  2px;
