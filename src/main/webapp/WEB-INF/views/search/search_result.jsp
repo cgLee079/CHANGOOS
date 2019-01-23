@@ -9,20 +9,13 @@
 
 .wrap-sch-result {
 	margin: 50px 0 70px 0;
-	min-height: calc(100% - 60px);
-}
-
-@media ( max-width : 800px) {
-	.wrap-sch-result {
-		margin-left : 20px;
-		margin-right : 20px;
-	}
+	min-height: calc(100% - var(--nav-height));
 }
 
 .board{
-    margin: 20px 0px;
-    padding: 25px 0;
+    padding: 30px 20px;
     cursor: pointer;
+    border-bottom: 0.5px solid #F1F1F1
 }
 
 .board:first-child{
@@ -31,7 +24,6 @@
 }
 
 .board .board-title {
-	color: #ec5621;
 	font-size: 1.4rem;
 	font-weight: bold;
 	margin-bottom: 0.4rem;

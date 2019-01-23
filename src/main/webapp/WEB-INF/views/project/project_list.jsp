@@ -31,7 +31,6 @@
 						<div class="colum-border"></div>
 						<div>댓글 <c:out value="${project.comtCnt}"/></div>
 					</div>
-					<div class="bottom-border"></div>
 					<input type="hidden" id="project-seq" class="project-seq" value="${project.seq}">
 				</div>
 			</c:forEach>
