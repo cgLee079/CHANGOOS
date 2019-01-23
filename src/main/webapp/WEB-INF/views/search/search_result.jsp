@@ -13,9 +13,9 @@
 }
 
 .board{
-    padding: 30px 20px;
+    padding: 24px 20px 30px 20px;
     cursor: pointer;
-    border-bottom: 0.5px solid #F1F1F1
+    border-bottom: 0.6px solid #F1F1F1;
 }
 
 .board:first-child{
@@ -24,6 +24,7 @@
 }
 
 .board .board-title {
+	color : #333;
 	font-size: 1.4rem;
 	font-weight: bold;
 	margin-bottom: 0.4rem;

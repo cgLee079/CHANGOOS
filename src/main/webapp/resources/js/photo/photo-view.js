@@ -8,12 +8,11 @@ $(document).ready(function(){
 	doMenuOn(".menu-photo");
 	
 	if(isMobile){
-		$(".wrap-photo-list").css("display", "none");
-		photoWrapper = $(".wrapper");
+		photoWrapper = $(".wrap-photo-list");
 		$(window).scroll(function(){
 			var scrollPosition = $(this).scrollTop();
 			var docHeight = $(this).height();
-			if(scrollPosition >= ((docHeight * 0.8) * (currentView - 1)) && !loading && currentView < seqs.length){
+			if(scrollPosition >= ((docHeight * 0.6) * (currentView - 1)) && !loading && currentView < seqs.length){
 				loadPhoto(currentView);
 				console.log("load")
 				currentView++;
@@ -60,7 +59,7 @@ function loadPhoto(currentView){
 		success : function(photo) {
 			var item = templeate.clone();
 			item.find(".photo-seq").val(photo.seq);
-			item.find(".photo-img").css("background-image", "url('" + getContextPath() + loc.photo.originDir + photo.pathname +"')");
+			item.find(".photo-img").attr("src", getContextPath() + loc.photo.originDir + photo.pathname);
 			item.find(".photo-name").text(photo.name);
 			item.find(".photo-date-loc").text(photo.date + " " + photo.location);
 			item.find(".photo-desc").html(photo.desc);

@@ -17,7 +17,10 @@
 		<div class="photo-list">
 			<div class="photo-list-item">
 				<input type="hidden" class="photo-seq"/>
-				<div class="photo-img"></div>
+				<div class="wp-photo-img">
+				<img class="photo-img" />
+				</div>
+				
 				<div class="photo-sub">
 					<div class="photo-menu">
 						<img class="btn-photo-like" onclick="photoDoLike(this)" src="${pageContext.request.contextPath}/resources/image/btn-photo-like.svg" />
