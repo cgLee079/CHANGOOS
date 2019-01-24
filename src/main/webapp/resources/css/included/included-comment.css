@@ -20,7 +20,7 @@
 	justify-content: space-between;
 	align-items : center;
 	padding: 15px 0 10px 0;
-	border-bottom: 0.3px solid #F1F1F1;
+	border-bottom: 0.5px solid #F1F1F1;
 }
 
 .comment-item .comment {
@@ -83,7 +83,7 @@
 	height : 5rem;
 	resize: none;
 	overflow: hidden;
-	border: 0.5px solid #DDD;
+	border: 0.7px solid #E1E1E1;
 	border-radius : 3px;
 }
 
@@ -104,7 +104,7 @@
 	height: 100%;
 	font-size: 0.75rem;
 	padding-left: 2px;
-	border: 0.7px solid #DDD;
+	border: 0.7px solid #E1E1E1;
 	border-radius : 3px;
 }
 

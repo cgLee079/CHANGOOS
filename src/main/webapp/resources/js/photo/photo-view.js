@@ -185,6 +185,11 @@ function drawCommentForm(tg){
 	writeComment.toggleClass("none");
 }
 
+function commentAreaResize(obj) {
+  obj.style.height = "1px";
+  obj.style.height = (8 + obj.scrollHeight)+"px";
+}
+
 function commentDelete(tg){
 	var tg = $(tg);
 	var photoSeq = tg.parents(".photo-list-item").find(".photo-seq").val();

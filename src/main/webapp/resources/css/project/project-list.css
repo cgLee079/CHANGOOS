@@ -1,13 +1,10 @@
-.wrap-project-list {
-	margin-top: 30px;
-	margin-bottom: 150px;
-}
-
 .project-list {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: flex-start;
 	margin: 0px -20px;
+	margin-top: 30px;
+	margin-bottom: 150px;
 }
 
 .project-view {
@@ -137,13 +134,11 @@
 }
 
 @media ( max-width : 800px) {
-	.wrap-project-list {
-		margin-top: 0;
-	}
-	
 	.project-list {
 		margin: 0 auto;
-		background: #FBFBFB;
+		background: #FAFAFA;
+		margin-top: 0;
+		margin-bottom: 0;
 	}
 	
 	.project-view {

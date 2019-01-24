@@ -57,6 +57,8 @@ function initExportKakao(data){
   		content: {
     		title: data.title,
     		imageUrl: thumbnailURL,
+    		imageWidth : 300,
+    		imageHeight : 200,
     		link: {
     			mobileWebUrl: url,
     			webUrl: url

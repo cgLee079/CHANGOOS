@@ -43,14 +43,14 @@
 					
 					<div class="photo-write-comment none">
 						<div class="write-userinfo">
-							<div><input type="text" class="username" placeholder="NAME" style="font-size: 0.6rem"></div>
-							<div><input type="password" class="password" placeholder="PWD" style="font-size: 0.6rem"></div>
+							<div><input type="text" class="username" placeholder="NAME"></div>
+							<div><input type="password" class="password" placeholder="PWD"></div>
 						</div>
 						<div class="write-comment">
-							<div><textarea class="contents" style="font-size: 0.6rem"></textarea></div>
+							<div><textarea class="contents" onkeyup="commentAreaResize(this)"></textarea></div>
 						</div>
 						
-						<div class="btn-write col-center" onclick="commentDoWrite(this)">등록</div>
+						<div class="btn-write" onclick="commentDoWrite(this)">등록</div>
 					</div>
 				</div>
 			</div>

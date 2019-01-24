@@ -156,7 +156,6 @@
 
 .photo-write-comment {
 	display: flex;
-	height: 2rem;
 	margin-bottom: 10px;
 }
 
@@ -166,31 +165,41 @@
 
 .photo-write-comment .write-userinfo {
 	width: 5rem;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: flex-end;
 }
 
 .photo-write-comment .write-userinfo input {
 	width: 100%;
-	height: 1rem;
 	border: none;
+	margin-bottom: 3px;
+	font-size: 0.9rem;
 }
 
 .photo-write-comment .write-comment {
 	flex: 1;
-	height: 100%;
 	margin-left: 10px;
 }
 
 .photo-write-comment .write-comment textarea {
 	width: 100%;
-	height: 100%;
 	border: none;
-	border-bottom: 1px solid #CCC;
+	border-bottom: 0.7px solid #F1F1F1;
 	resize: none;
+	overflow: hidden;
+	min-height: 2rem;
+	padding: 1px 3px;
 }
 
 .photo-write-comment .btn-write {
-	margin-left: 10px;
-	font-size: 0.6rem;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: flex-end;
+	
+	margin-left: 15px;
+	margin-bottom : 10px;
+	font-size : 0.9rem;
 	cursor: pointer;
 }
 
@@ -241,7 +250,7 @@
 		width : 100%;
 		display :  inline-block;
 		height : auto;
-		background : #FBFBFB;
+		background : #FAFAFA;
 		margin-top: 0;
 	}
 	

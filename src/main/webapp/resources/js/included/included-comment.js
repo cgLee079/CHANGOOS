@@ -18,6 +18,9 @@ $(document).ready(function(){
 	
 	drawCommentCnt();
 	commentPageMove(1); // Paging
+	
+	//Resize Area
+	$(".comment-write-contents").trigger("keyup");
 })
 
 function br2nl(text){
@@ -31,6 +34,13 @@ function nl2br(text){
 function drawCommentCnt(){
 	$(".comment-cnt").text(comtCnt);
 }
+
+function commentAreaResize(obj) {
+	var height = $(obj).height();
+	obj.style.height = "1px";
+	obj.style.height = (50 + obj.scrollHeight)+"px";
+}
+
 
 // 댓글 페이징
 function commentPageMove(pg){
