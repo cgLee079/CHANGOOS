@@ -103,27 +103,3 @@
 </ul>
 
 <p>&nbsp;</p>
-
-<h2><strong>관련사진</strong></h2>
-
-<p><strong>[반응형 웹]</strong></p>
-
-<p><img alt="CRJTGO181224235522.JPG" pathname="LGPFYR190112212559.JPG" src="http://www.changoos.com/uploaded/project/image/LGPFYR190112212559.JPG" style="border-style:solid; border-width:1px; height:416px; width:720px" title="CRJTGO181224235522.JPG"/></p>
-
-<p>&nbsp;</p>
-
-<p><strong>[관리자 페이지]</strong></p>
-
-<p><img alt="캡처.PNG" pathname="BSYYLT190114152845.PNG" src="http://www.changoos.com/uploaded/project/image/BSYYLT190114152845.PNG" style="border-style:solid; border-width:1px; height:390px; width:720px" title="캡처.PNG"/></p>
-
-<p><img alt="캡처2.PNG" pathname="CUGJKH190114152845.PNG" src="http://www.changoos.com/uploaded/project/image/CUGJKH190114152845.PNG" style="border-style:solid; border-width:1px; height:390px; width:720px" title="캡처2.PNG"/></p>
-
-<p>&nbsp;</p>
-
-<p><strong>[어플리케이션]</strong></p>
-
-<p><img alt="IZCPRP181224235523.JPG" pathname="KYCFAN190112212559.JPG" src="http://www.changoos.com/uploaded/project/image/KYCFAN190112212559.JPG" style="border-style:solid; border-width:1px; height:598px; width:720px" title="IZCPRP181224235523.JPG"/></p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
