@@ -2,9 +2,9 @@ function drawExportView(){
 	$(".bg-wrap-export").addClass("on");
 	$(".wrap-export").addClass("on");
 	$("body").css("overflow", "hidden");
-	$("body").on("scroll touchmove mousewheel", function(event) {
+	$("body").css("touch-action", "none");
+	$("body").on("scroll mousewheel", function(event) {
 		event.preventDefault();
-		event.stopPropagation();
 		return false;
 	});
 	
@@ -20,9 +20,10 @@ function drawExportView(){
 function exitExportView(){
 	$(".bg-wrap-export").removeClass("on");
 	$(".wrap-export").removeClass("on");
-	$("body").off("scroll touchmove mousewheel");
+	$("body").off("scroll mousewheel");
 	$("body").off("click");
-	$("body").css("overflow", "");
+	$("body").css("overflow", "unset");
+	$("body").css("touch-action", "unset");
 }
 
 function urlClipCopy() { 

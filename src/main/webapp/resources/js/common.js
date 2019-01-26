@@ -51,5 +51,25 @@ function encodeURIParam(data) {
 		}
 	}
 	
-	return param;
+	return encodeURI(param);
 }  
+
+
+//function disableTouchmove(){
+//	var preventDefault = function(e){
+//	    e.preventDefault();
+//	};
+//	var touchstart = function(e) {
+//	    document.addEventListener('touchstart', preventDefault,false);
+//	    document.addEventListener('touchmove',  preventDefault,false);
+//	    /*do other stuff*/
+//	};
+//	var touchend = function(e) {
+//	    document.removeEventListener('touchstart', preventDefault,false);
+//	    document.removeEventListener('touchmove',  preventDefault,false);
+//	};
+//
+//	document.addEventListener('touchstart',  touchstart, false);
+//	document.addEventListener('touchend',    touchend,   false);
+//}
+

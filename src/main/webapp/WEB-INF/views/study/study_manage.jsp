@@ -22,7 +22,14 @@
 		</div>
 		
 		<div class="study-list">
-			<table id="dg" style="width: 100%; height:100%;"></table>
+			<div id="tb" style="padding:10px 5px; text-align: right;">
+			    <span>TITLE : </span>
+			    <input id="title" style="padding :2px 3px; border:1px solid #CCC" onkeyup="javascript:if(event.keyCode==13){doSearch();}" >
+			    <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">검색</a>
+			</div>
+		
+			<table id="dg" style="width: 100%; height:100%;">
+			</table>
 		</div>
 	</div>
 	

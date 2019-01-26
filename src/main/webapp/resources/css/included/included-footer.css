@@ -10,14 +10,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.6rem;
-    padding: 2rem 0;
+    font-size: 0.8rem;
+    padding: 15px 0;
     background: #FFF;
     border-top: 0.5px solid #ececec;
 }
 
 .info-contact .btn-contact{
-	margin: 0 10px;
+	padding: 10px;
 	cursor: pointer;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .info-copyright{
-	padding: 2rem 1.5rem;
+	padding: 30px 1.5rem;
 	text-align: center;
 	font-size: 0.5rem;
 	background: #111;

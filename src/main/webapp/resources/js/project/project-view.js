@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	doMenuOn(".menu-project");
+	doMenuOn(menu.PROJECT);
 });
 
 /* when '목록' click */

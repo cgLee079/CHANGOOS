@@ -1,21 +1,22 @@
 var page 		= 1;
-var limit 		= 10;
+var limit 		= 5;
 var category 	= '';
 var totalCount	= '';
 var searchValue = '';
 var studyTemp;
 
 $(document).ready(function(){
-	doMenuOn(".menu-study");
+	doMenuOn(menu.STUDY);
 	
 	studyTemp = $(".study-list-item").clone();
 	$(".study-list-item").remove();
 	
 	/* Scroll Page event */
 	$(window).scroll(function(){
-		var scrollPosition = $(this).scrollTop();
-		var docHeight = $(this).height();
-		if(scrollPosition >= (docHeight * page) && page * limit < totalCount){
+		var scrollBottom = $(this).scrollTop()  + $(window).height();
+		var studies  = $(".study-list-item");
+		var lastStudy = studies.eq(studies.length - limit - 1);
+		if(scrollBottom >= (lastStudy.offset().top) && page * limit < totalCount){
 			page = page + 1;
 			pageMove(page);
 		}

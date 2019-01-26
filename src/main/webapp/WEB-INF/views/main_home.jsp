@@ -11,16 +11,13 @@
 	
 	<div class="main">
 		<div class="wrap-introduce">
-			<div class="me-icon" style="background-image : url(resources/image/home_icon_me.png);">
-			</div>
+			<img class="me-icon" src="${pageContext.request.contextPath}resources/image/home_icon_me.png" />
 			
 			<div class="introduce">
-				<div class="introduce-name">
-					<div class="ml9">
-					  <span class="text-wrapper">
-					    <span class="letters">Changoo Lee</span>
-					  </span>
-					</div>
+				<div class="introduce-link">
+					<a class="btn-link" href="https://github.com/cglee079" target="_blank" > <img src="${pageContext.request.contextPath}/resources/image/btn-main-git.svg"/></a>
+					<a class="btn-link" href="https://www.instagram.com/cglee079" target="_blank" > <img src="${pageContext.request.contextPath}/resources/image/btn-main-insta.svg"/></a>
+					<a class="btn-link"  href="mailto:cglee079@gmail.com"> <img src="${pageContext.request.contextPath}/resources/image/btn-main-email.svg"/></a>
 				</div>
 				
 				<div class="introduce-desc">

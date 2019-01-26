@@ -103,6 +103,15 @@ public class BlogService{
 	}
 	
 	public List<BlogVo> list(Map<String, Object> params){
+		//관리자 페이지, JQuery 데이터그리드 페이징 파라미터 변경  page, rows --> offset, limit
+		if(params.containsKey("page") && params.containsKey("rows")) {
+			int page = Integer.valueOf((String)params.get("page"));
+			int rows = Integer.valueOf((String)params.get("rows"));
+			int offset = ((page - 1) * rows);
+			params.put("offset", offset);
+			params.put("limit", rows);	
+		}
+		
 		if(params.containsKey("tags")) {
 			String tags = (String) params.get("tags");
 			params.put("tags", new HashSet<String>(Arrays.asList(tags.split(","))));

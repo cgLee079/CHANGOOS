@@ -78,6 +78,9 @@
 					ON BLOG_SEQ = C.BOARD_SEQ
 				<trim prefix="WHERE" prefixOverrides="AND |OR ">
 					AND BLOG_TAG like '%${item}%' 
+				<if test="title != null and title != ''">
+			 		AND UPPER(BLOG_TITLE) LIKE CONCAT('%', UPPER(#{title}), '%')
+		  		</if>
 				<if test="enabled != null">
 					AND BLOG_ENABLED = #{enabled}
 	  			</if>
@@ -106,6 +109,9 @@
 					GROUP BY BOARD_SEQ) C
 					ON BLOG_SEQ = C.BOARD_SEQ
 				<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="title != null and title != ''">
+			 		AND UPPER(BLOG_TITLE) LIKE CONCAT('%', UPPER(#{title}), '%')
+		  		</if>
 				<if test="enabled != null">
 					AND BLOG_ENABLED = #{enabled}
 	  			</if>
@@ -142,6 +148,9 @@
 					TB_CHANGOOS_BLOG 
 				<trim prefix="WHERE" prefixOverrides="AND |OR ">
 					AND BLOG_TAG like '%${item}%' 
+				<if test="title != null and title != ''">
+			 		AND UPPER(BLOG_TITLE) LIKE CONCAT('%', UPPER(#{title}), '%')
+		  		</if>
 				<if test="enabled != null">
 					AND BLOG_ENABLED = #{enabled}
 	  			</if>
@@ -154,6 +163,9 @@
 				FROM 
 					TB_CHANGOOS_BLOG 
 				<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="title != null and title != ''">
+			 		AND UPPER(BLOG_TITLE) LIKE CONCAT('%', UPPER(#{title}), '%')
+		  		</if>
 				<if test="enabled != null">
 					AND BLOG_ENABLED = #{enabled}
 	  			</if>

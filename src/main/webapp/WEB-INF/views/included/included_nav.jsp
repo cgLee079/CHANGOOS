@@ -43,64 +43,63 @@
 			</div>
 		</div>
 		
-	</div>
-</div>
-
-<!-- MOBILE용 메뉴바 -->
-<div class="mob-nav">
-	<div class="mobnav-search-field">
-		<input type="text" class="global-search">
-	</div>
-	<div class="wp-mobnav-search" >
-		<img class="icon-mobnav-search" onclick="focuseSearch(this)"  src="${pageContext.request.contextPath}/resources/image/btn_global_search.svg"/>
-	</div>
-	
-	<!-- 
-	<sec:authorize access="!hasRole('ROLE_ADMIN')">
-		<div class="wp-mobnav-login" >
-		<img class="icon-movnav-login" onclick="window.location.href = getContextPath() + '/login'"  
-			src="${pageContext.request.contextPath}/resources/image/btn-nav-login.svg"/>
+		<!-- MOBILE용 메뉴바 -->
+		<div class="mob-nav">
+			<div class="wrap-mobnav-icon" onclick="drawMobileMenu(this)">
+				<div class="mobnav-icon">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
 		</div>
-	</sec:authorize>	
-
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<div class="wp-mobnav-logout" >
-		<img class="icon-movnav-logout" onclick="window.location.href = getContextPath() + '/j_spring_security_logout'"
-			 src="${pageContext.request.contextPath}/resources/image/btn-nav-logout.svg"/>
-		</div>
-	</sec:authorize>	
-	 -->
 		
-	<div class="wrap-mobnav-icon">
-		<div class="mobnav-icon">
-			<span></span>
-			<span></span>
-			<span></span>
-			<span></span>
+		<div class="bg-mob-menus"></div>
+		<div class="mob-menus">
+			<div class="mob-menu-header">
+				<img src="${pageContext.request.contextPath}/resources/image/icon-logo.svg"  onclick="window.location.href = '${pageContext.request.contextPath}/'" ></img>
+			</div>
+			
+			<div class="mob-menu-margin"></div>
+			<div class="mob-menu search">
+				<div class="mobnav-search-field">
+					<input type="text" class="global-search">
+				</div>
+				<div class="wp-mobnav-search" >
+					<a href="javascript:void(0)" onclick="focuseSearch(this)">검색</a>
+				</div>
+			</div>
+			<div class="mob-menu"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">이력</a></div>
+			<div class="mob-menu"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/projects">프로젝트</a></div>
+			<div class="mob-menu"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/studies">스터디</a></div>
+			<div class="mob-menu"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/blogs">블로그</a></div>
+			<div class="mob-menu"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photos">사진</a></div>
+			
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<div class="mob-menu-margin"></div>
+		 		<div class="mob-menu"><a href="${pageContext.request.contextPath}/mgnt/projects">프로젝트관리 </a></div>
+		 		<div class="mob-menu"><a href="${pageContext.request.contextPath}/mgnt/studies">스터디관리 </a></div>
+		 		<div class="mob-menu"><a href="${pageContext.request.contextPath}/mgnt/blogs">블로그관리 </a></div>
+		 		<div class="mob-menu"><a href="${pageContext.request.contextPath}/mgnt/photos">사진관리 </a></div>
+			</sec:authorize>
+			
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<div class="mob-menu-margin"></div>
+				<div class="mob-menu"><a href="${pageContext.request.contextPath}/j_spring_security_logout">로그아웃</a></div>
+			</sec:authorize>
+			
+			<div class="mob-menu-margin"></div>
+			<div class="mob-menu"><a href="https://github.com/cglee079" target="_blank" >Github</a></div>
+			<div class="mob-menu"><a href="https://www.instagram.com/cglee079" target="_blank" >Instagram</a></div>
+			
+			<sec:authorize access="!hasRole('ROLE_ADMIN')">
+				<div class="mob-menu-margin"></div>
+				<div class="mob-menu"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/login">로그인</a></div>
+			</sec:authorize>
+			
 		</div>
 	</div>
 </div>
-	
-<div class="wrap-bg-mobmenu">
-	<div class="bg-mobmenu"></div>
-</div>
-<div class="mob-menus unvalid col-center">
-	<div class="mob-menu btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/introduce">이력</a></div>
-	<div class="mob-menu btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/projects">프로젝트</a></div>
-	<div class="mob-menu btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/studies">스터디</a></div>
-	<div class="mob-menu btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/blogs">블로그</a></div>
-	<div class="mob-menu btn-slideup"><a onclick="Progress.start()" href="${pageContext.request.contextPath}/photos">사진</a></div>
-	
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
- 		<div class="mob-menu btn-slideup"><a href="${pageContext.request.contextPath}/mgnt/projects">프로젝트관리 </a></div>
- 		<div class="mob-menu btn-slideup"><a href="${pageContext.request.contextPath}/mgnt/studies">스터디관리 </a></div>
- 		<div class="mob-menu btn-slideup"><a href="${pageContext.request.contextPath}/mgnt/blogs">블로그관리 </a></div>
- 		<div class="mob-menu btn-slideup"><a href="${pageContext.request.contextPath}/mgnt/photos">사진관리 </a></div>
- 		<div class="mob-menu btn-slideup"><a href="${pageContext.request.contextPath}/j_spring_security_logout">로그아웃</a></div>
-	</sec:authorize>
-</div>
-
-
 
 
 <!--  MAIN 	-->

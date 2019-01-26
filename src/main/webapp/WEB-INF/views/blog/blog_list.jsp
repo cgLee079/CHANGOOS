@@ -44,7 +44,7 @@
 			</div>
 			<div class="blog-tags">
 				<c:forEach var="tag" items="${totalTags}">
-					<a class="tag" onclick="doSearchTag(this)" ><c:out value="${tag}"/></a>
+					<a class="tag" onclick="doSearchTag(this)" >${tag}</a>
 				</c:forEach>
 			</div>
 		</div>

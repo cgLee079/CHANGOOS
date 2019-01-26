@@ -11,5 +11,13 @@
 .study-list{
 	width : 100%;
 	height : 75%;
+
+}
+
+@media ( max-width : 800px) {
+	.wrap-study-list{
+		width : 95%;
+		margin : 0 auto;
+	}
 }
 

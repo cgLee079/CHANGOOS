@@ -1,48 +1,37 @@
 var currentView 	= 0;
 var loading 		= false;
-var photoWrapper 	= undefined;
 var seqs 			= undefined;
 var templeate		= undefined;
 
 $(document).ready(function(){
-	doMenuOn(".menu-photo");
+	doMenuOn(menu.PHOTO);
 	
-	if(isMobile){
-		photoWrapper = $(".wrap-photo-list");
-		$(window).scroll(function(){
-			var scrollPosition = $(this).scrollTop();
-			var docHeight = $(this).height();
-			if(scrollPosition >= ((docHeight * 0.6) * (currentView - 1)) && !loading && currentView < seqs.length){
-				loadPhoto(currentView);
-				console.log("load")
-				currentView++;
-			}
-		});
-	} 
-	
-	else{
-		photoWrapper = $(".photo-list");
-		photoWrapper.scroll(function(){
-			var scrollPosition = $(this).scrollTop() + $(this).outerHeight();
-			var docHeight = $(this)[0].scrollHeight ;
-			if(scrollPosition >= (docHeight * 0.6) && !loading && currentView < seqs.length){
-				loadPhoto(currentView);
-				currentView++;
-			}
-		});
-	}
+	//Scroll 페이징 이벤트
+	if(isMobile){ $(window).scroll(scrollPaging); } 
+	else{ $(".photo-list").scroll(scrollPaging);}
 	
 	templeate = $(".photo-list-item").clone();
 	$(".photo-list-item").remove();
 	seqs = JSON.parse($("#seqs").val());
 	
+	//기본 사진 2장.
 	loadPhoto(currentView);
 	currentView++;
 	loadPhoto(currentView);
 	currentView++;
 });
 
-/* Ajax, when scroll close bottom */
+function scrollPaging(){
+	var scrollBottom = $(this).scrollTop()  + $(window).height();
+	var photos  = $(".photo-list-item");
+	var lastPhoto = photos.eq(photos.length - 1);
+	if(scrollBottom >= lastPhoto.offset().top && !loading && currentView < seqs.length){
+		loadPhoto(currentView);
+		currentView++;
+	}
+}
+
+/* 사진 로딩, Scroll 페이징 */
 function loadPhoto(currentView){
 	var seq = seqs[currentView];
 	var photoLoading = $("<div>", {"class" : "photo-loading col-center", "text" : "Loading..."});
@@ -53,7 +42,7 @@ function loadPhoto(currentView){
 		dataType: 'JSON',
 		async	: false,
 		beforeSend : function(){
-			photoLoading.appendTo(photoWrapper);
+			photoLoading.appendTo($(".photo-list"));
 			loading  = true;
 		},
 		success : function(photo) {
@@ -80,7 +69,7 @@ function loadPhoto(currentView){
 			}
 			
 			photoLoading.remove();
-			item.appendTo(photoWrapper);
+			item.appendTo($(".photo-list"));
 			
 			loadComment(item.find(".photo-comments"), seq);
 		},
@@ -109,7 +98,7 @@ function loadComment(parent, seq){
 				datum = data[i];
 				comment = $("<div>", {"class" : "comment"});
 				$("<input>", {"type": "hidden", "class" : "comment-seq", "value" : datum.seq}).appendTo(comment);
-				$("<div>", {"class" : "comment-userinfo", "text" : datum.username}).appendTo(comment);
+				$("<div>", {"class" : "comment-userinfo", "onclick" : "commentUsernameOnClick(this)", "text" : datum.username}).appendTo(comment);
 				$("<div>", {"class" : "comment-contents", "text" : datum.contents}).appendTo(comment);
 				$("<div>", {"class" : "comment-date", "text" : datum.date}).appendTo(comment);
 				$("<div>", {"class" : "btn-comment-delete", "onclick" : "commentDelete(this)", "text" : "삭제"}).appendTo(comment);
@@ -183,11 +172,27 @@ function drawCommentForm(tg){
 	var tg = $(tg);
 	var writeComment = tg.parents(".photo-sub").find(".photo-write-comment");
 	writeComment.toggleClass("none");
+	
+	//Comment TextArea Resize;
+	writeComment.find(".write-comment .contents").trigger("keyup");
 }
 
-function commentAreaResize(obj) {
-  obj.style.height = "1px";
-  obj.style.height = (8 + obj.scrollHeight)+"px";
+function commentAreaResize(tg) {
+	tg.style.height = "1px";
+	tg.style.height = (8 + tg.scrollHeight)+"px";
+}
+
+/* 댓글 이름 클릭시 @Username 작성 */
+function commentUsernameOnClick(tg){
+	var tg = $(tg);
+	var username = tg.text();
+	var writeComment = tg.parents(".photo-comments").siblings(".photo-write-comment ");
+	var writeCommentContents = writeComment.find(".contents");
+	
+	writeComment.removeClass("none");
+	writeCommentContents.val(writeCommentContents.val() + "@" + username + " ");
+	writeCommentContents.focus();
+	writeCommentContents.trigger("keyup") // Resize TextArea;
 }
 
 function commentDelete(tg){
@@ -198,7 +203,7 @@ function commentDelete(tg){
 	commentDoCheck(photoSeq, seq, commentDoDelete, tg);
 }
 
-/* 댓글 검증하기 */
+/* 댓글 비밀번호 확인*/
 function commentDoCheck(photoSeq, seq, callback, callbackValue){
 	swal({
 	  	text: '비밀번호를 입력해주세요',

@@ -29,7 +29,6 @@
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-nanumgothic.css'/>
  
 <!-- lib-css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lib/letter-motion.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ckeditor/plugins/prism/lib/prism/prism_patched.min.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.5/themes/material/easyui.css"/>
 
@@ -43,8 +42,6 @@
 <!-- Javascript 라이브러리-->
 <script src="${pageContext.request.contextPath}/resources/js/lib/jquery-3.2.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/lib/jquery-ui-1.12.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/lib/anime-2.2.0.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/lib/letter-motion.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/lib/sweetalert.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/lib/cg-autocomplete.js"></script>
 <script src="${pageContext.request.contextPath}/resources/ckeditor/plugins/prism/lib/prism/prism_patched.min.js"></script>

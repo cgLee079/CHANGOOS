@@ -3,8 +3,8 @@
 	flex-flow: row wrap;
 	justify-content: flex-start;
 	margin: 0px -20px;
-	margin-top: 30px;
-	margin-bottom: 150px;
+	padding-top: 30px;
+	padding-bottom: 150px;
 }
 
 .project-view {
@@ -136,9 +136,9 @@
 @media ( max-width : 800px) {
 	.project-list {
 		margin: 0 auto;
-		background: #FAFAFA;
-		margin-top: 0;
-		margin-bottom: 0;
+		background: #F9F9F9;
+		padding-top: 0;
+		padding-bottom: 50;
 	}
 	
 	.project-view {
@@ -146,8 +146,6 @@
 		opacity: 1;
 		margin-bottom: 10px;
     	padding : 30px 20px;
-		border-top: 0.5px solid #F0F0F0;
-		border-bottom: 0.5px solid #F0F0F0;
 	}
 	
 	.project-view:first-child{

@@ -8,8 +8,15 @@
 <style>
 
 .wrap-sch-result {
-	margin: 50px 0 70px 0;
+	margin-top : 50px;
+	margin-bottom : 70px;
 	min-height: calc(100% - var(--nav-height));
+}
+
+@media (max-width : 800px){
+	.wrap-sch-result{
+		margin-top : 20px;
+	}
 }
 
 .board{
@@ -18,10 +25,7 @@
     border-bottom: 0.6px solid #F1F1F1;
 }
 
-.board:first-child{
-	margin-top : 0;
-	padding-top: 0;
-}
+
 
 .board .board-title {
 	color : #333;

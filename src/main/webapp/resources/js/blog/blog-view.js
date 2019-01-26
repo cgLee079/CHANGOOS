@@ -1,4 +1,4 @@
 $(document).ready(function() {
-	doMenuOn(".menu-blog");
+	doMenuOn(menu.BLOG);
 });
 

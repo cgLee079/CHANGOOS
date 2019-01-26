@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	doMenuOn(".menu-mgnt-blog");
+	doMenuOn(menu.MGNT_BLOG);
 	initContentCKEditor();
 });
 

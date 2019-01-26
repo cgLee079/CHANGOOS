@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	doMenuOn(".menu-mgnt-study");
+	doMenuOn(menu.MGNT_STUDY);
 	initContentCKEditor();
 });
 

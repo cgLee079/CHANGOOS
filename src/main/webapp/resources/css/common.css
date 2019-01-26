@@ -1,6 +1,7 @@
 :root{
 	--body-max-width : 1080px;
 	--nav-height : 60px;
+	--font : 'Nanum Square', 'Nanum Gothic', sans-serif;
 }
 
 /* basic-set*/
@@ -16,12 +17,15 @@ html, body, .wrapper{
 
 body {
 	overflow-x: hidden;
-	font-family: 'Nanum Square', 'Nanum Gothic', sans-serif;
-	font-weight: normal;
+	font-family: var(--font);
 	max-width: var(--body-max-width);
 	margin: 0 auto;
 	padding: 0 3%;
 	line-height: 1.5;
+}
+
+input, textArea{
+	font-family: var(--font) !important;
 }
 
 a, a:VISITED {

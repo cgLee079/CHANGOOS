@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.model.BlogVo;
+import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.service.BlogService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -78,8 +79,15 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/blogs/records", method = RequestMethod.GET)
 	public String blogManagePaging(@RequestParam Map<String, Object> params) {
+		int totalCount = blogService.count(params);
+		
 		List<BlogVo> blogs = blogService.list(params);
-		return new Gson().toJson(blogs).toString();
+		
+		JSONObject resultMap = new JSONObject();
+		resultMap.put("rows", new JSONArray(new Gson().toJson(blogs)));
+		resultMap.put("total", totalCount);
+		
+		return resultMap.toString();
 	}
 
 	/** 블로그 업로드 페이지로 이동 **/

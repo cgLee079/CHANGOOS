@@ -70,7 +70,6 @@
 
 .photo-list-item .photo-detail>.photo-info {
 	display: flex;
-	justify-content: space-between;
 }
 
 .photo-list-item .photo-detail>.photo-info>.photo-name {
@@ -81,17 +80,16 @@
 
 .photo-list-item .photo-detail>.photo-info>.photo-like {
 	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	
-	margin-left : 5px;
-	color : #F33;
+    align-items: flex-end;
+    margin-left: 5px;
+    color: #F33;
 }
 
 .photo-list-item .photo-detail>.photo-info>.photo-date-loc {
 	color: #555;
 	display: flex;
 	align-items: flex-end;
+	margin-left: auto;
 }
 
 .photo-list-item .photo-detail>.photo-desc {
@@ -128,7 +126,7 @@
 .photo-comments .comment .comment-userinfo {
 	width: 7rem;
 	font-weight: bold;
-	
+	cursor: pointer;
 }
 
 .photo-comments .comment .comment-contents {
@@ -246,18 +244,20 @@
 }
 
 @media ( max-width : 800px) {
-	.wrap-photo-list {
+	.wrap-photo-list{
+		display: block;
+	}
+	
+	.photo-list {
 		width : 100%;
-		display :  inline-block;
-		height : auto;
-		background : #FAFAFA;
-		margin-top: 0;
+		background : #F9F9F9;
+		height : unset;
+		margin-right : 0;
+		-ms-overflow-style : unset;	
 	}
 	
 	.photo-list-item{
 		border : none;
-		border-top : 0.5px solid #F1F1F1;
-		border-bottom : 0.5px solid #F1F1F1;
 		margin: 10px 0;
 	}
 	
@@ -269,7 +269,7 @@
 		width: 90%;
 	}
 
-	.photo-list, .snapsht-list {
+	.snapsht-list {
 		display: none;
 	}
 }

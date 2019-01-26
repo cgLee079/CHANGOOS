@@ -1,26 +1,28 @@
-var limit 	= 5;
+var limit 		= 5;
 var page 		= 1;
 var totalCount	= undefined;
 var blogItemTemp= undefined;
 var tags		= new Array();
 
 $(document).ready(function(){
-	doMenuOn(".menu-blog");
+	doMenuOn(menu.BLOG);
 	
 	blogItemTemp = $(".blog-item").clone();
 	$(".blog-item").remove();
 	
 	totalCount = $("#totalCount").val();
 	
+	// Tags 공백 제거.
 	if($("#tags").val()){
 		tags = $("#tags").val().replace(/ /gi,'').split(",");
 	}
 	
-	/* Add Scroll Page event */
+	/* Scroll Paging */
 	$(window).scroll(function(){
-		var scrollPosition = $(this).scrollTop();
-		var docHeight = $(this).height();
-		if(scrollPosition >= (docHeight * page) - (docHeight/2) && page * limit < totalCount){
+		var scrollBottom = $(this).scrollTop()  + $(window).height();
+		var blogs  = $(".blog-item");
+		var lastBlog = blogs.eq(blogs.length - limit - 1);
+		if(scrollBottom >= (lastBlog.offset().top) && page * limit < totalCount){
 			page = page + 1;
 			pageMove(page);
 		}
@@ -122,7 +124,7 @@ function drawTags(){
 	
 	for(var i = 0; i < tags.length; i++){
 		allTag.each(function(){
-			if($(this).text() === tags[i]){
+			if($(this).text() == tags[i]){
 				$(this).addClass("on");
 			}
 		})
@@ -131,7 +133,7 @@ function drawTags(){
 
 function doSearchTag(tg){
 	var tg = $(tg);
-	var tag = tg.text().trim();
+	var tag = tg.text();
 	
 	tg.toggleClass("on");
 	if(tg.hasClass("on")){

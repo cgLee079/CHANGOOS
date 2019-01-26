@@ -33,6 +33,8 @@ public class StudyController {
 	/** 공부 리스트로 이동 **/
 	@RequestMapping(value = "/studies", method = RequestMethod.GET)
 	public String studyList(Model model, @RequestParam Map<String, Object> params) throws SQLException, JsonProcessingException{
+		params.put("enabled", true);
+		
 		List<String> categories = studyService.getCategories();
 		int totalCount = studyService.count(params);
 		
@@ -74,7 +76,9 @@ public class StudyController {
 	
 	/** 공부 관리 페이지로 이동 **/
 	@RequestMapping(value = "/mgnt/studies", method = RequestMethod.GET)
-	public String studyManage() {
+	public String studyManage(Model model) {
+		int totalCount = studyService.count(null);
+		model.addAttribute("totalCount", totalCount);
 		return "study/study_manage";
 	}
 	
@@ -82,8 +86,16 @@ public class StudyController {
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/studies/records", method = RequestMethod.GET)
 	public String studyMangePaging(@RequestParam Map<String, Object> params) {
+		int totalCount = studyService.count(params);
+		
 		List<StudyVo> studies = studyService.list(params);
-		return new Gson().toJson(studies).toString();
+		
+		JSONObject resultMap = new JSONObject();
+		resultMap.put("rows", new JSONArray(new Gson().toJson(studies)));
+		resultMap.put("total", totalCount);
+
+		
+		return resultMap.toString();
 	}
 	
 	/** 공부 업로드 페이지로 이동 **/

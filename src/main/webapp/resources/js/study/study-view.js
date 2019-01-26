@@ -1,7 +1,7 @@
 var category;
 
 $(document).ready(function(){
-	doMenuOn(".menu-study");
+	doMenuOn(menu.STUDY);
 	
 	category = $("#category").val();
 	

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	doMenuOn(".menu-mgnt-photo");
+	doMenuOn(menu.MGNT_PHOTO);
 
 	initDescCKEditor();
 

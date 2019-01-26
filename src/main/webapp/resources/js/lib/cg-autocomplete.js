@@ -5,6 +5,7 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 	var onEnter = param.onEnter;
 	var maxValues = param.maxValues;
 	var inputFocusClass = param.inputFocusClass;
+	var listClass = param.listClass;
 	var listItemClass = param.listItemClass;
 	var listItemFocusClass = param.listItemFocusClass;
 	var ts = $(this);
@@ -14,7 +15,6 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 	
 	var wrapSearch = $("<div>");
 	wrapSearch.addClass("wrap-search");
-	wrapSearch.css("position", "relative");
 	
 	var searchField = $("<input>");
 	searchField.appendTo(wrapSearch);
@@ -26,14 +26,13 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 	searchField.addClass("search-field");
 
 	var facetPanel= $("<div>");
-	facetPanel.appendTo(wrapSearch);
-	facetPanel.addClass("facet-panel");
+	facetPanel.appendTo($("body"));
+	facetPanel.addClass(listClass);
 	facetPanel.css("min-height", param.panelMinHeight);
 	facetPanel.css("max-height", param.panelMaxHeight);
-	//facetPanel.css("overflow-y", "scroll");
 	facetPanel.css("overflow-x", "hidden");
 	facetPanel.css("border", "0.5px solid #DDD");
-	facetPanel.css("position", "absolute");
+	facetPanel.css("position", "fixed");
 	facetPanel.css("background", "#FFF");
 	facetPanel.css("display", "none");
 	
@@ -48,7 +47,6 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 		var el = $(this);
 		setTimeout(function() { 
 			el.removeClass(inputFocusClass);
-			var facetPanel = el.siblings(".facet-panel");
 			facetPanel.css("display", "none"); 
 		}, 100);
 	});
@@ -98,12 +96,6 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 				}
 			 	break;
 			default : 
-				if(!el.val()){
-					facetPanel.empty();
-					facetPanel.css("display", "none");
-					return;
-				}
-			
 				if (!getFacetsTimer) {
 					var now = new Date().getTime();
 					
@@ -120,16 +112,21 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 				}
 				
 				function getFacets(){
+					if(!el.val()){
+						facetPanel.empty();
+						facetPanel.css("display", "none");
+						return;
+					}
+					
 					$.ajax({
 						type	: "GET",
 						url		: dataURL +"?value=" + encodeURIComponent(el.val()),
 						dataType: 'JSON',
 						success : function(result) {
-							var facetPanel = el.siblings(".facet-panel");
 							facetPanel.empty();
 							facetPanel.css("width", el.width());
-							facetPanel.css("left", el[0].offsetLeft);
-							facetPanel.css("top", el[0].offsetTop + el.height());
+							facetPanel.css("left", el.offset().left);
+							facetPanel.css("top", el.offset().top + el.height());
 							facetPanel.css("display", "initial");
 							
 							var length = result.length > maxValues ? maxValues : result.length;

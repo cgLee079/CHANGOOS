@@ -1,16 +1,26 @@
+var limit = 20;
+
 $(document).ready(function(){
-	doMenuOn(".menu-mgnt-study");
+	doMenuOn(menu.MGNT_STUDY);
 	
 	fn_onInitDataGrid();
 });
 
+function doSearch(){
+	 $('#dg').datagrid('load',{
+		 title: $('#title').val(),
+	 });
+}
+
 /* Datagrid Initialize */
 function fn_onInitDataGrid(){
 	$('#dg').datagrid({
+		toolbar : '#tb',
 		url: getContextPath() + '/mgnt/studies/records',
 		method: 'GET',
 		singleSelect: true,
 		remoteSort: true,
+		pagination: true,
 		fitColumns: false,
 		checkOnSelect: false,
 		selectOnCheck: false,
@@ -33,7 +43,17 @@ function fn_onInitDataGrid(){
 			{field:'hits', title:'조회수', width:'70px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'date', title:'작성일', width:'100px', halign:'center', sortable : "true", styler : alignCenter},
 			{field:'enabled', title:'공개여부', width:'100px', halign:'center', sortable : "true", styler : alignCenter},
-		]]
+		]],
+		//Paging
+		pageList: [limit, limit*2, limit*3, limit*4],
+	  	pageSize: limit,
+	});
+	
+	var pager = $('#dg').datagrid('getPager');    // get the pager of datagrid
+	pager.pagination({ 
+		displayMsg : '{total} 중 {from}-{to} 스터디',
+		beforePageText : '',
+		afterPageText : '페이지 ',
 	});
 }
 
