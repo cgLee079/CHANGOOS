@@ -80,15 +80,6 @@ public class StudyService {
 	}
 
 	public List<StudyVo> list(Map<String, Object> param) {
-		//관리자 페이지, JQuery 데이터그리드 페이징 파라미터 변경  page, rows --> offset, limit
-		if(param.containsKey("page") && param.containsKey("rows")) {
-			int page = Integer.valueOf((String)param.get("page"));
-			int rows = Integer.valueOf((String)param.get("rows"));
-			int offset = ((page - 1) * rows);
-			param.put("offset", offset);
-			param.put("limit", rows);	
-		}
-		
 		return studyDao.list(param);
 	}
 	

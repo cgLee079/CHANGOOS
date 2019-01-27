@@ -77,8 +77,6 @@ public class StudyController {
 	/** 공부 관리 페이지로 이동 **/
 	@RequestMapping(value = "/mgnt/studies", method = RequestMethod.GET)
 	public String studyManage(Model model) {
-		int totalCount = studyService.count(null);
-		model.addAttribute("totalCount", totalCount);
 		return "study/study_manage";
 	}
 	
@@ -86,6 +84,15 @@ public class StudyController {
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/studies/records", method = RequestMethod.GET)
 	public String studyMangePaging(@RequestParam Map<String, Object> params) {
+		//관리자 페이지, JQuery 데이터그리드 페이징 파라미터 변경  page, rows --> offset, limit
+		if(params.containsKey("page") && params.containsKey("rows")) {
+			int page = Integer.valueOf((String)params.get("page"));
+			int rows = Integer.valueOf((String)params.get("rows"));
+			int offset = ((page - 1) * rows);
+			params.put("offset", offset);
+			params.put("limit", rows);	
+		}
+				
 		int totalCount = studyService.count(params);
 		
 		List<StudyVo> studies = studyService.list(params);
