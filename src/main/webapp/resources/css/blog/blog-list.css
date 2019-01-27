@@ -114,7 +114,6 @@
 	flex: 1;
 	display: flex;
 	flex-flow: column nowrap;
-	cursor: pointer;
 }
 
 .blog-item .blog-item-desc .blog-item-title {
@@ -124,6 +123,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	margin-bottom: 7px;
+	cursor: pointer;
 }
 
 .blog-item .blog-item-desc .blog-item-content {
@@ -135,6 +135,7 @@
 	-webkit-line-clamp: 4;
 	max-height: 6rem;
 	word-break: break-word;
+	cursor: pointer;
 }
 
 .blog-item .blog-item-desc .blog-item-empty {
