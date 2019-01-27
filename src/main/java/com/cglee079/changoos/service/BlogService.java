@@ -51,16 +51,11 @@ public class BlogService{
 	@Value("#{constant['blog.thumb.max.width']}")private int thumbMaxWidth;
 	
 	public int count(Map<String, Object> params) {
-		if(params.containsKey("tags")) {
-			String tags = (String)params.get("tags");
-			params.put("tags", new HashSet<String>(Arrays.asList(tags.split(","))));
-		}
-		
 		return blogDao.count(params);
 	}
 	
-	public Set<String> getTags() {
-		List<String> tagDummys = blogDao.getTags();
+	public Set<String> getTags(Map<String,Object> params) {
+		List<String> tagDummys = blogDao.getTags(params);
 		Set<String> tags = new HashSet<String>();
 		
 		String[] split = null;
@@ -103,19 +98,6 @@ public class BlogService{
 	}
 	
 	public List<BlogVo> list(Map<String, Object> params){
-		//관리자 페이지, JQuery 데이터그리드 페이징 파라미터 변경  page, rows --> offset, limit
-		if(params.containsKey("page") && params.containsKey("rows")) {
-			int page = Integer.valueOf((String)params.get("page"));
-			int rows = Integer.valueOf((String)params.get("rows"));
-			int offset = ((page - 1) * rows);
-			params.put("offset", offset);
-			params.put("limit", rows);	
-		}
-		
-		if(params.containsKey("tags")) {
-			String tags = (String) params.get("tags");
-			params.put("tags", new HashSet<String>(Arrays.asList(tags.split(","))));
-		}
 		
 		List<BlogVo> blogs 	= blogDao.list(params);
 		BlogVo blog 		= null;

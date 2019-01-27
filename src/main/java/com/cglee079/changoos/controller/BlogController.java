@@ -2,6 +2,8 @@ package com.cglee079.changoos.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,10 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.changoos.model.BlogVo;
-import com.cglee079.changoos.model.StudyVo;
 import com.cglee079.changoos.service.BlogService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 @Controller
@@ -38,7 +38,11 @@ public class BlogController {
 		params.put("enabled", true);
 		String tags = (String)params.get("tags");
 		
-		Set<String> totalTags = blogService.getTags();
+		if(tags != null) {
+			params.put("tags", new HashSet<String>(Arrays.asList(tags.split(","))));
+		}
+		
+		Set<String> totalTags = blogService.getTags(params);
 		int count = blogService.count(params);
 		
 		model.addAttribute("totalTags", totalTags);
@@ -54,6 +58,10 @@ public class BlogController {
 	@RequestMapping(value = "/blogs/records", method = RequestMethod.GET)
 	public String blogPaging(@RequestParam Map<String, Object> params) {
 		params.put("enabled", true);
+		if(params.containsKey("tags")) {
+			String tags = (String) params.get("tags");
+			params.put("tags", new HashSet<String>(Arrays.asList(tags.split(","))));
+		}
 		
 		List<BlogVo> blogs = blogService.list(params);
 		
@@ -79,6 +87,15 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping(value = "/mgnt/blogs/records", method = RequestMethod.GET)
 	public String blogManagePaging(@RequestParam Map<String, Object> params) {
+		//관리자 페이지, JQuery 데이터그리드 페이징 파라미터 변경  page, rows --> offset, limit
+		if(params.containsKey("page") && params.containsKey("rows")) {
+			int page = Integer.valueOf((String)params.get("page"));
+			int rows = Integer.valueOf((String)params.get("rows"));
+			int offset = ((page - 1) * rows);
+			params.put("offset", offset);
+			params.put("limit", rows);	
+		}
+		
 		int totalCount = blogService.count(params);
 		
 		List<BlogVo> blogs = blogService.list(params);

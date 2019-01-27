@@ -1,5 +1,6 @@
 package com.cglee079.changoos.dao;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +22,8 @@ public class BlogDao {
 		return sqlSession.selectOne(namespace +".count", params);
 	}
 
-	public List<String> getTags() {
-		return sqlSession.selectList(namespace +".getTags");
+	public List<String> getTags(Map<String, Object> params) {
+		return sqlSession.selectList(namespace +".getTags", params);
 	}
 	
 	public BlogVo get(int seq) {

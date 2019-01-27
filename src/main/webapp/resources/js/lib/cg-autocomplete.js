@@ -126,7 +126,7 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 							facetPanel.empty();
 							facetPanel.css("width", el.width());
 							facetPanel.css("left", el.offset().left);
-							facetPanel.css("top", el.offset().top + el.height());
+							facetPanel.css("top", el[0].offsetTop + el.height());
 							facetPanel.css("display", "initial");
 							
 							var length = result.length > maxValues ? maxValues : result.length;

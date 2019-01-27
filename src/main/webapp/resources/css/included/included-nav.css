@@ -184,17 +184,19 @@
 
 .mob-menus .mob-menu-header img{
 	width : 70%;
+	max-height : 20%;
 	margin: 0 auto;
 }
 
 .mob-menus .mob-menu{
-	padding : 15px 20px;
+	padding : 0px 20px;
 	background: #FFF;
 	font-size: 1.3rem;
  	color: #444;
 }
 
 .mob-menus .mob-menu a{
+	padding : 15px 0px;
 	display: block;
     width: auto;
 }

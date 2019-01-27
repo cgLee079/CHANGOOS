@@ -51,76 +51,43 @@
 	
 	<select id="list" resultMap="blogResultMap" parameterType="map">
 		/* 블로그 페이징 */
-		SELECT X.* 
-      	FROM (
-      		<choose>
-      		<when test="tags != null and tags.size() != 0">
-	      		<foreach collection="tags"  item="item" separator="UNION DISTINCT">
-				SELECT
-					A.*, 
-					B.IMG_SEQ,
-					B.EDITOR_ID,
-					B.IMG_PATHNM,
-					B.IMG_FILENM,
-					C.comtCnt
-				FROM 
-					TB_CHANGOOS_BLOG A 
-					LEFT JOIN 
-					(SELECT *
-					FROM TB_CHANGOOS_BLOG_IMAGE
-					GROUP BY BOARD_SEQ) B
-					ON BLOG_SEQ = B.BOARD_SEQ
-					LEFT JOIN 
-					(SELECT BOARD_SEQ, COUNT(COMT_SEQ) as comtCnt
-					FROM TB_CHANGOOS_BLOG_COMT
-					WHERE COMT_ENABLED = true
-					GROUP BY BOARD_SEQ) C
-					ON BLOG_SEQ = C.BOARD_SEQ
-				<trim prefix="WHERE" prefixOverrides="AND |OR ">
-					AND BLOG_TAG like '%${item}%' 
-				<if test="title != null and title != ''">
-			 		AND UPPER(BLOG_TITLE) LIKE CONCAT('%', UPPER(#{title}), '%')
-		  		</if>
-				<if test="enabled != null">
-					AND BLOG_ENABLED = #{enabled}
-	  			</if>
-	  			</trim>
-				</foreach>
-			</when>
-			<otherwise>
-				SELECT
-					A.*, 
-					B.IMG_SEQ,
-					B.EDITOR_ID,
-					B.IMG_PATHNM,
-					B.IMG_FILENM,
-					C.comtCnt
-				FROM 
-					TB_CHANGOOS_BLOG A 
-					LEFT JOIN 
-					(SELECT *
-					FROM TB_CHANGOOS_BLOG_IMAGE
-					GROUP BY BOARD_SEQ) B
-					ON BLOG_SEQ = B.BOARD_SEQ
-					LEFT JOIN 
-					(SELECT BOARD_SEQ, COUNT(COMT_SEQ) as comtCnt
-					FROM TB_CHANGOOS_BLOG_COMT
-					WHERE COMT_ENABLED = true
-					GROUP BY BOARD_SEQ) C
-					ON BLOG_SEQ = C.BOARD_SEQ
-				<trim prefix="WHERE" prefixOverrides="AND |OR ">
-				<if test="title != null and title != ''">
-			 		AND UPPER(BLOG_TITLE) LIKE CONCAT('%', UPPER(#{title}), '%')
-		  		</if>
-				<if test="enabled != null">
-					AND BLOG_ENABLED = #{enabled}
-	  			</if>
-  				</trim>
-			</otherwise>
-			</choose>
-		) X
-		
-		<choose>
+		SELECT
+			A.*, 
+			B.IMG_SEQ,
+			B.EDITOR_ID,
+			B.IMG_PATHNM,
+			B.IMG_FILENM,
+			C.comtCnt
+      	FROM 
+			TB_CHANGOOS_BLOG A 
+			LEFT JOIN 
+			(SELECT *
+			FROM TB_CHANGOOS_BLOG_IMAGE
+			GROUP BY BOARD_SEQ) B
+			ON BLOG_SEQ = B.BOARD_SEQ
+			LEFT JOIN 
+			(SELECT BOARD_SEQ, COUNT(COMT_SEQ) as comtCnt
+			FROM TB_CHANGOOS_BLOG_COMT
+			WHERE COMT_ENABLED = true
+			GROUP BY BOARD_SEQ) C
+			ON BLOG_SEQ = C.BOARD_SEQ
+			
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+		<if test="enabled != null">
+			AND A.BLOG_ENABLED = #{enabled}
+		</if>
+		<if test="tags != null and tags.size() != 0">
+	      	<foreach collection="tags" item="item">
+	      	AND A.BLOG_TAG IN (
+    			SELECT BLOG_TAG 
+    			FROM TB_CHANGOOS_BLOG 
+    			WHERE BLOG_TAG like '%${item}%'
+    		)
+	      	</foreach>
+    	</if> 
+    	</trim>
+    	
+    	<choose>
 		<when test="sort == 'seq'"> 	ORDER BY BLOG_SEQ ${order} </when>
 		<when test="sort == 'title'"> 	ORDER BY BLOG_TITLE ${order} </when>
 		<when test="sort == 'date'">	ORDER BY BLOG_DATE ${order} </when>
@@ -128,7 +95,7 @@
 		<when test="sort == 'comtCnt'"> ORDER BY comtCnt ${order} </when>
 		<otherwise> ORDER BY BLOG_DATE DESC, BLOG_SEQ DESC 	</otherwise>
 		</choose>
-		
+	
 		<if test="offset != null and limit != null">
  		LIMIT ${offset}, ${limit}
   		</if>
@@ -136,51 +103,41 @@
 	
 	<select id="count" resultType="Integer" parameterType="map">
 		/* 블로그 개수 */
-		SELECT
-			count(*)
-		FROM (
-			<choose>
-			<when test="tags != null and tags.size() != 0">
-	      		<foreach collection="tags"  item="item" separator="UNION DISTINCT">
-				SELECT
-					BLOG_SEQ
-				FROM 
-					TB_CHANGOOS_BLOG 
-				<trim prefix="WHERE" prefixOverrides="AND |OR ">
-					AND BLOG_TAG like '%${item}%' 
-				<if test="title != null and title != ''">
-			 		AND UPPER(BLOG_TITLE) LIKE CONCAT('%', UPPER(#{title}), '%')
-		  		</if>
-				<if test="enabled != null">
-					AND BLOG_ENABLED = #{enabled}
-	  			</if>
-	  			</trim>
-				</foreach>
-			</when>
-			<otherwise>
-				SELECT
-					BLOG_SEQ
-				FROM 
-					TB_CHANGOOS_BLOG 
-				<trim prefix="WHERE" prefixOverrides="AND |OR ">
-				<if test="title != null and title != ''">
-			 		AND UPPER(BLOG_TITLE) LIKE CONCAT('%', UPPER(#{title}), '%')
-		  		</if>
-				<if test="enabled != null">
-					AND BLOG_ENABLED = #{enabled}
-	  			</if>
-  				</trim>
-			</otherwise>
-			</choose>
-		) B
+		SELECT count(*)
+		FROM TB_CHANGOOS_BLOG A
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+		<if test="enabled != null">
+			AND A.BLOG_ENABLED = #{enabled}
+		</if>
+		<if test="tags != null and tags.size() != 0">
+	      	<foreach collection="tags" item="item">
+	      	AND A.BLOG_TAG IN (
+    			SELECT BLOG_TAG 
+    			FROM TB_CHANGOOS_BLOG 
+    			WHERE BLOG_TAG like '%${item}%'
+    		)
+	      	</foreach>
+    	</if> 
+		</trim>
 	</select>
 
 	<select id="getTags" resultType="String" parameterType="map">
-		SELECT DISTINCT BLOG_TAG
-		FROM TB_CHANGOOS_BLOG
-		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
-		AND BLOG_ENABLED = true
-		</trim>
+		SELECT DISTINCT A.BLOG_TAG
+		FROM TB_CHANGOOS_BLOG A
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+		<if test="enabled != null">
+			AND BLOG_ENABLED = #{enabled}
+ 		</if>
+		<if test="tags != null and tags.size() != 0">
+	      	<foreach collection="tags" item="item">
+	      	AND A.BLOG_TAG IN (
+    			SELECT BLOG_TAG 
+    			FROM TB_CHANGOOS_BLOG 
+    			WHERE BLOG_TAG like '%${item}%'
+    		)
+	      	</foreach>
+    	</if>
+    	</trim>
 	</select>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="seq" >
