@@ -5,6 +5,7 @@ function drawExportView(){
 	$("body").css("touch-action", "none");
 	$("body").on("scroll mousewheel", function(event) {
 		event.preventDefault();
+		event.stopPropagation();
 		return false;
 	});
 	

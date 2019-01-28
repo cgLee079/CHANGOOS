@@ -93,7 +93,7 @@ function drawMobileMenu(tg) {
 	mobileMenus.addClass("on");
 	$("body").css("overflow", "hidden");
 	$("body").css("touch-action", "none");
-	$("body").on("scroll touchmove mousewheel", function(event) {
+	$("body").on("scroll mousewheel", function(event) {
 		event.preventDefault();
 		event.stopPropagation();
 		return false;
