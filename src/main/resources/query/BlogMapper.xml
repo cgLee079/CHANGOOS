@@ -76,6 +76,9 @@
 		<if test="enabled != null">
 			AND A.BLOG_ENABLED = #{enabled}
 		</if>
+		<if test="title != null">
+			AND A.BLOG_TITLE like '%${title}%'
+		</if>
 		<if test="tags != null and tags.size() != 0">
 	      	<foreach collection="tags" item="item">
 	      	AND A.BLOG_TAG IN (
@@ -108,6 +111,9 @@
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
 		<if test="enabled != null">
 			AND A.BLOG_ENABLED = #{enabled}
+		</if>
+		<if test="title != null">
+			AND A.BLOG_TITLE like '%${title}%'
 		</if>
 		<if test="tags != null and tags.size() != 0">
 	      	<foreach collection="tags" item="item">
