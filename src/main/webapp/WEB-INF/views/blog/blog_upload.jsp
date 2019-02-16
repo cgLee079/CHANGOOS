@@ -37,7 +37,7 @@
 				<div class="blog-upload-item">
 					<div class="item-name">썸네일</div>
 					<div class="item-input">
-						<img id="thumbnail-img" class="blog-thumbnail-img" onclick="$(this).siblings('#thumbnailFile').click();" src="<c:out value='${thumbDir}${blog.thumbnail}'/>" height="150">
+						<img id="thumbnail-img" class="blog-thumbnail-img" onclick="$(this).siblings('#thumbnailFile').click();" src="<c:out value='${blogThumbDir}${blog.thumbnail}'/>" height="150">
 						<input type="hidden" id="thumbnail" name="thumbnail" value="<c:out value='${blog.thumbnail}'/>" />
 						<input type="file" id="thumbnailFile" name="thumbnailFile" accept="image/*" class="blog-thumbnailfile" onchange="onThumbnailChange(this)"/>
 					</div>
