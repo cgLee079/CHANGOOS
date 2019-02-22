@@ -20,7 +20,7 @@ CKEDITOR.editorConfig = function(config) {
 			},
 			{
 				name : 'insert',
-				items : [ 'Youtube', 'CodeSnippet', 'Table', 'SpecialChar', 'Emojione', 'Image']
+				items : [ 'Youtube', 'CodeSnippet', 'Table', 'SpecialChar', 'Emojione', 'Image', 'HorizontalRule']
 			},
 			{
 				name : 'paragraph',
@@ -37,7 +37,7 @@ CKEDITOR.editorConfig = function(config) {
 			},
 			{
 				name : 'basicstyles',
-				items : [ 'Bold', 'Italic', 'Underline', 'Strike', '-','RemoveFormat' ]
+				items : [ 'Bold', 'Italic', 'Underline', 'Strike', '-','RemoveFormat','-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-']
 			},
 
 	];

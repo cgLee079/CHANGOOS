@@ -22,6 +22,10 @@
 	margin : 0.3rem 1.5rem;
 }
 
+.editor-contents hr{
+	border : 0.5px solid #DDD;
+}
+
 .editor-contents img{
 	height: auto;
 	margin: 1.5rem 0;
