@@ -11,7 +11,7 @@
 	</div>
 	
 	<div class="info-copyright">
-		<div>Copyrightⓒ2018 By Changoo Lee, All rights Reserved</div>
+		<div>Copyrightⓒ2018 CHANGOO</div>
 		<div></div>
 	</div>
 </div>
