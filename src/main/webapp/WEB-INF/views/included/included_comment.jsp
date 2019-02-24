@@ -13,7 +13,7 @@
 	<div class="comt-pager"></div>
 	
 	<div class="comment-write">
-		<textarea class="comment-write-contents" id="contents" name="contents" onkeyup="commentAreaResize(this)" ></textarea>
+		<textarea class="comment-write-contents" id="contents" name="contents" placeholder="소중한 댓글을 입력해주세요." onkeyup="commentAreaResize(this)" ></textarea>
 		<div class="comment-write-pinfo">
 			<div class="write-username"><input type="text" id="username" name="username" placeholder="USERNAME"></div>
 			<div class="write-password"><input type="password" id="password" name="password" placeholder="PASSWORD"></div>

@@ -24,7 +24,7 @@
 	}
 	
 	.wrap-form{
-		max-width : 150px;
+		max-width : 170px;
 	}
 	
 	.input-head{

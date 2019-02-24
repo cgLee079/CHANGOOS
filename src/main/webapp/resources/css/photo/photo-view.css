@@ -2,6 +2,8 @@
 	display: flex;
 	height: calc(100% - var(--nav-height));
 	align-items: center;
+	max-width: var(--content-max-width);
+	margin : 0 auto;
 }
 
 .photo-list {
@@ -197,7 +199,6 @@
 	
 	margin-left: 15px;
 	margin-bottom : 10px;
-	font-size : 0.9rem;
 	cursor: pointer;
 }
 

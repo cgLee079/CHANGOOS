@@ -32,7 +32,7 @@ function scrollPaging(){
 }
 
 /* 사진 로딩, Scroll 페이징 */
-function loadPhoto(currentView){
+function loadPhoto(currentView, callback){
 	var seq = seqs[currentView];
 	var photoLoading = $("<div>", {"class" : "photo-loading col-center", "text" : "Loading..."});
 	
@@ -40,7 +40,6 @@ function loadPhoto(currentView){
 		type	: "GET",
 		url		: getContextPath() + "/photos/" + seq, 
 		dataType: 'JSON',
-		async	: false,
 		beforeSend : function(){
 			photoLoading.appendTo($(".photo-list"));
 			loading  = true;
@@ -72,6 +71,11 @@ function loadPhoto(currentView){
 			item.appendTo($(".photo-list"));
 			
 			loadComment(item.find(".photo-comments"), seq);
+			
+			if(callback){
+				callback(item);
+			}
+			
 		},
 		complete : function(){
 			loading  = false;
@@ -90,7 +94,6 @@ function loadComment(parent, seq){
 		type	: "GET",
 		url		: getContextPath() + "/photos/" + seq +"/comments",
 		dataType: 'JSON',
-		async	: false,
 		success : function(data) {
 			var datum;
 			var comment;
@@ -118,16 +121,19 @@ function showPhoto(index){
 	
 	if(index >= currentView){
 		while(currentView <= index){
-			loadPhoto(currentView);
+			loadPhoto(currentView, function(tg){
+				var tgTop = $(tg).offset().top;
+				var scroll = $(".photo-list");
+				scroll.scrollTop(tgTop);
+			});
 			currentView++;
 		}
+	} else{
+		var photos = $(".photo-list .photo-list-item");
+		var tg = photos[index];
+		var tgTop = $(tg).offset().top;
+		scroll.scrollTop(tgTop - 80);
 	}
-	
-	var photos = $(".photo-list .photo-list-item");
-	var tg = photos[index];
-	var tgTop = $(tg).offset().top;
-	
-	scroll.scrollTop(tgTop - 80);
 }
 
 /* Ajax, when love icon click. */

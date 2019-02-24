@@ -24,11 +24,10 @@
 	</bean>
 
 
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
 		<property name="dataSource" ref="dataSourceSpied" />
 	</bean>
-	<tx:annotation-driven />
+	<tx:annotation-driven  proxy-target-class="true"/>
 
 	<!-- Query Log -->
 	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">

@@ -11,7 +11,7 @@
 	right: 0px;
 	height: var(--nav-height);
 	z-index: 2000;
-	background: rgba(255, 255, 255, 0.9);
+	background: rgba(255, 255, 255, 0.98);
 	border-bottom: 0.5px solid #e7e7e7;
 }
 
@@ -20,7 +20,7 @@
 	justify-content: space-between;
 	align-items: center;
 	height: 100%;
-	max-width: var(--body-max-width);
+	/* max-width: var(--body-max-width); */
 	margin: 0 auto;
 	padding: 0 3%;
 }
@@ -162,7 +162,7 @@
 	z-index: 3000;
 	text-align: right;
 	background: #FFF;
-	transition : right .3s cubic-bezier(0.215, 0.61, 0.355, 1);;
+	transition : right .3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .mob-menus.on{

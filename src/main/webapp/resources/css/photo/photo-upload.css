@@ -8,6 +8,8 @@
 }
 
 .wrap-upload-form {
+	max-width: var(--content-max-width);
+	margin : 0 auto;
 	margin-top: 20px;
 	margin-bottom: 150px;
 }

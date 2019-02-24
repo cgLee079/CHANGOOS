@@ -3,6 +3,7 @@ var page 		= 1;
 var totalCount	= undefined;
 var blogItemTemp= undefined;
 var tags		= new Array();
+var doingPaging	= false;
 
 $(document).ready(function(){
 	doMenuOn(menu.BLOG);
@@ -22,7 +23,7 @@ $(document).ready(function(){
 		var scrollBottom = $(this).scrollTop()  + $(window).height();
 		var blogs  = $(".blog-item");
 		var lastBlog = blogs.eq(blogs.length - limit - 1);
-		if(scrollBottom >= (lastBlog.offset().top) && page * limit < totalCount){
+		if(scrollBottom >= (lastBlog.offset().top) && page * limit < totalCount && !doingPaging){
 			page = page + 1;
 			pageMove(page);
 		}
@@ -45,12 +46,17 @@ function pageMove(pg){
 		type	: "GET",
 		url		: getContextPath() + "/blogs/records" + encodeURIParam(param),
 		dataType: 'JSON',
-		async	: false,
+		beforeSend : function(){
+			doingPaging = true;
+		},
 		success : function(data) {
 			if(data.length){
 				page = pg;
 				drawBlog(data);
 			}
+		},
+		complete : function(){
+			doingPaging = false;
 		},
 		error : function(e) {
 			console.log(e);

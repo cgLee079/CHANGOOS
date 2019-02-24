@@ -8,6 +8,8 @@
 <style>
 
 .wrap-sch-result {
+	max-width: var(--content-max-width);
+	margin: 0px auto;
 	margin-top : 50px;
 	margin-bottom : 70px;
 	min-height: calc(100% - var(--nav-height));

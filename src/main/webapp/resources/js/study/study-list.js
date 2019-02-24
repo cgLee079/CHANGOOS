@@ -4,6 +4,7 @@ var category 	= '';
 var totalCount	= '';
 var searchValue = '';
 var studyTemp;
+var doingPaging = false;
 
 $(document).ready(function(){
 	doMenuOn(menu.STUDY);
@@ -16,7 +17,7 @@ $(document).ready(function(){
 		var scrollBottom = $(this).scrollTop()  + $(window).height();
 		var studies  = $(".study-list-item");
 		var lastStudy = studies.eq(studies.length - limit - 1);
-		if(scrollBottom >= (lastStudy.offset().top) && page * limit < totalCount){
+		if(scrollBottom >= (lastStudy.offset().top) && page * limit < totalCount && !doingPaging){
 			page = page + 1;
 			pageMove(page);
 		}
@@ -92,12 +93,15 @@ function pageMove(pg){
 			'title'		: searchValue
 		},
 		dataType: 'JSON',
-		async	: false,
+		beforeSend : function(){
+			doingPaging = true;
+		},
 		success : function(data) {
 			page = pg;
 			drawStudy(data);
 		},
 		complete: function(){
+			doingPaging = false;
 		},
 		error : function(e) {
 			console.log(e);

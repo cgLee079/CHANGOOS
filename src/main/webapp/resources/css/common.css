@@ -1,6 +1,6 @@
 :root{
-	--body-max-width : 1080px;
-	--nav-height : 60px;
+	--content-max-width : 1080px;
+	--nav-height : 65px;
 	--font : 'Nanum Square', 'Nanum Gothic', sans-serif;
 }
 
@@ -18,9 +18,6 @@ html, body, .wrapper{
 body {
 	overflow-x: hidden;
 	font-family: var(--font);
-	max-width: var(--body-max-width);
-	margin: 0 auto;
-	padding: 0 3%;
 	line-height: 1.5;
 }
 

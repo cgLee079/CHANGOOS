@@ -1,9 +1,8 @@
-
-
 .wrap-study {
 	min-height : calc(100% - var(--nav-height));
+	max-width: var(--content-max-width);
 	margin: 0 auto;
-	margin-top: 40px;
+	margin-top: 50px;
 	margin-bottom: 150px;
 	
 	display: flex;
@@ -120,13 +119,13 @@
     border-radius: 5px;
     margin-right: 10px;
     padding: 3px;
-    height: 20px;
+    height: 27px;
     flex: 1;
 }
 
 .study-search .search-submit {
-	height 	: 15px;
-	width	: 15px;
+	height 	: 20px;
+	width	: 20px;
 	cursor	: pointer;
  	opacity :0.6;
  		

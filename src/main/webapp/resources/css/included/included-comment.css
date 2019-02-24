@@ -81,6 +81,7 @@
 .comment-write .comment-write-contents {
 	width : 100%;
 	height : 5rem;
+	padding : 10px;
 	resize: none;
 	overflow: hidden;
 	border: 0.7px solid #E1E1E1;
@@ -91,7 +92,7 @@
 	display: flex;
 	justify-content : space-between;
 	margin-top : 5px;
-	height: 1.5rem;
+	height: 2rem;
 }
 
 .comment-write-pinfo .write-username, 
@@ -111,7 +112,7 @@
 .comment-write .comment-write-submit {
 	color: #FFF;
 	height:100%;
-	padding : 0 10px;
+	padding : 0 20px;
 	border-radius : 3px;
 	background: #222;
 	cursor: pointer;
