@@ -25,9 +25,8 @@
 
 <!-- font -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font/font-flex.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font/font-nanumgothic.css" />
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font/font-nanumsquare.css'/>
- 
+
 <!-- lib-css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ckeditor/plugins/prism/lib/prism/prism_patched.min.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.5/themes/material/easyui.css"/>
