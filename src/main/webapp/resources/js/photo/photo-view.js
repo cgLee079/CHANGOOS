@@ -6,10 +6,8 @@ var templeate		= undefined;
 $(document).ready(function(){
 	doMenuOn(menu.PHOTO);
 	
-	//Scroll 페이징 이벤트
-	if(isMobile){ $(window).scroll(scrollPaging); } 
-	else{ $(".photo-list").scroll(scrollPaging);}
-	
+	$(window).scroll(scrollPaging);
+	 
 	templeate = $(".photo-list-item").clone();
 	$(".photo-list-item").remove();
 	seqs = JSON.parse($("#seqs").val());

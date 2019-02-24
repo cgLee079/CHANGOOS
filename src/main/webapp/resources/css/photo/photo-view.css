@@ -1,17 +1,12 @@
 .wrap-photo-list {
-	display: flex;
-	height: calc(100% - var(--nav-height));
-	align-items: center;
 	max-width: var(--content-max-width);
 	margin : 0 auto;
+	margin-top : 20px;
 }
 
 .photo-list {
 	flex: 1;
-	height: 95%;
 	justify-content: center;
-	overflow-y: scroll;
-	overflow-x: hidden;
 	-ms-overflow-style : none;
 	margin-right : 15px;
 }
@@ -252,7 +247,6 @@
 	.photo-list {
 		width : 100%;
 		background : #F9F9F9;
-		height : unset;
 		margin-right : 0;
 		-ms-overflow-style : unset;	
 	}
