@@ -12,21 +12,22 @@ $(document).ready(function(){
 	studyTemp = $(".study-list-item").clone();
 	$(".study-list-item").remove();
 	
+	
+	totalCount = $("#totalCount").val();
+	category = $("#category").val();
+	searchValue = $("#searchValue").val();
+	
 	/* Scroll Page event */
 	$(window).scroll(function(){
 		var scrollBottom = $(this).scrollTop()  + $(window).height();
 		var studies  = $(".study-list-item");
 		var lastStudy = studies.eq(studies.length - limit - 1);
-		if(scrollBottom >= (lastStudy.offset().top) && page * limit < totalCount && !doingPaging){
+		
+		if(studies.length && scrollBottom >= (lastStudy.offset().top) && page * limit < totalCount && !doingPaging){
 			page = page + 1;
 			pageMove(page);
 		}
 	});
-	
-	
-	totalCount = $("#totalCount").val();
-	category = $("#category").val();
-	searchValue = $("#searchValue").val();
 	
 	/* Add Class 'on' to Category*/
 	var items = $(".study-categories .study-categories-item");
@@ -37,6 +38,10 @@ $(document).ready(function(){
 		}
 	}
 
+	setTimeout(function(){
+		$(window).trigger('scroll');
+	},100)
+	
 	clearStudyItems();
 	pageMove(page);
 });

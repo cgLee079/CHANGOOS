@@ -23,11 +23,16 @@ $(document).ready(function(){
 		var scrollBottom = $(this).scrollTop()  + $(window).height();
 		var blogs  = $(".blog-item");
 		var lastBlog = blogs.eq(blogs.length - limit - 1);
-		if(scrollBottom >= (lastBlog.offset().top) && page * limit < totalCount && !doingPaging){
+		if(blogs.length && scrollBottom >= (lastBlog.offset().top) && page * limit < totalCount && !doingPaging){
 			page = page + 1;
 			pageMove(page);
 		}
 	});
+	
+	setTimeout(function(){
+		$(window).trigger('scroll');
+	},100)
+	
 	
 	clearBlogItems();
 	pageMove(page);
