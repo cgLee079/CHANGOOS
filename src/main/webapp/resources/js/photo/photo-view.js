@@ -13,10 +13,10 @@ $(document).ready(function(){
 	seqs = JSON.parse($("#seqs").val());
 	
 	//기본 사진 2장.
-	loadPhoto(currentView);
-	currentView++;
-	loadPhoto(currentView);
-	currentView++;
+	for(var i = 0; i < 4; i++){
+		loadPhoto(currentView);
+		currentView++;
+	}
 });
 
 function scrollPaging(){
@@ -149,7 +149,6 @@ function photoDoLike(tg){
 			'like'		: !isUnlike
 		},
 		dataType: 'JSON',
-		asyncl 	: false,
 		success : function(data) {
 			item.find(".photo-like").text("♥" + data.likeCnt);
 			if(data.like){
@@ -227,7 +226,7 @@ function commentDoCheck(photoSeq, seq, callback, callbackValue){
 					'password' 	: password
 				},
 				dataType: 'JSON',
-				asyncl 	: false,
+				async 	: false,
 				success : function(data) {
 					if(data){
 						callback(callbackValue);
@@ -255,7 +254,6 @@ function commentDoDelete(tg){
 		type	: "DELETE",
 		url		:  getContextPath() + "/photos/" + photoSeq + "/comments/" + seq,
 		dataType: 'JSON',
-		asyncl 	: false,
 		success : function(data) {
 			if(data){
 				swal({ text : "댓글이 삭제 되었습니다.", icon : "success" });
@@ -293,7 +291,6 @@ function commentDoWrite(tg){
 			"contents"	: contents.val(),
 		},
 		dataType: 'JSON',
-		async	: false,
 		beforeSend : function(){
 			Progress.start();
 		},

@@ -1,14 +1,13 @@
 .wrap-photo-list {
 	max-width: var(--content-max-width);
 	margin : 0 auto;
-	margin-top : 20px;
+	margin-bottom : 120px;
 }
 
 .photo-list {
-	flex: 1;
-	justify-content: center;
-	-ms-overflow-style : none;
-	margin-right : 15px;
+	display : flex;
+	flex-flow : row wrap;
+	justify-content : space-between;
 }
 
 .photo-list::-webkit-scrollbar{
@@ -16,9 +15,10 @@
 }
 
 .photo-list-item {
+	width : 49%;
 	border: 1px solid #EEE;
 	padding: 1rem 0;
-	margin-bottom: 15px;
+	margin-top: 15px;
 	background: #FFF;
 }
 
@@ -27,11 +27,8 @@
 	justify-content : center;
 	align-items : center;
 	margin-bottom: 20px;
-	
-	width : 100%;
-	height: 60%;
-	
 	margin: 20px 0 30px 0;
+	height : 45%;
 }
 
 .photo-list-item .photo-img {
@@ -197,63 +194,15 @@
 	cursor: pointer;
 }
 
-.snapsht-list {
-	width: 150px;
-	height: 95%;
-	overflow: hidden;
-	
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: center;
-	overflow-y: scroll;
-	
-	-ms-overflow-style : none;
-}
-
-.snapsht-list::-webkit-scrollbar{
-	display: none;
-}
-
-.snapsht-list-cut {
-	height: 0.7rem;
-	width: 150px;
-	margin: 1px;
-	background: #333;
-}
-
-.snapsht-list-item {
-	height: calc(100px * 2 / 3);
-	width: 150px;
-	margin: 1px;
-	background: #000;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-	transition: transform .3s cubic-bezier(0.215, 0.61, 0.355, 1);
-	opacity: 0.7;
-	cursor: pointer;
-}
-
-.snapsht-list-item:hover {
-	transform : scale(1.05);
-	opacity: 1;
-}
-
 @media ( max-width : 800px) {
 	.wrap-photo-list{
+		background : #F9F9F9;
 		display: block;
 	}
 	
-	.photo-list {
-		width : 100%;
-		background : #F9F9F9;
-		margin-right : 0;
-		-ms-overflow-style : unset;	
-	}
-	
 	.photo-list-item{
+		width : 100%;
 		border : none;
-		margin: 10px 0;
 	}
 	
 	.photo-list-item .wp-photo-img{
@@ -264,7 +213,4 @@
 		width: 90%;
 	}
 
-	.snapsht-list {
-		display: none;
-	}
 }
