@@ -20,7 +20,7 @@
 					<a class="btn-link"  href="mailto:cglee079@gmail.com"> <img src="${pageContext.request.contextPath}/resources/image/btn-main-email.svg"/></a>
 				</div>
 				
-				<div class="introduce-desc">
+				<div class="introduce-desc editor-contents">
 					<c:out value="${home001}" escapeXml="false"></c:out>
 				</div>
 			</div>
