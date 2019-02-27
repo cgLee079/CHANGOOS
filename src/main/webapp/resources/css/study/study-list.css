@@ -66,6 +66,7 @@
     color: #606060;
     word-break: break-all;
     margin-bottom: 15px;
+    opacity: 0.9;
 }
 
 .study-list-item .study-item-info {

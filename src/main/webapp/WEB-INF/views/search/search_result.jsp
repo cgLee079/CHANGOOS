@@ -47,7 +47,7 @@
 	-webkit-box-orient: vertical;
 	white-space: normal;
 	-webkit-line-clamp: 4;
-	max-height: 5.6rem;
+	max-height: 5.7rem;
 	word-break: break-word;
 }
 

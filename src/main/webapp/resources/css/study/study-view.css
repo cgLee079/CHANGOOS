@@ -65,11 +65,9 @@
 .file-item {
    	cursor: pointer;
    	display: flex;
-   	
   	padding : 2px 3px;
   	margin-right: 2px;
   	color : #142fff;
-  	font-size: 0.75rem;
 }
 
 .file-item .name{

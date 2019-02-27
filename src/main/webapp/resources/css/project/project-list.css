@@ -101,7 +101,7 @@
 	color: #444;
 	margin-bottom: 8px;
 	min-height: 100px;
-	font-weight: 300;
+	opacity: .8;
 }
 
 .project-subinfo {
