@@ -278,6 +278,10 @@
 	right: 0;
 	z-index: 5000;
 	background: rgba(0, 0, 0, 0.05);
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .progress-bar.off {
@@ -288,9 +292,6 @@
 	width: 40px;
 	height: 40px;
 	position: relative;
-	top: 50%;
-	margin: auto;
-	margin-top: -20px;
 }
 
 .double-bounce1, .double-bounce2 {
