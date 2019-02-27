@@ -12,8 +12,8 @@ $(document).ready(function(){
 	$(".photo-list-item").remove();
 	seqs = JSON.parse($("#seqs").val());
 	
-	//기본 사진 2장.
-	for(var i = 0; i < 4; i++){
+	//Default Photo.
+	for(var i = 0; i < 2; i++){
 		loadPhoto(currentView);
 		currentView++;
 	}

@@ -1,13 +1,13 @@
 .wrap-photo-list {
 	max-width: var(--content-max-width);
 	margin : 0 auto;
+	margin-top : 15px;
 	margin-bottom : 120px;
 }
 
 .photo-list {
-	display : flex;
-	flex-flow : row wrap;
-	justify-content : space-between;
+	width : 60%;
+	margin : 0 auto;
 }
 
 .photo-list::-webkit-scrollbar{
@@ -15,10 +15,10 @@
 }
 
 .photo-list-item {
-	width : 49%;
+	width : 100%;
 	border: 1px solid #EEE;
 	padding: 1rem 0;
-	margin-top: 15px;
+	margin-bottom: 15px;
 	background: #FFF;
 }
 
@@ -196,8 +196,18 @@
 
 @media ( max-width : 800px) {
 	.wrap-photo-list{
-		background : #F9F9F9;
 		display: block;
+		margin-top : 0px;
+		margin-bottom: 0px;
+	}
+	
+	.photo-list{
+		background : #F9F9F9;
+		width: 100%;
+	}
+	
+	.photo-list-item:first-child{
+		margin-top: 15px;
 	}
 	
 	.photo-list-item{
