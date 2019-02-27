@@ -18,8 +18,6 @@ html, body, .wrapper{
 body {
 	overflow-x: hidden;
 	font-family: var(--font);
-	font-weight: normal;
-	letter-spacing : -0.1px;
 	line-height: 1.5;
 }
 
