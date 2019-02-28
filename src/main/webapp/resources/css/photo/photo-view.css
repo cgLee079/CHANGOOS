@@ -1,5 +1,6 @@
 .wrap-photo-list {
-	max-width: var(--content-max-width);
+	min-height : calc(100% - var(--nav-height));
+	max-width: var(--section-width-wide);
 	margin : 0 auto;
 	margin-top : 15px;
 	margin-bottom : 120px;

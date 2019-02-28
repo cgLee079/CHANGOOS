@@ -8,7 +8,7 @@
 <style>
 
 .wrap-sch-result {
-	max-width: var(--content-max-width);
+	max-width: var(--section-width-narrow);
 	margin: 0px auto;
 	margin-top : 50px;
 	margin-bottom : 70px;

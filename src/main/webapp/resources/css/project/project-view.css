@@ -1,5 +1,5 @@
 .project {
-	max-width: var(--content-max-width);
+	max-width: var(--section-width-wide);
 	min-height: calc(100% - var(--nav-height));
 	margin : 0 auto;
 	margin-bottom: 150px;
@@ -119,8 +119,9 @@
 }
 
 .project-desc {
+	max-width : var(--section-width-narrow);
 	margin: 0 auto;
-	margin-top: 30px;
+	margin-top: 100px;
 	margin-bottom: 40px;
 }
 
@@ -146,5 +147,6 @@
 	}
 	.project-desc {
 		width: 90%;
+		margin-top: 30px;
 	}
 }

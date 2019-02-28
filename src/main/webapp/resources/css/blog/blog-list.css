@@ -1,7 +1,7 @@
 .blog-first-item {
 	position: relative;
 	height: 60%;
-	max-width: var(--content-max-width);
+	max-width: var(--section-width-wide);
 	margin: 0px auto;
 	margin-top: 20px;
 	margin-bottom: 40px;
@@ -74,7 +74,7 @@
 
 .wrap-blog-list {
 	display: flex;
-	max-width: var(--content-max-width);
+	max-width: var(--section-width-wide);
 	min-height: 50%;
 	margin : 0 auto;
 	margin-bottom: 150px;

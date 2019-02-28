@@ -82,17 +82,21 @@
 					</div>
 				</div>
 
-				<div class="study-contents editor-contents">
-					<c:out value="${study.contents}" escapeXml="false"/>
+				<div class='study-desc'>
+					<div class="study-contents editor-contents">
+						<c:out value="${study.contents}" escapeXml="false"/>
+					</div>
+					
+					<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">
+						<c:param name = "perPgLine" value = "10" />
+						<c:param name = "boardType" value = "${boardType.STUDY.val}" />
+						<c:param name = "boardSeq" value = "${study.seq}" />
+						<c:param name = "comtCnt" value = "${study.comtCnt}" />
+					</c:import>
 				</div>
 			</div>
 			
-			<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">
-				<c:param name = "perPgLine" value = "10" />
-				<c:param name = "boardType" value = "${boardType.STUDY.val}" />
-				<c:param name = "boardSeq" value = "${study.seq}" />
-				<c:param name = "comtCnt" value = "${study.comtCnt}" />
-			</c:import>
+			
 		</div>	
 	
 		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8">

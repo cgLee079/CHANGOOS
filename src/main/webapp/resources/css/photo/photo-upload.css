@@ -8,7 +8,7 @@
 }
 
 .wrap-upload-form {
-	max-width: var(--content-max-width);
+	max-width: var(--section-width-wide);
 	margin : 0 auto;
 	margin-top: 20px;
 	margin-bottom: 150px;

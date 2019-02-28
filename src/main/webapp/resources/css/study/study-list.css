@@ -1,9 +1,10 @@
 .wrap-study {
 	min-height : calc(100% - var(--nav-height));
-	max-width: var(--content-max-width);
+	max-width: var(--section-width-wide);
 	margin: 0 auto;
 	margin-top: 50px;
 	margin-bottom: 150px;
+	padding : 0px 30px;
 	
 	display: flex;
 	flex-flow: row nowrap;
@@ -165,9 +166,11 @@
 		display: flex;
 		flex-flow: column-reverse nowrap;
 		margin-top: 10px;
+		padding : 0;
 	}
 	
 	.study-list{
+	
 		margin-top: 30px;	
 	}
 	

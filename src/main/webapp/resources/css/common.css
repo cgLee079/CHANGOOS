@@ -1,5 +1,6 @@
 :root{
-	--content-max-width : 1080px;
+	--section-width-wide : 1080px;
+	--section-width-narrow: 800px;
 	--nav-height : 60px;
 	--font : 'Noto Sans KR', sans-serif;
 }
