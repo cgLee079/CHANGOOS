@@ -31,11 +31,10 @@
 	border : 0.5px solid #DDD;
 }
 
-.editor-contents img{
+.editor-contents > p > img{
 	height: auto;
 	margin: 1.5rem 0;
 	border-color : #DDD;
-	/* box-shadow : 0 1px 0 rgba(12,13,14,0.1), 0 1px 3px rgba(12,13,14,0.1), 0 4px 20px rgba(12,13,14,0.035), 0 1px 1px rgba(12,13,14,0.025); */
 }
 
 .editor-contents code {
@@ -43,9 +42,28 @@
 	margin: 10px 1px;
 }
 
+
+.editor-contents emphasize{
+    display: block;
+    border-left: 5px solid #DDD;
+    padding-left: 0.5rem;
+    margin: 1rem 0.5rem;
+    font-weight: bold;
+    font-style: italic;
+}
+
+
+.editor-contents quotation{
+   	display: block;
+    font-style: italic;
+    line-height: 1.7;
+    opacity: 0.9;
+    margin: 0 1rem
+}
+
 .editor-contents .mark{
 	padding: 1px 5px;
 	font-size: 0.95rem;
-	background: #DEDEDE;
+	background: #F1F1F1;
 	border-radius: 5px;
 }

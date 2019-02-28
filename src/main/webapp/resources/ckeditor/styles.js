@@ -59,7 +59,9 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: 'Superscript',		element: 'sup' },
 	*/
 
-	{ name: 'Mark',		element: 'span', attributes: { 'class': 'mark' } },
+	{ name: 'Mark',				element: 'span', attributes: { 'class': 'mark' } },
+	{ name: 'Emphasize',		element: 'emphasize', overrides: 'div'},
+	{ name: 'Quotation',		element: 'quotation', overrides: 'div'},
 	
 
 //	{ name: 'Big',				element: 'big' },

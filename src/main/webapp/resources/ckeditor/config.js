@@ -42,7 +42,10 @@ CKEDITOR.editorConfig = function(config) {
 
 	config.extraPlugins = 'youtube,prism,emojione,autosave,pastebase64toserver,stylescombo';
 	config.bodyClass 	= 'editor editor-contents';
-	config.contentsCss 	= ['/resources/css/editor-contents.css', '/resources/css/common.css'];
+	config.contentsCss 	= ['/resources/css/editor-contents.css', 
+							'/resources/css/common.css', 
+							'/resources/css/font/font-flex.css',
+							'/resources/css/font/font-nonsans-kr.css'];
 	
 	config.autosave = {
 		// Auto save Key - The Default autosavekey can be overridden from the config ...
