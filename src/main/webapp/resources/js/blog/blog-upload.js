@@ -55,6 +55,8 @@ function initContentCKEditor() {
 					breakBeforeClose : false,
 					breakAfterClose : true
 				});
+				
+				//this.dataProcessor.writer.selfClosingEnd = '/>';
 			}
 		},
 		toolbar : "Full"
@@ -69,10 +71,5 @@ function initContentCKEditor() {
 			dialogDefinition.removeContents('Link'); //링크 탭 제거
 			dialogDefinition.removeContents('advanced'); //상세정보 탭 제거
 		}
-	});
-
-	CKEDITOR.on('instanceReady', function(ev) {
-		// Ends self closing tags the HTML4 way, like <br>.
-		ev.editor.dataProcessor.writer.selfClosingEnd = '/>';
 	});
 }

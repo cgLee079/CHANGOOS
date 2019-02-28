@@ -1,9 +1,9 @@
 /*CKEditor Class */
+
 .editor{
-	padding: 0 2rem;
+	padding: 1rem 2rem;
 }
 
-/* contents, by CKEditor*/
 .editor-contents {
 	color: #333;
 	line-height: 2.4;
