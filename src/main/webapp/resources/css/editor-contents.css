@@ -37,3 +37,10 @@
 	overflow-x: auto;
 	margin: 10px 1px;
 }
+
+.editor-contents .datatype{
+	padding: 1px 5px;
+	font-size: 0.95rem;
+	background: #DDD;
+	border-radius: 1px;
+}

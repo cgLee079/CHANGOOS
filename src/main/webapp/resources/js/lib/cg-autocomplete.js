@@ -135,6 +135,7 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 								
 								facetValue.text(result[i]);
 								facetValue.css("word-break", "keep-all");
+								facetValue.css("white-space", "nowrap");
 								facetValue.css("min-height", "1rem");
 								facetValue.addClass(listItemClass);
 								facetValue.bind("click", function(){

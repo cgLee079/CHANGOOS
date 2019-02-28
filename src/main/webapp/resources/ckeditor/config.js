@@ -37,15 +37,17 @@ CKEDITOR.editorConfig = function(config) {
 			},
 			{
 				name : 'basicstyles',
-				items : [ 'Bold', 'Italic', 'Underline', 'Strike', '-','RemoveFormat','-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-']
+				items : [ 'Bold', 'Italic', 'Underline', 'Strike', '-','RemoveFormat','Styles','-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-']
 			},
 
 	];
 
-	config.toolbar_Basic = [ [ 'Bold', 'Italic', 'Underline', 'Strike', '-','RemoveFormat', 'Emojione' ] ];
+	config.toolbar_Basic = [ [ 'Bold', 'Italic', 'Underline', 'Strike', '-','RemoveFormat', 'Emojione'] ];
 
-	config.extraPlugins = 'youtube,prism,emojione,autosave,pastebase64toserver';
-
+	config.extraPlugins = 'youtube,prism,emojione,autosave,pastebase64toserver,stylescombo';
+	config.bodyClass 	= 'editor-contents';
+	config.contentsCss 	= '/resources/css/editor-contents.css';
+	
 	config.autosave = {
 		// Auto save Key - The Default autosavekey can be overridden from the config ...
 		Savekey : 'autosave_' + window.location + "_" + $('.ckeditor-autosave').attr('name'),
