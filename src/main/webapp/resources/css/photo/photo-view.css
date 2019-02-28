@@ -6,7 +6,7 @@
 }
 
 .photo-list {
-	width : 60%;
+	width : 50%;
 	margin : 0 auto;
 }
 
@@ -16,7 +16,7 @@
 
 .photo-list-item {
 	width : 100%;
-	border: 1px solid #EEE;
+	border: 0.8px solid #D9D9D9;
 	padding: 1rem 0;
 	margin-bottom: 15px;
 	background: #FFF;

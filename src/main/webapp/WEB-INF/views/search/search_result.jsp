@@ -49,6 +49,7 @@
 	-webkit-line-clamp: 4;
 	max-height: 5.7rem;
 	word-break: break-word;
+	opacity: 0.8;
 }
 
 .board-desc sch-val {
