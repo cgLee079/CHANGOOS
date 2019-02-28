@@ -59,7 +59,7 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: 'Superscript',		element: 'sup' },
 	*/
 
-	{ name: 'DataType',		element: 'span', attributes: { 'class': 'datatype' } },
+	{ name: 'Mark',		element: 'span', attributes: { 'class': 'mark' } },
 	
 
 //	{ name: 'Big',				element: 'big' },
