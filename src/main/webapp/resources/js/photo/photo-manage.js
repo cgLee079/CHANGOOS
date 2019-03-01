@@ -1,11 +1,6 @@
 $(document).ready(function(){
 	doMenuOn(menu.MGNT_PHOTO);
 	
-	fn_onInitDataGrid();
-});
-
-/* datagrid initialize */
-function fn_onInitDataGrid(){
 	$('#dg').datagrid({
 		url: getContextPath() + '/mgnt/photos/records',
 		method: 'GET',
@@ -37,10 +32,11 @@ function fn_onInitDataGrid(){
 			{field:'enabled', title:'공개여부', width:'70px', halign:'center', sortable : "true", styler : alignCenter},
 		]]
 	});
-}
+});
+
 
 /* when '삭제' click */
-function photoDelete(seq, index){
+const photoDelete = function(seq, index){
 	swal({
 		  title: "정말로 삭제 하시겠습니까?",
 		  text: "삭제된 사진은 복구 할 수 없습니다.",
@@ -49,33 +45,29 @@ function photoDelete(seq, index){
 		  dangerMode: true,
 		})
 		.then(function(willDelete) {
-		  if (willDelete) {
-			  doDelete(seq, index);
-		  } 
+			if (willDelete) {
+				$.ajax({
+					type	: "DELETE",
+					url		:  getContextPath() + "/photos/post/" + seq,
+					dataType: 'JSON',
+					async	: false,
+					success : function(data) {
+						if(data.result){
+							$('#dg').datagrid('deleteRow', index);
+							swal({ title: "삭제 완료하였습니다.", icon: "info"});
+						}
+					},
+					error : function(e) {
+						console.log(e);
+					}
+				});
+			} 
 		});
 	
-	/* Ajax */
-	function doDelete(seq, index){
-		$.ajax({
-			type	: "DELETE",
-			url		:  getContextPath() + "/photos/post/" + seq,
-			dataType: 'JSON',
-			async	: false,
-			success : function(data) {
-				if(data.result){
-					$('#dg').datagrid('deleteRow', index);
-					swal({ title: "삭제 완료하였습니다.", icon: "info"});
-				}
-			},
-			error : function(e) {
-				console.log(e);
-			}
-		});
-	}
 }
 
 /* when '수정' click' */
-function photoModify(seq){
+const photoModify = function(seq){
 	window.location.href = getContextPath() + "/photos/post/" + seq;		
 }
 

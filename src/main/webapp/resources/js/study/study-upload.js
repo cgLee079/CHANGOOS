@@ -3,14 +3,9 @@ $(document).ready(function(){
 	initContentCKEditor();
 });
 
-function submit(){
-	var form = $("#uploadForm");
-	form.submit();
-}
-
 /* CKEditor Initialize */
-function initContentCKEditor(){
-	var editor = CKEDITOR.replace("study-contents", {
+const initContentCKEditor = function(){
+	const editor = CKEDITOR.replace("study-contents", {
 		height : '400px',
 		pasteImageUrl : getContextPath() + "/board/post/image",
 		on : {
@@ -29,9 +24,9 @@ function initContentCKEditor(){
 	});
 
 	CKEDITOR.on('dialogDefinition', function(ev) {
-		var dialogName = ev.data.name;
-		var dialog = ev.data.definition.dialog;
-		var dialogDefinition = ev.data.definition;
+		const dialogName = ev.data.name;
+		const dialog = ev.data.definition.dialog;
+		const dialogDefinition = ev.data.definition;
 
 		if (dialogName == 'image') {
 			dialogDefinition.removeContents('Link'); //링크 탭 제거

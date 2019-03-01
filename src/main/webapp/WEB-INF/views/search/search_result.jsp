@@ -10,15 +10,9 @@
 .wrap-sch-result {
 	max-width: var(--section-width-narrow);
 	margin: 0px auto;
-	margin-top : 50px;
+	margin-top : 20px;
 	margin-bottom : 70px;
 	min-height: calc(100% - var(--nav-height));
-}
-
-@media (max-width : 800px){
-	.wrap-sch-result{
-		margin-top : 20px;
-	}
 }
 
 .board{
@@ -26,8 +20,6 @@
     cursor: pointer;
     border-bottom: 0.6px solid #F1F1F1;
 }
-
-
 
 .board .board-title {
 	color : #333;

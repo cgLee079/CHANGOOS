@@ -1,4 +1,4 @@
-function drawExportView(){
+const drawExportView = function(){
 	$(".bg-wrap-export").addClass("on");
 	$(".wrap-export").addClass("on");
 	$("body").css("overflow", "hidden");
@@ -18,7 +18,7 @@ function drawExportView(){
   	return false;
 }
 
-function exitExportView(){
+const exitExportView = function(){
 	$(".bg-wrap-export").removeClass("on");
 	$(".wrap-export").removeClass("on");
 	$("body").off("scroll mousewheel");
@@ -27,7 +27,7 @@ function exitExportView(){
 	$("body").css("touch-action", "unset");
 }
 
-function urlClipCopy() { 
+const urlClipCopy = function() { 
 	var dummy = $('<input>');
 	dummy.appendTo($("body"));
     dummy.val(window.location.href);
@@ -45,10 +45,10 @@ function urlClipCopy() {
 	});
 }
 
-function initExportKakao(data){
-	var url = window.location.href;
-	var thumbnailURL = window.location.origin + data.thumbnail;
-	var path  = window.location.pathname;
+const initExportKakao = function(data){
+	const url = window.location.href;
+	const thumbnailURL = window.location.origin + data.thumbnail;
+	const path  = window.location.pathname;
 	
 	Kakao.init('3684e89896f38ed809137a3e7062bf95');
 	

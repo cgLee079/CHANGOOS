@@ -1,26 +1,22 @@
-var category;
-
 $(document).ready(function(){
 	doMenuOn(menu.STUDY);
-	
-	category = $("#category").val();
 	
 	$(".submenu.study-before, .submenu.study-next").tooltip({
     	position: 'top',
     	show : null,
     	hide : null,
     });
-})
+});
 
 /* when '목록' click */
-function studyList(){
-	var param = {};
+const studyList = function(){
+	const param = {};
 	param["category"] = $("#category").val();
 	window.location.href = getContextPath() + "/studies" + encodeURIParam(param);
 }
 
 /* when '삭제' click, only for Admin */
-function studyDelete(seq){
+const studyDelete = function(seq){
 	swal({
 		  title: "정말로 삭제 하시겠습니까?",
 		  text: "한번 삭제된 글은 복구 할 수 없습니다.",
@@ -44,14 +40,16 @@ function studyDelete(seq){
 }
 
 /* when '수정' click, only for Admin */
-function studyModify(seq){
+const studyModify = function(seq){
 	window.location.href = getContextPath() + "/studies/post/" + seq;		
 }
 
 /* when '이전글', '다음글' click */
-function studyView(seq){
+const studyView = function(seq){
+	const category = $("#category").val();
+	
 	if (seq){
-		var param = {};
+		const param = {};
 		param["category"] = category;
 		window.location.href = getContextPath() + "/studies/" + seq + encodeURIParam(param);
 	} else {

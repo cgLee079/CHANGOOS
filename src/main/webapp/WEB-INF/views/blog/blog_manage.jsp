@@ -24,8 +24,8 @@
 		<div class="blog-list">
 			<div id="tb" style="padding:10px 5px; text-align: right;">
 			    <span>TITLE : </span>
-			    <input id="title" style="padding :2px 3px; border:1px solid #CCC" onkeyup="javascript:if(event.keyCode==13){doSearch();}" autocomplete="off">
-			    <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">검색</a>
+			    <input id="title" style="padding :2px 3px; border:1px solid #CCC" onkeyup="javascript:if(event.keyCode==13){search();}" autocomplete="off">
+			    <a href="#" class="easyui-linkbutton" plain="true" onclick="search()">검색</a>
 			</div>
 			
 			<table id="dg" style="width: 100%; height:100%;"></table>

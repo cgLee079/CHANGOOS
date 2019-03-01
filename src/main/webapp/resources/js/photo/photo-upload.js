@@ -1,38 +1,28 @@
 $(document).ready(function() {
 	doMenuOn(menu.MGNT_PHOTO);
 
-	initDescCKEditor();
+	//Init CKEditor
+	const editor = CKEDITOR.replace("desc", {
+		on : {
+			instanceReady : function(ev) {
+				// Output paragraphs as <p>Text</p>.
+				this.dataProcessor.writer.setRules('p', {
+					indent : false,
+					breakBeforeOpen : true,
+					breakAfterOpen : false,
+					breakBeforeClose : false,
+					breakAfterClose : true
+				});
+			}
+		},
+		toolbar : 'Basic'
+	});
 
-	/* CKEditor initialize */
-	function initDescCKEditor() {
-		var editor = CKEDITOR.replace("desc", {
-			on : {
-				instanceReady : function(ev) {
-					// Output paragraphs as <p>Text</p>.
-					this.dataProcessor.writer.setRules('p', {
-						indent : false,
-						breakBeforeOpen : true,
-						breakAfterOpen : false,
-						breakBeforeClose : false,
-						breakAfterClose : true
-					});
-				}
-			},
-			toolbar : "Basic"
-		});
-
-		CKEDITOR.on('instanceReady', function(ev) {
-			// Ends self closing tags the HTML4 way, like <br>.
-			ev.editor.dataProcessor.writer.selfClosingEnd = '/>';
-		});
-
-	}
 })
 
-function onPhotoChnage(tg) {
-	var file = tg.files[0];
-	
-	var formData = new FormData(); 	
+const onPhotoChange = function(tg) {
+	const file = tg.files[0];
+	const formData = new FormData(); 	
 	formData.append("image", file);
 	
 	$.ajax({
@@ -53,7 +43,6 @@ function onPhotoChnage(tg) {
 			$("#date").val(photo.date);
 			$("#time").val(photo.time);
 			$("#device").val(photo.device);
-			
 			$("#snapshot").attr("src",  getContextPath()  + loc.temp.dir + photo.thumbnail);
 		},
 		complete : function(){

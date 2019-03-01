@@ -36,13 +36,13 @@
 				<select class="search-type" style="font-size: 0.75rem">
 					<option>TITLE</option>
 				</select>
-				<input type="text" id="searchValue"  value="<c:out value='${title}'/>" onkeydown="javascript:if(event.keyCode==13){search();}" style="font-size: 0.75rem" placeholder="TITLE" class="search-value" />
-				<div class="search-submit " style="background-image: url('${pageContext.request.contextPath}/resources/image/btn-study-search.svg')" onclick="search()"></div>
+				<input type="text" id="searchValue"  value="<c:out value='${title}'/>" onkeydown="javascript:if(event.keyCode==13){searchByValue();}" style="font-size: 0.75rem" placeholder="TITLE" class="search-value" />
+				<div class="search-submit " style="background-image: url('${pageContext.request.contextPath}/resources/image/btn-study-search.svg')" onclick="searchByValue()"></div>
 			</div>
 			
 			<div class="study-categories">
 				<c:forEach var="category" items="${categories}" varStatus="status">
-					<div class="study-categories-item" onclick="selectCategory(this)"><c:out value="${category}" /></div>
+					<div class="study-categories-item" onclick="serachByCategory(this)"><c:out value="${category}" /></div>
 				</c:forEach>
 			</div>
 			

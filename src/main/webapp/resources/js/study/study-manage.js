@@ -1,19 +1,18 @@
-var limit = 20;
-
 $(document).ready(function(){
 	doMenuOn(menu.MGNT_STUDY);
 	
-	fn_onInitDataGrid();
+	init();
 });
 
-function doSearch(){
+const search = function searchByTitle(){
 	 $('#dg').datagrid('load',{
 		 title: $('#title').val(),
 	 });
 }
 
 /* Datagrid Initialize */
-function fn_onInitDataGrid(){
+const init = function datagridInit(){
+	const limit = 20;
 	$('#dg').datagrid({
 		toolbar : '#tb',
 		url: getContextPath() + '/mgnt/studies/records',
@@ -49,7 +48,7 @@ function fn_onInitDataGrid(){
 	  	pageSize: limit,
 	});
 	
-	var pager = $('#dg').datagrid('getPager');    // get the pager of datagrid
+	const pager = $('#dg').datagrid('getPager');    // get the pager of datagrid
 	pager.pagination({ 
 		displayMsg : '{total} 중 {from}-{to} 스터디',
 		beforePageText : '',
@@ -58,12 +57,12 @@ function fn_onInitDataGrid(){
 }
 
 /* when '보기' click */
-function studyView(seq){
+const studyView = function(seq){
 	window.location.href = getContextPath() + "/studies/" + seq;		
 }
 
 /* when '삭제' click */
-function studyDelete(seq, index){
+const studyDelete = function(seq, index){
 	swal({
 		  title: "정말로 삭제 하시겠습니까?",
 		  text: "삭제된 게시글은 복구 할 수 없습니다.",
@@ -73,30 +72,26 @@ function studyDelete(seq, index){
 		})
 		.then(function(willDelete){
 		  if (willDelete) {
-			  doDelete(seq, index);
+			$.ajax({
+				type	: "DELETE",
+				url		: getContextPath() + "/studies/post/" + seq,
+				dataType: 'JSON',
+				async	: false,
+				success : function(data) {
+					if(data.result){
+						$('#dg').datagrid('deleteRow', index);
+						swal({ title: "삭제 완료하였습니다.", icon: "info"});
+					}
+				},
+				error : function(e) {
+					console.log(e);
+				}
+			});
 		  } 
 		});
-	
-	function doDelete(seq, index){
-		$.ajax({
-			type	: "DELETE",
-			url		: getContextPath() + "/studies/post/" + seq,
-			dataType: 'JSON',
-			async	: false,
-			success : function(data) {
-				if(data.result){
-					$('#dg').datagrid('deleteRow', index);
-					swal({ title: "삭제 완료하였습니다.", icon: "info"});
-				}
-			},
-			error : function(e) {
-				console.log(e);
-			}
-		});
-	}
 }
 
 /* when '수정' click */
-function studyModify(seq){
+const studyModify = function(seq){
 	window.location.href = getContextPath() + "/studies/post/" + seq;		
 }

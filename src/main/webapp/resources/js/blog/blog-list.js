@@ -1,17 +1,119 @@
-var limit 		= 5;
-var page 		= 1;
-var totalCount	= undefined;
-var blogItemTemp= undefined;
-var tags		= new Array();
-var doingPaging	= false;
+let tags	= new Array();
+const paging = {
+	limit : 5,
+	page : 0,
+	totalCount : undefined,
+	doing : false,
+	item : undefined,
+	getCount(){
+		return this.limit * this.page;
+	},
+	clear(){
+		$(".blog-item-list").empty();
+	},
+	next(){
+		const param = {
+			'offset': this.page * this.limit,
+			'limit' : this.limit,
+			'tags' 	: tags
+		};
+		
+		$.ajax({
+			type	: "GET",
+			url		: getContextPath() + "/blogs/records" + encodeURIParam(param),
+			dataType: 'JSON',
+			context : this,
+			beforeSend : function(){
+				this.doing = true;
+			},
+			success : function(data) {
+				if(data.length){
+					this.page++;
+					this.draw(data);
+				}
+			},
+			complete : function(){
+				this.doing = false;
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		});
+	},
+	draw(data){
+		const blogList 	= $(".blog-item-list");
+		const length		= data.length;
+		let blog		= undefined;
+		
+		if(this.page === 1){
+			blog = data[0];
+			
+			const blogFirstItem = $(".blog-first-item");
+			if(blog.thumbnail){
+				blogFirstItem.find(".blog-first-item-snapsht").css("background-image", "url('" + getContextPath() + loc.blog.thumbDir + blog.thumbnail + "')");
+			}  else if(blog.images.length > 0){
+				blogFirstItem.find(".blog-first-item-snapsht").css("background-image", "url('" + getContextPath() + loc.blog.imageDir + blog.images[0].pathname + "')");
+			} else{
+				blogFirstItem.find(".blog-first-item-snapsht").css("background", "#000");
+			}
+			
+			blogFirstItem.find(".blog-first-item-desc").attr("onclick", "doBlogView('" + blog.seq + "')");
+			blogFirstItem.find(".blog-first-item-desc .title").html(blog.title);
+			blogFirstItem.find(".blog-first-item-desc .content").html(blog.contents);
+		}
 
-$(document).ready(function(){
+		for (let i = 0; i < length; i++){
+			blog = data[i];
+			
+			const blogItem = this.item.clone();
+			if(blog.thumbnail){
+				blogItem.find(".blog-item-snapsht").css("background-image", "url('" + getContextPath() + loc.blog.thumbDir + blog.thumbnail + "')");
+			} else if(blog.images.length > 0){
+				blogItem.find(".blog-item-snapsht").css("background-image", "url('" + getContextPath() + loc.blog.imageDir + blog.images[0].pathname + "')");
+			} else{
+				blogItem.find(".blog-item-snapsht").css("background", "#000");
+			}
+			
+			blogItem.find(".blog-item-title").html(blog.title);
+			blogItem.find(".blog-item-content").html(blog.contents);
+			
+			blogItem.find(".blog-item-snapsht").attr("onclick", "doBlogView('" + blog.seq + "')");
+			blogItem.find(".blog-item-title").attr("onclick", "doBlogView('" + blog.seq + "')");
+			blogItem.find(".blog-item-content").attr("onclick", "doBlogView('" + blog.seq + "')");
+			blogItem.find(".blog-item-empty").attr("onclick", "doBlogView('" + blog.seq + "')");
+			
+		
+			const tags = blog.tag.split(" ");
+			for(let j = 0; j < tags.length; j++){
+				$("<a>", {"class" : "tag", text : tags[j], onclick : "doSearchTag(this)" }).appendTo(blogItem.find(".blog-item-tag"));
+			}
+			blogItem.find(".blog-item-comt").text("댓글 " + blog.comtCnt);
+			
+			blogItem.appendTo($(".blog-item-list"));
+		}
+		
+		// Draw tags.
+		const allTag = $(".tag");
+		allTag.removeClass("on");
+		
+		for(let i = 0; i < tags.length; i++){
+			allTag.each( function(){
+				if($(this).text() === tags[i]){
+					$(this).addClass("on");
+				}
+			})
+		}
+	},
+	
+};
+
+$(document).ready( () => {
 	doMenuOn(menu.BLOG);
 	
-	blogItemTemp = $(".blog-item").clone();
+	paging.item = $(".blog-item").clone();
 	$(".blog-item").remove();
 	
-	totalCount = $("#totalCount").val();
+	paging.totalCount = $("#totalCount").val();
 	
 	// Tags 공백 제거.
 	if($("#tags").val()){
@@ -20,12 +122,11 @@ $(document).ready(function(){
 	
 	/* Scroll Paging */
 	$(window).scroll(function(){
-		var scrollBottom = $(this).scrollTop()  + $(window).height();
-		var blogs  = $(".blog-item");
-		var lastBlog = blogs.eq(blogs.length - limit - 1);
-		if(blogs.length && scrollBottom >= (lastBlog.offset().top) && page * limit < totalCount && !doingPaging){
-			page = page + 1;
-			pageMove(page);
+		const scrollBottom = $(this).scrollTop()  + $(window).height();
+		const blogs  = $(".blog-item");
+		const lastBlog = blogs.eq(blogs.length - paging.limit - 1);
+		if(blogs.length && scrollBottom >= (lastBlog.offset().top) && paging.getCount() < paging.totalCount && !paging.doing){
+			paging.next();
 		}
 	});
 	
@@ -34,123 +135,20 @@ $(document).ready(function(){
 	},100)
 	
 	
-	clearBlogItems();
-	pageMove(page);
+	paging.clear();
+	paging.next();
 });
 
 
-/* Paging */
-function pageMove(pg){
-	var param = {
-		'offset': (pg - 1) * limit,
-		'limit' : limit,
-		'tags' 	: tags
-	};
-	
-	$.ajax({
-		type	: "GET",
-		url		: getContextPath() + "/blogs/records" + encodeURIParam(param),
-		dataType: 'JSON',
-		beforeSend : function(){
-			doingPaging = true;
-		},
-		success : function(data) {
-			if(data.length){
-				page = pg;
-				drawBlog(data);
-			}
-		},
-		complete : function(){
-			doingPaging = false;
-		},
-		error : function(e) {
-			console.log(e);
-		}
-	});
-}
-
-function clearBlogItems(){
-	$(".blog-item-list").empty();
-}
-
-/* draw Blog list */
-function drawBlog(data){
-	var blogList 	= $(".blog-item-list");
-	var length		= data.length;
-	var blog		= undefined;
-	
-	if(page == 1){
-		blog = data[0];
-		
-		var blogFirstItem = $(".blog-first-item");
-		if(blog.thumbnail){
-			blogFirstItem.find(".blog-first-item-snapsht").css("background-image", "url('" + getContextPath() + loc.blog.thumbDir + blog.thumbnail + "')");
-		}  else if(blog.images.length > 0){
-			blogFirstItem.find(".blog-first-item-snapsht").css("background-image", "url('" + getContextPath() + loc.blog.imageDir + blog.images[0].pathname + "')");
-		} else{
-			blogFirstItem.find(".blog-first-item-snapsht").css("background", "#000");
-		}
-		
-		blogFirstItem.find(".blog-first-item-desc").attr("onclick", "doBlogView('" + blog.seq + "')");
-		blogFirstItem.find(".blog-first-item-desc .title").html(blog.title);
-		blogFirstItem.find(".blog-first-item-desc .content").html(blog.contents);
-	}
-
-	for (var i = 0; i < length; i++){
-		blog = data[i];
-		
-		var blogItem = blogItemTemp.clone();
-		if(blog.thumbnail){
-			blogItem.find(".blog-item-snapsht").css("background-image", "url('" + getContextPath() + loc.blog.thumbDir + blog.thumbnail + "')");
-		} else if(blog.images.length > 0){
-			blogItem.find(".blog-item-snapsht").css("background-image", "url('" + getContextPath() + loc.blog.imageDir + blog.images[0].pathname + "')");
-		} else{
-			blogItem.find(".blog-item-snapsht").css("background", "#000");
-		}
-		
-		blogItem.find(".blog-item-title").html(blog.title);
-		blogItem.find(".blog-item-content").html(blog.contents);
-		
-		blogItem.find(".blog-item-snapsht").attr("onclick", "doBlogView('" + blog.seq + "')");
-		blogItem.find(".blog-item-title").attr("onclick", "doBlogView('" + blog.seq + "')");
-		blogItem.find(".blog-item-content").attr("onclick", "doBlogView('" + blog.seq + "')");
-		blogItem.find(".blog-item-empty").attr("onclick", "doBlogView('" + blog.seq + "')");
-		
-	
-		var tags = blog.tag.split(" ");
-		for(var j = 0; j < tags.length; j++){
-			$("<a>", {"class" : "tag", text : tags[j], onclick : "doSearchTag(this)" }).appendTo(blogItem.find(".blog-item-tag"));
-		}
-		blogItem.find(".blog-item-comt").text("댓글 " + blog.comtCnt);
-		
-		blogItem.appendTo($(".blog-item-list"));
-	}
-	
-	drawTags();
-}
-
-function drawTags(){
-	var allTag = $(".tag");
-	allTag.removeClass("on");
-	
-	for(var i = 0; i < tags.length; i++){
-		allTag.each(function(){
-			if($(this).text() == tags[i]){
-				$(this).addClass("on");
-			}
-		})
-	}
-}
-
-function doSearchTag(tg){
-	var tg = $(tg);
-	var tag = tg.text();
+const searchByTag = function(target){
+	const tg = $(target);
+	const tag = tg.text();
 	
 	tg.toggleClass("on");
 	if(tg.hasClass("on")){
 		tags.push(tag);		
 	} else{
-		var index = tags.indexOf(tag);
+		const index = tags.indexOf(tag);
 		if(index != -1){
 			tags.splice(index, 1);
 		}
@@ -159,6 +157,6 @@ function doSearchTag(tg){
 	window.location.href = getContextPath() + "/blogs" + encodeURIParam({"tags" : tags});
 }
 
-function doBlogView(seq){
+const doBlogView = function(seq){
 	window.location.href = getContextPath() + "/blogs/" + seq;
 }

@@ -4,12 +4,12 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <script>
-fileUploader.status = {
-	'BE' 	: '<c:out value="${fileStatus.BE}"/>',
-	'NEW'	: '<c:out value="${fileStatus.NEW}"/>',
-	'UNNEW' : '<c:out value="${fileStatus.UNNEW}"/>',
-	'REMOVE': '<c:out value="${fileStatus.REMOVE}"/>'
-}
+fileUploader.status = Object.freeze({
+	BE 	: '<c:out value="${fileStatus.BE}"/>',
+	NEW	: '<c:out value="${fileStatus.NEW}"/>',
+	UNNEW : '<c:out value="${fileStatus.UNNEW}"/>',
+	REMOVE: '<c:out value="${fileStatus.REMOVE}"/>'
+});
 </script>
 
 <div class="file-infos">
