@@ -3,7 +3,7 @@
 
 <h2><strong>개요</strong></h2>
 
-<p><a href="http://www.changoos.com">http://www.changoos.com</a></p>
+<p><a href="http://www.changoos.com" target="_blank">http://www.changoos.com</a></p>
 
 <p>본 프로젝트는 토이프로젝트이며, 개인용 포트폴리오 사이트입니다.</p>
 
@@ -121,6 +121,6 @@
 <h2><strong>관련링크</strong></h2>
 
 <ul>
-	<li><strong>Web :&nbsp;</strong><a href="http://www.changoos.com">http://www.changoos.com</a></li>
-	<li><strong>Google Playstore :</strong>&nbsp;<a href="https://play.google.com/store/apps/details?id=com.cglee079.changoos">https://play.google.com/store/apps/details?id=com.cglee079.changoos</a></li>
+	<li><strong>Web :&nbsp;</strong><a href="http://www.changoos.com" target="_blank">http://www.changoos.com</a></li>
+	<li><strong>Google Playstore :</strong>&nbsp;<a href="https://play.google.com/store/apps/details?id=com.cglee079.changoos" target="_blank">https://play.google.com/store/apps/details?id=com.cglee079.changoos</a></li>
 </ul>
