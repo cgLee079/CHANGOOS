@@ -1,12 +1,17 @@
+<p><img alt="CRJTGO181224235522.JPG" pathname="LGPFYR190112212559.JPG" src="http://www.changoos.com/uploaded/project/image/LGPFYR190112212559.JPG" style="border-style:solid; border-width:1px; height:416px; width:720px" title="CRJTGO181224235522.JPG"/></p>
+
+
 <h2><strong>개요</strong></h2>
 
-<p>본 프로젝트는 개인용 포트폴리오 사이트입니다.</p>
+<p><a href="https://www.changoos.com">https://www.changoos.com</a></p>
 
-<p>티스토리, 네이버 블로그등 개인용 포토폴리오를 만들 수 있는 서비스가 많지만</p>
+<p>본 프로젝트는 토이프로젝트이며, 개인용 포트폴리오 사이트입니다.</p>
 
-<p>커스텀 할 수 있는&nbsp;포토폴리오 사이트를 만들고 싶은 욕심을 학부 시절부터 가지고 있었습니다.</p>
+<p>커스텀 할 수 있는&nbsp;포토폴리오 사이트를 만들고 싶은 욕심을 학부 시절부터 가지고 있었고 본 프로젝트가 결과물입니다.</p>
 
-<p>본 사이트가 프로젝트의&nbsp;결과물입니다.</p>
+<p>또한 반응형 웹을 지원하며, 하이브리드앱을 개발하여 PlayStore에 배포하고 있습니다.</p>
+
+
 
 <p>&nbsp;</p>
 
@@ -116,6 +121,6 @@
 <h2><strong>관련링크</strong></h2>
 
 <ul>
-	<li><strong>소스코드(Github) :&nbsp;</strong><a href="https://github.com/cgLee079/CHANGOOS">https://github.com/cgLee079/CHANGOOS</a></li>
+	<li><strong>Web :&nbsp;</strong><a href="https://www.changoos.com">https://www.changoos.com</a></li>
 	<li><strong>Google Playstore :</strong>&nbsp;<a href="https://play.google.com/store/apps/details?id=com.cglee079.changoos">https://play.google.com/store/apps/details?id=com.cglee079.changoos</a></li>
 </ul>
