@@ -54,11 +54,11 @@
 
 .detail .download{
 	text-align: right;
-	margin-top: 50px;
+	margin-top: 100px;
 }
 
 .detail .download a{
-	padding : 0.5rem 0.7rem;
+	padding : 0.3rem 0.7rem;
 	background : #333;
 	border : 1px solid #333;
 	color : #FFF;
