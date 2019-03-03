@@ -49,7 +49,6 @@
 		</dependency>
 
 		<!-- Logging -->
-		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -248,15 +247,14 @@
 		</dependency>
 
 
-		<!-- ==================== -->
-		<!-- = TEST 관련 라이브러리 = -->
-		<!-- ==================== -->
+		<!-- TEST 관련 라이브러리 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${org.springframework-version}</version>
+			<version>4.2.5.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
+
 
 		<dependency>
 			<groupId>junit</groupId>
