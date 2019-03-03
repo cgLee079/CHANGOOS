@@ -47,9 +47,27 @@
 }
 
 .detail {
-	width: 95%;
+	max-width : var(--section-width-narrow);
 	margin: 0 auto;
 	margin-bottom: 100px;
+}
+
+.detail .download{
+	text-align: right;
+	margin-top: 50px;
+}
+
+.detail .download a{
+	padding : 0.5rem 0.7rem;
+	background : #333;
+	border : 1px solid #333;
+	color : #FFF;
+	border-radius : 5px;
+}
+
+.detail .download a:hover{
+	background : #FFF;
+	color : #000;
 }
 
 

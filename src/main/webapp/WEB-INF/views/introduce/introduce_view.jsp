@@ -26,23 +26,14 @@
 				<div class="contents editor-contents">
 					<c:out value="${intro002}" escapeXml="false"></c:out>
 				</div>
-
+				
+				<div class="download">
+					<a href="${pageContext.request.contextPath}/introduce/resume">이력서 다운로드</a>
+				</div>
 			</div>
-
-			<!-- 방명록 남기는 기능 제거 -->
-			<!-- 	<div class="contact">
-			<div class="contact-head">방명록을 남겨주세요.</div>
-			<div class="contact-input-message">
-				<form>
-					<textarea class="input-message"></textarea>
-					<div style="display: flex; justify-content: space-between;">
-						<div style="flex:1;"></div>
-						<div class="submit-message black-button" onclick="doSendMessage()">SEND</div>
-					</div>
-				</form>
-			</div>
-		</div> -->
-
+			
+			
+		
 		</div>
 		<c:import url="../included/included_footer.jsp" charEncoding="UTF-8" />
 	</div>
