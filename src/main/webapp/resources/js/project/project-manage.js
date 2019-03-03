@@ -1,11 +1,6 @@
-$(document).ready(function(){
+$(document).ready(() => {
 	doMenuOn(menu.MGNT_PROJECT);
 	
-	fn_onInitDataGrid();
-});
-
-/* datagrid initialize */
-function fn_onInitDataGrid(){
 	$('#dg').datagrid({
 		url: getContextPath() + '/mgnt/projects/records',
 		method: 'GET',
@@ -39,15 +34,15 @@ function fn_onInitDataGrid(){
 			{field:'enabled', title:'공개여부', width:'150px', halign:'center', sortable : "true", styler : alignCenter},
 		]]
 	});
-}
+});
 
 /* when '보기' click */
-function projectView(seq){
+const projectView = function(seq){
 	window.location.href = getContextPath() + "/projects/" + seq;		
 }
 
 /* Ajax, when '삭제' click */
-function projectDelete(seq, index){
+const projectDelete = function(seq, index){
 	swal({
 		  title: "정말로 삭제 하시겠습니까?",
 		  text: "삭제된 프로젝트는 복구 할 수 없습니다.",
@@ -57,30 +52,26 @@ function projectDelete(seq, index){
 		})
 		.then(function(willDelete) {
 		  if (willDelete) {
-			  doDelete(seq, index);
+			  $.ajax({
+				type	: "DELETE",
+				url		: getContextPath() + "/projects/post/" + seq,
+				dataType: 'JSON',
+				async	: false,
+				success : function(data) {
+					if(data.result){
+						$('#dg').datagrid('deleteRow', index);
+						swal({ title: "삭제 완료하였습니다.", icon: "info"});
+					}
+				},
+				error : function(e) {
+					console.log(e);
+				}
+			});
 		  } 
 		});
-	
-	function doDelete(seq, index){
-		$.ajax({
-			type	: "DELETE",
-			url		: getContextPath() + "/projects/post/" + seq,
-			dataType: 'JSON',
-			async	: false,
-			success : function(data) {
-				if(data.result){
-					$('#dg').datagrid('deleteRow', index);
-					swal({ title: "삭제 완료하였습니다.", icon: "info"});
-				}
-			},
-			error : function(e) {
-				console.log(e);
-			}
-		});
-	}
 }
 
 /* Ajax, when '수정' click */
-function projectModify(seq){
+const projectModify = function(seq){
 	window.location.href = getContextPath() + "/projects/post/" + seq;		
 }

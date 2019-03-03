@@ -1,9 +1,38 @@
-$(document).ready(function() {
+$(document).ready(() => {
 	doMenuOn(menu.MGNT_BLOG);
-	initContentCKEditor();
+	
+	const editor = CKEDITOR.replace("contents", {
+		height : '400px',
+		pasteImageUrl : getContextPath() + "/board/post/image",
+		codeSnippet_theme : 'github',
+		on : {
+			instanceReady : function(ev) {
+				// Output paragraphs as <p>Text</p>.
+				this.dataProcessor.writer.setRules('p', {
+					indent : false,
+					breakBeforeOpen : true,
+					breakAfterOpen : false,
+					breakBeforeClose : false,
+					breakAfterClose : true
+				});
+			}
+		},
+		toolbar : "Full"
+	});
+
+	CKEDITOR.on('dialogDefinition', function(ev) {
+		const dialogName = ev.data.name;
+		const dialog = ev.data.definition.dialog;
+		const dialogDefinition = ev.data.definition;
+
+		if (dialogName == 'image') {
+			dialogDefinition.removeContents('Link'); //링크 탭 제거
+			dialogDefinition.removeContents('advanced'); //상세정보 탭 제거
+		}
+	});
 });
 
-function submit(){
+var submit = function(){
 	form = $('#uploadForm');
 	seq = $('#seq').val();
 	
@@ -18,7 +47,7 @@ function submit(){
 	form.submit();	
 }
 
-function onThumbnailChange(tg){
+var onThumbnailChange = function(tg){
 	var files = tg.files;
 	var file = files[0];
 	
@@ -38,38 +67,4 @@ function onThumbnailChange(tg){
 			$("#thumbnail-img").attr("src", getContextPath() + loc.temp.dir + result["pathname"]);
 		},
 	})
-}
-
-function initContentCKEditor() {
-	var editor = CKEDITOR.replace("contents", {
-		height : '400px',
-		pasteImageUrl : getContextPath() + "/board/post/image",
-		codeSnippet_theme : 'github',
-		on : {
-			instanceReady : function(ev) {
-				// Output paragraphs as <p>Text</p>.
-				this.dataProcessor.writer.setRules('p', {
-					indent : false,
-					breakBeforeOpen : true,
-					breakAfterOpen : false,
-					breakBeforeClose : false,
-					breakAfterClose : true
-				});
-				
-				//this.dataProcessor.writer.selfClosingEnd = '/>';
-			}
-		},
-		toolbar : "Full"
-	});
-
-	CKEDITOR.on('dialogDefinition', function(ev) {
-		var dialogName = ev.data.name;
-		var dialog = ev.data.definition.dialog;
-		var dialogDefinition = ev.data.definition;
-
-		if (dialogName == 'image') {
-			dialogDefinition.removeContents('Link'); //링크 탭 제거
-			dialogDefinition.removeContents('advanced'); //상세정보 탭 제거
-		}
-	});
 }

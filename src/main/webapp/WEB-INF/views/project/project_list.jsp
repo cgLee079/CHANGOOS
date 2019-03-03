@@ -13,8 +13,8 @@
 	<div class="wrap-project-list">
 		<div class="project-list">
 			<c:forEach var="project" items="${projects}">
-				<div onclick="" class="project-view">
-					<div onclick="projectView(${project.seq})" class="project-snapsht">
+				<div class="project-view" onclick="projectView(${project.seq})" >
+					<div class="project-snapsht">
 						<div class="project-snapsht-img" style="background-image: url('${pageContext.request.contextPath}${projectThumbDir}${project.thumbnail}')"></div>
 						<span class="project-snapsht-overlay"><c:out value="${project.subtitle}"/></span>
 						<div class="project-snapsht-fg"></div>

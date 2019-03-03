@@ -1,20 +1,14 @@
-$(document).ready(function() {
+$(document).ready(() => {
 	doMenuOn(menu.MGNT_PROJECT);
-	
-	var videoVal = $("#videoVal").val();
-	if(videoVal){
-		$("#video").val(videoVal);
-	}
 	
 	initDescCKEditor();
 	initContentCKEditor();
 });
 
-function onThumbnailChange(tg){
-	var files = tg.files;
-	var file = files[0];
-	
-	var formData = new FormData(); 	
+const onThumbnailChange = function(tg){
+	const files = tg.files;
+	const file = files[0];
+	const formData = new FormData(); 	
 	formData.append("thumbnailFile", file);
 	
 	$.ajax({
@@ -32,8 +26,8 @@ function onThumbnailChange(tg){
 	})
 }
 
-function initDescCKEditor() {
-	var editor = CKEDITOR.replace("desc", {
+const initDescCKEditor = function() {
+	const editor = CKEDITOR.replace("desc", {
 		on : {
 			instanceReady : function(ev) {
 				// Output paragraphs as <p>Text</p>.
@@ -48,15 +42,10 @@ function initDescCKEditor() {
 		},
 		toolbar : 'Basic'
 	});
-
-	CKEDITOR.on('instanceReady', function(ev) {
-		// Ends self closing tags the HTML4 way, like <br>.
-		ev.editor.dataProcessor.writer.selfClosingEnd = '/>';
-	});
 }
 
-function initContentCKEditor() {
-	var editor = CKEDITOR.replace("contents", {
+const initContentCKEditor = function() {
+	const editor = CKEDITOR.replace("contents", {
 		height : '400px',
 		pasteImageUrl : getContextPath() + "/board/post/image",
 		codeSnippet_theme : 'github',
@@ -75,11 +64,10 @@ function initContentCKEditor() {
 		toolbar : 'Full'
 	});
 
-	
 	CKEDITOR.on('dialogDefinition', function(ev) {
-		var dialogName = ev.data.name;
-		var dialog = ev.data.definition.dialog;
-		var dialogDefinition = ev.data.definition;
+		const dialogName = ev.data.name;
+		const dialog = ev.data.definition.dialog;
+		const dialogDefinition = ev.data.definition;
 
 		if (dialogName == 'image') {
 			dialogDefinition.removeContents('Link'); //링크 탭 제거

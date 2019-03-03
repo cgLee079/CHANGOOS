@@ -1,6 +1,6 @@
 const fileUploader = {};
 
-$(document).ready(function(){
+$(document).ready(() => {
 	fileUploader.item = $(".file-info.temp").clone();
 	fileUploader.item.removeClass("temp");
 	$(".file-info.temp").remove();

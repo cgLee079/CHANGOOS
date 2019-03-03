@@ -1,13 +1,13 @@
-var initImgSize = [];
+const initImgSize = [];
 
-function contentImgResize(){
+const contentImgResize = function(){
 	var imgs = $(".editor-contents img");
 	imgs.each(function(){
-		var parentWidth = parseInt($(".editor-contents").width());
-		var width 	= parseInt($(this).css("width"));
-		var height 	= parseInt($(this).css("height"));
-		var ratio	= width / height;
-		var index 	= imgs.index(this);
+		const parentWidth = parseInt($(".editor-contents").width());
+		const width 	= parseInt($(this).css("width"));
+		const height 	= parseInt($(this).css("height"));
+		const ratio	= width / height;
+		const index 	= imgs.index(this);
 		
 		$(this).css("width", "");
 		$(this).css("height", "");
@@ -16,7 +16,7 @@ function contentImgResize(){
 			$(this).css("width", "100%");
 		} else if (width <= parentWidth){
 			$(this).css("width", initImgSize[index]);
-			width 	= parseInt($(this).css("width"));
+			width = parseInt($(this).css("width"));
 			if(width > parentWidth){
 				$(this).css("width", "100%");
 			}
@@ -25,16 +25,16 @@ function contentImgResize(){
 	});
 }
 
-function contentYoutubeResize(){
-	var parentWidth = parseInt($(".editor-contents").width());
-	var videos = $(".editor-contents iframe");
+const contentYoutubeResize = function(){
+	const parentWidth = parseInt($(".editor-contents").width());
+	const videos = $(".editor-contents iframe");
 	videos.each(function(){
 		if(parentWidth >= 640){
 			$(this).attr("width", "640");
 			$(this).attr("height", "360");
 		} else{
-			var width = parentWidth;
-			var ratio = parseFloat($(this).attr("width") /$(this).attr("height"));
+			const width = parentWidth;
+			const ratio = parseFloat($(this).attr("width") /$(this).attr("height"));
 			$(this).attr("width", width);
 			$(this).attr("height", width / ratio );
 		} 
@@ -42,20 +42,20 @@ function contentYoutubeResize(){
 }
 
 
-function resizedw(){
+const resizedw = function(){
 	contentImgResize();
 	contentYoutubeResize();
 }
 
-var doit;
-$(window).resize(function(){
+let doit;
+$(window).resize(() => {
   clearTimeout(doit);
   doit = setTimeout(resizedw, 100);
 });
 
-window.addEventListener("load", function(){
-	var imgs = $(".editor-contents img");
-	for(var i = 0; i < imgs.length; i++){
+window.addEventListener("load", () => {
+	const imgs = $(".editor-contents img");
+	for(let i = 0; i < imgs.length; i++){
 		initImgSize.push($(imgs[i]).css("width"));
 	}
 	

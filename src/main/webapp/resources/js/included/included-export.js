@@ -28,7 +28,7 @@ const exitExportView = function(){
 }
 
 const urlClipCopy = function() { 
-	var dummy = $('<input>');
+	const dummy = $('<input>');
 	dummy.appendTo($("body"));
     dummy.val(window.location.href);
     

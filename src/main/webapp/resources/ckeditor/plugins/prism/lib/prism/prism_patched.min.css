@@ -33,6 +33,7 @@ pre {
 	margin: .5em 0;
 	overflow-x: auto;
 	overflow-y: hidden;
+	border-radius: 5px;
 }
 
 :not(pre)>code[class*="language-"] {

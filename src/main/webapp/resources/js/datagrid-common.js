@@ -1,11 +1,11 @@
-function alignCenter(value, row, index){
+const alignCenter = function(value, row, index){
 	return 'text-align:center';
 }
 
-function alignLeft(value, row, index){
+const alignLeft = function(value, row, index){
 	return 'text-align:left';
 }
 
-function alignRight(value, row, index){
+const alignRight = function(value, row, index){
 	return 'text-align:right';
 }

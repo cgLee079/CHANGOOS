@@ -1,18 +1,8 @@
-$(document).ready(function(){
+$(document).ready(() =>{
 	doMenuOn(menu.MGNT_STUDY);
 	
-	init();
-});
-
-const search = function searchByTitle(){
-	 $('#dg').datagrid('load',{
-		 title: $('#title').val(),
-	 });
-}
-
-/* Datagrid Initialize */
-const init = function datagridInit(){
 	const limit = 20;
+	
 	$('#dg').datagrid({
 		toolbar : '#tb',
 		url: getContextPath() + '/mgnt/studies/records',
@@ -54,7 +44,15 @@ const init = function datagridInit(){
 		beforePageText : '',
 		afterPageText : '페이지 ',
 	});
+});
+
+const search = function searchByTitle(){
+	 $('#dg').datagrid('load',{
+		 title: $('#title').val(),
+	 });
 }
+
+/* Datagrid Initialize */
 
 /* when '보기' click */
 const studyView = function(seq){

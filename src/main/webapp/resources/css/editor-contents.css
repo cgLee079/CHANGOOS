@@ -2,6 +2,8 @@
 
 .editor{
 	padding: 1rem 2rem;
+	max-width : var(--section-width-narrow);
+	margin : 0 auto;
 }
 
 .editor-contents {

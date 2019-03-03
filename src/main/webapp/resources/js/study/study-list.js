@@ -31,7 +31,7 @@ const paging = {
 				this.doing = true;
 			},
 			success : function(data) {
-				this.page++;
+				this.page += 1;
 				this.draw(data);
 			},
 			complete: function(){
@@ -78,7 +78,7 @@ const paging = {
 }
 
 
-$(document).ready(function(){
+$(document).ready(() => {
 	doMenuOn(menu.STUDY);
 	
 	category = $("#category").val();

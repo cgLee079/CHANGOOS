@@ -8,7 +8,7 @@
 	<input type="hidden" id="comtCnt" value="<c:out value='${param.comtCnt}'/>"/>
 	<input type="hidden" id="isAdmin" value="<c:out value='${isAdmin}'/>"/>
 	
-	<div class="comment-header">댓글 &nbsp;(<a class="comment-cnt"></a>)</div>
+	<div class="comment-header">댓글 (<a class="comment-cnt"></a>)</div>
 	<div class="comments"></div>
 	<div class="comt-pager"></div>
 	

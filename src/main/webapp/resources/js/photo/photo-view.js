@@ -5,8 +5,9 @@ const paging = {
 	current : 0,
 	loading : false,
 	next(){
-		const seq = this.seqs[this.current++];
+		const seq = this.seqs[this.current];
 		const photoLoading = $("<div>", {"class" : "photo-loading col-center", "text" : "Loading..."});
+		this.current += 1;
 		
 		$.ajax({
 			type	: "GET",

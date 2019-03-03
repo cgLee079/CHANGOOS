@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(() =>{
 	doMenuOn(menu.STUDY);
 	
 	$(".submenu.study-before, .submenu.study-next").tooltip({

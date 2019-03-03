@@ -2,15 +2,16 @@ let boardType;
 let boardSeq;
 let isAdmin;
 let path;
+
 const paging = {
 	page : 0,
 	limit : 100000,
 	item : undefined,
 	totalCount : undefined,
-	drawCount : function(){
+	drawCount(){
 		$(".comment-cnt").text(this.totalCount);
 	},
-	move : function(){
+	move(){
 		$.ajax({
 			type	: "GET",
 			url		: path + "/comments",
@@ -36,8 +37,7 @@ const paging = {
 			}
 		});
 	},
-	
-	draw : function(data){
+	draw(data){
 		const container = $(".comments");
 		const length = data.length;
 		let comment;
@@ -116,7 +116,7 @@ const paging = {
 	
 }
 
-$(document).ready(function(){
+$(document).ready(() => {
 	boardType	= $("#boardType").val();
 	boardSeq	= $("#boardSeq").val();
 	isAdmin 	= $("#isAdmin").val();

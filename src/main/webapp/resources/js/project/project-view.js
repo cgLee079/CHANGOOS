@@ -1,14 +1,14 @@
-$(document).ready(function(){
+$(document).ready(() => {
 	doMenuOn(menu.PROJECT);
 });
 
 /* when '목록' click */
-function projectList(){
+const projectList = function(){
 	window.location.href = getContextPath() + "/projects";
 }
 
 /* when '이전글', '다음글' click */
-function projectView(seq){
+const projectView = function(seq){
 	if (seq){
 		window.location.href = getContextPath() + "/projects/" + seq;
 	} else {

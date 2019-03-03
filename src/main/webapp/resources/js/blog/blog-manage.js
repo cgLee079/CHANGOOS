@@ -1,13 +1,7 @@
-$(document).ready(function(){
+$(document).ready(() => {
 	doMenuOn(menu.MGNT_BLOG);
 	
-	init();
-});
-
-/* Datagrid Initialize */
-let init = function datagridInit(){
 	const limit = 8;
-	
 	$('#dg').datagrid({
 		toolbar : '#tb',
 		url: getContextPath() + '/mgnt/blogs/records',
@@ -60,7 +54,7 @@ let init = function datagridInit(){
 		beforePageText : '',
 		afterPageText : '페이지 ',
 	});
-}
+});
 
 
 let search = function serachByTitle(){

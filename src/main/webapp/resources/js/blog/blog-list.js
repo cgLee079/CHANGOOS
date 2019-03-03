@@ -28,7 +28,7 @@ const paging = {
 			},
 			success : function(data) {
 				if(data.length){
-					this.page++;
+					this.page += 1;
 					this.draw(data);
 				}
 			},
@@ -42,7 +42,7 @@ const paging = {
 	},
 	draw(data){
 		const blogList 	= $(".blog-item-list");
-		const length		= data.length;
+		const length	= data.length;
 		let blog		= undefined;
 		
 		if(this.page === 1){

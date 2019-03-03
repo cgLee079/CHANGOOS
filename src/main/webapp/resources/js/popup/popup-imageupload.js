@@ -1,11 +1,11 @@
-var wrapImageTemp;
+let wrapImageTemp;
 
 $(document).ready(function() {
 	wrapImageTemp = $(".wrap-image").clone();
 	$(".wrap-image").remove();
 })
 
-function sendImage(file) {
+const sendImage = function(file) {
 	return new Promise(function(resolve, reject) {
 		var formData = new FormData(); 	
 		formData.append("image", file);
@@ -31,13 +31,15 @@ function sendImage(file) {
 	});
 }
 
-function onImageChange() {
+const onImageChange = function() {
 	files = $('#images').prop('files');
-	for (var i = 0; i < files.length; i++) {
-		var file = files[i];
+	
+	let file;
+	for (let i = 0; i < files.length; i++) {
+		file = files[i];
 		(function(file) {
 			sendImage(file).then(function(result) {
-				var wrapImage = wrapImageTemp.clone();
+				const wrapImage = wrapImageTemp.clone();
 				wrapImage.appendTo($(".image-list"));
 				wrapImage.find(".filename").val(file.name);
 				wrapImage.find(".pathname").val(result.pathname);
@@ -47,19 +49,19 @@ function onImageChange() {
 	}
 }
 
-function removeImage(tg) {
+const removeImage = function(tg) {
 	$(tg).parent(".wrap-image").remove();
 }
 
-function doUpload() {
-	var wrapImages = $(".wrap-image");
-	var editorID = $("#editor").val();
-	var maxWidth = $("#width").val();
+const doUpload = function() {
+	const wrapImages = $(".wrap-image");
+	const editorID = $("#editor").val();
+	const maxWidth = $("#width").val();
 
-	for (var i = 0; i < wrapImages.length; i++) {
+	for (let i = 0; i < wrapImages.length; i++) {
 		//Editor에 이미지 첨부
-		var wrapImage = $(wrapImages[i]);
-		var image = {
+		const wrapImage = $(wrapImages[i]);
+		const image = {
 			"editorID" : editorID,
 			"seq" : undefined,
 			"pathname" : wrapImage.find(".pathname").val(),

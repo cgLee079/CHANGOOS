@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(() => {
 	doMenuOn(menu.MGNT_PHOTO);
 
 	//Init CKEditor

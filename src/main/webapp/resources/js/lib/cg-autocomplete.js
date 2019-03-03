@@ -1,22 +1,22 @@
 HTMLInputElement.prototype.comboboxByCG = function(param){
-	var getFacetsTimer;
-	var lastGetFacetsTime;
-	var minGetFacetsTime = 200;
-	var onEnter = param.onEnter;
-	var maxValues = param.maxValues;
-	var inputFocusClass = param.inputFocusClass;
-	var listClass = param.listClass;
-	var listItemClass = param.listItemClass;
-	var listItemFocusClass = param.listItemFocusClass;
-	var ts = $(this);
-	var width = ts.width();
-	var height = ts.height();
-	var dataURL = param.dataURL;
+	const minGetFacetsTime = 200;
+	const onEnter = param.onEnter;
+	const maxValues = param.maxValues;
+	const inputFocusClass = param.inputFocusClass;
+	const listClass = param.listClass;
+	const listItemClass = param.listItemClass;
+	const listItemFocusClass = param.listItemFocusClass;
+	const ts = $(this);
+	const width = ts.width();
+	const height = ts.height();
+	const dataURL = param.dataURL;
+	let getFacetsTimer;
+	let lastGetFacetsTime;
 	
-	var wrapSearch = $("<div>");
+	const wrapSearch = $("<div>");
 	wrapSearch.addClass("wrap-search");
 	
-	var searchField = $("<input>");
+	const searchField = $("<input>");
 	searchField.appendTo(wrapSearch);
 	searchField.attr("type", "text");
 	searchField.attr("placeholder", ts.attr("placeholder"));
@@ -25,7 +25,7 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 	searchField.addClass(ts.attr("class"));
 	searchField.addClass("search-field");
 
-	var facetPanel= $("<div>");
+	const facetPanel= $("<div>");
 	facetPanel.appendTo($("body"));
 	facetPanel.addClass(listClass);
 	facetPanel.css("min-height", param.panelMinHeight);
@@ -44,7 +44,7 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 	});
 	
 	searchField.bind("focusout", function(event){
-		var el = $(this);
+		const el = $(this);
 		setTimeout(function() { 
 			el.removeClass(inputFocusClass);
 			facetPanel.css("display", "none"); 
@@ -52,11 +52,11 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 	});
 	
 	searchField.bind("keyup", function(event){
-		var el = $(this);
+		const el = $(this);
 		
 		switch(event.keyCode){
 			case 13 : //Enter
-				var focused = facetPanel.find("." + listItemClass + "." + listItemFocusClass);
+				const focused = facetPanel.find("." + listItemClass + "." + listItemFocusClass);
 				if(focused.length){
 					focused.removeClass(listItemFocusClass);
 					searchField.val(focused.text());
@@ -66,24 +66,24 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 				
 				break;
 			case 38 : //Arrow Up
-				var facetValues = facetPanel.find("." + listItemClass);
-				var focused = facetPanel.find(".facet-value." + listItemFocusClass);
-				var index = focused.index();
+				const facetValues = facetPanel.find("." + listItemClass);
+				const focused = facetPanel.find(".facet-value." + listItemFocusClass);
+				const index = focused.index();
 				
 				facetValues.removeClass(listItemFocusClass);
 				
 				if(index == 0) {
 				} else{
-					var focused = facetValues.eq(index - 1);
+					const focused = facetValues.eq(index - 1);
 					focused.addClass(listItemFocusClass);
 				}
 				
 				break;
 			case 40 : //Arrow Down
-				var facetValues = facetPanel.find("." + listItemClass);
-				var length = facetValues.length;
-				var focused = facetPanel.find("." + listItemClass + "." + listItemFocusClass);
-				var index = focused.index();
+				const facetValues = facetPanel.find("." + listItemClass);
+				const length = facetValues.length;
+				const focused = facetPanel.find("." + listItemClass + "." + listItemFocusClass);
+				const index = focused.index();
 				
 				facetValues.removeClass(listItemFocusClass);
 				
@@ -91,13 +91,13 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 					facetValues.eq(0).addClass(listItemFocusClass);
 				} if(index == length -1){ //마지막이 focuse라면
 				} else{
-					var focused = facetValues.eq(index + 1);
+					const focused = facetValues.eq(index + 1);
 					focused.addClass(listItemFocusClass);
 				}
 			 	break;
-			default : 
-				if (!getFacetsTimer) {
-					var now = new Date().getTime();
+			default : // 그 외 입력값
+				if (!getFacetsTimer) { //
+					const now = new Date().getTime();
 					
 					if(now - lastGetFacetsTime > minGetFacetsTime){
 						getFacets();
@@ -129,9 +129,9 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 							facetPanel.css("top", el[0].offsetTop + el.height());
 							facetPanel.css("display", "initial");
 							
-							var length = result.length > maxValues ? maxValues : result.length;
-							for(var i = 0; i < length; i++){
-								var facetValue = $("<div>");
+							const length = result.length > maxValues ? maxValues : result.length;
+							for(let i = 0; i < length; i++){
+								const facetValue = $("<div>");
 								
 								facetValue.text(result[i]);
 								facetValue.css("word-break", "keep-all");
@@ -139,12 +139,11 @@ HTMLInputElement.prototype.comboboxByCG = function(param){
 								facetValue.css("min-height", "1rem");
 								facetValue.addClass(listItemClass);
 								facetValue.bind("click", function(){
-									var facetPanel = $(this).parent();
-									var searchField = facetPanel.siblings(".search-field");
+									const facetPanel = $(this).parent();
+									const searchField = facetPanel.siblings(".search-field");
 									
 									searchField.val($(this).text());
 									onEnter($(this).text());
-									//searchField.trigger(jQuery.Event( 'keyup', { which: 13 } ));
 									facetPanel.css("display", "none");
 								})
 								

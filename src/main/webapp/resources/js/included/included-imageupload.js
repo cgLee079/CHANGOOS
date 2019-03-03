@@ -1,31 +1,28 @@
-var imageUploader = new Object();
-window.imageUloader = imageUploader;
-
-var wrapImageTemp;
+imageUploader = {};
 
 $(document).ready(function() {
-	wrapImageTemp = $(".wrap-image.temp").clone();
+	imageUploader.item = $(".wrap-image.temp").clone();
 	$(".wrap-image.temp").remove();
 	
 	imageUploader.updateInputValue();
 });
 
 imageUploader.insertCKEditor = function(image, maxWidth) {
-	var img = new Image();
+	const img = new Image();
 	img.src =  loc.temp.dir + image.pathname;
 	
 	img.onload = function() {
-		var width = this.width;
-		var height = this.height;
+		const width = this.width;
+		const height = this.height;
 		
 		if(width > maxWidth){
 			height = height / (width/maxWidth);
 			width = maxWidth;
 		}
 		
-		var editor = CKEDITOR.instances[image.editorID];
-		var p = editor.document.createElement('p');
-		var e = editor.document.createElement('img', {
+		const editor = CKEDITOR.instances[image.editorID];
+		const p = editor.document.createElement('p');
+		const e = editor.document.createElement('img', {
 			attributes : {
 				"src" : loc.temp.dir + image.pathname,
 				"pathname" : image.pathname,
@@ -44,8 +41,8 @@ imageUploader.insertCKEditor = function(image, maxWidth) {
 
 imageUploader.insertImageInfo = function(image) {
 	var imageList = $(".image-list");
-	var wrapImage = wrapImageTemp.clone();
-	wrapImageTemp.removeClass("temp");
+	var wrapImage = this.item.clone();
+	wrapImage.removeClass("temp");
 	
 	wrapImage.appendTo(imageList);
 	wrapImage.find(".editorID").val(image.editorID);
@@ -58,12 +55,12 @@ imageUploader.insertImageInfo = function(image) {
 }
 
 imageUploader.removeImage = function(tg) {
-	var wrapImage 	= $(tg).parent(".wrap-image");
-	var status 		= wrapImage.find(".status").val();
-	var editorID	= wrapImage.find(".editorID").val();
-	var pathname 	= wrapImage.find(".pathname").val(); 
-	var editor 		= CKEDITOR.instances[editorID];
-	var images 		= $(editor.document.$.body).find("img");
+	const wrapImage 	= $(tg).parent(".wrap-image");
+	const status 		= wrapImage.find(".status").val();
+	const editorID		= wrapImage.find(".editorID").val();
+	const pathname 		= wrapImage.find(".pathname").val(); 
+	const editor 		= CKEDITOR.instances[editorID];
+	const images 		= $(editor.document.$.body).find("img");
 	
 	for(var i = 0; i < images.length; i++){
 		var image = $(images[i]);
@@ -84,19 +81,19 @@ imageUploader.removeImage = function(tg) {
 }
 
 imageUploader.image2JSON = function(){
-	var images = new Array();
-	var image;
-	var wrapImages = $(".wrap-image");
-	var wrapImage;
-	for(var i = 0; i < wrapImages.length; i++){
+	const images = [];
+	const wrapImages = $(".wrap-image");
+	let image;
+	let wrapImage;
+	for(let i = 0; i < wrapImages.length; i++){
 		wrapImage = $(wrapImages[i]);
 		
-		image = new Object();
-		image["seq"] 		= wrapImage.find(".seq").val();
-		image["editorID"] 	= wrapImage.find(".editorID").val();
-		image["filename"] 	= wrapImage.find(".filename").val();
-		image["pathname"] 	= wrapImage.find(".pathname").val();
-		image["status"] 	= wrapImage.find(".status").val();
+		image = {};
+		image.seq 		= wrapImage.find(".seq").val();
+		image.editorID 	= wrapImage.find(".editorID").val();
+		image.filename 	= wrapImage.find(".filename").val();
+		image.pathname 	= wrapImage.find(".pathname").val();
+		image.status 	= wrapImage.find(".status").val();
 		images.push(image);
 	}
 	
@@ -104,11 +101,11 @@ imageUploader.image2JSON = function(){
 }
 
 imageUploader.updateInputValue = function(){
-	var images = imageUploader.image2JSON();
-	var input = $("#imageValues");
+	const images = imageUploader.image2JSON();
+	const input = $("#imageValues");
 	input.val(JSON.stringify(images));
 }
 
-function openImageUploadPopup(editor) {
-	var popup = window.open(getContextPath() + "/board/post/image?editor=" + editor, "_blank", 'width=600, height=800');
+const openImageUploadPopup = function(editor) {
+	window.open(getContextPath() + "/board/post/image?editor=" + editor, "_blank", 'width=600, height=800');
 }

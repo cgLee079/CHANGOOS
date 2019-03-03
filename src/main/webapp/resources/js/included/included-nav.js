@@ -1,12 +1,12 @@
 /* Progress bar */
-var Progress = {
-	start 	: function() { $(".progress-bar").removeClass("off"); },
-	stop 	: function() { $(".progress-bar").addClass("off"); }
+const Progress = {
+	start() { $(".progress-bar").removeClass("off"); },
+	stop() { $(".progress-bar").addClass("off"); }
 }
 
 
 //Menu Enum
-var menu ={
+const menu = Object.freeze({
 	MGNT_PROJECT: ".menu-mgnt-project",
 	MGNT_STUDY 	: ".menu-mgnt-study",
 	MGNT_BLOG 	: ".menu-mgnt-blog",
@@ -15,11 +15,11 @@ var menu ={
 	STUDY 		: ".menu-study",
 	BLOG 		: ".menu-blog",
 	PHOTO 		: ".menu-photo",
-}
+});
 
-$(document).ready(function(){
+$(document).ready(() => {
 	if(!isMobile){ //PC환경이라면
-		var globalSearch = $(".web-menu.menu-search-field .global-search");
+		const globalSearch = $(".web-menu.menu-search-field .global-search");
 		globalSearch[0].comboboxByCG({
 			inputFocusClass : "on",
 			listClass : "facet-panel",
@@ -36,7 +36,7 @@ $(document).ready(function(){
 	}
 	
 	else{ // Mobile 환경이라면
-		var globalSearch = $(".mob-menu .mobnav-search-field .global-search");
+		const globalSearch = $(".mob-menu .mobnav-search-field .global-search");
 		globalSearch[0].comboboxByCG({
 			inputFocusClass : "on",
 			listClass : "facet-panel",
@@ -56,26 +56,26 @@ $(document).ready(function(){
 });
 
 /* PC 환경에서 메뉴 버튼 클릭시 이벤트 */
-function doMenuOn(menu){
-	var menus = $(".web-menus");
+const doMenuOn = function(menu){
+	const menus = $(".web-menus");
 	menus.find(".web-menu").removeClass("on");
 	menus.find(menu).addClass("on");
 }
 
 /* 스크롤 시 TOP 버튼 보여주기 */
-$(window).scroll(function(event) {
-	var scroll = $(window).scrollTop();
+$(window).scroll((event) => {
+	const scroll = $(window).scrollTop();
 	if (scroll > 100) { $(".btn-scroll-top").removeClass("off"); } 
 	else { $(".btn-scroll-top").addClass("off"); }
 });
 
 /* TOP 버튼 클릭 시 이벤트 */
-function scrollToTop() {
+const scrollToTop = function() {
 	$("html, body").animate({ scrollTop : 0 });
 }
 
 /* 검색 버튼 누를 시 이벤트 */
-function focuseSearch(tg){
+const focuseSearch = function(tg){
 	var globalSearch = $(tg).parent().siblings("*").find(".global-search")
 	if(!globalSearch.hasClass("on")){
 		globalSearch.focus();	
@@ -83,11 +83,10 @@ function focuseSearch(tg){
 }
 
 /* MOBILE NAV ICON 애니메이션 */
-function drawMobileMenu(tg) {
-	var tg = $(tg);
-	
-	var bgMobileMenus = $(".bg-mob-menus");
-	var mobileMenus = $(".mob-menus");
+const drawMobileMenu = function(target) {
+	const tg = $(target);
+	const bgMobileMenus = $(".bg-mob-menus");
+	const mobileMenus = $(".mob-menus");
 	
 	bgMobileMenus.addClass("on");
 	mobileMenus.addClass("on");
@@ -100,7 +99,7 @@ function drawMobileMenu(tg) {
 	});
 	
 	
-	$("body").on("click", function(e){ //문서 body를 클릭했을때
+	$("body").on("click", (e) => { //문서 body를 클릭했을때
 		if($(e.target).hasClass("bg-mob-menus")){
 			bgMobileMenus.removeClass("on");
 			mobileMenus.removeClass("on");
