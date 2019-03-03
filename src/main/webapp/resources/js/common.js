@@ -17,6 +17,15 @@ $(window).resize(function(){
 	checkDevice();
 })
 
+
+/* Check Browser, ES5 */
+window.onload = function(){
+	var broswer = navigator.userAgent.toLowerCase();
+	if((navigator.appName = 'Netscape' && broswer.indexOf('trident') != -1) || (broswer.indexOf('msie') != -1)){
+		alert("본 사이트는 크롬 브라우저에 최적화 되어있습니다.");
+	}
+}
+
 /* Download File */
 const downloadFile = function(dir, pathname, filename){
 	const href = getContextPath() 
