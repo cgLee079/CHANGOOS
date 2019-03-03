@@ -60,8 +60,8 @@ CKEDITOR.stylesSet.add( 'default', [
 	*/
 
 	{ name: 'Mark',				element: 'span', attributes: { 'class': 'mark' } },
-	{ name: 'Emphasize',		element: 'emphasize', overrides: 'div'},
-	{ name: 'Quotation',		element: 'quotation', overrides: 'div'},
+	{ name: 'Emphasize',		element: 'div', attributes: { 'class': 'emphasize' } },
+	{ name: 'Quotation',		element: 'div', attributes: { 'class': 'quotation' }},
 	
 
 //	{ name: 'Big',				element: 'big' },

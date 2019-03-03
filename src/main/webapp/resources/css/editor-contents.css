@@ -45,7 +45,7 @@
 }
 
 
-.editor-contents emphasize{
+.editor-contents .emphasize{
     display: block;
     border-left: 5px solid #DDD;
     padding-left: 0.5rem;
@@ -55,7 +55,7 @@
 }
 
 
-.editor-contents quotation{
+.editor-contents .quotation{
    	display: block;
     font-style: italic;
     line-height: 1.7;
