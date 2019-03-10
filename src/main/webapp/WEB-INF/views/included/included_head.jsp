@@ -7,7 +7,6 @@
 <title>CHANGOO'S</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" >
-
 <!-- favicon -->
 <link rel="apple-touch-icon" sizes="57x57"  href="${pageContext.request.contextPath}/resources/favicon/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60"  href="${pageContext.request.contextPath}/resources/favicon/apple-icon-60x60.png">

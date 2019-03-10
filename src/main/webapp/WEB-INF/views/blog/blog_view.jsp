@@ -9,18 +9,34 @@
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-comment.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-export.js"></script>
+<meta name="description" content="${blog.title}">
+<meta name="keywords" content="${blog.tag}">
+<meta name="author" content="Lee Changoo">
+
+<!-- Open Graph -->
+<c:set var="url" scope="request">
+    <c:out value="${pageContext.request.scheme}://${pageContext.request.serverName}"/><c:if test="${pageContext.request.serverPort != '80'}"><c:out value=":${pageContext.request.serverPort}"/></c:if>
+</c:set>
+
+<meta property ="og:title" content="${blog.title} - CHANGOO'S">
+<meta property ="og:site_name" content="CHANGOO'S">
+<meta property ="og:type" content="website">
+<meta property ="og:url" content="${url}${requestScope['javax.servlet.forward.request_uri']}">
+<meta property ="og:description" content="${blog.title}">
+
+<c:choose>
+	<c:when test="${not empty blog.thumbnail}" >
+		<c:set var="thumbnail" value="${blogThumbDir}${blog.thumbnail}"/>
+	</c:when>
+	<c:when test="${fn:length(blog.images) > 0}" >
+		<c:set var="thumbnail" value="${blogImageDir}${blog.images[0].pathname}"/>
+	</c:when>
+</c:choose>
+
+<meta property="og:image" content="${url}${thumbnail}">
 
 <body>
 	<div class="wrapper">
-		<c:choose>
-			<c:when test="${not empty blog.thumbnail}" >
-				<c:set var="thumbnail" value="${blogThumbDir}${blog.thumbnail}"/>
-			</c:when>
-			<c:when test="${fn:length(blog.images) > 0}" >
-				<c:set var="thumbnail" value="${blogImageDir}${blog.images[0].pathname}"/>
-			</c:when>
-		</c:choose>
-							
 		<c:import url="../included/included_nav.jsp" charEncoding="UTF-8" />
 		<c:import url="../included/included_export.jsp" charEncoding="UTF-8">
 			<c:param name = "thumbnail" value = "${thumbnail}" />
