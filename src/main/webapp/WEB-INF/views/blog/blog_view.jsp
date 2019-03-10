@@ -9,15 +9,11 @@
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-comment.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/included/included-export.js"></script>
+
+<link rel="canonical" href="${url}${requestScope['javax.servlet.forward.request_uri']}">
 <meta name="description" content="${blog.title}">
 <meta name="keywords" content="${blog.tag}">
 <meta name="author" content="Lee Changoo">
-
-<!-- Open Graph -->
-<c:set var="url" scope="request">
-    <c:out value="${pageContext.request.scheme}://${pageContext.request.serverName}"/><c:if test="${pageContext.request.serverPort != '80'}"><c:out value=":${pageContext.request.serverPort}"/></c:if>
-</c:set>
-
 <meta property ="og:title" content="${blog.title} - CHANGOO'S">
 <meta property ="og:site_name" content="CHANGOO'S">
 <meta property ="og:type" content="website">

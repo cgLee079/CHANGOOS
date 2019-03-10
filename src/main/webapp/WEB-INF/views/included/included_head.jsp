@@ -64,6 +64,9 @@
 <c:set var="photoThumbDir"><spring:eval expression="@location['photo.thumb.dir.url']"/></c:set>
 <c:set var="photoOriginDir"><spring:eval expression="@location['photo.origin.dir.url']"/></c:set>
 <c:set var="tempDir" ><spring:eval expression="@location['temp.dir.url']"/><c:out value="${sessionScope.tempDirId}"/></c:set>
+<c:set var="url" scope="request">
+    <c:out value="${pageContext.request.scheme}://${pageContext.request.serverName}"/><c:if test="${pageContext.request.serverPort != '80'}"><c:out value=":${pageContext.request.serverPort}"/></c:if>
+</c:set>
 
 <script>
 var loc = {
