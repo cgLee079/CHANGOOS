@@ -46,6 +46,12 @@ CKEDITOR.editorConfig = function(config) {
 							'/resources/css/common.css', 
 							'/resources/css/font/font-flex.css',
 							'/resources/css/font/font-nonsans-kr.css'];
+	config.codeSnippet_languages = {
+		    javascript: 'Javascript',
+		    java: 'Java',
+		    html: 'HTML',
+		    sql: 'SQL'
+		};
 	
 	config.autosave = {
 		// Auto save Key - The Default autosavekey can be overridden from the config ...
