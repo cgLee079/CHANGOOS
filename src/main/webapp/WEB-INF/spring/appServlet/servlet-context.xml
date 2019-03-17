@@ -28,12 +28,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<context:annotation-config/>
-	<context:component-scan 
-		base-package="com.cglee079.changoos.controller,
-					com.cglee079.changoos.service, 
-					com.cglee079.changoos.dao, 
-					com.cglee079.changoos.util" />
+	<context:component-scan base-package="com.cglee079.changoos.controller" />
 
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />

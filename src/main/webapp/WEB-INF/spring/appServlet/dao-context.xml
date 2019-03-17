@@ -7,10 +7,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
 	<context:component-scan base-package="com.cglee079.changoos.dao" />
-
-	<context:annotation-config></context:annotation-config>
 	<context:property-placeholder location="classpath:env/jdbc.properties" />
-
 
 	<bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
@@ -23,9 +20,29 @@
 		<property name="timeBetweenEvictionRunsMillis" value="1200000" /> <!-- 추가된 부분, 1200000 = 20분 -->
 	</bean>
 
-
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+	<!-- hibernate session -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSourceSpied" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
+			</props>
+		</property>
+
+		<!-- autoscan annotation for hiberante config -->
+		<property name="packagesToScan">
+			<list>
+				<value>com.cglee079.changoos.model</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager" >
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<tx:annotation-driven  proxy-target-class="true"/>
 
