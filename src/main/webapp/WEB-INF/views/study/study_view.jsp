@@ -101,7 +101,6 @@
 					</div>
 					
 					<c:import url="../included/included_comment.jsp" charEncoding="UTF-8">
-						<c:param name = "perPgLine" value = "10" />
 						<c:param name = "boardType" value = "${boardType.STUDY.val}" />
 						<c:param name = "boardSeq" value = "${study.seq}" />
 						<c:param name = "comtCnt" value = "${study.comtCnt}" />
