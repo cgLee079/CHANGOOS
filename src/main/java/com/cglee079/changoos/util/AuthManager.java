@@ -9,7 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class AuthManager {
 	public static AuthManager instance;
 	
-	public synchronized static boolean isAdmin() {
+	public static boolean isAdmin() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		boolean isAdmin = false;
 
