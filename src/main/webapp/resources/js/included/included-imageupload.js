@@ -56,7 +56,7 @@ imageUploader.insertImageInfo = function(image) {
 
 imageUploader.removeImage = function(tg) {
 	const wrapImage 	= $(tg).parent(".wrap-image");
-	const status 		= wrapImage.find(".status").val();
+	const status 		= wrapImage.find(".status");
 	const editorID		= wrapImage.find(".editorID").val();
 	const pathname 		= wrapImage.find(".pathname").val(); 
 	const editor 		= CKEDITOR.instances[editorID];
@@ -69,10 +69,10 @@ imageUploader.removeImage = function(tg) {
 		}
 	}
 	
-	if(status == imageUploader.status.BE){
+	if(status.val() === imageUploader.status.BE){
 		wrapImage.addClass("remove");
 		status.val(imageUploader.status.REMOVE);
-	} else if(status == imageUploader.status.NEW){
+	} else if(status.val() === imageUploader.status.NEW){
 		wrapImage.addClass("remove");
 		status.val(imageUploader.status.UNNEW);
 	} 

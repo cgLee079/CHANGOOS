@@ -1,6 +1,6 @@
 let wrapImageTemp;
 
-$(document).ready(function() {
+$(document).ready(() => {
 	wrapImageTemp = $(".wrap-image").clone();
 	$(".wrap-image").remove();
 })

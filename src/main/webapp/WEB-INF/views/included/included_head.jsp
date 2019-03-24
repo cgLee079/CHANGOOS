@@ -71,25 +71,25 @@
 <script>
 var loc = {
 	project : {
-		thumbDir: '<c:out value="${projectThumbDir}"/>',
-		imageDir: '<c:out value="${projectImageDir}"/>',
-		fileDir	: '<c:out value="${projectFileDir}"/>'
+		thumbDir: '${projectThumbDir}',
+		imageDir: '${projectImageDir}',
+		fileDir	: '${projectFileDir}'
 	},
 	study:{
-		imageDir: '<c:out value="${studyImageDir}"/>',
-		fileDir	: '<c:out value="${studyFileDir}"/>'
+		imageDir: '${studyImageDir}',
+		fileDir	: '${studyFileDir}'
 	},
 	blog :{
-		thumbDir: '<c:out value="${blogThumbDir}"/>',
-		imageDir: '<c:out value="${blogImageDir}"/>',
-		fileDir	: '<c:out value="${blogFileDir}"/>'
+		thumbDir: '${blogThumbDir}',
+		imageDir: '${blogImageDir}',
+		fileDir	: '${blogFileDir}'
 	}, 
 	photo :{
-		thumbDir: '<c:out value="${photoThumbDir}"/>',
-		originDir: '<c:out value="${photoOriginDir}"/>',
+		thumbDir: '${photoThumbDir}',
+		originDir: '${photoOriginDir}'
 	}, 
 	temp:{
-		dir : '<c:out value="${tempDir}"/>'
+		dir : '${tempDir}'
 	}
 }
 

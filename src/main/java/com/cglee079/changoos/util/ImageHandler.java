@@ -1,7 +1,6 @@
 package com.cglee079.changoos.util;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -46,8 +45,9 @@ public class ImageHandler {
 			int h = (int) (height * ratio);
 
 			BufferedImage scaledImage = null;
+			
 			if (srcImg != null) {
-				scaledImage = Scalr.resize(srcImg, Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_EXACT, w, h, null);
+				scaledImage = Scalr.resize(srcImg, Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_EXACT, w, h);
 				// BufferedImage convertedImg = null;
 				// if(imgExt.equalsIgnoreCase(ImageManager.EXT_PNG)) { convertedImg = new
 				// BufferedImage( w, h, BufferedImage.TYPE_4BYTE_ABGR); }
@@ -73,7 +73,7 @@ public class ImageHandler {
 			metadata = ImageMetadataReader.readMetadata(file);
 			ExifIFD0Directory directory = metadata.getDirectory(ExifIFD0Directory.class);
 			if (directory != null) {
-				if (directory.hasTagName(ExifIFD0Directory.TAG_ORIENTATION)
+				if (directory.containsTag(ExifIFD0Directory.TAG_ORIENTATION)
 						&& directory.containsTag(ExifIFD0Directory.TAG_ORIENTATION)) {
 					orientation = directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
 				}
